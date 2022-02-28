@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "000000000000",
+    "project_id": "example-firebase-project",
+    "storage_bucket": "storage.example.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "EXAMPLE_FIREBASE_APP_ID_NOT_VALID",
+        "android_client_info": {
+          "package_name": "com.carapacik.wordle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "EXAMPLE_GOOGLE_CLIENT_ID_NOT_VALID",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.carapacik.wordle",
+            "certificate_hash": "6b3cef85c8363927ad3c7f20d09b7a231c3ae927"
+          }
+        },
+        {
+          "client_id": "EXAMPLE_GOOGLE_CLIENT_ID_NOT_VALID",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "EXAMPLE_FIREBASE_API_KEY_NOT_VALID"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "EXAMPLE_GOOGLE_CLIENT_ID_NOT_VALID",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

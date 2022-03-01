@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wordle/presentation/pages/main/main_page.dart';
 import 'package:wordle/utils/platform.dart';
 
 class App extends StatelessWidget {
@@ -14,7 +15,7 @@ class App extends StatelessWidget {
       return FluentApp();
     }
     return MaterialApp(
-      home: Scaffold(),
+      home: MainPage(),
     );
   }
 }

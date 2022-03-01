@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(worlde LANGUAGES CXX)
+project(wordle LANGUAGES CXX)
 
-set(BINARY_NAME "worlde")
+set(BINARY_NAME "wordle")
 
 cmake_policy(SET CMP0063 NEW)
 

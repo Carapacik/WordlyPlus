@@ -1,4 +1,4 @@
-package com.example.worlde
+package com.carapacik.wordle
 
 import io.flutter.embedding.android.FlutterActivity
 

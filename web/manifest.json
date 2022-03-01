@@ -1,11 +1,11 @@
 {
-    "name": "worlde",
-    "short_name": "worlde",
+    "name": "wordle",
+    "short_name": "wordle",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Wordle project",
+    "description": "Wordle",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

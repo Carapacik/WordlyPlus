@@ -17,8 +17,12 @@ class FullScreenDialog extends StatelessWidget {
           ),
         ],
       ),
-      body: const Center(
-        child: Text("Full-screen dialog"),
+      body: SwitchListTile(
+        title: const Text('Темная тема'),
+        value: false,
+        onChanged: (bool value) {
+          //bloc logic
+        },
       ),
     );
   }

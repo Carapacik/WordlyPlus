@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordle/bloc/settings/settings_cubit.dart';
 
 class FullScreenDialog extends StatelessWidget {
   const FullScreenDialog({Key? key}) : super(key: key);
@@ -17,11 +19,15 @@ class FullScreenDialog extends StatelessWidget {
           ),
         ],
       ),
-      body: SwitchListTile(
-        title: const Text('Темная тема'),
-        value: false,
-        onChanged: (bool value) {
-          //bloc logic
+      body: BlocBuilder<SettingsCubit, SwitchState>(
+        builder: (BuildContext context, state) {
+          return SwitchListTile(
+            title: const Text('Темная тема'),
+            value: state.isDarkThemeOn,
+            onChanged: (bool value) {
+              BlocProvider.of<SettingsCubit>(context).toggleTheme(value: value);
+            },
+          );
         },
       ),
     );

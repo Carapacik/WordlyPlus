@@ -23,7 +23,7 @@ class AdaptiveApp extends StatelessWidget {
     }
     return BlocProvider<SettingsCubit>(
       create: (_) => SettingsCubit(),
-      child: BlocBuilder<SettingsCubit, SwitchState>(
+      child: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (BuildContext context, settingsState) {
           return MaterialApp(
             theme: settingsState.isDarkThemeOn

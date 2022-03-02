@@ -3,10 +3,10 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 part 'settings_state.dart';
 
-class SettingsCubit extends HydratedCubit<SwitchState> {
+class SettingsCubit extends HydratedCubit<SettingsState> {
   SettingsCubit()
       : super(
-          SwitchState(
+          const SettingsState(
             isDarkThemeOn: false,
             isEngLang: false,
             isHighContrast: false,
@@ -17,12 +17,12 @@ class SettingsCubit extends HydratedCubit<SwitchState> {
       emit(state.copyWith(isDarkThemeOn: value));
 
   @override
-  SwitchState? fromJson(Map<String, dynamic> json) {
+  SettingsState? fromJson(Map<String, dynamic> json) {
     final isDarkTheme = json['isDarkTheme'] as bool;
     final isEngLang = json['isEngLang'] as bool;
     final isHighContrast = json['isHighContrast'] as bool;
 
-    return SwitchState(
+    return SettingsState(
       isDarkThemeOn: isDarkTheme,
       isEngLang: isEngLang,
       isHighContrast: isHighContrast,
@@ -30,7 +30,7 @@ class SettingsCubit extends HydratedCubit<SwitchState> {
   }
 
   @override
-  Map<String, dynamic>? toJson(SwitchState state) {
+  Map<String, dynamic>? toJson(SettingsState state) {
     return {
       "isDarkTheme": state.isDarkThemeOn.toString(),
       "isEngLang": state.isEngLang.toString(),

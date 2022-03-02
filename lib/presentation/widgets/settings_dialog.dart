@@ -19,7 +19,7 @@ class FullScreenDialog extends StatelessWidget {
           ),
         ],
       ),
-      body: BlocBuilder<SettingsCubit, SwitchState>(
+      body: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (BuildContext context, state) {
           return SwitchListTile(
             title: const Text('Темная тема'),

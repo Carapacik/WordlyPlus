@@ -36,6 +36,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.8.2"
+  auth_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/auth_repository"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   bloc:
     dependency: "direct main"
     description:
@@ -106,6 +113,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.1.4"
+  cache:
+    dependency: transitive
+    description:
+      path: "packages/cache"
+      relative: true
+    source: path
+    version: "1.0.0"
   characters:
     dependency: transitive
     description:
@@ -211,6 +225,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  equatable:
+    dependency: "direct main"
+    description:
+      name: equatable
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.3"
   fake_async:
     dependency: transitive
     description:
@@ -309,6 +330,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.1+1"
+  firebase_storage:
+    dependency: transitive
+    description:
+      name: firebase_storage
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "10.2.9"
+  firebase_storage_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_storage_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.1.1"
+  firebase_storage_web:
+    dependency: transitive
+    description:
+      name: firebase_storage_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.2.10"
   fixnum:
     dependency: transitive
     description:
@@ -316,6 +358,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  flow_builder:
+    dependency: "direct main"
+    description:
+      name: flow_builder
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.6"
   fluent_ui:
     dependency: "direct main"
     description:
@@ -392,6 +441,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.5+1"
+  form_inputs:
+    dependency: "direct main"
+    description:
+      path: "packages/form_inputs"
+      relative: true
+    source: path
+    version: "1.0.0+1"
+  formz:
+    dependency: "direct main"
+    description:
+      name: formz
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.1"
   freezed:
     dependency: "direct dev"
     description:

@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as m;
 import 'package:wordle/utils/platform.dart';
 
 class AdaptiveScaffold extends StatelessWidget {
@@ -14,10 +15,36 @@ class AdaptiveScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (PlatformType.isCupertino()) {
-      return CupertinoPageScaffold(child: child);
+      return CupertinoPageScaffold(
+        navigationBar: const CupertinoNavigationBar(
+          middle: Text("Wordle"),
+        ),
+        child: child,
+      );
     } else if (PlatformType.isFluent()) {
-      return NavigationView(content: child);
+      return NavigationView(
+        appBar: const NavigationAppBar(
+          title: Text("Wordle"),
+        ),
+        content: child,
+      );
     }
-    return Scaffold(body: child);
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Wordle"),
+        actions: [
+          m.IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.leaderboard),
+          ),
+          m.IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.settings),
+          ),
+        ],
+      ),
+      body: child,
+    );
   }
 }

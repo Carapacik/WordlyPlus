@@ -14,10 +14,10 @@ class AdaptiveApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (PlatformType.isCupertino()) {
-      return CupertinoApp(home: home);
+      return CupertinoApp(debugShowCheckedModeBanner: false, home: home);
     } else if (PlatformType.isFluent()) {
-      return FluentApp(home: home);
+      return FluentApp(debugShowCheckedModeBanner: false, home: home);
     }
-    return MaterialApp(home: home);
+    return MaterialApp(debugShowCheckedModeBanner: false, home: home);
   }
 }

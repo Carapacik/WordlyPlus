@@ -9,7 +9,7 @@ class FullScreenDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF6200EE),
+        backgroundColor: Theme.of(context).primaryColorLight,
         title: const Text('Full-screen Dialog'),
         automaticallyImplyLeading: false,
         actions: [

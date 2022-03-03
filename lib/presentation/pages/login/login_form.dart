@@ -99,23 +99,22 @@ class _LoginButton extends StatelessWidget {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
             : ElevatedButton(
-          key: const Key('loginForm_continue_raisedButton'),
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-            primary: const Color(0xFFFFD600),
-          ),
-          onPressed: state.status.isValidated
-              ? () => context.read<LoginCubit>().logInWithCredentials()
-              : null,
-          child: const Text('LOGIN'),
-        );
+                key: const Key('loginForm_continue_raisedButton'),
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  primary: const Color(0xFFFFD600),
+                ),
+                onPressed: state.status.isValidated
+                    ? () => context.read<LoginCubit>().logInWithCredentials()
+                    : null,
+                child: const Text('LOGIN'),
+              );
       },
     );
   }
 }
-
 
 class _SignUpButton extends StatelessWidget {
   @override

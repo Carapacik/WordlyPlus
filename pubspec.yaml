@@ -28,6 +28,9 @@ dependencies:
   formz: ^0.4.1
   freezed_annotation: ^1.1.0
   google_fonts: ^2.3.1
+  shared_preferences: ^2.0.13
+  flutter_countdown_timer: ^4.1.0
+  top_snackbar_flutter: ^1.0.2
   url_strategy: ^0.2.0
 
 dev_dependencies:

@@ -87,7 +87,7 @@ class _ConfirmPasswordInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpCubit, SignUpState>(
       buildWhen: (previous, current) =>
-      previous.password != current.password ||
+          previous.password != current.password ||
           previous.confirmedPassword != current.confirmedPassword,
       builder: (context, state) {
         return TextField(
@@ -118,18 +118,18 @@ class _SignUpButton extends StatelessWidget {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
             : ElevatedButton(
-          key: const Key('signUpForm_continue_raisedButton'),
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-            primary: Colors.orangeAccent,
-          ),
-          onPressed: state.status.isValidated
-              ? () => context.read<SignUpCubit>().signUpFormSubmitted()
-              : null,
-          child: const Text('SIGN UP'),
-        );
+                key: const Key('signUpForm_continue_raisedButton'),
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  primary: Colors.orangeAccent,
+                ),
+                onPressed: state.status.isValidated
+                    ? () => context.read<SignUpCubit>().signUpFormSubmitted()
+                    : null,
+                child: const Text('SIGN UP'),
+              );
       },
     );
   }

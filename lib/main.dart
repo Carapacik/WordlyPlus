@@ -14,7 +14,7 @@ Future<void> main() async {
       setPathUrlStrategy();
       WidgetsFlutterBinding.ensureInitialized();
       final storage = await HydratedStorage.build(
-        storageDirectory: await getApplicationDocumentsDirectory(),
+        storageDirectory: await getTemporaryDirectory(),
       );
       await Firebase.initializeApp();
       final authRepository = AuthRepository();

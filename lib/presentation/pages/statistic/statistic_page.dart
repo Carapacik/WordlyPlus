@@ -9,6 +9,7 @@ class StatisticPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("StatisticPage"),
       ),
+      body: ElevatedButton(onPressed: (){}, child: Text('тык')),
     );
   }
 }

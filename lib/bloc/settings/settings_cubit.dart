@@ -16,8 +16,9 @@ class SettingsCubit extends HydratedCubit<SettingsState> {
   void toggleTheme({required bool value}) =>
       emit(state.copyWith(isDarkThemeOn: value));
 
-  void toggleLanguage({required bool value}) =>
-      emit(state.copyWith(isEngLang: value));
+  void toggleLanguage({required bool value}) {
+    emit(state.copyWith(isEngLang: value));
+  }
 
   void toggleContrast({required bool value}) =>
       emit(state.copyWith(isHighContrast: value));

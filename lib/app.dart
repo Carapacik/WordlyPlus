@@ -20,15 +20,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
       value: _authRepository,
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<AppBloc>(
-            create: (BuildContext context) => AppBloc(authRepository: _authRepository),
-          ),
-          BlocProvider<SettingsCubit>(
-            create: (BuildContext context) => SettingsCubit(),
-          ),
-        ],
+      child: BlocProvider(
+        create: (BuildContext context) =>
+            AppBloc(authRepository: _authRepository),
         child: const AppView(),
       ),
     );

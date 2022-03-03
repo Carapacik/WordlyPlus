@@ -113,7 +113,7 @@ class DataSingleton {
   }
 
   Future<String> createWord() async {
-    final words = (await rootBundle.loadString('assets/words.txt')).split("\n");
+    final words = (await rootBundle.loadString('assets/dictionary.txt')).split("\n");
     final now = DateTime.now();
     final random = Random(now.year * 10000 + now.month * 100 + now.day);
     final index = random.nextInt(words.length);

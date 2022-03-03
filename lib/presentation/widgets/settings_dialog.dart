@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordle/bloc/settings/settings_cubit.dart';
 import 'package:wordle/resources/app_colors.dart';
+import 'package:wordle/resources/r.dart';
 
 class FullScreenDialog extends StatelessWidget {
   const FullScreenDialog({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class FullScreenDialog extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Theme.of(context).primaryColorLight,
         title: Text(
-          'SETTINGS',
+          R.stringsOf(context).settings.toUpperCase(),
           style: Theme.of(context).textTheme.headline1,
         ),
         elevation: 0,

@@ -33,6 +33,8 @@ import 'package:wordle/resources/app_colors.dart';
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
+  static Page page() => const MaterialPage<void>(child: MainPage());
+
   @override
   _MainPageState createState() => _MainPageState();
 }

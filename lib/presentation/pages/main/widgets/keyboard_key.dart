@@ -6,9 +6,11 @@ import 'package:wordle/data/enums/keyboard_keys.dart';
 import 'package:wordle/data/enums/letter.dart';
 
 class KeyboardKey extends StatelessWidget {
-  const KeyboardKey(
-      {Key? key, this.color = Colors.black26, required this.keyboardKey})
-      : super(key: key);
+  const KeyboardKey({
+    Key? key,
+    this.color = Colors.black26,
+    required this.keyboardKey,
+  }) : super(key: key);
 
   final Color color;
   final KeyboardKeys keyboardKey;
@@ -19,7 +21,7 @@ class KeyboardKey extends StatelessWidget {
     return BlocBuilder<MainCubit, MainState>(
       buildWhen: (_, currentState) {
         if (currentState is KeyboardKeyUpdateState) {
-          KeyboardKeyUpdateState state = currentState;
+          final KeyboardKeyUpdateState state = currentState;
           if (state.key.name == keyboardKey.name) {
             return true;
           }
@@ -38,8 +40,9 @@ class KeyboardKey extends StatelessWidget {
               aspectRatio: 2 / 3,
               child: Container(
                 decoration: BoxDecoration(
-                    color: data.getKeyColor(keyboardKey),
-                    borderRadius: BorderRadius.circular(4.6)),
+                  color: data.getKeyColor(keyboardKey),
+                  borderRadius: BorderRadius.circular(4.6),
+                ),
                 child: Center(
                   child: Text(
                     keyboardKey.name.toUpperCase(),
@@ -92,8 +95,9 @@ class EnterKeyboardKey extends StatelessWidget {
           },
           child: Container(
             decoration: BoxDecoration(
-                color: Colors.black26,
-                borderRadius: BorderRadius.circular(4.6)),
+              color: Colors.black26,
+              borderRadius: BorderRadius.circular(4.6),
+            ),
             child: Center(
               child: Text(
                 KeyboardKeys.enter.name.toUpperCase(),
@@ -123,8 +127,9 @@ class BackspaceKeyboardKey extends StatelessWidget {
           },
           child: Container(
             decoration: BoxDecoration(
-                color: Colors.black26,
-                borderRadius: BorderRadius.circular(4.6)),
+              color: Colors.black26,
+              borderRadius: BorderRadius.circular(4.6),
+            ),
             child: const Center(
               child: Icon(Icons.backspace_outlined),
             ),

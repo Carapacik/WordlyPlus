@@ -28,6 +28,7 @@ class AdaptiveApp extends StatelessWidget {
       child: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (BuildContext context, settingsState) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             supportedLocales: RStringsDelegate.supportedLocales,
             localizationsDelegates: const [
               RStringsDelegate(),

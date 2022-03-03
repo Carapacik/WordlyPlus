@@ -60,6 +60,7 @@ class DataSingleton {
           nextWord();
           return WinGameState();
         }
+        // allWords = allWords.map((element) => element.substring(0, 4)).toSet();
         if (allWords.contains(gridData[currentWordIndex])) {
           nextWord();
           return GridUpdateState();
@@ -113,13 +114,17 @@ class DataSingleton {
   }
 
   Future<String> createWord() async {
-    final words = (await rootBundle.loadString('assets/dictionary.txt')).split("\n");
+    final words = await _loadAsset().then((value) => value.split("\n"));
     final now = DateTime.now();
     final random = Random(now.year * 10000 + now.month * 100 + now.day);
     final index = random.nextInt(words.length);
     secretWord = words[index];
     allWords = words.toSet();
     return secretWord;
+  }
+
+  Future<String> _loadAsset() async {
+    return rootBundle.loadString('assets/dictionary.txt');
   }
 
   String getLetters() {

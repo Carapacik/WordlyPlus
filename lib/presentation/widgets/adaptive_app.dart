@@ -1,6 +1,9 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordle/bloc/settings/settings_cubit.dart';
+import 'package:wordle/resources/theme.dart';
 import 'package:wordle/utils/platform.dart';
 
 class AdaptiveApp extends StatelessWidget {
@@ -18,6 +21,18 @@ class AdaptiveApp extends StatelessWidget {
     } else if (PlatformType.isFluent()) {
       return FluentApp(debugShowCheckedModeBanner: false, home: home);
     }
-    return MaterialApp(debugShowCheckedModeBanner: false, home: home);
+    return BlocProvider<SettingsCubit>(
+      create: (_) => SettingsCubit(),
+      child: BlocBuilder<SettingsCubit, SettingsState>(
+        builder: (BuildContext context, settingsState) {
+          return MaterialApp(
+            theme: settingsState.isDarkThemeOn
+                ? themes[AppTheme.darkTheme]
+                : themes[AppTheme.lightTheme],
+            home: home,
+          );
+        },
+      ),
+    );
   }
 }

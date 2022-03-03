@@ -4,6 +4,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as m;
+import 'package:wordle/presentation/widgets/settings_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/utils/platform.dart';
@@ -69,7 +70,13 @@ class AdaptiveScaffold extends StatelessWidget {
             icon: const Icon(Icons.leaderboard),
           ),
           m.IconButton(
-            onPressed: () {},
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute<void>(
+                builder: (BuildContext context) => const FullScreenDialog(),
+                fullscreenDialog: true,
+              ),
+            ),
             icon: const Icon(Icons.settings),
           ),
         ],

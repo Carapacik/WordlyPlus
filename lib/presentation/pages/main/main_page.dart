@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:another_flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,32 +10,15 @@ import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
-import 'package:wordle/data/data_singleton.dart';
-import 'package:wordle/data/enums/message_types.dart';
+import 'package:wordle/data/dictionary_interactor.dart';
+import 'package:wordle/data/enums/flushbar_types.dart';
 import 'package:wordle/presentation/pages/main/widgets/main_content.dart';
 import 'package:wordle/presentation/widgets/adaptive_scaffold.dart';
 import 'package:wordle/resources/app_colors.dart';
 
-// class MainPage extends StatelessWidget {
-//   const MainPage({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return AdaptiveScaffold(
-//       child: Responsive(
-//         mobile: Text("Wordle"),
-//       ),
-//     );
-//   }
-// }
-
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
-
-  static Page page() => const MaterialPage<void>(child: MainPage());
 
   @override
   _MainPageState createState() => _MainPageState();
@@ -50,66 +35,56 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return AdaptiveScaffold(
-      child: _buildBody(context),
-    );
-  }
-
-  BlocProvider<MainCubit> _buildBody(BuildContext context) {
-    return BlocProvider<MainCubit>(
-      create: (BuildContext context) => MainCubit(),
-      child: BlocConsumer<MainCubit, MainState>(
-        listenWhen: (_, currState) => true,
-        listener: (context, state) {
-          final homeCubit = BlocProvider.of<MainCubit>(context);
-          if (state is SnackBarMessage) {
-            final SnackBarMessage message = state;
-            _showMessage(message, context);
-          } else if (state is WinGameState) {
-            _makeWin(homeCubit);
-          } else if (state is LoseGameState) {
-            _makeLose(homeCubit);
-          }
-        },
-        buildWhen: (_, currState) => currState is MainInitial,
-        builder: (context, state) {
-          return MainContent(
-            key: UniqueKey(),
-          );
-        },
+      child: BlocProvider<MainCubit>(
+        create: (BuildContext context) => MainCubit(),
+        child: BlocConsumer<MainCubit, MainState>(
+          listenWhen: (_, currState) => true,
+          listener: (context, state) {
+            final homeCubit = BlocProvider.of<MainCubit>(context);
+            if (state is TopMessageState) {
+              _showMessage(context, state);
+            } else if (state is WinGameState) {
+              _makeWin(homeCubit);
+            } else if (state is LoseGameState) {
+              _makeLose(homeCubit);
+            }
+          },
+          buildWhen: (_, currState) => currState is MainInitial,
+          builder: (context, state) {
+            return MainContent(
+              key: UniqueKey(),
+            );
+          },
+        ),
       ),
     );
   }
 
-  void _showMessage(SnackBarMessage myMessage, BuildContext context) {
+  void _showMessage(
+    final BuildContext context,
+    final TopMessageState myMessage,
+  ) {
     switch (myMessage.type) {
-      case MessageTypes.info:
-        showTopSnackBar(
-          context,
-          CustomSnackBar.info(
-            message: myMessage.message,
+      case FlushBarTypes.notFound:
+        showFlushbar(
+          context: context,
+          flushbar: Flushbar(
+            title: "notFound",
           ),
         );
         break;
-      case MessageTypes.success:
-        showTopSnackBar(
-          context,
-          CustomSnackBar.success(
-            message: myMessage.message,
-          ),
-        );
-        break;
-      case MessageTypes.error:
-        showTopSnackBar(
-          context,
-          CustomSnackBar.error(
-            message: myMessage.message,
+      case FlushBarTypes.notCorrectLength:
+        showFlushbar(
+          context: context,
+          flushbar: Flushbar(
+            title: "notCorrectLength",
           ),
         );
         break;
     }
   }
 
-  void _showTimerIfNeeded() async {
+  Future<void> _showTimerIfNeeded() async {
     final s = await DictionaryInteractor.getInstance().createWord();
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey("last_game_word")) {
@@ -119,19 +94,19 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
-  void _makeWin(homeCubit) async {
+  Future<void> _makeWin(final MainCubit homeCubit) async {
     await _writeResults(true);
     await homeCubit.clearGameArea();
     _showTimerIfNeeded();
   }
 
-  void _makeLose(homeCubit) async {
+  Future<void> _makeLose(final MainCubit homeCubit) async {
     await _writeResults(false);
     await homeCubit.clearGameArea();
     _showTimerIfNeeded();
   }
 
-  Future _writeResults(bool isWin) async {
+  Future<void> _writeResults(bool isWin) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final lastWord = DictionaryInteractor.getInstance().secretWord;
     if (lastWord.isNotEmpty) {
@@ -185,14 +160,17 @@ class _MainPageState extends State<MainPage> {
                   const SizedBox(
                     height: 30,
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: Center(
-                      child: Text(
-                        " TextConstants.nextWordle",
-                        style: GoogleFonts.mulish(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w700,
+                  GestureDetector(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Center(
+                        child: Text(
+                          " TextConstants.nextWordle",
+                          style: GoogleFonts.mulish(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
                     ),
@@ -230,7 +208,7 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  void _dismissTimerDialog() async {
+  Future<void> _dismissTimerDialog() async {
     await DictionaryInteractor.getInstance().createWord();
     Navigator.of(context, rootNavigator: true).pop();
   }

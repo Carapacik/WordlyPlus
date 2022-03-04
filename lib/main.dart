@@ -5,7 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:wordle/app.dart';
 import 'package:wordle/bloc/app/bloc_observer.dart';
-import 'package:wordle/data/data_singleton.dart';
+import 'package:wordle/data/dictionary_interactor.dart';
 
 Future<void> main() async {
   return BlocOverrides.runZoned(

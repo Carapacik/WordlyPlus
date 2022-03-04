@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
-import 'package:wordle/data/data_singleton.dart';
+import 'package:wordle/data/dictionary_interactor.dart';
 import 'package:wordle/resources/app_colors.dart';
 
 class Grid extends StatelessWidget {
@@ -13,45 +13,50 @@ class Grid extends StatelessWidget {
     return BlocBuilder<MainCubit, MainState>(
       buildWhen: (_, currentState) => currentState is GridUpdateState,
       builder: (context, state) {
-        final data = DictionaryInteractor.getInstance();
-        final letters = data.getLetters();
+        final _data = DictionaryInteractor.getInstance();
+        final _letters = _data.getLetters();
+        final _height = MediaQuery.of(context).size.height;
         return Container(
-          margin: const EdgeInsets.symmetric(horizontal: 30),
+          margin: const EdgeInsets.symmetric(horizontal: 10),
           child: GridView.count(
-            mainAxisSpacing: 1,
-            crossAxisSpacing: 30,
             shrinkWrap: true,
+            mainAxisSpacing: _height / 80,
+            crossAxisSpacing: _height / 80,
             crossAxisCount: 5,
             children: List.generate(30, (index) {
-              final letter = letters.length > index ? letters[index] : "";
-              Color color = AppColors.grey;
+              final letter = _letters.length > index ? _letters[index] : "";
+              Color color = Colors.transparent;
               if (letter.isNotEmpty &&
-                  data.currentWordIndex > 0 &&
-                  index < 5 * data.currentWordIndex) {
+                  _data.currentWordIndex > 0 &&
+                  index < 5 * _data.currentWordIndex) {
                 final indexInRow = index % 5;
-                if (data.gridData.join().contains(letter)) {
-                  color = Colors.black;
+                if (_data.gridData.join().contains(letter)) {
+                  color = AppColors.grey;
                 }
-                if (data.secretWord.contains(letter)) {
+                if (_data.secretWord.contains(letter)) {
                   color = AppColors.yellow;
                 }
-                if (data.secretWord[indexInRow] == letter) {
+                if (_data.secretWord[indexInRow] == letter) {
                   color = AppColors.green;
                 }
               }
-              return Container(
-                width: 30,
-                height: 30,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(12)),
-                  color: color,
-                ),
-                child: Text(
-                  letter.toUpperCase(),
-                  style: GoogleFonts.mulish(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 30,
+              return AspectRatio(
+                aspectRatio: 1,
+                child: Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(12)),
+                    color: color,
+                    border: color == Colors.transparent
+                        ? Border.all(width: 3, color: AppColors.grey)
+                        : null,
+                  ),
+                  child: Text(
+                    letter.toUpperCase(),
+                    style: GoogleFonts.mulish(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 30,
+                    ),
                   ),
                 ),
               );

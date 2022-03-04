@@ -5,12 +5,12 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as m;
-import 'package:google_fonts/google_fonts.dart';
-import 'package:wordle/presentation/widgets/settings_dialog.dart';
-import 'package:wordle/resources/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:wordle/bloc/app/app_bloc.dart';
 import 'package:wordle/presentation/pages/statistic/statistic_page.dart';
+import 'package:wordle/presentation/widgets/settings_dialog.dart';
+import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/utils/platform.dart';
 
 class AdaptiveScaffold extends StatelessWidget {
@@ -46,27 +46,24 @@ class AdaptiveScaffold extends StatelessWidget {
           style: GoogleFonts.mulish(fontSize: 32, fontWeight: FontWeight.w800),
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 50),
-            child: GestureDetector(
-              onTap: () {
-                m.showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
-                      child: Dialog(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(24.0)),
-                        ),
-                        child: _buildDialogBody(),
+          GestureDetector(
+            onTap: () {
+              m.showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+                    child: Dialog(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(24.0)),
                       ),
-                    );
-                  },
-                );
-              },
-              child: const Icon(Icons.help_outline),
-            ),
+                      child: _buildDialogBody(),
+                    ),
+                  );
+                },
+              );
+            },
+            child: const Icon(Icons.help_outline),
           ),
           m.IconButton(
             onPressed: () => Navigator.of(context).push(
@@ -85,7 +82,7 @@ class AdaptiveScaffold extends StatelessWidget {
                 },
               ),
             ),
-            icon: Icon(Icons.leaderboard),
+            icon: const Icon(Icons.leaderboard),
           ),
           m.IconButton(
             onPressed: () => Navigator.push(

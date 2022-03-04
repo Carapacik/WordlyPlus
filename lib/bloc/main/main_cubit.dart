@@ -10,21 +10,21 @@ part 'main_state.dart';
 class MainCubit extends Cubit<MainState> {
   MainCubit() : super(MainInitial());
 
-  DataSingleton data = DataSingleton();
+  DictionaryInteractor dictionary = DictionaryInteractor.getInstance();
 
   void setLetter(KeyboardKeys key) {
-    if (data.setLetter(key)) {
+    if (dictionary.setLetter(key)) {
       emit(GridUpdateState());
     }
   }
 
   void removeLetter() {
-    data.removeLetter();
+    dictionary.removeLetter();
     emit(GridUpdateState());
   }
 
   bool submitWord() {
-    final state = data.submitWord();
+    final state = dictionary.submitWord();
     if (state is GridUpdateState ||
         state is WinGameState ||
         state is LoseGameState) {
@@ -45,8 +45,8 @@ class MainCubit extends Cubit<MainState> {
   }
 
   Future<void> clearGameArea() async {
-    data.resetData();
-    await data.createWord();
+    dictionary.resetData();
+    await dictionary.createWord();
     emit(MainInitial());
   }
 }

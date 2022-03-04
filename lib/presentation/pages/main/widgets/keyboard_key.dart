@@ -29,7 +29,7 @@ class KeyboardKey extends StatelessWidget {
         return false;
       },
       builder: (context, currentState) {
-        final data = DataSingleton();
+        final data = DictionaryInteractor.getInstance();
         return Padding(
           padding: const EdgeInsets.all(4.0),
           child: InkWell(
@@ -64,7 +64,7 @@ class EnterKeyboardKey extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeCubit = BlocProvider.of<MainCubit>(context);
-    final data = DataSingleton();
+    final data = DictionaryInteractor.getInstance();
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: AspectRatio(

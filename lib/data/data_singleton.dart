@@ -4,20 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
 import 'package:wordle/data/enums/keyboard_keys.dart';
 import 'package:wordle/data/enums/message_types.dart';
-import 'package:wordle/utils/dictionary.dart';
+import 'package:wordle/resources/dictionary.dart';
 
-class DataSingleton {
-  factory DataSingleton() {
-    return _dataSingleton;
-  }
+class DictionaryInteractor {
+  factory DictionaryInteractor.getInstance() =>
+      _instance ??= DictionaryInteractor._internal();
 
-  DataSingleton._internal() {
-    if (secretWord.isEmpty) {
-      createWord();
-    }
-  }
+  DictionaryInteractor._internal();
 
-  static final DataSingleton _dataSingleton = DataSingleton._internal();
+  static DictionaryInteractor? _instance;
 
   String secretWord = "";
   List<String> gridData = [""];
@@ -81,6 +76,8 @@ class DataSingleton {
 
   void nextWord() {
     final word = gridData[currentWordIndex];
+    print("word $word");
+    print("secretWord $secretWord");
     word.split("").asMap().map((key, value) {
       if (secretWord[key] == value) {
         //green
@@ -115,7 +112,7 @@ class DataSingleton {
     final now = DateTime.now();
     final random = Random(now.year * 10000 + now.month * 100 + now.day);
     final index = random.nextInt(allWords.length);
-    return allWords[index];
+    return secretWord = allWords[index];
   }
 
   String getLetters() {

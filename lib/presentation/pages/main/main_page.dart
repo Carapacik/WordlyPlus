@@ -110,7 +110,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   void _showTimerIfNeeded() async {
-    final s = await DataSingleton().createWord();
+    final s = await DictionaryInteractor.getInstance().createWord();
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey("last_game_word")) {
       if (prefs.getString("last_game_word") == s) {
@@ -133,7 +133,7 @@ class _MainPageState extends State<MainPage> {
 
   Future _writeResults(bool isWin) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final lastWord = DataSingleton().secretWord;
+    final lastWord = DictionaryInteractor.getInstance().secretWord;
     if (lastWord.isNotEmpty) {
       await prefs.setString('last_game_word', lastWord);
       await prefs.setBool('last_game_result', isWin);
@@ -231,7 +231,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   void _dismissTimerDialog() async {
-    await DataSingleton().createWord();
+    await DictionaryInteractor.getInstance().createWord();
     Navigator.of(context, rootNavigator: true).pop();
   }
 

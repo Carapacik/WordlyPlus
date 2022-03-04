@@ -1,7 +1,11 @@
+import 'package:auth_repository/auth_repository.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as m;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordle/bloc/app/app_bloc.dart';
+import 'package:wordle/presentation/pages/statistic/statistic_page.dart';
 import 'package:wordle/utils/platform.dart';
 
 class AdaptiveScaffold extends StatelessWidget {
@@ -35,7 +39,22 @@ class AdaptiveScaffold extends StatelessWidget {
         title: const Text("Wordle"),
         actions: [
           m.IconButton(
-            onPressed: () {},
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  final authRepository = AuthRepository();
+                  authRepository.user.first;
+                  return RepositoryProvider.value(
+                    value: authRepository,
+                    child: BlocProvider(
+                      create: (context) =>
+                          AppBloc(authRepository: authRepository),
+                      child: const StatisticPage(),
+                    ),
+                  );
+                },
+              ),
+            ),
             icon: Icon(Icons.leaderboard),
           ),
           m.IconButton(

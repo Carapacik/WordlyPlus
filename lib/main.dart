@@ -12,12 +12,8 @@ Future<void> main() async {
       setPathUrlStrategy();
       WidgetsFlutterBinding.ensureInitialized();
       await Firebase.initializeApp();
-      final authRepository = AuthRepository();
-      await authRepository.user.first;
       runApp(
-        App(
-          authRepository: authRepository,
-        ),
+        App(),
       );
     },
     blocObserver: AppBlocObserver(),

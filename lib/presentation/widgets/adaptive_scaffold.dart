@@ -11,6 +11,7 @@ import 'package:wordle/resources/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordle/bloc/app/app_bloc.dart';
 import 'package:wordle/presentation/pages/statistic/statistic_page.dart';
+import 'package:wordle/resources/r.dart';
 import 'package:wordle/utils/platform.dart';
 
 class AdaptiveScaffold extends StatelessWidget {
@@ -25,15 +26,15 @@ class AdaptiveScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     if (PlatformType.isCupertino()) {
       return CupertinoPageScaffold(
-        navigationBar: const CupertinoNavigationBar(
-          middle: Text("Wordle"),
+        navigationBar: CupertinoNavigationBar(
+          middle: Text(R.stringsOf(context).wordle.toUpperCase()),
         ),
         child: child,
       );
     } else if (PlatformType.isFluent()) {
       return NavigationView(
-        appBar: const NavigationAppBar(
-          title: Text("Wordle"),
+        appBar: NavigationAppBar(
+          title: Text(R.stringsOf(context).wordle),
         ),
         content: child,
       );
@@ -42,7 +43,7 @@ class AdaptiveScaffold extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Wordle",
+          R.stringsOf(context).wordle,
           style: GoogleFonts.mulish(fontSize: 32, fontWeight: FontWeight.w800),
         ),
         actions: [
@@ -59,7 +60,7 @@ class AdaptiveScaffold extends StatelessWidget {
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(24.0)),
                         ),
-                        child: _buildDialogBody(),
+                        child: _buildDialogBody(context),
                       ),
                     );
                   },
@@ -85,7 +86,7 @@ class AdaptiveScaffold extends StatelessWidget {
                 },
               ),
             ),
-            icon: Icon(Icons.leaderboard),
+            icon: const Icon(Icons.leaderboard),
           ),
           m.IconButton(
             onPressed: () => Navigator.push(
@@ -104,7 +105,7 @@ class AdaptiveScaffold extends StatelessWidget {
   }
 }
 
-Widget _buildDialogBody() {
+Widget _buildDialogBody(BuildContext context) {
   return Container(
     padding: const EdgeInsets.symmetric(vertical: 36, horizontal: 20),
     decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
@@ -115,7 +116,7 @@ Widget _buildDialogBody() {
           alignment: Alignment.center,
           width: double.infinity,
           child: Text(
-            "How To PLAY",
+            R.stringsOf(context).how_to_play,
             style: GoogleFonts.mulish(
               fontSize: 32,
               fontWeight: FontWeight.w700,
@@ -126,7 +127,7 @@ Widget _buildDialogBody() {
           height: 20,
         ),
         Text(
-          "How To PLAY",
+          R.stringsOf(context).how_to_play,
           style: GoogleFonts.mulish(
             fontSize: 15,
             fontWeight: FontWeight.w600,
@@ -146,7 +147,7 @@ Widget _buildDialogBody() {
               ),
               child: Center(
                 child: Text(
-                  "A",
+                  R.stringsOf(context).example_letter,
                   style: GoogleFonts.mulish(
                     fontSize: 26,
                     fontWeight: FontWeight.w600,
@@ -158,7 +159,7 @@ Widget _buildDialogBody() {
               width: 16,
             ),
             Text(
-              "TextConstants.howToPlayRole1",
+              R.stringsOf(context).letter_incorrect,
               style: GoogleFonts.mulish(
                 fontSize: 15,
                 fontWeight: FontWeight.w600,
@@ -180,7 +181,7 @@ Widget _buildDialogBody() {
               ),
               child: Center(
                 child: Text(
-                  "A",
+                  R.stringsOf(context).example_letter,
                   style: GoogleFonts.mulish(
                     fontSize: 26,
                     fontWeight: FontWeight.w600,
@@ -193,7 +194,7 @@ Widget _buildDialogBody() {
             ),
             Flexible(
               child: Text(
-                "TextConstants.howToPlayRole2",
+                R.stringsOf(context).letter_incorrect_spot,
                 style: GoogleFonts.mulish(
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
@@ -216,7 +217,7 @@ Widget _buildDialogBody() {
               ),
               child: Center(
                 child: Text(
-                  "A",
+                  R.stringsOf(context).example_letter,
                   style: GoogleFonts.mulish(
                     fontSize: 26,
                     fontWeight: FontWeight.w600,
@@ -229,7 +230,7 @@ Widget _buildDialogBody() {
             ),
             Flexible(
               child: Text(
-                "TextConstants.howToPlayRole3",
+                R.stringsOf(context).letter_correct,
                 style: GoogleFonts.mulish(
                   fontSize: 15,
                   fontWeight: FontWeight.w600,

@@ -41,7 +41,7 @@ class FullScreenDialog extends StatelessWidget {
                   activeTrackColor: AppColors.greenTrack,
                   activeColor: Colors.white,
                   title: Text(
-                    'Dark mode',
+                    R.stringsOf(context).dark_mode,
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   value: state.isDarkThemeOn,
@@ -58,7 +58,7 @@ class FullScreenDialog extends StatelessWidget {
                   activeTrackColor: AppColors.greenTrack,
                   activeColor: Colors.white,
                   title: Text(
-                    'Change language',
+                    R.stringsOf(context).change_language,
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   value: state.isEngLang,
@@ -75,7 +75,7 @@ class FullScreenDialog extends StatelessWidget {
                   activeTrackColor: AppColors.greenTrack,
                   activeColor: Colors.white,
                   title: Text(
-                    'High contrast mode',
+                    R.stringsOf(context).high_contrast_mode,
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   value: state.isHighContrast,

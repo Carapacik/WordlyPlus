@@ -1,7 +1,10 @@
 part of 'settings_cubit.dart';
 
 class SettingsState extends Equatable {
-  const SettingsState({required this.isDarkThemeOn, required this.isEngLang, required this.isHighContrast});
+  const SettingsState(
+      {required this.isDarkThemeOn,
+      required this.isEngLang,
+      required this.isHighContrast});
 
   final bool isDarkThemeOn;
   final bool isEngLang;

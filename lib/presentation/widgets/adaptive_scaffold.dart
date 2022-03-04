@@ -5,8 +5,8 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as m;
-import 'package:wordle/presentation/widgets/settings_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wordle/presentation/widgets/settings_dialog.dart';
 import 'package:wordle/resources/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordle/bloc/app/app_bloc.dart';
@@ -39,7 +39,6 @@ class AdaptiveScaffold extends StatelessWidget {
       );
     }
     return Scaffold(
-
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -104,6 +103,7 @@ class AdaptiveScaffold extends StatelessWidget {
     );
   }
 }
+
 Widget _buildDialogBody() {
   return Container(
     padding: const EdgeInsets.symmetric(vertical: 36, horizontal: 20),

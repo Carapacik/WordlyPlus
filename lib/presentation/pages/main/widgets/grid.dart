@@ -13,7 +13,7 @@ class Grid extends StatelessWidget {
     return BlocBuilder<MainCubit, MainState>(
       buildWhen: (_, currentState) => currentState is GridUpdateState,
       builder: (context, state) {
-        final data = DataSingleton();
+        final data = DictionaryInteractor.getInstance();
         final letters = data.getLetters();
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 30),
@@ -50,7 +50,9 @@ class Grid extends StatelessWidget {
                 child: Text(
                   letter.toUpperCase(),
                   style: GoogleFonts.mulish(
-                      fontWeight: FontWeight.w600, fontSize: 30),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 30,
+                  ),
                 ),
               );
             }),

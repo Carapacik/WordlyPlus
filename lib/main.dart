@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:wordle/app.dart';
 import 'package:wordle/bloc/app/bloc_observer.dart';
+import 'package:wordle/data/data_singleton.dart';
 
 Future<void> main() async {
   return BlocOverrides.runZoned(
@@ -19,6 +20,7 @@ Future<void> main() async {
       await Firebase.initializeApp();
       final authRepository = AuthRepository();
       await authRepository.user.first;
+      DictionaryInteractor.getInstance().createWord();
       HydratedBlocOverrides.runZoned(
         () => runApp(
           App(

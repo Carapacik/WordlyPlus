@@ -1,7 +1,5 @@
-import 'package:auth_repository/auth_repository.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -18,13 +16,10 @@ Future<void> main() async {
         storageDirectory: await getTemporaryDirectory(),
       );
       await Firebase.initializeApp();
-      final authRepository = AuthRepository();
-      await authRepository.user.first;
       DictionaryInteractor.getInstance().createWord();
       HydratedBlocOverrides.runZoned(
         () => runApp(
-          App(
-          ),
+          const App(),
         ),
         storage: storage,
       );

@@ -14,7 +14,6 @@ dependencies:
   equatable: ^2.0.3
   firebase_auth: ^3.3.9
   firebase_core: ^1.13.1
-  flow_builder: ^0.0.6
   fluent_ui: ^3.9.1
   flutter:
     sdk: flutter

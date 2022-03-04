@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:wordle/bloc/login/login_cubit.dart';
+import 'package:wordle/presentation/pages/main/main_page.dart';
 import 'package:wordle/presentation/pages/sign_up/sign_up_page.dart';
+import 'package:wordle/presentation/widgets/adaptive_app.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -96,22 +98,30 @@ class _LoginButton extends StatelessWidget {
             ? const CircularProgressIndicator()
             : ElevatedButton(
                 key: const Key('loginForm_continue_raisedButton'),
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-            primary: const Color(0xFFFFD600),
-          ),
-          onPressed: state.status.isValidated
-              ? () => context.read<LoginCubit>().logInWithCredentials()
-              : null,
-          child: const Text('LOGIN'),
-        );
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  primary: const Color(0xFFFFD600),
+                ),
+                onPressed: state.status.isValidated
+                    ? () {
+                        context.read<LoginCubit>().logInWithCredentials();
+                        Navigator.of(context).pop();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const AdaptiveApp(home: MainPage()),
+                          ),
+                        );
+                      }
+                    : null,
+                child: const Text('LOGIN'),
+              );
       },
     );
   }
 }
-
 
 class _SignUpButton extends StatelessWidget {
   @override

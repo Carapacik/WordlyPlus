@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordle/bloc/app/app_bloc.dart';
 import 'package:wordle/presentation/pages/login/login_page.dart';
 import 'package:wordle/presentation/pages/main/main_page.dart';
+import 'package:wordle/presentation/pages/sign_up/sign_up_page.dart';
 
 class StatisticPage extends StatelessWidget {
   const StatisticPage({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class StatisticPage extends StatelessWidget {
       builder: (context, state) {
         return state.status == AppStatus.authenticated
             ? const StatisticView()
-            : const LoginPage();
+            : const SignUpPage();
       },
     );
   }
@@ -39,7 +40,7 @@ class StatisticView extends StatelessWidget {
           },
         ),
       ),
-      body: const Text('statisctic'),
+      body: const Text('statistic'),
     );
   }
 }

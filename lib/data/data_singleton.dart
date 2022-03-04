@@ -76,8 +76,6 @@ class DictionaryInteractor {
 
   void nextWord() {
     final word = gridData[currentWordIndex];
-    print("word $word");
-    print("secretWord $secretWord");
     word.split("").asMap().map((key, value) {
       if (secretWord[key] == value) {
         //green

@@ -2,7 +2,7 @@ import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordle/bloc/sign_up/sign_up_cubit.dart';
-import 'package:wordle/presentation/pages/sign_up/sign_up_form.dart';
+import 'package:wordle/presentation/pages/sign_up/sig_up_form.dart';
 import 'package:wordle/resources/r.dart';
 
 class SignUpPage extends StatelessWidget {

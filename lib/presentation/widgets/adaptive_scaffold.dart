@@ -47,9 +47,7 @@ class AdaptiveScaffold extends StatelessWidget {
           style: GoogleFonts.mulish(fontSize: 32, fontWeight: FontWeight.w800),
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 50),
-            child: GestureDetector(
+            GestureDetector(
               onTap: () {
                 m.showDialog(
                   context: context,
@@ -62,8 +60,6 @@ class AdaptiveScaffold extends StatelessWidget {
                         ),
                         child: _buildDialogBody(context),
                       ),
-                      child: _buildDialogBody(),
-                    ),
                   );
                 },
               );

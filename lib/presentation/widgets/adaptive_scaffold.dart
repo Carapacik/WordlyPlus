@@ -5,13 +5,13 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as m;
-import 'package:google_fonts/google_fonts.dart';
-import 'package:wordle/presentation/widgets/settings_dialog.dart';
-import 'package:wordle/resources/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:wordle/bloc/app/app_bloc.dart';
 import 'package:wordle/presentation/pages/statistic/statistic_page.dart';
 import 'package:wordle/resources/r.dart';
+import 'package:wordle/presentation/widgets/settings_dialog.dart';
+import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/utils/platform.dart';
 
 class AdaptiveScaffold extends StatelessWidget {
@@ -62,12 +62,13 @@ class AdaptiveScaffold extends StatelessWidget {
                         ),
                         child: _buildDialogBody(context),
                       ),
-                    );
-                  },
-                );
-              },
-              child: const Icon(Icons.help_outline),
-            ),
+                      child: _buildDialogBody(),
+                    ),
+                  );
+                },
+              );
+            },
+            child: const Icon(Icons.help_outline),
           ),
           m.IconButton(
             onPressed: () => Navigator.of(context).push(

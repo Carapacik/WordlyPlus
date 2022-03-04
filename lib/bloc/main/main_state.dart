@@ -27,15 +27,14 @@ class KeyboardKeyUpdateState extends MainState {
   List<Object> get props => [id, key, letterType];
 }
 
-class SnackBarMessage extends MainState {
-  SnackBarMessage(this.type, this.message);
+class TopMessageState extends MainState {
+  TopMessageState(this.type);
 
   final id = DateTime.now().microsecondsSinceEpoch;
-  final MessageTypes type;
-  final String message;
+  final FlushBarTypes type;
 
   @override
-  List<Object> get props => [id, type, message];
+  List<Object> get props => [id, type];
 }
 
 class LoseGameState extends MainState {

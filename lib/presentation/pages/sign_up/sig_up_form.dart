@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:wordle/bloc/sign_up/sign_up_cubit.dart';
-import 'package:wordle/resources/r.dart';
 
 class SignUpForm extends StatelessWidget {
   const SignUpForm({Key? key}) : super(key: key);
@@ -17,7 +16,7 @@ class SignUpForm extends StatelessWidget {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              SnackBar(content: Text(state.errorMessage ?? R.stringsOf(context).sign_up_failure)),
+              SnackBar(content: Text(state.errorMessage ?? 'Sign Up Failure')),
             );
         }
       },
@@ -51,9 +50,9 @@ class _EmailInput extends StatelessWidget {
           onChanged: (email) => context.read<SignUpCubit>().emailChanged(email),
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            labelText: R.stringsOf(context).email.toLowerCase(),
+            labelText: 'email',
             helperText: '',
-            errorText: state.email.invalid ? R.stringsOf(context).invalid_email_message : null,
+            errorText: state.email.invalid ? 'invalid email' : null,
           ),
         );
       },
@@ -73,9 +72,9 @@ class _PasswordInput extends StatelessWidget {
               context.read<SignUpCubit>().passwordChanged(password),
           obscureText: true,
           decoration: InputDecoration(
-            labelText: R.stringsOf(context).password.toLowerCase(),
+            labelText: 'password',
             helperText: '',
-            errorText: state.password.invalid ? R.stringsOf(context).invalid_password_message : null,
+            errorText: state.password.invalid ? 'invalid password' : null,
           ),
         );
       },
@@ -98,10 +97,10 @@ class _ConfirmPasswordInput extends StatelessWidget {
               .confirmedPasswordChanged(confirmPassword),
           obscureText: true,
           decoration: InputDecoration(
-            labelText: R.stringsOf(context).confirm_password.toLowerCase(),
+            labelText: 'confirm password',
             helperText: '',
             errorText: state.confirmedPassword.invalid
-                ? R.stringsOf(context).passwords_no_match
+                ? 'passwords do not match'
                 : null,
           ),
         );
@@ -114,7 +113,7 @@ class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpCubit, SignUpState>(
-      buildWhen: (previous, current) => previous.status != current.status, 
+      buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
@@ -129,7 +128,7 @@ class _SignUpButton extends StatelessWidget {
                 onPressed: state.status.isValidated
                     ? () => context.read<SignUpCubit>().signUpFormSubmitted()
                     : null,
-                child: Text(R.stringsOf(context).sign_up),
+                child: const Text('SIGN UP'),
               );
       },
     );

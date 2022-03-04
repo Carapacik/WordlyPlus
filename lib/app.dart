@@ -10,4 +10,3 @@ class App extends StatelessWidget {
     return const AdaptiveApp(home: MainPage());
   }
 }
-

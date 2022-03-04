@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
 import 'package:wordle/data/enums/keyboard_keys.dart';
-import 'package:wordle/data/enums/message_types.dart';
+import 'package:wordle/data/enums/flushbar_types.dart';
 import 'package:wordle/resources/dictionary.dart';
 
 class DictionaryInteractor {
@@ -58,16 +58,10 @@ class DictionaryInteractor {
           nextWord();
           return GridUpdateState();
         } else {
-          return SnackBarMessage(
-            MessageTypes.error,
-            "Word not found in dictionary",
-          );
+          return TopMessageState(FlushBarTypes.notFound);
         }
       } else {
-        return SnackBarMessage(
-          MessageTypes.error,
-          "Word not correct length",
-        );
+        return TopMessageState(FlushBarTypes.notCorrectLength);
       }
     } else {
       return LoseGameState();
@@ -76,8 +70,6 @@ class DictionaryInteractor {
 
   void nextWord() {
     final word = gridData[currentWordIndex];
-    print("word $word");
-    print("secretWord $secretWord");
     word.split("").asMap().map((key, value) {
       if (secretWord[key] == value) {
         //green

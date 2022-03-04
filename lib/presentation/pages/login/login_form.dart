@@ -95,7 +95,7 @@ class _LoginButton extends StatelessWidget {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
             : ElevatedButton(
-          key: const Key('loginForm_continue_raisedButton'),
+                key: const Key('loginForm_continue_raisedButton'),
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),

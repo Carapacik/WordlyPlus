@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordle/bloc/login/login_cubit.dart';
 import 'package:wordle/presentation/pages/login/login_form.dart';
+import 'package:wordle/resources/r.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({
@@ -16,7 +17,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: Text(R.stringsOf(context).login),
         leading: IconButton(
           icon: Icon(Icons.adaptive.arrow_back),
           onPressed: () {

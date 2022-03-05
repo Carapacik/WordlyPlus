@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordle/bloc/app/app_bloc.dart';
 import 'package:wordle/presentation/pages/login/login_page.dart';
 import 'package:wordle/presentation/pages/main/main_page.dart';
+import 'package:wordle/resources/r.dart';
 
 class StatisticPage extends StatelessWidget {
   const StatisticPage({
@@ -32,7 +33,7 @@ class StatisticView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Statistic'),
+        title: Text(R.stringsOf(context).statistic),
         leading: IconButton(
           icon: Icon(Icons.adaptive.arrow_back),
           onPressed: () {

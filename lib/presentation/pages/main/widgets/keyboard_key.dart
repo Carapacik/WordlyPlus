@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
-import 'package:wordle/data/data_singleton.dart';
+import 'package:wordle/data/dictionary_interactor.dart';
 import 'package:wordle/data/enums/keyboard_keys.dart';
 import 'package:wordle/data/enums/letter.dart';
+import 'package:wordle/resources/app_colors.dart';
 
 class KeyboardKey extends StatelessWidget {
   const KeyboardKey({
     Key? key,
-    this.color = Colors.black26,
+    this.color = AppColors.greyMainDark,
     required this.keyboardKey,
   }) : super(key: key);
 
@@ -41,7 +42,7 @@ class KeyboardKey extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   color: data.getKeyColor(keyboardKey),
-                  borderRadius: BorderRadius.circular(4.6),
+                  borderRadius: BorderRadius.circular(4),
                 ),
                 child: Center(
                   child: Text(
@@ -68,7 +69,7 @@ class EnterKeyboardKey extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: AspectRatio(
-        aspectRatio: 1 / 1,
+        aspectRatio: 1,
         child: InkWell(
           onTap: () {
             if (homeCubit.submitWord()) {
@@ -88,15 +89,15 @@ class EnterKeyboardKey extends StatelessWidget {
                   homeCubit.updateKey(key, Letter.wrongSpot);
                   return MapEntry(index, e);
                 }
-                homeCubit.updateKey(key, Letter.notInWord);
+                homeCubit.updateKey(key, Letter.notInWords);
                 return MapEntry(index, e);
               });
             }
           },
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.black26,
-              borderRadius: BorderRadius.circular(4.6),
+              color: AppColors.greyMain,
+              borderRadius: BorderRadius.circular(4),
             ),
             child: Center(
               child: Text(
@@ -120,15 +121,13 @@ class BackspaceKeyboardKey extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: AspectRatio(
-        aspectRatio: 1 / 1,
+        aspectRatio: 1,
         child: InkWell(
-          onTap: () {
-            homeCubit.removeLetter();
-          },
+          onTap: homeCubit.removeLetter,
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.black26,
-              borderRadius: BorderRadius.circular(4.6),
+              color: AppColors.greyMain,
+              borderRadius: BorderRadius.circular(4),
             ),
             child: const Center(
               child: Icon(Icons.backspace_outlined),

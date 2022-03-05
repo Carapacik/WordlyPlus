@@ -7,6 +7,7 @@ import 'package:wordle/bloc/login/login_cubit.dart';
 import 'package:wordle/presentation/pages/main/main_page.dart';
 import 'package:wordle/presentation/pages/sign_up/sign_up_page.dart';
 import 'package:wordle/presentation/widgets/adaptive_app.dart';
+import 'package:wordle/resources/r.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({
@@ -25,7 +26,7 @@ class LoginForm extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
-                content: Text(state.errorMessage ?? 'Authentication Failure'),
+                content: Text(state.errorMessage ?? R.stringsOf(context).auth_fail_message),
               ),
             );
         }
@@ -67,7 +68,7 @@ class _EmailInput extends StatelessWidget {
           decoration: InputDecoration(
             labelText: 'email',
             helperText: '',
-            errorText: state.email.invalid ? 'invalid email' : null,
+            errorText: state.email.invalid ? R.stringsOf(context).invalid_email_message : null,
           ),
         );
       },
@@ -89,7 +90,7 @@ class _PasswordInput extends StatelessWidget {
           decoration: InputDecoration(
             labelText: 'password',
             helperText: '',
-            errorText: state.password.invalid ? 'invalid password' : null,
+            errorText: state.password.invalid ? R.stringsOf(context).invalid_password_message : null,
           ),
         );
       },
@@ -125,7 +126,7 @@ class _LoginButton extends StatelessWidget {
                         );
                       }
                     : null,
-                child: const Text('LOGIN'),
+                child: Text(R.stringsOf(context).login.toUpperCase()),
               );
       },
     );
@@ -157,7 +158,7 @@ class _SignUpButton extends StatelessWidget {
         ),
       ),
       child: Text(
-        'CREATE ACCOUNT',
+        R.stringsOf(context).create_account.toUpperCase(),
         style: TextStyle(color: theme.primaryColor),
       ),
     );

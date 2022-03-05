@@ -5,5 +5,21 @@
   "high_contrast_mode": "Режим повышенной контрастности",
   "how_to_play": "Как играть",
   "enter": "ввод",
-  "wordle": "словень"
+  "wordle": "словень",
+  "auth_fail_message": "Ошибка авторизации",
+  "invalid_email_message": "неверная почта",
+  "invalid_password_message": "неверный пароль",
+  "login": "Войти",
+  " create_account": "создать аккаунт",
+  "sign_up_failure": "Ошибка регистрации",
+  "passwords_no_match": "пароли не совпадают",
+  "sign_up": "зарегестрироваться",
+  "statistic": "Статистика",
+  "example_letter": "Б",
+  "letter_incorrect": "Буквы нет в слове",
+  "letter_incorrect_spot": "Буква в неправильной позиции",
+  "letter_correct": "Буква есть в слове и находится на верном месте",
+  "confirm_password": "Подтвердить пароль",
+  "password": "Пароль",
+  "email": "Почта"
 }

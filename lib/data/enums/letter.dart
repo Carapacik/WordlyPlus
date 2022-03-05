@@ -1,6 +1,6 @@
 enum Letter {
   unknown,
-  notInWord,
+  notInWords,
   wrongSpot,
   correctSpot,
 }

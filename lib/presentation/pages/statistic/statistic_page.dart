@@ -44,8 +44,18 @@ class StatisticView extends StatelessWidget {
             );
           },
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () => context.read<AppBloc>().add(
+                  AppLogoutRequested(),
+                ),
+          ),
+        ],
       ),
-      body: const Text('statistic'),
+      body: Column(
+        children: [],
+      ),
     );
   }
 }

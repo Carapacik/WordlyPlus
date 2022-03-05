@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:auth_repository/auth_repository.dart';
+import 'package:auth_repository/src/models/statistic.dart';
 import 'package:cache/cache.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
@@ -146,26 +147,26 @@ class AuthRepository {
     }
   }
 
-  Future<void> addStatistic() {
+  Future<void> addStatistic(final Statistic statistic) {
     return _statistic
-        .add({
-          'currentStreak': 0,
-          'loses': 0,
-          'maxStreak': 0,
-          'uid': currentUser.id,
-          'winRate': 0,
-          'wins': 0,
-          'tries': {
-            'first': 0,
-            'second': 0,
-            'third': 0,
-            'fourth': 0,
-            'fifth': 0,
-            'sixth': 0,
-          }
-        })
+        .add(statistic.toJson())
         .then((value) => print("statistic Added"))
         .catchError((error) => print(error));
+  }
+
+  Future<Statistic> getStatistic() {
+    return _statistic
+        .where('uid', isEqualTo: _firebaseAuth.currentUser?.uid)
+        .get()
+        .then(
+          (value) => Statistic.fromJson(value.docs[0].data()),
+        )
+        .onError(
+          (error, stackTrace) {
+            print(error);
+            return Statistic(uid: _firebaseAuth.currentUser?.uid ?? '');
+          },
+        );
   }
 }
 

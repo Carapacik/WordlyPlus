@@ -6,7 +6,12 @@ import 'package:wordle/presentation/pages/login/login_form.dart';
 import 'package:wordle/resources/r.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({
+    required this.authRepository,
+    Key? key,
+  }) : super(key: key);
+
+  final AuthRepository authRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +29,7 @@ class LoginPage extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         child: BlocProvider(
           create: (_) => LoginCubit(context.read<AuthRepository>()),
-          child: const LoginForm(),
+          child: LoginForm(authRepository: authRepository),
         ),
       ),
     );

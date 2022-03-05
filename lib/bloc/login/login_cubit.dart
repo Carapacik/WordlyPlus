@@ -39,6 +39,7 @@ class LoginCubit extends Cubit<LoginState> {
         email: state.email.value,
         password: state.password.value,
       );
+      final statistic = await _authRepository.getStatistic();
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on LogInWithEmailAndPasswordFailure catch (e) {
       emit(

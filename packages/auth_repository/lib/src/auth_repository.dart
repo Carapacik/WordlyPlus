@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:auth_repository/auth_repository.dart';
+import 'package:auth_repository/src/models/statistic.dart';
 import 'package:cache/cache.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -86,6 +88,7 @@ class AuthRepository {
 
   final CacheClient _cache;
   final firebase_auth.FirebaseAuth _firebaseAuth;
+  final _statistic = FirebaseFirestore.instance.collection('statistic');
 
   @visibleForTesting
   bool isWeb = kIsWeb;
@@ -142,6 +145,28 @@ class AuthRepository {
     } catch (_) {
       throw LogOutFailure();
     }
+  }
+
+  Future<void> addStatistic(final Statistic statistic) {
+    return _statistic
+        .add(statistic.toJson())
+        .then((value) => print("statistic Added"))
+        .catchError((error) => print(error));
+  }
+
+  Future<Statistic> getStatistic() {
+    return _statistic
+        .where('uid', isEqualTo: _firebaseAuth.currentUser?.uid)
+        .get()
+        .then(
+          (value) => Statistic.fromJson(value.docs[0].data()),
+        )
+        .onError(
+      (error, stackTrace) {
+        print(error);
+        return Statistic(uid: _firebaseAuth.currentUser?.uid ?? '');
+      },
+    );
   }
 }
 

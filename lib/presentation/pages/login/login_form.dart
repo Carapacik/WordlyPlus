@@ -1,6 +1,8 @@
+import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:wordle/bloc/app/app_bloc.dart';
 import 'package:wordle/bloc/login/login_cubit.dart';
 import 'package:wordle/presentation/pages/main/main_page.dart';
 import 'package:wordle/presentation/pages/sign_up/sign_up_page.dart';
@@ -8,7 +10,12 @@ import 'package:wordle/presentation/widgets/adaptive_app.dart';
 import 'package:wordle/resources/r.dart';
 
 class LoginForm extends StatelessWidget {
-  const LoginForm({Key? key}) : super(key: key);
+  const LoginForm({
+    required this.authRepository,
+    Key? key,
+  }) : super(key: key);
+
+  final AuthRepository authRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +44,9 @@ class LoginForm extends StatelessWidget {
               const SizedBox(height: 8),
               _LoginButton(),
               const SizedBox(height: 4),
-              _SignUpButton(),
+              _SignUpButton(
+                authRepository: authRepository,
+              ),
             ],
           ),
         ),
@@ -125,12 +134,29 @@ class _LoginButton extends StatelessWidget {
 }
 
 class _SignUpButton extends StatelessWidget {
+  const _SignUpButton({
+    required this.authRepository,
+    Key? key,
+  }) : super(key: key);
+
+  final AuthRepository authRepository;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return TextButton(
       key: const Key('loginForm_createAccount_flatButton'),
-      onPressed: () => Navigator.of(context).push<void>(SignUpPage.route()),
+      onPressed: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => RepositoryProvider.value(
+            value: authRepository,
+            child: BlocProvider(
+              child: const SignUpPage(),
+              create: (context) => AppBloc(authRepository: authRepository),
+            ),
+          ),
+        ),
+      ),
       child: Text(
         R.stringsOf(context).create_account.toUpperCase(),
         style: TextStyle(color: theme.primaryColor),

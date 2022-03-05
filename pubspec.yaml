@@ -30,14 +30,10 @@ dependencies:
   freezed_annotation: ^1.1.0
   google_fonts: ^2.3.1
   json_annotation: ^4.4.0
-  shared_preferences: ^2.0.13
   top_snackbar_flutter: ^1.0.2
-  hydrated_bloc: ^8.0.0
-  path_provider: ^2.0.9
   r_resources: ^1.0.1
   shared_preferences: ^2.0.13
   url_strategy: ^0.2.0
-
   path_provider: ^2.0.9
   hydrated_bloc: ^8.0.0
 

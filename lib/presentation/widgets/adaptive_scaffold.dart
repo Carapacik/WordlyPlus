@@ -79,7 +79,7 @@ class AdaptiveScaffold extends StatelessWidget {
                     child: BlocProvider(
                       create: (context) =>
                           AppBloc(authRepository: authRepository),
-                      child: const StatisticPage(),
+                      child: StatisticPage(authRepository: authRepository,),
                     ),
                   );
                 },

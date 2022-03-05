@@ -1,12 +1,17 @@
+import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordle/bloc/app/app_bloc.dart';
 import 'package:wordle/presentation/pages/login/login_page.dart';
 import 'package:wordle/presentation/pages/main/main_page.dart';
-import 'package:wordle/presentation/pages/sign_up/sign_up_page.dart';
 
 class StatisticPage extends StatelessWidget {
-  const StatisticPage({Key? key}) : super(key: key);
+  const StatisticPage({
+    required this.authRepository,
+    Key? key,
+  }) : super(key: key);
+
+  final AuthRepository authRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +19,7 @@ class StatisticPage extends StatelessWidget {
       builder: (context, state) {
         return state.status == AppStatus.authenticated
             ? const StatisticView()
-            : const SignUpPage();
+            : LoginPage(authRepository: authRepository);
       },
     );
   }

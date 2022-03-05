@@ -46,6 +46,9 @@ class AdaptiveScaffold extends StatelessWidget {
           R.stringsOf(context).wordle,
           style: GoogleFonts.mulish(fontSize: 32, fontWeight: FontWeight.w800),
         ),
+        elevation: 0,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        foregroundColor: Theme.of(context).primaryColor,
         actions: [
             GestureDetector(
               onTap: () {
@@ -60,6 +63,8 @@ class AdaptiveScaffold extends StatelessWidget {
                         ),
                         child: _buildDialogBody(context),
                       ),
+                      child: _buildDialogBody(context),
+                    ),
                   );
                 },
               );
@@ -105,7 +110,10 @@ class AdaptiveScaffold extends StatelessWidget {
 Widget _buildDialogBody(BuildContext context) {
   return Container(
     padding: const EdgeInsets.symmetric(vertical: 36, horizontal: 20),
-    decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(22),
+      color: Theme.of(context).scaffoldBackgroundColor,
+    ),
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [

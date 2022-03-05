@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
 import 'package:wordle/data/enums/keyboard_keys.dart';
 import 'package:wordle/data/enums/flushbar_types.dart';
+import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/resources/dictionary.dart';
 
 class DictionaryInteractor {
@@ -81,7 +82,7 @@ class DictionaryInteractor {
       } else if (secretWord.contains(value)) {
         //orange
         if (coloredLetters.containsKey(value)) {
-          if (coloredLetters[key] == Colors.black38) {
+          if (coloredLetters[key] == AppColors.greyMainDark) {
             coloredLetters.update(value, (value) => Colors.orangeAccent);
           }
         } else {
@@ -90,7 +91,7 @@ class DictionaryInteractor {
       } else {
         //grey
         if (!coloredLetters.containsKey(value)) {
-          coloredLetters.addAll({value: Colors.black38});
+          coloredLetters.addAll({value: AppColors.greyMainDark});
         }
       }
       return MapEntry(key, value);
@@ -112,7 +113,7 @@ class DictionaryInteractor {
   }
 
   Color getKeyColor(KeyboardKeys myKey) {
-    return coloredLetters[myKey.name] ?? Colors.black26;
+    return coloredLetters[myKey.name] ?? AppColors.greyMain;
   }
 
   void resetData() {

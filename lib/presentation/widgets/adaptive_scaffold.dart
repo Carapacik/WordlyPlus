@@ -9,9 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wordle/bloc/app/app_bloc.dart';
 import 'package:wordle/presentation/pages/statistic/statistic_page.dart';
-import 'package:wordle/resources/r.dart';
 import 'package:wordle/presentation/widgets/settings_dialog.dart';
 import 'package:wordle/resources/app_colors.dart';
+import 'package:wordle/resources/r.dart';
 import 'package:wordle/utils/platform.dart';
 
 class AdaptiveScaffold extends StatelessWidget {
@@ -50,19 +50,19 @@ class AdaptiveScaffold extends StatelessWidget {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         foregroundColor: Theme.of(context).primaryColor,
         actions: [
-            GestureDetector(
-              onTap: () {
-                m.showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
-                      child: Dialog(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(24.0)),
-                        ),
-                        child: _buildDialogBody(context),
+          GestureDetector(
+            onTap: () {
+              m.showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+                    child: Dialog(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(24.0)),
                       ),
+                      child: _buildDialogBody(context),
+                    ),
                   );
                 },
               );
@@ -80,7 +80,9 @@ class AdaptiveScaffold extends StatelessWidget {
                     child: BlocProvider(
                       create: (context) =>
                           AppBloc(authRepository: authRepository),
-                      child: StatisticPage(authRepository: authRepository,),
+                      child: StatisticPage(
+                        authRepository: authRepository,
+                      ),
                     ),
                   );
                 },

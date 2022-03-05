@@ -4,10 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:wordle/bloc/app/app_bloc.dart';
 import 'package:wordle/bloc/login/login_cubit.dart';
-import 'package:wordle/presentation/pages/main/main_page.dart';
 import 'package:wordle/presentation/pages/sign_up/sign_up_page.dart';
 import 'package:wordle/presentation/pages/statistic/statistic_page.dart';
-import 'package:wordle/presentation/widgets/adaptive_app.dart';
 import 'package:wordle/resources/r.dart';
 
 class LoginForm extends StatelessWidget {
@@ -27,7 +25,8 @@ class LoginForm extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
-                content: Text(state.errorMessage ?? R.stringsOf(context).auth_fail_message),
+                content: Text(state.errorMessage ??
+                    R.stringsOf(context).auth_fail_message),
               ),
             );
         }
@@ -71,9 +70,14 @@ class _EmailInput extends StatelessWidget {
             labelText: 'email',
             helperText: '',
             labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
-            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary)),
-            errorText: state.email.invalid ? R.stringsOf(context).invalid_email_message : null,
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+            focusedBorder: OutlineInputBorder(
+                borderSide:
+                    BorderSide(color: Theme.of(context).colorScheme.secondary)),
+            errorText: state.email.invalid
+                ? R.stringsOf(context).invalid_email_message
+                : null,
           ),
         );
       },
@@ -97,9 +101,14 @@ class _PasswordInput extends StatelessWidget {
             labelText: 'password',
             helperText: '',
             labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
-            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary)),
-            errorText: state.password.invalid ? R.stringsOf(context).invalid_password_message : null,
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+            focusedBorder: OutlineInputBorder(
+                borderSide:
+                    BorderSide(color: Theme.of(context).colorScheme.secondary)),
+            errorText: state.password.invalid
+                ? R.stringsOf(context).invalid_password_message
+                : null,
           ),
         );
       },
@@ -128,8 +137,7 @@ class _LoginButton extends StatelessWidget {
                         context.read<LoginCubit>().logInWithCredentials();
                         Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
-                            builder: (context) =>
-                                const StatisticView(),
+                            builder: (context) => const StatisticView(),
                           ),
                         );
                       }

@@ -47,4 +47,5 @@ app.*.map.json
 
 # Generated files
 *.g.*
+*.freezed.*
 lib/resources/r.dart

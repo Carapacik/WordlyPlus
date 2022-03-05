@@ -54,8 +54,11 @@ class _EmailInput extends StatelessWidget {
             labelText: 'email',
             helperText: '',
             labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
-            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary)),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+            focusedBorder: OutlineInputBorder(
+                borderSide:
+                    BorderSide(color: Theme.of(context).colorScheme.secondary)),
             errorText: state.email.invalid ? 'invalid email' : null,
           ),
         );
@@ -80,8 +83,11 @@ class _PasswordInput extends StatelessWidget {
             labelText: 'password',
             helperText: '',
             labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
-            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary)),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+            focusedBorder: OutlineInputBorder(
+                borderSide:
+                    BorderSide(color: Theme.of(context).colorScheme.secondary)),
             errorText: state.password.invalid ? 'invalid password' : null,
           ),
         );
@@ -109,8 +115,11 @@ class _ConfirmPasswordInput extends StatelessWidget {
             labelText: 'confirm password',
             helperText: '',
             labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
-            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary)),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+            focusedBorder: OutlineInputBorder(
+                borderSide:
+                    BorderSide(color: Theme.of(context).colorScheme.secondary)),
             errorText: state.confirmedPassword.invalid
                 ? 'passwords do not match'
                 : null,

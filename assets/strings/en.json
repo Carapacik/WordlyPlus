@@ -5,5 +5,21 @@
   "high_contrast_mode": "High contrast mode",
   "how_to_play": "How to play",
   "enter": "enter",
-  "wordle": "wordle"
+  "wordle": "wordle",
+  "auth_fail_message": "Authentication Failure",
+  "invalid_email_message": "invalid email",
+  "invalid_password_message": "invalid password",
+  "login": "Login",
+  " create_account": "create account",
+  "sign_up_failure": "Sign Up Failure",
+  "passwords_no_match": "passwords do not match",
+  "sign_up": "sign up",
+  "statistic": "Statist",
+  "example_letter": "L",
+  "letter_incorrect": "Letter is incorrect",
+  "letter_incorrect_spot": "Letter is in incorrect spot",
+  "letter_correct": "Letter exists and is in correct spot",
+  "confirm_password": "Confirm password",
+  "password": "Password",
+  "email": "Email"
 }

@@ -9,4 +9,6 @@ class AppColors {
   static const yellow = Color(0xFFC9B458);
   static const greenTrack = Color(0xff538d4e);
   static const greyTrack = Color(0xff565758);
+  static const greyMain = Color(0xffd3d6da);
+  static const greyMainDark = Color(0xff818384);
 }

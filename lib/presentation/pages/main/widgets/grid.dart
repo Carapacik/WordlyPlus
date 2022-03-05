@@ -56,7 +56,7 @@ class Grid extends StatelessWidget {
                     style: GoogleFonts.mulish(
                       fontWeight: FontWeight.w600,
                       fontSize: 30,
-                    ),
+                    ).copyWith(color: Theme.of(context).primaryColor),
                   ),
                 ),
               );

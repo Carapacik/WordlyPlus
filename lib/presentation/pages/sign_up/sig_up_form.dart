@@ -49,9 +49,13 @@ class _EmailInput extends StatelessWidget {
           key: const Key('signUpForm_emailInput_textField'),
           onChanged: (email) => context.read<SignUpCubit>().emailChanged(email),
           keyboardType: TextInputType.emailAddress,
+          cursorColor: Theme.of(context).colorScheme.secondary,
           decoration: InputDecoration(
             labelText: 'email',
             helperText: '',
+            labelStyle: TextStyle(color: Theme.of(context).primaryColor),
+            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary)),
             errorText: state.email.invalid ? 'invalid email' : null,
           ),
         );
@@ -71,9 +75,13 @@ class _PasswordInput extends StatelessWidget {
           onChanged: (password) =>
               context.read<SignUpCubit>().passwordChanged(password),
           obscureText: true,
+          cursorColor: Theme.of(context).colorScheme.secondary,
           decoration: InputDecoration(
             labelText: 'password',
             helperText: '',
+            labelStyle: TextStyle(color: Theme.of(context).primaryColor),
+            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary)),
             errorText: state.password.invalid ? 'invalid password' : null,
           ),
         );
@@ -96,9 +104,13 @@ class _ConfirmPasswordInput extends StatelessWidget {
               .read<SignUpCubit>()
               .confirmedPasswordChanged(confirmPassword),
           obscureText: true,
+          cursorColor: Theme.of(context).colorScheme.secondary,
           decoration: InputDecoration(
             labelText: 'confirm password',
             helperText: '',
+            labelStyle: TextStyle(color: Theme.of(context).primaryColor),
+            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary)),
             errorText: state.confirmedPassword.invalid
                 ? 'passwords do not match'
                 : null,

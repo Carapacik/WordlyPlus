@@ -33,6 +33,9 @@ class StatisticView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        foregroundColor: Theme.of(context).primaryColor,
+        elevation: 0,
         title: Text(R.stringsOf(context).statistic),
         leading: IconButton(
           icon: Icon(Icons.adaptive.arrow_back),

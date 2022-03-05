@@ -6,6 +6,7 @@ import 'package:wordle/bloc/app/app_bloc.dart';
 import 'package:wordle/bloc/login/login_cubit.dart';
 import 'package:wordle/presentation/pages/main/main_page.dart';
 import 'package:wordle/presentation/pages/sign_up/sign_up_page.dart';
+import 'package:wordle/presentation/pages/statistic/statistic_page.dart';
 import 'package:wordle/presentation/widgets/adaptive_app.dart';
 import 'package:wordle/resources/r.dart';
 
@@ -65,9 +66,13 @@ class _EmailInput extends StatelessWidget {
           key: const Key('loginForm_emailInput_textField'),
           onChanged: (email) => context.read<LoginCubit>().emailChanged(email),
           keyboardType: TextInputType.emailAddress,
+          cursorColor: Theme.of(context).colorScheme.secondary,
           decoration: InputDecoration(
             labelText: 'email',
             helperText: '',
+            labelStyle: TextStyle(color: Theme.of(context).primaryColor),
+            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary)),
             errorText: state.email.invalid ? R.stringsOf(context).invalid_email_message : null,
           ),
         );
@@ -87,9 +92,13 @@ class _PasswordInput extends StatelessWidget {
           onChanged: (password) =>
               context.read<LoginCubit>().passwordChanged(password),
           obscureText: true,
+          cursorColor: Theme.of(context).colorScheme.secondary,
           decoration: InputDecoration(
             labelText: 'password',
             helperText: '',
+            labelStyle: TextStyle(color: Theme.of(context).primaryColor),
+            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary)),
             errorText: state.password.invalid ? R.stringsOf(context).invalid_password_message : null,
           ),
         );
@@ -110,18 +119,17 @@ class _LoginButton extends StatelessWidget {
                 key: const Key('loginForm_continue_raisedButton'),
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(15),
                   ),
-                  primary: const Color(0xFFFFD600),
+                  primary: Theme.of(context).colorScheme.secondary,
                 ),
                 onPressed: state.status.isValidated
                     ? () {
                         context.read<LoginCubit>().logInWithCredentials();
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(
+                        Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
                             builder: (context) =>
-                                const AdaptiveApp(home: MainPage()),
+                                const StatisticView(),
                           ),
                         );
                       }

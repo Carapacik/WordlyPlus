@@ -21,5 +21,10 @@
   "letter_correct": "Letter exists and is in correct spot",
   "confirm_password": "Confirm password",
   "password": "Password",
-  "email": "Email"
+  "email": "Email",
+  "win_message": "You win!",
+  "lose_message": "You lost.",
+  "next_wordle": "Next wordle in",
+  "word_not_found": "Word not found in dictionary",
+  "word_too_short": "Word is not correct length"
 }

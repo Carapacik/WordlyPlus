@@ -16,6 +16,7 @@ import 'package:wordle/data/enums/flushbar_types.dart';
 import 'package:wordle/presentation/pages/main/widgets/main_content.dart';
 import 'package:wordle/presentation/widgets/adaptive_scaffold.dart';
 import 'package:wordle/resources/app_colors.dart';
+import 'package:wordle/resources/r.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -66,20 +67,28 @@ class _MainPageState extends State<MainPage> {
   ) {
     switch (myMessage.type) {
       case FlushBarTypes.notFound:
-        showFlushbar(
-          context: context,
-          flushbar: Flushbar(
-            title: "notFound",
-          ),
-        );
+        Flushbar(
+          message: R.stringsOf(context).word_not_found,
+          duration: const Duration(seconds: 1),
+          flushbarStyle: FlushbarStyle.FLOATING,
+          flushbarPosition: FlushbarPosition.TOP,
+          backgroundColor: Theme.of(context).primaryColorDark,
+          messageColor: Theme.of(context).primaryColorLight,
+          margin: const EdgeInsets.all(10),
+          borderRadius: BorderRadius.circular(10),
+        ).show(context);
         break;
       case FlushBarTypes.notCorrectLength:
-        showFlushbar(
-          context: context,
-          flushbar: Flushbar(
-            title: "notCorrectLength",
-          ),
-        );
+        Flushbar(
+          message: R.stringsOf(context).word_too_short,
+          duration: const Duration(seconds: 1),
+          flushbarStyle: FlushbarStyle.FLOATING,
+          flushbarPosition: FlushbarPosition.TOP,
+          backgroundColor: Theme.of(context).primaryColorDark,
+          messageColor: Theme.of(context).primaryColorLight,
+          margin: const EdgeInsets.all(10),
+          borderRadius: BorderRadius.circular(10),
+        ).show(context);
         break;
     }
   }
@@ -124,7 +133,6 @@ class _MainPageState extends State<MainPage> {
     final CountdownTimerController _countDownController =
         CountdownTimerController(endTime: endTime, onEnd: _dismissTimerDialog);
     showDialog(
-      barrierDismissible: false,
       context: context,
       barrierColor: Colors.transparent,
       builder: (BuildContext ctx) {
@@ -145,8 +153,8 @@ class _MainPageState extends State<MainPage> {
                     child: Center(
                       child: Text(
                         isWin
-                            ? "TextConstants.youWin"
-                            : "TextConstants.youLose",
+                            ? R.stringsOf(context).win_message
+                            : R.stringsOf(context).lose_message,
                         style: GoogleFonts.mulish(
                           fontSize: 32,
                           fontWeight: FontWeight.w700,
@@ -166,7 +174,7 @@ class _MainPageState extends State<MainPage> {
                       width: double.infinity,
                       child: Center(
                         child: Text(
-                          " TextConstants.nextWordle",
+                          R.stringsOf(context).next_wordle,
                           style: GoogleFonts.mulish(
                             fontSize: 25,
                             fontWeight: FontWeight.w700,

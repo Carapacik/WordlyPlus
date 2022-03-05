@@ -13,7 +13,7 @@
   " create_account": "создать аккаунт",
   "sign_up_failure": "Ошибка регистрации",
   "passwords_no_match": "пароли не совпадают",
-  "sign_up": "зарегестрироваться",
+  "sign_up": "регистрация",
   "statistic": "Статистика",
   "example_letter": "Б",
   "letter_incorrect": "Буквы нет в слове",
@@ -21,5 +21,10 @@
   "letter_correct": "Буква есть в слове и находится на верном месте",
   "confirm_password": "Подтвердить пароль",
   "password": "Пароль",
-  "email": "Почта"
+  "email": "Почта",
+  "win_message": "Вы победили!",
+  "lose_message": "Вы проиграли.",
+  "next_wordle": "Следующее слово через",
+  "word_not_found": "Слово не найдено в словаре",
+  "word_too_short": "Слово неправильной длины"
 }

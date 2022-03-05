@@ -36,7 +36,7 @@ class FullScreenDialog extends StatelessWidget {
             ),
             child: Column(
               children: [
-                SwitchListTile(
+                SwitchListTile.adaptive(
                   inactiveTrackColor: AppColors.greyTrack,
                   activeTrackColor: AppColors.greenTrack,
                   activeColor: Colors.white,
@@ -53,7 +53,7 @@ class FullScreenDialog extends StatelessWidget {
                 const Divider(
                   color: AppColors.greyTrack,
                 ),
-                SwitchListTile(
+                SwitchListTile.adaptive(
                   inactiveTrackColor: AppColors.greyTrack,
                   activeTrackColor: AppColors.greenTrack,
                   activeColor: Colors.white,
@@ -70,7 +70,7 @@ class FullScreenDialog extends StatelessWidget {
                 const Divider(
                   color: AppColors.greyTrack,
                 ),
-                SwitchListTile(
+                SwitchListTile.adaptive(
                   inactiveTrackColor: AppColors.greyTrack,
                   activeTrackColor: AppColors.greenTrack,
                   activeColor: Colors.white,

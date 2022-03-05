@@ -4,11 +4,12 @@ import 'package:wordle/bloc/main/main_cubit.dart';
 import 'package:wordle/data/dictionary_interactor.dart';
 import 'package:wordle/data/enums/keyboard_keys.dart';
 import 'package:wordle/data/enums/letter.dart';
+import 'package:wordle/resources/app_colors.dart';
 
 class KeyboardKey extends StatelessWidget {
   const KeyboardKey({
     Key? key,
-    this.color = Colors.black26,
+    this.color = AppColors.greyMainDark,
     required this.keyboardKey,
   }) : super(key: key);
 
@@ -95,7 +96,7 @@ class EnterKeyboardKey extends StatelessWidget {
           },
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.black26,
+              color: AppColors.greyMain,
               borderRadius: BorderRadius.circular(4),
             ),
             child: Center(
@@ -125,7 +126,7 @@ class BackspaceKeyboardKey extends StatelessWidget {
           onTap: homeCubit.removeLetter,
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.black26,
+              color: AppColors.greyMain,
               borderRadius: BorderRadius.circular(4),
             ),
             child: const Center(

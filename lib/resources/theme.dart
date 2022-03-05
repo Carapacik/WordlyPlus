@@ -23,6 +23,7 @@ final themes = {
     primaryColor: const Color(0xFF000000),
     colorScheme: const ColorScheme.light(secondary: Color(0xFF009688)),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+    cardColor: const Color(0xffd3d6da),
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
@@ -46,6 +47,7 @@ final themes = {
     primaryColor: const Color(0xFFFFFFFF),
     colorScheme: const ColorScheme.light(secondary: Color(0xFFE575F3)),
     scaffoldBackgroundColor: const Color(0xDC121213),
+    cardColor: const Color(0xff818384),
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),

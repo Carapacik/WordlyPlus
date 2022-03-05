@@ -2,7 +2,6 @@ import 'package:auth_repository/src/models/tries.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'statistic.freezed.dart';
-
 part 'statistic.g.dart';
 
 @freezed

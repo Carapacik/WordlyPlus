@@ -162,11 +162,11 @@ class AuthRepository {
           (value) => Statistic.fromJson(value.docs[0].data()),
         )
         .onError(
-          (error, stackTrace) {
-            print(error);
-            return Statistic(uid: _firebaseAuth.currentUser?.uid ?? '');
-          },
-        );
+      (error, stackTrace) {
+        print(error);
+        return Statistic(uid: _firebaseAuth.currentUser?.uid ?? '');
+      },
+    );
   }
 }
 

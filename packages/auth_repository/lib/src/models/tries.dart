@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'tries.freezed.dart';
-
 part 'tries.g.dart';
 
 @freezed

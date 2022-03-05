@@ -50,13 +50,19 @@ const $Tries = _$TriesTearOff();
 /// @nodoc
 mixin _$Tries {
   int get first => throw _privateConstructorUsedError;
+
   int get second => throw _privateConstructorUsedError;
+
   int get third => throw _privateConstructorUsedError;
+
   int get fourth => throw _privateConstructorUsedError;
+
   int get fifth => throw _privateConstructorUsedError;
+
   int get sixth => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $TriesCopyWith<Tries> get copyWith => throw _privateConstructorUsedError;
 }
@@ -65,6 +71,7 @@ mixin _$Tries {
 abstract class $TriesCopyWith<$Res> {
   factory $TriesCopyWith(Tries value, $Res Function(Tries) then) =
       _$TriesCopyWithImpl<$Res>;
+
   $Res call(
       {int first, int second, int third, int fourth, int fifth, int sixth});
 }
@@ -74,6 +81,7 @@ class _$TriesCopyWithImpl<$Res> implements $TriesCopyWith<$Res> {
   _$TriesCopyWithImpl(this._value, this._then);
 
   final Tries _value;
+
   // ignore: unused_field
   final $Res Function(Tries) _then;
 
@@ -119,6 +127,7 @@ class _$TriesCopyWithImpl<$Res> implements $TriesCopyWith<$Res> {
 abstract class _$TriesCopyWith<$Res> implements $TriesCopyWith<$Res> {
   factory _$TriesCopyWith(_Tries value, $Res Function(_Tries) then) =
       __$TriesCopyWithImpl<$Res>;
+
   @override
   $Res call(
       {int first, int second, int third, int fourth, int fifth, int sixth});
@@ -256,16 +265,22 @@ abstract class _Tries implements Tries {
 
   @override
   int get first;
+
   @override
   int get second;
+
   @override
   int get third;
+
   @override
   int get fourth;
+
   @override
   int get fifth;
+
   @override
   int get sixth;
+
   @override
   @JsonKey(ignore: true)
   _$TriesCopyWith<_Tries> get copyWith => throw _privateConstructorUsedError;

@@ -50,13 +50,19 @@ const $Statistic = _$StatisticTearOff();
 /// @nodoc
 mixin _$Statistic {
   int get win => throw _privateConstructorUsedError;
+
   int get loses => throw _privateConstructorUsedError;
+
   int get maxStreak => throw _privateConstructorUsedError;
+
   String get uid => throw _privateConstructorUsedError;
+
   double get winRate => throw _privateConstructorUsedError;
+
   Tries get tries => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $StatisticCopyWith<Statistic> get copyWith =>
       throw _privateConstructorUsedError;
@@ -66,6 +72,7 @@ mixin _$Statistic {
 abstract class $StatisticCopyWith<$Res> {
   factory $StatisticCopyWith(Statistic value, $Res Function(Statistic) then) =
       _$StatisticCopyWithImpl<$Res>;
+
   $Res call(
       {int win,
       int loses,
@@ -82,6 +89,7 @@ class _$StatisticCopyWithImpl<$Res> implements $StatisticCopyWith<$Res> {
   _$StatisticCopyWithImpl(this._value, this._then);
 
   final Statistic _value;
+
   // ignore: unused_field
   final $Res Function(Statistic) _then;
 
@@ -134,6 +142,7 @@ class _$StatisticCopyWithImpl<$Res> implements $StatisticCopyWith<$Res> {
 abstract class $DataCopyWith<$Res> implements $StatisticCopyWith<$Res> {
   factory $DataCopyWith(Data value, $Res Function(Data) then) =
       _$DataCopyWithImpl<$Res>;
+
   @override
   $Res call(
       {int win,
@@ -277,16 +286,22 @@ abstract class Data implements Statistic {
 
   @override
   int get win;
+
   @override
   int get loses;
+
   @override
   int get maxStreak;
+
   @override
   String get uid;
+
   @override
   double get winRate;
+
   @override
   Tries get tries;
+
   @override
   @JsonKey(ignore: true)
   $DataCopyWith<Data> get copyWith => throw _privateConstructorUsedError;

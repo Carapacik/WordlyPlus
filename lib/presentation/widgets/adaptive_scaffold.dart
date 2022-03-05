@@ -63,8 +63,6 @@ class AdaptiveScaffold extends StatelessWidget {
                         ),
                         child: _buildDialogBody(context),
                       ),
-                      child: _buildDialogBody(context),
-                    ),
                   );
                 },
               );

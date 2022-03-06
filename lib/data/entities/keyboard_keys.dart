@@ -92,7 +92,7 @@ extension KeyboardKeyExtension on KeyboardKeys {
           case KeyboardKeys.x:
             return "x";
           case KeyboardKeys.c:
-            return "x";
+            return "c";
           case KeyboardKeys.v:
             return "v";
           case KeyboardKeys.b:

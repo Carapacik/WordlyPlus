@@ -3927,6 +3927,7 @@ const List<String> allWordsEn = [
   "pubic",
   "pubis",
   "pucks",
+  "pudge",
   "puffs",
   "puffy",
   "puked",

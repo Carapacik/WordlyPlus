@@ -5,7 +5,7 @@ import 'package:wordle/bloc/main/main_cubit.dart';
 import 'package:wordle/data/enums/flushbar_types.dart';
 import 'package:wordle/data/enums/keyboard_keys.dart';
 import 'package:wordle/resources/app_colors.dart';
-import 'package:wordle/resources/dictionary.dart';
+import 'package:wordle/resources/dictionary_en.dart';
 
 class DictionaryInteractor {
   factory DictionaryInteractor.getInstance() =>
@@ -55,7 +55,7 @@ class DictionaryInteractor {
           nextWord();
           return WinGameState();
         }
-        if (allWords.contains(gridData[currentWordIndex])) {
+        if (allWordsEn.contains(gridData[currentWordIndex])) {
           nextWord();
           return GridUpdateState();
         } else {
@@ -101,11 +101,16 @@ class DictionaryInteractor {
     }
   }
 
-  Future<String> createWord() async {
+  Future<String> createWord({final int? level}) async {
     final now = DateTime.now();
-    final random = Random(now.year * 10000 + now.month * 100 + now.day);
-    final index = random.nextInt(allWords.length);
-    return secretWord = allWords[index];
+    late Random random;
+    if (level == null) {
+      random = Random(now.year * 10000 + now.month * 100 + now.day);
+    } else {
+      random = Random(level);
+    }
+    final index = random.nextInt(allWordsEn.length);
+    return secretWord = allWordsEn[index];
   }
 
   String getLetters() {

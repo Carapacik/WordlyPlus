@@ -25,11 +25,12 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  int level = 0;
   @override
   void initState() {
     super.initState();
     SchedulerBinding.instance
-        ?.addPostFrameCallback((_) => _showTimerIfNeeded());
+        ?.addPostFrameCallback((_) => _showTimerIfNeeded(context));
   }
 
   @override
@@ -40,13 +41,12 @@ class _MainPageState extends State<MainPage> {
         child: BlocConsumer<MainCubit, MainState>(
           listenWhen: (_, currState) => true,
           listener: (context, state) {
-            final homeCubit = BlocProvider.of<MainCubit>(context);
             if (state is TopMessageState) {
               _showMessage(context, state);
             } else if (state is WinGameState) {
-              _makeWin(homeCubit);
+              _makeWin(context);
             } else if (state is LoseGameState) {
-              _makeLose(homeCubit);
+              _makeLose(context);
             }
           },
           buildWhen: (_, currState) => currState is MainInitial,
@@ -92,26 +92,24 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
-  Future<void> _showTimerIfNeeded() async {
+  Future<void> _showTimerIfNeeded(final BuildContext context) async {
     final s = await DictionaryInteractor.getInstance().createWord();
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey("last_game_word")) {
       if (prefs.getString("last_game_word") == s) {
-        _showTimerDialog(prefs.getBool("last_game_result") ?? false);
+        _showTimerDialog(context, prefs.getBool("last_game_result") ?? false);
       }
     }
   }
 
-  Future<void> _makeWin(final MainCubit homeCubit) async {
+  Future<void> _makeWin(final BuildContext context) async {
     await _writeResults(true);
-    await homeCubit.clearGameArea();
-    _showTimerIfNeeded();
+    _showTimerIfNeeded(context);
   }
 
-  Future<void> _makeLose(final MainCubit homeCubit) async {
+  Future<void> _makeLose(final BuildContext context) async {
     await _writeResults(false);
-    await homeCubit.clearGameArea();
-    _showTimerIfNeeded();
+    _showTimerIfNeeded(context);
   }
 
   Future<void> _writeResults(bool isWin) async {
@@ -123,7 +121,7 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
-  void _showTimerDialog(bool isWin) {
+  void _showTimerDialog(final BuildContext context, final bool isWin) {
     final now = DateTime.now();
     final nextMidnight =
         DateTime(now.year, now.month, now.day).add(const Duration(days: 1));
@@ -135,6 +133,7 @@ class _MainPageState extends State<MainPage> {
       context: context,
       barrierColor: Colors.transparent,
       builder: (BuildContext ctx) {
+        final mainCubit = BlocProvider.of<MainCubit>(context);
         return BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
           child: Dialog(
@@ -161,14 +160,14 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 20),
                   GestureDetector(
-                    onTap: () => Navigator.of(context).pop(),
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () async {
+                      level++;
+                      await mainCubit.clearGameArea(level: level);
+                      Navigator.of(context).pop();
+                    },
                     child: SizedBox(
                       width: double.infinity,
                       child: Center(
@@ -182,9 +181,7 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  const SizedBox(height: 16),
                   CountdownTimer(
                     controller: _countDownController,
                     widgetBuilder: (_, CurrentRemainingTime? time) {

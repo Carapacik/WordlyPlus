@@ -1,4 +1,4 @@
-const List<String> allWords = [
+const List<String> allWordsEn = [
   "aaron",
   "ababa",
   "abaci",

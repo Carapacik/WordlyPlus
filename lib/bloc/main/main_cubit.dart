@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:wordle/data/dictionary_interactor.dart';
-import 'package:wordle/data/enums/flushbar_types.dart';
-import 'package:wordle/data/enums/keyboard_keys.dart';
-import 'package:wordle/data/enums/letter.dart';
+import 'package:wordle/data/entities/flushbar_types.dart';
+import 'package:wordle/data/entities/keyboard_keys.dart';
+import 'package:wordle/data/entities/letter.dart';
 
 part 'main_state.dart';
 

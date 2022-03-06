@@ -11,8 +11,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
 import 'package:wordle/data/dictionary_interactor.dart';
-import 'package:wordle/data/enums/flushbar_types.dart';
-import 'package:wordle/presentation/pages/main/widgets/main_content.dart';
+import 'package:wordle/data/entities/flushbar_types.dart';
+import 'package:wordle/presentation/pages/main/widgets/keyboard_en.dart';
+import 'package:wordle/presentation/pages/main/widgets/word_grid.dart';
 import 'package:wordle/presentation/widgets/adaptive_scaffold.dart';
 import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/resources/r.dart';
@@ -26,6 +27,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int level = 0;
+
   @override
   void initState() {
     super.initState();
@@ -39,7 +41,6 @@ class _MainPageState extends State<MainPage> {
       child: BlocProvider<MainCubit>(
         create: (BuildContext context) => MainCubit(),
         child: BlocConsumer<MainCubit, MainState>(
-          listenWhen: (_, currState) => true,
           listener: (context, state) {
             if (state is TopMessageState) {
               _showMessage(context, state);
@@ -51,8 +52,14 @@ class _MainPageState extends State<MainPage> {
           },
           buildWhen: (_, currState) => currState is MainInitial,
           builder: (context, state) {
-            return MainContent(
+            return Column(
               key: UniqueKey(),
+              children: const [
+                WordGrid(),
+                Spacer(),
+                KeyboardEn(),
+                SizedBox(height: 20),
+              ],
             );
           },
         ),

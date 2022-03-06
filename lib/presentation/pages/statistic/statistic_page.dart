@@ -58,7 +58,11 @@ class StatisticView extends StatelessWidget {
         ],
       ),
       body: Column(
-        children: [],
+        children: const [
+          Center(
+            child: Text("STAT PAGE"),
+          )
+        ],
       ),
     );
   }

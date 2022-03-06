@@ -15,10 +15,10 @@ class KeyboardKey extends StatelessWidget {
   }) : super(key: key);
 
   final KeyboardKeys keyboardKey;
-  final int lang;
 
   // lang 0  - en
   // lang 1  - ru
+  final int lang;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class KeyboardKey extends StatelessWidget {
       buildWhen: (_, currentState) {
         if (currentState is KeyboardKeyUpdateState) {
           final KeyboardKeyUpdateState state = currentState;
-          if (state.keyboardKey.name == keyboardKey.name) {
+          if (state.keyboardKey == keyboardKey) {
             return true;
           }
         }

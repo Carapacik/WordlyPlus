@@ -119,8 +119,8 @@ class DictionaryInteractor {
     return gridData.join();
   }
 
-  Color getKeyColor(KeyboardKeys myKey) {
-    return coloredLetters[myKey.name] ?? AppColors.greyMain;
+  Color getKeyColor(KeyboardKeys keyboardKeys) {
+    return coloredLetters[keyboardKeys.name()] ?? AppColors.greyMain;
   }
 
   void resetData() {

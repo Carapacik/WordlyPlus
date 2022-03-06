@@ -17,14 +17,14 @@ class GridUpdateState extends MainState {
 }
 
 class KeyboardKeyUpdateState extends MainState {
-  KeyboardKeyUpdateState(this.key, this.letterType);
+  KeyboardKeyUpdateState(this.keyboardKey, this.letterType);
 
   final id = DateTime.now().microsecondsSinceEpoch;
-  final KeyboardKeys key;
+  final KeyboardKeys keyboardKey;
   final Letter letterType;
 
   @override
-  List<Object> get props => [id, key, letterType];
+  List<Object> get props => [id, keyboardKey, letterType];
 }
 
 class TopMessageState extends MainState {

@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
-import 'package:wordle/data/enums/flushbar_types.dart';
-import 'package:wordle/data/enums/keyboard_keys.dart';
+import 'package:wordle/data/entities/flushbar_types.dart';
+import 'package:wordle/data/entities/keyboard_keys.dart';
 import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/resources/dictionary_en.dart';
 
@@ -24,11 +24,13 @@ class DictionaryInteractor {
     if (KeyboardKeys.enter.name == key.name) {
       return false;
     }
+
     if (gridData.length <= currentWordIndex) {
       gridData.add("");
     }
     if (gridData[currentWordIndex].length < 5) {
-      gridData[currentWordIndex] = gridData[currentWordIndex] + key.name;
+      gridData[currentWordIndex] =
+          gridData[currentWordIndex] + (key.name() ?? "");
       return true;
     }
     return false;

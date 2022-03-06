@@ -2,52 +2,55 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
 import 'package:wordle/data/dictionary_interactor.dart';
-import 'package:wordle/data/enums/keyboard_keys.dart';
-import 'package:wordle/data/enums/letter.dart';
+import 'package:wordle/data/entities/keyboard_keys.dart';
+import 'package:wordle/data/entities/letter.dart';
 import 'package:wordle/resources/app_colors.dart';
+import 'package:wordle/resources/app_text_styles.dart';
 
 class KeyboardKey extends StatelessWidget {
   const KeyboardKey({
     Key? key,
-    this.color = AppColors.greyMainDark,
     required this.keyboardKey,
+    this.flex = 10,
   }) : super(key: key);
 
-  final Color color;
   final KeyboardKeys keyboardKey;
+  final int flex;
 
   @override
   Widget build(BuildContext context) {
-    final homeCubit = BlocProvider.of<MainCubit>(context);
+    final mainCubit = BlocProvider.of<MainCubit>(context);
     return BlocBuilder<MainCubit, MainState>(
       buildWhen: (_, currentState) {
         if (currentState is KeyboardKeyUpdateState) {
           final KeyboardKeyUpdateState state = currentState;
-          if (state.key.name == keyboardKey.name) {
+          if (state.keyboardKey.name == keyboardKey.name) {
             return true;
           }
         }
         return false;
       },
-      builder: (context, currentState) {
-        final data = DictionaryInteractor.getInstance();
-        return Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: InkWell(
-            onTap: () {
-              homeCubit.setLetter(keyboardKey);
-            },
+      builder: (context, state) {
+        final _dictionary = DictionaryInteractor.getInstance();
+        return Flexible(
+          flex: flex,
+          child: Padding(
+            padding: const EdgeInsets.all(4),
             child: AspectRatio(
-              aspectRatio: 2 / 3,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: data.getKeyColor(keyboardKey),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Center(
+              aspectRatio: keyboardKey == KeyboardKeys.enter ? 1 : 2 / 3,
+              child: InkWell(
+                onTap: () => keyboardKey == KeyboardKeys.enter
+                    ? _onEnterPressed(mainCubit, _dictionary)
+                    : mainCubit.setLetter(keyboardKey),
+                child: Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: _dictionary.getKeyColor(keyboardKey),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
                   child: Text(
-                    keyboardKey.name.toUpperCase(),
-                    style: const TextStyle(fontWeight: FontWeight.w500),
+                    keyboardKey.name()?.toUpperCase() ?? "",
+                    style: AppTextStyles.n14,
                   ),
                 ),
               ),
@@ -57,80 +60,64 @@ class KeyboardKey extends StatelessWidget {
       },
     );
   }
-}
 
-class EnterKeyboardKey extends StatelessWidget {
-  const EnterKeyboardKey({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final homeCubit = BlocProvider.of<MainCubit>(context);
-    final data = DictionaryInteractor.getInstance();
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: InkWell(
-          onTap: () {
-            if (homeCubit.submitWord()) {
-              data.gridData[data.currentWordIndex - 1]
-                  .split("")
-                  .asMap()
-                  .map((index, e) {
-                final key =
-                    KeyboardKeys.values.firstWhere((KeyboardKeys element) {
-                  return element.name == e;
-                });
-                if (data.secretWord[index] == e) {
-                  homeCubit.updateKey(key, Letter.correctSpot);
-                  return MapEntry(index, e);
-                }
-                if (data.secretWord.contains(e)) {
-                  homeCubit.updateKey(key, Letter.wrongSpot);
-                  return MapEntry(index, e);
-                }
-                homeCubit.updateKey(key, Letter.notInWords);
-                return MapEntry(index, e);
-              });
-            }
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              color: AppColors.greyMain,
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Center(
-              child: Text(
-                KeyboardKeys.enter.name.toUpperCase(),
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
+  void _onEnterPressed(
+    final MainCubit mainCubit,
+    final DictionaryInteractor dictionary,
+  ) {
+    if (mainCubit.submitWord()) {
+      dictionary.gridData[dictionary.currentWordIndex - 1]
+          .split("")
+          .asMap()
+          .map(
+        (index, e) {
+          final key = KeyboardKeys.values.firstWhere(
+            (KeyboardKeys element) {
+              return element.name() == e;
+            },
+          );
+          if (dictionary.secretWord[index] == e) {
+            mainCubit.updateKey(key, Letter.correctSpot);
+            return MapEntry(index, e);
+          }
+          if (dictionary.secretWord.contains(e)) {
+            mainCubit.updateKey(key, Letter.wrongSpot);
+            return MapEntry(index, e);
+          }
+          mainCubit.updateKey(key, Letter.notInWords);
+          return MapEntry(index, e);
+        },
+      );
+    }
   }
 }
 
-class BackspaceKeyboardKey extends StatelessWidget {
-  const BackspaceKeyboardKey({Key? key}) : super(key: key);
+class DeleteKeyboardKey extends StatelessWidget {
+  const DeleteKeyboardKey({
+    Key? key,
+    this.flex = 14,
+  }) : super(key: key);
+
+  final int flex;
 
   @override
   Widget build(BuildContext context) {
-    final homeCubit = BlocProvider.of<MainCubit>(context);
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: InkWell(
-          onTap: homeCubit.removeLetter,
-          child: Container(
-            decoration: BoxDecoration(
-              color: AppColors.greyMain,
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: const Center(
-              child: Icon(Icons.backspace_outlined),
+    final mainCubit = BlocProvider.of<MainCubit>(context);
+    return Flexible(
+      flex: flex,
+      child: Padding(
+        padding: const EdgeInsets.all(4),
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: InkWell(
+            onTap: mainCubit.removeLetter,
+            child: Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: AppColors.greyMain,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: const Icon(Icons.backspace_outlined, size: 20),
             ),
           ),
         ),

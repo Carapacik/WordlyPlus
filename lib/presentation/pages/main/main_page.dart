@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,8 +14,10 @@ import 'package:wordle/data/entities/flushbar_types.dart';
 import 'package:wordle/presentation/pages/main/widgets/keyboard_en.dart';
 import 'package:wordle/presentation/pages/main/widgets/word_grid.dart';
 import 'package:wordle/presentation/widgets/adaptive_scaffold.dart';
+import 'package:wordle/presentation/widgets/dialogs/top_flush_bar.dart';
 import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/resources/r.dart';
+import 'package:wordle/utils/utils.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -43,7 +44,20 @@ class _MainPageState extends State<MainPage> {
         child: BlocConsumer<MainCubit, MainState>(
           listener: (context, state) {
             if (state is TopMessageState) {
-              _showMessage(context, state);
+              switch (state.type) {
+                case FlushBarTypes.notFound:
+                  showTopFlushBar(
+                    context,
+                    message: R.stringsOf(context).word_not_found,
+                  );
+                  break;
+                case FlushBarTypes.notCorrectLength:
+                  showTopFlushBar(
+                    context,
+                    message: R.stringsOf(context).word_too_short,
+                  );
+                  break;
+              }
             } else if (state is WinGameState) {
               _makeWin(context);
             } else if (state is LoseGameState) {
@@ -65,38 +79,6 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
     );
-  }
-
-  void _showMessage(
-    final BuildContext context,
-    final TopMessageState myMessage,
-  ) {
-    switch (myMessage.type) {
-      case FlushBarTypes.notFound:
-        Flushbar(
-          message: R.stringsOf(context).word_not_found,
-          duration: const Duration(seconds: 1),
-          flushbarStyle: FlushbarStyle.FLOATING,
-          flushbarPosition: FlushbarPosition.TOP,
-          backgroundColor: Theme.of(context).primaryColorDark,
-          messageColor: Theme.of(context).primaryColorLight,
-          margin: const EdgeInsets.all(10),
-          borderRadius: BorderRadius.circular(10),
-        ).show(context);
-        break;
-      case FlushBarTypes.notCorrectLength:
-        Flushbar(
-          message: R.stringsOf(context).word_too_short,
-          duration: const Duration(seconds: 1),
-          flushbarStyle: FlushbarStyle.FLOATING,
-          flushbarPosition: FlushbarPosition.TOP,
-          backgroundColor: Theme.of(context).primaryColorDark,
-          messageColor: Theme.of(context).primaryColorLight,
-          margin: const EdgeInsets.all(10),
-          borderRadius: BorderRadius.circular(10),
-        ).show(context);
-        break;
-    }
   }
 
   Future<void> _showTimerIfNeeded(final BuildContext context) async {
@@ -200,9 +182,8 @@ class _MainPageState extends State<MainPage> {
                         minutes: time.min ?? 0,
                         seconds: time.sec ?? 0,
                       );
-
                       return Text(
-                        _durationToString(duration),
+                        durationToString(duration),
                         style: GoogleFonts.mulish(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
@@ -221,13 +202,7 @@ class _MainPageState extends State<MainPage> {
 
   Future<void> _dismissTimerDialog() async {
     await DictionaryInteractor.getInstance().createWord();
+    if (!mounted) return;
     Navigator.of(context, rootNavigator: true).pop();
-  }
-
-  String _durationToString(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, "0");
-    final String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    final String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
   }
 }

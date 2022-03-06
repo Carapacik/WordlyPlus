@@ -11,11 +11,14 @@ class KeyboardKey extends StatelessWidget {
   const KeyboardKey({
     Key? key,
     required this.keyboardKey,
-    this.flex = 10,
+    this.lang = 0,
   }) : super(key: key);
 
   final KeyboardKeys keyboardKey;
-  final int flex;
+  final int lang;
+
+  // lang 0  - en
+  // lang 1  - ru
 
   @override
   Widget build(BuildContext context) {
@@ -32,26 +35,22 @@ class KeyboardKey extends StatelessWidget {
       },
       builder: (context, state) {
         final _dictionary = DictionaryInteractor.getInstance();
-        return Flexible(
-          flex: flex,
-          child: Padding(
-            padding: const EdgeInsets.all(4),
-            child: AspectRatio(
-              aspectRatio: keyboardKey == KeyboardKeys.enter ? 1 : 2 / 3,
-              child: InkWell(
-                onTap: () => keyboardKey == KeyboardKeys.enter
-                    ? _onEnterPressed(mainCubit, _dictionary)
-                    : mainCubit.setLetter(keyboardKey),
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: _dictionary.getKeyColor(keyboardKey),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text(
-                    keyboardKey.name()?.toUpperCase() ?? "",
-                    style: AppTextStyles.n14,
-                  ),
+        return Container(
+          margin: const EdgeInsets.all(4),
+          width: _getWidthByLang(MediaQuery.of(context).size.width),
+          child: AspectRatio(
+            aspectRatio: 2 / 3,
+            child: InkWell(
+              onTap: () => mainCubit.setLetter(keyboardKey),
+              child: Container(
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: _dictionary.getKeyColor(keyboardKey),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  keyboardKey.name(lang: lang)?.toUpperCase() ?? "",
+                  style: AppTextStyles.n14,
                 ),
               ),
             ),
@@ -61,67 +60,124 @@ class KeyboardKey extends StatelessWidget {
     );
   }
 
-  void _onEnterPressed(
-    final MainCubit mainCubit,
-    final DictionaryInteractor dictionary,
-  ) {
-    if (mainCubit.submitWord()) {
-      dictionary.gridData[dictionary.currentWordIndex - 1]
-          .split("")
-          .asMap()
-          .map(
-        (index, e) {
-          final key = KeyboardKeys.values.firstWhere(
-            (KeyboardKeys element) {
-              return element.name() == e;
-            },
-          );
-          if (dictionary.secretWord[index] == e) {
-            mainCubit.updateKey(key, Letter.correctSpot);
-            return MapEntry(index, e);
+  double _getWidthByLang(final double width) {
+    switch (lang) {
+      case 0:
+        return width * 0.07;
+      case 1:
+        return width * 0.059;
+      default:
+        return 0;
+    }
+  }
+}
+
+class EnterKeyboardKey extends StatelessWidget {
+  const EnterKeyboardKey({
+    Key? key,
+    this.lang = 0,
+  }) : super(key: key);
+
+  final int lang;
+
+  @override
+  Widget build(BuildContext context) {
+    final mainCubit = BlocProvider.of<MainCubit>(context);
+    final dictionary = DictionaryInteractor.getInstance();
+    return Container(
+      margin: const EdgeInsets.only(right: 4),
+      height: _getHeightByLang(MediaQuery.of(context).size.width),
+      child: InkWell(
+        onTap: () {
+          if (mainCubit.submitWord()) {
+            dictionary.gridData[dictionary.currentWordIndex - 1]
+                .split("")
+                .asMap()
+                .map(
+              (index, e) {
+                final key = KeyboardKeys.values.firstWhere(
+                  (KeyboardKeys element) {
+                    return element.name() == e;
+                  },
+                );
+                if (dictionary.secretWord[index] == e) {
+                  mainCubit.updateKey(key, Letter.correctSpot);
+                  return MapEntry(index, e);
+                }
+                if (dictionary.secretWord.contains(e)) {
+                  mainCubit.updateKey(key, Letter.wrongSpot);
+                  return MapEntry(index, e);
+                }
+                mainCubit.updateKey(key, Letter.notInWords);
+                return MapEntry(index, e);
+              },
+            );
           }
-          if (dictionary.secretWord.contains(e)) {
-            mainCubit.updateKey(key, Letter.wrongSpot);
-            return MapEntry(index, e);
-          }
-          mainCubit.updateKey(key, Letter.notInWords);
-          return MapEntry(index, e);
         },
-      );
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: AppColors.greyMain,
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Text(
+            KeyboardKeys.enter.name(lang: lang)!.toUpperCase(),
+            style: AppTextStyles.n14,
+          ),
+        ),
+      ),
+    );
+  }
+
+  double _getHeightByLang(final double width) {
+    switch (lang) {
+      case 0:
+        return width * 0.07 / 2 * 3;
+      case 1:
+        return width * 0.059 / 2 * 3;
+      default:
+        return 0;
     }
   }
 }
 
 class DeleteKeyboardKey extends StatelessWidget {
-  const DeleteKeyboardKey({
-    Key? key,
-    this.flex = 14,
-  }) : super(key: key);
+  const DeleteKeyboardKey({Key? key, this.lang = 0}) : super(key: key);
 
-  final int flex;
+  final int lang;
 
   @override
   Widget build(BuildContext context) {
     final mainCubit = BlocProvider.of<MainCubit>(context);
-    return Flexible(
-      flex: flex,
-      child: Padding(
-        padding: const EdgeInsets.all(4),
-        child: AspectRatio(
-          aspectRatio: 1,
-          child: InkWell(
-            onTap: mainCubit.removeLetter,
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: AppColors.greyMain,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: const Icon(Icons.backspace_outlined, size: 20),
-            ),
+    final _width = MediaQuery.of(context).size.width;
+    return Container(
+      margin: const EdgeInsets.only(left: 4),
+      width: _getWidthByLang(_width),
+      height: _getWidthByLang(_width),
+      child: InkWell(
+        onTap: mainCubit.removeLetter,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: AppColors.greyMain,
+            borderRadius: BorderRadius.circular(4),
           ),
+          child: const Icon(Icons.backspace_outlined),
         ),
       ),
     );
+  }
+
+  double _getWidthByLang(final double width) {
+    switch (lang) {
+      case 0:
+        return width * 0.07 / 2 * 3;
+      case 1:
+        return width * 0.059 / 2 * 3;
+      default:
+        return 0;
+    }
   }
 }

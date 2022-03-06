@@ -3,8 +3,8 @@ import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/resources/app_text_styles.dart';
 import 'package:wordle/resources/r.dart';
 
-Future<bool?> showHowToPlayDialog(final BuildContext context) {
-  return showDialog(
+Future<void> showHowToPlayDialog(final BuildContext context) async {
+  showDialog(
     context: context,
     builder: (context) => AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

@@ -13,6 +13,7 @@ class KeyboardEn extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               KeyboardKey(keyboardKey: KeyboardKeys.q),
               KeyboardKey(keyboardKey: KeyboardKeys.w),
@@ -27,8 +28,9 @@ class KeyboardEn extends StatelessWidget {
             ],
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              Spacer(flex: 5),
+              Spacer(),
               KeyboardKey(keyboardKey: KeyboardKeys.a),
               KeyboardKey(keyboardKey: KeyboardKeys.s),
               KeyboardKey(keyboardKey: KeyboardKeys.d),
@@ -38,12 +40,13 @@ class KeyboardEn extends StatelessWidget {
               KeyboardKey(keyboardKey: KeyboardKeys.j),
               KeyboardKey(keyboardKey: KeyboardKeys.k),
               KeyboardKey(keyboardKey: KeyboardKeys.l),
-              Spacer(flex: 5),
+              Spacer(),
             ],
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              KeyboardKey(keyboardKey: KeyboardKeys.enter, flex: 14),
+              EnterKeyboardKey(),
               KeyboardKey(keyboardKey: KeyboardKeys.z),
               KeyboardKey(keyboardKey: KeyboardKeys.x),
               KeyboardKey(keyboardKey: KeyboardKeys.c),

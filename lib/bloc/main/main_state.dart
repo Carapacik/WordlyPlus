@@ -21,7 +21,7 @@ class KeyboardKeyUpdateState extends MainState {
 
   final id = DateTime.now().microsecondsSinceEpoch;
   final KeyboardKeys keyboardKey;
-  final Letter letterType;
+  final LetterStatus letterType;
 
   @override
   List<Object> get props => [id, keyboardKey, letterType];

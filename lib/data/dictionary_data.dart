@@ -1,23 +1,22 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
-import 'package:wordle/data/entities/flushbar_types.dart';
-import 'package:wordle/data/entities/keyboard_keys.dart';
-import 'package:wordle/resources/app_colors.dart';
+import 'package:wordle/data/models/flushbar_types.dart';
+import 'package:wordle/data/models/keyboard_keys.dart';
+import 'package:wordle/data/models/letter_status.dart';
 import 'package:wordle/resources/dictionary_en.dart';
 
-class DictionaryInteractor {
-  factory DictionaryInteractor.getInstance() =>
-      _instance ??= DictionaryInteractor._internal();
+class DictionaryData {
+  factory DictionaryData.getInstance() =>
+      _instance ??= DictionaryData._internal();
 
-  DictionaryInteractor._internal();
+  DictionaryData._internal();
 
-  static DictionaryInteractor? _instance;
+  static DictionaryData? _instance;
 
   String secretWord = "";
   List<String> gridData = [""];
-  Map<String, Color> coloredLetters = {};
+  Map<String, LetterStatus> lettersMap = {};
   int currentWordIndex = 0;
 
   bool setLetter(KeyboardKeys key) {
@@ -75,25 +74,25 @@ class DictionaryInteractor {
     final word = gridData[currentWordIndex];
     word.split("").asMap().map((key, value) {
       if (secretWord[key] == value) {
-        //green
-        if (coloredLetters.containsKey(value)) {
-          coloredLetters.update(value, (value) => Colors.green);
+        // LetterStatus.correctSpot
+        if (lettersMap.containsKey(value)) {
+          lettersMap.update(value, (value) => LetterStatus.correctSpot);
         } else {
-          coloredLetters.addAll({value: Colors.green});
+          lettersMap.addAll({value: LetterStatus.correctSpot});
         }
       } else if (secretWord.contains(value)) {
-        //orange
-        if (coloredLetters.containsKey(value)) {
-          if (coloredLetters[key] == AppColors.greyMainDark) {
-            coloredLetters.update(value, (value) => Colors.orangeAccent);
+        // LetterStatus.wrongSpot
+        if (lettersMap.containsKey(value)) {
+          if (lettersMap[key] == LetterStatus.notInWords) {
+            lettersMap.update(value, (value) => LetterStatus.wrongSpot);
           }
         } else {
-          coloredLetters.addAll({value: Colors.orangeAccent});
+          lettersMap.addAll({value: LetterStatus.wrongSpot});
         }
       } else {
-        //grey
-        if (!coloredLetters.containsKey(value)) {
-          coloredLetters.addAll({value: AppColors.greyMainDark});
+        // LetterStatus.notInWords
+        if (!lettersMap.containsKey(value)) {
+          lettersMap.addAll({value: LetterStatus.notInWords});
         }
       }
       return MapEntry(key, value);
@@ -119,14 +118,14 @@ class DictionaryInteractor {
     return gridData.join();
   }
 
-  Color getKeyColor(KeyboardKeys keyboardKeys) {
-    return coloredLetters[keyboardKeys.name()] ?? AppColors.greyMain;
+  LetterStatus getKeyStatus(KeyboardKeys keyboardKeys) {
+    return lettersMap[keyboardKeys.name()] ?? LetterStatus.unknown;
   }
 
   void resetData() {
     secretWord = "";
     gridData = [""];
-    coloredLetters = {};
+    lettersMap = {};
     currentWordIndex = 0;
   }
 }

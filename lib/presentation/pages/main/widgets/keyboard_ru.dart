@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wordle/data/entities/keyboard_keys.dart';
+import 'package:wordle/data/models/keyboard_keys.dart';
 import 'package:wordle/presentation/pages/main/widgets/keyboard_key.dart';
 
 class KeyboardRu extends StatelessWidget {

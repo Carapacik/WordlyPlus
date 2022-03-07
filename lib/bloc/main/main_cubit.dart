@@ -1,19 +1,19 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:wordle/data/dictionary_interactor.dart';
-import 'package:wordle/data/entities/flushbar_types.dart';
-import 'package:wordle/data/entities/keyboard_keys.dart';
-import 'package:wordle/data/entities/letter.dart';
+import 'package:wordle/data/dictionary_data.dart';
+import 'package:wordle/data/models/flushbar_types.dart';
+import 'package:wordle/data/models/keyboard_keys.dart';
+import 'package:wordle/data/models/letter_status.dart';
 
 part 'main_state.dart';
 
 class MainCubit extends Cubit<MainState> {
   MainCubit() : super(MainInitial());
 
-  DictionaryInteractor dictionary = DictionaryInteractor.getInstance();
+  DictionaryData dictionary = DictionaryData.getInstance();
 
-  void setLetter(KeyboardKeys key) {
-    if (dictionary.setLetter(key)) {
+  void setLetter(KeyboardKeys keyboardKey) {
+    if (dictionary.setLetter(keyboardKey)) {
       emit(GridUpdateState());
     }
   }
@@ -40,7 +40,7 @@ class MainCubit extends Cubit<MainState> {
     return false;
   }
 
-  void updateKey(KeyboardKeys key, Letter letterType) {
+  void updateKey(KeyboardKeys key, LetterStatus letterType) {
     emit(KeyboardKeyUpdateState(key, letterType));
   }
 

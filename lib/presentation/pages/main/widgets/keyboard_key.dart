@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
-import 'package:wordle/data/dictionary_interactor.dart';
-import 'package:wordle/data/entities/keyboard_keys.dart';
-import 'package:wordle/data/entities/letter.dart';
+import 'package:wordle/data/dictionary_data.dart';
+import 'package:wordle/data/models/keyboard_keys.dart';
+import 'package:wordle/data/models/letter_status.dart';
 import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/resources/app_text_styles.dart';
 
@@ -34,7 +34,7 @@ class KeyboardKey extends StatelessWidget {
         return false;
       },
       builder: (context, state) {
-        final _dictionary = DictionaryInteractor.getInstance();
+        final _dictionary = DictionaryData.getInstance();
         return Container(
           margin: const EdgeInsets.all(4),
           width: _getWidthByLang(MediaQuery.of(context).size.width),
@@ -45,7 +45,7 @@ class KeyboardKey extends StatelessWidget {
               child: Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: _dictionary.getKeyColor(keyboardKey),
+                  color: _dictionary.getKeyStatus(keyboardKey).color(context),
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text(
@@ -83,7 +83,7 @@ class EnterKeyboardKey extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mainCubit = BlocProvider.of<MainCubit>(context);
-    final dictionary = DictionaryInteractor.getInstance();
+    final dictionary = DictionaryData.getInstance();
     return Container(
       margin: const EdgeInsets.only(right: 4),
       height: _getHeightByLang(MediaQuery.of(context).size.width),
@@ -101,14 +101,14 @@ class EnterKeyboardKey extends StatelessWidget {
                   },
                 );
                 if (dictionary.secretWord[index] == e) {
-                  mainCubit.updateKey(key, Letter.correctSpot);
+                  mainCubit.updateKey(key, LetterStatus.correctSpot);
                   return MapEntry(index, e);
                 }
                 if (dictionary.secretWord.contains(e)) {
-                  mainCubit.updateKey(key, Letter.wrongSpot);
+                  mainCubit.updateKey(key, LetterStatus.wrongSpot);
                   return MapEntry(index, e);
                 }
-                mainCubit.updateKey(key, Letter.notInWords);
+                mainCubit.updateKey(key, LetterStatus.notInWords);
                 return MapEntry(index, e);
               },
             );

@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:wordle/app.dart';
 import 'package:wordle/bloc/app/bloc_observer.dart';
-import 'package:wordle/data/dictionary_interactor.dart';
+import 'package:wordle/data/dictionary_data.dart';
 
 Future<void> main() async {
   return BlocOverrides.runZoned(
@@ -14,7 +14,7 @@ Future<void> main() async {
       WidgetsFlutterBinding.ensureInitialized();
       setPathUrlStrategy();
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-      DictionaryInteractor.getInstance().createWord();
+      DictionaryData.getInstance().createWord();
       await Firebase.initializeApp();
       final storage = await HydratedStorage.build(
         storageDirectory: await getTemporaryDirectory(),

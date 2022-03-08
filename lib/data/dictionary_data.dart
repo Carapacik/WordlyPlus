@@ -14,10 +14,12 @@ class DictionaryData {
 
   static DictionaryData? _instance;
 
-  String secretWord = "";
+  String? _secretWord;
   List<String> gridData = [""];
-  Map<String, LetterStatus> lettersMap = {};
+  Map<String, LetterStatus> _lettersMap = {};
   int currentWordIndex = 0;
+
+  String get secretWord => _secretWord ?? "";
 
   bool setLetter(KeyboardKeys key) {
     if (KeyboardKeys.enter.name == key.name) {
@@ -52,12 +54,12 @@ class DictionaryData {
     }
     if (currentWordIndex < 5) {
       if (gridData[currentWordIndex].length == 5) {
-        if (gridData[currentWordIndex] == secretWord) {
-          nextWord();
+        if (gridData[currentWordIndex] == _secretWord) {
+          checkWord();
           return WinGameState();
         }
         if (allWordsEn.contains(gridData[currentWordIndex])) {
-          nextWord();
+          checkWord();
           return GridUpdateState();
         } else {
           return TopMessageState(FlushBarTypes.notFound);
@@ -70,29 +72,30 @@ class DictionaryData {
     }
   }
 
-  void nextWord() {
+  void checkWord() {
     final word = gridData[currentWordIndex];
+    if (_secretWord == null) return;
     word.split("").asMap().map((key, value) {
-      if (secretWord[key] == value) {
+      if (_secretWord![key] == value) {
         // LetterStatus.correctSpot
-        if (lettersMap.containsKey(value)) {
-          lettersMap.update(value, (value) => LetterStatus.correctSpot);
+        if (_lettersMap.containsKey(value)) {
+          _lettersMap.update(value, (value) => LetterStatus.correctSpot);
         } else {
-          lettersMap.addAll({value: LetterStatus.correctSpot});
+          _lettersMap.addAll({value: LetterStatus.correctSpot});
         }
-      } else if (secretWord.contains(value)) {
+      } else if (_secretWord!.contains(value)) {
         // LetterStatus.wrongSpot
-        if (lettersMap.containsKey(value)) {
-          if (lettersMap[key] == LetterStatus.notInWords) {
-            lettersMap.update(value, (value) => LetterStatus.wrongSpot);
+        if (_lettersMap.containsKey(value)) {
+          if (_lettersMap[key] == LetterStatus.notInWords) {
+            _lettersMap.update(value, (value) => LetterStatus.wrongSpot);
           }
         } else {
-          lettersMap.addAll({value: LetterStatus.wrongSpot});
+          _lettersMap.addAll({value: LetterStatus.wrongSpot});
         }
       } else {
         // LetterStatus.notInWords
-        if (!lettersMap.containsKey(value)) {
-          lettersMap.addAll({value: LetterStatus.notInWords});
+        if (!_lettersMap.containsKey(value)) {
+          _lettersMap.addAll({value: LetterStatus.notInWords});
         }
       }
       return MapEntry(key, value);
@@ -102,30 +105,30 @@ class DictionaryData {
     }
   }
 
-  Future<String> createWord({final int? level}) async {
+  Future<String> createSecretWord() async {
     final now = DateTime.now();
     late Random random;
-    if (level == null) {
-      random = Random(now.year * 10000 + now.month * 100 + now.day);
-    } else {
-      random = Random(level);
-    }
+    random = Random(now.year * 10000 + now.month * 100 + now.day);
     final index = random.nextInt(allWordsEn.length);
-    return secretWord = allWordsEn[index];
+    return _secretWord = allWordsEn[index];
   }
 
-  String getLetters() {
+  List<String> getAllLettersInList() {
+    return gridData[currentWordIndex - 1].split("");
+  }
+
+  String getAllLettersInString() {
     return gridData.join();
   }
 
   LetterStatus getKeyStatus(KeyboardKeys keyboardKeys) {
-    return lettersMap[keyboardKeys.name()] ?? LetterStatus.unknown;
+    return _lettersMap[keyboardKeys.name()] ?? LetterStatus.unknown;
   }
 
   void resetData() {
-    secretWord = "";
+    _secretWord = null;
     gridData = [""];
-    lettersMap = {};
+    _lettersMap = {};
     currentWordIndex = 0;
   }
 }

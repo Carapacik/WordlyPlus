@@ -14,7 +14,7 @@ Future<void> main() async {
       WidgetsFlutterBinding.ensureInitialized();
       setPathUrlStrategy();
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-      DictionaryData.getInstance().createWord();
+      DictionaryData.getInstance().createSecretWord();
       await Firebase.initializeApp();
       final storage = await HydratedStorage.build(
         storageDirectory: await getTemporaryDirectory(),

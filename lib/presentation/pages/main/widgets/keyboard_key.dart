@@ -90,10 +90,7 @@ class EnterKeyboardKey extends StatelessWidget {
       child: InkWell(
         onTap: () {
           if (mainCubit.submitWord()) {
-            dictionary.gridData[dictionary.currentWordIndex - 1]
-                .split("")
-                .asMap()
-                .map(
+            dictionary.getAllLettersInList().asMap().map(
               (index, e) {
                 final key = KeyboardKeys.values.firstWhere(
                   (KeyboardKeys element) {

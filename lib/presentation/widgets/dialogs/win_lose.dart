@@ -21,7 +21,7 @@ Future<void> showWinLoseDialog(
           CountdownTimerController(
         endTime: endTime,
         onEnd: () async {
-          await DictionaryData.getInstance().createWord();
+          await DictionaryData.getInstance().createSecretWord();
           Navigator.of(context, rootNavigator: true).pop();
         },
       );

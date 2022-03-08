@@ -14,7 +14,7 @@ class WordGrid extends StatelessWidget {
       buildWhen: (_, currentState) => currentState is GridUpdateState,
       builder: (context, state) {
         final _dictionary = DictionaryData.getInstance();
-        final _letters = _dictionary.getLetters();
+        final _currentLetters = _dictionary.getAllLettersInString();
         return GridView.count(
           padding: const EdgeInsets.all(10),
           shrinkWrap: true,
@@ -23,13 +23,14 @@ class WordGrid extends StatelessWidget {
           crossAxisSpacing: 10,
           crossAxisCount: 5,
           children: List.generate(30, (index) {
-            final letter = _letters.length > index ? _letters[index] : "";
+            final letter =
+                _currentLetters.length > index ? _currentLetters[index] : "";
             Color? color;
             if (letter.isNotEmpty &&
                 _dictionary.currentWordIndex > 0 &&
                 index < 5 * _dictionary.currentWordIndex) {
               final indexInRow = index % 5;
-              if (_dictionary.gridData.join().contains(letter)) {
+              if (_currentLetters.contains(letter)) {
                 color = AppColors.grey;
               }
               if (_dictionary.secretWord.contains(letter)) {

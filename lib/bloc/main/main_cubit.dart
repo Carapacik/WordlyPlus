@@ -44,9 +44,9 @@ class MainCubit extends Cubit<MainState> {
     emit(KeyboardKeyUpdateState(key, letterType));
   }
 
-  Future<void> clearGameArea({final int? level}) async {
+  Future<void> clearGameArea() async {
     dictionary.resetData();
-    await dictionary.createWord(level: level);
+    await dictionary.createSecretWord();
     emit(MainInitial());
   }
 }

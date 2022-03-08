@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as m;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordle/bloc/app/app_bloc.dart';
+import 'package:wordle/bloc/main/main_cubit.dart';
+import 'package:wordle/presentation/pages/settings/settings_page.dart';
 import 'package:wordle/presentation/pages/statistic/statistic_page.dart';
 import 'package:wordle/presentation/widgets/dialogs/how_to_play.dart';
-import 'package:wordle/presentation/widgets/settings_dialog.dart';
 import 'package:wordle/resources/app_text_styles.dart';
 import 'package:wordle/resources/r.dart';
 import 'package:wordle/utils/platform.dart';
@@ -60,8 +61,13 @@ class AdaptiveScaffold extends StatelessWidget {
               m.IconButton(
                 onPressed: () => Navigator.push(
                   context,
-                  MaterialPageRoute<void>(
-                    builder: (BuildContext context) => const FullScreenDialog(),
+                  MaterialPageRoute<SettingsPage>(
+                    builder: (_) {
+                      return BlocProvider.value(
+                        value: BlocProvider.of<MainCubit>(context),
+                        child: SettingsPage(),
+                      );
+                    },
                     fullscreenDialog: true,
                   ),
                 ),
@@ -109,8 +115,13 @@ class AdaptiveScaffold extends StatelessWidget {
               f.IconButton(
                 onPressed: () => Navigator.push(
                   context,
-                  MaterialPageRoute<void>(
-                    builder: (BuildContext context) => const FullScreenDialog(),
+                  MaterialPageRoute<SettingsPage>(
+                    builder: (_) {
+                      return BlocProvider.value(
+                        value: BlocProvider.of<MainCubit>(context),
+                        child: SettingsPage(),
+                      );
+                    },
                     fullscreenDialog: true,
                   ),
                 ),
@@ -163,8 +174,13 @@ class AdaptiveScaffold extends StatelessWidget {
           m.IconButton(
             onPressed: () => Navigator.push(
               context,
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) => const FullScreenDialog(),
+              MaterialPageRoute<SettingsPage>(
+                builder: (_) {
+                  return BlocProvider.value(
+                    value: BlocProvider.of<MainCubit>(context),
+                    child: SettingsPage(),
+                  );
+                },
                 fullscreenDialog: true,
               ),
             ),

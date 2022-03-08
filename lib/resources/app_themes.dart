@@ -5,7 +5,7 @@ enum AppTheme {
   darkTheme,
 }
 
-final themes = {
+final Map<AppTheme, ThemeData> themes = {
   AppTheme.lightTheme: ThemeData(
     textTheme: const TextTheme(
       headline1: TextStyle(

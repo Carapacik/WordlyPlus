@@ -6,4 +6,4 @@ supported_locales:
   - en
   - ru
 
-fallback_locale: ru
+fallback_locale: en

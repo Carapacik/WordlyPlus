@@ -5,6 +5,7 @@ import 'package:wordle/data/models/flushbar_types.dart';
 import 'package:wordle/data/models/keyboard_keys.dart';
 import 'package:wordle/data/models/letter_status.dart';
 import 'package:wordle/resources/dictionary_en.dart';
+import 'package:wordle/resources/dictionary_ru.dart';
 
 class DictionaryData {
   factory DictionaryData.getInstance() =>
@@ -14,51 +15,57 @@ class DictionaryData {
 
   static DictionaryData? _instance;
 
+  String _dictionaryLanguage = "en";
   String? _secretWord;
-  List<String> gridData = [""];
+  List<String> _gridData = [""];
   Map<String, LetterStatus> _lettersMap = {};
   int currentWordIndex = 0;
 
   String get secretWord => _secretWord ?? "";
 
-  bool setLetter(KeyboardKeys key) {
+  //ignore: use_setters_to_change_properties
+  void setDictionaryLanguage(final String value) {
+    _dictionaryLanguage = value;
+  }
+
+  bool setLetter(final KeyboardKeys key) {
     if (KeyboardKeys.enter.name == key.name) {
       return false;
     }
 
-    if (gridData.length <= currentWordIndex) {
-      gridData.add("");
+    if (_gridData.length <= currentWordIndex) {
+      _gridData.add("");
     }
-    if (gridData[currentWordIndex].length < 5) {
-      gridData[currentWordIndex] =
-          gridData[currentWordIndex] + (key.name() ?? "");
+    if (_gridData[currentWordIndex].length < 5) {
+      _gridData[currentWordIndex] =
+          _gridData[currentWordIndex] + (key.name(lang: _getIntLang()) ?? "");
       return true;
     }
     return false;
   }
 
   void removeLetter() {
-    if (gridData.length <= currentWordIndex) {
-      gridData.add("");
+    if (_gridData.length <= currentWordIndex) {
+      _gridData.add("");
     }
-    final int wordLength = gridData[currentWordIndex].length;
+    final int wordLength = _gridData[currentWordIndex].length;
     if (wordLength > 0) {
-      gridData[currentWordIndex] =
-          gridData[currentWordIndex].substring(0, wordLength - 1);
+      _gridData[currentWordIndex] =
+          _gridData[currentWordIndex].substring(0, wordLength - 1);
     }
   }
 
   MainState submitWord() {
-    if (gridData.length <= currentWordIndex) {
-      gridData.add("");
+    if (_gridData.length <= currentWordIndex) {
+      _gridData.add("");
     }
     if (currentWordIndex < 5) {
-      if (gridData[currentWordIndex].length == 5) {
-        if (gridData[currentWordIndex] == _secretWord) {
+      if (_gridData[currentWordIndex].length == 5) {
+        if (_gridData[currentWordIndex] == _secretWord) {
           checkWord();
           return WinGameState();
         }
-        if (allWordsEn.contains(gridData[currentWordIndex])) {
+        if (_getCurrentAllWord().contains(_gridData[currentWordIndex])) {
           checkWord();
           return GridUpdateState();
         } else {
@@ -73,7 +80,7 @@ class DictionaryData {
   }
 
   void checkWord() {
-    final word = gridData[currentWordIndex];
+    final word = _gridData[currentWordIndex];
     if (_secretWord == null) return;
     word.split("").asMap().map((key, value) {
       if (_secretWord![key] == value) {
@@ -107,27 +114,47 @@ class DictionaryData {
 
   Future<String> createSecretWord() async {
     final now = DateTime.now();
-    late Random random;
-    random = Random(now.year * 10000 + now.month * 100 + now.day);
-    final index = random.nextInt(allWordsEn.length);
-    return _secretWord = allWordsEn[index];
+    final Random random = Random(now.year * 10000 + now.month * 100 + now.day);
+    final dictionary = _getCurrentAllWord();
+    final index = random.nextInt(dictionary.length);
+    return _secretWord = dictionary[index];
   }
 
   List<String> getAllLettersInList() {
-    return gridData[currentWordIndex - 1].split("");
+    return _gridData[currentWordIndex - 1].split("");
   }
 
   String getAllLettersInString() {
-    return gridData.join();
+    return _gridData.join();
   }
 
-  LetterStatus getKeyStatus(KeyboardKeys keyboardKeys) {
-    return _lettersMap[keyboardKeys.name()] ?? LetterStatus.unknown;
+  LetterStatus getKeyStatus(String? keyName) {
+    return _lettersMap[keyName] ?? LetterStatus.unknown;
+  }
+
+  List<String> _getCurrentAllWord() {
+    switch (_dictionaryLanguage) {
+      case "ru":
+        return allWordsRu;
+      case "en":
+      default:
+        return allWordsEn;
+    }
+  }
+
+  int _getIntLang() {
+    switch (_dictionaryLanguage) {
+      case "ru":
+        return 1;
+      case "en":
+      default:
+        return 0;
+    }
   }
 
   void resetData() {
     _secretWord = null;
-    gridData = [""];
+    _gridData = [""];
     _lettersMap = {};
     currentWordIndex = 0;
   }

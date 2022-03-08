@@ -25,8 +25,9 @@ class LoginForm extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
-                content: Text(state.errorMessage ??
-                    R.stringsOf(context).auth_fail_message),
+                content: Text(
+                  state.errorMessage ?? R.stringsOf(context).auth_fail_message,
+                ),
               ),
             );
         }
@@ -71,10 +72,12 @@ class _EmailInput extends StatelessWidget {
             helperText: '',
             labelStyle: TextStyle(color: Theme.of(context).primaryColor),
             enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+              borderSide: BorderSide(color: Theme.of(context).primaryColor),
+            ),
             focusedBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: Theme.of(context).colorScheme.secondary)),
+              borderSide:
+                  BorderSide(color: Theme.of(context).colorScheme.secondary),
+            ),
             errorText: state.email.invalid
                 ? R.stringsOf(context).invalid_email_message
                 : null,
@@ -102,10 +105,12 @@ class _PasswordInput extends StatelessWidget {
             helperText: '',
             labelStyle: TextStyle(color: Theme.of(context).primaryColor),
             enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+              borderSide: BorderSide(color: Theme.of(context).primaryColor),
+            ),
             focusedBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: Theme.of(context).colorScheme.secondary)),
+              borderSide:
+                  BorderSide(color: Theme.of(context).colorScheme.secondary),
+            ),
             errorText: state.password.invalid
                 ? R.stringsOf(context).invalid_password_message
                 : null,

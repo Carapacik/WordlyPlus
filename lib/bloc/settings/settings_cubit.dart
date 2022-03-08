@@ -8,40 +8,42 @@ class SettingsCubit extends HydratedCubit<SettingsState> {
       : super(
           const SettingsState(
             isDarkThemeOn: false,
-            isEngLang: false,
             isHighContrast: false,
+            language: "en",
           ),
         );
 
-  void toggleTheme({required bool value}) =>
-      emit(state.copyWith(isDarkThemeOn: value));
+  void toggleTheme({required bool value}) => emit(
+        state.copyWith(isDarkThemeOn: value),
+      );
 
-  void toggleLanguage({required bool value}) {
-    emit(state.copyWith(isEngLang: value));
-  }
+  void toggleContrast({required bool value}) => emit(
+        state.copyWith(isHighContrast: value),
+      );
 
-  void toggleContrast({required bool value}) =>
-      emit(state.copyWith(isHighContrast: value));
+  void changeLanguage({required String value}) => emit(
+        state.copyWith(language: value),
+      );
 
   @override
   SettingsState? fromJson(Map<String, dynamic> json) {
-    final isDarkTheme = json['isDarkTheme'] as bool;
-    final isEngLang = json['isEngLang'] as bool;
-    final isHighContrast = json['isHighContrast'] as bool;
+    final isDarkTheme = json['is_dark_theme'] as bool;
+    final isHighContrast = json['is_high_contrast'] as bool;
+    final language = json['settings_language'] as String;
 
     return SettingsState(
       isDarkThemeOn: isDarkTheme,
-      isEngLang: isEngLang,
       isHighContrast: isHighContrast,
+      language: language,
     );
   }
 
   @override
   Map<String, dynamic>? toJson(SettingsState state) {
     return {
-      "isDarkTheme": state.isDarkThemeOn.toString(),
-      "isEngLang": state.isEngLang.toString(),
-      "isHighContrast": state.isHighContrast.toString(),
+      "is_dark_theme": state.isDarkThemeOn.toString(),
+      "is_high_contrast": state.isHighContrast.toString(),
+      "settings_language": state.language,
     };
   }
 }

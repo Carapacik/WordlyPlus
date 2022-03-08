@@ -17,6 +17,7 @@ Future<void> main() async {
       DictionaryData.getInstance().createSecretWord();
       await Firebase.initializeApp();
       final storage = await HydratedStorage.build(
+        // TODO: replace this with shared preferences
         storageDirectory: await getTemporaryDirectory(),
       );
       HydratedBlocOverrides.runZoned(

@@ -8,11 +8,16 @@ import 'package:wordle/data/models/letter_status.dart';
 part 'main_state.dart';
 
 class MainCubit extends Cubit<MainState> {
-  MainCubit() : super(MainInitial());
+  MainCubit() : super(const ChangeDictionaryState("en"));
 
   DictionaryData dictionary = DictionaryData.getInstance();
 
-  void setLetter(KeyboardKeys keyboardKey) {
+  void changeDictionary({required String value}) {
+    DictionaryData.getInstance().setDictionaryLanguage(value);
+    emit(ChangeDictionaryState(value));
+  }
+
+  void setLetter(final KeyboardKeys keyboardKey) {
     if (dictionary.setLetter(keyboardKey)) {
       emit(GridUpdateState());
     }
@@ -44,9 +49,9 @@ class MainCubit extends Cubit<MainState> {
     emit(KeyboardKeyUpdateState(key, letterType));
   }
 
-  Future<void> clearGameArea() async {
+  Future<void> clearGameArea(final String lang) async {
     dictionary.resetData();
     await dictionary.createSecretWord();
-    emit(MainInitial());
+    emit(ChangeDictionaryState(lang));
   }
 }

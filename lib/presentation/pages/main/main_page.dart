@@ -6,6 +6,7 @@ import 'package:wordle/data/models/daily_result.dart';
 import 'package:wordle/data/models/flushbar_types.dart';
 import 'package:wordle/data/repositories/dauly_result_repository.dart';
 import 'package:wordle/presentation/pages/main/widgets/keyboard_en.dart';
+import 'package:wordle/presentation/pages/main/widgets/keyboard_ru.dart';
 import 'package:wordle/presentation/pages/main/widgets/word_grid.dart';
 import 'package:wordle/presentation/widgets/adaptive_scaffold.dart';
 import 'package:wordle/presentation/widgets/dialogs/top_flush_bar.dart';
@@ -30,9 +31,9 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveScaffold(
-      child: BlocProvider<MainCubit>(
-        create: (BuildContext context) => MainCubit(),
+    return BlocProvider<MainCubit>(
+      create: (BuildContext context) => MainCubit(),
+      child: AdaptiveScaffold(
         child: BlocConsumer<MainCubit, MainState>(
           listener: (context, state) {
             if (state is TopMessageState) {
@@ -56,21 +57,37 @@ class _MainPageState extends State<MainPage> {
               _showDialogIfNeed(context, isWin: false);
             }
           },
-          buildWhen: (_, currState) => currState is MainInitial,
+          buildWhen: (_, currState) => currState is ChangeDictionaryState,
           builder: (context, state) {
             return Column(
               key: UniqueKey(),
-              children: const [
-                WordGrid(),
-                Spacer(),
-                KeyboardEn(),
-                SizedBox(height: 20),
+              children: [
+                const WordGrid(),
+                const Spacer(),
+                BlocBuilder<MainCubit, MainState>(
+                  buildWhen: (previous, current) =>
+                      current is ChangeDictionaryState,
+                  builder: (context, state) => _getKeyboardByLanguage(
+                    state is! ChangeDictionaryState ? "en" : state.dictionary,
+                  ),
+                ),
+                const SizedBox(height: 20),
               ],
             );
           },
         ),
       ),
     );
+  }
+
+  Widget _getKeyboardByLanguage(final String language) {
+    switch (language) {
+      case "ru":
+        return const KeyboardRu();
+      case "en":
+      default:
+        return const KeyboardEn();
+    }
   }
 
   Future<void> _showDialogIfNeed(
@@ -81,6 +98,7 @@ class _MainPageState extends State<MainPage> {
       final savedItem = await DailyResultRepository.getInstance().getItem();
       final dailyWord = DictionaryData.getInstance().secretWord;
       if (savedItem != null && savedItem.word == dailyWord) {
+        if (!mounted) return;
         await showWinLoseDialog(context, isWin: savedItem.isWin);
       }
     } else {

@@ -4,13 +4,13 @@ import 'package:wordle/data/models/daily_result.dart';
 import 'package:wordle/data/repositories/save_reactive_repository.dart';
 import 'package:wordle/data/shared_preferences_data.dart';
 
-class DailyResultRepository extends SaveReactiveRepository<DailyResult> {
-  factory DailyResultRepository.getInstance() => _instance ??=
-      DailyResultRepository._internal(SharedPreferenceData.getInstance());
+class SettingsRepository extends SaveReactiveRepository<DailyResult> {
+  factory SettingsRepository.getInstance() => _instance ??=
+      SettingsRepository._internal(SharedPreferenceData.getInstance());
 
-  DailyResultRepository._internal(this.spData);
+  SettingsRepository._internal(this.spData);
 
-  static DailyResultRepository? _instance;
+  static SettingsRepository? _instance;
 
   final SharedPreferenceData spData;
 

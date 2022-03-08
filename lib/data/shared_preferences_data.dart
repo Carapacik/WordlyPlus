@@ -8,6 +8,7 @@ class SharedPreferenceData {
 
   static SharedPreferenceData? _instance;
   static const dailyResultKey = "daily_result_key";
+  static const settingsDataKey = "daily_result_key";
 
   Future<bool> saveDailyResult(final String dailyResult) async {
     final sp = await SharedPreferences.getInstance();

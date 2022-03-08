@@ -2,6 +2,7 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 
+//ignore: avoid_classes_with_only_static_members
 class PlatformType {
   static PlatformTypeEnum currentPlatformType = _getCurrentPlatformType();
 

@@ -45,7 +45,9 @@ class KeyboardKey extends StatelessWidget {
               child: Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: _dictionary.getKeyStatus(keyboardKey).color(context),
+                  color: _dictionary
+                      .getKeyStatus(keyboardKey.name(lang: lang))
+                      .color(context),
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text(
@@ -93,9 +95,7 @@ class EnterKeyboardKey extends StatelessWidget {
             dictionary.getAllLettersInList().asMap().map(
               (index, e) {
                 final key = KeyboardKeys.values.firstWhere(
-                  (KeyboardKeys element) {
-                    return element.name() == e;
-                  },
+                  (element) => element.name(lang: lang) == e,
                 );
                 if (dictionary.secretWord[index] == e) {
                   mainCubit.updateKey(key, LetterStatus.correctSpot);

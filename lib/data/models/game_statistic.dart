@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:wordle/data/models/game_attempt.dart';
 
 part 'game_statistic.freezed.dart';
+
 part 'game_statistic.g.dart';
 
 @freezed

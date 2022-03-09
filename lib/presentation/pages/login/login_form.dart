@@ -140,11 +140,13 @@ class _LoginButton extends StatelessWidget {
                 onPressed: state.status.isValidated
                     ? () {
                         context.read<LoginCubit>().logInWithCredentials();
-                        Navigator.of(context, rootNavigator: true).push(
-                          MaterialPageRoute(
-                            builder: (context) => const StatisticView(),
-                          ),
-                        );
+                        if (state.status.isSubmissionSuccess) {
+                          Navigator.of(context, rootNavigator: true).push(
+                            MaterialPageRoute(
+                              builder: (context) => const StatisticView(),
+                            ),
+                          );
+                        }
                       }
                     : null,
                 child: Text(R.stringsOf(context).login.toUpperCase()),

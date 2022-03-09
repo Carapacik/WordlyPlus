@@ -1,17 +1,31 @@
+import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:wordle/data/models/settings_data.dart';
+import 'package:wordle/data/repositories/settings_repository.dart';
 
 part 'settings_state.dart';
 
-class SettingsCubit extends HydratedCubit<SettingsState> {
-  SettingsCubit()
+class SettingsCubit extends Cubit<SettingsState> {
+  SettingsCubit({required SettingsData item})
       : super(
-          const SettingsState(
-            isDarkThemeOn: false,
-            isHighContrast: false,
-            language: "en",
+          SettingsState(
+            isDarkThemeOn: item.isDarkTheme,
+            isHighContrast: item.isHighContrast,
+            language: item.appLanguage,
           ),
         );
+
+  @override
+  Future<void> onChange(Change<SettingsState> change) async {
+    super.onChange(change);
+    await SettingsRepository.getInstance().setItem(
+      SettingsData(
+        isDarkTheme: change.nextState.isDarkThemeOn,
+        isHighContrast: change.nextState.isHighContrast,
+        appLanguage: change.nextState.language,
+      ),
+    );
+  }
 
   void toggleTheme({required bool value}) => emit(
         state.copyWith(isDarkThemeOn: value),
@@ -24,26 +38,4 @@ class SettingsCubit extends HydratedCubit<SettingsState> {
   void changeLanguage({required String value}) => emit(
         state.copyWith(language: value),
       );
-
-  @override
-  SettingsState? fromJson(Map<String, dynamic> json) {
-    final isDarkTheme = json['is_dark_theme'] as bool;
-    final isHighContrast = json['is_high_contrast'] as bool;
-    final language = json['settings_language'] as String;
-
-    return SettingsState(
-      isDarkThemeOn: isDarkTheme,
-      isHighContrast: isHighContrast,
-      language: language,
-    );
-  }
-
-  @override
-  Map<String, dynamic>? toJson(SettingsState state) {
-    return {
-      "is_dark_theme": state.isDarkThemeOn.toString(),
-      "is_high_contrast": state.isHighContrast.toString(),
-      "settings_language": state.language,
-    };
-  }
 }

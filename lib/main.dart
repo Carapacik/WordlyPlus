@@ -29,3 +29,4 @@ Future<void> main() async {
     blocObserver: AppBlocObserver(),
   );
 }
+

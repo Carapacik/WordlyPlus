@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';
+import 'package:get_it/get_it.dart';
 
 part 'sign_up_state.dart';
 
@@ -74,6 +75,8 @@ class SignUpCubit extends Cubit<SignUpState> {
           uid: _authRepository.currentUser.id,
         ),
       );
+      final statistic = await _authRepository.getStatistic();
+      GetIt.I.registerLazySingleton<Statistic>(() => statistic);
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on SignUpWithEmailAndPasswordFailure catch (e) {
       emit(

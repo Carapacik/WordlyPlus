@@ -29,7 +29,9 @@ dependencies:
     path: packages/form_inputs
   formz: ^0.4.1
   freezed_annotation: ^1.1.0
+  get_it: ^7.2.0
   google_fonts: ^2.3.1
+  isar: ^2.2.1
   json_annotation: ^4.4.0
   r_resources: ^1.0.1
   shared_preferences: ^2.0.13

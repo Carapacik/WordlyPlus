@@ -9,26 +9,31 @@ class SharedPreferenceData {
   static SharedPreferenceData? _instance;
   static const dailyResultKey = "daily_result_key";
   static const settingsDataKey = "settings_data_key";
+  static const gameStatisticKey = "game_statistic_key";
 
-  Future<bool> saveDailyResult(final String dailyResult) async {
+  Future<String?> getDailyResult() async => _getData(dailyResultKey);
+
+  Future<bool> saveDailyResult(final String dailyResult) async =>
+      _saveData(dailyResultKey, dailyResult);
+
+  Future<String?> getSettingsData() async => _getData(settingsDataKey);
+
+  Future<bool> saveSettingsData(final String settingsData) async =>
+      _saveData(settingsDataKey, settingsData);
+
+  Future<String?> getGameStatistic() async => _getData(gameStatisticKey);
+
+  Future<bool> saveGameStatistic(final String gameStatistic) async =>
+      _saveData(gameStatisticKey, gameStatistic);
+
+  Future<bool> _saveData(final String key, final String data) async {
     final sp = await SharedPreferences.getInstance();
-    final result = sp.setString(dailyResultKey, dailyResult);
+    final result = sp.setString(dailyResultKey, data);
     return result;
   }
 
-  Future<String?> getDailyResult() async {
+  Future<String?> _getData(final String key) async {
     final sp = await SharedPreferences.getInstance();
-    return sp.getString(dailyResultKey);
-  }
-
-  Future<bool> saveSettingsData(final String settingsData) async {
-    final sp = await SharedPreferences.getInstance();
-    final result = sp.setString(settingsDataKey, settingsData);
-    return result;
-  }
-
-  Future<String?> getSettingsData() async {
-    final sp = await SharedPreferences.getInstance();
-    return sp.getString(settingsDataKey);
+    return sp.getString(key);
   }
 }

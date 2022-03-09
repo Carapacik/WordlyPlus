@@ -18,10 +18,11 @@ Future<void> main() async {
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
       DictionaryData.getInstance().createSecretWord();
       await Firebase.initializeApp();
-      final item = await SettingsRepository.getInstance().getItem();
+      final settingsData = await SettingsRepository.getInstance().getItem();
       runApp(
         BlocProvider<SettingsCubit>(
-          create: (_) => SettingsCubit(item: item ?? const SettingsData()),
+          create: (_) =>
+              SettingsCubit(item: settingsData ?? const SettingsData()),
           child: const App(),
         ),
       );

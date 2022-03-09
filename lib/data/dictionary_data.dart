@@ -81,11 +81,9 @@ class DictionaryData {
 
   void checkWord() {
     final word = _gridData[currentWordIndex];
-    print(_secretWord);
     if (_secretWord == null) return;
     word.split("").asMap().map((key, value) {
       if (_secretWord![key] == value) {
-        print("_secretWord![key] ${_secretWord![key]}");
         // LetterStatus.correctSpot
         if (_lettersMap.containsKey(value)) {
           _lettersMap.update(value, (value) => LetterStatus.correctSpot);

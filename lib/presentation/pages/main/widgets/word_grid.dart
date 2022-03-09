@@ -40,10 +40,14 @@ class WordGrid extends StatelessWidget {
                     color = AppColors.grey;
                   }
                   if (_dictionary.secretWord.contains(letter)) {
-                    color = state.isHighContrast ? AppColors.highContrastBlue : AppColors.yellow;
+                    color = state.isHighContrast
+                        ? AppColors.highContrastBlue
+                        : AppColors.yellow;
                   }
                   if (_dictionary.secretWord[indexInRow] == letter) {
-                    color = state.isHighContrast ? AppColors.highContrastOrange : AppColors.green;
+                    color = state.isHighContrast
+                        ? AppColors.highContrastOrange
+                        : AppColors.green;
                   }
                 }
                 return _GridItem(letter: letter, color: color);

@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'daily_result.freezed.dart';
-
 part 'daily_result.g.dart';
 
 @freezed

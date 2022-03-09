@@ -150,7 +150,7 @@ class AuthRepository {
   Future<void> addStatistic(final Statistic statistic) {
     return _statistic
         .add(statistic.toJson())
-        .then((value) => print("statistic Added"))
+        .then((value) => () {})
         .catchError((error) => print(error));
   }
 

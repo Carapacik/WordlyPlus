@@ -4,7 +4,9 @@ import 'package:wordle/bloc/main/main_cubit.dart';
 import 'package:wordle/data/dictionary_data.dart';
 import 'package:wordle/data/models/daily_result.dart';
 import 'package:wordle/data/models/flushbar_types.dart';
+import 'package:wordle/data/models/game_statistic.dart';
 import 'package:wordle/data/repositories/dauly_result_repository.dart';
+import 'package:wordle/data/repositories/game_statistic_repository.dart';
 import 'package:wordle/presentation/pages/main/widgets/keyboard_en.dart';
 import 'package:wordle/presentation/pages/main/widgets/keyboard_ru.dart';
 import 'package:wordle/presentation/pages/main/widgets/word_grid.dart';
@@ -94,21 +96,49 @@ class _MainPageState extends State<MainPage> {
     final BuildContext context, {
     final bool? isWin,
   }) async {
-    if (isWin == null) {
-      final savedItem = await DailyResultRepository.getInstance().getItem();
-      final dailyWord = DictionaryData.getInstance().secretWord;
-      if (savedItem != null && savedItem.word == dailyWord) {
-        if (!mounted) return;
-        await showWinLoseDialog(context, isWin: savedItem.isWin);
-      }
-    } else {
+    final savedStatistic =
+        await GameStatisticRepository.getInstance().getItem() ??
+            const GameStatistic();
+    if (isWin != null) {
       DailyResultRepository.getInstance().setItem(
         DailyResult(
           isWin: isWin,
           word: DictionaryData.getInstance().secretWord,
         ),
       );
-      await showWinLoseDialog(context, isWin: isWin);
+      late GameStatistic newStatistic;
+      if (isWin) {
+        newStatistic = savedStatistic.copyWith(
+          wins: savedStatistic.wins + 1,
+          currentStreak: savedStatistic.currentStreak + 1,
+          maxStreak: savedStatistic.currentStreak + 1 > savedStatistic.maxStreak
+              ? savedStatistic.currentStreak
+              : savedStatistic.maxStreak,
+        );
+      } else {
+        newStatistic = savedStatistic.copyWith(
+          loses: savedStatistic.loses + 1,
+          currentStreak: 0,
+        );
+      }
+
+      if (!mounted) return;
+      await showWinLoseDialog(
+        context,
+        isWin: isWin,
+        statistic: newStatistic,
+      );
+    } else {
+      final savedItem = await DailyResultRepository.getInstance().getItem();
+      final dailyWord = DictionaryData.getInstance().secretWord;
+      if (savedItem != null && savedItem.word == dailyWord) {
+        if (!mounted) return;
+        await showWinLoseDialog(
+          context,
+          isWin: savedItem.isWin,
+          statistic: savedStatistic,
+        );
+      }
     }
   }
 }

@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'game_attempt.freezed.dart';
-
 part 'game_attempt.g.dart';
 
 @freezed

@@ -100,6 +100,7 @@ class _MainPageState extends State<MainPage> {
         await GameStatisticRepository.getInstance().getItem() ??
             const GameStatistic();
     if (isWin != null) {
+      final attemptNumber = DictionaryData.getInstance().currentWordIndex;
       DailyResultRepository.getInstance().setItem(
         DailyResult(
           isWin: isWin,
@@ -121,7 +122,7 @@ class _MainPageState extends State<MainPage> {
           currentStreak: 0,
         );
       }
-
+      await GameStatisticRepository.getInstance().setItem(newStatistic);
       if (!mounted) return;
       await showWinLoseDialog(
         context,

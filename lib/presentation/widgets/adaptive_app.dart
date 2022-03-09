@@ -19,32 +19,29 @@ class AdaptiveApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (PlatformType.isCupertino()) {
-      return CupertinoApp(debugShowCheckedModeBanner: false, home: home);
-    } else if (PlatformType.isFluent()) {
-      return FluentApp(debugShowCheckedModeBanner: false, home: home);
-    }
-    return BlocProvider<SettingsCubit>(
-      create: (_) => SettingsCubit(),
-      child: BlocBuilder<SettingsCubit, SettingsState>(
-        builder: (context, state) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            supportedLocales: RStringsDelegate.supportedLocales,
-            localizationsDelegates: const [
-              RStringsDelegate(),
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            locale: getLocaleFromString(state.language),
-            theme: state.isDarkThemeOn
-                ? themes[AppTheme.darkTheme]
-                : themes[AppTheme.lightTheme],
-            home: home,
-          );
-        },
-      ),
+    return BlocBuilder<SettingsCubit, SettingsState>(
+      builder: (context, state) {
+        if (PlatformType.isCupertino()) {
+          return CupertinoApp(debugShowCheckedModeBanner: false, home: home);
+        } else if (PlatformType.isFluent()) {
+          return FluentApp(debugShowCheckedModeBanner: false, home: home);
+        }
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          supportedLocales: RStringsDelegate.supportedLocales,
+          localizationsDelegates: const [
+            RStringsDelegate(),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          locale: getLocaleFromString(state.language),
+          theme: state.isDarkThemeOn
+              ? themes[AppTheme.darkTheme]
+              : themes[AppTheme.lightTheme],
+          home: home,
+        );
+      },
     );
   }
 }

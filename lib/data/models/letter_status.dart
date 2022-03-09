@@ -9,16 +9,16 @@ enum LetterStatus {
 }
 
 extension LetterStatusExtension on LetterStatus {
-  Color color(final BuildContext context, {final bool highContrast = true}) {
+  Color color(final BuildContext context, {final bool highContrast = false}) {
     switch (this) {
       case LetterStatus.unknown:
-        return AppColors.grey;
+        return Theme.of(context).cardColor;
       case LetterStatus.notInWords:
-        return AppColors.darkGrey;
+        return Theme.of(context).shadowColor;
       case LetterStatus.wrongSpot:
-        return AppColors.yellow;
+        return highContrast ? AppColors.highContrastBlue : AppColors.yellow;
       case LetterStatus.correctSpot:
-        return AppColors.green;
+        return highContrast ? AppColors.highContrastOrange : AppColors.green;
     }
   }
 }

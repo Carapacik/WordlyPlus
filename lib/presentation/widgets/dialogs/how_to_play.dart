@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordle/bloc/settings/settings_cubit.dart';
 import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/resources/app_text_styles.dart';
 import 'package:wordle/resources/r.dart';
@@ -7,30 +9,40 @@ Future<void> showHowToPlayDialog(final BuildContext context) async {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      backgroundColor: AppColors.darkGrey,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      backgroundColor: Theme.of(context).primaryColorLight,
       title: Text(
         R.stringsOf(context).how_to_play,
         style: AppTextStyles.m25,
       ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _RuleItem(
-            text: R.stringsOf(context).letter_incorrect,
-            color: AppColors.grey,
-          ),
-          const SizedBox(height: 16),
-          _RuleItem(
-            text: R.stringsOf(context).letter_incorrect_spot,
-            color: AppColors.yellow,
-          ),
-          const SizedBox(height: 16),
-          _RuleItem(
-            text: R.stringsOf(context).letter_correct,
-            color: AppColors.green,
-          ),
-        ],
+      content: BlocBuilder<SettingsCubit, SettingsState>(
+        buildWhen: (previous, current) =>
+            previous.isHighContrast != current.isHighContrast,
+        builder: (context, state) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _RuleItem(
+                text: R.stringsOf(context).letter_incorrect,
+                color: AppColors.grey,
+              ),
+              const SizedBox(height: 16),
+              _RuleItem(
+                text: R.stringsOf(context).letter_incorrect_spot,
+                color: state.isHighContrast
+                    ? AppColors.highContrastBlue
+                    : AppColors.yellow,
+              ),
+              const SizedBox(height: 16),
+              _RuleItem(
+                text: R.stringsOf(context).letter_correct,
+                color: state.isHighContrast
+                    ? AppColors.highContrastOrange
+                    : AppColors.green,
+              ),
+            ],
+          );
+        },
       ),
     ),
   );

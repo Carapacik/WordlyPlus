@@ -27,21 +27,23 @@ Future<void> showWinLoseDialog(
       );
       return AlertDialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(24),
         ),
         backgroundColor: isWin ? Colors.green : Colors.red,
-        title: Text(
-          isWin
-              ? R.stringsOf(context).win_message
-              : R.stringsOf(context).lose_message,
-          style: AppTextStyles.m25,
+        title: Center(
+          child: Text(
+            isWin
+                ? R.stringsOf(context).win_message
+                : R.stringsOf(context).lose_message,
+            style: AppTextStyles.m25.copyWith(color: Colors.white),
+          ),
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               R.stringsOf(context).next_wordle,
-              style: AppTextStyles.m25,
+              style: AppTextStyles.m25.copyWith(color: Colors.white),
             ),
             CountdownTimer(
               controller: _countDownController,
@@ -56,7 +58,7 @@ Future<void> showWinLoseDialog(
                 );
                 return Text(
                   durationToString(duration),
-                  style: AppTextStyles.m20,
+                  style: AppTextStyles.m20.copyWith(color: Colors.white),
                 );
               },
             ),

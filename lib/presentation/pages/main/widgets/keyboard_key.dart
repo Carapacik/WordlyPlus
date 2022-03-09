@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
+import 'package:wordle/bloc/settings/settings_cubit.dart';
 import 'package:wordle/data/dictionary_data.dart';
 import 'package:wordle/data/models/keyboard_keys.dart';
 import 'package:wordle/data/models/letter_status.dart';
@@ -42,18 +43,24 @@ class KeyboardKey extends StatelessWidget {
             aspectRatio: 2 / 3,
             child: InkWell(
               onTap: () => mainCubit.setLetter(keyboardKey),
-              child: Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: _dictionary
-                      .getKeyStatus(keyboardKey.name(lang: lang))
-                      .color(context),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Text(
-                  keyboardKey.name(lang: lang)?.toUpperCase() ?? "",
-                  style: AppTextStyles.n14,
-                ),
+              child: BlocBuilder<SettingsCubit, SettingsState>(
+                buildWhen: (previous, current) =>
+                    previous.isHighContrast != current.isHighContrast,
+                builder: (context, state) {
+                  return Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: _dictionary
+                          .getKeyStatus(keyboardKey.name(lang: lang))
+                          .color(context, highContrast: state.isHighContrast),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Text(
+                      keyboardKey.name(lang: lang)?.toUpperCase() ?? "",
+                      style: AppTextStyles.n14,
+                    ),
+                  );
+                },
               ),
             ),
           ),
@@ -115,7 +122,7 @@ class EnterKeyboardKey extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 4),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: AppColors.greyMain,
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(4),
           ),
           child: Text(
@@ -158,7 +165,7 @@ class DeleteKeyboardKey extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 4),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: AppColors.greyMain,
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(4),
           ),
           child: const Icon(Icons.backspace_outlined),

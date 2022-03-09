@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:wordle/data/models/daily_result.dart';
+import 'package:wordle/data/models/settings_data.dart';
 import 'package:wordle/data/repositories/save_reactive_repository.dart';
 import 'package:wordle/data/shared_preferences_data.dart';
 
-class SettingsRepository extends SaveReactiveRepository<DailyResult> {
+class SettingsRepository extends SaveReactiveRepository<SettingsData> {
   factory SettingsRepository.getInstance() => _instance ??=
       SettingsRepository._internal(SharedPreferenceData.getInstance());
 
@@ -15,15 +15,15 @@ class SettingsRepository extends SaveReactiveRepository<DailyResult> {
   final SharedPreferenceData spData;
 
   @override
-  DailyResult convertFromString(String rawItem) =>
-      DailyResult.fromJson(json.decode(rawItem) as Map<String, dynamic>);
+  SettingsData convertFromString(String rawItem) =>
+      SettingsData.fromJson(json.decode(rawItem) as Map<String, dynamic>);
 
   @override
-  String convertToString(DailyResult item) => json.encode(item.toJson());
+  String convertToString(SettingsData item) => json.encode(item.toJson());
 
   @override
-  Future<String?> getRawData() => spData.getDailyResult();
+  Future<String?> getRawData() => spData.getSettingsData();
 
   @override
-  Future<bool> setRawData(String item) => spData.saveDailyResult(item);
+  Future<bool> setRawData(String item) => spData.saveSettingsData(item);
 }

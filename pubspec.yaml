@@ -35,10 +35,6 @@ dependencies:
   shared_preferences: ^2.0.13
   url_strategy: ^0.2.0
 
-  # delete plz
-  path_provider: ^2.0.9
-  hydrated_bloc: ^8.0.0
-
 dev_dependencies:
   build_runner: ^2.1.7
   flutter_launcher_icons_maker: ^0.10.2

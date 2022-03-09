@@ -1,12 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:wordle/app.dart';
 import 'package:wordle/bloc/app/bloc_observer.dart';
+import 'package:wordle/bloc/settings/settings_cubit.dart';
 import 'package:wordle/data/dictionary_data.dart';
+import 'package:wordle/data/models/settings_data.dart';
+import 'package:wordle/data/repositories/settings_repository.dart';
 
 Future<void> main() async {
   return BlocOverrides.runZoned(
@@ -16,15 +18,12 @@ Future<void> main() async {
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
       DictionaryData.getInstance().createSecretWord();
       await Firebase.initializeApp();
-      final storage = await HydratedStorage.build(
-        // TODO: replace this with shared preferences
-        storageDirectory: await getTemporaryDirectory(),
-      );
-      HydratedBlocOverrides.runZoned(
-        () => runApp(
-          const App(),
+      final item = await SettingsRepository.getInstance().getItem();
+      runApp(
+        BlocProvider<SettingsCubit>(
+          create: (_) => SettingsCubit(item: item ?? const SettingsData()),
+          child: const App(),
         ),
-        storage: storage,
       );
     },
     blocObserver: AppBlocObserver(),

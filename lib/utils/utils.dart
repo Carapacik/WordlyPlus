@@ -1,5 +1,9 @@
 import 'dart:ui';
 
+import 'package:auth_repository/auth_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get_it/get_it.dart';
+
 String durationToString(Duration duration) {
   String twoDigits(int n) => n.toString().padLeft(2, "0");
   final String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
@@ -15,4 +19,14 @@ Locale getLocaleFromString(final String locale) {
     default:
       return const Locale("en");
   }
+}
+
+Future<void> getStatistic() async {
+  Statistic statistic;
+  if (FirebaseAuth.instance.currentUser != null) {
+    statistic = await AuthRepository().getStatistic();
+  } else {
+    statistic = Statistic(uid: '');
+  }
+  GetIt.I.registerLazySingleton<Statistic>(() => statistic);
 }

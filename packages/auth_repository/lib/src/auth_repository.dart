@@ -168,6 +168,19 @@ class AuthRepository {
       },
     );
   }
+
+  Future<void> updateStatistic(final Statistic statistic) {
+    return _statistic
+        .where('uid', isEqualTo: _firebaseAuth.currentUser?.uid)
+        .get()
+        .then(
+      (value) {
+        _statistic.doc(value.docs[0].id).update(
+              statistic.toJson(),
+            );
+      },
+    );
+  }
 }
 
 extension on firebase_auth.User {

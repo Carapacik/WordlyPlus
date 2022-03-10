@@ -9,6 +9,7 @@ import 'package:wordle/bloc/settings/settings_cubit.dart';
 import 'package:wordle/data/dictionary_data.dart';
 import 'package:wordle/data/models/settings_data.dart';
 import 'package:wordle/data/repositories/settings_repository.dart';
+import 'package:wordle/utils/utils.dart';
 
 Future<void> main() async {
   return BlocOverrides.runZoned(
@@ -18,6 +19,7 @@ Future<void> main() async {
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
       DictionaryData.getInstance().createSecretWord();
       await Firebase.initializeApp();
+      await getStatistic();
       final settingsData = await SettingsRepository.getInstance().getItem();
       runApp(
         BlocProvider<SettingsCubit>(
@@ -30,4 +32,3 @@ Future<void> main() async {
     blocObserver: AppBlocObserver(),
   );
 }
-

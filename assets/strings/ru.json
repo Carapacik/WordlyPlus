@@ -28,5 +28,10 @@
   "word_not_found": "Слово не найдено в словаре",
   "word_too_short": "Слово неправильной длины",
   "app_language": "Язык приложения",
-  "dictionary_language": "Язык словаря"
+  "dictionary_language": "Язык словаря",
+  "played": "Сынрано",
+  "win_percent": "% Побед",
+  "current_streak": "Текущая\nСерия",
+  "max_streak": "Максимальная\nСерия",
+  "guess_distribution": "Распределение Попыток"
 }

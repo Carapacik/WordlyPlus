@@ -1,5 +1,7 @@
+import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
 import 'package:wordle/data/dictionary_data.dart';
 import 'package:wordle/data/models/daily_result.dart';
@@ -100,6 +102,8 @@ class _MainPageState extends State<MainPage> {
         await GameStatisticRepository.getInstance().getItem() ??
             const GameStatistic();
     if (isWin != null) {
+      Statistic statistic = GetIt.I.get<Statistic>();
+      GetIt.I.unregister<Statistic>();
       final attemptNumber = DictionaryData.getInstance().currentWordIndex;
       DailyResultRepository.getInstance().setItem(
         DailyResult(
@@ -116,12 +120,49 @@ class _MainPageState extends State<MainPage> {
               ? savedStatistic.currentStreak
               : savedStatistic.maxStreak,
         );
+        Tries tries = statistic.tries;
+        switch (attemptNumber) {
+          case 1:
+            tries = tries.copyWith(first: tries.first + 1);
+            break;
+          case 2:
+            tries = tries.copyWith(second: tries.second + 1);
+            break;
+          case 3:
+            tries = tries.copyWith(third: tries.third + 1);
+            break;
+          case 4:
+            tries = tries.copyWith(fourth: tries.fourth + 1);
+            break;
+          case 5:
+            tries = tries.copyWith(fifth: tries.fifth + 1);
+            break;
+          case 6:
+            tries = tries.copyWith(sixth: tries.sixth + 1);
+            break;
+          default:
+            break;
+        }
+        statistic = statistic.copyWith(
+          win: statistic.win + 1,
+          currentStreak: statistic.currentStreak + 1,
+          maxStreak: statistic.currentStreak + 1 > statistic.maxStreak
+              ? statistic.currentStreak + 1
+              : statistic.maxStreak,
+          tries: tries,
+        );
       } else {
         newStatistic = savedStatistic.copyWith(
           loses: savedStatistic.loses + 1,
           currentStreak: 0,
         );
+        statistic = statistic.copyWith(
+          loses: statistic.loses + 1,
+          currentStreak: 0,
+        );
       }
+      GetIt.I.registerLazySingleton<Statistic>(() => statistic);
+      AuthRepository().updateStatistic(statistic);
       await GameStatisticRepository.getInstance().setItem(newStatistic);
       if (!mounted) return;
       await showWinLoseDialog(

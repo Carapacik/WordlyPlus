@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:wordle/bloc/app/app_bloc.dart';
 import 'package:wordle/presentation/pages/login/login_page.dart';
 import 'package:wordle/presentation/pages/main/main_page.dart';
@@ -35,6 +36,26 @@ class StatisticView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Statistic statistic = GetIt.I.get<Statistic>();
+    final double wins = statistic.win.toDouble();
+    final double losses = statistic.loses.toDouble();
+    final double total = wins + losses;
+    var winRate = 0.toDouble();
+    if (losses == 0 && wins != 0) {
+      winRate = 100.toDouble();
+    } else if (losses != 0 && wins != 0) {
+      winRate = (wins / total) * 100;
+    }
+    final double currentStreak = statistic.currentStreak.toDouble();
+    final double maxStreak = statistic.maxStreak.toDouble();
+    final guessDistribution = [
+      statistic.tries.first,
+      statistic.tries.second,
+      statistic.tries.third,
+      statistic.tries.fourth,
+      statistic.tries.fifth,
+      statistic.tries.sixth,
+    ];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -73,22 +94,22 @@ class StatisticView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               StatItem(
-                value: 4,
-                title: 'Played',
+                value: total,
+                title: R.stringsOf(context).played,
               ),
               StatItem(
-                value: 100,
-                title: 'Win %',
+                value: winRate,
+                title: R.stringsOf(context).win_percent,
               ),
               StatItem(
-                value: 1,
-                title: 'Current\nStreak',
+                value: currentStreak,
+                title: R.stringsOf(context).current_streak,
               ),
               StatItem(
-                value: 2,
-                title: 'Max\nStreak',
+                value: maxStreak,
+                title: R.stringsOf(context).max_streak,
               ),
             ],
           ),
@@ -98,12 +119,12 @@ class StatisticView extends StatelessWidget {
               bottom: 10,
             ),
             child: Text(
-              'Guess distribution'.toUpperCase(),
+              R.stringsOf(context).guess_distribution.toUpperCase(),
               style: AppTextStyles.b20,
             ),
           ),
-          const AllAttemptStat(
-            guessDistribution: [0, 0, 1, 2, 0, 1],
+          AllAttemptStat(
+            guessDistribution: guessDistribution,
           ),
         ],
       ),
@@ -118,7 +139,7 @@ class StatItem extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final int value;
+  final double value;
   final String title;
 
   @override
@@ -158,7 +179,7 @@ class AllAttemptStat extends StatelessWidget {
       final double screen = MediaQuery.of(context).size.width * 0.75;
       final width = screen * i / maximum;
       if (width == 0) {
-        widths.add(screen*0.07);
+        widths.add(screen * 0.07);
       } else {
         widths.add(width);
       }

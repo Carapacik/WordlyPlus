@@ -40,12 +40,7 @@ class StatisticView extends StatelessWidget {
     final double wins = statistic.win.toDouble();
     final double losses = statistic.loses.toDouble();
     final double total = wins + losses;
-    var winRate = 0.toDouble();
-    if (losses == 0 && wins != 0) {
-      winRate = 100.toDouble();
-    } else if (losses != 0 && wins != 0) {
-      winRate = (wins / total) * 100;
-    }
+    final double winRate = statistic.winRate;
     final double currentStreak = statistic.currentStreak.toDouble();
     final double maxStreak = statistic.maxStreak.toDouble();
     final guessDistribution = [
@@ -177,11 +172,15 @@ class AllAttemptStat extends StatelessWidget {
     final int maximum = guessDistribution.reduce(max);
     for (final i in guessDistribution) {
       final double screen = MediaQuery.of(context).size.width * 0.75;
-      final width = screen * i / maximum;
-      if (width == 0) {
+      if (maximum == 0) {
         widths.add(screen * 0.07);
       } else {
-        widths.add(width);
+        final width = screen * i / maximum;
+        if (width == 0) {
+          widths.add(screen * 0.07);
+        } else {
+          widths.add(width);
+        }
       }
     }
     return ListView.separated(

@@ -143,6 +143,15 @@ class _MainPageState extends State<MainPage> {
           default:
             break;
         }
+        final double wins = (statistic.win + 1).toDouble();
+        final double losses = statistic.loses.toDouble();
+        final double total = wins + losses;
+        var winRate = 0.toDouble();
+        if (losses == 0 && wins != 0) {
+          winRate = 100.toDouble();
+        } else if (losses != 0 && wins != 0) {
+          winRate = (wins / total) * 100;
+        }
         statistic = statistic.copyWith(
           win: statistic.win + 1,
           currentStreak: statistic.currentStreak + 1,
@@ -150,8 +159,18 @@ class _MainPageState extends State<MainPage> {
               ? statistic.currentStreak + 1
               : statistic.maxStreak,
           tries: tries,
+          winRate: winRate,
         );
       } else {
+        final double wins = (statistic.win).toDouble();
+        final double losses = (statistic.loses + 1).toDouble();
+        final double total = wins + losses;
+        var winRate = 0.toDouble();
+        if (losses == 0 && wins != 0) {
+          winRate = 100.toDouble();
+        } else if (losses != 0 && wins != 0) {
+          winRate = (wins / total) * 100;
+        }
         newStatistic = savedStatistic.copyWith(
           loses: savedStatistic.loses + 1,
           currentStreak: 0,
@@ -159,6 +178,7 @@ class _MainPageState extends State<MainPage> {
         statistic = statistic.copyWith(
           loses: statistic.loses + 1,
           currentStreak: 0,
+          winRate: winRate,
         );
       }
       GetIt.I.registerLazySingleton<Statistic>(() => statistic);

@@ -5,7 +5,6 @@ import 'package:wordle/bloc/settings/settings_cubit.dart';
 import 'package:wordle/data/dictionary_data.dart';
 import 'package:wordle/data/models/keyboard_keys.dart';
 import 'package:wordle/data/models/letter_status.dart';
-import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/resources/app_text_styles.dart';
 
 class KeyboardKey extends StatelessWidget {

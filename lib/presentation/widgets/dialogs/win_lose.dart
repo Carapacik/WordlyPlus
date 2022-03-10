@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:wordle/data/dictionary_data.dart';
+import 'package:wordle/data/models/game_statistic.dart';
 import 'package:wordle/resources/app_text_styles.dart';
 import 'package:wordle/resources/r.dart';
 import 'package:wordle/utils/utils.dart';
 
 Future<void> showWinLoseDialog(
   final BuildContext context, {
+  required final GameStatistic statistic,
   final bool isWin = true,
 }) async {
   showDialog(

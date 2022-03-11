@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:wordle/data/repositories/statistic_repository.dart';
 
 String durationToString(Duration duration) {
   String twoDigits(int n) => n.toString().padLeft(2, "0");
@@ -26,7 +27,8 @@ Future<void> getStatistic() async {
   if (FirebaseAuth.instance.currentUser != null) {
     statistic = await AuthRepository().getStatistic();
   } else {
-    statistic = Statistic(uid: '');
+    statistic =
+        await StatisticRepository.getInstance().getItem() ?? Statistic(uid: '');
   }
   GetIt.I.registerLazySingleton<Statistic>(() => statistic);
 }

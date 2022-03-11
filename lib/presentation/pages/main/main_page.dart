@@ -9,6 +9,7 @@ import 'package:wordle/data/models/flushbar_types.dart';
 import 'package:wordle/data/models/game_statistic.dart';
 import 'package:wordle/data/repositories/dauly_result_repository.dart';
 import 'package:wordle/data/repositories/game_statistic_repository.dart';
+import 'package:wordle/data/repositories/statistic_repository.dart';
 import 'package:wordle/presentation/pages/main/widgets/keyboard_en.dart';
 import 'package:wordle/presentation/pages/main/widgets/keyboard_ru.dart';
 import 'package:wordle/presentation/pages/main/widgets/word_grid.dart';
@@ -182,7 +183,9 @@ class _MainPageState extends State<MainPage> {
         );
       }
       GetIt.I.registerLazySingleton<Statistic>(() => statistic);
-      AuthRepository().updateStatistic(statistic);
+      AuthRepository().currentUser.isEmpty
+          ? await StatisticRepository.getInstance().setItem(statistic)
+          : AuthRepository().updateStatistic(statistic);
       await GameStatisticRepository.getInstance().setItem(newStatistic);
       if (!mounted) return;
       await showWinLoseDialog(

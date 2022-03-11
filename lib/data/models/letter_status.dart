@@ -25,7 +25,6 @@ extension LetterStatusExtension on LetterStatus {
   String toEmoji() {
     switch (this) {
       case LetterStatus.unknown:
-        return "⬛";
       case LetterStatus.notInWords:
         return "⬜";
       case LetterStatus.wrongSpot:
@@ -35,5 +34,3 @@ extension LetterStatusExtension on LetterStatus {
     }
   }
 }
-
-

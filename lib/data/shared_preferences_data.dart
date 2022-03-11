@@ -28,7 +28,7 @@ class SharedPreferenceData {
 
   Future<bool> _saveData(final String key, final String data) async {
     final sp = await SharedPreferences.getInstance();
-    final result = sp.setString(dailyResultKey, data);
+    final result = sp.setString(key, data);
     return result;
   }
 

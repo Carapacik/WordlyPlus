@@ -84,7 +84,17 @@ Future<void> showWinLoseDialog(
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: ElevatedButton(
-                  onPressed: () {print(grid.map((e) => e.status.toEmoji()));},
+                  onPressed: () {
+                    String temp = "";
+                    grid.asMap().map((key, value) {
+                      temp += value.status.toEmoji();
+                      if (key % 5 == 4) {
+                        temp += "\n";
+                      }
+                      return MapEntry(key, value);
+                    });
+                    print(temp);
+                  },
                   child: Text(
                     '${grid.length}',
                     style: AppTextStyles.m16.copyWith(color: Colors.white),

@@ -5,21 +5,22 @@ import 'package:wordle/bloc/settings/settings_cubit.dart';
 import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/resources/app_text_styles.dart';
 import 'package:wordle/resources/r.dart';
+import 'package:wordle/utils/responsive.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
-
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: _theme.primaryColorLight,
-        foregroundColor: _theme.primaryColor,
+        backgroundColor: theme.primaryColorLight,
+        foregroundColor: theme.primaryColor,
+        centerTitle: true,
         title: Text(
           R.stringsOf(context).settings.toUpperCase(),
-          style: AppTextStyles.m16,
+          style: AppTextStyles.b20,
         ),
         elevation: 0,
         automaticallyImplyLeading: false,
@@ -27,57 +28,67 @@ class SettingsPage extends StatelessWidget {
           IconButton(
             onPressed: Navigator.of(context).pop,
             icon: const Icon(Icons.close),
-            color: _theme.primaryColor,
+            color: theme.primaryColor,
           ),
         ],
       ),
       body: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, state) {
           final settingsCubit = BlocProvider.of<SettingsCubit>(context);
-          return Column(
-            children: [
-              _SwitchListTile(
-                text: R.stringsOf(context).dark_mode,
-                value: state.isDarkThemeOn,
-                onChanged: (value) => settingsCubit.toggleTheme(value: value),
-                isHighContrast: state.isHighContrast,
+          return Center(
+            child: Responsive(
+              mobile: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 500),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 8),
+                    _SwitchListTile(
+                      text: R.stringsOf(context).dark_mode,
+                      value: state.isDarkThemeOn,
+                      onChanged: (value) =>
+                          settingsCubit.toggleTheme(value: value),
+                      isHighContrast: state.isHighContrast,
+                    ),
+                    const Divider(color: AppColors.greyTrack),
+                    _SwitchListTile(
+                      text: R.stringsOf(context).high_contrast_mode,
+                      value: state.isHighContrast,
+                      onChanged: (value) =>
+                          settingsCubit.toggleContrast(value: value),
+                      isHighContrast: state.isHighContrast,
+                    ),
+                    const Divider(color: AppColors.greyTrack),
+                    _LanguageSelector(
+                      text: R.stringsOf(context).app_language,
+                      value: state.language,
+                      onChanged: (value) =>
+                          settingsCubit.changeLanguage(value: value!),
+                      isHighContrast: state.isHighContrast,
+                    ),
+                    const Divider(color: AppColors.greyTrack),
+                    BlocBuilder<MainCubit, MainState>(
+                      buildWhen: (_, currentState) =>
+                          currentState is ChangeDictionaryState,
+                      builder: (context, mainState) {
+                        final mainCubit = BlocProvider.of<MainCubit>(context);
+                        return _LanguageSelector(
+                          text: R.stringsOf(context).dictionary_language,
+                          value: mainState is! ChangeDictionaryState
+                              ? "en"
+                              : mainState.dictionary,
+                          onChanged: (value) async {
+                            mainCubit.changeDictionary(value: value!);
+                            await mainCubit.clearGameArea(value);
+                          },
+                          isHighContrast: state.isHighContrast,
+                        );
+                      },
+                    ),
+                    const Divider(color: AppColors.greyTrack),
+                  ],
+                ),
               ),
-              const Divider(color: AppColors.greyTrack),
-              _SwitchListTile(
-                text: R.stringsOf(context).high_contrast_mode,
-                value: state.isHighContrast,
-                onChanged: (value) =>
-                    settingsCubit.toggleContrast(value: value),
-                isHighContrast: state.isHighContrast,
-              ),
-              const Divider(color: AppColors.greyTrack),
-              _LanguageSelector(
-                text: R.stringsOf(context).app_language,
-                value: state.language,
-                onChanged: (value) =>
-                    settingsCubit.changeLanguage(value: value!),
-                isHighContrast: state.isHighContrast,
-              ),
-              const Divider(color: AppColors.greyTrack),
-              BlocBuilder<MainCubit, MainState>(
-                buildWhen: (_, currentState) =>
-                    currentState is ChangeDictionaryState,
-                builder: (context, mainState) {
-                  final mainCubit = BlocProvider.of<MainCubit>(context);
-                  return _LanguageSelector(
-                    text: R.stringsOf(context).dictionary_language,
-                    value: mainState is! ChangeDictionaryState
-                        ? "en"
-                        : mainState.dictionary,
-                    onChanged: (value) async {
-                      mainCubit.changeDictionary(value: value!);
-                      await mainCubit.clearGameArea(value);
-                    },
-                    isHighContrast: state.isHighContrast,
-                  );
-                },
-              ),
-            ],
+            ),
           );
         },
       ),
@@ -158,17 +169,24 @@ class _SwitchListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SwitchListTile.adaptive(
-      inactiveTrackColor: AppColors.greyTrack,
-      activeTrackColor:
-          isHighContrast ? AppColors.highContrastOrange : AppColors.greenDark,
-      activeColor: Colors.white,
-      title: Text(
-        text,
-        style: AppTextStyles.m16,
-      ),
-      value: value,
-      onChanged: onChanged,
+    return Row(
+      children: [
+        const SizedBox(width: 16),
+        Text(
+          text,
+          style: AppTextStyles.m16,
+        ),
+        const Spacer(),
+        Switch.adaptive(
+          value: value,
+          onChanged: onChanged,
+          activeTrackColor:
+              isHighContrast ? AppColors.highContrastOrange : AppColors.green,
+          inactiveTrackColor: AppColors.greyTrack,
+          activeColor: Colors.white,
+        ),
+        const SizedBox(width: 16),
+      ],
     );
   }
 }

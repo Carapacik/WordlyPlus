@@ -158,7 +158,7 @@ class AllAttemptStat extends StatelessWidget {
       final double screen = MediaQuery.of(context).size.width * 0.75;
       final width = screen * i / maximum;
       if (width == 0) {
-        widths.add(screen*0.07);
+        widths.add(screen * 0.07);
       } else {
         widths.add(width);
       }
@@ -208,7 +208,7 @@ class AttemptBar extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(3),
-            color: AppColors.darkGrey,
+            color: AppColors.grey,
           ),
           width: width,
           child: Padding(

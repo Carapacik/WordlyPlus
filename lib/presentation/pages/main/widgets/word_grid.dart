@@ -20,38 +20,41 @@ class WordGrid extends StatelessWidget {
           buildWhen: (previous, current) =>
               previous.isHighContrast != current.isHighContrast,
           builder: (context, state) {
-            return GridView.count(
-              padding: const EdgeInsets.all(10),
-              shrinkWrap: true,
-              primary: false,
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 10,
-              crossAxisCount: 5,
-              children: List.generate(30, (index) {
-                final letter = _currentLetters.length > index
-                    ? _currentLetters[index]
-                    : "";
-                Color? color;
-                if (letter.isNotEmpty &&
-                    _dictionary.currentWordIndex > 0 &&
-                    index < 5 * _dictionary.currentWordIndex) {
-                  final indexInRow = index % 5;
-                  if (_currentLetters.contains(letter)) {
-                    color = AppColors.grey;
+            return ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 400),
+              child: GridView.count(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                shrinkWrap: true,
+                primary: false,
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 8,
+                crossAxisCount: 5,
+                children: List.generate(30, (index) {
+                  final letter = _currentLetters.length > index
+                      ? _currentLetters[index]
+                      : "";
+                  Color? color;
+                  if (letter.isNotEmpty &&
+                      _dictionary.currentWordIndex > 0 &&
+                      index < 5 * _dictionary.currentWordIndex) {
+                    final indexInRow = index % 5;
+                    if (_currentLetters.contains(letter)) {
+                      color = AppColors.grey;
+                    }
+                    if (_dictionary.secretWord.contains(letter)) {
+                      color = state.isHighContrast
+                          ? AppColors.highContrastBlue
+                          : AppColors.yellow;
+                    }
+                    if (_dictionary.secretWord[indexInRow] == letter) {
+                      color = state.isHighContrast
+                          ? AppColors.highContrastOrange
+                          : AppColors.green;
+                    }
                   }
-                  if (_dictionary.secretWord.contains(letter)) {
-                    color = state.isHighContrast
-                        ? AppColors.highContrastBlue
-                        : AppColors.yellow;
-                  }
-                  if (_dictionary.secretWord[indexInRow] == letter) {
-                    color = state.isHighContrast
-                        ? AppColors.highContrastOrange
-                        : AppColors.green;
-                  }
-                }
-                return _GridItem(letter: letter, color: color);
-              }),
+                  return _GridItem(letter: letter, color: color);
+                }),
+              ),
             );
           },
         );

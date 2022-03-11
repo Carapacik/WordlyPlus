@@ -36,47 +36,55 @@ class _MainPageState extends State<MainPage> {
     return BlocProvider<MainCubit>(
       create: (BuildContext context) => MainCubit(),
       child: AdaptiveScaffold(
-        child: BlocConsumer<MainCubit, MainState>(
-          listener: (context, state) {
-            if (state is TopMessageState) {
-              switch (state.type) {
-                case FlushBarTypes.notFound:
-                  showTopFlushBar(
-                    context,
-                    message: R.stringsOf(context).word_not_found,
-                  );
-                  break;
-                case FlushBarTypes.notCorrectLength:
-                  showTopFlushBar(
-                    context,
-                    message: R.stringsOf(context).word_too_short,
-                  );
-                  break;
+        child: Center(
+          child: BlocConsumer<MainCubit, MainState>(
+            listener: (context, state) {
+              if (state is TopMessageState) {
+                switch (state.type) {
+                  case FlushBarTypes.notFound:
+                    showTopFlushBar(
+                      context,
+                      message: R.stringsOf(context).word_not_found,
+                    );
+                    break;
+                  case FlushBarTypes.notCorrectLength:
+                    showTopFlushBar(
+                      context,
+                      message: R.stringsOf(context).word_too_short,
+                    );
+                    break;
+                }
+              } else if (state is WinGameState) {
+                _showDialogIfNeed(context, isWin: true);
+              } else if (state is LoseGameState) {
+                _showDialogIfNeed(context, isWin: false);
               }
-            } else if (state is WinGameState) {
-              _showDialogIfNeed(context, isWin: true);
-            } else if (state is LoseGameState) {
-              _showDialogIfNeed(context, isWin: false);
-            }
-          },
-          buildWhen: (_, currState) => currState is ChangeDictionaryState,
-          builder: (context, state) {
-            return Column(
-              key: UniqueKey(),
-              children: [
-                const WordGrid(),
-                const Spacer(),
-                BlocBuilder<MainCubit, MainState>(
-                  buildWhen: (previous, current) =>
-                      current is ChangeDictionaryState,
-                  builder: (context, state) => _getKeyboardByLanguage(
-                    state is! ChangeDictionaryState ? "en" : state.dictionary,
-                  ),
+            },
+            buildWhen: (_, currState) => currState is ChangeDictionaryState,
+            builder: (context, state) {
+              return ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 500),
+                child: Column(
+                  key: UniqueKey(),
+                  children: [
+                    const SizedBox(height: 16),
+                    const WordGrid(),
+                    const Spacer(),
+                    BlocBuilder<MainCubit, MainState>(
+                      buildWhen: (previous, current) =>
+                          current is ChangeDictionaryState,
+                      builder: (context, state) => _getKeyboardByLanguage(
+                        state is! ChangeDictionaryState
+                            ? "en"
+                            : state.dictionary,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                  ],
                 ),
-                const SizedBox(height: 20),
-              ],
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );
@@ -101,7 +109,6 @@ class _MainPageState extends State<MainPage> {
             const GameStatistic();
     final grid = DictionaryData.getInstance().getDataList;
     if (isWin != null) {
-      final attemptNumber = DictionaryData.getInstance().currentWordIndex;
       DailyResultRepository.getInstance().setItem(
         DailyResult(
           isWin: isWin,

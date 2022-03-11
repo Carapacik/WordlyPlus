@@ -5,5 +5,3 @@ generate_strings: true
 supported_locales:
   - en
   - ru
-
-fallback_locale: en

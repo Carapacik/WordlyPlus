@@ -26,7 +26,7 @@ extension LetterStatusExtension on LetterStatus {
     switch (this) {
       case LetterStatus.unknown:
       case LetterStatus.notInWords:
-        return "⬜";
+        return "⬛";
       case LetterStatus.wrongSpot:
         return "🟨";
       case LetterStatus.correctSpot:

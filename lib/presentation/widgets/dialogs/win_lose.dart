@@ -7,6 +7,7 @@ import 'package:wordle/data/models/letter_status.dart';
 import 'package:wordle/resources/app_text_styles.dart';
 import 'package:wordle/resources/r.dart';
 import 'package:wordle/utils/utils.dart';
+import 'package:share_plus/share_plus.dart';
 
 Future<void> showWinLoseDialog(
   final BuildContext context, {
@@ -93,10 +94,12 @@ Future<void> showWinLoseDialog(
                       }
                       return MapEntry(key, value);
                     });
-                    print(temp);
+                    Share.share(
+                      'Check out my wordle result!\nYou can download game here:\nhttps://github.com/Carapacik/Wordle\n$temp',
+                    );
                   },
                   child: Text(
-                    '${grid.length}',
+                    'Share',
                     style: AppTextStyles.m16.copyWith(color: Colors.white),
                   ),
                 ),

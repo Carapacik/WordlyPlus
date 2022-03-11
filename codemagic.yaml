@@ -1,0 +1,59 @@
+# Automatically generated on 2022-03-11 UTC from https://codemagic.io/app/6228b05f8b3f4a000c890bd3/settings
+# Note that this configuration is not an exact match to UI settings. Review and adjust as necessary.
+
+workflows:
+  wordle-beta:
+    name: Wordle beta
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
+      tag_patterns:
+        - pattern: '*'
+          include: true
+    scripts:
+      - |
+        # set up debug keystore
+        rm -f ~/.android/debug.keystore
+        keytool -genkeypair \
+          -alias androiddebugkey \
+          -keypass android \
+          -keystore ~/.android/debug.keystore \
+          -storepass android \
+          -dname 'CN=Android Debug,O=Android,C=US' \
+          -keyalg 'RSA' \
+          -keysize 2048 \
+          -validity 10000
+      - |
+        # set up local properties
+        echo "flutter.sdk=$HOME/programs/flutter" > "$FCI_BUILD_DIR/android/local.properties"
+      - |
+        cd packages
+        cd auth_repository
+        flutter packages pub get
+        flutter packages pub run build_runner build --delete-conflicting-outputs
+        cd ..
+        cd ..
+        flutter packages pub get
+        flutter packages pub run build_runner build --delete-conflicting-outputs
+      - flutter build apk --release
+    artifacts:
+      - build/**/outputs/apk/**/*.apk
+      - build/**/outputs/bundle/**/*.aab
+      - build/**/outputs/**/mapping.txt
+      - '*.snap'
+      - build/windows/**/*.msix
+      - flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - carapacik@gmail.com

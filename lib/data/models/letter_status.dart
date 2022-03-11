@@ -21,4 +21,16 @@ extension LetterStatusExtension on LetterStatus {
         return highContrast ? AppColors.highContrastOrange : AppColors.green;
     }
   }
+
+  String toEmoji() {
+    switch (this) {
+      case LetterStatus.unknown:
+      case LetterStatus.notInWords:
+        return "⬛";
+      case LetterStatus.wrongSpot:
+        return "🟨";
+      case LetterStatus.correctSpot:
+        return "🟩";
+    }
+  }
 }

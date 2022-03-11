@@ -11,7 +11,7 @@ dependencies:
     path: ../cache
   cloud_firestore: ^3.1.10
   equatable: ^2.0.3
-  firebase_auth: ^3.3.9
+  firebase_auth: ^3.3.10
   firebase_core: ^1.13.1
   firebase_storage: ^10.2.9
   flutter:

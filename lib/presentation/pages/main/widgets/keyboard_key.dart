@@ -39,7 +39,7 @@ class KeyboardKey extends StatelessWidget {
           margin: const EdgeInsets.all(4),
           width: _getWidthByLang(MediaQuery.of(context).size.width),
           child: AspectRatio(
-            aspectRatio: 2 / 3,
+            aspectRatio: lang == 0 ? 2 / 3 : 2 / 3.5,
             child: InkWell(
               onTap: () => mainCubit.setLetter(keyboardKey),
               child: BlocBuilder<SettingsCubit, SettingsState>(
@@ -71,7 +71,7 @@ class KeyboardKey extends StatelessWidget {
   double _getWidthByLang(final double width) {
     switch (lang) {
       case 0:
-        return width * 0.07;
+        return width * 0.075;
       case 1:
         return width * 0.059;
       default:
@@ -136,9 +136,9 @@ class EnterKeyboardKey extends StatelessWidget {
   double _getHeightByLang(final double width) {
     switch (lang) {
       case 0:
-        return width * 0.07 / 2 * 3;
+        return width * 0.075 / 2 * 3;
       case 1:
-        return width * 0.059 / 2 * 3;
+        return width * 0.059 / 2 * 3.5;
       default:
         return 0;
     }
@@ -176,9 +176,9 @@ class DeleteKeyboardKey extends StatelessWidget {
   double _getWidthByLang(final double width) {
     switch (lang) {
       case 0:
-        return width * 0.07 / 2 * 3;
+        return width * 0.075 / 2 * 3;
       case 1:
-        return width * 0.059 / 2 * 3;
+        return width * 0.059 / 2 * 3.5;
       default:
         return 0;
     }

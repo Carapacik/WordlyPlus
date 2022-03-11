@@ -41,10 +41,12 @@ workflows:
         cd auth_repository
         flutter packages pub get
         flutter packages pub run build_runner build --delete-conflicting-outputs
+        echo "build_runner complete in auth_repository"
         cd ..
         cd ..
         flutter packages pub get
         flutter packages pub run build_runner build --delete-conflicting-outputs
+        echo "build_runner complete in app"
       - flutter build apk --release
     artifacts:
       - build/**/outputs/apk/**/*.apk

@@ -99,6 +99,7 @@ class _MainPageState extends State<MainPage> {
     final savedStatistic =
         await GameStatisticRepository.getInstance().getItem() ??
             const GameStatistic();
+    final grid = DictionaryData.getInstance().getDataList;
     if (isWin != null) {
       final attemptNumber = DictionaryData.getInstance().currentWordIndex;
       DailyResultRepository.getInstance().setItem(
@@ -128,6 +129,7 @@ class _MainPageState extends State<MainPage> {
         context,
         isWin: isWin,
         statistic: newStatistic,
+        grid: grid,
       );
     } else {
       final savedItem = await DailyResultRepository.getInstance().getItem();
@@ -138,6 +140,7 @@ class _MainPageState extends State<MainPage> {
           context,
           isWin: savedItem.isWin,
           statistic: savedStatistic,
+          grid: grid,
         );
       }
     }

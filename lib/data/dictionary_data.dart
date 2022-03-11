@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:wordle/bloc/main/main_cubit.dart';
 import 'package:wordle/data/models/flushbar_types.dart';
 import 'package:wordle/data/models/keyboard_keys.dart';
+import 'package:wordle/data/models/letter_data.dart';
 import 'package:wordle/data/models/letter_status.dart';
 import 'package:wordle/resources/dictionary_en.dart';
 import 'package:wordle/resources/dictionary_ru.dart';
@@ -20,6 +21,7 @@ class DictionaryData {
   List<String> _gridData = [""];
   Map<String, LetterStatus> _lettersMap = {};
   int currentWordIndex = 0;
+  final List<LetterData> _letterDataList = [];
 
   String get secretWord => _secretWord ?? "";
 
@@ -27,6 +29,8 @@ class DictionaryData {
   void setDictionaryLanguage(final String value) {
     _dictionaryLanguage = value;
   }
+
+  List<LetterData> get getDataList => _letterDataList;
 
   bool setLetter(final KeyboardKeys key) {
     if (KeyboardKeys.enter.name == key.name) {
@@ -83,6 +87,7 @@ class DictionaryData {
     final word = _gridData[currentWordIndex];
     if (_secretWord == null) return;
     word.split("").asMap().map((key, value) {
+      var _status = LetterStatus.unknown;
       if (_secretWord![key] == value) {
         // LetterStatus.correctSpot
         if (_lettersMap.containsKey(value)) {
@@ -90,6 +95,7 @@ class DictionaryData {
         } else {
           _lettersMap.addAll({value: LetterStatus.correctSpot});
         }
+        _status = LetterStatus.correctSpot;
       } else if (_secretWord!.contains(value)) {
         // LetterStatus.wrongSpot
         if (_lettersMap.containsKey(value)) {
@@ -99,12 +105,15 @@ class DictionaryData {
         } else {
           _lettersMap.addAll({value: LetterStatus.wrongSpot});
         }
+        _status = LetterStatus.wrongSpot;
       } else {
         // LetterStatus.notInWords
         if (!_lettersMap.containsKey(value)) {
           _lettersMap.addAll({value: LetterStatus.notInWords});
         }
+        _status = LetterStatus.notInWords;
       }
+      _letterDataList.add(LetterData(letter: value, status: _status));
       return MapEntry(key, value);
     });
     if (currentWordIndex < 5) {

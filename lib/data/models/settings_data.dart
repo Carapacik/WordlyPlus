@@ -9,7 +9,6 @@ class SettingsData with _$SettingsData {
     @Default(false) bool isDarkTheme,
     @Default(false) bool isHighContrast,
     @Default('en') String appLanguage,
-    @Default('en') String dictionaryLanguage,
   }) = _SettingsData;
 
   factory SettingsData.fromJson(Map<String, dynamic> json) =>

@@ -103,8 +103,10 @@ Future<void> showWinLoseDialog(
   );
 }
 
-Future<void> _share(final BuildContext context,
-    {required final String word}) async {
+Future<void> _share(
+  final BuildContext context, {
+  required final String word,
+}) async {
   final letterDataList = DictionaryData.getInstance().letterDataList;
   String emojiString = "";
   letterDataList.asMap().map((key, value) {

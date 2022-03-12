@@ -134,7 +134,7 @@ class AdaptiveScaffold extends StatelessWidget {
       );
     }
     return Scaffold(
-      backgroundColor:  Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         centerTitle: true,
         title: Text(

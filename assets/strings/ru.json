@@ -23,7 +23,7 @@
   "password": "Пароль",
   "email": "Почта",
   "win_message": "Вы победили!",
-  "lose_message": "Вы проиграли.",
+  "lose_message": "Вы проиграли",
   "next_wordle": "Следующее слово через",
   "word_not_found": "Слово не найдено в словаре",
   "word_too_short": "Слово неправильной длины",
@@ -31,5 +31,7 @@
   "dictionary_language": "Язык словаря",
   "working_on_improving_dictionaries": "Мы работаем над улучшением словарей\nСкоро все слова будут с поянением смысла",
   "secret_word_is": "Загаданное слово \"${word}\"",
-  "share": "Поделиться"
+  "share": "Поделиться",
+  "text_copied": "Текст скопирован в буфер обмена",
+  "check_my_result": "Смотри мой результат!\nТы можешь скачать игру тут:\nhttps://github.com/Carapacik/Wordle\n${emoji}"
 }

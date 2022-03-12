@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:flutter/services.dart';
+
 String durationToString(Duration duration) {
   String twoDigits(int n) => n.toString().padLeft(2, "0");
   final String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
@@ -15,4 +17,8 @@ Locale getLocaleFromString(final String locale) {
     default:
       return const Locale("en");
   }
+}
+
+Future<void> copyToClipboard(final String text) async {
+  await Clipboard.setData(ClipboardData(text: text));
 }

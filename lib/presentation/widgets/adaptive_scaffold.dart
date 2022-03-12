@@ -65,7 +65,7 @@ class AdaptiveScaffold extends StatelessWidget {
                     builder: (_) {
                       return BlocProvider.value(
                         value: BlocProvider.of<MainCubit>(context),
-                        child: SettingsPage(),
+                        child: const SettingsPage(),
                       );
                     },
                     fullscreenDialog: true,
@@ -119,7 +119,7 @@ class AdaptiveScaffold extends StatelessWidget {
                     builder: (_) {
                       return BlocProvider.value(
                         value: BlocProvider.of<MainCubit>(context),
-                        child: SettingsPage(),
+                        child: const SettingsPage(),
                       );
                     },
                     fullscreenDialog: true,
@@ -134,6 +134,7 @@ class AdaptiveScaffold extends StatelessWidget {
       );
     }
     return Scaffold(
+      backgroundColor:  Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -178,7 +179,7 @@ class AdaptiveScaffold extends StatelessWidget {
                 builder: (_) {
                   return BlocProvider.value(
                     value: BlocProvider.of<MainCubit>(context),
-                    child: SettingsPage(),
+                    child: const SettingsPage(),
                   );
                 },
                 fullscreenDialog: true,

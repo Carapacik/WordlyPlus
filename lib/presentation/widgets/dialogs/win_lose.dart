@@ -4,6 +4,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:wordle/data/dictionary_data.dart';
 import 'package:wordle/data/models/game_statistic.dart';
 import 'package:wordle/data/models/letter_status.dart';
+import 'package:wordle/presentation/widgets/dialogs/top_flush_bar.dart';
 import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/resources/app_text_styles.dart';
 import 'package:wordle/resources/r.dart';
@@ -80,8 +81,8 @@ Future<void> showWinLoseDialog(
                 ),
                 const VerticalDivider(thickness: 2, color: Colors.white),
                 ElevatedButton(
-                  onPressed: () async {
-                    await _share(word: word);
+                  onPressed: () {
+                    _share(context, word: word);
                   },
                   child: Text(
                     R.stringsOf(context).share,
@@ -102,7 +103,8 @@ Future<void> showWinLoseDialog(
   );
 }
 
-Future<void> _share({required final String word}) async {
+Future<void> _share(final BuildContext context,
+    {required final String word}) async {
   final letterDataList = DictionaryData.getInstance().letterDataList;
   String emojiString = "";
   letterDataList.asMap().map((key, value) {
@@ -112,11 +114,14 @@ Future<void> _share({required final String word}) async {
     }
     return MapEntry(key, value);
   });
+  emojiString = R.stringsOf(context).check_my_result(emoji: emojiString);
   if (PlatformType.currentPlatformType == PlatformTypeEnum.web) {
     await copyToClipboard(emojiString);
-  } else {
-    Share.share(
-      'Check out my wordle result!\nYou can download game here:\nhttps://github.com/Carapacik/Wordle\n$emojiString',
+    await showTopFlushBar(
+      context,
+      message: R.stringsOf(context).text_copied,
     );
+  } else {
+    Share.share(emojiString);
   }
 }

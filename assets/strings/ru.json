@@ -23,7 +23,7 @@
   "password": "Пароль",
   "email": "Почта",
   "win_message": "Вы победили!",
-  "lose_message": "Вы проиграли.",
+  "lose_message": "Вы проиграли",
   "next_wordle": "Следующее слово через",
   "word_not_found": "Слово не найдено в словаре",
   "word_too_short": "Слово неправильной длины",

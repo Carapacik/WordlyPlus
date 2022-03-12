@@ -30,7 +30,7 @@ class DictionaryData {
     _dictionaryLanguage = value;
   }
 
-  List<LetterData> get getDataList => _letterDataList;
+  List<LetterData> get letterDataList => _letterDataList;
 
   bool setLetter(final KeyboardKeys key) {
     if (KeyboardKeys.enter.name == key.name) {

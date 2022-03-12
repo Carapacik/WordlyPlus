@@ -107,7 +107,6 @@ class _MainPageState extends State<MainPage> {
     final savedStatistic =
         await GameStatisticRepository.getInstance().getItem() ??
             const GameStatistic();
-    final grid = DictionaryData.getInstance().getDataList;
     if (isWin != null) {
       final secretWord = DictionaryData.getInstance().secretWord;
       DailyResultRepository.getInstance().setItem(
@@ -138,7 +137,6 @@ class _MainPageState extends State<MainPage> {
         isWin: isWin,
         word: secretWord,
         statistic: newStatistic,
-        grid: grid,
       );
     } else {
       final savedItem = await DailyResultRepository.getInstance().getItem();
@@ -150,7 +148,6 @@ class _MainPageState extends State<MainPage> {
           isWin: savedItem.isWin,
           word: savedItem.word!,
           statistic: savedStatistic,
-          grid: grid,
         );
       }
     }

@@ -85,6 +85,14 @@ class SettingsPage extends StatelessWidget {
                       },
                     ),
                     const Divider(color: AppColors.greyTrack),
+                    Expanded(
+                      child: Center(
+                        child: Text(
+                          R.stringsOf(context).working_on_improving_dictionaries,
+                          style: AppTextStyles.m25,
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),

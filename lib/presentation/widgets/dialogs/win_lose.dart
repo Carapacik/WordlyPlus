@@ -5,6 +5,7 @@ import 'package:wordle/data/dictionary_data.dart';
 import 'package:wordle/data/models/game_statistic.dart';
 import 'package:wordle/data/models/letter_data.dart';
 import 'package:wordle/data/models/letter_status.dart';
+import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/resources/app_text_styles.dart';
 import 'package:wordle/resources/r.dart';
 import 'package:wordle/utils/utils.dart';
@@ -12,6 +13,7 @@ import 'package:wordle/utils/utils.dart';
 Future<void> showWinLoseDialog(
   final BuildContext context, {
   required final GameStatistic statistic,
+  required final String word,
   final bool isWin = true,
   required final List<LetterData> grid,
 }) async {
@@ -35,7 +37,7 @@ Future<void> showWinLoseDialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        backgroundColor: isWin ? Colors.green : Colors.red,
+        backgroundColor: isWin ? AppColors.green : AppColors.red,
         title: Center(
           child: Text(
             isWin
@@ -44,12 +46,11 @@ Future<void> showWinLoseDialog(
             style: AppTextStyles.m25.copyWith(color: Colors.white),
           ),
         ),
-        content: IntrinsicHeight(
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
+        content: Column(
+          children: [
+            Row(
+              children: [
+                Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
@@ -77,14 +78,8 @@ Future<void> showWinLoseDialog(
                     ),
                   ],
                 ),
-              ),
-              const VerticalDivider(
-                thickness: 2,
-                color: Colors.white,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: ElevatedButton(
+                const VerticalDivider(thickness: 2, color: Colors.white),
+                ElevatedButton(
                   onPressed: () {
                     String temp = "";
                     grid.asMap().map((key, value) {
@@ -99,13 +94,18 @@ Future<void> showWinLoseDialog(
                     );
                   },
                   child: Text(
-                    'Share',
+                    R.stringsOf(context).share,
                     style: AppTextStyles.m16.copyWith(color: Colors.white),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Text(
+              R.stringsOf(context).secret_word_is(word: word),
+              style: AppTextStyles.m16.copyWith(color: Colors.white),
+            ),
+          ],
         ),
       );
     },

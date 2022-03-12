@@ -7,13 +7,14 @@ Future<void> showTopFlushBar(
 }) async {
   Flushbar(
     message: message,
+    maxWidth: 400,
     duration: const Duration(milliseconds: 1200),
     flushbarStyle: FlushbarStyle.FLOATING,
     flushbarPosition: FlushbarPosition.TOP,
     backgroundColor: Theme.of(context).primaryColorDark,
     messageColor: Theme.of(context).primaryColorLight,
-    margin: const EdgeInsets.all(16),
+    margin: const EdgeInsets.only(top: 32),
     padding: const EdgeInsets.all(24),
-    borderRadius: BorderRadius.circular(8),
+    borderRadius: BorderRadius.circular(12),
   ).show(context);
 }

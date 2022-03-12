@@ -28,5 +28,8 @@
   "word_not_found": "Слово не найдено в словаре",
   "word_too_short": "Слово неправильной длины",
   "app_language": "Язык приложения",
-  "dictionary_language": "Язык словаря"
+  "dictionary_language": "Язык словаря",
+  "working_on_improving_dictionaries": "Мы работаем над улучшением словарей\nСкоро все слова будут с поянением смысла",
+  "secret_word_is": "Загаданное слово \"${word}\"",
+  "share": "Поделиться"
 }

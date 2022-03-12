@@ -109,10 +109,11 @@ class _MainPageState extends State<MainPage> {
             const GameStatistic();
     final grid = DictionaryData.getInstance().getDataList;
     if (isWin != null) {
+      final secretWord = DictionaryData.getInstance().secretWord;
       DailyResultRepository.getInstance().setItem(
         DailyResult(
           isWin: isWin,
-          word: DictionaryData.getInstance().secretWord,
+          word: secretWord,
         ),
       );
       late GameStatistic newStatistic;
@@ -135,6 +136,7 @@ class _MainPageState extends State<MainPage> {
       await showWinLoseDialog(
         context,
         isWin: isWin,
+        word: secretWord,
         statistic: newStatistic,
         grid: grid,
       );
@@ -146,6 +148,7 @@ class _MainPageState extends State<MainPage> {
         await showWinLoseDialog(
           context,
           isWin: savedItem.isWin,
+          word: savedItem.word!,
           statistic: savedStatistic,
           grid: grid,
         );

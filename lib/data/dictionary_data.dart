@@ -144,10 +144,10 @@ class DictionaryData {
   List<String> _getCurrentAllWord() {
     switch (_dictionaryLanguage) {
       case "ru":
-        return allWordsRu;
+        return dictionaryRuFixed;
       case "en":
       default:
-        return allWordsEn;
+        return dictionaryEnFixed;
     }
   }
 

@@ -77,19 +77,20 @@ class DictionaryData {
           checkWord();
           _completeGame = true;
           return WinGameState();
+        } else if (_currentWordIndex == 5) {
+          checkWord();
+          _completeGame = true;
+          return LoseGameState();
         }
         if (_getCurrentAllWord().contains(_gridData[_currentWordIndex])) {
           checkWord();
           return GridUpdateState();
-        } else {
-          return TopMessageState(FlushBarTypes.notFound);
         }
-      } else {
-        return TopMessageState(FlushBarTypes.notCorrectLength);
+        return TopMessageState(FlushBarTypes.notFound);
       }
-    } else {
-      return LoseGameState();
+      return TopMessageState(FlushBarTypes.notCorrectLength);
     }
+    return null;
   }
 
   void checkWord() {

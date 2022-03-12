@@ -30,12 +30,14 @@ class MainCubit extends Cubit<MainState> {
 
   bool submitWord() {
     final state = dictionary.submitWord();
-    if (state == null) return false;
+    if (state == null) {
+      return false;
+    }
     if (state is GridUpdateState ||
         state is WinGameState ||
         state is LoseGameState) {
       emit(state);
-      if (state is WinGameState) {
+      if (state is WinGameState || state is LoseGameState) {
         emit(GridUpdateState());
       }
       return true;

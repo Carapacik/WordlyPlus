@@ -1,6 +1,11 @@
-import 'dart:ui';
-
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:wordle/data/dictionary_data.dart';
+import 'package:wordle/data/models/daily_result.dart';
+import 'package:wordle/data/models/game_statistic.dart';
+import 'package:wordle/data/repositories/daily_result_repository.dart';
+import 'package:wordle/data/repositories/game_statistic_repository.dart';
+import 'package:wordle/presentation/widgets/dialogs/win_lose.dart';
 
 String durationToString(Duration duration) {
   String twoDigits(int n) => n.toString().padLeft(2, "0");
@@ -21,4 +26,55 @@ Locale getLocaleFromString(final String locale) {
 
 Future<void> copyToClipboard(final String text) async {
   await Clipboard.setData(ClipboardData(text: text));
+}
+
+Future<void> showDialogIfNeed(
+    final BuildContext context, {
+      final bool? isWin,
+    }) async {
+  final savedStatistic =
+      await GameStatisticRepository.getInstance().getItem() ??
+          const GameStatistic();
+  if (isWin != null) {
+    final secretWord = DictionaryData.getInstance().secretWord;
+    DailyResultRepository.getInstance().setItem(
+      DailyResult(
+        isWin: isWin,
+        word: secretWord,
+      ),
+    );
+    late GameStatistic newStatistic;
+    if (isWin) {
+      newStatistic = savedStatistic.copyWith(
+        wins: savedStatistic.wins + 1,
+        currentStreak: savedStatistic.currentStreak + 1,
+        maxStreak: savedStatistic.currentStreak + 1 > savedStatistic.maxStreak
+            ? savedStatistic.currentStreak
+            : savedStatistic.maxStreak,
+      );
+    } else {
+      newStatistic = savedStatistic.copyWith(
+        loses: savedStatistic.loses + 1,
+        currentStreak: 0,
+      );
+    }
+    await GameStatisticRepository.getInstance().setItem(newStatistic);
+    await showWinLoseDialog(
+      context,
+      isWin: isWin,
+      word: secretWord,
+      statistic: newStatistic,
+    );
+  } else {
+    final savedItem = await DailyResultRepository.getInstance().getItem();
+    final dailyWord = DictionaryData.getInstance().secretWord;
+    if (savedItem != null && savedItem.word == dailyWord) {
+      await showWinLoseDialog(
+        context,
+        isWin: savedItem.isWin,
+        word: savedItem.word,
+        statistic: savedStatistic,
+      );
+    }
+  }
 }

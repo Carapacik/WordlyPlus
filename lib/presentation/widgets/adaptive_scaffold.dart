@@ -13,6 +13,7 @@ import 'package:wordle/presentation/widgets/dialogs/how_to_play.dart';
 import 'package:wordle/resources/app_text_styles.dart';
 import 'package:wordle/resources/r.dart';
 import 'package:wordle/utils/platform.dart';
+import 'package:wordle/utils/utils.dart';
 
 class AdaptiveScaffold extends StatelessWidget {
   const AdaptiveScaffold({
@@ -134,7 +135,7 @@ class AdaptiveScaffold extends StatelessWidget {
       );
     }
     return Scaffold(
-      backgroundColor:  Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -184,7 +185,7 @@ class AdaptiveScaffold extends StatelessWidget {
                 },
                 fullscreenDialog: true,
               ),
-            ),
+            ).then((_) => showDialogIfNeed(context)),
             icon: const Icon(Icons.settings),
           ),
         ],

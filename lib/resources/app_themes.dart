@@ -23,7 +23,7 @@ final Map<AppTheme, ThemeData> themes = {
     primaryColor: const Color(0xFF000000),
     colorScheme: const ColorScheme.light(secondary: Color(0xDC121213)),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
-    backgroundColor:  const Color(0xFFFFFFFF),
+    backgroundColor: const Color(0xFFFFFFFF),
     cardColor: const Color(0xffd3d6da),
     hintColor: const Color(0xFF6AAA64),
     shadowColor: const Color(0xFF787C7E),

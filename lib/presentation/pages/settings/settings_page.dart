@@ -88,7 +88,9 @@ class SettingsPage extends StatelessWidget {
                     Expanded(
                       child: Center(
                         child: Text(
-                          R.stringsOf(context).working_on_improving_dictionaries,
+                          R
+                              .stringsOf(context)
+                              .working_on_improving_dictionaries,
                           style: AppTextStyles.m25,
                         ),
                       ),

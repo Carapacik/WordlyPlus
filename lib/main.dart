@@ -11,6 +11,9 @@ import 'package:wordle/data/models/settings_data.dart';
 import 'package:wordle/data/repositories/settings_repository.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  setPathUrlStrategy();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: "AIzaSyAhcjNRAWE9i4xvHnGX_dP8Qsexj2Gbv8A",
@@ -24,9 +27,6 @@ Future<void> main() async {
   );
   return BlocOverrides.runZoned(
     () async {
-      WidgetsFlutterBinding.ensureInitialized();
-      setPathUrlStrategy();
-      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
       DictionaryData.getInstance().createSecretWord();
       final settingsData = await SettingsRepository.getInstance().getItem();
       runApp(

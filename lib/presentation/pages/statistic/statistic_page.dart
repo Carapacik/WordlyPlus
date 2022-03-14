@@ -10,6 +10,7 @@ import 'package:wordle/presentation/pages/main/main_page.dart';
 import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/resources/app_text_styles.dart';
 import 'package:wordle/resources/r.dart';
+import 'package:wordle/utils/responsive.dart';
 
 class StatisticPage extends StatelessWidget {
   const StatisticPage({
@@ -57,6 +58,7 @@ class StatisticView extends StatelessWidget {
         foregroundColor: Theme.of(context).primaryColor,
         elevation: 0,
         title: Text(R.stringsOf(context).statistic),
+        centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.adaptive.arrow_back),
           onPressed: () {
@@ -77,51 +79,58 @@ class StatisticView extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Text(
-            R.stringsOf(context).statistic,
-            style: AppTextStyles.b20,
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              StatItem(
-                value: total,
-                title: R.stringsOf(context).played,
-              ),
-              StatItem(
-                value: winRate,
-                title: R.stringsOf(context).win_percent,
-              ),
-              StatItem(
-                value: currentStreak,
-                title: R.stringsOf(context).current_streak,
-              ),
-              StatItem(
-                value: maxStreak,
-                title: R.stringsOf(context).max_streak,
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 25,
-              bottom: 10,
+      body: Center(
+        child: Responsive(
+          mobile: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 500),
+            child: Column(
+              children: [
+                Text(
+                  R.stringsOf(context).statistic,
+                  style: AppTextStyles.b20,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    StatItem(
+                      value: total,
+                      title: R.stringsOf(context).played,
+                    ),
+                    StatItem(
+                      value: winRate,
+                      title: R.stringsOf(context).win_percent,
+                    ),
+                    StatItem(
+                      value: currentStreak,
+                      title: R.stringsOf(context).current_streak,
+                    ),
+                    StatItem(
+                      value: maxStreak,
+                      title: R.stringsOf(context).max_streak,
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 25,
+                    bottom: 10,
+                  ),
+                  child: Text(
+                    R.stringsOf(context).guess_distribution.toUpperCase(),
+                    style: AppTextStyles.b20,
+                  ),
+                ),
+                AllAttemptStat(
+                  guessDistribution: guessDistribution,
+                ),
+              ],
             ),
-            child: Text(
-              R.stringsOf(context).guess_distribution.toUpperCase(),
-              style: AppTextStyles.b20,
-            ),
           ),
-          AllAttemptStat(
-            guessDistribution: guessDistribution,
-          ),
-        ],
+        ),
       ),
     );
   }

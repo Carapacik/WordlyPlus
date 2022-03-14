@@ -33,7 +33,7 @@
   "secret_word_is": "Загаданное слово \"${word}\"",
   "share": "Поделиться",
   "text_copied": "Текст скопирован в буфер обмена",
-  "check_my_result": "Смотри мой результат!\nТы можешь скачать игру тут:\nhttps://github.com/Carapacik/Wordle\n${emoji}"
+  "check_my_result": "Смотри мой результат!\nТы можешь скачать игру тут:\nhttps://github.com/Carapacik/Wordle\n${emoji}",
   "played": "Сынрано",
   "win_percent": "% Побед",
   "current_streak": "Текущая\nСерия",

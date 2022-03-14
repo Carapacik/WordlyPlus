@@ -32,7 +32,7 @@
   "win_percent": "Win %",
   "current_streak": "Current\nStreak",
   "max_streak": "Max\nStreak",
-  "guess_distribution": "Guess Distribution"
+  "guess_distribution": "Guess Distribution",
   "dictionary_language": "Dictionary language",
   "working_on_improving_dictionaries": "We are working on improving dictionaries\nSoon all words will be with an explanation of the meaning",
   "secret_word_is": "Secret word is \"${word}\"",

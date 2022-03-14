@@ -41,6 +41,7 @@ class LoginCubit extends Cubit<LoginState> {
         password: state.password.value,
       );
       final statistic = await _authRepository.getStatistic();
+      GetIt.I.unregister<Statistic>();
       GetIt.I.registerLazySingleton<Statistic>(() => statistic);
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on LogInWithEmailAndPasswordFailure catch (e) {
@@ -50,8 +51,6 @@ class LoginCubit extends Cubit<LoginState> {
           status: FormzStatus.submissionFailure,
         ),
       );
-    } catch (e) {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
   }
 }

@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,7 +57,10 @@ class StatisticView extends StatelessWidget {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         foregroundColor: Theme.of(context).primaryColor,
         elevation: 0,
-        title: Text(R.stringsOf(context).statistic),
+        title: Text(
+          R.stringsOf(context).statistic,
+          style: AppTextStyles.b30,
+        ),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.adaptive.arrow_back),
@@ -85,10 +88,6 @@ class StatisticView extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: 500),
             child: Column(
               children: [
-                Text(
-                  R.stringsOf(context).statistic,
-                  style: AppTextStyles.b20,
-                ),
                 const SizedBox(
                   height: 16,
                 ),
@@ -180,7 +179,8 @@ class AllAttemptStat extends StatelessWidget {
     final List<double> widths = [];
     final int maximum = guessDistribution.reduce(max);
     for (final i in guessDistribution) {
-      final double screen = MediaQuery.of(context).size.width * 0.75;
+      final double screen =
+          kIsWeb ? 450 : MediaQuery.of(context).size.width * 0.75;
       if (maximum == 0) {
         widths.add(screen * 0.07);
       } else {

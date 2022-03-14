@@ -7,6 +7,7 @@ import 'package:wordle/bloc/login/login_cubit.dart';
 import 'package:wordle/presentation/pages/sign_up/sign_up_page.dart';
 import 'package:wordle/presentation/pages/statistic/statistic_page.dart';
 import 'package:wordle/resources/r.dart';
+import 'package:wordle/utils/responsive.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({
@@ -32,23 +33,30 @@ class LoginForm extends StatelessWidget {
             );
         }
       },
-      child: Align(
-        alignment: const Alignment(0, -1 / 3),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 16),
-              _EmailInput(),
-              const SizedBox(height: 8),
-              _PasswordInput(),
-              const SizedBox(height: 8),
-              _LoginButton(),
-              const SizedBox(height: 4),
-              _SignUpButton(
-                authRepository: authRepository,
+      child: Center(
+        child: Responsive(
+          mobile: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 500),
+            child: Align(
+              alignment: const Alignment(0, -1 / 3),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(height: 16),
+                    _EmailInput(),
+                    const SizedBox(height: 8),
+                    _PasswordInput(),
+                    const SizedBox(height: 8),
+                    _LoginButton(),
+                    const SizedBox(height: 4),
+                    _SignUpButton(
+                      authRepository: authRepository,
+                    ),
+                  ],
+                ),
               ),
-            ],
+            ),
           ),
         ),
       ),

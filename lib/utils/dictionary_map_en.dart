@@ -161,5 +161,35 @@ const Map<String, String> dictionaryEn = {
   'amuck': 'To be out of control and act in a wild or dangerous manner',
   'amuse':
       'To entertain someone, especially by humorous speech or action or by making them laugh or smile',
+  'angel':
+      'A spiritual being in some religions who is believed to be a messenger of God, usually represented as having a human form with wings',
+  'anger':
+      'A strong feeling that makes you want to hurt someone or be unpleasant because of something unfair or unkind that has happened',
+  'angle':
+      'The space between two lines or surfaces at the point at which they touch each other, measured in degrees',
+  'angry':
+      'Having a strong feeling against someone who has behaved badly, making you want to shout at them or hurt them',
+  'angst': 'Strong worry and unhappiness, especially about personal problems',
+  'anime':
+      'Japanese films made using characters and images that are drawn rather than real, or one of these films',
+  'anion': 'An ion with a negative electrical charge',
+  'anise':
+      'A Mediterranean plant with small, yellowish-white flowers and seeds that taste of liquorice, used to give this flavour to food and drink',
+  'ankle':
+      'The joint (= place where two bones are connected) between the foot and the leg, or the thin part of the leg just above the foot',
+  'annal':
+      'Historical records of the activities of a country, organization, group, etc.; history in general',
+  'annex':
+      'To take possession of an area of land or a country, usually by force or without permission',
+  'annoy': 'To make someone angry',
+  'annul':
+      'To officially announce that something such as a law, agreement, or marriage no longer exists',
+  'anode':
+      'One of the electrodes (= objects that electricity moves through) in a piece of electrical equipment.',
+  'antra': 'A hollow space, especially in a bone',
+  'antsy': 'Very nervous, worried, or unpleasantly excited',
+  'anvil':
+      'A heavy block of iron on which heated pieces of metal are made into a particular shape with a hammer',
+  'aorta': 'The main artery (= thick tube carrying blood from the heart) that takes blood to the other parts of the body',
 };
-// an
+// ao

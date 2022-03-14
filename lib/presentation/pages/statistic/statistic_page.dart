@@ -1,14 +1,16 @@
 import 'dart:math';
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:wordle/bloc/app/app_bloc.dart';
 import 'package:wordle/presentation/pages/login/login_page.dart';
 import 'package:wordle/presentation/pages/main/main_page.dart';
 import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/resources/app_text_styles.dart';
 import 'package:wordle/resources/r.dart';
+import 'package:wordle/utils/responsive.dart';
 
 class StatisticPage extends StatelessWidget {
   const StatisticPage({
@@ -35,12 +37,31 @@ class StatisticView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Statistic statistic = GetIt.I.get<Statistic>();
+    final double wins = statistic.win.toDouble();
+    final double losses = statistic.loses.toDouble();
+    final double total = wins + losses;
+    final double winRate = statistic.winRate;
+    final double currentStreak = statistic.currentStreak.toDouble();
+    final double maxStreak = statistic.maxStreak.toDouble();
+    final guessDistribution = [
+      statistic.tries.first,
+      statistic.tries.second,
+      statistic.tries.third,
+      statistic.tries.fourth,
+      statistic.tries.fifth,
+      statistic.tries.sixth,
+    ];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         foregroundColor: Theme.of(context).primaryColor,
         elevation: 0,
-        title: Text(R.stringsOf(context).statistic),
+        title: Text(
+          R.stringsOf(context).statistic,
+          style: AppTextStyles.b30,
+        ),
+        centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.adaptive.arrow_back),
           onPressed: () {
@@ -61,51 +82,54 @@ class StatisticView extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Text(
-            R.stringsOf(context).statistic,
-            style: AppTextStyles.b20,
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              StatItem(
-                value: 4,
-                title: 'Played',
-              ),
-              StatItem(
-                value: 100,
-                title: 'Win %',
-              ),
-              StatItem(
-                value: 1,
-                title: 'Current\nStreak',
-              ),
-              StatItem(
-                value: 2,
-                title: 'Max\nStreak',
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 25,
-              bottom: 10,
+      body: Center(
+        child: Responsive(
+          mobile: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 500),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    StatItem(
+                      value: total,
+                      title: R.stringsOf(context).played,
+                    ),
+                    StatItem(
+                      value: winRate,
+                      title: R.stringsOf(context).win_percent,
+                    ),
+                    StatItem(
+                      value: currentStreak,
+                      title: R.stringsOf(context).current_streak,
+                    ),
+                    StatItem(
+                      value: maxStreak,
+                      title: R.stringsOf(context).max_streak,
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 25,
+                    bottom: 10,
+                  ),
+                  child: Text(
+                    R.stringsOf(context).guess_distribution.toUpperCase(),
+                    style: AppTextStyles.b20,
+                  ),
+                ),
+                AllAttemptStat(
+                  guessDistribution: guessDistribution,
+                ),
+              ],
             ),
-            child: Text(
-              'Guess distribution'.toUpperCase(),
-              style: AppTextStyles.b20,
-            ),
           ),
-          const AllAttemptStat(
-            guessDistribution: [0, 0, 1, 2, 0, 1],
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -118,7 +142,7 @@ class StatItem extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final int value;
+  final double value;
   final String title;
 
   @override
@@ -155,12 +179,17 @@ class AllAttemptStat extends StatelessWidget {
     final List<double> widths = [];
     final int maximum = guessDistribution.reduce(max);
     for (final i in guessDistribution) {
-      final double screen = MediaQuery.of(context).size.width * 0.75;
-      final width = screen * i / maximum;
-      if (width == 0) {
+      final double screen =
+          kIsWeb ? 450 : MediaQuery.of(context).size.width * 0.75;
+      if (maximum == 0) {
         widths.add(screen * 0.07);
       } else {
-        widths.add(width);
+        final width = screen * i / maximum;
+        if (width == 0) {
+          widths.add(screen * 0.07);
+        } else {
+          widths.add(width);
+        }
       }
     }
     return ListView.separated(

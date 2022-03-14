@@ -19,7 +19,8 @@ class LoginPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         foregroundColor: Theme.of(context).primaryColor,
-        elevation: 0,
+          elevation: 0,
+        centerTitle: true,
         title: Text(R.stringsOf(context).login),
         leading: IconButton(
           icon: Icon(Icons.adaptive.arrow_back),

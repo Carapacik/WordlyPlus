@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
-import 'package:wordle/data/dictionary_data.dart';
-import 'package:wordle/data/models/daily_result.dart';
 import 'package:wordle/data/models/flushbar_types.dart';
-import 'package:wordle/data/models/game_statistic.dart';
-import 'package:wordle/data/repositories/daily_result_repository.dart';
-import 'package:wordle/data/repositories/game_statistic_repository.dart';
 import 'package:wordle/presentation/pages/main/widgets/keyboard_en.dart';
 import 'package:wordle/presentation/pages/main/widgets/keyboard_ru.dart';
 import 'package:wordle/presentation/pages/main/widgets/word_grid.dart';
 import 'package:wordle/presentation/widgets/adaptive_scaffold.dart';
 import 'package:wordle/presentation/widgets/dialogs/top_flush_bar.dart';
-import 'package:wordle/presentation/widgets/dialogs/win_lose.dart';
 import 'package:wordle/resources/r.dart';
 import 'package:wordle/utils/utils.dart';
 

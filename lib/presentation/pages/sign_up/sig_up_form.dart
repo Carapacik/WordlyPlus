@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:wordle/bloc/sign_up/sign_up_cubit.dart';
+import 'package:wordle/utils/responsive.dart';
 
 class SignUpForm extends StatelessWidget {
   const SignUpForm({Key? key}) : super(key: key);
@@ -20,19 +21,26 @@ class SignUpForm extends StatelessWidget {
             );
         }
       },
-      child: Align(
-        alignment: const Alignment(0, -1 / 3),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _EmailInput(),
-            const SizedBox(height: 8),
-            _PasswordInput(),
-            const SizedBox(height: 8),
-            _ConfirmPasswordInput(),
-            const SizedBox(height: 8),
-            _SignUpButton(),
-          ],
+      child: Center(
+        child: Responsive(
+          mobile: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 500),
+            child: Align(
+              alignment: const Alignment(0, -1 / 3),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _EmailInput(),
+                  const SizedBox(height: 8),
+                  _PasswordInput(),
+                  const SizedBox(height: 8),
+                  _ConfirmPasswordInput(),
+                  const SizedBox(height: 8),
+                  _SignUpButton(),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );

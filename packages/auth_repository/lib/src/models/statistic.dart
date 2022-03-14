@@ -10,6 +10,7 @@ class Statistic with _$Statistic {
     @Default(0) int win,
     @Default(0) int loses,
     @Default(0) int maxStreak,
+    @Default(0) int currentStreak,
     required String uid,
     @Default(0) double winRate,
     @Default(Tries()) Tries tries,

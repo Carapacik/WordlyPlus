@@ -76,6 +76,7 @@ class SignUpCubit extends Cubit<SignUpState> {
         ),
       );
       final statistic = await _authRepository.getStatistic();
+      GetIt.I.unregister<Statistic>();
       GetIt.I.registerLazySingleton<Statistic>(() => statistic);
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on SignUpWithEmailAndPasswordFailure catch (e) {
@@ -85,8 +86,6 @@ class SignUpCubit extends Cubit<SignUpState> {
           status: FormzStatus.submissionFailure,
         ),
       );
-    } catch (_) {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
   }
 }

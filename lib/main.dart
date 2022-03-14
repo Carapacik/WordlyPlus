@@ -9,6 +9,7 @@ import 'package:wordle/bloc/settings/settings_cubit.dart';
 import 'package:wordle/data/dictionary_data.dart';
 import 'package:wordle/data/models/settings_data.dart';
 import 'package:wordle/data/repositories/settings_repository.dart';
+import 'package:wordle/utils/utils.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +29,7 @@ Future<void> main() async {
   return BlocOverrides.runZoned(
     () async {
       DictionaryData.getInstance().createSecretWord();
+      await getStatistic();
       final settingsData = await SettingsRepository.getInstance().getItem();
       runApp(
         BlocProvider<SettingsCubit>(

@@ -12,6 +12,7 @@ class SharedPreferenceData {
   static const dailyResultKeyEn = "daily_result_key_en";
   static const settingsDataKey = "settings_data_key";
   static const gameStatisticKey = "game_statistic_key";
+  static const statisticKey = "statistic_key";
 
   Future<String?> getDailyResult() async {
     final language = await SettingsRepository.getInstance().getItem();
@@ -37,6 +38,11 @@ class SharedPreferenceData {
 
   Future<bool> saveGameStatistic(final String gameStatistic) async =>
       _saveData(gameStatisticKey, gameStatistic);
+
+  Future<String?> getStatistic() async => _getData(statisticKey);
+
+  Future<bool> saveStatistic(final String statistic) async =>
+      _saveData(statisticKey, statistic);
 
   Future<bool> _saveData(final String key, final String data) async {
     final sp = await SharedPreferences.getInstance();

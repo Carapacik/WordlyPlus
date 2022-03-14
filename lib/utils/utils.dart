@@ -121,9 +121,9 @@ Future<void> showDialogIfNeed(
       );
     }
     GetIt.I.registerLazySingleton<Statistic>(() => statistic);
-    AuthRepository().currentUser.isEmpty
+    FirebaseAuth.instance.currentUser == null
         ? await StatisticRepository.getInstance().setItem(statistic)
-        : AuthRepository().updateStatistic(statistic);
+        : await AuthRepository().updateStatistic(statistic);
     await GameStatisticRepository.getInstance().setItem(newStatistic);
     await showWinLoseDialog(
       context,

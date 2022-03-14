@@ -169,8 +169,8 @@ class AuthRepository {
     );
   }
 
-  Future<void> updateStatistic(final Statistic statistic) {
-    return _statistic
+  Future<void> updateStatistic(final Statistic statistic) async {
+    return await _statistic
         .where('uid', isEqualTo: _firebaseAuth.currentUser?.uid)
         .get()
         .then(

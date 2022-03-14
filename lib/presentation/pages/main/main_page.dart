@@ -7,7 +7,7 @@ import 'package:wordle/data/dictionary_data.dart';
 import 'package:wordle/data/models/daily_result.dart';
 import 'package:wordle/data/models/flushbar_types.dart';
 import 'package:wordle/data/models/game_statistic.dart';
-import 'package:wordle/data/repositories/dauly_result_repository.dart';
+import 'package:wordle/data/repositories/daily_result_repository.dart';
 import 'package:wordle/data/repositories/game_statistic_repository.dart';
 import 'package:wordle/data/repositories/statistic_repository.dart';
 import 'package:wordle/presentation/pages/main/widgets/keyboard_en.dart';
@@ -17,6 +17,7 @@ import 'package:wordle/presentation/widgets/adaptive_scaffold.dart';
 import 'package:wordle/presentation/widgets/dialogs/top_flush_bar.dart';
 import 'package:wordle/presentation/widgets/dialogs/win_lose.dart';
 import 'package:wordle/resources/r.dart';
+import 'package:wordle/utils/utils.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      _showDialogIfNeed(context);
+      showDialogIfNeed(context);
     });
   }
 
@@ -39,47 +40,55 @@ class _MainPageState extends State<MainPage> {
     return BlocProvider<MainCubit>(
       create: (BuildContext context) => MainCubit(),
       child: AdaptiveScaffold(
-        child: BlocConsumer<MainCubit, MainState>(
-          listener: (context, state) {
-            if (state is TopMessageState) {
-              switch (state.type) {
-                case FlushBarTypes.notFound:
-                  showTopFlushBar(
-                    context,
-                    message: R.stringsOf(context).word_not_found,
-                  );
-                  break;
-                case FlushBarTypes.notCorrectLength:
-                  showTopFlushBar(
-                    context,
-                    message: R.stringsOf(context).word_too_short,
-                  );
-                  break;
+        child: Center(
+          child: BlocConsumer<MainCubit, MainState>(
+            listener: (context, state) {
+              if (state is TopMessageState) {
+                switch (state.type) {
+                  case FlushBarTypes.notFound:
+                    showTopFlushBar(
+                      context,
+                      message: R.stringsOf(context).word_not_found,
+                    );
+                    break;
+                  case FlushBarTypes.notCorrectLength:
+                    showTopFlushBar(
+                      context,
+                      message: R.stringsOf(context).word_too_short,
+                    );
+                    break;
+                }
+              } else if (state is WinGameState) {
+                showDialogIfNeed(context, isWin: true);
+              } else if (state is LoseGameState) {
+                showDialogIfNeed(context, isWin: false);
               }
-            } else if (state is WinGameState) {
-              _showDialogIfNeed(context, isWin: true);
-            } else if (state is LoseGameState) {
-              _showDialogIfNeed(context, isWin: false);
-            }
-          },
-          buildWhen: (_, currState) => currState is ChangeDictionaryState,
-          builder: (context, state) {
-            return Column(
-              key: UniqueKey(),
-              children: [
-                const WordGrid(),
-                const Spacer(),
-                BlocBuilder<MainCubit, MainState>(
-                  buildWhen: (previous, current) =>
-                      current is ChangeDictionaryState,
-                  builder: (context, state) => _getKeyboardByLanguage(
-                    state is! ChangeDictionaryState ? "en" : state.dictionary,
-                  ),
+            },
+            buildWhen: (_, currState) => currState is ChangeDictionaryState,
+            builder: (context, state) {
+              return ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 500),
+                child: Column(
+                  key: UniqueKey(),
+                  children: [
+                    const SizedBox(height: 16),
+                    const WordGrid(),
+                    const Spacer(),
+                    BlocBuilder<MainCubit, MainState>(
+                      buildWhen: (previous, current) =>
+                          current is ChangeDictionaryState,
+                      builder: (context, state) => _getKeyboardByLanguage(
+                        state is! ChangeDictionaryState
+                            ? "en"
+                            : state.dictionary,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                  ],
                 ),
-                const SizedBox(height: 20),
-              ],
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );

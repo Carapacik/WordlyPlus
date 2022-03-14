@@ -1,8 +1,12 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:wordle/data/models/letter_status.dart';
 
-class LetterData {
-  LetterData({required this.letter, required this.status});
+part 'letter_data.freezed.dart';
 
-  final String letter;
-  final LetterStatus status;
+@freezed
+class LetterData with _$LetterData {
+  const factory LetterData({
+    required String letter,
+    required LetterStatus status,
+  }) = _LetterData;
 }

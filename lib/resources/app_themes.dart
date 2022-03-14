@@ -23,6 +23,7 @@ final Map<AppTheme, ThemeData> themes = {
     primaryColor: const Color(0xFF000000),
     colorScheme: const ColorScheme.light(secondary: Color(0xDC121213)),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+    backgroundColor: const Color(0xFFFFFFFF),
     cardColor: const Color(0xffd3d6da),
     hintColor: const Color(0xFF6AAA64),
     shadowColor: const Color(0xFF787C7E),
@@ -50,6 +51,7 @@ final Map<AppTheme, ThemeData> themes = {
     colorScheme: const ColorScheme.dark(secondary: Color(0xFF23B4B6)),
     scaffoldBackgroundColor: const Color(0xDC121213),
     cardColor: const Color(0xff818384),
+    backgroundColor: const Color(0xDC121213),
     hintColor: const Color(0xff538d4e),
     shadowColor: const Color(0xff565758),
     inputDecorationTheme: InputDecorationTheme(

@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/index.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:wordle/data/dictionary_data.dart';
 import 'package:wordle/data/models/game_statistic.dart';
-import 'package:wordle/data/models/letter_data.dart';
 import 'package:wordle/data/models/letter_status.dart';
+import 'package:wordle/presentation/widgets/dialogs/top_flush_bar.dart';
+import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/resources/app_text_styles.dart';
 import 'package:wordle/resources/r.dart';
+import 'package:wordle/utils/platform.dart';
 import 'package:wordle/utils/utils.dart';
-import 'package:share_plus/share_plus.dart';
 
 Future<void> showWinLoseDialog(
   final BuildContext context, {
   required final GameStatistic statistic,
+  required final String word,
   final bool isWin = true,
-  required final List<LetterData> grid,
 }) async {
   showDialog(
     context: context,
@@ -35,7 +37,7 @@ Future<void> showWinLoseDialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        backgroundColor: isWin ? Colors.green : Colors.red,
+        backgroundColor: isWin ? AppColors.green : AppColors.red,
         title: Center(
           child: Text(
             isWin
@@ -44,12 +46,12 @@ Future<void> showWinLoseDialog(
             style: AppTextStyles.m25.copyWith(color: Colors.white),
           ),
         ),
-        content: IntrinsicHeight(
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
@@ -77,37 +79,51 @@ Future<void> showWinLoseDialog(
                     ),
                   ],
                 ),
-              ),
-              const VerticalDivider(
-                thickness: 2,
-                color: Colors.white,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: ElevatedButton(
+                const VerticalDivider(thickness: 2, color: Colors.white),
+                ElevatedButton(
                   onPressed: () {
-                    String temp = "";
-                    grid.asMap().map((key, value) {
-                      temp += value.status.toEmoji();
-                      if (key % 5 == 4) {
-                        temp += "\n";
-                      }
-                      return MapEntry(key, value);
-                    });
-                    Share.share(
-                      'Check out my wordle result!\nYou can download game here:\nhttps://github.com/Carapacik/Wordle\n$temp',
-                    );
+                    _share(context, word: word);
                   },
                   child: Text(
-                    'Share',
+                    R.stringsOf(context).share,
                     style: AppTextStyles.m16.copyWith(color: Colors.white),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Text(
+              R.stringsOf(context).secret_word_is(word: word),
+              style: AppTextStyles.m16.copyWith(color: Colors.white),
+            ),
+          ],
         ),
       );
     },
   );
+}
+
+Future<void> _share(
+  final BuildContext context, {
+  required final String word,
+}) async {
+  final letterDataList = DictionaryData.getInstance().letterDataList;
+  String emojiString = "";
+  letterDataList.asMap().map((key, value) {
+    emojiString += value.status.toEmoji();
+    if (key % 5 == 4) {
+      emojiString += "\n";
+    }
+    return MapEntry(key, value);
+  });
+  emojiString = R.stringsOf(context).check_my_result(emoji: emojiString);
+  if (PlatformType.currentPlatformType == PlatformTypeEnum.web) {
+    await copyToClipboard(emojiString);
+    await showTopFlushBar(
+      context,
+      message: R.stringsOf(context).text_copied,
+    );
+  } else {
+    Share.share(emojiString);
+  }
 }

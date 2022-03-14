@@ -228,7 +228,7 @@ class AttemptBar extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(3),
-            color: AppColors.darkGrey,
+            color: AppColors.grey,
           ),
           width: width,
           child: Padding(

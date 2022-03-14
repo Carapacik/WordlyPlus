@@ -34,10 +34,13 @@ class KeyboardKey extends StatelessWidget {
         return false;
       },
       builder: (context, state) {
-        final _dictionary = DictionaryData.getInstance();
+        final dictionary = DictionaryData.getInstance();
+        final width = MediaQuery.of(context).size.width > 500
+            ? 500
+            : MediaQuery.of(context).size.width;
         return Container(
-          margin: const EdgeInsets.all(4),
-          width: _getWidthByLang(MediaQuery.of(context).size.width),
+          margin: const EdgeInsets.symmetric(horizontal: 2),
+          width: _getWidthByLang(width),
           child: AspectRatio(
             aspectRatio: lang == 0 ? 2 / 3 : 2 / 3.5,
             child: InkWell(
@@ -49,7 +52,7 @@ class KeyboardKey extends StatelessWidget {
                   return Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: _dictionary
+                      color: dictionary
                           .getKeyStatus(keyboardKey.name(lang: lang))
                           .color(context, highContrast: state.isHighContrast),
                       borderRadius: BorderRadius.circular(4),
@@ -68,7 +71,7 @@ class KeyboardKey extends StatelessWidget {
     );
   }
 
-  double _getWidthByLang(final double width) {
+  double _getWidthByLang(final num width) {
     switch (lang) {
       case 0:
         return width * 0.075;
@@ -92,9 +95,12 @@ class EnterKeyboardKey extends StatelessWidget {
   Widget build(BuildContext context) {
     final mainCubit = BlocProvider.of<MainCubit>(context);
     final dictionary = DictionaryData.getInstance();
+    final width = MediaQuery.of(context).size.width > 500
+        ? 500
+        : MediaQuery.of(context).size.width;
     return Container(
-      margin: const EdgeInsets.only(right: 4),
-      height: _getHeightByLang(MediaQuery.of(context).size.width),
+      margin: const EdgeInsets.only(right: 2),
+      height: _getHeightByLang(width),
       child: InkWell(
         onTap: () {
           if (mainCubit.submitWord()) {
@@ -133,7 +139,7 @@ class EnterKeyboardKey extends StatelessWidget {
     );
   }
 
-  double _getHeightByLang(final double width) {
+  double _getHeightByLang(final num width) {
     switch (lang) {
       case 0:
         return width * 0.075 / 2 * 3;
@@ -153,11 +159,13 @@ class DeleteKeyboardKey extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mainCubit = BlocProvider.of<MainCubit>(context);
-    final _width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.of(context).size.width > 500
+        ? 500
+        : MediaQuery.of(context).size.width;
     return Container(
-      margin: const EdgeInsets.only(left: 4),
-      width: _getWidthByLang(_width),
-      height: _getWidthByLang(_width),
+      margin: const EdgeInsets.only(left: 2),
+      width: _getWidthByLang(width),
+      height: _getWidthByLang(width),
       child: InkWell(
         onTap: mainCubit.removeLetter,
         child: Container(
@@ -173,7 +181,7 @@ class DeleteKeyboardKey extends StatelessWidget {
     );
   }
 
-  double _getWidthByLang(final double width) {
+  double _getWidthByLang(final num width) {
     switch (lang) {
       case 0:
         return width * 0.075 / 2 * 3;

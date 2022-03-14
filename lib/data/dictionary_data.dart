@@ -20,71 +20,81 @@ class DictionaryData {
   String? _secretWord;
   List<String> _gridData = [""];
   Map<String, LetterStatus> _lettersMap = {};
-  int currentWordIndex = 0;
+  int _currentWordIndex = 0;
   final List<LetterData> _letterDataList = [];
+  bool _completeGame = false;
 
   String get secretWord => _secretWord ?? "";
+
+  int get currentWordIndex => _currentWordIndex;
+
+  List<LetterData> get letterDataList => _letterDataList;
 
   //ignore: use_setters_to_change_properties
   void setDictionaryLanguage(final String value) {
     _dictionaryLanguage = value;
   }
 
-  List<LetterData> get getDataList => _letterDataList;
-
   bool setLetter(final KeyboardKeys key) {
+    if (_completeGame) {
+      return false;
+    }
     if (KeyboardKeys.enter.name == key.name) {
       return false;
     }
-
-    if (_gridData.length <= currentWordIndex) {
+    if (_gridData.length <= _currentWordIndex) {
       _gridData.add("");
     }
-    if (_gridData[currentWordIndex].length < 5) {
-      _gridData[currentWordIndex] =
-          _gridData[currentWordIndex] + (key.name(lang: _getIntLang()) ?? "");
+    if (_gridData[_currentWordIndex].length < 5) {
+      _gridData[_currentWordIndex] =
+          _gridData[_currentWordIndex] + (key.name(lang: _getIntLang()) ?? "");
       return true;
     }
     return false;
   }
 
   void removeLetter() {
-    if (_gridData.length <= currentWordIndex) {
+    if (_gridData.length <= _currentWordIndex) {
       _gridData.add("");
     }
-    final int wordLength = _gridData[currentWordIndex].length;
+    final int wordLength = _gridData[_currentWordIndex].length;
     if (wordLength > 0) {
-      _gridData[currentWordIndex] =
-          _gridData[currentWordIndex].substring(0, wordLength - 1);
+      _gridData[_currentWordIndex] =
+          _gridData[_currentWordIndex].substring(0, wordLength - 1);
     }
   }
 
-  MainState submitWord() {
-    if (_gridData.length <= currentWordIndex) {
+  MainState? submitWord() {
+    if (_completeGame) {
+      return null;
+    }
+    if (_gridData.length <= _currentWordIndex) {
       _gridData.add("");
     }
-    if (currentWordIndex < 5) {
-      if (_gridData[currentWordIndex].length == 5) {
-        if (_gridData[currentWordIndex] == _secretWord) {
+    if (_currentWordIndex < 6) {
+      if (_gridData[_currentWordIndex].length == 5) {
+        if (_gridData[_currentWordIndex] == _secretWord) {
           checkWord();
+          _completeGame = true;
           return WinGameState();
+        } else if (_currentWordIndex == 5) {
+          checkWord();
+          _completeGame = true;
+          return LoseGameState();
         }
-        if (_getCurrentAllWord().contains(_gridData[currentWordIndex])) {
+        if (_getCurrentAllWord().contains(_gridData[_currentWordIndex])) {
           checkWord();
           return GridUpdateState();
-        } else {
-          return TopMessageState(FlushBarTypes.notFound);
         }
-      } else {
-        return TopMessageState(FlushBarTypes.notCorrectLength);
+        return TopMessageState(FlushBarTypes.notFound);
       }
-    } else {
-      return LoseGameState();
+      return TopMessageState(FlushBarTypes.notCorrectLength);
     }
+    return null;
   }
 
   void checkWord() {
-    final word = _gridData[currentWordIndex];
+    final word = _gridData[_currentWordIndex];
     if (_secretWord == null) return;
     word.split("").asMap().map((key, value) {
       var _status = LetterStatus.unknown;
@@ -116,8 +126,8 @@ class DictionaryData {
       _letterDataList.add(LetterData(letter: value, status: _status));
       return MapEntry(key, value);
     });
-    if (currentWordIndex < 5) {
-      currentWordIndex++;
+    if (_currentWordIndex < 6) {
+      _currentWordIndex++;
     }
   }
 
@@ -130,7 +140,7 @@ class DictionaryData {
   }
 
   List<String> getAllLettersInList() {
-    return _gridData[currentWordIndex - 1].split("");
+    return _gridData[_currentWordIndex - 1].split("");
   }
 
   String getAllLettersInString() {
@@ -144,10 +154,10 @@ class DictionaryData {
   List<String> _getCurrentAllWord() {
     switch (_dictionaryLanguage) {
       case "ru":
-        return allWordsRu;
+        return dictionaryRuFixed;
       case "en":
       default:
-        return allWordsEn;
+        return dictionaryEnFixed;
     }
   }
 
@@ -163,8 +173,10 @@ class DictionaryData {
 
   void resetData() {
     _secretWord = null;
+    _completeGame = false;
     _gridData = [""];
     _lettersMap = {};
-    currentWordIndex = 0;
+    _letterDataList.clear();
+    _currentWordIndex = 0;
   }
 }

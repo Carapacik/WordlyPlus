@@ -31,7 +31,7 @@ class AppTextStyles {
 
   static TextStyle m16 = GoogleFonts.ubuntu(
     fontSize: 16,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w500,
   );
 
   static TextStyle n14 = GoogleFonts.ubuntu(

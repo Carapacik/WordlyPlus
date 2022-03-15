@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
+import 'package:wordle/data/dictionary_data.dart';
 import 'package:wordle/data/models/flushbar_types.dart';
 import 'package:wordle/presentation/pages/main/widgets/keyboard_en.dart';
 import 'package:wordle/presentation/pages/main/widgets/keyboard_ru.dart';
@@ -28,6 +29,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    final _dictionary = DictionaryData.getInstance();
     return BlocProvider<MainCubit>(
       create: (BuildContext context) => MainCubit(),
       child: AdaptiveScaffold(
@@ -59,23 +61,33 @@ class _MainPageState extends State<MainPage> {
             builder: (context, state) {
               return ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 500),
-                child: Column(
-                  key: UniqueKey(),
-                  children: [
-                    const SizedBox(height: 16),
-                    const WordGrid(),
-                    const Spacer(),
-                    BlocBuilder<MainCubit, MainState>(
-                      buildWhen: (previous, current) =>
-                          current is ChangeDictionaryState,
-                      builder: (context, state) => _getKeyboardByLanguage(
-                        state is! ChangeDictionaryState
-                            ? "en"
-                            : state.dictionary,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                  ],
+                child: FutureBuilder(
+                  future: _dictionary.getBoard(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Column(
+                        key: UniqueKey(),
+                        children: [
+                          const SizedBox(height: 16),
+                          const WordGrid(),
+                          const Spacer(),
+                          BlocBuilder<MainCubit, MainState>(
+                            buildWhen: (previous, current) =>
+                                current is ChangeDictionaryState,
+                            builder: (context, state) => _getKeyboardByLanguage(
+                              state is! ChangeDictionaryState
+                                  ? "en"
+                                  : state.dictionary,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                        ],
+                      );
+                    } else {
+                      //TODO: probably will stay the same with splashscreen ending on future loaded
+                      return SizedBox();
+                    }
+                  },
                 ),
               );
             },

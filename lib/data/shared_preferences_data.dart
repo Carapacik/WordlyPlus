@@ -13,6 +13,7 @@ class SharedPreferenceData {
   static const settingsDataKey = "settings_data_key";
   static const gameStatisticKey = "game_statistic_key";
   static const statisticKey = "statistic_key";
+  static const boardStateKey = "board_state_key";
 
   Future<String?> getDailyResult() async {
     final language = await SettingsRepository.getInstance().getItem();
@@ -28,6 +29,11 @@ class SharedPreferenceData {
         language?.appLanguage == "en" ? dailyResultKeyEn : dailyResultKeyRu;
     return _saveData(key, dailyResult);
   }
+
+  Future<String?> getBoardData() async => _getData(boardStateKey);
+
+  Future<bool> saveBoardData(final String boardData) async =>
+      _saveData(boardStateKey, boardData);
 
   Future<String?> getSettingsData() async => _getData(settingsDataKey);
 

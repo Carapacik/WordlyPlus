@@ -22,8 +22,8 @@ class BoardStateRepository extends SaveReactiveRepository<BoardData> {
   String convertToString(BoardData item) => json.encode(item.toJson());
 
   @override
-  Future<String?> getRawData() => spData.getSettingsData();
+  Future<String?> getRawData() => spData.getBoardData();
 
   @override
-  Future<bool> setRawData(String item) => spData.saveSettingsData(item);
+  Future<bool> setRawData(String item) => spData.saveBoardData(item);
 }

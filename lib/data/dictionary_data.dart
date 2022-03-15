@@ -6,9 +6,9 @@ import 'package:wordle/data/models/flushbar_types.dart';
 import 'package:wordle/data/models/keyboard_keys.dart';
 import 'package:wordle/data/models/letter_data.dart';
 import 'package:wordle/data/models/letter_status.dart';
+import 'package:wordle/data/repositories/board_state_repository.dart';
 import 'package:wordle/resources/dictionary_en_fixed.dart';
 import 'package:wordle/resources/dictionary_ru_fixed.dart';
-import 'package:wordle/data/repositories/board_state_repository.dart';
 
 class DictionaryData {
   factory DictionaryData.getInstance() =>
@@ -60,7 +60,7 @@ class DictionaryData {
   Future<String?> getBoard() async {
     var boardState = await BoardStateRepository.getInstance().getItem();
     if (boardState == null) {
-      await BoardStateRepository.getInstance().setItem(BoardData());
+      await BoardStateRepository.getInstance().setItem(const BoardData());
       boardState = await BoardStateRepository.getInstance().getItem();
     }
     if (_dictionaryLanguage == 'en') {
@@ -86,7 +86,7 @@ class DictionaryData {
   Future<void> saveToPrefs() async {
     var boardState = await BoardStateRepository.getInstance().getItem();
     if (boardState == null) {
-      await BoardStateRepository.getInstance().setItem(BoardData());
+      await BoardStateRepository.getInstance().setItem(const BoardData());
       boardState = await BoardStateRepository.getInstance().getItem();
     }
     BoardStateRepository.getInstance().setItem(
@@ -94,13 +94,12 @@ class DictionaryData {
           ? boardState!.copyWith(enBoard: _gridData, enWord: _secretWord)
           : boardState!.copyWith(ruWord: _secretWord, ruBoard: _gridData),
     );
-    print(boardState);
   }
 
   Future<void> saveWordIndexToPrefs() async {
     var boardState = await BoardStateRepository.getInstance().getItem();
     if (boardState == null) {
-      await BoardStateRepository.getInstance().setItem(BoardData());
+      await BoardStateRepository.getInstance().setItem(const BoardData());
       boardState = await BoardStateRepository.getInstance().getItem();
     }
     BoardStateRepository.getInstance().setItem(

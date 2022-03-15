@@ -190,26 +190,36 @@ const Map<String, String> dictionaryEn = {
   'antsy': 'Very nervous, worried, or unpleasantly excited',
   'anvil':
       'A heavy block of iron on which heated pieces of metal are made into a particular shape with a hammer',
-  'aorta': 'The main artery (= thick tube carrying blood from the heart) that takes blood to the other parts of the body',
+  'aorta':
+      'The main artery (= thick tube carrying blood from the heart) that takes blood to the other parts of the body',
   'apace': 'Quickly',
   'apart': 'Separated by a distance or by time',
-  'aphid': 'Any of various small insects, such as the greenfly, that suck the juices of plants for food',
+  'aphid':
+      'Any of various small insects, such as the greenfly, that suck the juices of plants for food',
   'aping': 'To copy something or someone badly and unsuccessfully',
-  'apnea': 'A medical condition that makes someone stop breathing for a short time, especially when they are sleeping',
+  'apnea':
+      'A medical condition that makes someone stop breathing for a short time, especially when they are sleeping',
   'appal': 'To make someone have strong feelings of shock or of disapproval',
-  'apple': 'A round fruit with firm, white flesh and a green, red, or yellow skin',
-  'apply': 'To request something, usually officially, especially in writing or by sending in a form',
+  'apple':
+      'A round fruit with firm, white flesh and a green, red, or yellow skin',
+  'apply':
+      'To request something, usually officially, especially in writing or by sending in a form',
   'april': 'The fourth month of the year, after March and before May',
-  'apron': 'A piece of clothing that you wear over the front of other clothes to keep the clothes clean while you are doing something dirty, such as cooking or cleaning',
+  'apron':
+      'A piece of clothing that you wear over the front of other clothes to keep the clothes clean while you are doing something dirty, such as cooking or cleaning',
   'aptly': 'In a way that is suitable or right for a particular situation',
-  'arbor': 'A sheltered place in a garden formed by trees and bushes that are grown to partly surround it',
+  'arbor':
+      'A sheltered place in a garden formed by trees and bushes that are grown to partly surround it',
   'arced': 'To move in the shape of an arc',
   'arcus': 'A feature in the body that is curved in shape',
   'ardor': 'Great enthusiasm or love',
   'areal': 'Relating to the area of something',
-  'argon': 'A chemical element that is a gas found in air. Argon does not react with other elements and is sometimes used to make electric lights',
-  'argot': 'Words and expressions that are used by small groups of peoWords and expressions that are used by small groups of people and that are not easily understood by other people',
-  'argue': 'To speak angrily to someone, telling that person that you disagree with them',
+  'argon':
+      'A chemical element that is a gas found in air. Argon does not react with other elements and is sometimes used to make electric lights',
+  'argot':
+      'Words and expressions that are used by small groups of peoWords and expressions that are used by small groups of people and that are not easily understood by other people',
+  'argue':
+      'To speak angrily to someone, telling that person that you disagree with them',
   'arise': 'To happen',
   'armed': 'Using or carrying weapons',
   'armor': 'Strong covering that protects something, especially the body',

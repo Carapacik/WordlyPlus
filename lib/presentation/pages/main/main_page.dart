@@ -71,12 +71,14 @@ class _MainPageState extends State<MainPage> {
                           const SizedBox(height: 16),
                           const WordGrid(),
                           const Spacer(),
+                          const SizedBox(height: 16),
                           BlocBuilder<MainCubit, MainState>(
                             buildWhen: (previous, current) =>
                                 current is ChangeDictionaryState,
                             builder: (context, state) => _getKeyboardByLanguage(
                               state is! ChangeDictionaryState
-                                  ? "en"
+                                  ? DictionaryData.getInstance()
+                                      .dictionaryLanguage
                                   : state.dictionary,
                             ),
                           ),
@@ -85,7 +87,7 @@ class _MainPageState extends State<MainPage> {
                       );
                     } else {
                       //TODO: probably will stay the same with splashscreen ending on future loaded
-                      return SizedBox();
+                      return const SizedBox.shrink();
                     }
                   },
                 ),

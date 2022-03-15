@@ -23,7 +23,6 @@ class SignUpPage extends StatelessWidget {
         title: Text(
           R.stringsOf(context).sign_up.toUpperCase(),
         ),
-
       ),
       body: Padding(
         padding: const EdgeInsets.all(8),

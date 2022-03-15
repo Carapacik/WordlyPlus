@@ -1,6 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordle/data/dictionary_data.dart';
-import 'package:wordle/data/repositories/settings_repository.dart';
 
 class SharedPreferenceData {
   factory SharedPreferenceData.getInstance() =>

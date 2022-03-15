@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
 import 'package:wordle/bloc/settings/settings_cubit.dart';
+import 'package:wordle/data/dictionary_data.dart';
 import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/resources/app_text_styles.dart';
 import 'package:wordle/resources/r.dart';
@@ -74,7 +75,7 @@ class SettingsPage extends StatelessWidget {
                         return _LanguageSelector(
                           text: R.stringsOf(context).dictionary_language,
                           value: mainState is! ChangeDictionaryState
-                              ? "en"
+                              ? DictionaryData.getInstance().dictionaryLanguage
                               : mainState.dictionary,
                           onChanged: (value) async {
                             mainCubit.changeDictionary(value: value!);
@@ -87,11 +88,14 @@ class SettingsPage extends StatelessWidget {
                     const Divider(color: AppColors.greyTrack),
                     Expanded(
                       child: Center(
-                        child: Text(
-                          R
-                              .stringsOf(context)
-                              .working_on_improving_dictionaries,
-                          style: AppTextStyles.m25,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Text(
+                            R
+                                .stringsOf(context)
+                                .working_on_improving_dictionaries,
+                            style: AppTextStyles.m25,
+                          ),
                         ),
                       ),
                     )

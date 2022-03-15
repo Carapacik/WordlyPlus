@@ -1,14 +1,12 @@
 import 'dart:async';
 
 import 'package:auth_repository/auth_repository.dart';
-import 'package:auth_repository/src/models/statistic.dart';
 import 'package:cache/cache.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:meta/meta.dart';
 
 class SignUpWithEmailAndPasswordFailure implements Exception {
   const SignUpWithEmailAndPasswordFailure([
@@ -91,9 +89,6 @@ class AuthRepository {
   final _statistic = FirebaseFirestore.instance.collection('statistic');
 
   @visibleForTesting
-  bool isWeb = kIsWeb;
-
-  @visibleForTesting
   static const userCacheKey = '__user_cache_key__';
 
   Stream<User> get user {
@@ -151,7 +146,7 @@ class AuthRepository {
     return _statistic
         .add(statistic.toJson())
         .then((value) => () {})
-        .catchError((error) => print(error));
+        .catchError((error) => debugPrint(error));
   }
 
   Future<Statistic> getStatistic() {
@@ -163,7 +158,7 @@ class AuthRepository {
         )
         .onError(
       (error, stackTrace) {
-        print(error);
+        debugPrint("error $error stackTrace $stackTrace");
         return Statistic(uid: _firebaseAuth.currentUser?.uid ?? '');
       },
     );

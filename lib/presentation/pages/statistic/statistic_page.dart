@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:flutter/foundation.dart' show kIsWeb;
+
 import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +10,7 @@ import 'package:wordle/presentation/pages/main/main_page.dart';
 import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/resources/app_text_styles.dart';
 import 'package:wordle/resources/r.dart';
+import 'package:wordle/utils/platform.dart';
 import 'package:wordle/utils/responsive.dart';
 
 class StatisticPage extends StatelessWidget {
@@ -179,8 +180,9 @@ class AllAttemptStat extends StatelessWidget {
     final List<double> widths = [];
     final int maximum = guessDistribution.reduce(max);
     for (final i in guessDistribution) {
-      final double screen =
-          kIsWeb ? 450 : MediaQuery.of(context).size.width * 0.75;
+      final screen = PlatformType.currentPlatformType == PlatformTypeEnum.web
+          ? 500
+          : MediaQuery.of(context).size.width * 0.75;
       if (maximum == 0) {
         widths.add(screen * 0.07);
       } else {

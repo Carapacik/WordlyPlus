@@ -6,9 +6,10 @@ import 'package:wordle/data/models/flushbar_types.dart';
 import 'package:wordle/data/models/keyboard_keys.dart';
 import 'package:wordle/data/models/letter_data.dart';
 import 'package:wordle/data/models/letter_status.dart';
+import 'package:wordle/resources/dictionary_en_fixed.dart';
+import 'package:wordle/resources/dictionary_ru_fixed.dart';
 import 'package:wordle/data/repositories/board_state_repository.dart';
-import 'package:wordle/resources/dictionary_en.dart';
-import 'package:wordle/resources/dictionary_ru.dart';
+
 
 class DictionaryData {
   factory DictionaryData.getInstance() =>
@@ -209,10 +210,10 @@ class DictionaryData {
   List<String> _getCurrentAllWord() {
     switch (_dictionaryLanguage) {
       case "ru":
-        return dictionaryRuFixed;
+        return dictionaryRu;
       case "en":
       default:
-        return dictionaryEnFixed;
+        return dictionaryEn;
     }
   }
 

@@ -10,7 +10,6 @@ import 'package:wordle/resources/dictionary_en_fixed.dart';
 import 'package:wordle/resources/dictionary_ru_fixed.dart';
 import 'package:wordle/data/repositories/board_state_repository.dart';
 
-
 class DictionaryData {
   factory DictionaryData.getInstance() =>
       _instance ??= DictionaryData._internal();
@@ -32,6 +31,8 @@ class DictionaryData {
   int get currentWordIndex => _currentWordIndex;
 
   List<LetterData> get letterDataList => _letterDataList;
+
+  String get dictionaryLanguage => _dictionaryLanguage;
 
   //ignore: use_setters_to_change_properties
   void setDictionaryLanguage(final String value) {
@@ -67,6 +68,7 @@ class DictionaryData {
         _gridData = boardState!.enBoard!;
         _currentWordIndex = boardState.enIndex;
         _lettersMap = boardState.enKeyboard ?? {};
+        _completeGame = boardState.enComplete;
         return _gridData.join();
       }
     } else {
@@ -74,6 +76,7 @@ class DictionaryData {
         _gridData = boardState!.ruBoard!;
         _currentWordIndex = boardState.ruIndex;
         _lettersMap = boardState.ruKeyboard ?? {};
+        _completeGame = boardState.ruComplete;
         return _gridData.join();
       }
     }
@@ -102,10 +105,16 @@ class DictionaryData {
     }
     BoardStateRepository.getInstance().setItem(
       _dictionaryLanguage == 'en'
-          ? boardState!
-              .copyWith(enIndex: _currentWordIndex, enKeyboard: _lettersMap)
-          : boardState!
-              .copyWith(ruIndex: _currentWordIndex, ruKeyboard: _lettersMap),
+          ? boardState!.copyWith(
+              enIndex: _currentWordIndex,
+              enKeyboard: _lettersMap,
+              enComplete: _completeGame,
+            )
+          : boardState!.copyWith(
+              ruIndex: _currentWordIndex,
+              ruKeyboard: _lettersMap,
+              ruComplete: _completeGame,
+            ),
     );
   }
 

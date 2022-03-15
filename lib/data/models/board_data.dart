@@ -7,6 +7,8 @@ part 'board_data.g.dart';
 @freezed
 class BoardData with _$BoardData {
   const factory BoardData({
+    @Default(false) bool ruComplete,
+    @Default(false) bool enComplete,
     Map<String, LetterStatus>? enKeyboard,
     Map<String, LetterStatus>? ruKeyboard,
     @Default(0) int enIndex,

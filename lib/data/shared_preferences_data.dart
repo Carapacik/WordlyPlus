@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wordle/data/dictionary_data.dart';
 import 'package:wordle/data/repositories/settings_repository.dart';
 
 class SharedPreferenceData {
@@ -16,17 +17,14 @@ class SharedPreferenceData {
   static const boardStateKey = "board_state_key";
 
   Future<String?> getDailyResult() async {
-    final language = await SettingsRepository.getInstance().getItem();
-    final key =
-        language?.appLanguage == "en" ? dailyResultKeyEn : dailyResultKeyRu;
+    final language = DictionaryData.getInstance().dictionaryLanguage;
+    final key = language == "en" ? dailyResultKeyEn : dailyResultKeyRu;
     return _getData(key);
   }
 
   Future<bool> saveDailyResult(final String dailyResult) async {
-    // TODO: get dictionary lang, not app lang
-    final language = await SettingsRepository.getInstance().getItem();
-    final key =
-        language?.appLanguage == "en" ? dailyResultKeyEn : dailyResultKeyRu;
+    final language = DictionaryData.getInstance().dictionaryLanguage;
+    final key = language == "en" ? dailyResultKeyEn : dailyResultKeyRu;
     return _saveData(key, dailyResult);
   }
 

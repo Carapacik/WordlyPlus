@@ -13,52 +13,50 @@ class WordGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MainCubit, MainState>(
       buildWhen: (_, currentState) => currentState is GridUpdateState,
-      builder: (context, state) {
-        final _dictionary = DictionaryData.getInstance();
-        final _currentLetters = _dictionary.getAllLettersInString();
-        return BlocBuilder<SettingsCubit, SettingsState>(
-          buildWhen: (previous, current) =>
-              previous.isHighContrast != current.isHighContrast,
-          builder: (context, state) {
-            return ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 400),
-              child: GridView.count(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                shrinkWrap: true,
-                primary: false,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 8,
-                crossAxisCount: 5,
-                children: List.generate(30, (index) {
-                  final letter = _currentLetters.length > index
-                      ? _currentLetters[index]
-                      : "";
-                  Color? color;
-                  if (letter.isNotEmpty &&
-                      _dictionary.currentWordIndex > 0 &&
-                      index < 5 * _dictionary.currentWordIndex) {
-                    final indexInRow = index % 5;
-                    if (_currentLetters.contains(letter)) {
-                      color = AppColors.grey;
-                    }
-                    if (_dictionary.secretWord.contains(letter)) {
-                      color = state.isHighContrast
-                          ? AppColors.highContrastBlue
-                          : AppColors.yellow;
-                    }
-                    if (_dictionary.secretWord[indexInRow] == letter) {
-                      color = state.isHighContrast
-                          ? AppColors.highContrastOrange
-                          : AppColors.green;
-                    }
+      builder: (context, state) => BlocBuilder<SettingsCubit, SettingsState>(
+        buildWhen: (previous, current) =>
+            previous.isHighContrast != current.isHighContrast,
+        builder: (context, state) {
+          final _dictionary = DictionaryData.getInstance();
+          final _currentLetters = _dictionary.getAllLettersInString();
+          return ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: GridView.count(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              shrinkWrap: true,
+              primary: false,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              crossAxisCount: 5,
+              children: List.generate(30, (index) {
+                final letter = _currentLetters.length > index
+                    ? _currentLetters[index]
+                    : "";
+                Color? color;
+                if (letter.isNotEmpty &&
+                    _dictionary.currentWordIndex > 0 &&
+                    index < 5 * _dictionary.currentWordIndex) {
+                  final indexInRow = index % 5;
+                  if (_currentLetters.contains(letter)) {
+                    color = AppColors.grey;
                   }
-                  return _GridItem(letter: letter, color: color);
-                }),
-              ),
-            );
-          },
-        );
-      },
+                  if (_dictionary.secretWord.contains(letter)) {
+                    color = state.isHighContrast
+                        ? AppColors.highContrastBlue
+                        : AppColors.yellow;
+                  }
+                  if (_dictionary.secretWord[indexInRow] == letter) {
+                    color = state.isHighContrast
+                        ? AppColors.highContrastOrange
+                        : AppColors.green;
+                  }
+                }
+                return _GridItem(letter: letter, color: color);
+              }),
+            ),
+          );
+        },
+      ),
     );
   }
 }

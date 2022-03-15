@@ -1,13 +1,14 @@
 import 'dart:math';
 
 import 'package:wordle/bloc/main/main_cubit.dart';
+import 'package:wordle/data/models/board_data.dart';
 import 'package:wordle/data/models/flushbar_types.dart';
 import 'package:wordle/data/models/keyboard_keys.dart';
 import 'package:wordle/data/models/letter_data.dart';
 import 'package:wordle/data/models/letter_status.dart';
 import 'package:wordle/resources/dictionary_en_fixed.dart';
 import 'package:wordle/resources/dictionary_ru_fixed.dart';
-
+import 'package:wordle/data/repositories/board_state_repository.dart';
 
 class DictionaryData {
   factory DictionaryData.getInstance() =>
@@ -31,6 +32,8 @@ class DictionaryData {
 
   List<LetterData> get letterDataList => _letterDataList;
 
+  String get dictionaryLanguage => _dictionaryLanguage;
+
   //ignore: use_setters_to_change_properties
   void setDictionaryLanguage(final String value) {
     _dictionaryLanguage = value;
@@ -52,6 +55,67 @@ class DictionaryData {
       return true;
     }
     return false;
+  }
+
+  Future<String?> getBoard() async {
+    var boardState = await BoardStateRepository.getInstance().getItem();
+    if (boardState == null) {
+      await BoardStateRepository.getInstance().setItem(BoardData());
+      boardState = await BoardStateRepository.getInstance().getItem();
+    }
+    if (_dictionaryLanguage == 'en') {
+      if (_secretWord == boardState?.enWord && boardState?.enBoard != null) {
+        _gridData = boardState!.enBoard!;
+        _currentWordIndex = boardState.enIndex;
+        _lettersMap = boardState.enKeyboard ?? {};
+        _completeGame = boardState.enComplete;
+        return _gridData.join();
+      }
+    } else {
+      if (_secretWord == boardState?.ruWord && boardState?.ruBoard != null) {
+        _gridData = boardState!.ruBoard!;
+        _currentWordIndex = boardState.ruIndex;
+        _lettersMap = boardState.ruKeyboard ?? {};
+        _completeGame = boardState.ruComplete;
+        return _gridData.join();
+      }
+    }
+    return '';
+  }
+
+  Future<void> saveToPrefs() async {
+    var boardState = await BoardStateRepository.getInstance().getItem();
+    if (boardState == null) {
+      await BoardStateRepository.getInstance().setItem(BoardData());
+      boardState = await BoardStateRepository.getInstance().getItem();
+    }
+    BoardStateRepository.getInstance().setItem(
+      _dictionaryLanguage == 'en'
+          ? boardState!.copyWith(enBoard: _gridData, enWord: _secretWord)
+          : boardState!.copyWith(ruWord: _secretWord, ruBoard: _gridData),
+    );
+    print(boardState);
+  }
+
+  Future<void> saveWordIndexToPrefs() async {
+    var boardState = await BoardStateRepository.getInstance().getItem();
+    if (boardState == null) {
+      await BoardStateRepository.getInstance().setItem(BoardData());
+      boardState = await BoardStateRepository.getInstance().getItem();
+    }
+    BoardStateRepository.getInstance().setItem(
+      _dictionaryLanguage == 'en'
+          ? boardState!.copyWith(
+              enIndex: _currentWordIndex,
+              enKeyboard: _lettersMap,
+              enComplete: _completeGame,
+            )
+          : boardState!.copyWith(
+              ruIndex: _currentWordIndex,
+              ruKeyboard: _lettersMap,
+              ruComplete: _completeGame,
+            ),
+    );
   }
 
   void removeLetter() {

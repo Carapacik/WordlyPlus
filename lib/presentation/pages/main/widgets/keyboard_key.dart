@@ -44,7 +44,10 @@ class KeyboardKey extends StatelessWidget {
           child: AspectRatio(
             aspectRatio: lang == 0 ? 2 / 3 : 2 / 3.5,
             child: InkWell(
-              onTap: () => mainCubit.setLetter(keyboardKey),
+              onTap: () async {
+                mainCubit.setLetter(keyboardKey);
+                await dictionary.saveToPrefs();
+              },
               child: BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (previous, current) =>
                     previous.isHighContrast != current.isHighContrast,
@@ -102,7 +105,7 @@ class EnterKeyboardKey extends StatelessWidget {
       margin: const EdgeInsets.only(right: 2),
       height: _getHeightByLang(width),
       child: InkWell(
-        onTap: () {
+        onTap: () async {
           if (mainCubit.submitWord()) {
             dictionary.getAllLettersInList().asMap().map(
               (index, e) {
@@ -121,6 +124,7 @@ class EnterKeyboardKey extends StatelessWidget {
                 return MapEntry(index, e);
               },
             );
+            await dictionary.saveWordIndexToPrefs();
           }
         },
         child: Container(
@@ -158,6 +162,7 @@ class DeleteKeyboardKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dictionary = DictionaryData.getInstance();
     final mainCubit = BlocProvider.of<MainCubit>(context);
     final width = MediaQuery.of(context).size.width > 500
         ? 500
@@ -167,7 +172,10 @@ class DeleteKeyboardKey extends StatelessWidget {
       width: _getWidthByLang(width),
       height: _getWidthByLang(width),
       child: InkWell(
-        onTap: mainCubit.removeLetter,
+        onTap: () async {
+          mainCubit.removeLetter();
+          await dictionary.saveToPrefs();
+        },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 4),
           alignment: Alignment.center,

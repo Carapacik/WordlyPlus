@@ -1,5 +1,6 @@
 import 'package:auth_repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
@@ -10,12 +11,30 @@ import 'package:wordle/data/repositories/daily_result_repository.dart';
 import 'package:wordle/data/repositories/game_statistic_repository.dart';
 import 'package:wordle/data/repositories/statistic_repository.dart';
 import 'package:wordle/presentation/widgets/dialogs/win_lose.dart';
+import 'package:wordle/utils/platform.dart';
 
 String durationToString(Duration duration) {
   String twoDigits(int n) => n.toString().padLeft(2, "0");
   final String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
   final String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
   return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+}
+
+Future<FirebaseApp> platformSpecificFirebase() async {
+  // does not work on windows and mac
+  return Firebase.initializeApp(
+    options: PlatformType.currentPlatformType == PlatformTypeEnum.web
+        ? const FirebaseOptions(
+            apiKey: "AIzaSyAhcjNRAWE9i4xvHnGX_dP8Qsexj2Gbv8A",
+            appId: "1:1035703108304:web:97b9de3b33f647abcd14d5",
+            messagingSenderId: "1035703108304",
+            projectId: "wordle-60cbd",
+            authDomain: "wordle-60cbd.firebaseapp.com",
+            storageBucket: "wordle-60cbd.appspot.com",
+            measurementId: "G-N9J8MD287F",
+          )
+        : null,
+  );
 }
 
 Locale getLocaleFromString(final String locale) {

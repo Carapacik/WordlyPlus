@@ -14,7 +14,7 @@ dependencies:
   cupertino_icons: ^1.0.4
   equatable: ^2.0.3
   firebase_analytics: ^9.1.2
-  firebase_auth: ^3.3.10
+  firebase_auth: ^3.3.11
   firebase_core: ^1.13.1
   fluent_ui: ^3.9.1
   flutter:
@@ -24,7 +24,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^1.0.3
-  flutterfire_ui: ^0.3.6
   form_inputs:
     path: packages/form_inputs
   formz: ^0.4.1
@@ -34,7 +33,7 @@ dependencies:
   isar: ^2.2.1
   json_annotation: ^4.4.0
   r_resources: ^1.0.1
-  share_plus: ^3.1.0
+  share_plus: ^4.0.1
   shared_preferences: ^2.0.13
   url_strategy: ^0.2.0
 

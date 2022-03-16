@@ -1,6 +1,3 @@
-# Automatically generated on 2022-03-11 UTC from https://codemagic.io/app/6228b05f8b3f4a000c890bd3/settings
-# Note that this configuration is not an exact match to UI settings. Review and adjust as necessary.
-
 workflows:
   wordle-beta:
     name: Wordle beta

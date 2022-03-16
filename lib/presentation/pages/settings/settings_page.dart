@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
 import 'package:wordle/bloc/settings/settings_cubit.dart';
 import 'package:wordle/data/dictionary_data.dart';
@@ -147,14 +148,28 @@ class _LanguageSelector extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               value: value,
               borderRadius: BorderRadius.circular(10),
-              items: const [
+              items: [
                 DropdownMenuItem(
                   value: "ru",
-                  child: Text("🇷🇺 RU"),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SvgPicture.asset(R.svg.russia, width: 40, height: 25,),
+                      const SizedBox(width: 10),
+                      const Text("RU"),
+                    ],
+                  ),
                 ),
                 DropdownMenuItem(
                   value: "en",
-                  child: Text("🇺🇸 EN"),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SvgPicture.asset(R.svg.us, width: 40, height: 25,),
+                      const SizedBox(width: 10),
+                      const Text("EN"),
+                    ],
+                  ),
                 ),
               ],
               onChanged: onChanged,

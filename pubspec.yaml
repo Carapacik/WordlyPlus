@@ -50,3 +50,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/strings/
+    - google_fonts/
+    - assets/svg/

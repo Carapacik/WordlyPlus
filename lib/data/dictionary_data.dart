@@ -8,6 +8,7 @@ import 'package:wordle/data/models/keyboard_keys.dart';
 import 'package:wordle/data/models/letter_data.dart';
 import 'package:wordle/data/models/letter_status.dart';
 import 'package:wordle/data/repositories/board_state_repository.dart';
+import 'package:wordle/data/repositories/dictionary_language_repository.dart';
 import 'package:wordle/resources/dictionary_en_fixed.dart';
 import 'package:wordle/resources/dictionary_ru_fixed.dart';
 
@@ -59,10 +60,8 @@ class DictionaryData {
   }
 
   Future<void> getDictionaryLanguage() async {
-    final sp = await SharedPreferences.getInstance();
-    var value = sp.getString("dict_lang");
-    value ??= "en";
-    _dictionaryLanguage = value;
+    _dictionaryLanguage =
+        await DictionaryLanguageRepository.getInstance().getItem() ?? 'en';
   }
 
   Future<String?> getBoard() async {
@@ -71,7 +70,6 @@ class DictionaryData {
       await BoardStateRepository.getInstance().setItem(const BoardData());
       boardState = await BoardStateRepository.getInstance().getItem();
     }
-    print('getboard - $dictionaryLanguage');
     if (_dictionaryLanguage == 'en') {
       if (_secretWord == boardState?.enWord && boardState?.enBoard != null) {
         _gridData = boardState!.enBoard!;
@@ -83,7 +81,6 @@ class DictionaryData {
     }
     if (_dictionaryLanguage == 'ru') {
       if (_secretWord == boardState?.ruWord && boardState?.ruBoard != null) {
-        print('ru board');
         _gridData = boardState!.ruBoard!;
         _currentWordIndex = boardState.ruIndex;
         _lettersMap = boardState.ruKeyboard ?? {};

@@ -5,6 +5,7 @@ import 'package:wordle/data/dictionary_data.dart';
 import 'package:wordle/data/models/flushbar_types.dart';
 import 'package:wordle/data/models/keyboard_keys.dart';
 import 'package:wordle/data/models/letter_status.dart';
+import 'package:wordle/data/repositories/dictionary_language_repository.dart';
 
 part 'main_state.dart';
 
@@ -15,8 +16,7 @@ class MainCubit extends Cubit<MainState> {
 
   Future<void> changeDictionary({required String value}) async {
     DictionaryData.getInstance().setDictionaryLanguage(value);
-    final sp = await SharedPreferences.getInstance();
-    sp.setString("dict_lang", value);
+    await DictionaryLanguageRepository.getInstance().setItem(value);
     emit(ChangeDictionaryState(value));
   }
 

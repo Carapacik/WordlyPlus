@@ -4,6 +4,11 @@ abstract class MainState extends Equatable {
   const MainState();
 }
 
+class InitDictionaryLangState extends MainState {
+  @override
+  List<Object?> get props => [];
+}
+
 class ChangeDictionaryState extends MainState {
   const ChangeDictionaryState(this.dictionary);
 

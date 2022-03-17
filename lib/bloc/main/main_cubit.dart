@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordle/data/dictionary_data.dart';
 import 'package:wordle/data/models/flushbar_types.dart';
 import 'package:wordle/data/models/keyboard_keys.dart';
@@ -8,12 +9,23 @@ import 'package:wordle/data/models/letter_status.dart';
 part 'main_state.dart';
 
 class MainCubit extends Cubit<MainState> {
-  MainCubit() : super(const ChangeDictionaryState("en"));
+  MainCubit() : super(InitDictionaryLangState());
 
   DictionaryData dictionary = DictionaryData.getInstance();
 
-  void changeDictionary({required String value}) {
+  Future<void> changeDictionary({required String value}) async {
     DictionaryData.getInstance().setDictionaryLanguage(value);
+    final sp = await SharedPreferences.getInstance();
+    sp.setString("dict_lang", value);
+    print(value);
+    emit(ChangeDictionaryState(value));
+  }
+
+  Future<void> getDictionary() async {
+    final sp = await SharedPreferences.getInstance();
+    var value = sp.getString("dict_lang");
+    print('dict get - $value');
+    value ??= "en";
     emit(ChangeDictionaryState(value));
   }
 

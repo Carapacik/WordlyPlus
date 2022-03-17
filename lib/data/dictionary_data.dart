@@ -83,7 +83,7 @@ class DictionaryData {
     return '';
   }
 
-  Future<void> saveToPrefs() async {
+  Future<void> saveBoardToPrefs() async {
     var boardState = await BoardStateRepository.getInstance().getItem();
     if (boardState == null) {
       await BoardStateRepository.getInstance().setItem(const BoardData());

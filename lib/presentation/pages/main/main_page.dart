@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
 import 'package:wordle/data/dictionary_data.dart';
 import 'package:wordle/data/models/flushbar_types.dart';
@@ -32,11 +31,12 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     final _dictionary = DictionaryData.getInstance();
     return BlocProvider<MainCubit>(
-      create: (BuildContext context) => MainCubit()..getDictionary(),
+      create: (BuildContext context) =>
+          MainCubit(_dictionary.dictionaryLanguage),
       child: AdaptiveScaffold(
         child: Center(
           child: BlocConsumer<MainCubit, MainState>(
-            listener: (context, state) async {
+            listener: (context, state) {
               if (state is TopMessageState) {
                 switch (state.type) {
                   case FlushBarTypes.notFound:

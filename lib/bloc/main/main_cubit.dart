@@ -9,7 +9,7 @@ import 'package:wordle/data/models/letter_status.dart';
 part 'main_state.dart';
 
 class MainCubit extends Cubit<MainState> {
-  MainCubit() : super(InitDictionaryLangState());
+  MainCubit(String language) : super(ChangeDictionaryState(language));
 
   DictionaryData dictionary = DictionaryData.getInstance();
 
@@ -17,14 +17,6 @@ class MainCubit extends Cubit<MainState> {
     DictionaryData.getInstance().setDictionaryLanguage(value);
     final sp = await SharedPreferences.getInstance();
     sp.setString("dict_lang", value);
-    emit(ChangeDictionaryState(value));
-  }
-
-  Future<void> getDictionary() async {
-    final sp = await SharedPreferences.getInstance();
-    var value = sp.getString("dict_lang");
-    value ??= "en";
-    dictionary.setDictionaryLanguage(value);
     emit(ChangeDictionaryState(value));
   }
 

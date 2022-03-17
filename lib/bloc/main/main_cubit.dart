@@ -17,15 +17,14 @@ class MainCubit extends Cubit<MainState> {
     DictionaryData.getInstance().setDictionaryLanguage(value);
     final sp = await SharedPreferences.getInstance();
     sp.setString("dict_lang", value);
-    print(value);
     emit(ChangeDictionaryState(value));
   }
 
   Future<void> getDictionary() async {
     final sp = await SharedPreferences.getInstance();
     var value = sp.getString("dict_lang");
-    print('dict get - $value');
     value ??= "en";
+    dictionary.setDictionaryLanguage(value);
     emit(ChangeDictionaryState(value));
   }
 

@@ -14,6 +14,7 @@ class SharedPreferenceData {
   static const gameStatisticKey = "game_statistic_key";
   static const statisticKey = "statistic_key";
   static const boardStateKey = "board_state_key";
+  static const dictionaryLanguageKey = "dict_lang_key";
 
   Future<String?> getDailyResult() async {
     final language = DictionaryData.getInstance().dictionaryLanguage;
@@ -26,6 +27,11 @@ class SharedPreferenceData {
     final key = language == "en" ? dailyResultKeyEn : dailyResultKeyRu;
     return _saveData(key, dailyResult);
   }
+
+  Future<String?> getDictionaryLanguage() async => _getData(dictionaryLanguageKey);
+
+  Future<bool> saveDictionaryLanguage(final String boardData) async =>
+      _saveData(dictionaryLanguageKey, boardData);
 
   Future<String?> getBoardData() async => _getData(boardStateKey);
 

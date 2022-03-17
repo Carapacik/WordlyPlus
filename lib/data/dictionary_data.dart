@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
 import 'package:wordle/data/models/board_data.dart';
 import 'package:wordle/data/models/flushbar_types.dart';
@@ -7,6 +8,7 @@ import 'package:wordle/data/models/keyboard_keys.dart';
 import 'package:wordle/data/models/letter_data.dart';
 import 'package:wordle/data/models/letter_status.dart';
 import 'package:wordle/data/repositories/board_state_repository.dart';
+import 'package:wordle/data/repositories/dictionary_language_repository.dart';
 import 'package:wordle/resources/dictionary_en_fixed.dart';
 import 'package:wordle/resources/dictionary_ru_fixed.dart';
 
@@ -57,6 +59,11 @@ class DictionaryData {
     return false;
   }
 
+  Future<void> getDictionaryLanguage() async {
+    _dictionaryLanguage =
+        await DictionaryLanguageRepository.getInstance().getItem() ?? 'en';
+  }
+
   Future<String?> getBoard() async {
     var boardState = await BoardStateRepository.getInstance().getItem();
     if (boardState == null) {
@@ -71,7 +78,8 @@ class DictionaryData {
         _completeGame = boardState.enComplete;
         return _gridData.join();
       }
-    } else {
+    }
+    if (_dictionaryLanguage == 'ru') {
       if (_secretWord == boardState?.ruWord && boardState?.ruBoard != null) {
         _gridData = boardState!.ruBoard!;
         _currentWordIndex = boardState.ruIndex;
@@ -83,7 +91,7 @@ class DictionaryData {
     return '';
   }
 
-  Future<void> saveToPrefs() async {
+  Future<void> saveBoardToPrefs() async {
     var boardState = await BoardStateRepository.getInstance().getItem();
     if (boardState == null) {
       await BoardStateRepository.getInstance().setItem(const BoardData());

@@ -1,19 +1,22 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordle/data/dictionary_data.dart';
 import 'package:wordle/data/models/flushbar_types.dart';
 import 'package:wordle/data/models/keyboard_keys.dart';
 import 'package:wordle/data/models/letter_status.dart';
+import 'package:wordle/data/repositories/dictionary_language_repository.dart';
 
 part 'main_state.dart';
 
 class MainCubit extends Cubit<MainState> {
-  MainCubit() : super(const ChangeDictionaryState("en"));
+  MainCubit(String language) : super(ChangeDictionaryState(language));
 
   DictionaryData dictionary = DictionaryData.getInstance();
 
-  void changeDictionary({required String value}) {
+  Future<void> changeDictionary({required String value}) async {
     DictionaryData.getInstance().setDictionaryLanguage(value);
+    await DictionaryLanguageRepository.getInstance().setItem(value);
     emit(ChangeDictionaryState(value));
   }
 

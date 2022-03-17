@@ -31,7 +31,8 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     final _dictionary = DictionaryData.getInstance();
     return BlocProvider<MainCubit>(
-      create: (BuildContext context) => MainCubit(),
+      create: (BuildContext context) =>
+          MainCubit(_dictionary.dictionaryLanguage),
       child: AdaptiveScaffold(
         child: Center(
           child: BlocConsumer<MainCubit, MainState>(

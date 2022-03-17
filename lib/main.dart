@@ -17,9 +17,12 @@ Future<void> main() async {
   await platformSpecificFirebase();
   return BlocOverrides.runZoned(
     () async {
-      DictionaryData.getInstance().createSecretWord();
+      final dictionary = DictionaryData.getInstance();
+      await dictionary.getDictionaryLanguage();
+      await dictionary.createSecretWord();
       await getStatistic();
       final settingsData = await SettingsRepository.getInstance().getItem();
+      await dictionary.getBoard();
       runApp(
         BlocProvider<SettingsCubit>(
           create: (_) =>

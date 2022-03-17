@@ -46,7 +46,7 @@ class KeyboardKey extends StatelessWidget {
             child: InkWell(
               onTap: () async {
                 mainCubit.setLetter(keyboardKey);
-                await dictionary.saveToPrefs();
+                await dictionary.saveBoardToPrefs();
               },
               child: BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (previous, current) =>
@@ -174,7 +174,7 @@ class DeleteKeyboardKey extends StatelessWidget {
       child: InkWell(
         onTap: () async {
           mainCubit.removeLetter();
-          await dictionary.saveToPrefs();
+          await dictionary.saveBoardToPrefs();
         },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 4),

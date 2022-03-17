@@ -40,20 +40,23 @@ class LoginForm extends StatelessWidget {
             child: Align(
               alignment: const Alignment(0, -1 / 3),
               child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SizedBox(height: 16),
-                    _EmailInput(),
-                    const SizedBox(height: 8),
-                    _PasswordInput(),
-                    const SizedBox(height: 8),
-                    _LoginButton(),
-                    const SizedBox(height: 4),
-                    _SignUpButton(
-                      authRepository: authRepository,
-                    ),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(height: 16),
+                      _EmailInput(),
+                      const SizedBox(height: 8),
+                      _PasswordInput(),
+                      const SizedBox(height: 8),
+                      _LoginButton(),
+                      const SizedBox(height: 4),
+                      _SignUpButton(
+                        authRepository: authRepository,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -80,9 +83,11 @@ class _EmailInput extends StatelessWidget {
             helperText: '',
             labelStyle: TextStyle(color: Theme.of(context).primaryColor),
             enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(color: Theme.of(context).primaryColor),
             ),
             focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
               borderSide:
                   BorderSide(color: Theme.of(context).colorScheme.secondary),
             ),
@@ -113,9 +118,11 @@ class _PasswordInput extends StatelessWidget {
             helperText: '',
             labelStyle: TextStyle(color: Theme.of(context).primaryColor),
             enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(color: Theme.of(context).primaryColor),
             ),
             focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
               borderSide:
                   BorderSide(color: Theme.of(context).colorScheme.secondary),
             ),

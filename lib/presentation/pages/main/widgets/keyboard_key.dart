@@ -79,7 +79,7 @@ class KeyboardKey extends StatelessWidget {
       case 0:
         return width * 0.075;
       case 1:
-        return width * 0.059;
+        return width * 0.067;
       default:
         return 0;
     }
@@ -148,7 +148,7 @@ class EnterKeyboardKey extends StatelessWidget {
       case 0:
         return width * 0.075 / 2 * 3;
       case 1:
-        return width * 0.059 / 2 * 3.5;
+        return width * 0.067 / 2 * 3.5;
       default:
         return 0;
     }
@@ -194,7 +194,7 @@ class DeleteKeyboardKey extends StatelessWidget {
       case 0:
         return width * 0.075 / 2 * 3;
       case 1:
-        return width * 0.059 / 2 * 3.5;
+        return width * 0.067 / 2 * 3.5;
       default:
         return 0;
     }

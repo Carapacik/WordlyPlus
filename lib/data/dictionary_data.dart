@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordle/bloc/main/main_cubit.dart';
 import 'package:wordle/data/models/board_data.dart';
 import 'package:wordle/data/models/flushbar_types.dart';

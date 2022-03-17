@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordle/data/dictionary_data.dart';
 import 'package:wordle/data/models/flushbar_types.dart';
 import 'package:wordle/data/models/keyboard_keys.dart';

@@ -28,7 +28,8 @@ class SharedPreferenceData {
     return _saveData(key, dailyResult);
   }
 
-  Future<String?> getDictionaryLanguage() async => _getData(dictionaryLanguageKey);
+  Future<String?> getDictionaryLanguage() async =>
+      _getData(dictionaryLanguageKey);
 
   Future<bool> saveDictionaryLanguage(final String boardData) async =>
       _saveData(dictionaryLanguageKey, boardData);

@@ -20,9 +20,9 @@ Future<void> main() async {
       final dictionary = DictionaryData.getInstance();
       await dictionary.getDictionaryLanguage();
       await dictionary.createSecretWord();
+      await dictionary.getBoard();
       await getStatistic();
       final settingsData = await SettingsRepository.getInstance().getItem();
-      await dictionary.getBoard();
       runApp(
         BlocProvider<SettingsCubit>(
           create: (_) =>

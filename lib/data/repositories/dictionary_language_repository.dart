@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:wordle/data/models/board_data.dart';
 import 'package:wordle/data/repositories/save_reactive_repository.dart';
 import 'package:wordle/data/shared_preferences_data.dart';
 

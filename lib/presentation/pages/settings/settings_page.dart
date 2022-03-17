@@ -88,15 +88,14 @@ class SettingsPage extends StatelessWidget {
                     ),
                     const Divider(color: AppColors.greyTrack),
                     Expanded(
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Text(
-                            R
-                                .stringsOf(context)
-                                .working_on_improving_dictionaries,
-                            style: AppTextStyles.m25,
-                          ),
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(16),
+                        child: Text(
+                          R
+                              .stringsOf(context)
+                              .working_on_improving_dictionaries,
+                          style: AppTextStyles.m25,
                         ),
                       ),
                     )
@@ -154,7 +153,11 @@ class _LanguageSelector extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SvgPicture.asset(R.svg.russia, width: 40, height: 25,),
+                      SvgPicture.asset(
+                        R.svg.russia,
+                        width: 30,
+                        height: 25,
+                      ),
                       const SizedBox(width: 10),
                       const Text("RU"),
                     ],
@@ -165,7 +168,11 @@ class _LanguageSelector extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SvgPicture.asset(R.svg.us, width: 40, height: 25,),
+                      SvgPicture.asset(
+                        R.svg.us,
+                        width: 30,
+                        height: 25,
+                      ),
                       const SizedBox(width: 10),
                       const Text("EN"),
                     ],

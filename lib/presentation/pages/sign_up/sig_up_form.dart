@@ -27,17 +27,20 @@ class SignUpForm extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: 500),
             child: Align(
               alignment: const Alignment(0, -1 / 3),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _EmailInput(),
-                  const SizedBox(height: 8),
-                  _PasswordInput(),
-                  const SizedBox(height: 8),
-                  _ConfirmPasswordInput(),
-                  const SizedBox(height: 8),
-                  _SignUpButton(),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _EmailInput(),
+                    const SizedBox(height: 8),
+                    _PasswordInput(),
+                    const SizedBox(height: 8),
+                    _ConfirmPasswordInput(),
+                    const SizedBox(height: 8),
+                    _SignUpButton(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -63,10 +66,14 @@ class _EmailInput extends StatelessWidget {
             helperText: '',
             labelStyle: TextStyle(color: Theme.of(context).primaryColor),
             enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: Theme.of(context).primaryColor),
+            ),
             focusedBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: Theme.of(context).colorScheme.secondary)),
+              borderRadius: BorderRadius.circular(12),
+              borderSide:
+                  BorderSide(color: Theme.of(context).colorScheme.secondary),
+            ),
             errorText: state.email.invalid ? 'invalid email' : null,
           ),
         );
@@ -92,10 +99,14 @@ class _PasswordInput extends StatelessWidget {
             helperText: '',
             labelStyle: TextStyle(color: Theme.of(context).primaryColor),
             enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: Theme.of(context).primaryColor),
+            ),
             focusedBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: Theme.of(context).colorScheme.secondary)),
+              borderRadius: BorderRadius.circular(12),
+              borderSide:
+                  BorderSide(color: Theme.of(context).colorScheme.secondary),
+            ),
             errorText: state.password.invalid ? 'invalid password' : null,
           ),
         );
@@ -124,10 +135,14 @@ class _ConfirmPasswordInput extends StatelessWidget {
             helperText: '',
             labelStyle: TextStyle(color: Theme.of(context).primaryColor),
             enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: Theme.of(context).primaryColor),
+            ),
             focusedBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: Theme.of(context).colorScheme.secondary)),
+              borderRadius: BorderRadius.circular(12),
+              borderSide:
+                  BorderSide(color: Theme.of(context).colorScheme.secondary),
+            ),
             errorText: state.confirmedPassword.invalid
                 ? 'passwords do not match'
                 : null,

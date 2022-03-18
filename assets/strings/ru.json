@@ -29,7 +29,7 @@
   "word_too_short": "Слово неправильной длины",
   "app_language": "Язык приложения",
   "dictionary_language": "Язык словаря",
-  "working_on_improving_dictionaries": "Мы работаем над улучшением словарей\nСкоро все слова будут с поянением смысла",
+  "working_on_improving_dictionaries": "Мы работаем над улучшением словарей\nСкоро все слова будут с пояснением смысла",
   "secret_word_is": "Загаданное слово \"${word}\"",
   "share": "Поделиться",
   "text_copied": "Текст скопирован в буфер обмена",
@@ -38,5 +38,6 @@
   "win_percent": "% Побед",
   "current_streak": "Текущая\nСерия",
   "max_streak": "Максимальная\nСерия",
-  "guess_distribution": "Распределение Попыток"
+  "guess_distribution": "Распределение Попыток",
+  "copy": "Копировать"
 }

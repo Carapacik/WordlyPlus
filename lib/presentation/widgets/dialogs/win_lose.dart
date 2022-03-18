@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/index.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:wordle/data/dictionary_data.dart';
 import 'package:wordle/data/models/game_statistic.dart';
-import 'package:wordle/data/models/letter_status.dart';
-import 'package:wordle/presentation/widgets/dialogs/top_flush_bar.dart';
+import 'package:wordle/presentation/widgets/adaptive_button.dart';
 import 'package:wordle/resources/app_colors.dart';
 import 'package:wordle/resources/app_text_styles.dart';
 import 'package:wordle/resources/r.dart';
-import 'package:wordle/utils/platform.dart';
 import 'package:wordle/utils/utils.dart';
 
 Future<void> showWinLoseDialog(
@@ -51,79 +48,80 @@ Future<void> showWinLoseDialog(
           children: [
             Row(
               children: [
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      R.stringsOf(context).next_wordle,
-                      textAlign: TextAlign.center,
-                      style: AppTextStyles.m16.copyWith(color: Colors.white),
-                    ),
-                    CountdownTimer(
-                      controller: _countDownController,
-                      widgetBuilder: (_, CurrentRemainingTime? time) {
-                        if (time == null) {
-                          return Container();
-                        }
-                        final duration = Duration(
-                          hours: time.hours ?? 0,
-                          minutes: time.min ?? 0,
-                          seconds: time.sec ?? 0,
-                        );
-                        return Text(
-                          durationToString(duration),
-                          style:
-                              AppTextStyles.m16.copyWith(color: Colors.white),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-                const VerticalDivider(thickness: 2, color: Colors.white),
-                ElevatedButton(
-                  onPressed: () {
-                    _share(context, word: word);
-                  },
-                  child: Text(
-                    R.stringsOf(context).share,
-                    style: AppTextStyles.m16.copyWith(color: Colors.white),
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        R.stringsOf(context).next_wordle,
+                        textAlign: TextAlign.center,
+                        style: AppTextStyles.m16.copyWith(color: Colors.white),
+                      ),
+                      CountdownTimer(
+                        controller: _countDownController,
+                        widgetBuilder: (_, CurrentRemainingTime? time) {
+                          if (time == null) {
+                            return Container();
+                          }
+                          final duration = Duration(
+                            hours: time.hours ?? 0,
+                            minutes: time.min ?? 0,
+                            seconds: time.sec ?? 0,
+                          );
+                          return Text(
+                            durationToString(duration),
+                            style:
+                                AppTextStyles.m16.copyWith(color: Colors.white),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Column(
+                    children: [
+                      AdaptiveButton(
+                        onPressed: () {
+                          shareEmojiString(context);
+                        },
+                        child: Container(
+                          width: 80,
+                          alignment: Alignment.center,
+                          child: Text(
+                            R.stringsOf(context).share,
+                            style: AppTextStyles.n14.copyWith(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      AdaptiveButton(
+                        onPressed: () {
+                          copyEmojiString(context);
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: 80,
+                          child: Text(
+                            R.stringsOf(context).copy,
+                            style: AppTextStyles.n14.copyWith(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
             const SizedBox(height: 16),
             Text(
-              R.stringsOf(context).secret_word_is(word: word),
-              style: AppTextStyles.m16.copyWith(color: Colors.white),
+              R.stringsOf(context).secret_word_is(word: word.toUpperCase()),
+              style: AppTextStyles.m20.copyWith(color: Colors.white),
             ),
           ],
         ),
       );
     },
   );
-}
-
-Future<void> _share(
-  final BuildContext context, {
-  required final String word,
-}) async {
-  final letterDataList = DictionaryData.getInstance().letterDataList;
-  String emojiString = "";
-  letterDataList.asMap().map((key, value) {
-    emojiString += value.status.toEmoji();
-    if (key % 5 == 4) {
-      emojiString += "\n";
-    }
-    return MapEntry(key, value);
-  });
-  emojiString = R.stringsOf(context).check_my_result(emoji: emojiString);
-  if (PlatformType.currentPlatformType == PlatformTypeEnum.web) {
-    await copyToClipboard(emojiString);
-    await showTopFlushBar(
-      context,
-      message: R.stringsOf(context).text_copied,
-    );
-  } else {
-    Share.share(emojiString);
-  }
 }

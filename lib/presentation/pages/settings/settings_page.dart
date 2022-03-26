@@ -78,9 +78,9 @@ class SettingsPage extends StatelessWidget {
                           value: mainState is! ChangeDictionaryState
                               ? DictionaryData.getInstance().dictionaryLanguage
                               : mainState.dictionary,
-                          onChanged: (value) async {
+                          onChanged: (value) {
                             mainCubit.changeDictionary(value: value!);
-                            await mainCubit.clearGameArea(value);
+                            mainCubit.clearGameArea(value);
                           },
                           isHighContrast: state.isHighContrast,
                         );

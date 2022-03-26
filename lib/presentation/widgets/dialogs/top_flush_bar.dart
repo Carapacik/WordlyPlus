@@ -13,7 +13,7 @@ Future<void> showTopFlushBar(
     flushbarPosition: FlushbarPosition.TOP,
     backgroundColor: Theme.of(context).primaryColorDark,
     messageColor: Theme.of(context).primaryColorLight,
-    margin: const EdgeInsets.only(top: 32),
+    margin: const EdgeInsets.fromLTRB(16, 32, 16, 0),
     padding: const EdgeInsets.all(24),
     borderRadius: BorderRadius.circular(12),
   ).show(context);

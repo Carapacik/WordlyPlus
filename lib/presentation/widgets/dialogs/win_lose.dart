@@ -25,8 +25,8 @@ Future<void> showWinLoseDialog(
       final CountdownTimerController _countDownController =
           CountdownTimerController(
         endTime: endTime,
-        onEnd: () async {
-          await DictionaryData.getInstance().createSecretWord();
+        onEnd: () {
+          DictionaryData.getInstance().createSecretWord();
           Navigator.of(context, rootNavigator: true).pop();
         },
       );
@@ -91,7 +91,8 @@ Future<void> showWinLoseDialog(
                           alignment: Alignment.center,
                           child: Text(
                             R.stringsOf(context).share,
-                            style: AppTextStyles.n14.copyWith(color: Colors.white),
+                            style:
+                                AppTextStyles.n14.copyWith(color: Colors.white),
                           ),
                         ),
                       ),
@@ -105,7 +106,8 @@ Future<void> showWinLoseDialog(
                           width: 80,
                           child: Text(
                             R.stringsOf(context).copy,
-                            style: AppTextStyles.n14.copyWith(color: Colors.white),
+                            style:
+                                AppTextStyles.n14.copyWith(color: Colors.white),
                           ),
                         ),
                       ),

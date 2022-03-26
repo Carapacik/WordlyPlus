@@ -8,8 +8,8 @@ import 'package:wordle/data/models/letter_data.dart';
 import 'package:wordle/data/models/letter_status.dart';
 import 'package:wordle/data/repositories/board_state_repository.dart';
 import 'package:wordle/data/repositories/dictionary_language_repository.dart';
-import 'package:wordle/resources/dictionary_en_fixed.dart';
-import 'package:wordle/resources/dictionary_ru_fixed.dart';
+import 'package:wordle/utils/dictionary_map_en.dart';
+import 'package:wordle/utils/dictionary_map_ru.dart';
 
 class DictionaryData {
   factory DictionaryData.getInstance() =>
@@ -153,7 +153,7 @@ class DictionaryData {
           _completeGame = true;
           return LoseGameState();
         }
-        if (_getCurrentAllWord().contains(_gridData[_currentWordIndex])) {
+        if (_getCurrentDictionary().containsKey(_gridData[_currentWordIndex])) {
           checkWord();
           return GridUpdateState();
         }
@@ -202,12 +202,12 @@ class DictionaryData {
     }
   }
 
-  Future<String> createSecretWord() async {
+  String createSecretWord() {
     final now = DateTime.now();
     final Random random = Random(now.year * 10000 + now.month * 100 + now.day);
-    final dictionary = _getCurrentAllWord();
+    final dictionary = _getCurrentDictionary();
     final index = random.nextInt(dictionary.length);
-    return _secretWord = dictionary[index];
+    return _secretWord = dictionary.keys.elementAt(index);
   }
 
   List<String> getAllLettersInList() {
@@ -222,7 +222,7 @@ class DictionaryData {
     return _lettersMap[keyName] ?? LetterStatus.unknown;
   }
 
-  List<String> _getCurrentAllWord() {
+  Map<String, String> _getCurrentDictionary() {
     switch (_dictionaryLanguage) {
       case "ru":
         return dictionaryRu;

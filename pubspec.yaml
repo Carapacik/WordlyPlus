@@ -1,7 +1,7 @@
 name: wordle
 description: Wordle
 publish_to: 'none'
-version: 1.0.1+2
+version: 1.0.2+3
 
 environment:
   sdk: ">=2.16.0 <3.0.0"
@@ -33,7 +33,7 @@ dependencies:
   isar: ^2.2.1
   json_annotation: ^4.4.0
   r_resources: ^1.0.1
-  share_plus: ^4.0.1
+  share_plus: ^4.0.3
   shared_preferences: ^2.0.13
   url_strategy: ^0.2.0
 

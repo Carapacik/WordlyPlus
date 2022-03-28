@@ -16,8 +16,9 @@ import 'package:wordly/data/models/level_data.dart';
 import 'package:wordly/data/models/settings_data.dart';
 
 void main() {
-  setPathUrlStrategy();
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  setPathUrlStrategy();
   initSingletons();
   runApp(
     MultiBlocProvider(

@@ -13,6 +13,8 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.0.1
   flutter_countdown_timer: ^4.1.0
+  flutter_localizations:
+    sdk: flutter
   flutter_svg: ^1.0.3
   freezed_annotation: ^1.1.0
   get_it: ^7.2.0

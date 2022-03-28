@@ -1,5 +1,3 @@
-
-
 // String _getEmojiStringFromGrid() {
 //   final letterDataList = DictionaryData.getInstance().letterDataList;
 //   String emojiString = "";

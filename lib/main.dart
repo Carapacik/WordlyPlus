@@ -15,19 +15,24 @@ import 'package:wordly/data/models/daily_statistic_data.dart';
 import 'package:wordly/data/models/letter_entering.dart';
 import 'package:wordly/data/models/level_data.dart';
 import 'package:wordly/data/models/settings_data.dart';
+import 'package:wordly/domain/daily_result_repository.dart';
+import 'package:wordly/domain/daily_result_repository_imp.dart';
 import 'package:wordly/domain/daily_statistic_repository.dart';
 import 'package:wordly/domain/daily_statistic_repository_imp.dart';
+import 'package:wordly/domain/settings_repository.dart';
+import 'package:wordly/domain/settings_repository_imp.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   setPathUrlStrategy();
-  initSingletons();
+  await _initSingletons();
   runApp(
     MultiBlocProvider(
       providers: [
         BlocProvider<SettingsCubit>(
-          create: (_) => SettingsCubit(),
+          create: (_) =>
+              SettingsCubit(GetIt.I<SettingsRepository>().settingsData),
         ),
         BlocProvider<MainCubit>(
           create: (_) => MainCubit(),
@@ -38,13 +43,14 @@ void main() {
   );
 }
 
-Future<void> initSingletons() async {
-  await initLocaleStorage();
-  await initDailyStatistic();
-  await initDailyResult();
+Future<void> _initSingletons() async {
+  await _initLocaleStorage();
+  await _initDailyStatistic();
+  await _initDailyResult();
+  await _initSettings();
 }
 
-Future<void> initLocaleStorage() async {
+Future<void> _initLocaleStorage() async {
   String? directoryPath;
   if (!kIsWeb) {
     directoryPath = (await getApplicationSupportDirectory()).path;
@@ -60,14 +66,26 @@ Future<void> initLocaleStorage() async {
       SettingsDataSchema,
     ],
   );
-  GetIt.instance.registerLazySingleton<Isar>(() => isar);
+  GetIt.I.registerLazySingleton<Isar>(() => isar);
 }
 
-Future<void> initDailyStatistic() async {
-  GetIt.instance.registerSingleton<DailyStatisticRepository>(
+Future<void> _initDailyStatistic() async {
+  GetIt.I.registerSingleton<DailyStatisticRepository>(
     DailyStatisticRepositoryImp(),
   );
-  await GetIt.I<DailyStatisticRepository>().getStatisticData();
+  await GetIt.I<DailyStatisticRepository>().initStatisticData();
 }
 
-Future<void> initDailyResult() async {}
+Future<void> _initDailyResult() async {
+  GetIt.I.registerSingleton<DailyResultRepository>(
+    DailyResultRepositoryImp(),
+  );
+  await GetIt.I<DailyResultRepository>().initDailyResult();
+}
+
+Future<void> _initSettings() async {
+  GetIt.I.registerSingleton<SettingsRepository>(
+    SettingsRepositoryImp(),
+  );
+  await GetIt.I<SettingsRepository>().initSettings();
+}

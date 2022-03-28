@@ -11,9 +11,9 @@ class DailyStatisticRepositoryImp implements DailyStatisticRepository {
   DailyStatisticData get statisticData => _statisticData;
 
   @override
-  Future<DailyStatisticData> getStatisticData() async {
+  Future<void> initStatisticData() async {
     final result = await GetIt.I<Isar>().dailyStatisticDatas.get(0);
-    return _statisticData = result ?? DailyStatisticData()
+    _statisticData = result ?? DailyStatisticData()
       ..id = 0
       ..currentStreak = 0
       ..losesNumber = 0

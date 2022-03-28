@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wordly/resources/typography.dart';
+import 'package:wordly/ui/pages/settings/settings_page.dart';
 import 'package:wordly/ui/pages/statistic/statistic_page.dart';
+import 'package:wordly/ui/widgets/drawer.dart';
 import 'package:wordly/utils/utils.dart';
 
 class MainPage extends StatelessWidget {
@@ -9,29 +11,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: Column(
-          children: [
-            ListTile(
-              title: Text("Daily mode"),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text("Levels mode"),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text("How to play"),
-              onTap: () {},
-            ),
-            Spacer(),
-            ListTile(
-              title: Text("Settings"),
-              onTap: () {},
-            ),
-          ],
-        ),
-      ),
+      drawer: const CustomDrawer(),
       appBar: AppBar(
         centerTitle: true,
         title: Text(

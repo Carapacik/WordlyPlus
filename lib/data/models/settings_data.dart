@@ -10,6 +10,8 @@ class SettingsData {
   late int id;
   late bool isDark;
   late bool isHighContrast;
+  @LocaleLanguagesConverter()
   late LocaleLanguages localeLanguage;
+  @DictionaryLanguagesConverter()
   late DictionaryLanguages dictionaryLanguage;
 }

@@ -8,8 +8,12 @@ import 'package:wordly/app.dart';
 import 'package:wordly/bloc/main/main_cubit.dart';
 import 'package:wordly/bloc/settings/settings_cubit.dart';
 import 'package:wordly/data/models/attempts.dart';
+import 'package:wordly/data/models/board_data.dart';
 import 'package:wordly/data/models/daily_result.dart';
 import 'package:wordly/data/models/daily_statistic.dart';
+import 'package:wordly/data/models/letter_entering.dart';
+import 'package:wordly/data/models/level_data.dart';
+import 'package:wordly/data/models/settings_data.dart';
 
 void main() {
   setPathUrlStrategy();
@@ -39,9 +43,13 @@ Future<void> initSingletons() async {
 Future<void> initLocaleStorage() async {
   final isar = await Isar.open(
     schemas: [
+      AttemptsSchema,
+      BoardDataSchema,
       DailyResultSchema,
       DailyStatisticSchema,
-      AttemptsSchema,
+      LetterEnteringSchema,
+      LevelDataSchema,
+      SettingsDataSchema,
     ],
   );
 

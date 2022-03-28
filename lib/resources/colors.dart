@@ -7,7 +7,7 @@ class AppColors {
   static const red = Color(0xFFD0645B);
   static const green = Color(0xFF6AAA64);
   static const yellow = Color(0xFFC9B458);
-  static const greyTrack = Color(0xff565758);
-  static const highContrastBlue = Color(0xff85c0f9);
-  static const highContrastOrange = Color(0xfff5793a);
+  static const greyTrack = Color(0xFF565758);
+  static const highContrastBlue = Color(0xFF85C0F9);
+  static const highContrastOrange = Color(0xFFF5793A);
 }

@@ -5,7 +5,7 @@ import 'package:wordly/data/models/letter_status.dart';
 part 'board_data.g.dart';
 
 @Collection()
-class BordData {
+class BoardData {
   @Id()
   late int id;
   late bool isComplete;

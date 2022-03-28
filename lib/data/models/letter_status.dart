@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wordly/resources/app_colors.dart';
+import 'package:wordly/resources/colors.dart';
 
 enum LetterStatus {
   unknown,

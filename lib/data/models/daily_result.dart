@@ -1,15 +1,11 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:isar/isar.dart';
 
-part 'daily_result.freezed.dart';
 part 'daily_result.g.dart';
 
-@freezed
-class DailyResult with _$DailyResult {
-  const factory DailyResult({
-    required String word,
-    @Default(true) bool isWin,
-  }) = _DailyResult;
-
-  factory DailyResult.fromJson(Map<String, dynamic> json) =>
-      _$DailyResultFromJson(json);
+@Collection()
+class DailyResult {
+  @Id()
+  int? id;
+  late String dailyWord;
+  late bool isWin;
 }

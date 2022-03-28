@@ -24,7 +24,6 @@ if (flutterVersionName == null) {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 32
@@ -42,7 +41,8 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-    defaultConfig {applicationId "com.carapacik.wordle"
+    defaultConfig {
+        applicationId "com.carapacik.wordly"
         minSdkVersion 23
         targetSdkVersion 32
         versionCode flutterVersionCode.toInteger()

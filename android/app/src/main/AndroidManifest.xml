@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.carapacik.wordle">
+    package="com.carapacik.wordly">
    <application
-        android:label="Wordly"
+        android:label="wordly"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

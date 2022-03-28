@@ -1,3 +1,5 @@
+import 'package:wordly/data/models/dictionary_languages.dart';
+
 enum KeyboardKeys {
   q,
   w,
@@ -35,75 +37,9 @@ enum KeyboardKeys {
 }
 
 extension KeyboardKeyExtension on KeyboardKeys {
-  // lang 0  - en
-  // lang 1  - ru
-  String? name({final int lang = 0}) {
+  String? name(final DictionaryLanguages lang) {
     switch (lang) {
-      case 0:
-        switch (this) {
-          case KeyboardKeys.q:
-            return "q";
-          case KeyboardKeys.w:
-            return "w";
-          case KeyboardKeys.e:
-            return "e";
-          case KeyboardKeys.r:
-            return "r";
-          case KeyboardKeys.t:
-            return "t";
-          case KeyboardKeys.y:
-            return "y";
-          case KeyboardKeys.u:
-            return "u";
-          case KeyboardKeys.i:
-            return "i";
-          case KeyboardKeys.o:
-            return "o";
-          case KeyboardKeys.p:
-            return "p";
-          case KeyboardKeys.a:
-            return "a";
-          case KeyboardKeys.s:
-            return "s";
-          case KeyboardKeys.d:
-            return "d";
-          case KeyboardKeys.f:
-            return "f";
-          case KeyboardKeys.g:
-            return "g";
-          case KeyboardKeys.h:
-            return "h";
-          case KeyboardKeys.j:
-            return "j";
-          case KeyboardKeys.k:
-            return "k";
-          case KeyboardKeys.l:
-            return "l";
-          case KeyboardKeys.enter:
-            return "Enter";
-          case KeyboardKeys.z:
-            return "z";
-          case KeyboardKeys.x:
-            return "x";
-          case KeyboardKeys.c:
-            return "c";
-          case KeyboardKeys.v:
-            return "v";
-          case KeyboardKeys.b:
-            return "b";
-          case KeyboardKeys.n:
-            return "n";
-          case KeyboardKeys.m:
-            return "m";
-          case KeyboardKeys.a1:
-          case KeyboardKeys.a2:
-          case KeyboardKeys.b1:
-          case KeyboardKeys.b2:
-          case KeyboardKeys.c1:
-          case KeyboardKeys.c2:
-            return null;
-        }
-      case 1:
+      case DictionaryLanguages.ru:
         switch (this) {
           case KeyboardKeys.q:
             return "й";
@@ -171,6 +107,70 @@ extension KeyboardKeyExtension on KeyboardKeys {
             return "б";
           case KeyboardKeys.c2:
             return "ю";
+        }
+      case DictionaryLanguages.en:
+        switch (this) {
+          case KeyboardKeys.q:
+            return "q";
+          case KeyboardKeys.w:
+            return "w";
+          case KeyboardKeys.e:
+            return "e";
+          case KeyboardKeys.r:
+            return "r";
+          case KeyboardKeys.t:
+            return "t";
+          case KeyboardKeys.y:
+            return "y";
+          case KeyboardKeys.u:
+            return "u";
+          case KeyboardKeys.i:
+            return "i";
+          case KeyboardKeys.o:
+            return "o";
+          case KeyboardKeys.p:
+            return "p";
+          case KeyboardKeys.a:
+            return "a";
+          case KeyboardKeys.s:
+            return "s";
+          case KeyboardKeys.d:
+            return "d";
+          case KeyboardKeys.f:
+            return "f";
+          case KeyboardKeys.g:
+            return "g";
+          case KeyboardKeys.h:
+            return "h";
+          case KeyboardKeys.j:
+            return "j";
+          case KeyboardKeys.k:
+            return "k";
+          case KeyboardKeys.l:
+            return "l";
+          case KeyboardKeys.enter:
+            return "Enter";
+          case KeyboardKeys.z:
+            return "z";
+          case KeyboardKeys.x:
+            return "x";
+          case KeyboardKeys.c:
+            return "c";
+          case KeyboardKeys.v:
+            return "v";
+          case KeyboardKeys.b:
+            return "b";
+          case KeyboardKeys.n:
+            return "n";
+          case KeyboardKeys.m:
+            return "m";
+          case KeyboardKeys.a1:
+          case KeyboardKeys.a2:
+          case KeyboardKeys.b1:
+          case KeyboardKeys.b2:
+          case KeyboardKeys.c1:
+          case KeyboardKeys.c2:
+            return null;
         }
       default:
         return null;

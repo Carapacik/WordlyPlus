@@ -1,0 +1,1 @@
+enum DictionaryLanguages { ru, en }

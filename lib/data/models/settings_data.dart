@@ -7,7 +7,7 @@ part 'settings_data.g.dart';
 @Collection()
 class SettingsData {
   @Id()
-  int? id;
+  late int id;
   late bool isDark;
   late bool isHighContrast;
   late LocaleLanguages localeLanguage;

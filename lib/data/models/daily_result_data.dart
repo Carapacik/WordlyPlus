@@ -1,11 +1,11 @@
 import 'package:isar/isar.dart';
 
-part 'daily_result.g.dart';
+part 'daily_result_data.g.dart';
 
 @Collection()
-class DailyResult {
+class DailyResultData {
   @Id()
-  int? id;
+  late int id;
   late String dailyWord;
   late bool isWin;
 }

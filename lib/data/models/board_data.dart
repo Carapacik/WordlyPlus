@@ -7,7 +7,7 @@ part 'board_data.g.dart';
 @Collection()
 class BoardData {
   @Id()
-  late int id;
+  int? id;
   late bool isComplete;
   late List<LetterEntering> lettersState;
   late List<LetterStatus> keyboardState;

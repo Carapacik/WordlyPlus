@@ -1,10 +1,10 @@
 import 'package:isar/isar.dart';
 import 'package:wordly/data/models/attempts.dart';
 
-part 'daily_statistic.g.dart';
+part 'daily_statistic_data.g.dart';
 
 @Collection()
-class DailyStatistic {
+class DailyStatisticData {
   @Id()
   int? id;
   late int winsNumber;

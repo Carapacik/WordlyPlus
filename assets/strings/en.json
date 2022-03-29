@@ -27,7 +27,7 @@
   "password": "Password",
   "passwords_no_match": "passwords do not match",
   "played": "Played",
-  "secret_word_is": "Secret word is \"${word}\"",
+  "secret_word_is": "Secret word is",
   "settings": "Settings",
   "share": "Share",
   "sign_up": "sign up",
@@ -38,6 +38,7 @@
   "win_percent": "Win %",
   "word_not_found": "Word not found in dictionary",
   "word_too_short": "Word is not correct length",
-  "wordle": "wordle",
-  "working_on_improving_dictionaries": "We are working on improving dictionaries\nSoon all words will be with an explanation of the meaning"
+  "wordle": "Wordle",
+  "daily": "Daily",
+  "level": "Level"
 }

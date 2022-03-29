@@ -4,7 +4,7 @@ import 'package:wordly/bloc/main/main_cubit.dart';
 import 'package:wordly/bloc/settings/settings_cubit.dart';
 import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/data/models/flushbar_types.dart';
-import 'package:wordly/ui/pages/main/widgets/wodrs_grid.dart';
+import 'package:wordly/ui/pages/main/widgets/word_grid.dart';
 import 'package:wordly/ui/pages/statistic/statistic_page.dart';
 import 'package:wordly/ui/widgets/widgets.dart';
 import 'package:wordly/utils/utils.dart';
@@ -33,7 +33,7 @@ class MainPage extends StatelessWidget {
       ),
       body: Responsive(
         mobile: BlocListener<MainCubit, MainState>(
-          listener: (context, state) {
+          listener: (context, state) async {
             if (state is TopMessageState) {
               switch (state.type) {
                 case FlushBarTypes.notFound:
@@ -50,11 +50,12 @@ class MainPage extends StatelessWidget {
                   break;
               }
             } else if (state is WinGameState) {
-              // TODO
-              print("WinGameState");
+              await showWinLoseDialog(context);
             } else if (state is LoseGameState) {
-              // TODO
-              print("LoseGameState");
+              await showWinLoseDialog(
+                context,
+                isWin: false,
+              );
             }
           },
           child: BlocBuilder<SettingsCubit, SettingsState>(
@@ -67,8 +68,8 @@ class MainPage extends StatelessWidget {
                   const SizedBox(height: 16),
                   const WordsGrid(),
                   const Spacer(),
-                  const SizedBox(height: 16),
                   state.dictionaryLanguage.keyboard,
+                  const SizedBox(height: 24),
                 ],
               );
             },

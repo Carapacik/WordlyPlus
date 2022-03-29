@@ -177,11 +177,10 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
 
   @override
   void getBoard() {
-    final boardRepository = GetIt.I<BoardRepository>();
-    final boardData = boardRepository.boardData;
-    if (_secretWord != boardData.secretWord) {
+    final boardData = GetIt.I<BoardRepository>().boardData;
+    if (_secretWord == boardData.secretWord) {
       _completeGame = boardData.isComplete;
-      _keyboardState = boardData.keyboardState;
+      _keyboardState = boardData.toMap(_dictionaryLanguage);
       _currentWordIndex = boardData.lettersState.length;
       _gridData = boardData.lettersState;
     }
@@ -190,12 +189,26 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   @override
   void saveBoard() {
     final boardData = BoardData()
+      ..id = _dictionaryLanguage.index
       ..secretWord = _secretWord ?? ""
       ..isComplete = _completeGame
-      ..keyboardState = _keyboardState
+      ..keyboardState = BoardData.fromMap(_keyboardState, _dictionaryLanguage)
       ..lettersState = _gridData;
     final boardRepository = GetIt.I<BoardRepository>();
     boardRepository.saveBoardData(boardData);
+  }
+
+  @override
+  String get getEmojiString {
+    String emojiString = "";
+    _letterDataList.asMap().map((key, value) {
+      emojiString += value.letterStatus.toEmoji();
+      if (key % 5 == 4) {
+        emojiString += "\n";
+      }
+      return MapEntry(key, value);
+    });
+    return emojiString;
   }
 
   @override

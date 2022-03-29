@@ -1,30 +1,27 @@
-// String _getEmojiStringFromGrid() {
-//   final letterDataList = DictionaryData.getInstance().letterDataList;
-//   String emojiString = "";
-//   letterDataList.asMap().map((key, value) {
-//     emojiString += value.status.toEmoji();
-//     if (key % 5 == 4) {
-//       emojiString += "\n";
-//     }
-//     return MapEntry(key, value);
-//   });
-//   return emojiString;
-// }
-//
-// Future<void> shareEmojiString(final BuildContext context) async {
-//   final emojiString =
-//   R.stringsOf(context).check_my_result(emoji: _getEmojiStringFromGrid());
-//   Share.share(emojiString);
-// }
-//
-// Future<void> copyEmojiString(
-//     final BuildContext context,
-//     ) async {
-//   final emojiString =
-//   R.stringsOf(context).check_my_result(emoji: _getEmojiStringFromGrid());
-//   await Clipboard.setData(ClipboardData(text: emojiString));
-//   await showTopFlushBar(
-//     context,
-//     message: R.stringsOf(context).text_copied,
-//   );
-// }
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:wordly/data/dictionary_repository.dart';
+import 'package:wordly/ui/widgets/widgets.dart';
+import 'package:wordly/utils/utils.dart';
+
+Future<void> shareEmojiString(final BuildContext context) async {
+  final emojiString = R
+      .stringsOf(context)
+      .check_my_result(emoji: GetIt.I<DictionaryRepository>().getEmojiString);
+  Share.share(emojiString);
+}
+
+Future<void> copyEmojiString(
+  final BuildContext context,
+) async {
+  final emojiString = R
+      .stringsOf(context)
+      .check_my_result(emoji: GetIt.I<DictionaryRepository>().getEmojiString);
+  await Clipboard.setData(ClipboardData(text: emojiString));
+  await showTopFlushBar(
+    context,
+    message: R.stringsOf(context).text_copied,
+  );
+}

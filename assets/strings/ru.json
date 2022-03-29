@@ -7,6 +7,7 @@
   "copy": "Копировать",
   "create_account": "создать аккаунт",
   "current_streak": "Текущая\nСерия",
+  "daily": "Ежедневный",
   "dark_mode": "Темная тема",
   "dictionary_language": "Язык словаря",
   "email": "Почта",
@@ -20,6 +21,7 @@
   "letter_correct": "Буква есть в слове и находится на верном месте",
   "letter_incorrect": "Буквы нет в слове",
   "letter_incorrect_spot": "Буква в неправильной позиции",
+  "level": "Уровни",
   "login": "Войти",
   "lose_message": "Вы проиграли",
   "max_streak": "Максимальная\nСерия",
@@ -38,7 +40,5 @@
   "win_percent": "% Побед",
   "word_not_found": "Слово не найдено в словаре",
   "word_too_short": "Слово неправильной длины",
-  "wordle": "Словень",
-  "daily": "Ежедневный",
-  "level": "Уровни"
+  "wordle": "Словень"
 }

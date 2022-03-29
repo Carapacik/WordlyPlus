@@ -7,6 +7,7 @@
   "copy": "Copy",
   "create_account": "create account",
   "current_streak": "Current\nStreak",
+  "daily": "Daily",
   "dark_mode": "Dark mode",
   "dictionary_language": "Dictionary language",
   "email": "Email",
@@ -20,6 +21,7 @@
   "letter_correct": "Letter exists and is in correct spot",
   "letter_incorrect": "Letter is incorrect",
   "letter_incorrect_spot": "Letter is in incorrect spot",
+  "level": "Level",
   "login": "Login",
   "lose_message": "You lost",
   "max_streak": "Max\nStreak",
@@ -38,7 +40,5 @@
   "win_percent": "Win %",
   "word_not_found": "Word not found in dictionary",
   "word_too_short": "Word is not correct length",
-  "wordle": "Wordle",
-  "daily": "Daily",
-  "level": "Level"
+  "wordle": "Wordle"
 }

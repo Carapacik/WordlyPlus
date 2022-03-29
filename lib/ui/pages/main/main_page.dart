@@ -31,34 +31,34 @@ class MainPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Responsive(
-        mobile: BlocListener<MainCubit, MainState>(
-          listener: (context, state) async {
-            if (state is TopMessageState) {
-              switch (state.type) {
-                case FlushBarTypes.notFound:
-                  showTopFlushBar(
-                    context,
-                    message: R.stringsOf(context).word_not_found,
-                  );
-                  break;
-                case FlushBarTypes.notCorrectLength:
-                  showTopFlushBar(
-                    context,
-                    message: R.stringsOf(context).word_too_short,
-                  );
-                  break;
-              }
-            } else if (state is WinGameState) {
-              await showWinLoseDialog(context);
-            } else if (state is LoseGameState) {
-              await showWinLoseDialog(
-                context,
-                isWin: false,
-              );
+      body: BlocListener<MainCubit, MainState>(
+        listener: (context, state) async {
+          if (state is TopMessageState) {
+            switch (state.type) {
+              case FlushBarTypes.notFound:
+                showTopFlushBar(
+                  context,
+                  message: R.stringsOf(context).word_not_found,
+                );
+                break;
+              case FlushBarTypes.notCorrectLength:
+                showTopFlushBar(
+                  context,
+                  message: R.stringsOf(context).word_too_short,
+                );
+                break;
             }
-          },
-          child: BlocBuilder<SettingsCubit, SettingsState>(
+          } else if (state is WinGameState) {
+            await showWinLoseDialog(context);
+          } else if (state is LoseGameState) {
+            await showWinLoseDialog(
+              context,
+              isWin: false,
+            );
+          }
+        },
+        child: Responsive(
+          mobile: BlocBuilder<SettingsCubit, SettingsState>(
             buildWhen: (previous, current) =>
                 previous.dictionaryLanguage != current.dictionaryLanguage,
             builder: (_, state) {

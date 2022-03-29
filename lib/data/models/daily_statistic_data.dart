@@ -11,4 +11,17 @@ class DailyStatisticData {
   late int losesNumber;
   late int currentStreak;
   late Attempts attempts;
+
+  DailyStatisticData copyWith({
+    int? winsNumber,
+    int? losesNumber,
+    int? currentStreak,
+    Attempts? attempts,
+  }) {
+    return DailyStatisticData()
+      ..winsNumber = winsNumber ?? this.winsNumber
+      ..losesNumber = losesNumber ?? this.losesNumber
+      ..currentStreak = currentStreak ?? this.currentStreak
+      ..attempts = attempts ?? this.attempts;
+  }
 }

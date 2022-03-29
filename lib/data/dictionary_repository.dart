@@ -7,6 +7,8 @@ import 'package:wordly/data/models/letter_status.dart';
 abstract class DictionaryRepository {
   String get secretWord;
 
+  int get currentAttempt;
+
   String get getEmojiString;
 
   set dictionaryLanguage(DictionaryLanguages language);

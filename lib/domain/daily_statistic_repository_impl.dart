@@ -22,7 +22,22 @@ class DailyStatisticRepositoryImpl implements DailyStatisticRepository {
   }
 
   @override
-  Future<void> saveStatisticData(DailyStatisticData data) async {
+  Future<void> saveStatisticData({
+    required final bool isWin,
+    required final int attempt,
+  }) async {
+    late DailyStatisticData data;
+    if (isWin) {
+      data = _statisticData.copyWith(
+        winsNumber: _statisticData.winsNumber++,
+        currentStreak: _statisticData.currentStreak++,
+      );
+    } else {
+      data = _statisticData.copyWith(
+        losesNumber: _statisticData.losesNumber++,
+        currentStreak: 0,
+      );
+    }
     await GetIt.I<Isar>().writeTxn((isar) async {
       _statisticData = data;
       await isar.dailyStatisticDatas.put(_statisticData);

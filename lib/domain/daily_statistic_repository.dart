@@ -5,5 +5,8 @@ abstract class DailyStatisticRepository {
 
   Future<void> initStatisticData();
 
-  Future<void> saveStatisticData(final DailyStatisticData data);
+  Future<void> saveStatisticData({
+    required final bool isWin,
+    required final int attempt,
+  });
 }

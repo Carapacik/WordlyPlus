@@ -1,6 +1,21 @@
+import 'package:flutter/widgets.dart';
 import 'package:isar/isar.dart';
+import 'package:wordly/ui/pages/main/widgets/keyboard_en.dart';
+import 'package:wordly/ui/pages/main/widgets/keyboard_ru.dart';
 
 enum DictionaryLanguages { ru, en }
+
+extension DictionaryLanguagesExt on DictionaryLanguages {
+  Widget get keyboard {
+    switch (this) {
+      case DictionaryLanguages.ru:
+        return const KeyboardRu();
+      case DictionaryLanguages.en:
+      default:
+        return const KeyboardEn();
+    }
+  }
+}
 
 extension StringExt on String {
   DictionaryLanguages get toDictionaryLanguage {

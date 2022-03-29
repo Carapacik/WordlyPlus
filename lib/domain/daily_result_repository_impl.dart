@@ -3,7 +3,7 @@ import 'package:isar/isar.dart';
 import 'package:wordly/data/models/daily_result_data.dart';
 import 'package:wordly/domain/daily_result_repository.dart';
 
-class DailyResultRepositoryImp implements DailyResultRepository {
+class DailyResultRepositoryImpl implements DailyResultRepository {
   late DailyResultData _dailyResult;
 
   @override

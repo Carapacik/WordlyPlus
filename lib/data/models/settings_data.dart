@@ -6,6 +6,17 @@ part 'settings_data.g.dart';
 
 @Collection()
 class SettingsData {
+  SettingsData();
+
+  factory SettingsData.init() {
+    return SettingsData()
+      ..id = 0
+      ..dictionaryLanguage = DictionaryLanguages.en
+      ..localeLanguage = LocaleLanguages.en
+      ..isDark = false
+      ..isHighContrast = false;
+  }
+
   @Id()
   late int id;
   late bool isDark;

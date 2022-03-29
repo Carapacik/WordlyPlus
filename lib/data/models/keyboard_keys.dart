@@ -34,9 +34,44 @@ enum KeyboardKeys {
   m,
   c1, // б
   c2, // ю
+  delete,
 }
 
 extension KeyboardKeyExtension on KeyboardKeys {
+  double width({
+    required final DictionaryLanguages language,
+    required final num parentWidth,
+  }) {
+    if (this == KeyboardKeys.delete) {
+      switch (language) {
+        case DictionaryLanguages.ru:
+          return parentWidth * 0.067 / 2 * 3.5;
+        case DictionaryLanguages.en:
+          return parentWidth * 0.075 / 2 * 3;
+        default:
+          return 0;
+      }
+    }
+    if (this == KeyboardKeys.enter) {
+      switch (language) {
+        case DictionaryLanguages.ru:
+          return parentWidth * 0.067 / 2 * 3.5;
+        case DictionaryLanguages.en:
+          return parentWidth * 0.075 / 2 * 3;
+        default:
+          return 0;
+      }
+    }
+    switch (language) {
+      case DictionaryLanguages.ru:
+        return parentWidth * 0.067;
+      case DictionaryLanguages.en:
+        return parentWidth * 0.075;
+      default:
+        return 0;
+    }
+  }
+
   String? name(final DictionaryLanguages lang) {
     switch (lang) {
       case DictionaryLanguages.ru:
@@ -107,6 +142,8 @@ extension KeyboardKeyExtension on KeyboardKeys {
             return "б";
           case KeyboardKeys.c2:
             return "ю";
+          default:
+            return null;
         }
       case DictionaryLanguages.en:
         switch (this) {
@@ -164,12 +201,7 @@ extension KeyboardKeyExtension on KeyboardKeys {
             return "n";
           case KeyboardKeys.m:
             return "m";
-          case KeyboardKeys.a1:
-          case KeyboardKeys.a2:
-          case KeyboardKeys.b1:
-          case KeyboardKeys.b2:
-          case KeyboardKeys.c1:
-          case KeyboardKeys.c2:
+          default:
             return null;
         }
       default:

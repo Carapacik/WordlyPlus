@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:wordly/resources/typography.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/bloc/main/main_cubit.dart';
+import 'package:wordly/bloc/settings/settings_cubit.dart';
+import 'package:wordly/data/models/dictionary_languages.dart';
+import 'package:wordly/data/models/flushbar_types.dart';
+import 'package:wordly/ui/pages/main/widgets/wodrs_grid.dart';
 import 'package:wordly/ui/pages/statistic/statistic_page.dart';
-import 'package:wordly/ui/widgets/drawer.dart';
+import 'package:wordly/ui/widgets/widgets.dart';
 import 'package:wordly/utils/utils.dart';
 
 class MainPage extends StatelessWidget {
@@ -11,15 +16,8 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const CustomDrawer(),
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          R.stringsOf(context).wordle.toUpperCase(),
-          style: AppTypography.b30,
-        ),
-        elevation: 0,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        foregroundColor: Theme.of(context).primaryColor,
+      appBar: CustomAppBar(
+        title: R.stringsOf(context).wordle.toUpperCase(),
         actions: [
           IconButton(
             onPressed: () {
@@ -32,6 +30,48 @@ class MainPage extends StatelessWidget {
             icon: const Icon(Icons.leaderboard),
           ),
         ],
+      ),
+      body: Responsive(
+        mobile: BlocListener<MainCubit, MainState>(
+          listener: (context, state) {
+            if (state is TopMessageState) {
+              switch (state.type) {
+                case FlushBarTypes.notFound:
+                  showTopFlushBar(
+                    context,
+                    message: R.stringsOf(context).word_not_found,
+                  );
+                  break;
+                case FlushBarTypes.notCorrectLength:
+                  showTopFlushBar(
+                    context,
+                    message: R.stringsOf(context).word_too_short,
+                  );
+                  break;
+              }
+            } else if (state is WinGameState) {
+              // TODO
+            } else if (state is LoseGameState) {
+              // TODO
+            }
+          },
+          child: BlocBuilder<SettingsCubit, SettingsState>(
+            buildWhen: (previous, current) =>
+                previous.dictionaryLanguage != current.dictionaryLanguage,
+            builder: (_, state) {
+              return Column(
+                key: UniqueKey(),
+                children: [
+                  const SizedBox(height: 16),
+                  const WordsGrid(),
+                  const Spacer(),
+                  const SizedBox(height: 16),
+                  state.dictionaryLanguage.keyboard,
+                ],
+              );
+            },
+          ),
+        ),
       ),
     );
   }

@@ -4,7 +4,7 @@ import 'package:wordly/data/models/attempts.dart';
 import 'package:wordly/data/models/daily_statistic_data.dart';
 import 'package:wordly/domain/daily_statistic_repository.dart';
 
-class DailyStatisticRepositoryImp implements DailyStatisticRepository {
+class DailyStatisticRepositoryImpl implements DailyStatisticRepository {
   late DailyStatisticData _statisticData;
 
   @override

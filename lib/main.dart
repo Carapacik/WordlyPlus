@@ -16,11 +16,13 @@ import 'package:wordly/data/models/letter_entering.dart';
 import 'package:wordly/data/models/level_data.dart';
 import 'package:wordly/data/models/settings_data.dart';
 import 'package:wordly/domain/daily_result_repository.dart';
-import 'package:wordly/domain/daily_result_repository_imp.dart';
+import 'package:wordly/domain/daily_result_repository_impl.dart';
 import 'package:wordly/domain/daily_statistic_repository.dart';
-import 'package:wordly/domain/daily_statistic_repository_imp.dart';
+import 'package:wordly/domain/daily_statistic_repository_impl.dart';
+import 'package:wordly/domain/dictionary_repository.dart';
+import 'package:wordly/domain/dictionary_repository_impl.dart';
 import 'package:wordly/domain/settings_repository.dart';
-import 'package:wordly/domain/settings_repository_imp.dart';
+import 'package:wordly/domain/settings_repository_impl.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,9 +47,10 @@ Future<void> main() async {
 
 Future<void> _initSingletons() async {
   await _initLocaleStorage();
-  await _initDailyStatistic();
-  await _initDailyResult();
-  await _initSettings();
+  await _initDailyStatisticRepository();
+  await _initDailyResultRepository();
+  await _initSettingsRepository();
+  await _initDictionaryRepository();
 }
 
 Future<void> _initLocaleStorage() async {
@@ -69,23 +72,29 @@ Future<void> _initLocaleStorage() async {
   GetIt.I.registerLazySingleton<Isar>(() => isar);
 }
 
-Future<void> _initDailyStatistic() async {
+Future<void> _initDailyStatisticRepository() async {
   GetIt.I.registerSingleton<DailyStatisticRepository>(
-    DailyStatisticRepositoryImp(),
+    DailyStatisticRepositoryImpl(),
   );
   await GetIt.I<DailyStatisticRepository>().initStatisticData();
 }
 
-Future<void> _initDailyResult() async {
+Future<void> _initDailyResultRepository() async {
   GetIt.I.registerSingleton<DailyResultRepository>(
-    DailyResultRepositoryImp(),
+    DailyResultRepositoryImpl(),
   );
   await GetIt.I<DailyResultRepository>().initDailyResult();
 }
 
-Future<void> _initSettings() async {
+Future<void> _initSettingsRepository() async {
   GetIt.I.registerSingleton<SettingsRepository>(
-    SettingsRepositoryImp(),
+    SettingsRepositoryImpl(),
   );
   await GetIt.I<SettingsRepository>().initSettings();
+}
+
+Future<void> _initDictionaryRepository() async {
+  GetIt.I.registerSingleton<DictionaryRepository>(
+    DictionaryRepositoryImpl(),
+  );
 }

@@ -1,11 +1,9 @@
 import 'package:get_it/get_it.dart';
 import 'package:isar/isar.dart';
-import 'package:wordly/data/models/dictionary_languages.dart';
-import 'package:wordly/data/models/locale_languages.dart';
 import 'package:wordly/data/models/settings_data.dart';
 import 'package:wordly/domain/settings_repository.dart';
 
-class SettingsRepositoryImp implements SettingsRepository {
+class SettingsRepositoryImpl implements SettingsRepository {
   late SettingsData _settingsData;
 
   @override
@@ -14,13 +12,7 @@ class SettingsRepositoryImp implements SettingsRepository {
   @override
   Future<void> initSettings() async {
     final result = await GetIt.I<Isar>().settingsDatas.get(0);
-    _settingsData = result ??
-        (SettingsData()
-          ..id = 0
-          ..dictionaryLanguage = DictionaryLanguages.en
-          ..localeLanguage = LocaleLanguages.en
-          ..isDark = false
-          ..isHighContrast = false);
+    _settingsData = result ?? SettingsData.init();
   }
 
   @override

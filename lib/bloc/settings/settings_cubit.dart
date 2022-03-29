@@ -42,7 +42,9 @@ class SettingsCubit extends Cubit<SettingsState> {
     final currentSettingsData = settingsRepository.settingsData;
     final dictionaryLanguage = value.toDictionaryLanguage;
 
-    GetIt.I<DictionaryRepository>().dictionaryLanguage = dictionaryLanguage;
+    final dictionaryRepository = GetIt.I<DictionaryRepository>();
+    dictionaryRepository.dictionaryLanguage = dictionaryLanguage;
+    dictionaryRepository.getBoard();
     emit(state.copyWith(dictionaryLanguage: dictionaryLanguage));
     await settingsRepository.saveSettings(
       currentSettingsData..dictionaryLanguage = dictionaryLanguage,

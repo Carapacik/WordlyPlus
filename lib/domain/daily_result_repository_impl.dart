@@ -18,6 +18,7 @@ class DailyResultRepositoryImpl implements DailyResultRepository {
   @override
   Future<void> saveDailyResult(DailyResultData data) async {
     await GetIt.I<Isar>().writeTxn((isar) async {
+      _dailyResult = data;
       await isar.dailyResultDatas.put(_dailyResult);
     });
   }

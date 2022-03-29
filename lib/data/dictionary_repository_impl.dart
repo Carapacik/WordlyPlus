@@ -1,12 +1,15 @@
 import 'dart:math';
 
+import 'package:get_it/get_it.dart';
 import 'package:wordly/bloc/main/main_cubit.dart';
 import 'package:wordly/data/dictionary_repository.dart';
+import 'package:wordly/data/models/board_data.dart';
 import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/data/models/flushbar_types.dart';
 import 'package:wordly/data/models/keyboard_keys.dart';
 import 'package:wordly/data/models/letter_entering.dart';
 import 'package:wordly/data/models/letter_status.dart';
+import 'package:wordly/domain/board_repository.dart';
 
 class DictionaryRepositoryImpl implements DictionaryRepository {
   int _currentWordIndex = 0;
@@ -170,6 +173,29 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   @override
   Map<int, String> getAllLettersInList() {
     return _gridData[_currentWordIndex - 1].split("").asMap();
+  }
+
+  @override
+  void getBoard() {
+    final boardRepository = GetIt.I<BoardRepository>();
+    final boardData = boardRepository.boardData;
+    if (_secretWord != boardData.secretWord) {
+      _completeGame = boardData.isComplete;
+      _keyboardState = boardData.keyboardState;
+      _currentWordIndex = boardData.lettersState.length;
+      _gridData = boardData.lettersState;
+    }
+  }
+
+  @override
+  void saveBoard() {
+    final boardData = BoardData()
+      ..secretWord = _secretWord ?? ""
+      ..isComplete = _completeGame
+      ..keyboardState = _keyboardState
+      ..lettersState = _gridData;
+    final boardRepository = GetIt.I<BoardRepository>();
+    boardRepository.saveBoardData(boardData);
   }
 
   @override

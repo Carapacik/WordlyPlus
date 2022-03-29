@@ -17,6 +17,8 @@ import 'package:wordly/data/models/daily_statistic_data.dart';
 import 'package:wordly/data/models/letter_entering.dart';
 import 'package:wordly/data/models/level_data.dart';
 import 'package:wordly/data/models/settings_data.dart';
+import 'package:wordly/domain/board_repository.dart';
+import 'package:wordly/domain/board_repository_impl.dart';
 import 'package:wordly/domain/daily_result_repository.dart';
 import 'package:wordly/domain/daily_result_repository_impl.dart';
 import 'package:wordly/domain/daily_statistic_repository.dart';
@@ -50,6 +52,7 @@ Future<void> _initSingletons() async {
   await _initDailyStatisticRepository();
   await _initDailyResultRepository();
   await _initSettingsRepository();
+  await _initBoardRepository();
   await _initDictionaryRepository();
 }
 
@@ -93,6 +96,15 @@ Future<void> _initSettingsRepository() async {
   await GetIt.I<SettingsRepository>().initSettings();
 }
 
+Future<void> _initBoardRepository() async {
+  GetIt.I.registerSingleton<BoardRepository>(
+    BoardRepositoryImpl(),
+  );
+  await GetIt.I<BoardRepository>().initBoardData(
+    GetIt.I<SettingsRepository>().settingsData.dictionaryLanguage,
+  );
+}
+
 Future<void> _initDictionaryRepository() async {
   GetIt.I.registerSingleton<DictionaryRepository>(
     DictionaryRepositoryImpl(),
@@ -101,4 +113,5 @@ Future<void> _initDictionaryRepository() async {
   dictionaryRepository.dictionaryLanguage =
       GetIt.I<SettingsRepository>().settingsData.dictionaryLanguage;
   dictionaryRepository.createSecretWord();
+  dictionaryRepository.getBoard();
 }

@@ -24,6 +24,7 @@ class DailyStatisticRepositoryImpl implements DailyStatisticRepository {
   @override
   Future<void> saveStatisticData(DailyStatisticData data) async {
     await GetIt.I<Isar>().writeTxn((isar) async {
+      _statisticData = data;
       await isar.dailyStatisticDatas.put(_statisticData);
     });
   }

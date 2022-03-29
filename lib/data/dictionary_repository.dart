@@ -24,4 +24,8 @@ abstract class DictionaryRepository {
   LetterEntering getLetterStatusByIndex(final int index);
 
   Map<int, String> getAllLettersInList();
+
+  void getBoard();
+
+  void saveBoard();
 }

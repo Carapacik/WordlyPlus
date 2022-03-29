@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
+import 'package:wordly/data/dictionary_repository.dart';
 import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/data/models/locale_languages.dart';
 import 'package:wordly/data/models/settings_data.dart';
@@ -22,13 +23,15 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future<void> toggleTheme({required bool value}) async {
     final settingsRepository = GetIt.I<SettingsRepository>();
     final currentSettingsData = settingsRepository.settingsData;
-    await settingsRepository.saveSettings(currentSettingsData..isDark = value);
+
     emit(state.copyWith(isDark: value));
+    await settingsRepository.saveSettings(currentSettingsData..isDark = value);
   }
 
   Future<void> toggleHighContrast({required bool value}) async {
     final settingsRepository = GetIt.I<SettingsRepository>();
     final currentSettingsData = settingsRepository.settingsData;
+
     emit(state.copyWith(isHighContrast: value));
     await settingsRepository
         .saveSettings(currentSettingsData..isHighContrast = value);
@@ -38,6 +41,8 @@ class SettingsCubit extends Cubit<SettingsState> {
     final settingsRepository = GetIt.I<SettingsRepository>();
     final currentSettingsData = settingsRepository.settingsData;
     final dictionaryLanguage = value.toDictionaryLanguage;
+
+    GetIt.I<DictionaryRepository>().dictionaryLanguage = dictionaryLanguage;
     emit(state.copyWith(dictionaryLanguage: dictionaryLanguage));
     await settingsRepository.saveSettings(
       currentSettingsData..dictionaryLanguage = dictionaryLanguage,
@@ -48,6 +53,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     final settingsRepository = GetIt.I<SettingsRepository>();
     final currentSettingsData = settingsRepository.settingsData;
     final localeLanguage = value.toLocaleLanguage;
+
     emit(state.copyWith(localeLanguage: localeLanguage));
     await settingsRepository.saveSettings(
       currentSettingsData..localeLanguage = localeLanguage,

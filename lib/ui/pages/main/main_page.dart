@@ -51,8 +51,10 @@ class MainPage extends StatelessWidget {
               }
             } else if (state is WinGameState) {
               // TODO
+              print("WinGameState");
             } else if (state is LoseGameState) {
               // TODO
+              print("LoseGameState");
             }
           },
           child: BlocBuilder<SettingsCubit, SettingsState>(

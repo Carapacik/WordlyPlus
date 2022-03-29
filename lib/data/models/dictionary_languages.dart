@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:isar/isar.dart';
+import 'package:wordly/resources/dictionary_en.dart';
+import 'package:wordly/resources/dictionary_ru.dart';
 import 'package:wordly/ui/pages/main/widgets/keyboard_en.dart';
 import 'package:wordly/ui/pages/main/widgets/keyboard_ru.dart';
 
@@ -13,6 +15,16 @@ extension DictionaryLanguagesExt on DictionaryLanguages {
       case DictionaryLanguages.en:
       default:
         return const KeyboardEn();
+    }
+  }
+
+  Map<String, String> getCurrentDictionary() {
+    switch (this) {
+      case DictionaryLanguages.ru:
+        return dictionaryRu;
+      case DictionaryLanguages.en:
+      default:
+        return dictionaryEn;
     }
   }
 }

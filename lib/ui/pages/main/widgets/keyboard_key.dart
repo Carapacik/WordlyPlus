@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:wordly/bloc/main/main_cubit.dart';
 import 'package:wordly/bloc/settings/settings_cubit.dart';
+import 'package:wordly/data/dictionary_repository.dart';
 import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/data/models/keyboard_keys.dart';
+import 'package:wordly/data/models/letter_status.dart';
 import 'package:wordly/resources/typography.dart';
 
 class KeyboardKey extends StatelessWidget {
@@ -30,6 +33,7 @@ class KeyboardKey extends StatelessWidget {
         return false;
       },
       builder: (context, state) {
+        final dictionaryRepository = GetIt.I<DictionaryRepository>();
         final parentWidth = MediaQuery.of(context).size.width > 500
             ? 500
             : MediaQuery.of(context).size.width;
@@ -39,9 +43,8 @@ class KeyboardKey extends StatelessWidget {
           child: AspectRatio(
             aspectRatio: lang == DictionaryLanguages.en ? 2 / 3 : 2 / 3.5,
             child: InkWell(
-              onTap: () async {
+              onTap: () {
                 mainCubit.setLetter(keyboardKey);
-                // await dictionary.saveBoardToPrefs();
               },
               child: BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (previous, current) =>
@@ -50,9 +53,9 @@ class KeyboardKey extends StatelessWidget {
                   return Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      // color: dictionary
-                      //     .getKeyStatus(keyboardKey.name(lang: lang))
-                      //     .color(context, highContrast: state.isHighContrast),
+                      color: dictionaryRepository
+                          .getKeyStatus(keyboardKey.name(lang))
+                          .color(context, highContrast: state.isHighContrast),
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
@@ -80,6 +83,7 @@ class EnterKeyboardKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dictionaryRepository = GetIt.I<DictionaryRepository>();
     final mainCubit = BlocProvider.of<MainCubit>(context);
     final width = MediaQuery.of(context).size.width > 500
         ? 500
@@ -88,27 +92,27 @@ class EnterKeyboardKey extends StatelessWidget {
       margin: const EdgeInsets.only(right: 2),
       height: KeyboardKeys.enter.width(language: lang, parentWidth: width),
       child: InkWell(
-        onTap: () async {
-          // if (mainCubit.submitWord()) {
-          //   dictionary.getAllLettersInList().asMap().map(
-          //     (index, e) {
-          //       final key = KeyboardKeys.values.firstWhere(
-          //         (element) => element.name(lang: lang) == e,
-          //       );
-          //       if (dictionary.secretWord[index] == e) {
-          //         mainCubit.updateKey(key, LetterStatus.correctSpot);
-          //         return MapEntry(index, e);
-          //       }
-          //       if (dictionary.secretWord.contains(e)) {
-          //         mainCubit.updateKey(key, LetterStatus.wrongSpot);
-          //         return MapEntry(index, e);
-          //       }
-          //       mainCubit.updateKey(key, LetterStatus.notInWords);
-          //       return MapEntry(index, e);
-          //     },
-          //   );
-          //   await dictionary.saveWordIndexToPrefs();
-          // }
+        onTap: () {
+          final wordComplete = mainCubit.completeWord();
+          if (wordComplete) {
+            dictionaryRepository.getAllLettersInList().map(
+              (index, value) {
+                final key = KeyboardKeys.values.firstWhere(
+                  (element) => element.name(lang) == value,
+                );
+                if (dictionaryRepository.secretWord[index] == value) {
+                  mainCubit.updateKey(key, LetterStatus.correctSpot);
+                  return MapEntry(index, value);
+                }
+                if (dictionaryRepository.secretWord.contains(value)) {
+                  mainCubit.updateKey(key, LetterStatus.wrongSpot);
+                  return MapEntry(index, value);
+                }
+                mainCubit.updateKey(key, LetterStatus.notInWords);
+                return MapEntry(index, value);
+              },
+            );
+          }
         },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -148,7 +152,6 @@ class DeleteKeyboardKey extends StatelessWidget {
       child: InkWell(
         onTap: () async {
           mainCubit.removeLetter();
-          // await dictionary.saveBoardToPrefs();
         },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 4),

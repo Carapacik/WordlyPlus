@@ -5,6 +5,16 @@ part 'daily_statistic_data.g.dart';
 
 @Collection()
 class DailyStatisticData {
+  DailyStatisticData();
+
+  factory DailyStatisticData.init() {
+    return DailyStatisticData()
+      ..winsNumber = 0
+      ..losesNumber = 0
+      ..currentStreak = 0
+      ..attempts = Attempts(0, 0, 0, 0, 0, 0);
+  }
+
   @Id()
   int? id;
   late int winsNumber;

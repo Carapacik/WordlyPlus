@@ -14,12 +14,13 @@ class SettingsRepositoryImp implements SettingsRepository {
   @override
   Future<void> initSettings() async {
     final result = await GetIt.I<Isar>().settingsDatas.get(0);
-    _settingsData = result ?? SettingsData()
-      ..id = 0
-      ..dictionaryLanguage = DictionaryLanguages.en
-      ..localeLanguage = LocaleLanguages.en
-      ..isDark = false
-      ..isHighContrast = false;
+    _settingsData = result ??
+        (SettingsData()
+          ..id = 0
+          ..dictionaryLanguage = DictionaryLanguages.en
+          ..localeLanguage = LocaleLanguages.en
+          ..isDark = false
+          ..isHighContrast = false);
   }
 
   @override

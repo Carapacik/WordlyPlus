@@ -23,13 +23,6 @@ class SettingsPage extends StatelessWidget {
         elevation: 0,
         backgroundColor: theme.scaffoldBackgroundColor,
         foregroundColor: theme.primaryColor,
-        actions: [
-          IconButton(
-            onPressed: Navigator.of(context).pop,
-            icon: const Icon(Icons.close),
-            color: theme.primaryColor,
-          ),
-        ],
       ),
       body: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, state) {

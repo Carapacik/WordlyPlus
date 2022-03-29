@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:wordly/resources/typography.dart';
-import 'package:wordly/ui/pages/settings/settings_page.dart';
 import 'package:wordly/ui/pages/statistic/statistic_page.dart';
 import 'package:wordly/ui/widgets/drawer.dart';
 import 'package:wordly/utils/utils.dart';

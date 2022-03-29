@@ -13,7 +13,9 @@ extension StringExt on String {
     }
   }
 }
-class DictionaryLanguagesConverter extends TypeConverter<DictionaryLanguages, int> {
+
+class DictionaryLanguagesConverter
+    extends TypeConverter<DictionaryLanguages, int> {
   const DictionaryLanguagesConverter();
 
   @override

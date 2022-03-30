@@ -18,6 +18,16 @@ extension DictionaryLanguagesExt on DictionaryLanguages {
     }
   }
 
+  double get aspectRatio {
+    switch (this) {
+      case DictionaryLanguages.ru:
+        return 2 / 3.5;
+      case DictionaryLanguages.en:
+      default:
+        return 2 / 2.8;
+    }
+  }
+
   Map<String, String> getCurrentDictionary() {
     switch (this) {
       case DictionaryLanguages.ru:

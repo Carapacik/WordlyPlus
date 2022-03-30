@@ -60,7 +60,7 @@ class _GridItem extends StatelessWidget {
           child: Container(
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(6),
               color: letterEntering.letterStatus
                   .itemColor(isHighContrast: state.isHighContrast),
               border: letterEntering.letterStatus == LetterStatus.unknown

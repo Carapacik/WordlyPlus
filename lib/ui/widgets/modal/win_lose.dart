@@ -4,6 +4,7 @@ import 'package:flutter_countdown_timer/index.dart';
 import 'package:wordly/bloc/main/main_cubit.dart';
 import 'package:wordly/resources/colors.dart';
 import 'package:wordly/resources/typography.dart';
+import 'package:wordly/ui/widgets/button.dart';
 import 'package:wordly/utils/utils.dart';
 
 Future<void> showWinLoseDialog(
@@ -55,6 +56,7 @@ Future<void> showWinLoseDialog(
                         textAlign: TextAlign.center,
                         style: AppTypography.m16.copyWith(color: Colors.white),
                       ),
+                      const SizedBox(height: 4),
                       CountdownTimer(
                         controller: _countDownController,
                         widgetBuilder: (_, CurrentRemainingTime? time) {
@@ -81,35 +83,19 @@ Future<void> showWinLoseDialog(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      ElevatedButton(
-                        onPressed: () {
+                      CustomButton(
+                        text: R.stringsOf(context).share,
+                        onTap: () {
                           shareEmojiString(context);
                         },
-                        child: Container(
-                          width: 80,
-                          alignment: Alignment.center,
-                          child: Text(
-                            R.stringsOf(context).share,
-                            style:
-                                AppTypography.n14.copyWith(color: Colors.white),
-                          ),
-                        ),
                       ),
-                      const SizedBox(height: 2),
-                      ElevatedButton(
-                        onPressed: () {
+                      const SizedBox(height: 4),
+                      CustomButton(
+                        text: R.stringsOf(context).copy,
+                        onTap: () {
                           copyEmojiString(context);
                         },
-                        child: Container(
-                          alignment: Alignment.center,
-                          width: 80,
-                          child: Text(
-                            R.stringsOf(context).copy,
-                            style:
-                                AppTypography.n14.copyWith(color: Colors.white),
-                          ),
-                        ),
-                      ),
+                      )
                     ],
                   ),
                 )
@@ -121,7 +107,7 @@ Future<void> showWinLoseDialog(
               style: AppTypography.m20.copyWith(color: Colors.white),
             ),
             const SizedBox(height: 4),
-            Text(
+            SelectableText(
               word.toUpperCase(),
               style: AppTypography.m20.copyWith(color: Colors.white),
             ),

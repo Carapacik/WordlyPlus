@@ -37,6 +37,9 @@ enum KeyboardKeys {
   delete,
 }
 
+const _defaultWidthRu = 0.067;
+const _defaultWidthEn = 0.08;
+
 extension KeyboardKeyExtension on KeyboardKeys {
   double width({
     required final DictionaryLanguages language,
@@ -45,9 +48,9 @@ extension KeyboardKeyExtension on KeyboardKeys {
     if (this == KeyboardKeys.delete) {
       switch (language) {
         case DictionaryLanguages.ru:
-          return parentWidth * 0.067 / 2 * 3.5;
+          return parentWidth * _defaultWidthRu / 2 * 3.5;
         case DictionaryLanguages.en:
-          return parentWidth * 0.075 / 2 * 3;
+          return parentWidth * _defaultWidthEn / 2 * 2.8;
         default:
           return 0;
       }
@@ -55,18 +58,18 @@ extension KeyboardKeyExtension on KeyboardKeys {
     if (this == KeyboardKeys.enter) {
       switch (language) {
         case DictionaryLanguages.ru:
-          return parentWidth * 0.067 / 2 * 3.5;
+          return parentWidth * _defaultWidthRu / 2 * 3.5;
         case DictionaryLanguages.en:
-          return parentWidth * 0.075 / 2 * 3;
+          return parentWidth * _defaultWidthEn / 2 * 2.8;
         default:
           return 0;
       }
     }
     switch (language) {
       case DictionaryLanguages.ru:
-        return parentWidth * 0.067;
+        return parentWidth * _defaultWidthRu;
       case DictionaryLanguages.en:
-        return parentWidth * 0.075;
+        return parentWidth * _defaultWidthEn;
       default:
         return 0;
     }

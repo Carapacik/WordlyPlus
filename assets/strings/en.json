@@ -37,7 +37,7 @@
   "statistic": "Statistic",
   "text_copied": "The text is copied to the clipboard",
   "win_message": "You win!",
-  "win_percent": "Win %",
+  "win_rate": "Win %",
   "word_not_found": "Word not found in dictionary",
   "word_too_short": "Word is not correct length",
   "wordle": "Wordle"

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:wordly/domain/daily_statistic_repository.dart';
@@ -12,25 +14,24 @@ class StatisticPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final statisticData = GetIt.I.get<DailyStatisticRepository>().statisticData;
     final total = statisticData.losesNumber + statisticData.winsNumber;
-    final winRate = statisticData.winsNumber / total;
+    final winRate = total == 0 ? 0 : statisticData.winsNumber / total;
     return Scaffold(
-      appBar: CustomAppBar(
-        title: R.stringsOf(context).statistic,
-      ),
+      appBar: CustomAppBar(title: R.stringsOf(context).statistic),
       body: Responsive(
         mobile: Column(
           children: [
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _StatText(
                   value: total,
                   title: R.stringsOf(context).played,
                 ),
                 _StatText(
-                  value: winRate,
-                  title: R.stringsOf(context).win_percent,
+                  value: winRate * 100,
+                  title: R.stringsOf(context).win_rate,
                 ),
                 _StatText(
                   value: statisticData.currentStreak,
@@ -38,6 +39,8 @@ class StatisticPage extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(height: 16),
+            _AttemptContent(attempts: statisticData.attempts),
           ],
         ),
       ),
@@ -58,6 +61,7 @@ class _StatText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           value.toString(),
@@ -72,6 +76,43 @@ class _StatText extends StatelessWidget {
           textAlign: TextAlign.center,
         )
       ],
+    );
+  }
+}
+
+class _AttemptContent extends StatelessWidget {
+  const _AttemptContent({
+    Key? key,
+    required this.attempts,
+  }) : super(key: key);
+
+  final List<int> attempts;
+
+  @override
+  Widget build(BuildContext context) {
+    final double maxValue = attempts.reduce(max) + 1;
+    return ListView.separated(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      shrinkWrap: true,
+      itemCount: attempts.length,
+      itemBuilder: (context, index) {
+        return FractionallySizedBox(
+          alignment: Alignment.topLeft,
+          widthFactor: (attempts[index] + 1) / maxValue,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            height: 20,
+            child: Text(
+              " ${attempts[index]}",
+              style: AppTypography.m16,
+            ),
+          ),
+        );
+      },
+      separatorBuilder: (_, __) => const SizedBox(height: 4),
     );
   }
 }

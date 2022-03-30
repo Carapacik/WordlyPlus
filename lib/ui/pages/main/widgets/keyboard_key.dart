@@ -41,7 +41,7 @@ class KeyboardKey extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 2),
           width: keyboardKey.width(language: lang, parentWidth: parentWidth),
           child: AspectRatio(
-            aspectRatio: lang == DictionaryLanguages.en ? 2 / 3 : 2 / 3.5,
+            aspectRatio: lang.aspectRatio,
             child: InkWell(
               onTap: () {
                 mainCubit.setLetter(keyboardKey);
@@ -85,12 +85,13 @@ class EnterKeyboardKey extends StatelessWidget {
   Widget build(BuildContext context) {
     final dictionaryRepository = GetIt.I<DictionaryRepository>();
     final mainCubit = BlocProvider.of<MainCubit>(context);
-    final width = MediaQuery.of(context).size.width > 500
+    final parentWidth = MediaQuery.of(context).size.width > 500
         ? 500
         : MediaQuery.of(context).size.width;
     return Container(
       margin: const EdgeInsets.only(right: 2),
-      height: KeyboardKeys.enter.width(language: lang, parentWidth: width),
+      height:
+          KeyboardKeys.enter.width(language: lang, parentWidth: parentWidth),
       child: InkWell(
         onTap: () {
           final wordComplete = mainCubit.completeWord();
@@ -142,13 +143,15 @@ class DeleteKeyboardKey extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mainCubit = BlocProvider.of<MainCubit>(context);
-    final width = MediaQuery.of(context).size.width > 500
+    final parentWidth = MediaQuery.of(context).size.width > 500
         ? 500
         : MediaQuery.of(context).size.width;
     return Container(
       margin: const EdgeInsets.only(left: 2),
-      width: KeyboardKeys.delete.width(language: lang, parentWidth: width),
-      height: KeyboardKeys.delete.width(language: lang, parentWidth: width),
+      width:
+          KeyboardKeys.delete.width(language: lang, parentWidth: parentWidth),
+      height:
+          KeyboardKeys.delete.width(language: lang, parentWidth: parentWidth),
       child: InkWell(
         onTap: () async {
           mainCubit.removeLetter();

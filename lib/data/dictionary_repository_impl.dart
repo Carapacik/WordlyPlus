@@ -92,11 +92,8 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
         }
         _status = LetterStatus.notInWords;
       }
-      _letterDataList.add(
-        LetterEntering()
-          ..letter = value
-          ..letterStatus = _status,
-      );
+      _letterDataList.add(LetterEntering(letter: value, letterStatus: _status));
+
       return MapEntry(key, value);
     });
     if (_currentWordIndex < 6) {
@@ -163,9 +160,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
         letterStatus = LetterStatus.correctSpot;
       }
     }
-    return LetterEntering()
-      ..letter = letter
-      ..letterStatus = letterStatus;
+    return LetterEntering(letter: letter, letterStatus: letterStatus);
   }
 
   @override
@@ -181,7 +176,8 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   @override
   void getBoard() {
     final boardData = GetIt.I<BoardRepository>().boardData;
-    if (boardData != BoardData.init(_dictionaryLanguage.index) && _secretWord == boardData.secretWord) {
+    if (boardData != BoardData.init(_dictionaryLanguage.index) &&
+        _secretWord == boardData.secretWord) {
       _completeGame = boardData.isComplete;
       _keyboardState = boardData.toMap();
       _currentWordIndex = boardData.lettersState.length;

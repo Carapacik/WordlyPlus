@@ -13,9 +13,7 @@ Future<void> shareEmojiString(final BuildContext context) async {
   Share.share(emojiString);
 }
 
-Future<void> copyEmojiString(
-  final BuildContext context,
-) async {
+Future<void> copyEmojiString(final BuildContext context) async {
   final emojiString = R
       .stringsOf(context)
       .check_my_result(emoji: GetIt.I<DictionaryRepository>().getEmojiString);

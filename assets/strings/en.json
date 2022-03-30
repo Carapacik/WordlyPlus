@@ -2,7 +2,7 @@
   "app_language": "App language",
   "auth_fail_message": "Authentication Failure",
   "change_language": "Change language",
-  "check_my_result": "Check out my wordle result!\nYou can download game here:\nhttps://github.com/Carapacik/Wordle\n${emoji}",
+  "check_my_result": "Can you repeat my result?\n${emoji}\nYou can download the game here:\nhttps://github.com/Carapacik/Wordle",
   "confirm_password": "Confirm password",
   "copy": "Copy",
   "create_account": "create account",

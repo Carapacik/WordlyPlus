@@ -48,8 +48,9 @@ class SettingsPage extends StatelessWidget {
                 LanguageSelector(
                   text: R.stringsOf(context).dictionary_language,
                   value: state.dictionaryLanguage.name,
-                  onChanged: (value) =>
-                      settingsCubit.changeDictionaryLanguage(value: value!),
+                  onChanged: (value) {
+                    settingsCubit.changeDictionaryLanguage(value: value!);
+                  },
                   isHighContrast: state.isHighContrast,
                 ),
               ],

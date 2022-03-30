@@ -1,5 +1,4 @@
 import 'package:isar/isar.dart';
-import 'package:wordly/data/models/attempts.dart';
 
 part 'daily_statistic_data.g.dart';
 
@@ -12,7 +11,7 @@ class DailyStatisticData {
       ..winsNumber = 0
       ..losesNumber = 0
       ..currentStreak = 0
-      ..attempts = Attempts(0, 0, 0, 0, 0, 0);
+      ..attempts = List.generate(6, (index) => 0);
   }
 
   @Id()
@@ -20,13 +19,13 @@ class DailyStatisticData {
   late int winsNumber;
   late int losesNumber;
   late int currentStreak;
-  late Attempts attempts;
+  late List<int> attempts;
 
   DailyStatisticData copyWith({
     int? winsNumber,
     int? losesNumber,
     int? currentStreak,
-    Attempts? attempts,
+    List<int>? attempts,
   }) {
     return DailyStatisticData()
       ..winsNumber = winsNumber ?? this.winsNumber

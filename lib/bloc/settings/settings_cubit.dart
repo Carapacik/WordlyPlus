@@ -45,6 +45,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
     final dictionaryRepository = GetIt.I<DictionaryRepository>();
     dictionaryRepository.dictionaryLanguage = dictionaryLanguage;
+    dictionaryRepository.resetData();
     dictionaryRepository.createSecretWord();
     final boardRepository = GetIt.I<BoardRepository>();
     await boardRepository.initBoardData(dictionaryLanguage);

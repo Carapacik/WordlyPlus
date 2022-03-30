@@ -9,8 +9,21 @@ import 'package:wordly/ui/pages/statistic/statistic_page.dart';
 import 'package:wordly/ui/widgets/widgets.dart';
 import 'package:wordly/utils/utils.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      checkDailyDialog(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +62,9 @@ class MainPage extends StatelessWidget {
                 break;
             }
           } else if (state is WinGameState) {
-            await showWinLoseDialog(context);
+            await checkDailyDialog(context, isWin: true);
           } else if (state is LoseGameState) {
-            await showWinLoseDialog(
-              context,
-              isWin: false,
-            );
+            await checkDailyDialog(context, isWin: false);
           }
         },
         child: Responsive(

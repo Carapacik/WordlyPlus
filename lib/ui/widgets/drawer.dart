@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wordly/resources/typography.dart';
+import 'package:wordly/ui/pages/main/main_page.dart';
 import 'package:wordly/ui/pages/settings/settings_page.dart';
 import 'package:wordly/ui/widgets/widgets.dart';
 import 'package:wordly/utils/utils.dart';
@@ -9,7 +10,9 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      width: 200,
       child: SafeArea(
         child: Column(
           children: [
@@ -18,14 +21,23 @@ class CustomDrawer extends StatelessWidget {
                 R.stringsOf(context).daily,
                 style: AppTypography.b20,
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const MainPage(),
+                  ),
+                );
+              },
             ),
             ListTile(
               title: Text(
                 R.stringsOf(context).level,
                 style: AppTypography.b20,
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pop();
+              },
             ),
             ListTile(
               title: Text(
@@ -33,6 +45,7 @@ class CustomDrawer extends StatelessWidget {
                 style: AppTypography.b20,
               ),
               onTap: () async {
+                Navigator.of(context).pop();
                 await showHowToPlayDialog(context);
               },
             ),
@@ -42,6 +55,7 @@ class CustomDrawer extends StatelessWidget {
                 style: AppTypography.b20,
               ),
               onTap: () {
+                Navigator.of(context).pop();
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => const SettingsPage(),

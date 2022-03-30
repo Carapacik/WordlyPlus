@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/index.dart';
-import 'package:get_it/get_it.dart';
 import 'package:wordly/bloc/main/main_cubit.dart';
-import 'package:wordly/data/dictionary_repository.dart';
 import 'package:wordly/resources/colors.dart';
 import 'package:wordly/resources/typography.dart';
 import 'package:wordly/utils/utils.dart';
 
 Future<void> showWinLoseDialog(
   final BuildContext context, {
-  final bool isWin = true,
+  required final bool isWin,
+  required final String word,
 }) async {
   showDialog(
     context: context,
@@ -29,7 +28,6 @@ Future<void> showWinLoseDialog(
           Navigator.of(context, rootNavigator: true).pop();
         },
       );
-      final word = GetIt.I<DictionaryRepository>().secretWord;
       return AlertDialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
@@ -81,6 +79,7 @@ Future<void> showWinLoseDialog(
                 const SizedBox(width: 8),
                 Expanded(
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       ElevatedButton(
                         onPressed: () {
@@ -96,7 +95,7 @@ Future<void> showWinLoseDialog(
                           ),
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 2),
                       ElevatedButton(
                         onPressed: () {
                           copyEmojiString(context);

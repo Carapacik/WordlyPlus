@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:isar/isar.dart';
 import 'package:wordly/resources/colors.dart';
 
 enum LetterStatus {
@@ -46,19 +45,5 @@ extension LetterStatusExtension on LetterStatus {
       case LetterStatus.correctSpot:
         return "🟩";
     }
-  }
-}
-
-class LetterStatusConverter extends TypeConverter<LetterStatus, int> {
-  const LetterStatusConverter();
-
-  @override
-  LetterStatus fromIsar(final int object) {
-    return LetterStatus.values[object];
-  }
-
-  @override
-  int toIsar(LetterStatus object) {
-    return object.index;
   }
 }

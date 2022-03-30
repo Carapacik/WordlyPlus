@@ -2,7 +2,7 @@
   "app_language": "Язык приложения",
   "auth_fail_message": "Ошибка авторизации",
   "change_language": "Сменить язык",
-  "check_my_result": "Смотри мой результат!\nТы можешь скачать игру тут:\nhttps://github.com/Carapacik/Wordle\n${emoji}",
+  "check_my_result": "Сможешь повторить мой результат?\n${emoji}\nТы можешь скачать игру тут:\nСсылка",
   "confirm_password": "Подтвердить пароль",
   "copy": "Копировать",
   "create_account": "создать аккаунт",

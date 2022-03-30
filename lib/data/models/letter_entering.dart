@@ -1,18 +1,12 @@
-import 'package:isar/isar.dart';
-import 'package:wordly/data/models/dictionary_languages.dart';
+import 'package:equatable/equatable.dart';
 import 'package:wordly/data/models/letter_status.dart';
 
-part 'letter_entering.g.dart';
+class LetterEntering extends Equatable {
+  const LetterEntering({required this.letter, required this.letterStatus});
 
-@Collection()
-class LetterEntering {
-  @Id()
-  int? id;
+  final String letter;
+  final LetterStatus letterStatus;
 
-  @Index()
-  @DictionaryLanguagesConverter()
-  late DictionaryLanguages language;
-
-  late String letter;
-  late LetterStatus letterStatus;
+  @override
+  List<Object?> get props => [letter, letterStatus];
 }

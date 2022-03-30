@@ -14,7 +14,6 @@ import 'package:wordly/data/dictionary_repository_impl.dart';
 import 'package:wordly/data/models/board_data.dart';
 import 'package:wordly/data/models/daily_result_data.dart';
 import 'package:wordly/data/models/daily_statistic_data.dart';
-import 'package:wordly/data/models/letter_entering.dart';
 import 'package:wordly/data/models/level_data.dart';
 import 'package:wordly/data/models/settings_data.dart';
 import 'package:wordly/domain/board_repository.dart';
@@ -49,9 +48,9 @@ Future<void> main() async {
 
 Future<void> _initSingletons() async {
   await _initLocaleStorage();
-  await _initDailyStatisticRepository();
-  await _initDailyResultRepository();
   await _initSettingsRepository();
+  await _initDailyResultRepository();
+  await _initDailyStatisticRepository();
   await _initBoardRepository();
   await _initDictionaryRepository();
 }
@@ -67,7 +66,6 @@ Future<void> _initLocaleStorage() async {
       BoardDataSchema,
       DailyResultDataSchema,
       DailyStatisticDataSchema,
-      LetterEnteringSchema,
       LevelDataSchema,
       SettingsDataSchema,
     ],
@@ -75,25 +73,27 @@ Future<void> _initLocaleStorage() async {
   GetIt.I.registerLazySingleton<Isar>(() => isar);
 }
 
-Future<void> _initDailyStatisticRepository() async {
-  GetIt.I.registerSingleton<DailyStatisticRepository>(
-    DailyStatisticRepositoryImpl(),
+Future<void> _initSettingsRepository() async {
+  GetIt.I.registerSingleton<SettingsRepository>(
+    SettingsRepositoryImpl(),
   );
-  await GetIt.I<DailyStatisticRepository>().initStatisticData();
+  await GetIt.I<SettingsRepository>().initSettings();
 }
 
 Future<void> _initDailyResultRepository() async {
   GetIt.I.registerSingleton<DailyResultRepository>(
     DailyResultRepositoryImpl(),
   );
-  await GetIt.I<DailyResultRepository>().initDailyResult();
+  await GetIt.I<DailyResultRepository>().initDailyResult(
+    GetIt.I<SettingsRepository>().settingsData.dictionaryLanguage,
+  );
 }
 
-Future<void> _initSettingsRepository() async {
-  GetIt.I.registerSingleton<SettingsRepository>(
-    SettingsRepositoryImpl(),
+Future<void> _initDailyStatisticRepository() async {
+  GetIt.I.registerSingleton<DailyStatisticRepository>(
+    DailyStatisticRepositoryImpl(),
   );
-  await GetIt.I<SettingsRepository>().initSettings();
+  await GetIt.I<DailyStatisticRepository>().initStatisticData();
 }
 
 Future<void> _initBoardRepository() async {

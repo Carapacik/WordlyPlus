@@ -1,6 +1,5 @@
 part of 'settings_cubit.dart';
 
-// TODO replace with freezed
 abstract class SettingsState extends Equatable {
   const SettingsState({
     required this.dictionaryLanguage,

@@ -3,7 +3,7 @@ description: Guess the WORD in six tries
 publish_to: 'none'
 version: 1.0.0+1
 environment:
-  sdk: ">=2.16.2 <3.0.0"
+  sdk: ">=2.16.0 <3.0.0"
 
 dependencies:
   another_flushbar: ^1.10.28
@@ -16,7 +16,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^1.0.3
-  freezed_annotation: ^1.1.0
   get_it: ^7.2.0
   google_fonts: ^2.3.1
   isar: ^2.2.1
@@ -31,7 +30,6 @@ dev_dependencies:
   flutter_launcher_icons_maker: ^0.10.2
   flutter_test:
     sdk: flutter
-  freezed: ^1.1.1
   isar_generator: 2.2.1
   lint: ^1.8.2
 

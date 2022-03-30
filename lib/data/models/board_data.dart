@@ -1,6 +1,4 @@
 import 'package:isar/isar.dart';
-import 'package:wordly/data/models/dictionary_languages.dart';
-import 'package:wordly/data/models/letter_entering.dart';
 import 'package:wordly/data/models/letter_status.dart';
 
 part 'board_data.g.dart';
@@ -14,8 +12,9 @@ class BoardData {
       ..id = id
       ..isComplete = false
       ..secretWord = ""
-      ..lettersState = []
-      ..keyboardState = [];
+      ..lettersState = [""]
+      ..keyboardLetters = []
+      ..keyboardLetterStatuses = [];
   }
 
   @Id()
@@ -23,27 +22,23 @@ class BoardData {
   late bool isComplete;
   late String secretWord;
   late List<String> lettersState;
-  late List<LetterEntering> keyboardState;
+  late List<String> keyboardLetters;
+  late List<int> keyboardLetterStatuses;
 
-  static List<LetterEntering> fromMap(
-    Map<String, LetterStatus> map,
-    DictionaryLanguages language,
-  ) {
-    return map.entries
-        .map(
-          (element) => LetterEntering()
-            ..language = language
-            ..letter = element.key
-            ..letterStatus = element.value,
-        )
-        .toList();
+  // final keyboardState = IsarLinks<LetterEntering>();
+
+  static List<String> toListString(Map<String, LetterStatus> map) {
+    return map.entries.map((element) => element.key).toList();
   }
 
-  Map<String, LetterStatus> toMap(
-    DictionaryLanguages language,
-  ) {
+  static List<int> toListLetterStatus(Map<String, LetterStatus> map) {
+    return map.entries.map((element) => element.value.index).toList();
+  }
+
+  Map<String, LetterStatus> toMap() {
     return {
-      for (var element in keyboardState) element.letter: element.letterStatus
+      for (var i = 0; i < keyboardLetters.length; i++)
+        keyboardLetters[i]: LetterStatus.values[keyboardLetterStatuses[i]]
     };
   }
 }

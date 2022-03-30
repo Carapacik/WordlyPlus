@@ -13,22 +13,28 @@ class WordsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MainCubit, MainState>(
-      buildWhen: (_, currentState) => currentState is GridUpdateState,
-      builder: (_, state) {
-        final dictionaryRepository = GetIt.I<DictionaryRepository>();
-        return GridView.count(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          shrinkWrap: true,
-          primary: false,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          crossAxisCount: 5,
-          children: List.generate(30, (index) {
-            final letterEntering =
-                dictionaryRepository.getLetterStatusByIndex(index);
-            return _GridItem(letterEntering: letterEntering);
-          }),
+    return BlocBuilder<SettingsCubit, SettingsState>(
+      buildWhen: (previous, current) =>
+          previous.dictionaryLanguage != current.dictionaryLanguage,
+      builder: (context, state) {
+        return BlocBuilder<MainCubit, MainState>(
+          buildWhen: (_, currentState) => currentState is GridUpdateState,
+          builder: (_, state) {
+            final dictionaryRepository = GetIt.I<DictionaryRepository>();
+            return GridView.count(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              shrinkWrap: true,
+              primary: false,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              crossAxisCount: 5,
+              children: List.generate(30, (index) {
+                final letterEntering =
+                    dictionaryRepository.getLetterStatusByIndex(index);
+                return _GridItem(letterEntering: letterEntering);
+              }),
+            );
+          },
         );
       },
     );

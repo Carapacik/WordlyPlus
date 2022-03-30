@@ -181,9 +181,9 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   @override
   void getBoard() {
     final boardData = GetIt.I<BoardRepository>().boardData;
-    if (_secretWord == boardData.secretWord) {
+    if (boardData != BoardData.init(_dictionaryLanguage.index) && _secretWord == boardData.secretWord) {
       _completeGame = boardData.isComplete;
-      _keyboardState = boardData.toMap(_dictionaryLanguage);
+      _keyboardState = boardData.toMap();
       _currentWordIndex = boardData.lettersState.length;
       _gridData = boardData.lettersState;
     }
@@ -195,7 +195,8 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
       ..id = _dictionaryLanguage.index
       ..secretWord = _secretWord ?? ""
       ..isComplete = _completeGame
-      ..keyboardState = BoardData.fromMap(_keyboardState, _dictionaryLanguage)
+      ..keyboardLetters = BoardData.toListString(_keyboardState)
+      ..keyboardLetterStatuses = BoardData.toListLetterStatus(_keyboardState)
       ..lettersState = _gridData;
     final boardRepository = GetIt.I<BoardRepository>();
     boardRepository.saveBoardData(boardData);

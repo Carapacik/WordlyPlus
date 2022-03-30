@@ -1,11 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
-import 'package:wordly/data/dictionary_repository.dart';
 import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/data/models/locale_languages.dart';
 import 'package:wordly/data/models/settings_data.dart';
+import 'package:wordly/data/repositories/dictionary_repository.dart';
 import 'package:wordly/domain/board_repository.dart';
+import 'package:wordly/domain/daily_statistic_repository.dart';
 import 'package:wordly/domain/settings_repository.dart';
 
 part 'settings_state.dart';
@@ -49,6 +50,8 @@ class SettingsCubit extends Cubit<SettingsState> {
     dictionaryRepository.createSecretWord();
     final boardRepository = GetIt.I<BoardRepository>();
     await boardRepository.initBoardData(dictionaryLanguage);
+    final dailyStatisticRepository = GetIt.I<DailyStatisticRepository>();
+    await dailyStatisticRepository.initStatisticData(dictionaryLanguage);
     dictionaryRepository.getBoard();
     emit(state.copyWith(dictionaryLanguage: dictionaryLanguage));
     await settingsRepository.saveSettings(

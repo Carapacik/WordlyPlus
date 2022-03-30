@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:wordly/bloc/main/main_cubit.dart';
 import 'package:wordly/bloc/settings/settings_cubit.dart';
-import 'package:wordly/data/dictionary_repository.dart';
 import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/data/models/keyboard_keys.dart';
 import 'package:wordly/data/models/letter_status.dart';
+import 'package:wordly/data/repositories/dictionary_repository.dart';
 import 'package:wordly/resources/typography.dart';
 
 class KeyboardKey extends StatelessWidget {

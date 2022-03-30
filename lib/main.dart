@@ -9,13 +9,13 @@ import 'package:url_strategy/url_strategy.dart';
 import 'package:wordly/app.dart';
 import 'package:wordly/bloc/main/main_cubit.dart';
 import 'package:wordly/bloc/settings/settings_cubit.dart';
-import 'package:wordly/data/dictionary_repository.dart';
-import 'package:wordly/data/dictionary_repository_impl.dart';
 import 'package:wordly/data/models/board_data.dart';
 import 'package:wordly/data/models/daily_result_data.dart';
 import 'package:wordly/data/models/daily_statistic_data.dart';
 import 'package:wordly/data/models/level_data.dart';
 import 'package:wordly/data/models/settings_data.dart';
+import 'package:wordly/data/repositories/dictionary_repository.dart';
+import 'package:wordly/data/repositories/dictionary_repository_impl.dart';
 import 'package:wordly/domain/board_repository.dart';
 import 'package:wordly/domain/board_repository_impl.dart';
 import 'package:wordly/domain/daily_result_repository.dart';
@@ -93,7 +93,9 @@ Future<void> _initDailyStatisticRepository() async {
   GetIt.I.registerSingleton<DailyStatisticRepository>(
     DailyStatisticRepositoryImpl(),
   );
-  await GetIt.I<DailyStatisticRepository>().initStatisticData();
+  await GetIt.I<DailyStatisticRepository>().initStatisticData(
+    GetIt.I<SettingsRepository>().settingsData.dictionaryLanguage,
+  );
 }
 
 Future<void> _initBoardRepository() async {

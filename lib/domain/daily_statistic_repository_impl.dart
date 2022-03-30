@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:isar/isar.dart';
 import 'package:wordly/data/models/daily_statistic_data.dart';
+import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/domain/daily_statistic_repository.dart';
 
 class DailyStatisticRepositoryImpl implements DailyStatisticRepository {
@@ -10,9 +11,13 @@ class DailyStatisticRepositoryImpl implements DailyStatisticRepository {
   DailyStatisticData get statisticData => _statisticData;
 
   @override
-  Future<void> initStatisticData() async {
-    final result = await GetIt.I<Isar>().dailyStatisticDatas.get(0);
-    _statisticData = result ?? DailyStatisticData.init();
+  Future<void> initStatisticData(
+    final DictionaryLanguages dictionaryLanguage,
+  ) async {
+    final result =
+        await GetIt.I<Isar>().dailyStatisticDatas.get(dictionaryLanguage.index);
+    _statisticData =
+        result ?? DailyStatisticData.init(dictionaryLanguage.index);
   }
 
   @override
@@ -20,22 +25,22 @@ class DailyStatisticRepositoryImpl implements DailyStatisticRepository {
     required final bool isWin,
     required final int attempt,
   }) async {
-    late DailyStatisticData data;
     final attempts = _statisticData.attempts;
     attempts[attempt - 1] = _statisticData.attempts[attempt - 1] + 1;
     if (isWin) {
-      data = _statisticData.copyWith(
+      _statisticData.copyWith(
         winsNumber: _statisticData.winsNumber++,
         currentStreak: _statisticData.currentStreak++,
+        attempts: attempts,
       );
     } else {
-      data = _statisticData.copyWith(
+      _statisticData.copyWith(
         losesNumber: _statisticData.losesNumber++,
         currentStreak: 0,
+        attempts: attempts,
       );
     }
     await GetIt.I<Isar>().writeTxn((isar) async {
-      _statisticData = data;
       await isar.dailyStatisticDatas.put(_statisticData);
     });
   }

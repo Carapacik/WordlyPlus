@@ -6,8 +6,9 @@ part 'daily_statistic_data.g.dart';
 class DailyStatisticData {
   DailyStatisticData();
 
-  factory DailyStatisticData.init() {
+  factory DailyStatisticData.init(final int id) {
     return DailyStatisticData()
+      ..id = id
       ..winsNumber = 0
       ..losesNumber = 0
       ..currentStreak = 0

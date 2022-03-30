@@ -24,6 +24,10 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   String get secretWord => _secretWord ?? "";
 
   @override
+  String get secretWordMeaning =>
+      _dictionaryLanguage.getCurrentDictionary()[_secretWord] ?? "";
+
+  @override
   int get currentAttempt => _currentWordIndex;
 
   @override

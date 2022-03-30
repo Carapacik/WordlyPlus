@@ -4,13 +4,14 @@ import 'package:flutter_countdown_timer/index.dart';
 import 'package:wordly/bloc/main/main_cubit.dart';
 import 'package:wordly/resources/colors.dart';
 import 'package:wordly/resources/typography.dart';
-import 'package:wordly/ui/widgets/button.dart';
+import 'package:wordly/ui/widgets/widgets.dart';
 import 'package:wordly/utils/utils.dart';
 
 Future<void> showWinLoseDialog(
   final BuildContext context, {
   required final bool isWin,
   required final String word,
+  required final String secretWordMeaning,
 }) async {
   showDialog(
     context: context,
@@ -33,6 +34,7 @@ Future<void> showWinLoseDialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
+        insetPadding: const EdgeInsets.all(24),
         backgroundColor: isWin ? AppColors.green : AppColors.red,
         title: Center(
           child: Text(
@@ -46,6 +48,7 @@ Future<void> showWinLoseDialog(
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Expanded(
                   child: Column(
@@ -104,12 +107,18 @@ Future<void> showWinLoseDialog(
             const SizedBox(height: 16),
             Text(
               R.stringsOf(context).secret_word_is,
-              style: AppTypography.m20.copyWith(color: Colors.white),
+              style: AppTypography.m18.copyWith(color: Colors.white),
             ),
             const SizedBox(height: 4),
             SelectableText(
               word.toUpperCase(),
               style: AppTypography.m20.copyWith(color: Colors.white),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              secretWordMeaning,
+              textAlign: TextAlign.center,
+              style: AppTypography.n14.copyWith(color: Colors.white),
             ),
           ],
         ),

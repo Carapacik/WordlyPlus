@@ -8,20 +8,23 @@ Future<void> checkDailyDialog(
   final BuildContext context, {
   final bool? isWin,
 }) async {
-  final word = GetIt.I<DictionaryRepository>().secretWord;
+  final secretWord = GetIt.I<DictionaryRepository>().secretWord;
+  final secretWordMeaning = GetIt.I<DictionaryRepository>().secretWordMeaning;
   if (isWin != null) {
     await showWinLoseDialog(
       context,
       isWin: isWin,
-      word: word,
+      word: secretWord,
+      secretWordMeaning: secretWordMeaning,
     );
   } else {
     final dailyResult = GetIt.I<DailyResultRepository>().dailyResult;
-    if (dailyResult.dailyWord == word) {
+    if (dailyResult.dailyWord == secretWord) {
       await showWinLoseDialog(
         context,
         isWin: dailyResult.isWin,
-        word: word,
+        word: secretWord,
+        secretWordMeaning: secretWordMeaning,
       );
     }
   }

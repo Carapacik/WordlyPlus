@@ -29,6 +29,11 @@ class AppTypography {
     fontWeight: FontWeight.w600,
   );
 
+  static TextStyle m18 = GoogleFonts.ubuntu(
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+  );
+
   static TextStyle m16 = GoogleFonts.ubuntu(
     fontSize: 16,
     fontWeight: FontWeight.w500,

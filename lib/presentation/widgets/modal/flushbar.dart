@@ -7,7 +7,7 @@ Future<void> showTopFlushBar(
 }) async {
   Flushbar(
     message: message,
-    maxWidth: 400,
+    maxWidth: 300,
     duration: const Duration(milliseconds: 1200),
     flushbarStyle: FlushbarStyle.FLOATING,
     flushbarPosition: FlushbarPosition.TOP,

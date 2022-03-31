@@ -9,6 +9,7 @@ class LevelsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const CustomDrawer(),
       appBar: CustomAppBar(
         title: R.stringsOf(context).wordle.toUpperCase(),
       ),

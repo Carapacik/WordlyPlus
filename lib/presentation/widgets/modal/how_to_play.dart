@@ -9,7 +9,8 @@ Future<void> showHowToPlayDialog(final BuildContext context) async {
     context: context,
     builder: (context) => AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-      backgroundColor: Theme.of(context).primaryColorLight,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      elevation: 24,
       title: Text(
         R.stringsOf(context).how_to_play,
         style: AppTypography.m25,

@@ -15,6 +15,7 @@ class App extends StatelessWidget {
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) {
         return MaterialApp(
+          onGenerateTitle: (context) => R.stringsOf(context).wordle,
           debugShowCheckedModeBanner: false,
           supportedLocales: RStringsDelegate.supportedLocales,
           localizationsDelegates: const [

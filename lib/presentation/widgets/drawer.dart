@@ -25,10 +25,11 @@ class CustomDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).push(
+                Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                     builder: (context) => const MainPage(),
                   ),
+                  (route) => false,
                 );
               },
             ),
@@ -39,10 +40,11 @@ class CustomDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).push(
+                Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                     builder: (context) => const LevelsPage(),
                   ),
+                  (route) => false,
                 );
               },
             ),
@@ -74,7 +76,7 @@ class CustomDrawer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 16),
               child: Text(
-                "v1.0.1",
+                "v1.0.2",
                 style: AppTypography.r14,
               ),
             ),

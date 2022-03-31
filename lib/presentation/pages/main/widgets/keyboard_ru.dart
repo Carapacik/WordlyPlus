@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/data/models/keyboard_keys.dart';
-import 'package:wordly/ui/pages/main/widgets/keyboard_key.dart';
+import 'package:wordly/presentation/pages/main/widgets/keyboard_key.dart';
 
 class KeyboardRu extends StatelessWidget {
   const KeyboardRu({Key? key}) : super(key: key);

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:wordly/presentation/pages/main/main_page.dart';
+import 'package:wordly/presentation/pages/settings/settings_page.dart';
+import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/resources/typography.dart';
-import 'package:wordly/ui/pages/main/main_page.dart';
-import 'package:wordly/ui/pages/settings/settings_page.dart';
-import 'package:wordly/ui/widgets/widgets.dart';
 import 'package:wordly/utils/utils.dart';
 
 class CustomDrawer extends StatelessWidget {

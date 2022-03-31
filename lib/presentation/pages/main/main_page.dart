@@ -4,9 +4,11 @@ import 'package:wordly/bloc/main/main_cubit.dart';
 import 'package:wordly/bloc/settings/settings_cubit.dart';
 import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/data/models/flushbar_types.dart';
-import 'package:wordly/ui/pages/main/widgets/word_grid.dart';
-import 'package:wordly/ui/pages/statistic/statistic_page.dart';
-import 'package:wordly/ui/widgets/widgets.dart';
+import 'package:wordly/presentation/pages/main/widgets/keyboard_en.dart';
+import 'package:wordly/presentation/pages/main/widgets/keyboard_ru.dart';
+import 'package:wordly/presentation/pages/main/widgets/word_grid.dart';
+import 'package:wordly/presentation/pages/statistic/statistic_page.dart';
+import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/utils/utils.dart';
 
 class MainPage extends StatefulWidget {
@@ -88,5 +90,17 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
     );
+  }
+}
+
+extension DictionaryLanguageKeyboard on DictionaryLanguages {
+  Widget get keyboard {
+    switch (this) {
+      case DictionaryLanguages.ru:
+        return const KeyboardRu();
+      case DictionaryLanguages.en:
+      default:
+        return const KeyboardEn();
+    }
   }
 }

@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:wordly/domain/daily_statistic_repository.dart';
+import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/resources/resources.dart';
-import 'package:wordly/ui/widgets/widgets.dart';
 import 'package:wordly/utils/utils.dart';
 
 class StatisticPage extends StatelessWidget {

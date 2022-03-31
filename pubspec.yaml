@@ -39,8 +39,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/svg/
     - assets/strings/
+    - assets/svg/
     - google_fonts/
 
 #flutter_icons:

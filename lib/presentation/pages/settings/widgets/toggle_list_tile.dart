@@ -18,13 +18,12 @@ class ToggleListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const SizedBox(width: 16),
         Text(
           text,
-          style: AppTypography.m16,
+          style: AppTypography.m14,
         ),
-        const Spacer(),
         Switch.adaptive(
           value: value,
           onChanged: onChanged,
@@ -33,7 +32,6 @@ class ToggleListTile extends StatelessWidget {
           inactiveTrackColor: AppColors.grey,
           activeColor: Colors.white,
         ),
-        const SizedBox(width: 16),
       ],
     );
   }

@@ -30,7 +30,7 @@ class StatisticPage extends StatelessWidget {
                   title: R.stringsOf(context).played,
                 ),
                 _StatText(
-                  value: winRate * 100,
+                  value: winRate * 100.0,
                   title: R.stringsOf(context).win_rate,
                 ),
                 _StatText(
@@ -40,9 +40,14 @@ class StatisticPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            Text(
-              R.stringsOf(context).guess_distribution.toUpperCase(),
-              style: AppTypography.b25,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: FittedBox(
+                child: Text(
+                  R.stringsOf(context).guess_distribution.toUpperCase(),
+                  style: AppTypography.b25,
+                ),
+              ),
             ),
             const SizedBox(height: 4),
             _AttemptContent(attempts: statisticData.attempts),

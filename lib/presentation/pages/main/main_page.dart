@@ -43,7 +43,7 @@ class _MainPageState extends State<MainPage> {
                 ),
               );
             },
-            icon: const Icon(Icons.leaderboard),
+            icon: const Icon(Icons.leaderboard_outlined),
           ),
         ],
       ),
@@ -78,11 +78,11 @@ class _MainPageState extends State<MainPage> {
               child: Column(
                 key: UniqueKey(),
                 children: [
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 8),
                   const WordsGrid(),
                   const Spacer(),
                   state.dictionaryLanguage.keyboard,
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 4),
                 ],
               ),
             );

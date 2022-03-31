@@ -6,7 +6,7 @@ import 'package:wordly/bloc/settings/settings_cubit.dart';
 import 'package:wordly/data/models/letter_entering.dart';
 import 'package:wordly/data/models/letter_status.dart';
 import 'package:wordly/data/repositories/dictionary_repository.dart';
-import 'package:wordly/resources/typography.dart';
+import 'package:wordly/resources/resources.dart';
 
 class WordsGrid extends StatelessWidget {
   const WordsGrid({Key? key}) : super(key: key);

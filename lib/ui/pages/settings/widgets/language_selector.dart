@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wordly/resources/colors.dart';
-import 'package:wordly/resources/typography.dart';
+import 'package:wordly/resources/resources.dart';
 import 'package:wordly/utils/utils.dart';
 
 class LanguageSelector extends StatelessWidget {

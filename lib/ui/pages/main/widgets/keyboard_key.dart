@@ -7,7 +7,7 @@ import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/data/models/keyboard_keys.dart';
 import 'package:wordly/data/models/letter_status.dart';
 import 'package:wordly/data/repositories/dictionary_repository.dart';
-import 'package:wordly/resources/typography.dart';
+import 'package:wordly/resources/resources.dart';
 
 class KeyboardKey extends StatelessWidget {
   const KeyboardKey({

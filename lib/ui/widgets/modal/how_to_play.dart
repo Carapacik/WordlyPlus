@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/bloc/settings/settings_cubit.dart';
-import 'package:wordly/resources/colors.dart';
-import 'package:wordly/resources/typography.dart';
+import 'package:wordly/resources/resources.dart';
 import 'package:wordly/utils/utils.dart';
 
 Future<void> showHowToPlayDialog(final BuildContext context) async {

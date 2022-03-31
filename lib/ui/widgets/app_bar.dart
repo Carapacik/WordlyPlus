@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wordly/resources/typography.dart';
+import 'package:wordly/resources/resources.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({

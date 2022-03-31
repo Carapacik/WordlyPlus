@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:wordly/bloc/main/main_cubit.dart';
-import 'package:wordly/resources/colors.dart';
-import 'package:wordly/resources/typography.dart';
+import 'package:wordly/resources/resources.dart';
 import 'package:wordly/ui/widgets/widgets.dart';
 import 'package:wordly/utils/utils.dart';
 

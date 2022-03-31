@@ -20,6 +20,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
+    checkForAndroidUpdate();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       checkDailyDialog(context);
     });

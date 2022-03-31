@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/bloc/settings/settings_cubit.dart';
-import 'package:wordly/resources/colors.dart';
+import 'package:wordly/resources/resources.dart';
 import 'package:wordly/ui/pages/settings/widgets/language_selector.dart';
 import 'package:wordly/ui/pages/settings/widgets/toggle_list_tile.dart';
 import 'package:wordly/ui/widgets/widgets.dart';

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:wordly/bloc/settings/settings_cubit.dart';
 import 'package:wordly/data/models/locale_languages.dart';
-import 'package:wordly/resources/themes.dart';
+import 'package:wordly/resources/resources.dart';
 import 'package:wordly/ui/pages/main/main_page.dart';
 import 'package:wordly/utils/utils.dart';
 

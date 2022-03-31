@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wordle/data/models/keyboard_keys.dart';
-import 'package:wordle/presentation/pages/main/widgets/keyboard_key.dart';
+import 'package:wordly/data/models/keyboard_keys.dart';
+import 'package:wordly/presentation/pages/main/widgets/keyboard_key.dart';
 
 class KeyboardEn extends StatelessWidget {
   const KeyboardEn({Key? key}) : super(key: key);

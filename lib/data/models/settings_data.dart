@@ -1,16 +1,28 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:isar/isar.dart';
+import 'package:wordly/data/models/dictionary_languages.dart';
+import 'package:wordly/data/models/locale_languages.dart';
 
-part 'settings_data.freezed.dart';
 part 'settings_data.g.dart';
 
-@freezed
-class SettingsData with _$SettingsData {
-  const factory SettingsData({
-    @Default(false) bool isDarkTheme,
-    @Default(false) bool isHighContrast,
-    @Default('en') String appLanguage,
-  }) = _SettingsData;
+@Collection()
+class SettingsData {
+  SettingsData();
 
-  factory SettingsData.fromJson(Map<String, dynamic> json) =>
-      _$SettingsDataFromJson(json);
+  factory SettingsData.init() {
+    return SettingsData()
+      ..id = 0
+      ..dictionaryLanguage = DictionaryLanguages.en
+      ..localeLanguage = LocaleLanguages.en
+      ..isDark = false
+      ..isHighContrast = false;
+  }
+
+  @Id()
+  late int id;
+  late bool isDark;
+  late bool isHighContrast;
+  @LocaleLanguagesConverter()
+  late LocaleLanguages localeLanguage;
+  @DictionaryLanguagesConverter()
+  late DictionaryLanguages dictionaryLanguage;
 }

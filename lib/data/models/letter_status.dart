@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wordle/resources/app_colors.dart';
+import 'package:wordly/resources/colors.dart';
 
 enum LetterStatus {
   unknown,
@@ -19,6 +19,19 @@ extension LetterStatusExtension on LetterStatus {
         return highContrast ? AppColors.highContrastBlue : AppColors.yellow;
       case LetterStatus.correctSpot:
         return highContrast ? AppColors.highContrastOrange : AppColors.green;
+    }
+  }
+
+  Color itemColor({final bool isHighContrast = false}) {
+    switch (this) {
+      case LetterStatus.unknown:
+        return Colors.transparent;
+      case LetterStatus.notInWords:
+        return AppColors.grey;
+      case LetterStatus.wrongSpot:
+        return isHighContrast ? AppColors.highContrastBlue : AppColors.yellow;
+      case LetterStatus.correctSpot:
+        return isHighContrast ? AppColors.highContrastOrange : AppColors.green;
     }
   }
 

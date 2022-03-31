@@ -1,24 +1,44 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:wordle/data/models/letter_status.dart';
+import 'package:isar/isar.dart';
+import 'package:wordly/data/models/letter_status.dart';
 
-part 'board_data.freezed.dart';
 part 'board_data.g.dart';
 
-@freezed
-class BoardData with _$BoardData {
-  const factory BoardData({
-    @Default(false) bool ruComplete,
-    @Default(false) bool enComplete,
-    Map<String, LetterStatus>? enKeyboard,
-    Map<String, LetterStatus>? ruKeyboard,
-    @Default(0) int enIndex,
-    @Default(0) int ruIndex,
-    String? enWord,
-    String? ruWord,
-    List<String>? enBoard,
-    List<String>? ruBoard,
-  }) = _BoardData;
+@Collection()
+class BoardData {
+  BoardData();
 
-  factory BoardData.fromJson(Map<String, dynamic> json) =>
-      _$BoardDataFromJson(json);
+  factory BoardData.init(int id) {
+    return BoardData()
+      ..id = id
+      ..isComplete = false
+      ..secretWord = ""
+      ..lettersState = [""]
+      ..keyboardLetters = []
+      ..keyboardLetterStatuses = [];
+  }
+
+  @Id()
+  int? id;
+  late bool isComplete;
+  late String secretWord;
+  late List<String> lettersState;
+  late List<String> keyboardLetters;
+  late List<int> keyboardLetterStatuses;
+
+  // final keyboardState = IsarLinks<LetterEntering>();
+
+  static List<String> toListString(Map<String, LetterStatus> map) {
+    return map.entries.map((element) => element.key).toList();
+  }
+
+  static List<int> toListLetterStatus(Map<String, LetterStatus> map) {
+    return map.entries.map((element) => element.value.index).toList();
+  }
+
+  Map<String, LetterStatus> toMap() {
+    return {
+      for (var i = 0; i < keyboardLetters.length; i++)
+        keyboardLetters[i]: LetterStatus.values[keyboardLetterStatuses[i]]
+    };
+  }
 }

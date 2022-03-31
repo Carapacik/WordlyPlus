@@ -7,16 +7,16 @@ import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/utils/utils.dart';
 
 Future<void> shareEmojiString(final BuildContext context) async {
-  final emojiString = R
-      .stringsOf(context)
-      .check_my_result(emoji: GetIt.I<DictionaryRepository>().getEmojiString);
+  final emojiString = R.stringsOf(context).check_my_result(
+        emoji: GetIt.I<DictionaryRepository>().getEmojiString,
+      );
   Share.share(emojiString);
 }
 
 Future<void> copyEmojiString(final BuildContext context) async {
-  final emojiString = R
-      .stringsOf(context)
-      .check_my_result(emoji: GetIt.I<DictionaryRepository>().getEmojiString);
+  final emojiString = R.stringsOf(context).check_my_result(
+        emoji: GetIt.I<DictionaryRepository>().getEmojiString,
+      );
   await Clipboard.setData(ClipboardData(text: emojiString));
   await showTopFlushBar(
     context,

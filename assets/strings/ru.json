@@ -1,6 +1,8 @@
 {
   "app_language": "Язык приложения",
-  "check_my_result": "Сможешь повторить мой результат?\n${emoji}\nТы можешь скачать игру тут:\nСсылка",
+  "carapacik": "Carapacik",
+  "check_my_result": "Сможешь повторить мой результат?\n${emoji}\nТы можешь скачать игру тут:\nhttps://github.com/Carapacik/Wordle/releases/tag/1.0.0",
+  "coming_soon": "Скоро",
   "copy": "Копировать",
   "current_streak": "Текущая\nСерия",
   "daily": "Ежедневный",

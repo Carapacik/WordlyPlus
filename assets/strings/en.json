@@ -1,6 +1,8 @@
 {
   "app_language": "App language",
-  "check_my_result": "Can you repeat my result?\n${emoji}\nYou can download the game here:\nhttps://github.com/Carapacik/Wordle",
+  "carapacik": "Carapacik",
+  "check_my_result": "Can you repeat my result?\n${emoji}\nYou can download the game here:\nhttps://github.com/Carapacik/Wordle/releases/tag/1.0.0",
+  "coming_soon": "Coming soon",
   "copy": "Copy",
   "current_streak": "Current\nStreak",
   "daily": "Daily",

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:wordly/presentation/pages/levels/levels_page.dart';
 import 'package:wordly/presentation/pages/main/main_page.dart';
 import 'package:wordly/presentation/pages/settings/settings_page.dart';
 import 'package:wordly/presentation/widgets/widgets.dart';
-import 'package:wordly/resources/typography.dart';
+import 'package:wordly/resources/resources.dart';
 import 'package:wordly/utils/utils.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -15,6 +16,7 @@ class CustomDrawer extends StatelessWidget {
       width: 200,
       child: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
               title: Text(
@@ -37,6 +39,11 @@ class CustomDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const LevelsPage(),
+                  ),
+                );
               },
             ),
             ListTile(
@@ -64,6 +71,20 @@ class CustomDrawer extends StatelessWidget {
               },
             ),
             const Spacer(),
+            Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Text(
+                "v1.0.0",
+                style: AppTypography.n14.copyWith(color: AppColors.grey),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 16, bottom: 4),
+              child: Text(
+                R.stringsOf(context).carapacik,
+                style: AppTypography.n14.copyWith(color: AppColors.grey),
+              ),
+            ),
           ],
         ),
       ),

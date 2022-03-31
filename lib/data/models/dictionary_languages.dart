@@ -1,7 +1,4 @@
-import 'package:flutter/widgets.dart';
 import 'package:isar/isar.dart';
-import 'package:wordly/presentation/pages/main/widgets/keyboard_en.dart';
-import 'package:wordly/presentation/pages/main/widgets/keyboard_ru.dart';
 import 'package:wordly/resources/dictionary_en.dart';
 import 'package:wordly/resources/dictionary_ru.dart';
 

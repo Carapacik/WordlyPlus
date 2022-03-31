@@ -68,12 +68,12 @@ class _MainPageState extends State<MainPage> {
             await checkDailyDialog(context, isWin: false);
           }
         },
-        child: Responsive(
-          mobile: BlocBuilder<SettingsCubit, SettingsState>(
-            buildWhen: (previous, current) =>
-                previous.dictionaryLanguage != current.dictionaryLanguage,
-            builder: (_, state) {
-              return Column(
+        child: BlocBuilder<SettingsCubit, SettingsState>(
+          buildWhen: (previous, current) =>
+              previous.dictionaryLanguage != current.dictionaryLanguage,
+          builder: (_, state) {
+            return ConstraintScreen(
+              child: Column(
                 key: UniqueKey(),
                 children: [
                   const SizedBox(height: 16),
@@ -82,9 +82,9 @@ class _MainPageState extends State<MainPage> {
                   state.dictionaryLanguage.keyboard,
                   const SizedBox(height: 24),
                 ],
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );

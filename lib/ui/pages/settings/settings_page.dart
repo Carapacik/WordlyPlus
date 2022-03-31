@@ -17,8 +17,8 @@ class SettingsPage extends StatelessWidget {
       body: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, state) {
           final settingsCubit = BlocProvider.of<SettingsCubit>(context);
-          return Responsive(
-            mobile: Column(
+          return ConstraintScreen(
+            child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 const SizedBox(height: 8),

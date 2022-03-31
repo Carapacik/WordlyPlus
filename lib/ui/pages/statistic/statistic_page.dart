@@ -17,8 +17,8 @@ class StatisticPage extends StatelessWidget {
     final winRate = total == 0 ? 0 : statisticData.winsNumber / total;
     return Scaffold(
       appBar: CustomAppBar(title: R.stringsOf(context).statistic),
-      body: Responsive(
-        mobile: Column(
+      body: ConstraintScreen(
+        child: Column(
           children: [
             const SizedBox(height: 16),
             Row(

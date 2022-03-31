@@ -30,7 +30,7 @@ class ToggleListTile extends StatelessWidget {
           onChanged: onChanged,
           activeTrackColor:
               isHighContrast ? AppColors.highContrastOrange : AppColors.green,
-          inactiveTrackColor: AppColors.greyTrack,
+          inactiveTrackColor: AppColors.grey,
           activeColor: Colors.white,
         ),
         const SizedBox(width: 16),

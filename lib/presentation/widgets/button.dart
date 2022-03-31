@@ -14,14 +14,14 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(primary: AppColors.greyTrack),
+      style: ElevatedButton.styleFrom(primary: AppColors.grey),
       onPressed: onTap,
       child: Container(
         alignment: Alignment.center,
         width: 80,
         child: Text(
           text,
-          style: AppTypography.n14.copyWith(color: Colors.white),
+          style: AppTypography.r14.copyWith(color: Colors.white),
         ),
       ),
     );

@@ -9,11 +9,6 @@ class AppTypography {
     fontWeight: FontWeight.w700,
   );
 
-  static TextStyle b20 = GoogleFonts.ubuntu(
-    fontSize: 20,
-    fontWeight: FontWeight.w700,
-  );
-
   static TextStyle b25 = GoogleFonts.ubuntu(
     fontSize: 25,
     fontWeight: FontWeight.w700,
@@ -21,12 +16,17 @@ class AppTypography {
 
   static TextStyle m25 = GoogleFonts.ubuntu(
     fontSize: 25,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle b20 = GoogleFonts.ubuntu(
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
   );
 
   static TextStyle m20 = GoogleFonts.ubuntu(
     fontSize: 20,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w500,
   );
 
   static TextStyle m18 = GoogleFonts.ubuntu(
@@ -39,7 +39,7 @@ class AppTypography {
     fontWeight: FontWeight.w500,
   );
 
-  static TextStyle n14 = GoogleFonts.ubuntu(
+  static TextStyle r14 = GoogleFonts.ubuntu(
     fontSize: 14,
     fontWeight: FontWeight.w400,
   );

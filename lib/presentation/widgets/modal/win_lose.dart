@@ -117,7 +117,7 @@ Future<void> showWinLoseDialog(
             Text(
               secretWordMeaning,
               textAlign: TextAlign.center,
-              style: AppTypography.n14.copyWith(color: Colors.white),
+              style: AppTypography.r14.copyWith(color: Colors.white),
             ),
           ],
         ),

@@ -21,18 +21,25 @@ class WordsGrid extends StatelessWidget {
           buildWhen: (_, currentState) => currentState is GridUpdateState,
           builder: (_, state) {
             final dictionaryRepository = GetIt.I<DictionaryRepository>();
-            return GridView.count(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              shrinkWrap: true,
-              primary: false,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
-              crossAxisCount: 5,
-              children: List.generate(30, (index) {
-                final letterEntering =
-                    dictionaryRepository.getLetterStatusByIndex(index);
-                return _GridItem(letterEntering: letterEntering);
-              }),
+            return ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: MediaQuery.of(context).size.width > 400
+                    ? 400
+                    : double.infinity,
+              ),
+              child: GridView.count(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                shrinkWrap: true,
+                primary: false,
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 8,
+                crossAxisCount: 5,
+                children: List.generate(30, (index) {
+                  final letterEntering =
+                      dictionaryRepository.getLetterStatusByIndex(index);
+                  return _GridItem(letterEntering: letterEntering);
+                }),
+              ),
             );
           },
         );
@@ -62,17 +69,21 @@ class _GridItem extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
               color: letterEntering.letterStatus
-                  .itemColor(isHighContrast: state.isHighContrast),
+                  .itemColor(context, isHighContrast: state.isHighContrast),
               border: letterEntering.letterStatus == LetterStatus.unknown
                   ? Border.all(
-                      width: 2,
+                      width: 3,
                       color: Theme.of(context).cardColor,
                     )
                   : null,
             ),
             child: Text(
               letterEntering.letter.toUpperCase(),
-              style: AppTypography.b30,
+              style: AppTypography.b30.copyWith(
+                color: letterEntering.letterStatus != LetterStatus.unknown
+                    ? Colors.black
+                    : null,
+              ),
             ),
           ),
         );

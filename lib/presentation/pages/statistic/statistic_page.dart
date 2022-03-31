@@ -77,7 +77,7 @@ class _StatText extends StatelessWidget {
         ),
         Text(
           title,
-          style: AppTypography.n14,
+          style: AppTypography.r14,
           textAlign: TextAlign.center,
         )
       ],

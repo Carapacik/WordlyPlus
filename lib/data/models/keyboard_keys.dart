@@ -43,8 +43,9 @@ const _defaultWidthEn = 0.08;
 extension KeyboardKeyExtension on KeyboardKeys {
   double width({
     required final DictionaryLanguages language,
-    required final num parentWidth,
+    required final double screenWidth,
   }) {
+    final parentWidth = screenWidth > 400 ? 400 : screenWidth;
     if (this == KeyboardKeys.delete) {
       switch (language) {
         case DictionaryLanguages.ru:

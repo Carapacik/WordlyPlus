@@ -1,9 +1,9 @@
 name: wordly
 description: Guess the WORD in six tries
-publish_to: 'none'
-version: 1.0.0+1
+publish_to: none
+version: 1.0.1+2
 environment:
-  sdk: ">=2.16.0 <3.0.0"
+  sdk: '>=2.16.0 <3.0.0'
 
 dependencies:
   another_flushbar: ^1.10.28
@@ -41,3 +41,21 @@ flutter:
   assets:
     - assets/svg/
     - assets/strings/
+    - google_fonts/
+
+#flutter_icons:
+#  android: true
+#  ios: true
+#  web: true
+#  windows: true
+#  image_path: assets/images/icon.png
+
+#flutter_native_splash:
+#  color: '#F4F7FB'
+#  image: assets/images/splash_light.png
+#  color_dark: '#1E1F30'
+#  image_dark: assets/images/splash_dark.png
+#  android: true
+#  ios: true
+#  web: true
+#  fullscreen: true

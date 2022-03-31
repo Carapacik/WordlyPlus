@@ -52,13 +52,13 @@ class _MainPageState extends State<MainPage> {
           if (state is TopMessageState) {
             switch (state.type) {
               case FlushBarTypes.notFound:
-                showTopFlushBar(
+                await showTopFlushBar(
                   context,
                   message: R.stringsOf(context).word_not_found,
                 );
                 break;
               case FlushBarTypes.notCorrectLength:
-                showTopFlushBar(
+                await showTopFlushBar(
                   context,
                   message: R.stringsOf(context).word_too_short,
                 );

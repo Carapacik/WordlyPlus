@@ -30,9 +30,8 @@ class LanguageSelector extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
-            color: isHighContrast
-                ? AppColors.highContrastOrange
-                : Theme.of(context).hintColor,
+            color:
+                isHighContrast ? AppColors.highContrastOrange : AppColors.green,
             borderRadius: BorderRadius.circular(10),
           ),
           child: DropdownButtonHideUnderline(
@@ -52,7 +51,10 @@ class LanguageSelector extends StatelessWidget {
                         height: 25,
                       ),
                       const SizedBox(width: 10),
-                      const Text("RU"),
+                      Text(
+                        "RU",
+                        style: AppTypography.m16,
+                      ),
                     ],
                   ),
                 ),
@@ -67,7 +69,10 @@ class LanguageSelector extends StatelessWidget {
                         height: 25,
                       ),
                       const SizedBox(width: 10),
-                      const Text("EN"),
+                      Text(
+                        "EN",
+                        style: AppTypography.m16,
+                      ),
                     ],
                   ),
                 ),

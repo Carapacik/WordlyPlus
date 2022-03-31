@@ -23,7 +23,7 @@ Future<void> showHowToPlayDialog(final BuildContext context) async {
             children: [
               _RuleItem(
                 text: R.stringsOf(context).letter_incorrect,
-                color: AppColors.grey,
+                color: Theme.of(context).colorScheme.secondary,
               ),
               const SizedBox(height: 16),
               _RuleItem(
@@ -71,7 +71,7 @@ class _RuleItem extends StatelessWidget {
           ),
           child: Text(
             R.stringsOf(context).example_letter,
-            style: AppTypography.m25,
+            style: AppTypography.m25.copyWith(color: Colors.black),
           ),
         ),
         const SizedBox(width: 16),

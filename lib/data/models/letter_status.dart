@@ -22,12 +22,15 @@ extension LetterStatusExtension on LetterStatus {
     }
   }
 
-  Color itemColor({final bool isHighContrast = false}) {
+  Color itemColor(
+    final BuildContext context, {
+    final bool isHighContrast = false,
+  }) {
     switch (this) {
       case LetterStatus.unknown:
         return Colors.transparent;
       case LetterStatus.notInWords:
-        return AppColors.grey;
+        return Theme.of(context).colorScheme.secondary;
       case LetterStatus.wrongSpot:
         return isHighContrast ? AppColors.highContrastBlue : AppColors.yellow;
       case LetterStatus.correctSpot:

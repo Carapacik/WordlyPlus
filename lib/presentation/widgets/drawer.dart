@@ -74,17 +74,18 @@ class CustomDrawer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 16),
               child: Text(
-                "v1.0.0",
-                style: AppTypography.n14.copyWith(color: AppColors.grey),
+                "v1.0.1",
+                style: AppTypography.r14,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 16, bottom: 4),
+              padding: const EdgeInsets.only(left: 16),
               child: Text(
                 R.stringsOf(context).carapacik,
-                style: AppTypography.n14.copyWith(color: AppColors.grey),
+                style: AppTypography.r14,
               ),
             ),
+            const SizedBox(height: 16),
           ],
         ),
       ),

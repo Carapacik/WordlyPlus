@@ -34,12 +34,12 @@ class KeyboardKey extends StatelessWidget {
       },
       builder: (context, state) {
         final dictionaryRepository = GetIt.I<DictionaryRepository>();
-        final parentWidth = MediaQuery.of(context).size.width > 500
-            ? 500
-            : MediaQuery.of(context).size.width;
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 2),
-          width: keyboardKey.width(language: lang, parentWidth: parentWidth),
+          width: keyboardKey.width(
+            language: lang,
+            screenWidth: MediaQuery.of(context).size.width,
+          ),
           child: AspectRatio(
             aspectRatio: lang.aspectRatio,
             child: InkWell(
@@ -50,17 +50,24 @@ class KeyboardKey extends StatelessWidget {
                 buildWhen: (previous, current) =>
                     previous.isHighContrast != current.isHighContrast,
                 builder: (context, state) {
+                  final keyStatus =
+                      dictionaryRepository.getKeyStatus(keyboardKey.name(lang));
                   return Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: dictionaryRepository
-                          .getKeyStatus(keyboardKey.name(lang))
-                          .color(context, highContrast: state.isHighContrast),
+                      color: keyStatus.color(
+                        context,
+                        highContrast: state.isHighContrast,
+                      ),
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
                       keyboardKey.name(lang)?.toUpperCase() ?? "",
-                      style: AppTypography.n14,
+                      style: AppTypography.r14.copyWith(
+                        color: keyStatus == LetterStatus.wrongSpot
+                            ? Colors.black
+                            : null,
+                      ),
                     ),
                   );
                 },
@@ -85,13 +92,12 @@ class EnterKeyboardKey extends StatelessWidget {
   Widget build(BuildContext context) {
     final dictionaryRepository = GetIt.I<DictionaryRepository>();
     final mainCubit = BlocProvider.of<MainCubit>(context);
-    final parentWidth = MediaQuery.of(context).size.width > 500
-        ? 500
-        : MediaQuery.of(context).size.width;
     return Container(
       margin: const EdgeInsets.only(right: 2),
-      height:
-          KeyboardKeys.enter.width(language: lang, parentWidth: parentWidth),
+      height: KeyboardKeys.enter.width(
+        language: lang,
+        screenWidth: MediaQuery.of(context).size.width,
+      ),
       child: InkWell(
         onTap: () {
           final wordComplete = mainCubit.completeWord();
@@ -124,7 +130,7 @@ class EnterKeyboardKey extends StatelessWidget {
           ),
           child: Text(
             KeyboardKeys.enter.name(lang)!.toUpperCase(),
-            style: AppTypography.n14,
+            style: AppTypography.r14,
           ),
         ),
       ),
@@ -143,15 +149,16 @@ class DeleteKeyboardKey extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mainCubit = BlocProvider.of<MainCubit>(context);
-    final parentWidth = MediaQuery.of(context).size.width > 500
-        ? 500
-        : MediaQuery.of(context).size.width;
     return Container(
       margin: const EdgeInsets.only(left: 2),
-      width:
-          KeyboardKeys.delete.width(language: lang, parentWidth: parentWidth),
-      height:
-          KeyboardKeys.delete.width(language: lang, parentWidth: parentWidth),
+      width: KeyboardKeys.delete.width(
+        language: lang,
+        screenWidth: MediaQuery.of(context).size.width,
+      ),
+      height: KeyboardKeys.delete.width(
+        language: lang,
+        screenWidth: MediaQuery.of(context).size.width,
+      ),
       child: InkWell(
         onTap: mainCubit.removeLetter,
         onLongPress: mainCubit.removeAllWord,

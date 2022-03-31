@@ -16,7 +16,8 @@ class CustomButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(primary: AppColors.greyTrack),
       onPressed: onTap,
-      child: SizedBox(
+      child: Container(
+        alignment: Alignment.center,
         width: 80,
         child: Text(
           text,

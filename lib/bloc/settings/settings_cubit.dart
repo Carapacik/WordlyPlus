@@ -52,7 +52,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     await boardRepository.initBoardData(dictionaryLanguage);
     final dailyStatisticRepository = GetIt.I<DailyStatisticRepository>();
     await dailyStatisticRepository.initStatisticData(dictionaryLanguage);
-    dictionaryRepository.getBoard();
+    dictionaryRepository.loadBoard();
     emit(state.copyWith(dictionaryLanguage: dictionaryLanguage));
     await settingsRepository.saveSettings(
       currentSettingsData..dictionaryLanguage = dictionaryLanguage,

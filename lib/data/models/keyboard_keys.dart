@@ -124,7 +124,7 @@ extension KeyboardKeyExtension on KeyboardKeys {
           case KeyboardKeys.b1:
             return "ж";
           case KeyboardKeys.b2:
-            return "з";
+            return "э";
           case KeyboardKeys.enter:
             return "Ввод";
           case KeyboardKeys.z:

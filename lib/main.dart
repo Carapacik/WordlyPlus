@@ -115,5 +115,5 @@ Future<void> _initDictionaryRepository() async {
   dictionaryRepository.dictionaryLanguage =
       GetIt.I<SettingsRepository>().settingsData.dictionaryLanguage;
   dictionaryRepository.createSecretWord();
-  dictionaryRepository.getBoard();
+  dictionaryRepository.loadBoard();
 }

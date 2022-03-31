@@ -9,6 +9,7 @@
   "dark_mode": "Dark mode",
   "dictionary_language": "Dictionary language",
   "example_letter": "L",
+  "guess_distribution": "Guess distribution",
   "high_contrast_mode": "High contrast mode",
   "how_to_play": "How to play",
   "letter_correct": "Letter exists and is in correct spot",
@@ -25,7 +26,7 @@
   "statistic": "Statistic",
   "text_copied": "The text is copied to the clipboard",
   "win_message": "You win!",
-  "win_rate": "Win %",
+  "win_rate": "Win\npercentage",
   "word_not_found": "Word not found in dictionary",
   "word_too_short": "Word is not correct length",
   "wordle": "Wordle"

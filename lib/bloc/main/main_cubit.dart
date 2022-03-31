@@ -26,6 +26,11 @@ class MainCubit extends Cubit<MainState> {
     emit(GridUpdateState());
   }
 
+  void removeAllWord() {
+    dictionaryRepository.removeAllWord();
+    emit(GridUpdateState());
+  }
+
   void updateKey(final KeyboardKeys key, final LetterStatus letterStatus) {
     emit(KeyboardKeyUpdateState(key, letterStatus));
   }

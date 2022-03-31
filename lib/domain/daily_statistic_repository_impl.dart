@@ -26,7 +26,9 @@ class DailyStatisticRepositoryImpl implements DailyStatisticRepository {
     required final int attempt,
   }) async {
     final attempts = _statisticData.attempts;
-    attempts[attempt - 1] = _statisticData.attempts[attempt - 1] + 1;
+    if (isWin) {
+      attempts[attempt - 1] = _statisticData.attempts[attempt - 1] + 1;
+    }
     if (isWin) {
       _statisticData.copyWith(
         winsNumber: _statisticData.winsNumber++,

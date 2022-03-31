@@ -9,6 +9,7 @@
   "dark_mode": "Темная тема",
   "dictionary_language": "Язык словаря",
   "example_letter": "Б",
+  "guess_distribution": "Распределение догадок",
   "high_contrast_mode": "Режим повышенной контрастности",
   "how_to_play": "Как играть",
   "letter_correct": "Буква есть в слове и находится на верном месте",
@@ -25,7 +26,7 @@
   "statistic": "Статистика",
   "text_copied": "Текст скопирован в буфер обмена",
   "win_message": "Вы победили!",
-  "win_rate": "Победы %",
+  "win_rate": "Процент\nпобед",
   "word_not_found": "Слово не найдено в словаре",
   "word_too_short": "Слово неправильной длины",
   "wordle": "Словень"

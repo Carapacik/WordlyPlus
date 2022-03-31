@@ -21,6 +21,8 @@ abstract class DictionaryRepository {
 
   void removeLetter();
 
+  void removeAllWord();
+
   void resetData();
 
   MainState? completeWord();
@@ -31,7 +33,7 @@ abstract class DictionaryRepository {
 
   Map<int, String> getAllLettersInList();
 
-  void getBoard();
+  void loadBoard();
 
   void saveBoard();
 }

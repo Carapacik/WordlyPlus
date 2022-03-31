@@ -40,6 +40,11 @@ class StatisticPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
+            Text(
+              R.stringsOf(context).guess_distribution.toUpperCase(),
+              style: AppTypography.b25,
+            ),
+            const SizedBox(height: 4),
             _AttemptContent(attempts: statisticData.attempts),
           ],
         ),

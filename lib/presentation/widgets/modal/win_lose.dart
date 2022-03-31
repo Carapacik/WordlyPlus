@@ -91,7 +91,7 @@ Future<void> showWinLoseDialog(
                           shareEmojiString(context);
                         },
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 8),
                       CustomButton(
                         text: R.stringsOf(context).copy,
                         onTap: () {

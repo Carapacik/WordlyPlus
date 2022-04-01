@@ -20,8 +20,9 @@ class BoardRepositoryImpl implements BoardRepository {
     final data = await GetIt.I<Isar>()
         .boardDatas
         .filter()
-        .levelNumberEqualTo(levelNumber)
         .languageEqualTo(dictionaryLanguage)
+        .and()
+        .levelNumberEqualTo(levelNumber)
         .findAll();
     if (data.isEmpty) {
       finalData = BoardData.init(

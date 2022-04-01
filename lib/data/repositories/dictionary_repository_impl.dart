@@ -119,7 +119,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
           Random(now.year * 10000 + now.month * 100 + now.day);
       index = random.nextInt(dictionary.length);
     } else {
-      index = Random().nextInt(level);
+      index = Random(level).nextInt(dictionary.length);
     }
     return _secretWord = dictionary.keys.elementAt(index);
   }

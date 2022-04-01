@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 import 'package:get_it/get_it.dart';
 import 'package:wordly/bloc/main/main_cubit.dart';
-import 'package:wordly/data/models/board_data.dart';
+import 'package:wordly/data/collections/board_data.dart';
 import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/data/models/flushbar_types.dart';
 import 'package:wordly/data/models/keyboard_keys.dart';
@@ -15,6 +15,7 @@ import 'package:wordly/domain/board_repository.dart';
 class DictionaryRepositoryImpl implements DictionaryRepository {
   late DictionaryLanguages _dictionaryLanguage;
   int _currentWordIndex = 0;
+  int _currentLevelIndex = 0;
   bool _completeGame = false;
   String? _secretWord;
   Map<String, LetterStatus> _keyboardState = {};
@@ -109,11 +110,17 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   }
 
   @override
-  String createSecretWord() {
-    final now = DateTime.now();
-    final Random random = Random(now.year * 10000 + now.month * 100 + now.day);
+  String createSecretWord({int level = 0}) {
     final dictionary = _dictionaryLanguage.getCurrentDictionary();
-    final index = random.nextInt(dictionary.length);
+    late int index;
+    if (level == 0) {
+      final now = DateTime.now();
+      final Random random =
+          Random(now.year * 10000 + now.month * 100 + now.day);
+      index = random.nextInt(dictionary.length);
+    } else {
+      index = Random().nextInt(level);
+    }
     return _secretWord = dictionary.keys.elementAt(index);
   }
 
@@ -194,12 +201,14 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   @override
   void loadBoard() {
     final boardData = GetIt.I<BoardRepository>().boardData;
-    if (boardData != BoardData.init(_dictionaryLanguage.index) &&
-        _secretWord == boardData.secretWord) {
-      _completeGame = boardData.isComplete;
+    // TODO boardData != BoardData.init(_dictionaryLanguage.index)
+    if (_secretWord == boardData.secretWord) {
       _keyboardState = boardData.toMap();
+      _completeGame = boardData.isComplete;
+      _currentLevelIndex = boardData.levelNumber;
       _currentWordIndex = boardData.lettersState.length;
       _gridData = boardData.lettersState;
+      _keyboardState = boardData.toMap();
       _emojiList = boardData.lettersState
           .join()
           .split("")
@@ -211,7 +220,8 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   @override
   void saveBoard() {
     final boardData = BoardData()
-      ..id = _dictionaryLanguage.index
+      ..language = _dictionaryLanguage
+      ..levelNumber = _currentLevelIndex
       ..secretWord = _secretWord ?? ""
       ..isComplete = _completeGame
       ..keyboardLetters = BoardData.toListString(_keyboardState)

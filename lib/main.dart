@@ -7,13 +7,14 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:wordly/app.dart';
+import 'package:wordly/bloc/level/level_cubit.dart';
 import 'package:wordly/bloc/main/main_cubit.dart';
 import 'package:wordly/bloc/settings/settings_cubit.dart';
-import 'package:wordly/data/models/board_data.dart';
-import 'package:wordly/data/models/daily_result_data.dart';
-import 'package:wordly/data/models/daily_statistic_data.dart';
-import 'package:wordly/data/models/level_data.dart';
-import 'package:wordly/data/models/settings_data.dart';
+import 'package:wordly/data/collections/board_data.dart';
+import 'package:wordly/data/collections/daily_result_data.dart';
+import 'package:wordly/data/collections/daily_statistic_data.dart';
+import 'package:wordly/data/collections/level_data.dart';
+import 'package:wordly/data/collections/settings_data.dart';
 import 'package:wordly/data/repositories/dictionary_repository.dart';
 import 'package:wordly/data/repositories/dictionary_repository_impl.dart';
 import 'package:wordly/domain/board_repository.dart';
@@ -22,6 +23,8 @@ import 'package:wordly/domain/daily_result_repository.dart';
 import 'package:wordly/domain/daily_result_repository_impl.dart';
 import 'package:wordly/domain/daily_statistic_repository.dart';
 import 'package:wordly/domain/daily_statistic_repository_impl.dart';
+import 'package:wordly/domain/level_repository.dart';
+import 'package:wordly/domain/level_repository_impl.dart';
 import 'package:wordly/domain/settings_repository.dart';
 import 'package:wordly/domain/settings_repository_impl.dart';
 
@@ -38,7 +41,10 @@ Future<void> main() async {
               SettingsCubit(GetIt.I<SettingsRepository>().settingsData),
         ),
         BlocProvider<MainCubit>(
-          create: (_) => MainCubit(),
+          create: (_) => MainCubit(GetIt.I<DictionaryRepository>()),
+        ),
+        BlocProvider<LevelCubit>(
+          create: (_) => LevelCubit(),
         ),
       ],
       child: const App(),
@@ -51,6 +57,7 @@ Future<void> _initSingletons() async {
   await _initSettingsRepository();
   await _initDailyResultRepository();
   await _initDailyStatisticRepository();
+  await _initLevelRepository();
   await _initBoardRepository();
   await _initDictionaryRepository();
 }
@@ -98,12 +105,25 @@ Future<void> _initDailyStatisticRepository() async {
   );
 }
 
+Future<void> _initLevelRepository() async {
+  GetIt.I.registerSingleton<LevelRepository>(
+    LevelRepositoryImpl(),
+  );
+  // TODO
+  await GetIt.I<LevelRepository>().initLevelData(
+    GetIt.I<SettingsRepository>().settingsData.dictionaryLanguage,
+  );
+}
+
 Future<void> _initBoardRepository() async {
   GetIt.I.registerSingleton<BoardRepository>(
     BoardRepositoryImpl(),
   );
+  // level number = 0 for daily
   await GetIt.I<BoardRepository>().initBoardData(
-    GetIt.I<SettingsRepository>().settingsData.dictionaryLanguage,
+    dictionaryLanguage:
+        GetIt.I<SettingsRepository>().settingsData.dictionaryLanguage,
+    levelNumber: 0,
   );
 }
 

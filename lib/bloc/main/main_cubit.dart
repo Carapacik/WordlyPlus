@@ -12,8 +12,8 @@ import 'package:wordly/domain/settings_repository.dart';
 part 'main_state.dart';
 
 class MainCubit extends Cubit<MainState> {
-  MainCubit() : super(MainInitial());
-  final dictionaryRepository = GetIt.I<DictionaryRepository>();
+  MainCubit(this.dictionaryRepository) : super(MainInitial());
+  final DictionaryRepository dictionaryRepository;
 
   void setLetter(final KeyboardKeys keyboardKey) {
     if (dictionaryRepository.setLetter(keyboardKey)) {

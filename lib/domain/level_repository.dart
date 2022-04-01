@@ -10,8 +10,5 @@ abstract class LevelRepository {
 
   Future<void> initLevelData(final DictionaryLanguages dictionaryLanguage);
 
-  Future<void> saveLevelData({
-    required final int level,
-    required final String secretWord,
-  });
+  Future<void> saveLevelData();
 }

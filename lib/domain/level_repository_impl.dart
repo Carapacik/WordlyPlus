@@ -24,14 +24,11 @@ class LevelRepositoryImpl implements LevelRepository {
   }
 
   @override
-  Future<void> saveLevelData({
-    required final int level,
-    required final String secretWord,
-  }) async {
+  Future<void> saveLevelData() async {
     final data = LevelData()
       ..id = _levelData.id
-      ..lastLevel = level
-      ..secretWord = secretWord;
+      ..lastLevel = _levelData.lastLevel + 1
+      ..secretWord = "";
 
     await GetIt.I<Isar>().writeTxn((isar) async {
       _levelData = data;

@@ -18,7 +18,8 @@ class WordsGrid extends StatelessWidget {
           previous.dictionaryLanguage != current.dictionaryLanguage,
       builder: (context, state) {
         return BlocBuilder<MainCubit, MainState>(
-          buildWhen: (_, currentState) => currentState is GridUpdateState,
+          buildWhen: (_, currentState) =>
+              currentState is GridUpdateState || currentState is MainInitial,
           builder: (_, state) {
             final dictionaryRepository = GetIt.I<DictionaryRepository>();
             return ConstrainedBox(

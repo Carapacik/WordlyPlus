@@ -24,6 +24,9 @@ class KeyboardKey extends StatelessWidget {
     final mainCubit = BlocProvider.of<MainCubit>(context);
     return BlocBuilder<MainCubit, MainState>(
       buildWhen: (_, currentState) {
+        if (currentState is MainInitial) {
+          return true;
+        }
         if (currentState is KeyboardKeyUpdateState) {
           final KeyboardKeyUpdateState state = currentState;
           if (state.keyboardKey == keyboardKey) {

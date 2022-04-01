@@ -50,10 +50,7 @@ class MainCubit extends Cubit<MainState> {
       emit(state);
       if (state is WinGameState || state is LoseGameState) {
         if (levelRepository.isLevelMode) {
-          GetIt.I<LevelRepository>().saveLevelData(
-            level: levelRepository.levelData.lastLevel++,
-            secretWord: dictionaryRepository.secretWord,
-          );
+          GetIt.I<LevelRepository>().saveLevelData();
         } else {
           final dictionaryLanguage =
               GetIt.I<SettingsRepository>().settingsData.dictionaryLanguage;

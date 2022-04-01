@@ -4,7 +4,14 @@ import 'package:wordly/data/models/dictionary_languages.dart';
 abstract class LevelRepository {
   LevelData get levelData;
 
+  bool get isLevelMode;
+
+  set levelMode(final bool value);
+
   Future<void> initLevelData(final DictionaryLanguages dictionaryLanguage);
 
-  Future<void> saveLevelData(final int levelNumber);
+  Future<void> saveLevelData({
+    required final int level,
+    required final String secretWord,
+  });
 }

@@ -15,13 +15,13 @@ abstract class DictionaryRepository {
 
   set dictionaryLanguage(DictionaryLanguages language);
 
-  String createSecretWord();
+  String createSecretWord([int level = 0]);
 
   bool setLetter(final KeyboardKeys key);
 
   void removeLetter();
 
-  void removeAllWord();
+  void removeFullWord();
 
   void resetData();
 

@@ -1,4 +1,4 @@
-export 'check_daily_dialog.dart';
+export 'check_result_dialog.dart';
 export 'duration.dart';
 export 'r.dart';
 export 'review.dart';

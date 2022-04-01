@@ -161,7 +161,7 @@ class DeleteKeyboardKey extends StatelessWidget {
       ),
       child: InkWell(
         onTap: mainCubit.removeLetter,
-        onLongPress: mainCubit.removeAllWord,
+        onLongPress: mainCubit.removeFullWord,
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 4),
           alignment: Alignment.center,

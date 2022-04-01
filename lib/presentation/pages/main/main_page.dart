@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:wordly/bloc/main/main_cubit.dart';
 import 'package:wordly/bloc/settings/settings_cubit.dart';
 import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/data/models/flushbar_types.dart';
+import 'package:wordly/domain/level_repository.dart';
 import 'package:wordly/presentation/pages/main/widgets/keyboard_en.dart';
 import 'package:wordly/presentation/pages/main/widgets/keyboard_ru.dart';
 import 'package:wordly/presentation/pages/main/widgets/word_grid.dart';
@@ -22,29 +24,46 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    checkForAndroidUpdate();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      checkDailyDialog(context);
+      checkResultDialog(context);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final levelRepository = GetIt.I<LevelRepository>();
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: CustomAppBar(
-        title: R.stringsOf(context).wordle.toUpperCase(),
+        title: levelRepository.isLevelMode
+            ? R
+                .stringsOf(context)
+                .level_number(number: levelRepository.levelData.lastLevel)
+            : R.stringsOf(context).wordle.toUpperCase(),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const StatisticPage(),
-                ),
-              );
-            },
-            icon: const Icon(Icons.leaderboard_outlined),
-          ),
+          if (levelRepository.isLevelMode)
+            const SizedBox.shrink()
+          // IconButton(
+          //   onPressed: () {
+          //     Navigator.of(context).push(
+          //       MaterialPageRoute(
+          //         builder: (context) => const LevelsPage(),
+          //       ),
+          //     );
+          //   },
+          //   icon: const Icon(Icons.apps),
+          // )
+          else
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const StatisticPage(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.leaderboard_outlined),
+            ),
         ],
       ),
       body: BlocListener<MainCubit, MainState>(
@@ -65,9 +84,9 @@ class _MainPageState extends State<MainPage> {
                 break;
             }
           } else if (state is WinGameState) {
-            await checkDailyDialog(context, isWin: true);
+            await checkResultDialog(context, isWin: true);
           } else if (state is LoseGameState) {
-            await checkDailyDialog(context, isWin: false);
+            await checkResultDialog(context, isWin: false);
           }
         },
         child: BlocBuilder<SettingsCubit, SettingsState>(

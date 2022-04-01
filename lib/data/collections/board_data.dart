@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:isar/isar.dart';
 import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/data/models/letter_status.dart';
@@ -5,7 +6,7 @@ import 'package:wordly/data/models/letter_status.dart';
 part 'board_data.g.dart';
 
 @Collection()
-class BoardData {
+class BoardData extends Equatable {
   BoardData();
 
   factory BoardData.init({
@@ -51,4 +52,7 @@ class BoardData {
         keyboardLetters[i]: LetterStatus.values[keyboardLetterStatuses[i]]
     };
   }
+
+  @override
+  List<Object?> get props => [id, levelNumber, language];
 }

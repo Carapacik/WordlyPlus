@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:wordly/domain/board_repository.dart';
-import 'package:wordly/domain/level_repository.dart';
-import 'package:wordly/domain/settings_repository.dart';
-import 'package:wordly/presentation/pages/levels/levels_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/bloc/main/main_cubit.dart';
 import 'package:wordly/presentation/pages/main/main_page.dart';
 import 'package:wordly/presentation/pages/settings/settings_page.dart';
 import 'package:wordly/presentation/widgets/widgets.dart';
@@ -15,8 +12,7 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settingsRepository = GetIt.I<SettingsRepository>();
-    final boardRepository = GetIt.I<BoardRepository>();
+    final mainCubit = BlocProvider.of<MainCubit>(context);
     return Container(
       color: Theme.of(context).scaffoldBackgroundColor,
       width: 200,
@@ -30,13 +26,7 @@ class CustomDrawer extends StatelessWidget {
                 style: AppTypography.b20,
               ),
               onTap: () async {
-                // level number = 0 for daily
-                await boardRepository.initBoardData(
-                  dictionaryLanguage:
-                      settingsRepository.settingsData.dictionaryLanguage,
-                  levelNumber: 0,
-                );
-                Navigator.of(context).pop();
+                await mainCubit.loadDaily();
                 await Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                     builder: (context) => const MainPage(),
@@ -47,19 +37,14 @@ class CustomDrawer extends StatelessWidget {
             ),
             ListTile(
               title: Text(
-                R.stringsOf(context).level,
+                R.stringsOf(context).levels,
                 style: AppTypography.b20,
               ),
               onTap: () async {
-                await boardRepository.initBoardData(
-                  dictionaryLanguage:
-                      settingsRepository.settingsData.dictionaryLanguage,
-                  levelNumber: GetIt.I<LevelRepository>().levelData.lastLevel,
-                );
-                Navigator.of(context).pop();
-                Navigator.of(context).pushAndRemoveUntil(
+                await mainCubit.loadLevels();
+                await Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
-                    builder: (context) => const LevelsPage(),
+                    builder: (context) => const MainPage(),
                   ),
                   (route) => false,
                 );

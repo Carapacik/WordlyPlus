@@ -16,5 +16,7 @@ class LevelData {
   @Id()
   late int id;
   late int lastLevel;
+
+  // хз зачем это тут
   late String secretWord;
 }

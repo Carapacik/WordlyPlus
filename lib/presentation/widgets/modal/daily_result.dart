@@ -6,7 +6,7 @@ import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/resources/resources.dart';
 import 'package:wordly/utils/utils.dart';
 
-Future<void> showWinLoseDialog(
+Future<void> showDailyResultDialog(
   final BuildContext context, {
   required final bool isWin,
   required final String word,

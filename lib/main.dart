@@ -7,7 +7,6 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:wordly/app.dart';
-import 'package:wordly/bloc/level/level_cubit.dart';
 import 'package:wordly/bloc/main/main_cubit.dart';
 import 'package:wordly/bloc/settings/settings_cubit.dart';
 import 'package:wordly/data/collections/board_data.dart';
@@ -27,12 +26,14 @@ import 'package:wordly/domain/level_repository.dart';
 import 'package:wordly/domain/level_repository_impl.dart';
 import 'package:wordly/domain/settings_repository.dart';
 import 'package:wordly/domain/settings_repository_impl.dart';
+import 'package:wordly/utils/utils.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   setPathUrlStrategy();
   await _initSingletons();
+  checkForAndroidUpdate();
   runApp(
     MultiBlocProvider(
       providers: [
@@ -42,9 +43,6 @@ Future<void> main() async {
         ),
         BlocProvider<MainCubit>(
           create: (_) => MainCubit(GetIt.I<DictionaryRepository>()),
-        ),
-        BlocProvider<LevelCubit>(
-          create: (_) => LevelCubit(),
         ),
       ],
       child: const App(),
@@ -109,7 +107,6 @@ Future<void> _initLevelRepository() async {
   GetIt.I.registerSingleton<LevelRepository>(
     LevelRepositoryImpl(),
   );
-  // TODO
   await GetIt.I<LevelRepository>().initLevelData(
     GetIt.I<SettingsRepository>().settingsData.dictionaryLanguage,
   );

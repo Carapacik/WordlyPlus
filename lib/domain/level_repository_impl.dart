@@ -6,6 +6,13 @@ import 'package:wordly/domain/level_repository.dart';
 
 class LevelRepositoryImpl implements LevelRepository {
   late LevelData _levelData;
+  bool _isLevelMode = false;
+
+  @override
+  bool get isLevelMode => _isLevelMode;
+
+  @override
+  set levelMode(final bool value) => _isLevelMode = value;
 
   @override
   LevelData get levelData => _levelData;
@@ -17,11 +24,14 @@ class LevelRepositoryImpl implements LevelRepository {
   }
 
   @override
-  Future<void> saveLevelData(final int levelNumber) async {
+  Future<void> saveLevelData({
+    required final int level,
+    required final String secretWord,
+  }) async {
     final data = LevelData()
       ..id = _levelData.id
-      ..lastLevel = levelNumber
-      ..secretWord = _levelData.secretWord;
+      ..lastLevel = level
+      ..secretWord = secretWord;
 
     await GetIt.I<Isar>().writeTxn((isar) async {
       _levelData = data;

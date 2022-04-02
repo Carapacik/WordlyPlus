@@ -55,7 +55,7 @@ class _MainPageState extends State<MainPage> {
           await checkResultDialog(context, isWin: false);
         }
       },
-      buildWhen: (_, currentState) => currentState is MainInitial,
+      buildWhen: (_, currentState) => currentState is MainInitial || currentState is GridUpdateState,
       builder: (context, state) {
         return Scaffold(
           drawer: const CustomDrawer(),

@@ -87,7 +87,7 @@ class MainCubit extends Cubit<MainState> {
       levelNumber: 0,
     );
     dictionaryRepository.loadBoard();
-    emit(MainInitial());
+    emit(GridUpdateState());
   }
 
   Future<void> loadLevels() async {
@@ -106,7 +106,7 @@ class MainCubit extends Cubit<MainState> {
       levelNumber: levelNumber,
     );
     dictionaryRepository.loadBoard();
-    emit(MainInitial());
+    emit(GridUpdateState());
   }
 
   void nextLevel() {

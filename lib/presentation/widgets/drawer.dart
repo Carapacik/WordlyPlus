@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/bloc/main/main_cubit.dart';
+import 'package:wordly/presentation/pages/about/about_page.dart';
 import 'package:wordly/presentation/pages/settings/settings_page.dart';
 import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/resources/resources.dart';
@@ -64,19 +65,19 @@ class CustomDrawer extends StatelessWidget {
               },
             ),
             const Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(left: 16),
-              child: Text(
-                "v1.0.2",
-                style: AppTypography.r14,
+            ListTile(
+              title: Text(
+                R.stringsOf(context).about,
+                style: AppTypography.b20,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16),
-              child: Text(
-                R.stringsOf(context).carapacik,
-                style: AppTypography.r14,
-              ),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const AboutPage(),
+                  ),
+                );
+              },
             ),
             const SizedBox(height: 16),
           ],

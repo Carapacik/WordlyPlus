@@ -25,6 +25,7 @@ dependencies:
   path_provider: ^2.0.9
   r_resources: ^1.0.1
   share_plus: ^4.0.3
+  url_launcher: ^6.0.20
   url_strategy: ^0.2.0
 
 dev_dependencies:

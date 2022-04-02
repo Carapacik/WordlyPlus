@@ -58,7 +58,7 @@ class AboutPage extends StatelessWidget {
                 title: R.stringsOf(context).scenario,
                 peoples: rofl,
               ),
-              Spacer(),
+              const Spacer(),
               Text(
                 R.stringsOf(context).contact,
                 style: AppTypography.m16,
@@ -79,7 +79,7 @@ class AboutPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
             ],
           ),
         ),

@@ -9,14 +9,10 @@ class LevelData {
   factory LevelData.init(final int id) {
     return LevelData()
       ..id = id
-      ..lastLevel = 1
-      ..secretWord = "";
+      ..lastLevel = 1;
   }
 
   @Id()
   late int id;
   late int lastLevel;
-
-  // хз зачем это тут
-  late String secretWord;
 }

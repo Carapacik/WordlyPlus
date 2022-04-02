@@ -6,6 +6,7 @@ abstract class LevelRepository {
 
   bool get isLevelMode;
 
+  // ignore: avoid_setters_without_getters
   set levelMode(final bool value);
 
   Future<void> initLevelData(final DictionaryLanguages dictionaryLanguage);

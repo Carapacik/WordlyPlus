@@ -13,6 +13,7 @@ abstract class DictionaryRepository {
 
   String get getEmojiString;
 
+  // ignore: avoid_setters_without_getters
   set dictionaryLanguage(DictionaryLanguages language);
 
   String createSecretWord([int level = 0]);

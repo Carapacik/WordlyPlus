@@ -33,6 +33,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   int get currentAttempt => _currentWordIndex;
 
   @override
+  // ignore: avoid_setters_without_getters
   set dictionaryLanguage(DictionaryLanguages dictionaryLanguage) =>
       _dictionaryLanguage = dictionaryLanguage;
 

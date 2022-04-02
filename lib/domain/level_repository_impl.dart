@@ -12,6 +12,7 @@ class LevelRepositoryImpl implements LevelRepository {
   bool get isLevelMode => _isLevelMode;
 
   @override
+  // ignore: avoid_setters_without_getters
   set levelMode(final bool value) => _isLevelMode = value;
 
   @override
@@ -27,8 +28,7 @@ class LevelRepositoryImpl implements LevelRepository {
   Future<void> saveLevelData() async {
     final data = LevelData()
       ..id = _levelData.id
-      ..lastLevel = _levelData.lastLevel + 1
-      ..secretWord = "";
+      ..lastLevel = _levelData.lastLevel + 1;
 
     await GetIt.I<Isar>().writeTxn((isar) async {
       _levelData = data;

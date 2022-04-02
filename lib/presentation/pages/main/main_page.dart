@@ -55,9 +55,12 @@ class _MainPageState extends State<MainPage> {
           await checkResultDialog(context, isWin: false);
         }
       },
-      buildWhen: (_, currentState) => currentState is MainInitial || currentState is GridUpdateState,
-      builder: (context, state) {
-        return Scaffold(
+      buildWhen: (_, currentState) =>
+          currentState is MainInitial || currentState is GridUpdateState,
+      builder: (context, state) => BlocBuilder<SettingsCubit, SettingsState>(
+        buildWhen: (previous, current) =>
+            previous.dictionaryLanguage != current.dictionaryLanguage,
+        builder: (context, state) => Scaffold(
           drawer: const CustomDrawer(),
           appBar: CustomAppBar(
             title: levelRepository.isLevelMode
@@ -91,26 +94,20 @@ class _MainPageState extends State<MainPage> {
                 ),
             ],
           ),
-          body: BlocBuilder<SettingsCubit, SettingsState>(
-            buildWhen: (previous, current) =>
-                previous.dictionaryLanguage != current.dictionaryLanguage,
-            builder: (_, state) {
-              return ConstraintScreen(
-                child: Column(
-                  key: UniqueKey(),
-                  children: [
-                    const SizedBox(height: 8),
-                    const WordsGrid(),
-                    const Spacer(),
-                    state.dictionaryLanguage.keyboard,
-                    const SizedBox(height: 4),
-                  ],
-                ),
-              );
-            },
+          body: ConstraintScreen(
+            child: Column(
+              key: UniqueKey(),
+              children: [
+                const SizedBox(height: 8),
+                const WordsGrid(),
+                const Spacer(),
+                state.dictionaryLanguage.keyboard,
+                const SizedBox(height: 4),
+              ],
+            ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

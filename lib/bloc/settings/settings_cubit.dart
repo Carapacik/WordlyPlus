@@ -1,12 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
+import 'package:wordly/data/collections/settings_data.dart';
 import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/data/models/locale_languages.dart';
-import 'package:wordly/data/models/settings_data.dart';
 import 'package:wordly/data/repositories/dictionary_repository.dart';
 import 'package:wordly/domain/board_repository.dart';
 import 'package:wordly/domain/daily_statistic_repository.dart';
+import 'package:wordly/domain/level_repository.dart';
 import 'package:wordly/domain/settings_repository.dart';
 
 part 'settings_state.dart';
@@ -41,18 +42,30 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   Future<void> changeDictionaryLanguage({required String value}) async {
     final settingsRepository = GetIt.I<SettingsRepository>();
+    final levelRepository = GetIt.I<LevelRepository>();
+    final dictionaryRepository = GetIt.I<DictionaryRepository>();
+    final dailyStatisticRepository = GetIt.I<DailyStatisticRepository>();
+    final boardRepository = GetIt.I<BoardRepository>();
+
     final currentSettingsData = settingsRepository.settingsData;
     final dictionaryLanguage = value.toDictionaryLanguage;
 
-    final dictionaryRepository = GetIt.I<DictionaryRepository>();
+    late int levelNumber;
+    if (levelRepository.isLevelMode) {
+      await levelRepository.initLevelData(dictionaryLanguage);
+      levelNumber = levelRepository.levelData.lastLevel;
+    } else {
+      levelNumber = 0;
+    }
     dictionaryRepository.dictionaryLanguage = dictionaryLanguage;
     dictionaryRepository.resetData();
-    dictionaryRepository.createSecretWord();
-    final boardRepository = GetIt.I<BoardRepository>();
-    await boardRepository.initBoardData(dictionaryLanguage);
-    final dailyStatisticRepository = GetIt.I<DailyStatisticRepository>();
-    await dailyStatisticRepository.initStatisticData(dictionaryLanguage);
+    dictionaryRepository.createSecretWord(levelNumber);
+    await boardRepository.initBoardData(
+      dictionaryLanguage: dictionaryLanguage,
+      levelNumber: levelNumber,
+    );
     dictionaryRepository.loadBoard();
+    await dailyStatisticRepository.initStatisticData(dictionaryLanguage);
     emit(state.copyWith(dictionaryLanguage: dictionaryLanguage));
     await settingsRepository.saveSettings(
       currentSettingsData..dictionaryLanguage = dictionaryLanguage,

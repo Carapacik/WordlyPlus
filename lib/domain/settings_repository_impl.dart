@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:isar/isar.dart';
-import 'package:wordly/data/models/settings_data.dart';
+import 'package:wordly/data/collections/settings_data.dart';
 import 'package:wordly/domain/settings_repository.dart';
 
 class SettingsRepositoryImpl implements SettingsRepository {

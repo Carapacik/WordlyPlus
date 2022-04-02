@@ -1,4 +1,4 @@
-import 'package:wordly/data/models/settings_data.dart';
+import 'package:wordly/data/collections/settings_data.dart';
 
 abstract class SettingsRepository {
   SettingsData get settingsData;

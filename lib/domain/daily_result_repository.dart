@@ -1,4 +1,4 @@
-import 'package:wordly/data/models/daily_result_data.dart';
+import 'package:wordly/data/collections/daily_result_data.dart';
 import 'package:wordly/data/models/dictionary_languages.dart';
 
 abstract class DailyResultRepository {

@@ -24,6 +24,12 @@ class KeyboardKey extends StatelessWidget {
     final mainCubit = BlocProvider.of<MainCubit>(context);
     return BlocBuilder<MainCubit, MainState>(
       buildWhen: (_, currentState) {
+        if (currentState is GridUpdateState) {
+          return true;
+        }
+        if (currentState is MainInitial) {
+          return true;
+        }
         if (currentState is KeyboardKeyUpdateState) {
           final KeyboardKeyUpdateState state = currentState;
           if (state.keyboardKey == keyboardKey) {
@@ -161,7 +167,7 @@ class DeleteKeyboardKey extends StatelessWidget {
       ),
       child: InkWell(
         onTap: mainCubit.removeLetter,
-        onLongPress: mainCubit.removeAllWord,
+        onLongPress: mainCubit.removeFullWord,
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 4),
           alignment: Alignment.center,

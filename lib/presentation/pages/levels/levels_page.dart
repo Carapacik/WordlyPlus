@@ -10,7 +10,7 @@ class LevelsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: R.stringsOf(context).wordle.toUpperCase(),
+        title: R.stringsOf(context).levels,
       ),
       body: Center(
         child: Text(

@@ -70,8 +70,9 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   }
 
   void _checkWord() {
-    final word = _gridData[_currentWordIndex];
     if (_secretWord == null) return;
+    final word = _gridData[_currentWordIndex];
+    // TODO write new algorithm
     word.split('').asMap().map((key, value) {
       var _status = LetterStatus.unknown;
       if (_secretWord![key] == value) {

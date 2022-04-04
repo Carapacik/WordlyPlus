@@ -60,53 +60,55 @@ class _MainPageState extends State<MainPage> {
       builder: (context, state) => BlocBuilder<SettingsCubit, SettingsState>(
         buildWhen: (previous, current) =>
             previous.dictionaryLanguage != current.dictionaryLanguage,
-        builder: (context, state) => Scaffold(
-          drawer: const CustomDrawer(),
-          appBar: CustomAppBar(
-            title: levelRepository.isLevelMode
-                ? R
-                    .stringsOf(context)
-                    .level_number(number: levelRepository.levelData.lastLevel)
-                : R.stringsOf(context).wordle.toUpperCase(),
-            actions: [
-              if (levelRepository.isLevelMode)
-                const SizedBox.shrink()
-              // IconButton(
-              //   onPressed: () {
-              //     Navigator.of(context).push(
-              //       MaterialPageRoute(
-              //         builder: (context) => const LevelsPage(),
-              //       ),
-              //     );
-              //   },
-              //   icon: const Icon(Icons.apps),
-              // )
-              else
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const StatisticPage(),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.leaderboard_outlined),
-                ),
-            ],
-          ),
-          body: ConstraintScreen(
-            child: Column(
-              key: UniqueKey(),
-              children: [
-                const SizedBox(height: 8),
-                const WordsGrid(),
-                const Spacer(),
-                state.dictionaryLanguage.keyboard,
-                const SizedBox(height: 4),
+        builder: (context, state) {
+          return Scaffold(
+            drawer: const CustomDrawer(),
+            appBar: CustomAppBar(
+              title: levelRepository.isLevelMode
+                  ? R.stringsOf(context).level_number(
+                        number: levelRepository.levelData.lastLevel,
+                      )
+                  : R.stringsOf(context).wordle.toUpperCase(),
+              actions: [
+                if (levelRepository.isLevelMode)
+                  const SizedBox.shrink()
+                // IconButton(
+                //   onPressed: () {
+                //     Navigator.of(context).push(
+                //       MaterialPageRoute(
+                //         builder: (context) => const LevelsPage(),
+                //       ),
+                //     );
+                //   },
+                //   icon: const Icon(Icons.apps),
+                // )
+                else
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const StatisticPage(),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.leaderboard_outlined),
+                  ),
               ],
             ),
-          ),
-        ),
+            body: ConstraintScreen(
+              child: Column(
+                key: UniqueKey(),
+                children: [
+                  const SizedBox(height: 8),
+                  const WordsGrid(),
+                  const Spacer(),
+                  state.dictionaryLanguage.keyboard,
+                  const SizedBox(height: 4),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

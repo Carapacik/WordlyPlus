@@ -81,130 +81,130 @@ extension KeyboardKeyExtension on KeyboardKeys {
       case DictionaryLanguages.ru:
         switch (this) {
           case KeyboardKeys.q:
-            return "й";
+            return 'й';
           case KeyboardKeys.w:
-            return "ц";
+            return 'ц';
           case KeyboardKeys.e:
-            return "у";
+            return 'у';
           case KeyboardKeys.r:
-            return "к";
+            return 'к';
           case KeyboardKeys.t:
-            return "е";
+            return 'е';
           case KeyboardKeys.y:
-            return "н";
+            return 'н';
           case KeyboardKeys.u:
-            return "г";
+            return 'г';
           case KeyboardKeys.i:
-            return "ш";
+            return 'ш';
           case KeyboardKeys.o:
-            return "щ";
+            return 'щ';
           case KeyboardKeys.p:
-            return "з";
+            return 'з';
           case KeyboardKeys.a1:
-            return "х";
+            return 'х';
           case KeyboardKeys.a2:
-            return "ъ";
+            return 'ъ';
           case KeyboardKeys.a:
-            return "ф";
+            return 'ф';
           case KeyboardKeys.s:
-            return "ы";
+            return 'ы';
           case KeyboardKeys.d:
-            return "в";
+            return 'в';
           case KeyboardKeys.f:
-            return "а";
+            return 'а';
           case KeyboardKeys.g:
-            return "п";
+            return 'п';
           case KeyboardKeys.h:
-            return "р";
+            return 'р';
           case KeyboardKeys.j:
-            return "о";
+            return 'о';
           case KeyboardKeys.k:
-            return "л";
+            return 'л';
           case KeyboardKeys.l:
-            return "д";
+            return 'д';
           case KeyboardKeys.b1:
-            return "ж";
+            return 'ж';
           case KeyboardKeys.b2:
-            return "э";
+            return 'э';
           case KeyboardKeys.enter:
-            return "Ввод";
+            return 'Ввод';
           case KeyboardKeys.z:
-            return "я";
+            return 'я';
           case KeyboardKeys.x:
-            return "ч";
+            return 'ч';
           case KeyboardKeys.c:
-            return "с";
+            return 'с';
           case KeyboardKeys.v:
-            return "м";
+            return 'м';
           case KeyboardKeys.b:
-            return "и";
+            return 'и';
           case KeyboardKeys.n:
-            return "т";
+            return 'т';
           case KeyboardKeys.m:
-            return "ь";
+            return 'ь';
           case KeyboardKeys.c1:
-            return "б";
+            return 'б';
           case KeyboardKeys.c2:
-            return "ю";
+            return 'ю';
           default:
             return null;
         }
       case DictionaryLanguages.en:
         switch (this) {
           case KeyboardKeys.q:
-            return "q";
+            return 'q';
           case KeyboardKeys.w:
-            return "w";
+            return 'w';
           case KeyboardKeys.e:
-            return "e";
+            return 'e';
           case KeyboardKeys.r:
-            return "r";
+            return 'r';
           case KeyboardKeys.t:
-            return "t";
+            return 't';
           case KeyboardKeys.y:
-            return "y";
+            return 'y';
           case KeyboardKeys.u:
-            return "u";
+            return 'u';
           case KeyboardKeys.i:
-            return "i";
+            return 'i';
           case KeyboardKeys.o:
-            return "o";
+            return 'o';
           case KeyboardKeys.p:
-            return "p";
+            return 'p';
           case KeyboardKeys.a:
-            return "a";
+            return 'a';
           case KeyboardKeys.s:
-            return "s";
+            return 's';
           case KeyboardKeys.d:
-            return "d";
+            return 'd';
           case KeyboardKeys.f:
-            return "f";
+            return 'f';
           case KeyboardKeys.g:
-            return "g";
+            return 'g';
           case KeyboardKeys.h:
-            return "h";
+            return 'h';
           case KeyboardKeys.j:
-            return "j";
+            return 'j';
           case KeyboardKeys.k:
-            return "k";
+            return 'k';
           case KeyboardKeys.l:
-            return "l";
+            return 'l';
           case KeyboardKeys.enter:
-            return "Enter";
+            return 'Enter';
           case KeyboardKeys.z:
-            return "z";
+            return 'z';
           case KeyboardKeys.x:
-            return "x";
+            return 'x';
           case KeyboardKeys.c:
-            return "c";
+            return 'c';
           case KeyboardKeys.v:
-            return "v";
+            return 'v';
           case KeyboardKeys.b:
-            return "b";
+            return 'b';
           case KeyboardKeys.n:
-            return "n";
+            return 'n';
           case KeyboardKeys.m:
-            return "m";
+            return 'm';
           default:
             return null;
         }

@@ -3,11 +3,11 @@ import 'package:wordly/resources/resources.dart';
 
 class ToggleListTile extends StatelessWidget {
   const ToggleListTile({
-    Key? key,
     required this.text,
     required this.value,
     required this.isHighContrast,
     required this.onChanged,
+    Key? key,
   }) : super(key: key);
 
   final String text;

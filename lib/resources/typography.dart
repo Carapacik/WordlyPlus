@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AppTypography {
+abstract class AppTypography {
   const AppTypography._();
 
   static TextStyle b30 = GoogleFonts.ubuntu(

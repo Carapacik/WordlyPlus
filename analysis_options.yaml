@@ -2,15 +2,17 @@ include: package:lint/analysis_options.yaml
 
 analyzer:
   exclude:
-    - "**/*.g.dart"
-    - "**/*.freezed.dart"
+    - '**/*.g.dart'
+    - '**/*.freezed.dart'
   errors:
     invalid_annotation_target: ignore
 
 linter:
   rules:
+    - always_put_required_named_parameters_first
     - always_require_non_null_named_parameters
     - annotate_overrides
+    - avoid_empty_else
     - avoid_function_literals_in_foreach_calls
     - avoid_init_to_null
     - avoid_null_checks_in_equality_operators
@@ -49,6 +51,7 @@ linter:
     - prefer_is_empty
     - prefer_is_not_operator
     - prefer_null_aware_operators
+    - prefer_single_quotes
     - prefer_spread_collections
     - prefer_void_to_null
     - require_trailing_commas

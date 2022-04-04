@@ -39,6 +39,9 @@ class MainCubit extends Cubit<MainState> {
 
   bool completeWord() {
     final levelRepository = GetIt.I<LevelRepository>();
+    final settingsRepository = GetIt.I<SettingsRepository>();
+    final dailyResultRepository = GetIt.I<DailyResultRepository>();
+    final dailyStatisticRepository = GetIt.I<DailyStatisticRepository>();
     final state = dictionaryRepository.completeWord();
     if (state == null) {
       return false;
@@ -50,16 +53,16 @@ class MainCubit extends Cubit<MainState> {
       emit(state);
       if (state is WinGameState || state is LoseGameState) {
         if (levelRepository.isLevelMode) {
-          GetIt.I<LevelRepository>().saveLevelData();
+          levelRepository.saveLevelData();
         } else {
           final dictionaryLanguage =
-              GetIt.I<SettingsRepository>().settingsData.dictionaryLanguage;
-          GetIt.I<DailyResultRepository>().saveDailyResult(
+              settingsRepository.settingsData.dictionaryLanguage;
+          dailyResultRepository.saveDailyResult(
             isWin: state is WinGameState,
             word: dictionaryRepository.secretWord,
             language: dictionaryLanguage,
           );
-          GetIt.I<DailyStatisticRepository>().saveStatisticData(
+          dailyStatisticRepository.saveStatisticData(
             isWin: state is WinGameState,
             attempt: dictionaryRepository.currentAttempt,
           );
@@ -77,6 +80,7 @@ class MainCubit extends Cubit<MainState> {
     final settingsRepository = GetIt.I<SettingsRepository>();
     final boardRepository = GetIt.I<BoardRepository>();
     final levelRepository = GetIt.I<LevelRepository>();
+
     levelRepository.levelMode = false;
     final dictionaryLanguage =
         settingsRepository.settingsData.dictionaryLanguage;
@@ -94,12 +98,13 @@ class MainCubit extends Cubit<MainState> {
     final settingsRepository = GetIt.I<SettingsRepository>();
     final boardRepository = GetIt.I<BoardRepository>();
     final levelRepository = GetIt.I<LevelRepository>();
+
     levelRepository.levelMode = true;
     final dictionaryLanguage =
         settingsRepository.settingsData.dictionaryLanguage;
     await levelRepository.initLevelData(dictionaryLanguage);
-    dictionaryRepository.resetData();
     final levelNumber = levelRepository.levelData.lastLevel;
+    dictionaryRepository.resetData();
     dictionaryRepository.createSecretWord(levelNumber);
     await boardRepository.initBoardData(
       dictionaryLanguage: dictionaryLanguage,
@@ -109,16 +114,9 @@ class MainCubit extends Cubit<MainState> {
     emit(GridUpdateState());
   }
 
-  void nextLevel() {
+  void clearGameArea([int levelNumber = 0]) {
     dictionaryRepository.resetData();
-    final levelNumber = GetIt.I<LevelRepository>().levelData.lastLevel;
     dictionaryRepository.createSecretWord(levelNumber);
-    emit(MainInitial());
-  }
-
-  void clearArea() {
-    dictionaryRepository.resetData();
-    dictionaryRepository.createSecretWord();
     emit(MainInitial());
   }
 }

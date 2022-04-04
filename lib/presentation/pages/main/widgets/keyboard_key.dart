@@ -11,8 +11,8 @@ import 'package:wordly/resources/resources.dart';
 
 class KeyboardKey extends StatelessWidget {
   const KeyboardKey({
-    Key? key,
     required this.keyboardKey,
+    Key? key,
     this.lang = DictionaryLanguages.en,
   }) : super(key: key);
 
@@ -68,7 +68,7 @@ class KeyboardKey extends StatelessWidget {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
-                      keyboardKey.name(lang)?.toUpperCase() ?? "",
+                      keyboardKey.name(lang)?.toUpperCase() ?? '',
                       style: AppTypography.r14.copyWith(
                         color: keyStatus == LetterStatus.wrongSpot
                             ? Colors.black
@@ -88,8 +88,8 @@ class KeyboardKey extends StatelessWidget {
 
 class EnterKeyboardKey extends StatelessWidget {
   const EnterKeyboardKey({
-    Key? key,
     this.lang = DictionaryLanguages.en,
+    Key? key,
   }) : super(key: key);
 
   final DictionaryLanguages lang;
@@ -146,8 +146,8 @@ class EnterKeyboardKey extends StatelessWidget {
 
 class DeleteKeyboardKey extends StatelessWidget {
   const DeleteKeyboardKey({
-    Key? key,
     this.lang = DictionaryLanguages.en,
+    Key? key,
   }) : super(key: key);
 
   final DictionaryLanguages lang;

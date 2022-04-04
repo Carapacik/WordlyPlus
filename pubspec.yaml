@@ -1,13 +1,14 @@
 name: wordly
 description: Guess the WORD in six tries
 publish_to: none
-version: 1.0.3+4
+version: 1.0.4+5
 environment:
   sdk: '>=2.16.0 <3.0.0'
 
 dependencies:
   another_flushbar: ^1.10.28
   bloc: ^8.0.3
+  collection: ^1.15.0
   equatable: ^2.0.3
   flutter:
     sdk: flutter

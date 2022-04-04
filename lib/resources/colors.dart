@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-class AppColors {
+abstract class AppColors {
   const AppColors._();
 
   static const grey = Color(0xFF565758);

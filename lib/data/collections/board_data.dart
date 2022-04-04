@@ -15,10 +15,10 @@ class BoardData extends Equatable {
   }) {
     return BoardData()
       ..isComplete = false
-      ..secretWord = ""
+      ..secretWord = ''
       ..levelNumber = levelNumber
       ..language = language
-      ..lettersState = [""]
+      ..lettersState = ['']
       ..keyboardLetters = []
       ..keyboardLetterStatuses = [];
   }

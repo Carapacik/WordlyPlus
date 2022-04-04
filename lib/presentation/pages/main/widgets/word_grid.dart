@@ -51,8 +51,8 @@ class WordsGrid extends StatelessWidget {
 
 class _GridItem extends StatelessWidget {
   const _GridItem({
-    Key? key,
     required this.letterEntering,
+    Key? key,
   }) : super(key: key);
 
   final LetterEntering letterEntering;

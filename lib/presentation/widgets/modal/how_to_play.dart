@@ -50,9 +50,9 @@ Future<void> showHowToPlayDialog(final BuildContext context) async {
 
 class _RuleItem extends StatelessWidget {
   const _RuleItem({
-    Key? key,
     required this.text,
     required this.color,
+    Key? key,
   }) : super(key: key);
 
   final String text;

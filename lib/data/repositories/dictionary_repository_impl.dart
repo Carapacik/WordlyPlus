@@ -19,15 +19,15 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   bool _completeGame = false;
   String? _secretWord;
   Map<String, LetterStatus> _keyboardState = {};
-  List<String> _gridData = [""];
+  List<String> _gridData = [''];
   List<LetterEntering> _emojiList = [];
 
   @override
-  String get secretWord => _secretWord ?? "";
+  String get secretWord => _secretWord ?? '';
 
   @override
   String get secretWordMeaning =>
-      _dictionaryLanguage.getCurrentDictionary()[_secretWord] ?? "";
+      _dictionaryLanguage.getCurrentDictionary()[_secretWord] ?? '';
 
   @override
   int get currentAttempt => _currentWordIndex;
@@ -43,7 +43,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
       return null;
     }
     if (_gridData.length <= _currentWordIndex) {
-      _gridData.add("");
+      _gridData.add('');
     }
     if (_currentWordIndex < 6) {
       if (_gridData[_currentWordIndex].length == 5) {
@@ -72,7 +72,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   void _checkWord() {
     final word = _gridData[_currentWordIndex];
     if (_secretWord == null) return;
-    word.split("").asMap().map((key, value) {
+    word.split('').asMap().map((key, value) {
       var _status = LetterStatus.unknown;
       if (_secretWord![key] == value) {
         // LetterStatus.correctSpot
@@ -134,11 +134,11 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
       return false;
     }
     if (_gridData.length <= _currentWordIndex) {
-      _gridData.add("");
+      _gridData.add('');
     }
     if (_gridData[_currentWordIndex].length < 5) {
       _gridData[_currentWordIndex] =
-          _gridData[_currentWordIndex] + (key.name(_dictionaryLanguage) ?? "");
+          _gridData[_currentWordIndex] + (key.name(_dictionaryLanguage) ?? '');
       return true;
     }
     return false;
@@ -147,7 +147,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   @override
   void removeLetter() {
     if (_gridData.length <= _currentWordIndex) {
-      _gridData.add("");
+      _gridData.add('');
     }
     final int wordLength = _gridData[_currentWordIndex].length;
     if (wordLength > 0) {
@@ -159,18 +159,18 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   @override
   void removeFullWord() {
     if (_gridData.length <= _currentWordIndex) {
-      _gridData.add("");
+      _gridData.add('');
     }
     final int wordLength = _gridData[_currentWordIndex].length;
     if (wordLength > 0) {
-      _gridData[_currentWordIndex] = "";
+      _gridData[_currentWordIndex] = '';
     }
   }
 
   @override
   LetterEntering getLetterStatusByIndex(final int index) {
     final currentLetters = _gridData.join();
-    final letter = currentLetters.length > index ? currentLetters[index] : "";
+    final letter = currentLetters.length > index ? currentLetters[index] : '';
     LetterStatus letterStatus = LetterStatus.unknown;
     if (letter.isNotEmpty &&
         _currentWordIndex > 0 &&
@@ -196,7 +196,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
 
   @override
   Map<int, String> getAllLettersInList() {
-    return _gridData[_currentWordIndex - 1].split("").asMap();
+    return _gridData[_currentWordIndex - 1].split('').asMap();
   }
 
   @override
@@ -210,7 +210,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
       _keyboardState = boardData.toMap();
       _emojiList = boardData.lettersState
           .join()
-          .split("")
+          .split('')
           .mapIndexed((index, element) => getLetterStatusByIndex(index))
           .toList();
     }
@@ -223,7 +223,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
       ..language = _dictionaryLanguage
       ..levelNumber =
           levelRepository.isLevelMode ? levelRepository.levelData.lastLevel : 0
-      ..secretWord = _secretWord ?? ""
+      ..secretWord = _secretWord ?? ''
       ..isComplete = _completeGame
       ..keyboardLetters = BoardData.toListString(_keyboardState)
       ..keyboardLetterStatuses = BoardData.toListLetterStatus(_keyboardState)
@@ -234,11 +234,11 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
 
   @override
   String get getEmojiString {
-    String emojiString = "";
+    String emojiString = '';
     _emojiList.asMap().map((key, value) {
       emojiString += value.letterStatus.toEmoji();
       if (key % 5 == 4) {
-        emojiString += "\n";
+        emojiString += '\n';
       }
       return MapEntry(key, value);
     });
@@ -249,7 +249,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   void resetData() {
     _secretWord = null;
     _completeGame = false;
-    _gridData = [""];
+    _gridData = [''];
     _keyboardState = {};
     _currentWordIndex = 0;
     _emojiList.clear();

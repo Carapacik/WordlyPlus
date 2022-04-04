@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class ConstraintScreen extends StatelessWidget {
   const ConstraintScreen({
-    Key? key,
     required this.child,
+    Key? key,
   }) : super(key: key);
 
   final Widget child;

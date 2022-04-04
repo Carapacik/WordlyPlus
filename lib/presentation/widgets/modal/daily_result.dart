@@ -25,7 +25,7 @@ Future<void> showDailyResultDialog(
           CountdownTimerController(
         endTime: endTime,
         onEnd: () {
-          mainCubit.clearArea();
+          mainCubit.clearGameArea();
           Navigator.of(context, rootNavigator: true).pop();
         },
       );
@@ -88,14 +88,14 @@ Future<void> showDailyResultDialog(
                       CustomButton(
                         text: R.stringsOf(context).share,
                         onTap: () {
-                          shareEmojiString(context);
+                          shareEmojiString(context, isWin: isWin);
                         },
                       ),
                       const SizedBox(height: 8),
                       CustomButton(
                         text: R.stringsOf(context).copy,
                         onTap: () {
-                          copyEmojiString(context);
+                          copyEmojiString(context, isWin: isWin);
                         },
                       )
                     ],

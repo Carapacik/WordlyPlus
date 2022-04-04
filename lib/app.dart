@@ -15,7 +15,7 @@ class App extends StatelessWidget {
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) {
         return MaterialApp(
-          onGenerateTitle: (context) => R.stringsOf(context).wordle,
+          onGenerateTitle: (context) => R.stringsOf(context).wordly_plus,
           debugShowCheckedModeBanner: false,
           supportedLocales: RStringsDelegate.supportedLocales,
           localizationsDelegates: const [
@@ -26,8 +26,8 @@ class App extends StatelessWidget {
           ],
           locale: state.localeLanguage.locale,
           theme: state.isDark
-              ? themes[AppTheme.darkTheme]
-              : themes[AppTheme.lightTheme],
+              ? AppTheme.darkTheme.theme
+              : AppTheme.lightTheme.theme,
           home: const MainPage(),
         );
       },

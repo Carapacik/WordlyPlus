@@ -42,11 +42,11 @@ extension LetterStatusExtension on LetterStatus {
     switch (this) {
       case LetterStatus.unknown:
       case LetterStatus.notInWords:
-        return "⬛";
+        return '⬛';
       case LetterStatus.wrongSpot:
-        return "🟨";
+        return '🟨';
       case LetterStatus.correctSpot:
-        return "🟩";
+        return '🟩';
     }
   }
 }

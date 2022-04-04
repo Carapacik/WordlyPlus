@@ -9,22 +9,22 @@ class AboutPage extends StatelessWidget {
   const AboutPage({Key? key}) : super(key: key);
 
   static const rofl = [
-    CreditPeople("Carapacik", "https://github.com/Carapacik")
+    CreditPeople('Carapacik', 'https://github.com/Carapacik')
   ];
 
   static const gameDesign = [
-    CreditPeople("Carapacik", "https://github.com/Carapacik"),
-    CreditPeople("Sancene", "https://github.com/Sancene"),
+    CreditPeople('Carapacik', 'https://github.com/Carapacik'),
+    CreditPeople('Sancene', 'https://github.com/Sancene'),
   ];
 
   static const visualDesign = [
-    CreditPeople("Carapacik", "https://github.com/Carapacik"),
-    CreditPeople("Mary Wilson", "https://www.behance.net/bugagam"),
+    CreditPeople('Carapacik', 'https://github.com/Carapacik'),
+    CreditPeople('Mary Wilson', 'https://www.behance.net/bugagam'),
   ];
 
   static const dictionary = [
-    CreditPeople("Carapacik", "https://github.com/Carapacik"),
-    CreditPeople("Alex Dekhant", "https://github.com/Dekhant"),
+    CreditPeople('Carapacik', 'https://github.com/Carapacik'),
+    CreditPeople('Alex Dekhant', 'https://github.com/Dekhant'),
   ];
 
   @override
@@ -65,14 +65,14 @@ class AboutPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               Link(
-                uri: Uri.parse("mailto:carapacik@gmail.com?subject=New%20word"),
+                uri: Uri.parse('mailto:carapacik@gmail.com?subject=New%20word'),
                 builder: (context, followLink) => MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     onTap: followLink,
                     behavior: HitTestBehavior.opaque,
                     child: Text(
-                      "carapacik@gmail.com",
+                      'carapacik@gmail.com',
                       style: AppTypography.m18
                           .copyWith(decoration: TextDecoration.underline),
                     ),
@@ -90,9 +90,9 @@ class AboutPage extends StatelessWidget {
 
 class _CreditCategory extends StatelessWidget {
   const _CreditCategory({
-    Key? key,
     required this.title,
     required this.peoples,
+    Key? key,
   }) : super(key: key);
 
   final String title;
@@ -128,9 +128,9 @@ class _CreditCategory extends StatelessWidget {
 
 class _CreditNameText extends StatelessWidget {
   const _CreditNameText({
-    Key? key,
     required this.text,
     required this.url,
+    Key? key,
   }) : super(key: key);
 
   final String text;

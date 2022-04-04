@@ -60,9 +60,9 @@ class StatisticPage extends StatelessWidget {
 
 class _StatText extends StatelessWidget {
   const _StatText({
-    Key? key,
     required this.value,
     required this.title,
+    Key? key,
   }) : super(key: key);
 
   final num value;
@@ -92,8 +92,8 @@ class _StatText extends StatelessWidget {
 
 class _AttemptContent extends StatelessWidget {
   const _AttemptContent({
-    Key? key,
     required this.attempts,
+    Key? key,
   }) : super(key: key);
 
   final List<int> attempts;
@@ -116,7 +116,7 @@ class _AttemptContent extends StatelessWidget {
             ),
             height: 20,
             child: Text(
-              " ${attempts[index]}",
+              ' ${attempts[index]}',
               style: AppTypography.m16,
             ),
           ),

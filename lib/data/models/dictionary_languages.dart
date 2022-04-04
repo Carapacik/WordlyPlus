@@ -29,9 +29,9 @@ extension DictionaryLanguagesExt on DictionaryLanguages {
 extension StringExt on String {
   DictionaryLanguages get toDictionaryLanguage {
     switch (this) {
-      case "ru":
+      case 'ru':
         return DictionaryLanguages.ru;
-      case "en":
+      case 'en':
       default:
         return DictionaryLanguages.en;
     }

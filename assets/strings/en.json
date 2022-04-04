@@ -1,8 +1,8 @@
 {
   "about": "About",
   "app_language": "App language",
-  "carapacik": "Carapacik",
-  "check_my_result": "Can you repeat my result?\n${emoji}\nYou can download the game here:\nhttps://play.google.com/store/apps/details?id=com.carapacik.wordly\n",
+  "check_my_result_lose": "I couldn't guess the word.\n${emoji}\nCan you do it?\n\nYou can download the game here:\nhttps://play.google.com/store/apps/details?id=com.carapacik.wordly\n",
+  "check_my_result_win": "The word is solved in ${attemptNumber}/6 attempts\n${emoji}?\n${emoji}\nCan you repeat my result?\n\nYou can download the game here:\nhttps://play.google.com/store/apps/details?id=com.carapacik.wordly\n",
   "coming_soon": "Coming soon",
   "contact": "If you didn't find a word in the dictionary,\nwrite to us, we will add it\nin the next update.",
   "copy": "Copy",
@@ -38,5 +38,6 @@
   "win_rate": "Win\npercentage",
   "word_not_found": "Word not found in dictionary",
   "word_too_short": "Word is not correct length",
-  "wordle": "Wordle"
+  "wordle": "Wordle",
+  "wordly_plus": "Wordly +"
 }

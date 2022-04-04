@@ -9,7 +9,7 @@ class DailyResultData {
   factory DailyResultData.init(final int id) {
     return DailyResultData()
       ..id = id
-      ..dailyWord = ""
+      ..dailyWord = ''
       ..isWin = false;
   }
 

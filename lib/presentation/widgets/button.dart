@@ -3,9 +3,9 @@ import 'package:wordly/resources/resources.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
-    Key? key,
     required this.text,
     this.onTap,
+    Key? key,
   }) : super(key: key);
 
   final VoidCallback? onTap;

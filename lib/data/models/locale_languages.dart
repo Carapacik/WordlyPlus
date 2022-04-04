@@ -8,10 +8,10 @@ extension LocaleLanguagesExt on LocaleLanguages {
   Locale get locale {
     switch (this) {
       case LocaleLanguages.ru:
-        return const Locale("ru");
+        return const Locale('ru');
       case LocaleLanguages.en:
       default:
-        return const Locale("en");
+        return const Locale('en');
     }
   }
 }
@@ -19,9 +19,9 @@ extension LocaleLanguagesExt on LocaleLanguages {
 extension StringExt on String {
   LocaleLanguages get toLocaleLanguage {
     switch (this) {
-      case "ru":
+      case 'ru':
         return LocaleLanguages.ru;
-      case "en":
+      case 'en':
       default:
         return LocaleLanguages.en;
     }

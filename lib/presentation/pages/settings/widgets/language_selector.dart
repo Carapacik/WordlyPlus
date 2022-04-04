@@ -5,11 +5,11 @@ import 'package:wordly/utils/utils.dart';
 
 class LanguageSelector extends StatelessWidget {
   const LanguageSelector({
-    Key? key,
     required this.text,
     required this.value,
     required this.onChanged,
     required this.isHighContrast,
+    Key? key,
   }) : super(key: key);
 
   final String text;

@@ -8,16 +8,13 @@
 Guess the WORDLE in six tries
 
 Have 2 dictionary languages
-- RU
-- EN
+- RU [Dictionary scraper](https://github.com/Carapacik/gufo-me-dictionary-scraper)
+- EN [Dictionary scraper](https://github.com/Carapacik/cambridge-dictionary-scraper)
 
 Have 2 game modes:
 - Daily
 - Level
 
-<img src="https://raw.githubusercontent.com/Carapacik/WordlePlus/main/.github/screenshot_1.png" width="35%" /> <img src="https://raw.githubusercontent.com/Carapacik/WordlePlus/main/.github/screenshot_2.png" width="35%" />
+<img src="https://raw.githubusercontent.com/Carapacik/WordlePlus/main/.github/screenshot_1.png" width="40%" /> <img src="https://raw.githubusercontent.com/Carapacik/WordlePlus/main/.github/screenshot_2.png" width="40%" />
 
-<img src="https://raw.githubusercontent.com/Carapacik/WordlePlus/main/.github/screenshot_3.png" width="35%" /> <img src="https://raw.githubusercontent.com/Carapacik/WordlePlus/main/.github/screenshot_4.png" width="35%" />
-
-[RU dictionary scraper](https://github.com/Carapacik/gufo-me-dictionary-scraper)  
-[EN dictionary scraper](https://github.com/Carapacik/cambridge-dictionary-scraper)
+<img src="https://raw.githubusercontent.com/Carapacik/WordlePlus/main/.github/screenshot_3.png" width="40%" /> <img src="https://raw.githubusercontent.com/Carapacik/WordlePlus/main/.github/screenshot_4.png" width="40%" />

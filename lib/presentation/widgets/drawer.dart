@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/bloc/main/main_cubit.dart';
 import 'package:wordly/presentation/pages/about/about_page.dart';
+import 'package:wordly/presentation/pages/main/main_page.dart';
 import 'package:wordly/presentation/pages/settings/settings_page.dart';
 import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/resources/resources.dart';
@@ -27,7 +28,12 @@ class CustomDrawer extends StatelessWidget {
               ),
               onTap: () async {
                 await mainCubit.loadDaily();
-                Navigator.of(context).pop();
+                await Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (context) => const MainPage(),
+                  ),
+                  (route) => false,
+                );
               },
             ),
             ListTile(
@@ -37,7 +43,12 @@ class CustomDrawer extends StatelessWidget {
               ),
               onTap: () async {
                 await mainCubit.loadLevels();
-                Navigator.of(context).pop();
+                await Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (context) => const MainPage(),
+                  ),
+                  (route) => false,
+                );
               },
             ),
             ListTile(

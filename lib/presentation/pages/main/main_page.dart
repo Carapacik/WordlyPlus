@@ -54,6 +54,7 @@ class _MainPageState extends State<MainPage> {
         } else if (state is LoseGameState) {
           await checkResultDialog(context, isWin: false);
         }
+        Future.delayed(const Duration(milliseconds: 300), appearReview);
       },
       buildWhen: (_, currentState) =>
           currentState is MainInitial || currentState is GridUpdateState,

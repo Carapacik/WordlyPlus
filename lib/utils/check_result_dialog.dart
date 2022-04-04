@@ -40,7 +40,6 @@ Future<void> checkResultDialog(
         word: secretWord,
         secretWordMeaning: secretWordMeaning,
       );
-      Future.delayed(const Duration(seconds: 1), appearReview);
     }
   }
 }

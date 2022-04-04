@@ -32,6 +32,7 @@ Future<void> checkResultDialog(
       );
     }
   } else {
+    Future.delayed(const Duration(milliseconds: 400), appearReview);
     final dailyResult = GetIt.I<DailyResultRepository>().dailyResult;
     if (!isLevelMode && dailyResult.dailyWord == secretWord) {
       await showDailyResultDialog(

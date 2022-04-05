@@ -13,22 +13,22 @@ class WordsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SettingsCubit, SettingsState>(
-      buildWhen: (previous, current) =>
-          previous.dictionaryLanguage != current.dictionaryLanguage,
-      builder: (context, state) {
-        return BlocBuilder<MainCubit, MainState>(
-          buildWhen: (_, currentState) =>
-              currentState is GridUpdateState || currentState is MainInitial,
-          builder: (_, state) {
-            final dictionaryRepository = GetIt.I<DictionaryRepository>();
-            return ConstrainedBox(
-              constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width > 400
-                    ? 400
-                    : double.infinity,
-              ),
-              child: GridView.count(
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth:
+            MediaQuery.of(context).size.width > 400 ? 400 : double.infinity,
+      ),
+      child: BlocBuilder<SettingsCubit, SettingsState>(
+        buildWhen: (previous, current) =>
+            previous.dictionaryLanguage != current.dictionaryLanguage,
+        builder: (context, state) {
+          return BlocBuilder<MainCubit, MainState>(
+            buildWhen: (_, currentState) =>
+                currentState is GridUpdateState || currentState is MainInitial,
+            builder: (_, state) {
+              final dictionaryRepository = GetIt.I<DictionaryRepository>();
+              dictionaryRepository.aboba();
+              return GridView.count(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 shrinkWrap: true,
                 primary: false,
@@ -40,11 +40,11 @@ class WordsGrid extends StatelessWidget {
                       dictionaryRepository.getLetterStatusByIndex(index);
                   return _GridItem(letterEntering: letterEntering);
                 }),
-              ),
-            );
-          },
-        );
-      },
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

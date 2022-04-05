@@ -16,7 +16,9 @@ abstract class DictionaryRepository {
   // ignore: avoid_setters_without_getters
   set dictionaryLanguage(DictionaryLanguages language);
 
-  String createSecretWord([int level = 0]);
+  void createSecretWord([int level = 0]);
+
+  void aboba();
 
   bool setLetter(final KeyboardKeys key);
 

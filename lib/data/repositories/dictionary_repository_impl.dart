@@ -19,6 +19,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   bool _completeGame = false;
   String? _secretWord;
   Map<String, LetterStatus> _keyboardState = {};
+  final Map<String, int> _secretLettersMap = {};
   List<String> _gridData = [''];
   List<LetterEntering> _emojiList = [];
 
@@ -112,7 +113,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   }
 
   @override
-  String createSecretWord([int level = 0]) {
+  void createSecretWord([int level = 0]) {
     final dictionary = _dictionaryLanguage.getCurrentDictionary();
     late int index;
     if (level == 0) {
@@ -123,7 +124,15 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
     } else {
       index = Random(level).nextInt(dictionary.length);
     }
-    return _secretWord = dictionary.keys.elementAt(index);
+    _secretWord = dictionary.keys.elementAt(index);
+    final listSecretWord = _secretWord!.split('');
+
+    for (final letter in listSecretWord) {
+      if (!_secretLettersMap.containsKey(letter)) {
+        _secretLettersMap[letter] =
+            listSecretWord.where((element) => element == letter).length;
+      }
+    }
   }
 
   @override
@@ -172,22 +181,70 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   LetterEntering getLetterStatusByIndex(final int index) {
     final currentLetters = _gridData.join();
     final letter = currentLetters.length > index ? currentLetters[index] : '';
-    LetterStatus letterStatus = LetterStatus.unknown;
-    if (letter.isNotEmpty &&
-        _currentWordIndex > 0 &&
-        index < 5 * _currentWordIndex) {
-      final indexInRow = index % 5;
-      if (currentLetters.contains(letter)) {
-        letterStatus = LetterStatus.notInWords;
-      }
-      if (_secretWord?.contains(letter) ?? false) {
-        letterStatus = LetterStatus.wrongSpot;
-      }
-      if (_secretWord?[indexInRow] == letter) {
-        letterStatus = LetterStatus.correctSpot;
-      }
+    var letterStatus = LetterStatus.unknown;
+    if (letter.isEmpty ||
+        _currentWordIndex <= 0 ||
+        index >= 5 * _currentWordIndex) {
+      return LetterEntering(letter: letter, letterStatus: letterStatus);
     }
+    final indexInRow = index % 5;
+    if (_secretWord?[indexInRow] == letter) {
+      letterStatus = LetterStatus.correctSpot;
+      return LetterEntering(letter: letter, letterStatus: letterStatus);
+    }
+    if (!(_secretWord?.contains(letter) ?? false)) {
+      letterStatus = LetterStatus.notInWords;
+      return LetterEntering(letter: letter, letterStatus: letterStatus);
+    }
+    if (_secretWord?.contains(letter) ?? false) {
+      letterStatus = LetterStatus.wrongSpot;
+    }
+
     return LetterEntering(letter: letter, letterStatus: letterStatus);
+  }
+
+  @override
+  void aboba() {
+    for (final word in _gridData) {
+      List<LetterEntering> tempList = [];
+      for (var i = 0; i < word.length; i++) {
+        if (word.length < 5) {
+          tempList.add(
+            LetterEntering(
+              letter: word[i],
+              letterStatus: LetterStatus.unknown,
+            ),
+          );
+        } else if (_secretWord?[i] == word[i]) {
+          tempList.add(
+            LetterEntering(
+              letter: word[i],
+              letterStatus: LetterStatus.correctSpot,
+            ),
+          );
+        } else if (_secretWord?.contains(word[i]) ?? false) {
+          tempList.add(
+            LetterEntering(
+              letter: word[i],
+              letterStatus: LetterStatus.wrongSpot,
+            ),
+          );
+        } else {
+          tempList.add(
+            LetterEntering(
+              letter: word[i],
+              letterStatus: LetterStatus.notInWords,
+            ),
+          );
+        }
+        print(tempList);
+      }
+
+      final agreen = tempList
+          .where((element) => element.letterStatus == LetterStatus.correctSpot);
+      final ayellow = tempList
+          .where((element) => element.letterStatus == LetterStatus.wrongSpot);
+    }
   }
 
   @override

@@ -35,7 +35,7 @@ Future<void> showLevelResultDialog(
           mainAxisSize: MainAxisSize.min,
           children: [
             CustomButton(
-              text: R.stringsOf(context).next_level,
+              text: R.stringsOf(context).proceed,
               onTap: () {
                 mainCubit.clearGameArea(levelRepository.levelData.lastLevel);
                 Navigator.of(context).pop();

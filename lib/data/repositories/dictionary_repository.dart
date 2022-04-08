@@ -1,10 +1,13 @@
 import 'package:wordly/bloc/main/main_cubit.dart';
 import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/data/models/keyboard_keys.dart';
-import 'package:wordly/data/models/letter_entering.dart';
+import 'package:wordly/data/models/letter_info.dart';
 import 'package:wordly/data/models/letter_status.dart';
 
 abstract class DictionaryRepository {
+  // ignore: avoid_setters_without_getters
+  set dictionaryLanguage(DictionaryLanguages language);
+
   String get secretWord;
 
   String get secretWordMeaning;
@@ -13,12 +16,9 @@ abstract class DictionaryRepository {
 
   String get getEmojiString;
 
-  // ignore: avoid_setters_without_getters
-  set dictionaryLanguage(DictionaryLanguages language);
-
   void createSecretWord([int level = 0]);
 
-  void aboba();
+  List<LetterInfo> letterStatusesForGrid();
 
   bool setLetter(final KeyboardKeys key);
 
@@ -31,8 +31,6 @@ abstract class DictionaryRepository {
   MainState? completeWord();
 
   LetterStatus getKeyStatus(String? keyName);
-
-  LetterEntering getLetterStatusByIndex(final int index);
 
   Map<int, String> getAllLettersInList();
 

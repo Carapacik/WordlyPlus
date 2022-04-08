@@ -1,13 +1,13 @@
 import 'dart:math';
 
-import 'package:collection/collection.dart';
 import 'package:get_it/get_it.dart';
 import 'package:wordly/bloc/main/main_cubit.dart';
 import 'package:wordly/data/collections/board_data.dart';
 import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/data/models/flushbar_types.dart';
+import 'package:wordly/data/models/indexed_letter_info.dart';
 import 'package:wordly/data/models/keyboard_keys.dart';
-import 'package:wordly/data/models/letter_entering.dart';
+import 'package:wordly/data/models/letter_info.dart';
 import 'package:wordly/data/models/letter_status.dart';
 import 'package:wordly/data/repositories/dictionary_repository.dart';
 import 'package:wordly/domain/board_repository.dart';
@@ -21,7 +21,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   Map<String, LetterStatus> _keyboardState = {};
   final Map<String, int> _secretLettersMap = {};
   List<String> _gridData = [''];
-  List<LetterEntering> _emojiList = [];
+  List<LetterInfo> _emojiList = [];
 
   @override
   String get secretWord => _secretWord ?? '';
@@ -52,7 +52,11 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
           _checkWord();
           _completeGame = true;
           return WinGameState();
-        } else if (_currentWordIndex == 5) {
+        }
+        if (_currentWordIndex == 5 &&
+            _dictionaryLanguage
+                .getCurrentDictionary()
+                .containsKey(_gridData[_currentWordIndex])) {
           _checkWord();
           _completeGame = true;
           return LoseGameState();
@@ -73,7 +77,6 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   void _checkWord() {
     if (_secretWord == null) return;
     final word = _gridData[_currentWordIndex];
-    // TODO write new algorithm
     word.split('').asMap().map((key, value) {
       var _status = LetterStatus.unknown;
       if (_secretWord![key] == value) {
@@ -102,7 +105,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
         _status = LetterStatus.notInWords;
       }
       _emojiList.add(
-        LetterEntering(letter: value, letterStatus: _status),
+        LetterInfo(letter: value, letterStatus: _status),
       );
 
       return MapEntry(key, value);
@@ -118,15 +121,14 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
     late int index;
     if (level == 0) {
       final now = DateTime.now();
-      final Random random =
-          Random(now.year * 10000 + now.month * 100 + now.day);
+      final random = Random(now.year * 10000 + now.month * 100 + now.day);
       index = random.nextInt(dictionary.length);
     } else {
       index = Random(level).nextInt(dictionary.length);
     }
     _secretWord = dictionary.keys.elementAt(index);
-    final listSecretWord = _secretWord!.split('');
 
+    final listSecretWord = _secretWord!.split('');
     for (final letter in listSecretWord) {
       if (!_secretLettersMap.containsKey(letter)) {
         _secretLettersMap[letter] =
@@ -178,73 +180,104 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   }
 
   @override
-  LetterEntering getLetterStatusByIndex(final int index) {
-    final currentLetters = _gridData.join();
-    final letter = currentLetters.length > index ? currentLetters[index] : '';
-    var letterStatus = LetterStatus.unknown;
-    if (letter.isEmpty ||
-        _currentWordIndex <= 0 ||
-        index >= 5 * _currentWordIndex) {
-      return LetterEntering(letter: letter, letterStatus: letterStatus);
-    }
-    final indexInRow = index % 5;
-    if (_secretWord?[indexInRow] == letter) {
-      letterStatus = LetterStatus.correctSpot;
-      return LetterEntering(letter: letter, letterStatus: letterStatus);
-    }
-    if (!(_secretWord?.contains(letter) ?? false)) {
-      letterStatus = LetterStatus.notInWords;
-      return LetterEntering(letter: letter, letterStatus: letterStatus);
-    }
-    if (_secretWord?.contains(letter) ?? false) {
-      letterStatus = LetterStatus.wrongSpot;
-    }
-
-    return LetterEntering(letter: letter, letterStatus: letterStatus);
-  }
-
-  @override
-  void aboba() {
-    for (final word in _gridData) {
-      List<LetterEntering> tempList = [];
-      for (var i = 0; i < word.length; i++) {
-        if (word.length < 5) {
+  List<LetterInfo> letterStatusesForGrid() {
+    final List<LetterInfo> letterStatusesList = [];
+    for (var i = 0; i < _gridData.length; i++) {
+      final word = _gridData[i];
+      final List<LetterInfo> tempList = [];
+      if (word.length < 5 || _currentWordIndex == i) {
+        for (final letter in word.split('')) {
           tempList.add(
-            LetterEntering(
-              letter: word[i],
+            LetterInfo(
+              letter: letter,
               letterStatus: LetterStatus.unknown,
             ),
           );
-        } else if (_secretWord?[i] == word[i]) {
-          tempList.add(
-            LetterEntering(
-              letter: word[i],
-              letterStatus: LetterStatus.correctSpot,
-            ),
-          );
-        } else if (_secretWord?.contains(word[i]) ?? false) {
-          tempList.add(
-            LetterEntering(
-              letter: word[i],
-              letterStatus: LetterStatus.wrongSpot,
-            ),
-          );
-        } else {
-          tempList.add(
-            LetterEntering(
-              letter: word[i],
-              letterStatus: LetterStatus.notInWords,
-            ),
-          );
         }
-        print(tempList);
-      }
+        tempList.addAll(
+          List.generate(
+            5 - word.length,
+            (index) => const LetterInfo(
+              letter: '',
+              letterStatus: LetterStatus.unknown,
+            ),
+          ),
+        );
+      } else {
+        for (var i = 0; i < word.length; i++) {
+          if (_secretWord?[i] == word[i]) {
+            tempList.add(
+              LetterInfo(
+                letter: word[i],
+                letterStatus: LetterStatus.correctSpot,
+              ),
+            );
+          } else if (_secretWord?.contains(word[i]) ?? false) {
+            tempList.add(
+              LetterInfo(
+                letter: word[i],
+                letterStatus: LetterStatus.wrongSpot,
+              ),
+            );
+          } else {
+            tempList.add(
+              LetterInfo(
+                letter: word[i],
+                letterStatus: LetterStatus.notInWords,
+              ),
+            );
+          }
+        }
 
-      final agreen = tempList
-          .where((element) => element.letterStatus == LetterStatus.correctSpot);
-      final ayellow = tempList
-          .where((element) => element.letterStatus == LetterStatus.wrongSpot);
+        // To change colors for duplicate letters
+        final List<IndexedLetterInfo> greenList = [];
+        final List<IndexedLetterInfo> yellowList = [];
+        tempList.asMap().map((index, letter) {
+          if (letter.letterStatus == LetterStatus.correctSpot) {
+            greenList.add(IndexedLetterInfo(indexInWord: index, info: letter));
+          } else if (letter.letterStatus == LetterStatus.wrongSpot) {
+            yellowList.add(IndexedLetterInfo(indexInWord: index, info: letter));
+          }
+          return MapEntry(index, letter);
+        });
+
+        if (yellowList.isNotEmpty) {
+          for (final yellow in yellowList) {
+            final countInGreenList = greenList
+                .where((element) => yellow.info.letter == element.info.letter)
+                .length;
+            if (countInGreenList > 0) {
+              final countInSecretWord = _secretLettersMap[yellow.info.letter];
+              if (countInSecretWord == countInGreenList) {
+                yellowList
+                    .where(
+                  (element) => element.info.letter == yellow.info.letter,
+                )
+                    .forEach((e) {
+                  tempList[e.indexInWord] = LetterInfo(
+                    letter: e.info.letter,
+                    letterStatus: LetterStatus.notInWords,
+                  );
+                });
+              }
+            }
+          }
+        }
+      }
+      letterStatusesList.addAll(tempList);
     }
+    if (letterStatusesList.length < 30) {
+      letterStatusesList.addAll(
+        List.generate(
+          30 - letterStatusesList.length,
+          (index) => const LetterInfo(
+            letter: '',
+            letterStatus: LetterStatus.unknown,
+          ),
+        ),
+      );
+    }
+    return letterStatusesList;
   }
 
   @override
@@ -266,11 +299,8 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
       _currentWordIndex = boardData.lettersState.length;
       _gridData = boardData.lettersState;
       _keyboardState = boardData.toMap();
-      _emojiList = boardData.lettersState
-          .join()
-          .split('')
-          .mapIndexed((index, element) => getLetterStatusByIndex(index))
-          .toList();
+      // after created _secretWord and filled _gridData
+      _emojiList = letterStatusesForGrid();
     }
   }
 

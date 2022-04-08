@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:wordly/bloc/main/main_cubit.dart';
 import 'package:wordly/bloc/settings/settings_cubit.dart';
-import 'package:wordly/data/models/letter_entering.dart';
+import 'package:wordly/data/models/letter_info.dart';
 import 'package:wordly/data/models/letter_status.dart';
 import 'package:wordly/data/repositories/dictionary_repository.dart';
 import 'package:wordly/resources/resources.dart';
@@ -27,7 +27,8 @@ class WordsGrid extends StatelessWidget {
                 currentState is GridUpdateState || currentState is MainInitial,
             builder: (_, state) {
               final dictionaryRepository = GetIt.I<DictionaryRepository>();
-              dictionaryRepository.aboba();
+              final letterStatusesList =
+                  dictionaryRepository.letterStatusesForGrid();
               return GridView.count(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 shrinkWrap: true,
@@ -36,9 +37,7 @@ class WordsGrid extends StatelessWidget {
                 crossAxisSpacing: 8,
                 crossAxisCount: 5,
                 children: List.generate(30, (index) {
-                  final letterEntering =
-                      dictionaryRepository.getLetterStatusByIndex(index);
-                  return _GridItem(letterEntering: letterEntering);
+                  return _GridItem(letterEntering: letterStatusesList[index]);
                 }),
               );
             },
@@ -55,7 +54,7 @@ class _GridItem extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final LetterEntering letterEntering;
+  final LetterInfo letterEntering;
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:isar/isar.dart';
 import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/data/models/locale_languages.dart';
+import 'package:wordly/utils/utils.dart';
 
 part 'settings_data.g.dart';
 
@@ -11,8 +12,8 @@ class SettingsData {
   factory SettingsData.init() {
     return SettingsData()
       ..id = 0
-      ..dictionaryLanguage = DictionaryLanguages.en
-      ..localeLanguage = LocaleLanguages.en
+      ..dictionaryLanguage = getSystemDictionaryLanguage()
+      ..localeLanguage = getSystemLocaleLanguage()
       ..isDark = false
       ..isHighContrast = false;
   }

@@ -32,8 +32,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   setPathUrlStrategy();
+  await checkForAndroidUpdate();
   await _initSingletons();
-  checkForAndroidUpdate();
   runApp(
     MultiBlocProvider(
       providers: [

@@ -87,6 +87,7 @@ Future<void> showDailyResultDialog(
                     children: [
                       CustomButton(
                         text: R.stringsOf(context).share,
+                        width: 80,
                         onTap: () {
                           shareEmojiString(context, isWin: isWin);
                         },
@@ -94,6 +95,7 @@ Future<void> showDailyResultDialog(
                       const SizedBox(height: 8),
                       CustomButton(
                         text: R.stringsOf(context).copy,
+                        width: 80,
                         onTap: () {
                           copyEmojiString(context, isWin: isWin);
                         },

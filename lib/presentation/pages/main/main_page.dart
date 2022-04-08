@@ -91,7 +91,7 @@ class _MainPageState extends State<MainPage> {
                         ),
                       );
                     },
-                    icon: const Icon(Icons.leaderboard_outlined),
+                    icon: const Icon(Icons.leaderboard),
                   ),
               ],
             ),

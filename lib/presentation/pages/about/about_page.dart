@@ -65,7 +65,10 @@ class AboutPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               Link(
-                uri: Uri.parse('mailto:carapacik@gmail.com?subject=New%20word'),
+                uri: Uri.parse(
+                  'mailto:carapacik@gmail.com?'
+                  '${R.stringsOf(context).message_new_word}',
+                ),
                 builder: (context, followLink) => MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(

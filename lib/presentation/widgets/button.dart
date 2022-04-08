@@ -4,12 +4,14 @@ import 'package:wordly/resources/resources.dart';
 class CustomButton extends StatelessWidget {
   const CustomButton({
     required this.text,
+    this.width,
     this.onTap,
     Key? key,
   }) : super(key: key);
 
   final VoidCallback? onTap;
   final String text;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class CustomButton extends StatelessWidget {
       onPressed: onTap,
       child: Container(
         alignment: Alignment.center,
-        width: 80,
+        width: width,
         child: Text(
           text,
           style: AppTypography.r14.copyWith(color: Colors.white),

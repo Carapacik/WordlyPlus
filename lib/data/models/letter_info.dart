@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:wordly/data/models/letter_status.dart';
 
-class LetterEntering extends Equatable {
-  const LetterEntering({
+class LetterInfo extends Equatable {
+  const LetterInfo({
     required this.letter,
     required this.letterStatus,
   });

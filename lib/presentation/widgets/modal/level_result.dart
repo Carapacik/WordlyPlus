@@ -13,7 +13,7 @@ Future<void> showLevelResultDialog(
   required final String word,
   required final String secretWordMeaning,
 }) async {
-  showDialog(
+  await showDialog<void>(
     context: context,
     builder: (context) {
       final mainCubit = BlocProvider.of<MainCubit>(context);

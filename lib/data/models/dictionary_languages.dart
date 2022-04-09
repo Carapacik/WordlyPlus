@@ -43,12 +43,9 @@ class DictionaryLanguagesConverter
   const DictionaryLanguagesConverter();
 
   @override
-  DictionaryLanguages fromIsar(final int object) {
-    return DictionaryLanguages.values[object];
-  }
+  DictionaryLanguages fromIsar(final int object) =>
+      DictionaryLanguages.values[object];
 
   @override
-  int toIsar(DictionaryLanguages object) {
-    return object.index;
-  }
+  int toIsar(DictionaryLanguages object) => object.index;
 }

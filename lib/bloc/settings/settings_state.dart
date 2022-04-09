@@ -18,14 +18,13 @@ abstract class SettingsState extends Equatable {
     LocaleLanguages? localeLanguage,
     bool? isDark,
     bool? isHighContrast,
-  }) {
-    return SettingsUpdate(
-      dictionaryLanguage: dictionaryLanguage ?? this.dictionaryLanguage,
-      localeLanguage: localeLanguage ?? this.localeLanguage,
-      isDark: isDark ?? this.isDark,
-      isHighContrast: isHighContrast ?? this.isHighContrast,
-    );
-  }
+  }) =>
+      SettingsUpdate(
+        dictionaryLanguage: dictionaryLanguage ?? this.dictionaryLanguage,
+        localeLanguage: localeLanguage ?? this.localeLanguage,
+        isDark: isDark ?? this.isDark,
+        isHighContrast: isHighContrast ?? this.isHighContrast,
+      );
 
   @override
   List<Object> get props =>

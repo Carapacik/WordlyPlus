@@ -22,7 +22,7 @@ Future<void> shareEmojiString(
           emoji: repository.getEmojiString,
         );
   }
-  Share.share(copiedText);
+  await Share.share(copiedText);
 }
 
 Future<void> copyEmojiString(

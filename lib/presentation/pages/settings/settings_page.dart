@@ -11,57 +11,55 @@ class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(title: R.stringsOf(context).settings),
-      body: BlocBuilder<SettingsCubit, SettingsState>(
-        builder: (context, state) {
-          final settingsCubit = BlocProvider.of<SettingsCubit>(context);
-          return ConstraintScreen(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const SizedBox(height: 8),
-                  ToggleListTile(
-                    text: R.stringsOf(context).dark_mode,
-                    value: state.isDark,
-                    onChanged: (value) =>
-                        settingsCubit.toggleTheme(value: value),
-                    isHighContrast: state.isHighContrast,
-                  ),
-                  const Divider(color: AppColors.grey),
-                  ToggleListTile(
-                    text: R.stringsOf(context).high_contrast_mode,
-                    value: state.isHighContrast,
-                    onChanged: (value) =>
-                        settingsCubit.toggleHighContrast(value: value),
-                    isHighContrast: state.isHighContrast,
-                  ),
-                  const Divider(color: AppColors.grey),
-                  LanguageSelector(
-                    text: R.stringsOf(context).app_language,
-                    value: state.localeLanguage.name,
-                    onChanged: (value) =>
-                        settingsCubit.changeLocaleLanguage(value: value!),
-                    isHighContrast: state.isHighContrast,
-                  ),
-                  const Divider(color: AppColors.grey),
-                  LanguageSelector(
-                    text: R.stringsOf(context).dictionary_language,
-                    value: state.dictionaryLanguage.name,
-                    onChanged: (value) {
-                      settingsCubit.changeDictionaryLanguage(value: value!);
-                    },
-                    isHighContrast: state.isHighContrast,
-                  ),
-                ],
+  Widget build(BuildContext context) => Scaffold(
+        appBar: CustomAppBar(title: R.stringsOf(context).settings),
+        body: BlocBuilder<SettingsCubit, SettingsState>(
+          builder: (context, state) {
+            final settingsCubit = BlocProvider.of<SettingsCubit>(context);
+            return ConstraintScreen(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(height: 8),
+                    ToggleListTile(
+                      text: R.stringsOf(context).dark_mode,
+                      value: state.isDark,
+                      onChanged: (value) =>
+                          settingsCubit.toggleTheme(value: value),
+                      isHighContrast: state.isHighContrast,
+                    ),
+                    const Divider(color: AppColors.grey),
+                    ToggleListTile(
+                      text: R.stringsOf(context).high_contrast_mode,
+                      value: state.isHighContrast,
+                      onChanged: (value) =>
+                          settingsCubit.toggleHighContrast(value: value),
+                      isHighContrast: state.isHighContrast,
+                    ),
+                    const Divider(color: AppColors.grey),
+                    LanguageSelector(
+                      text: R.stringsOf(context).app_language,
+                      value: state.localeLanguage.name,
+                      onChanged: (value) =>
+                          settingsCubit.changeLocaleLanguage(value: value!),
+                      isHighContrast: state.isHighContrast,
+                    ),
+                    const Divider(color: AppColors.grey),
+                    LanguageSelector(
+                      text: R.stringsOf(context).dictionary_language,
+                      value: state.dictionaryLanguage.name,
+                      onChanged: (value) {
+                        settingsCubit.changeDictionaryLanguage(value: value!);
+                      },
+                      isHighContrast: state.isHighContrast,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          );
-        },
-      ),
-    );
-  }
+            );
+          },
+        ),
+      );
 }

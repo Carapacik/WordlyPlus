@@ -32,12 +32,8 @@ class LocaleLanguagesConverter extends TypeConverter<LocaleLanguages, int> {
   const LocaleLanguagesConverter();
 
   @override
-  LocaleLanguages fromIsar(final int object) {
-    return LocaleLanguages.values[object];
-  }
+  LocaleLanguages fromIsar(final int object) => LocaleLanguages.values[object];
 
   @override
-  int toIsar(LocaleLanguages object) {
-    return object.index;
-  }
+  int toIsar(LocaleLanguages object) => object.index;
 }

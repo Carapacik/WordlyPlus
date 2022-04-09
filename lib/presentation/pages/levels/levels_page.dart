@@ -7,17 +7,15 @@ class LevelsPage extends StatelessWidget {
   const LevelsPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        title: R.stringsOf(context).levels,
-      ),
-      body: Center(
-        child: Text(
-          R.stringsOf(context).coming_soon,
-          style: AppTypography.b25,
+  Widget build(BuildContext context) => Scaffold(
+        appBar: CustomAppBar(
+          title: R.stringsOf(context).levels,
         ),
-      ),
-    );
-  }
+        body: Center(
+          child: Text(
+            R.stringsOf(context).coming_soon,
+            style: AppTypography.b25,
+          ),
+        ),
+      );
 }

@@ -12,16 +12,15 @@ class BoardData extends Equatable {
   factory BoardData.init({
     required final DictionaryLanguages language,
     required final int levelNumber,
-  }) {
-    return BoardData()
-      ..isComplete = false
-      ..secretWord = ''
-      ..levelNumber = levelNumber
-      ..language = language
-      ..lettersState = ['']
-      ..keyboardLetters = []
-      ..keyboardLetterStatuses = [];
-  }
+  }) =>
+      BoardData()
+        ..isComplete = false
+        ..secretWord = ''
+        ..levelNumber = levelNumber
+        ..language = language
+        ..lettersState = ['']
+        ..keyboardLetters = []
+        ..keyboardLetterStatuses = [];
 
   @Id()
   int? id;
@@ -38,20 +37,16 @@ class BoardData extends Equatable {
 
   // final keyboardState = IsarLinks<LetterEntering>();
 
-  static List<String> toListString(Map<String, LetterStatus> map) {
-    return map.entries.map((element) => element.key).toList();
-  }
+  static List<String> toListString(Map<String, LetterStatus> map) =>
+      map.entries.map((element) => element.key).toList();
 
-  static List<int> toListLetterStatus(Map<String, LetterStatus> map) {
-    return map.entries.map((element) => element.value.index).toList();
-  }
+  static List<int> toListLetterStatus(Map<String, LetterStatus> map) =>
+      map.entries.map((element) => element.value.index).toList();
 
-  Map<String, LetterStatus> toMap() {
-    return {
-      for (var i = 0; i < keyboardLetters.length; i++)
-        keyboardLetters[i]: LetterStatus.values[keyboardLetterStatuses[i]]
-    };
-  }
+  Map<String, LetterStatus> toMap() => {
+        for (var i = 0; i < keyboardLetters.length; i++)
+          keyboardLetters[i]: LetterStatus.values[keyboardLetterStatuses[i]]
+      };
 
   @override
   List<Object?> get props => [id, levelNumber, language];

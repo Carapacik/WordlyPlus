@@ -78,7 +78,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
     if (_secretWord == null) return;
     final word = _gridData[_currentWordIndex];
     word.split('').asMap().map((key, value) {
-      var _status = LetterStatus.unknown;
+      var currentStatus = LetterStatus.unknown;
       if (_secretWord![key] == value) {
         // LetterStatus.correctSpot
         if (_keyboardState.containsKey(value)) {
@@ -86,7 +86,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
         } else {
           _keyboardState.addAll({value: LetterStatus.correctSpot});
         }
-        _status = LetterStatus.correctSpot;
+        currentStatus = LetterStatus.correctSpot;
       } else if (_secretWord!.contains(value)) {
         // LetterStatus.wrongSpot
         if (_keyboardState.containsKey(value)) {
@@ -96,16 +96,16 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
         } else {
           _keyboardState.addAll({value: LetterStatus.wrongSpot});
         }
-        _status = LetterStatus.wrongSpot;
+        currentStatus = LetterStatus.wrongSpot;
       } else {
         // LetterStatus.notInWords
         if (!_keyboardState.containsKey(value)) {
           _keyboardState.addAll({value: LetterStatus.notInWords});
         }
-        _status = LetterStatus.notInWords;
+        currentStatus = LetterStatus.notInWords;
       }
       _emojiList.add(
-        LetterInfo(letter: value, letterStatus: _status),
+        LetterInfo(letter: value, letterStatus: currentStatus),
       );
 
       return MapEntry(key, value);
@@ -161,7 +161,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
     if (_gridData.length <= _currentWordIndex) {
       _gridData.add('');
     }
-    final int wordLength = _gridData[_currentWordIndex].length;
+    final wordLength = _gridData[_currentWordIndex].length;
     if (wordLength > 0) {
       _gridData[_currentWordIndex] =
           _gridData[_currentWordIndex].substring(0, wordLength - 1);
@@ -173,7 +173,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
     if (_gridData.length <= _currentWordIndex) {
       _gridData.add('');
     }
-    final int wordLength = _gridData[_currentWordIndex].length;
+    final wordLength = _gridData[_currentWordIndex].length;
     if (wordLength > 0) {
       _gridData[_currentWordIndex] = '';
     }
@@ -181,10 +181,10 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
 
   @override
   List<LetterInfo> letterStatusesForGrid() {
-    final List<LetterInfo> letterStatusesList = [];
+    final letterStatusesList = <LetterInfo>[];
     for (var i = 0; i < _gridData.length; i++) {
       final word = _gridData[i];
-      final List<LetterInfo> tempList = [];
+      final tempList = <LetterInfo>[];
       if (word.length < 5 || _currentWordIndex == i) {
         for (final letter in word.split('')) {
           tempList.add(
@@ -230,8 +230,8 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
         }
 
         // To change colors for duplicate letters
-        final List<IndexedLetterInfo> greenList = [];
-        final List<IndexedLetterInfo> yellowList = [];
+        final greenList = <IndexedLetterInfo>[];
+        final yellowList = <IndexedLetterInfo>[];
         tempList.asMap().map((index, letter) {
           if (letter.letterStatus == LetterStatus.correctSpot) {
             greenList.add(IndexedLetterInfo(indexInWord: index, info: letter));
@@ -281,14 +281,12 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   }
 
   @override
-  LetterStatus getKeyStatus(String? keyName) {
-    return _keyboardState[keyName] ?? LetterStatus.unknown;
-  }
+  LetterStatus getKeyStatus(String? keyName) =>
+      _keyboardState[keyName] ?? LetterStatus.unknown;
 
   @override
-  Map<int, String> getAllLettersInList() {
-    return _gridData[_currentWordIndex - 1].split('').asMap();
-  }
+  Map<int, String> getAllLettersInList() =>
+      _gridData[_currentWordIndex - 1].split('').asMap();
 
   @override
   void loadBoard() {
@@ -316,13 +314,12 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
       ..keyboardLetters = BoardData.toListString(_keyboardState)
       ..keyboardLetterStatuses = BoardData.toListLetterStatus(_keyboardState)
       ..lettersState = _gridData;
-    final boardRepository = GetIt.I<BoardRepository>();
-    boardRepository.saveBoardData(boardData);
+    GetIt.I<BoardRepository>().saveBoardData(boardData);
   }
 
   @override
   String get getEmojiString {
-    String emojiString = '';
+    var emojiString = '';
     _emojiList.asMap().map((key, value) {
       emojiString += value.letterStatus.toEmoji();
       if (key % 5 == 4) {

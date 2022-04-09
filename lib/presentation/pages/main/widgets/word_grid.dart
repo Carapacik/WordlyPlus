@@ -12,17 +12,15 @@ class WordsGrid extends StatelessWidget {
   const WordsGrid({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxWidth:
-            MediaQuery.of(context).size.width > 400 ? 400 : double.infinity,
-      ),
-      child: BlocBuilder<SettingsCubit, SettingsState>(
-        buildWhen: (previous, current) =>
-            previous.dictionaryLanguage != current.dictionaryLanguage,
-        builder: (context, state) {
-          return BlocBuilder<MainCubit, MainState>(
+  Widget build(BuildContext context) => ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth:
+              MediaQuery.of(context).size.width > 400 ? 400 : double.infinity,
+        ),
+        child: BlocBuilder<SettingsCubit, SettingsState>(
+          buildWhen: (previous, current) =>
+              previous.dictionaryLanguage != current.dictionaryLanguage,
+          builder: (context, state) => BlocBuilder<MainCubit, MainState>(
             buildWhen: (_, currentState) =>
                 currentState is GridUpdateState || currentState is MainInitial,
             builder: (_, state) {
@@ -36,16 +34,16 @@ class WordsGrid extends StatelessWidget {
                 mainAxisSpacing: 8,
                 crossAxisSpacing: 8,
                 crossAxisCount: 5,
-                children: List.generate(30, (index) {
-                  return _GridItem(letterEntering: letterStatusesList[index]);
-                }),
+                children: List.generate(
+                  30,
+                  (index) =>
+                      _GridItem(letterEntering: letterStatusesList[index]),
+                ),
               );
             },
-          );
-        },
-      ),
-    );
-  }
+          ),
+        ),
+      );
 }
 
 class _GridItem extends StatelessWidget {
@@ -57,12 +55,11 @@ class _GridItem extends StatelessWidget {
   final LetterInfo letterEntering;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SettingsCubit, SettingsState>(
-      buildWhen: (previous, current) =>
-          previous.isHighContrast != current.isHighContrast,
-      builder: (context, state) {
-        return AspectRatio(
+  Widget build(BuildContext context) =>
+      BlocBuilder<SettingsCubit, SettingsState>(
+        buildWhen: (previous, current) =>
+            previous.isHighContrast != current.isHighContrast,
+        builder: (context, state) => AspectRatio(
           aspectRatio: 1,
           child: Container(
             alignment: Alignment.center,
@@ -86,8 +83,6 @@ class _GridItem extends StatelessWidget {
               ),
             ),
           ),
-        );
-      },
-    );
-  }
+        ),
+      );
 }

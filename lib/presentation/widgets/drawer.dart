@@ -29,7 +29,7 @@ class CustomDrawer extends StatelessWidget {
               onTap: () async {
                 await mainCubit.loadDaily();
                 await Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
+                  MaterialPageRoute<void>(
                     builder: (context) => const MainPage(),
                   ),
                   (route) => false,
@@ -44,7 +44,7 @@ class CustomDrawer extends StatelessWidget {
               onTap: () async {
                 await mainCubit.loadLevels();
                 await Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
+                  MaterialPageRoute<void>(
                     builder: (context) => const MainPage(),
                   ),
                   (route) => false,
@@ -69,7 +69,7 @@ class CustomDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).push(
-                  MaterialPageRoute(
+                  MaterialPageRoute<void>(
                     builder: (context) => const SettingsPage(),
                   ),
                 );
@@ -84,7 +84,7 @@ class CustomDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).push(
-                  MaterialPageRoute(
+                  MaterialPageRoute<void>(
                     builder: (context) => const AboutPage(),
                   ),
                 );

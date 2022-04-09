@@ -6,12 +6,10 @@ part 'daily_result_data.g.dart';
 class DailyResultData {
   DailyResultData();
 
-  factory DailyResultData.init(final int id) {
-    return DailyResultData()
-      ..id = id
-      ..dailyWord = ''
-      ..isWin = false;
-  }
+  factory DailyResultData.init(final int id) => DailyResultData()
+    ..id = id
+    ..dailyWord = ''
+    ..isWin = false;
 
   @Id()
   late int id;

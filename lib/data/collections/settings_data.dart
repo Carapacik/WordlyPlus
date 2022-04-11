@@ -9,14 +9,12 @@ part 'settings_data.g.dart';
 class SettingsData {
   SettingsData();
 
-  factory SettingsData.init() {
-    return SettingsData()
-      ..id = 0
-      ..dictionaryLanguage = getSystemDictionaryLanguage()
-      ..localeLanguage = getSystemLocaleLanguage()
-      ..isDark = false
-      ..isHighContrast = false;
-  }
+  factory SettingsData.init() => SettingsData()
+    ..id = 0
+    ..dictionaryLanguage = getSystemDictionaryLanguage()
+    ..localeLanguage = getSystemLocaleLanguage()
+    ..isDark = false
+    ..isHighContrast = false;
 
   @Id()
   late int id;

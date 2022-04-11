@@ -11,10 +11,9 @@ class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SettingsCubit, SettingsState>(
-      builder: (context, state) {
-        return MaterialApp(
+  Widget build(BuildContext context) =>
+      BlocBuilder<SettingsCubit, SettingsState>(
+        builder: (context, state) => MaterialApp(
           onGenerateTitle: (context) => R.stringsOf(context).wordly_plus,
           debugShowCheckedModeBanner: false,
           supportedLocales: RStringsDelegate.supportedLocales,
@@ -29,8 +28,6 @@ class App extends StatelessWidget {
               ? AppTheme.darkTheme.theme
               : AppTheme.lightTheme.theme,
           home: const MainPage(),
-        );
-      },
-    );
-  }
+        ),
+      );
 }

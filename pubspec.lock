@@ -106,6 +106,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.1.4"
+  carapacik_lints:
+    dependency: "direct dev"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: da40de7842f88f7195a99ff36b5cb346814414db
+      url: "https://github.com/Carapacik/carapacik_lints.git"
+    source: git
+    version: "1.0.2"
   characters:
     dependency: transitive
     description:
@@ -385,13 +394,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.4.0"
-  lint:
-    dependency: "direct dev"
-    description:
-      name: lint
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.8.2"
   logging:
     dependency: transitive
     description:
@@ -580,7 +582,7 @@ packages:
       name: share_plus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.3"
+    version: "4.0.4"
   share_plus_linux:
     dependency: transitive
     description:

@@ -69,25 +69,23 @@ class _StatText extends StatelessWidget {
   final String title;
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          value.toString(),
-          style: AppTypography.b25,
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Text(
-          title,
-          style: AppTypography.r14,
-          textAlign: TextAlign.center,
-        )
-      ],
-    );
-  }
+  Widget build(BuildContext context) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            value.toString(),
+            style: AppTypography.b25,
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Text(
+            title,
+            style: AppTypography.r14,
+            textAlign: TextAlign.center,
+          )
+        ],
+      );
 }
 
 class _AttemptContent extends StatelessWidget {
@@ -100,28 +98,26 @@ class _AttemptContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double maxValue = attempts.reduce(max) + 1;
+    final maxValue = attempts.reduce(max) + 1;
     return ListView.separated(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       shrinkWrap: true,
       itemCount: attempts.length,
-      itemBuilder: (context, index) {
-        return FractionallySizedBox(
-          alignment: Alignment.topLeft,
-          widthFactor: (attempts[index] + 1) / maxValue,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              borderRadius: BorderRadius.circular(4),
-            ),
-            height: 20,
-            child: Text(
-              ' ${attempts[index]}',
-              style: AppTypography.m16,
-            ),
+      itemBuilder: (context, index) => FractionallySizedBox(
+        alignment: Alignment.topLeft,
+        widthFactor: (attempts[index] + 1) / maxValue,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
+            borderRadius: BorderRadius.circular(4),
           ),
-        );
-      },
+          height: 20,
+          child: Text(
+            ' ${attempts[index]}',
+            style: AppTypography.m16,
+          ),
+        ),
+      ),
       separatorBuilder: (_, __) => const SizedBox(height: 4),
     );
   }

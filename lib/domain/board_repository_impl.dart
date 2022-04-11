@@ -4,9 +4,11 @@ import 'package:isar/isar.dart';
 import 'package:wordly/data/collections/board_data.dart';
 import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/domain/board_repository.dart';
+import 'package:wordly/domain/settings_repository.dart';
 
 class BoardRepositoryImpl implements BoardRepository {
   late BoardData _boardData;
+  final _isar = GetIt.I<Isar>();
 
   @override
   BoardData get boardData => _boardData;
@@ -17,8 +19,7 @@ class BoardRepositoryImpl implements BoardRepository {
     required final int levelNumber,
   }) async {
     late BoardData finalData;
-    final data = await GetIt.I<Isar>()
-        .boardDatas
+    final data = await _isar.boardDatas
         .filter()
         .languageEqualTo(dictionaryLanguage)
         .and()
@@ -37,7 +38,7 @@ class BoardRepositoryImpl implements BoardRepository {
               language: dictionaryLanguage,
               levelNumber: levelNumber,
             );
-      } catch (e) {
+      } on Exception {
         finalData = BoardData.init(
           language: dictionaryLanguage,
           levelNumber: levelNumber,
@@ -50,9 +51,22 @@ class BoardRepositoryImpl implements BoardRepository {
   @override
   Future<void> saveBoardData(final BoardData data) async {
     final fixedData = data..id = _boardData.id;
-    await GetIt.I<Isar>().writeTxn((isar) async {
+    await _isar.writeTxn((isar) async {
       _boardData = fixedData;
       await isar.boardDatas.put(_boardData);
     });
+  }
+
+  @override
+  Future<List<BoardData>> getAllData() async {
+    final language =
+        GetIt.I<SettingsRepository>().settingsData.dictionaryLanguage;
+    final data = await _isar.boardDatas
+        .filter()
+        .languageEqualTo(language)
+        .and()
+        .levelNumberGreaterThan(0)
+        .findAll();
+    return data;
   }
 }

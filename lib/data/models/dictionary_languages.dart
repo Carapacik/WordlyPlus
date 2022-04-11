@@ -10,7 +10,6 @@ extension DictionaryLanguagesExt on DictionaryLanguages {
       case DictionaryLanguages.ru:
         return 2 / 3.5;
       case DictionaryLanguages.en:
-      default:
         return 2 / 2.8;
     }
   }
@@ -20,7 +19,6 @@ extension DictionaryLanguagesExt on DictionaryLanguages {
       case DictionaryLanguages.ru:
         return dictionaryRu;
       case DictionaryLanguages.en:
-      default:
         return dictionaryEn;
     }
   }
@@ -43,12 +41,9 @@ class DictionaryLanguagesConverter
   const DictionaryLanguagesConverter();
 
   @override
-  DictionaryLanguages fromIsar(final int object) {
-    return DictionaryLanguages.values[object];
-  }
+  DictionaryLanguages fromIsar(final int object) =>
+      DictionaryLanguages.values[object];
 
   @override
-  int toIsar(DictionaryLanguages object) {
-    return object.index;
-  }
+  int toIsar(DictionaryLanguages object) => object.index;
 }

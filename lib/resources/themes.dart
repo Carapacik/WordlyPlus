@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum AppTheme {
-  lightTheme,
-  darkTheme,
-}
+enum AppTheme { lightTheme, darkTheme }
 
 extension AppThemeExt on AppTheme {
   ThemeData get theme {
@@ -19,7 +16,7 @@ extension AppThemeExt on AppTheme {
           cardColor: const Color(0xFFDCE1E9),
           shadowColor: const Color(0xFF787C7E),
         );
-      default:
+      case AppTheme.darkTheme:
         return ThemeData.dark().copyWith(
           primaryColorDark: const Color(0xFFFFFFFF),
           primaryColorLight: const Color(0xDC121213),

@@ -12,17 +12,16 @@ Future<void> showDailyResultDialog(
   required final String word,
   required final String secretWordMeaning,
 }) async {
-  showDialog(
+  await showDialog<void>(
     context: context,
     builder: (context) {
       final now = DateTime.now();
       final nextMidnight =
           DateTime(now.year, now.month, now.day).add(const Duration(days: 1));
-      final int endTime = now.millisecondsSinceEpoch +
+      final endTime = now.millisecondsSinceEpoch +
           nextMidnight.difference(now).inMilliseconds;
       final mainCubit = BlocProvider.of<MainCubit>(context);
-      final CountdownTimerController _countDownController =
-          CountdownTimerController(
+      final countDownController = CountdownTimerController(
         endTime: endTime,
         onEnd: () {
           mainCubit.clearGameArea();
@@ -60,8 +59,8 @@ Future<void> showDailyResultDialog(
                       ),
                       const SizedBox(height: 4),
                       CountdownTimer(
-                        controller: _countDownController,
-                        widgetBuilder: (_, CurrentRemainingTime? time) {
+                        controller: countDownController,
+                        widgetBuilder: (_, time) {
                           if (time == null) {
                             return Container();
                           }

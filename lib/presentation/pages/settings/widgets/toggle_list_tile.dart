@@ -16,23 +16,21 @@ class ToggleListTile extends StatelessWidget {
   final ValueChanged<bool> onChanged;
 
   @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          text,
-          style: AppTypography.m14,
-        ),
-        Switch.adaptive(
-          value: value,
-          onChanged: onChanged,
-          activeTrackColor:
-              isHighContrast ? AppColors.highContrastOrange : AppColors.green,
-          inactiveTrackColor: AppColors.grey,
-          activeColor: Colors.white,
-        ),
-      ],
-    );
-  }
+  Widget build(BuildContext context) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            text,
+            style: AppTypography.m14,
+          ),
+          Switch.adaptive(
+            value: value,
+            onChanged: onChanged,
+            activeTrackColor:
+                isHighContrast ? AppColors.highContrastOrange : AppColors.green,
+            inactiveTrackColor: AppColors.grey,
+            activeColor: Colors.white,
+          ),
+        ],
+      );
 }

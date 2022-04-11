@@ -57,9 +57,10 @@ class SettingsCubit extends Cubit<SettingsState> {
     } else {
       levelNumber = 0;
     }
-    dictionaryRepository.dictionaryLanguage = dictionaryLanguage;
-    dictionaryRepository.resetData();
-    dictionaryRepository.createSecretWord(levelNumber);
+    dictionaryRepository
+      ..dictionaryLanguage = dictionaryLanguage
+      ..resetData()
+      ..createSecretWord(levelNumber);
     await boardRepository.initBoardData(
       dictionaryLanguage: dictionaryLanguage,
       levelNumber: levelNumber,

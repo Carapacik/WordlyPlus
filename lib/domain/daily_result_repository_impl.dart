@@ -6,13 +6,14 @@ import 'package:wordly/domain/daily_result_repository.dart';
 
 class DailyResultRepositoryImpl implements DailyResultRepository {
   late DailyResultData _dailyResult;
+  final _isar = GetIt.I<Isar>();
 
   @override
   DailyResultData get dailyResult => _dailyResult;
 
   @override
   Future<void> initDailyResult(final DictionaryLanguages language) async {
-    final result = await GetIt.I<Isar>().dailyResultDatas.get(language.index);
+    final result = await _isar.dailyResultDatas.get(language.index);
     _dailyResult = result ?? DailyResultData.init(language.index);
   }
 
@@ -27,7 +28,7 @@ class DailyResultRepositoryImpl implements DailyResultRepository {
       ..isWin = isWin
       ..dailyWord = word;
 
-    await GetIt.I<Isar>().writeTxn((isar) async {
+    await _isar.writeTxn((isar) async {
       _dailyResult = data;
       await isar.dailyResultDatas.put(_dailyResult);
     });

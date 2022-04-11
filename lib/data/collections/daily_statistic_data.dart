@@ -6,14 +6,12 @@ part 'daily_statistic_data.g.dart';
 class DailyStatisticData {
   DailyStatisticData();
 
-  factory DailyStatisticData.init(final int id) {
-    return DailyStatisticData()
-      ..id = id
-      ..winsNumber = 0
-      ..losesNumber = 0
-      ..currentStreak = 0
-      ..attempts = List.generate(6, (index) => 0);
-  }
+  factory DailyStatisticData.init(final int id) => DailyStatisticData()
+    ..id = id
+    ..winsNumber = 0
+    ..losesNumber = 0
+    ..currentStreak = 0
+    ..attempts = List.generate(6, (index) => 0);
 
   @Id()
   int? id;
@@ -27,11 +25,10 @@ class DailyStatisticData {
     int? losesNumber,
     int? currentStreak,
     List<int>? attempts,
-  }) {
-    return DailyStatisticData()
-      ..winsNumber = winsNumber ?? this.winsNumber
-      ..losesNumber = losesNumber ?? this.losesNumber
-      ..currentStreak = currentStreak ?? this.currentStreak
-      ..attempts = attempts ?? this.attempts;
-  }
+  }) =>
+      DailyStatisticData()
+        ..winsNumber = winsNumber ?? this.winsNumber
+        ..losesNumber = losesNumber ?? this.losesNumber
+        ..currentStreak = currentStreak ?? this.currentStreak
+        ..attempts = attempts ?? this.attempts;
 }

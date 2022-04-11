@@ -49,7 +49,13 @@ class MainCubit extends Cubit<MainState> {
     if (state is GridUpdateState ||
         state is WinGameState ||
         state is LoseGameState) {
-      dictionaryRepository.saveBoard();
+      bool? isWin;
+      if (state is WinGameState) {
+        isWin = true;
+      } else if (state is LoseGameState) {
+        isWin = false;
+      }
+      dictionaryRepository.saveBoard(isWin: isWin);
       emit(state);
       if (state is WinGameState || state is LoseGameState) {
         if (levelRepository.isLevelMode) {
@@ -79,13 +85,13 @@ class MainCubit extends Cubit<MainState> {
   Future<void> loadDaily() async {
     final settingsRepository = GetIt.I<SettingsRepository>();
     final boardRepository = GetIt.I<BoardRepository>();
-    final levelRepository = GetIt.I<LevelRepository>();
+    GetIt.I<LevelRepository>().levelMode = false;
 
-    levelRepository.levelMode = false;
     final dictionaryLanguage =
         settingsRepository.settingsData.dictionaryLanguage;
-    dictionaryRepository.resetData();
-    dictionaryRepository.createSecretWord();
+    dictionaryRepository
+      ..resetData()
+      ..createSecretWord();
     await boardRepository.initBoardData(
       dictionaryLanguage: dictionaryLanguage,
       levelNumber: 0,
@@ -97,15 +103,14 @@ class MainCubit extends Cubit<MainState> {
   Future<void> loadLevels() async {
     final settingsRepository = GetIt.I<SettingsRepository>();
     final boardRepository = GetIt.I<BoardRepository>();
-    final levelRepository = GetIt.I<LevelRepository>();
-
-    levelRepository.levelMode = true;
+    final levelRepository = GetIt.I<LevelRepository>()..levelMode = true;
     final dictionaryLanguage =
         settingsRepository.settingsData.dictionaryLanguage;
     await levelRepository.initLevelData(dictionaryLanguage);
     final levelNumber = levelRepository.levelData.lastLevel;
-    dictionaryRepository.resetData();
-    dictionaryRepository.createSecretWord(levelNumber);
+    dictionaryRepository
+      ..resetData()
+      ..createSecretWord(levelNumber);
     await boardRepository.initBoardData(
       dictionaryLanguage: dictionaryLanguage,
       levelNumber: levelNumber,
@@ -115,8 +120,9 @@ class MainCubit extends Cubit<MainState> {
   }
 
   void clearGameArea([int levelNumber = 0]) {
-    dictionaryRepository.resetData();
-    dictionaryRepository.createSecretWord(levelNumber);
+    dictionaryRepository
+      ..resetData()
+      ..createSecretWord(levelNumber);
     emit(MainInitial());
   }
 }

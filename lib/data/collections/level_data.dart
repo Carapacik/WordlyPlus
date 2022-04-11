@@ -6,11 +6,9 @@ part 'level_data.g.dart';
 class LevelData {
   LevelData();
 
-  factory LevelData.init(final int id) {
-    return LevelData()
-      ..id = id
-      ..lastLevel = 1;
-  }
+  factory LevelData.init(final int id) => LevelData()
+    ..id = id
+    ..lastLevel = 1;
 
   @Id()
   late int id;

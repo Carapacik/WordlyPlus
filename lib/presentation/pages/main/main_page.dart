@@ -6,6 +6,7 @@ import 'package:wordly/bloc/settings/settings_cubit.dart';
 import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/data/models/flushbar_types.dart';
 import 'package:wordly/domain/level_repository.dart';
+import 'package:wordly/presentation/pages/levels/levels_page.dart';
 import 'package:wordly/presentation/pages/main/widgets/keyboard_en.dart';
 import 'package:wordly/presentation/pages/main/widgets/keyboard_ru.dart';
 import 'package:wordly/presentation/pages/main/widgets/word_grid.dart';
@@ -60,67 +61,65 @@ class _MainPageState extends State<MainPage> {
       builder: (context, state) => BlocBuilder<SettingsCubit, SettingsState>(
         buildWhen: (previous, current) =>
             previous.dictionaryLanguage != current.dictionaryLanguage,
-        builder: (context, state) {
-          return Scaffold(
-            drawer: const CustomDrawer(),
-            appBar: CustomAppBar(
-              title: levelRepository.isLevelMode
-                  ? R.stringsOf(context).level_number(
-                        number: levelRepository.levelData.lastLevel,
-                      )
-                  : R.stringsOf(context).wordle.toUpperCase(),
-              actions: [
-                if (levelRepository.isLevelMode)
-                  const SizedBox.shrink()
-                // IconButton(
-                //   onPressed: () {
-                //     Navigator.of(context).push(
-                //       MaterialPageRoute(
-                //         builder: (context) => const LevelsPage(),
-                //       ),
-                //     );
-                //   },
-                //   icon: const Icon(Icons.apps),
-                // )
-                else
-                  IconButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const StatisticPage(),
-                        ),
-                      );
-                    },
-                    icon: const Icon(Icons.leaderboard),
-                  ),
+        builder: (context, state) => Scaffold(
+          drawer: const CustomDrawer(),
+          appBar: CustomAppBar(
+            title: levelRepository.isLevelMode
+                ? R.stringsOf(context).level_number(
+                      number: levelRepository.levelData.lastLevel,
+                    )
+                : R.stringsOf(context).wordle.toUpperCase(),
+            actions: [
+              if (levelRepository.isLevelMode)
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (context) => const LevelsPage(),
+                      ),
+                    );
+                  },
+                  tooltip: R.stringsOf(context).view_levels,
+                  icon: const Icon(Icons.apps),
+                )
+              else
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => const StatisticPage(),
+                      ),
+                    );
+                  },
+                  tooltip: R.stringsOf(context).view_statistic,
+                  icon: const Icon(Icons.leaderboard),
+                ),
+            ],
+          ),
+          body: ConstraintScreen(
+            child: Column(
+              key: UniqueKey(),
+              children: [
+                const SizedBox(height: 8),
+                const WordsGrid(),
+                const Spacer(),
+                state.dictionaryLanguage.keyboard,
+                const SizedBox(height: 12),
               ],
             ),
-            body: ConstraintScreen(
-              child: Column(
-                key: UniqueKey(),
-                children: [
-                  const SizedBox(height: 8),
-                  const WordsGrid(),
-                  const Spacer(),
-                  state.dictionaryLanguage.keyboard,
-                  const SizedBox(height: 4),
-                ],
-              ),
-            ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }
 }
 
-extension DictionaryLanguageKeyboard on DictionaryLanguages {
+extension _DictionaryLanguageKeyboard on DictionaryLanguages {
   Widget get keyboard {
     switch (this) {
       case DictionaryLanguages.ru:
         return const KeyboardRu();
       case DictionaryLanguages.en:
-      default:
         return const KeyboardEn();
     }
   }

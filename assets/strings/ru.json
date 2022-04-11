@@ -3,7 +3,6 @@
   "app_language": "Язык приложения",
   "check_my_result_lose": "У меня не получилось разгадать слово.\n${emoji}\nА у тебя получится?\n\nТы можешь скачать игру тут:\nhttps://play.google.com/store/apps/details?id=com.carapacik.wordly\n",
   "check_my_result_win": "Слово разгадано за ${attemptNumber}/6 попыток\n${emoji}\nСможешь повторить мой результат?\n\nТы можешь скачать игру тут:\nhttps://play.google.com/store/apps/details?id=com.carapacik.wordly\n",
-  "coming_soon": "Скоро",
   "contact": "Если вы не нашли слово в словаре,\nнапишите нам, мы добавим его\n в следующем обновлении.",
   "copy": "Копировать",
   "created_by": "Разработано",
@@ -34,11 +33,13 @@
   "share": "Поделиться",
   "statistic": "Статистика",
   "text_copied": "Текст скопирован в буфер обмена",
+  "view_levels": "Посмотреть уровни",
+  "view_statistic": "Посмотреть статистику",
   "visual_design": "Визуальный дизайн",
   "win_message": "Вы победили!",
   "win_rate": "Процент\nпобед",
   "word_not_found": "Слово не найдено в словаре",
   "word_too_short": "Слово неправильной длины",
   "wordle": "Словень",
-  "wordly_plus": "Словень +"
+  "wordly_plus": "Словень Плюс"
 }

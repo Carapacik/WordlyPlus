@@ -30,7 +30,7 @@ import 'package:wordly/utils/utils.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   setPathUrlStrategy();
   await checkForAndroidUpdate();
   await _initSingletons();
@@ -128,9 +128,9 @@ Future<void> _initDictionaryRepository() async {
   GetIt.I.registerSingleton<DictionaryRepository>(
     DictionaryRepositoryImpl(),
   );
-  final dictionaryRepository = GetIt.I<DictionaryRepository>();
-  dictionaryRepository.dictionaryLanguage =
-      GetIt.I<SettingsRepository>().settingsData.dictionaryLanguage;
-  dictionaryRepository.createSecretWord();
-  dictionaryRepository.loadBoard();
+  GetIt.I<DictionaryRepository>()
+    ..dictionaryLanguage =
+        GetIt.I<SettingsRepository>().settingsData.dictionaryLanguage
+    ..createSecretWord()
+    ..loadBoard();
 }

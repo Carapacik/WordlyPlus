@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:wordly/bloc/main/main_cubit.dart';
-import 'package:wordly/domain/level_repository.dart';
 import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/resources/resources.dart';
 import 'package:wordly/utils/utils.dart';
@@ -13,12 +11,10 @@ Future<void> showLevelResultDialog(
   required final String word,
   required final String secretWordMeaning,
 }) async {
-  showDialog(
+  await showDialog<void>(
     context: context,
     builder: (context) {
       final mainCubit = BlocProvider.of<MainCubit>(context);
-      final levelRepository = GetIt.I<LevelRepository>();
-
       return AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         insetPadding: const EdgeInsets.all(24),
@@ -35,9 +31,10 @@ Future<void> showLevelResultDialog(
           mainAxisSize: MainAxisSize.min,
           children: [
             CustomButton(
+              width: 90,
               text: R.stringsOf(context).proceed,
               onTap: () {
-                mainCubit.clearGameArea(levelRepository.levelData.lastLevel);
+                mainCubit.loadLevels();
                 Navigator.of(context).pop();
               },
             ),

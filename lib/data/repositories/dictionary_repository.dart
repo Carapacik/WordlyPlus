@@ -36,5 +36,5 @@ abstract class DictionaryRepository {
 
   void loadBoard();
 
-  void saveBoard();
+  void saveBoard({bool? isWin});
 }

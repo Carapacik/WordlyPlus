@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wordly/resources/colors.dart';
 
-enum LetterStatus {
-  unknown,
-  notInWords,
-  wrongSpot,
-  correctSpot,
-}
+enum LetterStatus { unknown, notInWords, wrongSpot, correctSpot }
 
 extension LetterStatusExtension on LetterStatus {
   Color color(final BuildContext context, {final bool highContrast = false}) {

@@ -5,11 +5,10 @@ Future<void> showTopFlushBar(
   final BuildContext context, {
   required final String message,
 }) async {
-  Flushbar(
+  await Flushbar<void>(
     message: message,
     maxWidth: 300,
     duration: const Duration(milliseconds: 1200),
-    flushbarStyle: FlushbarStyle.FLOATING,
     flushbarPosition: FlushbarPosition.TOP,
     backgroundColor: Theme.of(context).primaryColorDark,
     messageColor: Theme.of(context).primaryColorLight,

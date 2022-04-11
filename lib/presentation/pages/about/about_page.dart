@@ -28,67 +28,65 @@ class AboutPage extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        title: R.stringsOf(context).about,
-      ),
-      body: ConstraintScreen(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          child: Column(
-            children: [
-              _CreditCategory(
-                title: R.stringsOf(context).created_by,
-                peoples: rofl,
-              ),
-              _CreditCategory(
-                title: R.stringsOf(context).game_design,
-                peoples: gameDesign,
-              ),
-              _CreditCategory(
-                title: R.stringsOf(context).visual_design,
-                peoples: visualDesign,
-              ),
-              _CreditCategory(
-                title: R.stringsOf(context).dictionary,
-                peoples: dictionary,
-              ),
-              _CreditCategory(
-                title: R.stringsOf(context).scenario,
-                peoples: rofl,
-              ),
-              const Spacer(),
-              Text(
-                R.stringsOf(context).contact,
-                style: AppTypography.m16,
-                textAlign: TextAlign.center,
-              ),
-              Link(
-                uri: Uri.parse(
-                  'mailto:carapacik@gmail.com?'
-                  '${R.stringsOf(context).message_new_word}',
+  Widget build(BuildContext context) => Scaffold(
+        appBar: CustomAppBar(
+          title: R.stringsOf(context).about,
+        ),
+        body: ConstraintScreen(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            child: Column(
+              children: [
+                _CreditCategory(
+                  title: R.stringsOf(context).created_by,
+                  peoples: rofl,
                 ),
-                builder: (context, followLink) => MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: followLink,
-                    behavior: HitTestBehavior.opaque,
-                    child: Text(
-                      'carapacik@gmail.com',
-                      style: AppTypography.m18
-                          .copyWith(decoration: TextDecoration.underline),
+                _CreditCategory(
+                  title: R.stringsOf(context).game_design,
+                  peoples: gameDesign,
+                ),
+                _CreditCategory(
+                  title: R.stringsOf(context).visual_design,
+                  peoples: visualDesign,
+                ),
+                _CreditCategory(
+                  title: R.stringsOf(context).dictionary,
+                  peoples: dictionary,
+                ),
+                _CreditCategory(
+                  title: R.stringsOf(context).scenario,
+                  peoples: rofl,
+                ),
+                const Spacer(),
+                Text(
+                  R.stringsOf(context).contact,
+                  style: AppTypography.m16,
+                  textAlign: TextAlign.center,
+                ),
+                Link(
+                  uri: Uri.parse(
+                    'mailto:carapacik@gmail.com?'
+                    '${R.stringsOf(context).message_new_word}',
+                  ),
+                  builder: (context, followLink) => MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: followLink,
+                      behavior: HitTestBehavior.opaque,
+                      child: SelectableText(
+                        'carapacik@gmail.com',
+                        style: AppTypography.m18
+                            .copyWith(decoration: TextDecoration.underline),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const Spacer(),
-            ],
+                const Spacer(),
+              ],
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }
 
 class _CreditCategory extends StatelessWidget {
@@ -102,31 +100,29 @@ class _CreditCategory extends StatelessWidget {
   final List<CreditPeople> peoples;
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          title,
-          style: AppTypography.b25,
-        ),
-        const SizedBox(height: 8),
-        ListView.separated(
-          shrinkWrap: true,
-          primary: false,
-          itemBuilder: (context, index) => Center(
-            child: _CreditNameText(
-              text: peoples[index].name,
-              url: peoples[index].url,
-            ),
+  Widget build(BuildContext context) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            title,
+            style: AppTypography.b25,
           ),
-          separatorBuilder: (_, __) => const SizedBox(height: 4),
-          itemCount: peoples.length,
-        ),
-        const SizedBox(height: 8),
-      ],
-    );
-  }
+          const SizedBox(height: 8),
+          ListView.separated(
+            shrinkWrap: true,
+            primary: false,
+            itemBuilder: (context, index) => Center(
+              child: _CreditNameText(
+                text: peoples[index].name,
+                url: peoples[index].url,
+              ),
+            ),
+            separatorBuilder: (_, __) => const SizedBox(height: 4),
+            itemCount: peoples.length,
+          ),
+          const SizedBox(height: 8),
+        ],
+      );
 }
 
 class _CreditNameText extends StatelessWidget {
@@ -140,21 +136,19 @@ class _CreditNameText extends StatelessWidget {
   final String url;
 
   @override
-  Widget build(BuildContext context) {
-    return Link(
-      uri: Uri.parse(url),
-      builder: (context, followLink) => MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: followLink,
-          behavior: HitTestBehavior.opaque,
-          child: Text(
-            text,
-            style: AppTypography.m18
-                .copyWith(decoration: TextDecoration.underline),
+  Widget build(BuildContext context) => Link(
+        uri: Uri.parse(url),
+        builder: (context, followLink) => MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: followLink,
+            behavior: HitTestBehavior.opaque,
+            child: Text(
+              text,
+              style: AppTypography.m18
+                  .copyWith(decoration: TextDecoration.underline),
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }

@@ -31,7 +31,7 @@ class KeyboardKey extends StatelessWidget {
           return true;
         }
         if (currentState is KeyboardKeyUpdateState) {
-          final KeyboardKeyUpdateState state = currentState;
+          final state = currentState;
           if (state.keyboardKey == keyboardKey) {
             return true;
           }

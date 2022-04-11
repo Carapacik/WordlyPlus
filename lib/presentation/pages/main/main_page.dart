@@ -6,6 +6,7 @@ import 'package:wordly/bloc/settings/settings_cubit.dart';
 import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/data/models/flushbar_types.dart';
 import 'package:wordly/domain/level_repository.dart';
+import 'package:wordly/presentation/pages/levels/levels_page.dart';
 import 'package:wordly/presentation/pages/main/widgets/keyboard_en.dart';
 import 'package:wordly/presentation/pages/main/widgets/keyboard_ru.dart';
 import 'package:wordly/presentation/pages/main/widgets/word_grid.dart';
@@ -70,17 +71,17 @@ class _MainPageState extends State<MainPage> {
                 : R.stringsOf(context).wordle.toUpperCase(),
             actions: [
               if (levelRepository.isLevelMode)
-                const SizedBox.shrink()
-              // IconButton(
-              //   onPressed: () {
-              //     Navigator.of(context).push(
-              //       MaterialPageRoute(
-              //         builder: (context) => const LevelsPage(),
-              //       ),
-              //     );
-              //   },
-              //   icon: const Icon(Icons.apps),
-              // )
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const LevelsPage(),
+                      ),
+                    );
+                  },
+                  tooltip: R.stringsOf(context).view_levels,
+                  icon: const Icon(Icons.apps),
+                )
               else
                 IconButton(
                   onPressed: () {
@@ -90,6 +91,7 @@ class _MainPageState extends State<MainPage> {
                       ),
                     );
                   },
+                  tooltip: R.stringsOf(context).view_statistic,
                   icon: const Icon(Icons.leaderboard),
                 ),
             ],

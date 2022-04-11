@@ -20,7 +20,8 @@ class BoardData extends Equatable {
         ..language = language
         ..lettersState = ['']
         ..keyboardLetters = []
-        ..keyboardLetterStatuses = [];
+        ..keyboardLetterStatuses = []
+        ..isWin = null;
 
   @Id()
   int? id;
@@ -34,6 +35,7 @@ class BoardData extends Equatable {
   late List<String> lettersState;
   late List<String> keyboardLetters;
   late List<int> keyboardLetterStatuses;
+  bool? isWin;
 
   // final keyboardState = IsarLinks<LetterEntering>();
 

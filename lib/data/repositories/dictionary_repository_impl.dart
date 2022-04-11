@@ -303,7 +303,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   }
 
   @override
-  void saveBoard() {
+  void saveBoard({final bool? isWin}) {
     final levelRepository = GetIt.I<LevelRepository>();
     final boardData = BoardData()
       ..language = _dictionaryLanguage
@@ -313,7 +313,8 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
       ..isComplete = _completeGame
       ..keyboardLetters = BoardData.toListString(_keyboardState)
       ..keyboardLetterStatuses = BoardData.toListLetterStatus(_keyboardState)
-      ..lettersState = _gridData;
+      ..lettersState = _gridData
+      ..isWin = isWin;
     GetIt.I<BoardRepository>().saveBoardData(boardData);
   }
 

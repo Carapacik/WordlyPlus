@@ -73,7 +73,7 @@ class AboutPage extends StatelessWidget {
                     child: GestureDetector(
                       onTap: followLink,
                       behavior: HitTestBehavior.opaque,
-                      child: Text(
+                      child: SelectableText(
                         'carapacik@gmail.com',
                         style: AppTypography.m18
                             .copyWith(decoration: TextDecoration.underline),

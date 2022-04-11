@@ -10,7 +10,6 @@ extension DictionaryLanguagesExt on DictionaryLanguages {
       case DictionaryLanguages.ru:
         return 2 / 3.5;
       case DictionaryLanguages.en:
-      default:
         return 2 / 2.8;
     }
   }
@@ -20,7 +19,6 @@ extension DictionaryLanguagesExt on DictionaryLanguages {
       case DictionaryLanguages.ru:
         return dictionaryRu;
       case DictionaryLanguages.en:
-      default:
         return dictionaryEn;
     }
   }

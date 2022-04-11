@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum AppTheme {
-  lightTheme,
-  darkTheme,
-}
+enum AppTheme { lightTheme, darkTheme }
 
 extension AppThemeExt on AppTheme {
   ThemeData get theme {

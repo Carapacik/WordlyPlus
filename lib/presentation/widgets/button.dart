@@ -14,18 +14,16 @@ class CustomButton extends StatelessWidget {
   final double? width;
 
   @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(primary: AppColors.grey),
-      onPressed: onTap,
-      child: Container(
-        alignment: Alignment.center,
-        width: width,
-        child: Text(
-          text,
-          style: AppTypography.r14.copyWith(color: Colors.white),
+  Widget build(BuildContext context) => ElevatedButton(
+        style: ElevatedButton.styleFrom(primary: AppColors.grey),
+        onPressed: onTap,
+        child: Container(
+          alignment: Alignment.center,
+          width: width,
+          child: Text(
+            text,
+            style: AppTypography.r14.copyWith(color: Colors.white),
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

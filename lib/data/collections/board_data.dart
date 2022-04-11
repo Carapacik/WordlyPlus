@@ -37,8 +37,6 @@ class BoardData extends Equatable {
   late List<int> keyboardLetterStatuses;
   bool? isWin;
 
-  // final keyboardState = IsarLinks<LetterEntering>();
-
   static List<String> toListString(Map<String, LetterStatus> map) =>
       map.entries.map((element) => element.key).toList();
 

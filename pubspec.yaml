@@ -31,12 +31,14 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.1.8
+  carapacik_lints:
+    git:
+      url: https://github.com/Carapacik/carapacik_lints.git
 #  flutter_launcher_icons_maker: ^0.10.2
 #  flutter_native_splash: ^2.1.5
   flutter_test:
     sdk: flutter
   isar_generator: 2.2.1
-  lint: ^1.8.2
 
 flutter:
   uses-material-design: true

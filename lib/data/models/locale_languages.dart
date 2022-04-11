@@ -10,7 +10,6 @@ extension LocaleLanguagesExt on LocaleLanguages {
       case LocaleLanguages.ru:
         return const Locale('ru');
       case LocaleLanguages.en:
-      default:
         return const Locale('en');
     }
   }

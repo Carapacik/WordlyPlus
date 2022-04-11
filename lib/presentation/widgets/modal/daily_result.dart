@@ -60,7 +60,7 @@ Future<void> showDailyResultDialog(
                       const SizedBox(height: 4),
                       CountdownTimer(
                         controller: countDownController,
-                        widgetBuilder: (_, CurrentRemainingTime? time) {
+                        widgetBuilder: (_, time) {
                           if (time == null) {
                             return Container();
                           }

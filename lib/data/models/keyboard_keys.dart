@@ -52,8 +52,6 @@ extension KeyboardKeyExtension on KeyboardKeys {
           return parentWidth * _defaultWidthRu / 2 * 3.5;
         case DictionaryLanguages.en:
           return parentWidth * _defaultWidthEn / 2 * 2.8;
-        default:
-          return 0;
       }
     }
     if (this == KeyboardKeys.enter) {
@@ -62,8 +60,6 @@ extension KeyboardKeyExtension on KeyboardKeys {
           return parentWidth * _defaultWidthRu / 2 * 3.5;
         case DictionaryLanguages.en:
           return parentWidth * _defaultWidthEn / 2 * 2.8;
-        default:
-          return 0;
       }
     }
     switch (language) {
@@ -71,8 +67,6 @@ extension KeyboardKeyExtension on KeyboardKeys {
         return parentWidth * _defaultWidthRu;
       case DictionaryLanguages.en:
         return parentWidth * _defaultWidthEn;
-      default:
-        return 0;
     }
   }
 
@@ -146,9 +140,10 @@ extension KeyboardKeyExtension on KeyboardKeys {
             return 'б';
           case KeyboardKeys.c2:
             return 'ю';
-          default:
-            return null;
+          case KeyboardKeys.delete:
+            break;
         }
+        break;
       case DictionaryLanguages.en:
         switch (this) {
           case KeyboardKeys.q:
@@ -205,11 +200,16 @@ extension KeyboardKeyExtension on KeyboardKeys {
             return 'n';
           case KeyboardKeys.m:
             return 'm';
-          default:
-            return null;
+          case KeyboardKeys.a1:
+          case KeyboardKeys.a2:
+          case KeyboardKeys.b1:
+          case KeyboardKeys.b2:
+          case KeyboardKeys.c1:
+          case KeyboardKeys.c2:
+          case KeyboardKeys.delete:
+            break;
         }
-      default:
-        return null;
     }
+    return null;
   }
 }

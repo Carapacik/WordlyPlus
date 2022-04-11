@@ -75,7 +75,9 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   }
 
   void _checkWord() {
-    if (_secretWord == null) return;
+    if (_secretWord == null) {
+      return;
+    }
     final word = _gridData[_currentWordIndex];
     word.split('').asMap().map((key, value) {
       var currentStatus = LetterStatus.unknown;

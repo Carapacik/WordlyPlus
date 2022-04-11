@@ -74,7 +74,7 @@ class _MainPageState extends State<MainPage> {
                 IconButton(
                   onPressed: () {
                     Navigator.of(context).push(
-                      MaterialPageRoute(
+                      MaterialPageRoute<void>(
                         builder: (context) => const LevelsPage(),
                       ),
                     );
@@ -87,7 +87,7 @@ class _MainPageState extends State<MainPage> {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute<void>(
-                        builder: (context) => const StatisticPage(),
+                        builder: (_) => const StatisticPage(),
                       ),
                     );
                   },
@@ -114,13 +114,12 @@ class _MainPageState extends State<MainPage> {
   }
 }
 
-extension DictionaryLanguageKeyboard on DictionaryLanguages {
+extension _DictionaryLanguageKeyboard on DictionaryLanguages {
   Widget get keyboard {
     switch (this) {
       case DictionaryLanguages.ru:
         return const KeyboardRu();
       case DictionaryLanguages.en:
-      default:
         return const KeyboardEn();
     }
   }

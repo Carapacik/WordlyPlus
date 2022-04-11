@@ -38,7 +38,7 @@ class BoardRepositoryImpl implements BoardRepository {
               language: dictionaryLanguage,
               levelNumber: levelNumber,
             );
-      } catch (e) {
+      } on Exception {
         finalData = BoardData.init(
           language: dictionaryLanguage,
           levelNumber: levelNumber,

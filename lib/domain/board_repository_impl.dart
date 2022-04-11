@@ -64,7 +64,8 @@ class BoardRepositoryImpl implements BoardRepository {
     final data = await _isar.boardDatas
         .filter()
         .languageEqualTo(language)
-        .sortById()
+        .and()
+        .levelNumberGreaterThan(0)
         .findAll();
     return data;
   }

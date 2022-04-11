@@ -6,6 +6,7 @@ import 'package:wordly/domain/daily_statistic_repository.dart';
 
 class DailyStatisticRepositoryImpl implements DailyStatisticRepository {
   late DailyStatisticData _statisticData;
+  final _isar = GetIt.I<Isar>();
 
   @override
   DailyStatisticData get statisticData => _statisticData;
@@ -15,7 +16,7 @@ class DailyStatisticRepositoryImpl implements DailyStatisticRepository {
     final DictionaryLanguages dictionaryLanguage,
   ) async {
     final result =
-        await GetIt.I<Isar>().dailyStatisticDatas.get(dictionaryLanguage.index);
+        await _isar.dailyStatisticDatas.get(dictionaryLanguage.index);
     _statisticData =
         result ?? DailyStatisticData.init(dictionaryLanguage.index);
   }
@@ -42,7 +43,7 @@ class DailyStatisticRepositoryImpl implements DailyStatisticRepository {
         attempts: attempts,
       );
     }
-    await GetIt.I<Isar>().writeTxn((isar) async {
+    await _isar.writeTxn((isar) async {
       await isar.dailyStatisticDatas.put(_statisticData);
     });
   }

@@ -104,7 +104,7 @@ class _MainPageState extends State<MainPage> {
                 const WordsGrid(),
                 const Spacer(),
                 state.dictionaryLanguage.keyboard,
-                const SizedBox(height: 4),
+                const SizedBox(height: 12),
               ],
             ),
           ),

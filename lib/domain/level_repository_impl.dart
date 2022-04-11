@@ -7,6 +7,7 @@ import 'package:wordly/domain/level_repository.dart';
 class LevelRepositoryImpl implements LevelRepository {
   late LevelData _levelData;
   bool _isLevelMode = false;
+  final _isar = GetIt.I<Isar>();
 
   @override
   bool get isLevelMode => _isLevelMode;
@@ -20,7 +21,7 @@ class LevelRepositoryImpl implements LevelRepository {
 
   @override
   Future<void> initLevelData(DictionaryLanguages language) async {
-    final result = await GetIt.I<Isar>().levelDatas.get(language.index);
+    final result = await _isar.levelDatas.get(language.index);
     _levelData = result ?? LevelData.init(language.index);
   }
 
@@ -30,7 +31,7 @@ class LevelRepositoryImpl implements LevelRepository {
       ..id = _levelData.id
       ..lastLevel = _levelData.lastLevel + 1;
 
-    await GetIt.I<Isar>().writeTxn((isar) async {
+    await _isar.writeTxn((isar) async {
       _levelData = data;
       await isar.levelDatas.put(_levelData);
     });

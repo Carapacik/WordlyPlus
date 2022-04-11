@@ -303,7 +303,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
   }
 
   @override
-  void saveBoard({final bool? isWin}) {
+  void saveBoard({bool? isWin}) {
     final levelRepository = GetIt.I<LevelRepository>();
     final boardData = BoardData()
       ..language = _dictionaryLanguage

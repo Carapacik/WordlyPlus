@@ -49,10 +49,13 @@ class MainCubit extends Cubit<MainState> {
     if (state is GridUpdateState ||
         state is WinGameState ||
         state is LoseGameState) {
-      dictionaryRepository.saveBoard(
-        isWin: (state is WinGameState || state is LoseGameState) &&
-            state is WinGameState,
-      );
+      bool? isWin;
+      if (state is WinGameState) {
+        isWin = true;
+      } else if (state is LoseGameState) {
+        isWin = false;
+      }
+      dictionaryRepository.saveBoard(isWin: isWin);
       emit(state);
       if (state is WinGameState || state is LoseGameState) {
         if (levelRepository.isLevelMode) {

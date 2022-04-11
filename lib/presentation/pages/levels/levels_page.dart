@@ -27,18 +27,25 @@ class LevelsPage extends StatelessWidget {
               final data = snapshot.requireData;
               return GridView.builder(
                 padding: const EdgeInsets.all(12),
-                itemCount: data.length,
+                itemCount: data.length + 1,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
                 ),
-                itemBuilder: (BuildContext context, int index) => _GridItem(
-                  index: data[index].levelNumber,
-                  word: data[index].secretWord,
-                  isComplete: data[index].isComplete,
-                  isWin: true,
-                ),
+                itemBuilder: (context, index) {
+                  final levelNumber = index == data.length
+                      ? data.isNotEmpty
+                          ? data[data.length - 1].levelNumber + 1
+                          : 1
+                      : data[index].levelNumber;
+                  return _GridItem(
+                    index: levelNumber,
+                    word: index == data.length ? '?' : data[index].secretWord,
+                    isComplete: index != data.length && data[index].isComplete,
+                    isWin: index == data.length ? null : data[index].isWin,
+                  );
+                },
               );
             },
           ),
@@ -56,7 +63,7 @@ class _GridItem extends StatelessWidget {
   }) : super(key: key);
 
   final String word;
-  final bool isWin;
+  final bool? isWin;
   final bool isComplete;
   final int index;
 
@@ -67,10 +74,14 @@ class _GridItem extends StatelessWidget {
           alignment: Alignment.center,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: isWin ? AppColors.green : AppColors.red,
+            color: isWin == null
+                ? AppColors.grey
+                : isWin!
+                    ? AppColors.green
+                    : AppColors.red,
           ),
           child: Text(
-            isComplete ? '$index\n$word' : '?',
+            isComplete ? '$index\n$word' : '$index\n?',
             textAlign: TextAlign.center,
             style: AppTypography.b30.copyWith(
               color: Colors.white,

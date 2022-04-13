@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/link.dart';
 import 'package:wordly/presentation/pages/about/models/credit_people.dart';
 import 'package:wordly/presentation/widgets/widgets.dart';
@@ -7,6 +9,8 @@ import 'package:wordly/utils/utils.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({Key? key}) : super(key: key);
+
+  static const kEmail = 'carapacik@gmail.com';
 
   static const rofl = [
     CreditPeople('Carapacik', 'https://github.com/Carapacik')
@@ -58,25 +62,37 @@ class AboutPage extends StatelessWidget {
                   peoples: rofl,
                 ),
                 const Spacer(),
-                Text(
-                  R.stringsOf(context).contact,
-                  style: AppTypography.m16,
-                  textAlign: TextAlign.center,
-                ),
                 Link(
                   uri: Uri.parse(
-                    'mailto:carapacik@gmail.com?'
+                    'mailto:$kEmail?'
                     '${R.stringsOf(context).message_new_word}',
                   ),
                   builder: (context, followLink) => MouseRegion(
                     cursor: SystemMouseCursors.click,
                     child: GestureDetector(
-                      onTap: followLink,
-                      behavior: HitTestBehavior.opaque,
-                      child: SelectableText(
-                        'carapacik@gmail.com',
-                        style: AppTypography.m18
-                            .copyWith(decoration: TextDecoration.underline),
+                      onTap: kIsWeb
+                          ? () => Clipboard.setData(
+                                const ClipboardData(text: kEmail),
+                              )
+                          : followLink,
+                      child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: R.stringsOf(context).contact,
+                              style: AppTypography.m16,
+                            ),
+                            WidgetSpan(
+                              child: SelectableText(
+                                kEmail,
+                                style: AppTypography.m18.copyWith(
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

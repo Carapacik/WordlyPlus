@@ -11,7 +11,7 @@ const RESOURCES = {
 "assets/google_fonts/Ubuntu-Bold.ttf": "896a60219f6157eab096825a0c9348a8",
 "assets/google_fonts/Ubuntu-Medium.ttf": "d3c3b35e6d478ed149f02fad880dd359",
 "assets/google_fonts/Ubuntu-Regular.ttf": "84ea7c5c9d2fa40c070ccb901046117d",
-"assets/NOTICES": "7f8b256e9fb7acaad6db68fce78c081a",
+"assets/NOTICES": "a0431aa51494d5cd858fcf8dc9df01fc",
 "canvaskit/canvaskit.js": "c2b4e5f3d7a3d82aed024e7249a78487",
 "canvaskit/canvaskit.wasm": "4b83d89d9fecbea8ca46f2f760c5a9ba",
 "canvaskit/profiling/canvaskit.js": "ae2949af4efc61d28a4a80fffa1db900",
@@ -21,9 +21,9 @@ const RESOURCES = {
 "icons/Icon-512.png": "3bb245a09871c480d7f8580936a54c76",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-"index.html": "1d580f423d6f40a18cfd9aa653a79fba",
-"/": "1d580f423d6f40a18cfd9aa653a79fba",
-"main.dart.js": "a5c9b7392685e1dea152395f20fd172f",
+"index.html": "fa1b6102333cc300d70fff81403d2563",
+"/": "fa1b6102333cc300d70fff81403d2563",
+"main.dart.js": "84930279676a1c131db3a080b3867eb0",
 "manifest.json": "5277e8c038f920ca205ce24f1d721fcd",
 "splash/img/dark-1x.png": "1672ad39c3ec3727a510214269ce43f6",
 "splash/img/dark-2x.png": "61026351beb4108880e01687ee385a2a",
@@ -33,9 +33,9 @@ const RESOURCES = {
 "splash/img/light-2x.png": "383c82be40333b6e9c3d9bc325011fb8",
 "splash/img/light-3x.png": "ee1f43f24329e01c53430930b5b2d749",
 "splash/img/light-4x.png": "10603dc1647c1a6baf3f6895a075360d",
-"splash/splash.js": "c6a271349a0cd249bdb6d3c4d12f5dcf",
-"splash/style.css": "09c16af962d51a27be3ff5365bbcc1d0",
-"version.json": "1978bf8fbf96bb6c87cf070c26112508"
+"splash/splash.js": "f6ee10f0a11f96089a97623ece9a1367",
+"splash/style.css": "61ce1a6d9f05e9814e95ee609d3aa20d",
+"version.json": "051efd23b684e4440737e3ca6da565d2"
 };
 
 // The application shell files that are downloaded before a service worker can

@@ -1,14 +1,14 @@
 name: wordly
 description: Guess the WORD in six tries
-publish_to: none
-version: 1.0.7+8
+publish_to: 'none'
+version: 1.0.0+1
 environment:
-  sdk: '>=2.16.0 <3.0.0'
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   another_flushbar: ^1.10.28
   bloc: ^8.0.3
-  collection: ^1.15.0
+  collection: ^1.16.0
   equatable: ^2.0.3
   flutter:
     sdk: flutter
@@ -18,27 +18,25 @@ dependencies:
     sdk: flutter
   flutter_svg: ^1.0.3
   get_it: ^7.2.0
-  google_fonts: ^2.3.1
+  google_fonts: ^2.3.2
   in_app_review: ^2.0.4
   in_app_update: ^3.0.0
-  isar: ^2.2.1
-  isar_flutter_libs: 2.2.1
-  path_provider: ^2.0.9
+  isar: ^2.5.0
+  isar_flutter_libs: ^2.5.0
+  path_provider: ^2.0.10
   r_resources: ^1.0.1
   share_plus: ^4.0.4
-  url_launcher: ^6.0.20
+  url_launcher: ^6.1.2
   url_strategy: ^0.2.0
 
 dev_dependencies:
-  build_runner: ^2.1.8
+  build_runner: ^2.1.10
   carapacik_lints:
     git:
       url: https://github.com/Carapacik/carapacik_lints.git
-#  flutter_launcher_icons_maker: ^0.10.2
-#  flutter_native_splash: ^2.1.5
-  flutter_test:
-    sdk: flutter
-  isar_generator: 2.2.1
+  flutter_native_splash: ^2.2.0+1
+  icons_launcher: ^1.1.8
+  isar_generator: ^2.5.0
 
 flutter:
   uses-material-design: true
@@ -47,19 +45,28 @@ flutter:
     - assets/svg/
     - google_fonts/
 
-#flutter_icons:
-#  android: true
-#  ios: true
-#  web: true
-#  windows: true
-#  image_path: assets/images/icon.png
+flutter_icons:
+  image_path: 'assets/ic_logo.png'
+  adaptive_icon_background: 'assets/ic_background.png'
+  adaptive_icon_foreground: 'assets/ic_foreground.png'
+  remove_alpha_ios: false
+  remove_alpha_macos: false
+  android: true
+  ios: true
+  linux: true
+  macos: true
+  web: true
+  windows: true
 
-#flutter_native_splash:
-#  color: '#F4F7FB'
-#  image: assets/images/splash_light.png
-#  color_dark: '#1E1F30'
-#  image_dark: assets/images/splash_dark.png
-#  android: true
-#  ios: true
-#  web: true
-#  fullscreen: true
+flutter_native_splash:
+  color: '#F4F7FB'
+  image: assets/splash_light.png
+  color_dark: '#1E1F30'
+  image_dark: assets/splash_dark.png
+  android: true
+  ios: true
+  linux: true
+  macos: true
+  web: true
+  windows: true
+  fullscreen: true

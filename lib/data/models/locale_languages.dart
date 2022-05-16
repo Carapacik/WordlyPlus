@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:isar/isar.dart';
 
 enum LocaleLanguages {
@@ -9,7 +11,23 @@ enum LocaleLanguages {
   const LocaleLanguages._(this.locale);
 
   final Locale locale;
-  static const List<LocaleLanguages> _values = [ru, en];
+
+  static LocaleLanguages getSystemLocaleLanguage() {
+    if (kIsWeb) {
+      return LocaleLanguages.en;
+    }
+    return _toLocaleLanguages(Locale(Platform.localeName));
+  }
+
+  static LocaleLanguages _toLocaleLanguages(Locale locale) {
+    if (locale.languageCode.contains('ru')) {
+      return LocaleLanguages.ru;
+    } else if (locale.languageCode.contains('en')) {
+      return LocaleLanguages.en;
+    } else {
+      return LocaleLanguages.en;
+    }
+  }
 }
 
 extension StringExt on String {

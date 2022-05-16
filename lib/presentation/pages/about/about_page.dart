@@ -10,7 +10,7 @@ import 'package:wordly/utils/utils.dart';
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 
-  static const kEmail = 'carapacik@gmail.com';
+  static const email = 'carapacik@gmail.com';
 
   static const rofl = [
     CreditPeople('Carapacik', 'https://github.com/Carapacik')
@@ -64,7 +64,7 @@ class AboutPage extends StatelessWidget {
                 const Spacer(),
                 Link(
                   uri: Uri.parse(
-                    'mailto:$kEmail?'
+                    'mailto:$email?'
                     '${R.stringsOf(context).message_new_word}',
                   ),
                   builder: (context, followLink) => MouseRegion(
@@ -72,7 +72,7 @@ class AboutPage extends StatelessWidget {
                     child: GestureDetector(
                       onTap: kIsWeb
                           ? () => Clipboard.setData(
-                                const ClipboardData(text: kEmail),
+                                const ClipboardData(text: email),
                               )
                           : followLink,
                       child: RichText(
@@ -81,11 +81,12 @@ class AboutPage extends StatelessWidget {
                           children: [
                             TextSpan(
                               text: R.stringsOf(context).contact,
-                              style: AppTypography.m16,
+                              style: AppTypography.m16.copyWith(
+                                  color: Theme.of(context).primaryColor),
                             ),
                             WidgetSpan(
                               child: SelectableText(
-                                kEmail,
+                                email,
                                 style: AppTypography.m18.copyWith(
                                   decoration: TextDecoration.underline,
                                 ),

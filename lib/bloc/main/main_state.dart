@@ -31,7 +31,7 @@ class TopMessageState extends MainState {
   TopMessageState(this.type);
 
   final id = DateTime.now().microsecondsSinceEpoch;
-  final FlushBarTypes type;
+  final SnackbarType type;
 
   @override
   List<Object?> get props => [id, type];

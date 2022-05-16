@@ -65,9 +65,9 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
           _checkWord();
           return GridUpdateState();
         }
-        return TopMessageState(FlushBarTypes.notFound);
+        return TopMessageState(SnackbarType.notFound);
       }
-      return TopMessageState(FlushBarTypes.notCorrectLength);
+      return TopMessageState(SnackbarType.notCorrectLength);
     }
     return null;
   }

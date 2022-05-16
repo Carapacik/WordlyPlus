@@ -37,14 +37,14 @@ class _MainPageState extends State<MainPage> {
       listener: (context, state) async {
         if (state is TopMessageState) {
           switch (state.type) {
-            case FlushBarTypes.notFound:
-              await showTopFlushBar(
+            case SnackbarType.notFound:
+              await showSnackBar(
                 context,
                 message: R.stringsOf(context).word_not_found,
               );
               break;
-            case FlushBarTypes.notCorrectLength:
-              await showTopFlushBar(
+            case SnackbarType.notCorrectLength:
+              await showSnackBar(
                 context,
                 message: R.stringsOf(context).word_too_short,
               );
@@ -98,13 +98,12 @@ class _MainPageState extends State<MainPage> {
           ),
           body: ConstraintScreen(
             child: Column(
-              key: UniqueKey(),
               children: [
                 const SizedBox(height: 8),
                 const WordsGrid(),
                 const Spacer(),
                 state.dictionaryLanguage.keyboard,
-                const SizedBox(height: 12),
+                const SizedBox(height: 20),
               ],
             ),
           ),

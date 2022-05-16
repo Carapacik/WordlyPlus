@@ -1,3 +1,7 @@
+import 'dart:io';
+import 'dart:ui';
+
+import 'package:flutter/foundation.dart';
 import 'package:isar/isar.dart';
 import 'package:wordly/resources/dictionary_en.dart';
 import 'package:wordly/resources/dictionary_ru.dart';
@@ -10,6 +14,23 @@ enum DictionaryLanguages {
 
   final double aspectRatio;
   final Map<String, String> currentDictionary;
+
+  static DictionaryLanguages getSystemDictionaryLanguage() {
+    if (kIsWeb) {
+      return DictionaryLanguages.en;
+    }
+    return _toDictionaryLanguage(Locale(Platform.localeName));
+  }
+
+  static DictionaryLanguages _toDictionaryLanguage(Locale locale) {
+    if (locale.languageCode.contains('ru')) {
+      return DictionaryLanguages.ru;
+    } else if (locale.languageCode.contains('en')) {
+      return DictionaryLanguages.en;
+    } else {
+      return DictionaryLanguages.en;
+    }
+  }
 }
 
 extension StringExt on String {

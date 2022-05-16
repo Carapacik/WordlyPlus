@@ -1,16 +1,31 @@
+import 'dart:io';
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:isar/isar.dart';
 
-enum LocaleLanguages { ru, en }
+enum LocaleLanguages {
+  ru._(Locale('ru')),
+  en._(Locale('en'));
 
-extension LocaleLanguagesExt on LocaleLanguages {
-  Locale get locale {
-    switch (this) {
-      case LocaleLanguages.ru:
-        return const Locale('ru');
-      case LocaleLanguages.en:
-        return const Locale('en');
+  const LocaleLanguages._(this.locale);
+
+  final Locale locale;
+
+  static LocaleLanguages getSystemLocaleLanguage() {
+    if (kIsWeb) {
+      return LocaleLanguages.en;
+    }
+    return _toLocaleLanguages(Locale(Platform.localeName));
+  }
+
+  static LocaleLanguages _toLocaleLanguages(Locale locale) {
+    if (locale.languageCode.contains('ru')) {
+      return LocaleLanguages.ru;
+    } else if (locale.languageCode.contains('en')) {
+      return LocaleLanguages.en;
+    } else {
+      return LocaleLanguages.en;
     }
   }
 }

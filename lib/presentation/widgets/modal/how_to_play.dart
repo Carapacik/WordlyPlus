@@ -50,8 +50,7 @@ class _RuleItem extends StatelessWidget {
   const _RuleItem({
     required this.text,
     required this.color,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final String text;
   final Color color;

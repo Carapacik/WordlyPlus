@@ -3,7 +3,7 @@ import 'package:wordly/data/models/keyboard_keys.dart';
 import 'package:wordly/presentation/pages/main/widgets/keyboard_key.dart';
 
 class KeyboardEn extends StatelessWidget {
-  const KeyboardEn({Key? key}) : super(key: key);
+  const KeyboardEn({super.key});
 
   @override
   Widget build(BuildContext context) => Column(

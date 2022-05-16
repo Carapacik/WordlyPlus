@@ -28,7 +28,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
 
   @override
   String get secretWordMeaning =>
-      _dictionaryLanguage.getCurrentDictionary()[_secretWord] ?? '';
+      _dictionaryLanguage.currentDictionary[_secretWord] ?? '';
 
   @override
   int get currentAttempt => _currentWordIndex;
@@ -54,22 +54,20 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
           return WinGameState();
         }
         if (_currentWordIndex == 5 &&
-            _dictionaryLanguage
-                .getCurrentDictionary()
+            _dictionaryLanguage.currentDictionary
                 .containsKey(_gridData[_currentWordIndex])) {
           _checkWord();
           _completeGame = true;
           return LoseGameState();
         }
-        if (_dictionaryLanguage
-            .getCurrentDictionary()
+        if (_dictionaryLanguage.currentDictionary
             .containsKey(_gridData[_currentWordIndex])) {
           _checkWord();
           return GridUpdateState();
         }
-        return TopMessageState(FlushBarTypes.notFound);
+        return TopMessageState(SnackbarType.notFound);
       }
-      return TopMessageState(FlushBarTypes.notCorrectLength);
+      return TopMessageState(SnackbarType.notCorrectLength);
     }
     return null;
   }
@@ -119,7 +117,7 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
 
   @override
   void createSecretWord([int level = 0]) {
-    final dictionary = _dictionaryLanguage.getCurrentDictionary();
+    final dictionary = _dictionaryLanguage.currentDictionary;
     late int index;
     if (level == 0) {
       final now = DateTime.now();

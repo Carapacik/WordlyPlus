@@ -1,25 +1,34 @@
+import 'dart:io';
+import 'dart:ui';
+
+import 'package:flutter/foundation.dart';
 import 'package:isar/isar.dart';
 import 'package:wordly/resources/dictionary_en.dart';
 import 'package:wordly/resources/dictionary_ru.dart';
 
-enum DictionaryLanguages { ru, en }
+enum DictionaryLanguages {
+  ru._(2 / 3.5, dictionaryRu),
+  en._(2 / 2.8, dictionaryEn);
 
-extension DictionaryLanguagesExt on DictionaryLanguages {
-  double get aspectRatio {
-    switch (this) {
-      case DictionaryLanguages.ru:
-        return 2 / 3.5;
-      case DictionaryLanguages.en:
-        return 2 / 2.8;
+  const DictionaryLanguages._(this.aspectRatio, this.currentDictionary);
+
+  final double aspectRatio;
+  final Map<String, String> currentDictionary;
+
+  static DictionaryLanguages getSystemDictionaryLanguage() {
+    if (kIsWeb) {
+      return DictionaryLanguages.en;
     }
+    return _toDictionaryLanguage(Locale(Platform.localeName));
   }
 
-  Map<String, String> getCurrentDictionary() {
-    switch (this) {
-      case DictionaryLanguages.ru:
-        return dictionaryRu;
-      case DictionaryLanguages.en:
-        return dictionaryEn;
+  static DictionaryLanguages _toDictionaryLanguage(Locale locale) {
+    if (locale.languageCode.contains('ru')) {
+      return DictionaryLanguages.ru;
+    } else if (locale.languageCode.contains('en')) {
+      return DictionaryLanguages.en;
+    } else {
+      return DictionaryLanguages.en;
     }
   }
 }

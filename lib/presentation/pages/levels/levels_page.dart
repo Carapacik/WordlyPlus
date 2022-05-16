@@ -7,7 +7,7 @@ import 'package:wordly/resources/resources.dart';
 import 'package:wordly/utils/utils.dart';
 
 class LevelsPage extends StatelessWidget {
-  const LevelsPage({Key? key}) : super(key: key);
+  const LevelsPage({super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -59,8 +59,7 @@ class _GridItem extends StatelessWidget {
     required this.isWin,
     required this.isComplete,
     required this.index,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final String word;
   final bool? isWin;

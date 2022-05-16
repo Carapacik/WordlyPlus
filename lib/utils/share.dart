@@ -42,7 +42,7 @@ Future<void> copyEmojiString(
         );
   }
   await Clipboard.setData(ClipboardData(text: copiedText));
-  await showTopFlushBar(
+  await showSnackBar(
     context,
     message: R.stringsOf(context).text_copied,
   );

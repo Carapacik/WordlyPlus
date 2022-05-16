@@ -12,9 +12,9 @@ import 'package:wordly/resources/resources.dart';
 class KeyboardKey extends StatelessWidget {
   const KeyboardKey({
     required this.keyboardKey,
-    Key? key,
     this.lang = DictionaryLanguages.en,
-  }) : super(key: key);
+    super.key,
+  });
 
   final KeyboardKeys keyboardKey;
   final DictionaryLanguages lang;
@@ -87,10 +87,7 @@ class KeyboardKey extends StatelessWidget {
 }
 
 class EnterKeyboardKey extends StatelessWidget {
-  const EnterKeyboardKey({
-    this.lang = DictionaryLanguages.en,
-    Key? key,
-  }) : super(key: key);
+  const EnterKeyboardKey({this.lang = DictionaryLanguages.en, super.key});
 
   final DictionaryLanguages lang;
 
@@ -147,8 +144,8 @@ class EnterKeyboardKey extends StatelessWidget {
 class DeleteKeyboardKey extends StatelessWidget {
   const DeleteKeyboardKey({
     this.lang = DictionaryLanguages.en,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final DictionaryLanguages lang;
 

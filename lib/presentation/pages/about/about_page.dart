@@ -8,7 +8,7 @@ import 'package:wordly/resources/resources.dart';
 import 'package:wordly/utils/utils.dart';
 
 class AboutPage extends StatelessWidget {
-  const AboutPage({Key? key}) : super(key: key);
+  const AboutPage({super.key});
 
   static const kEmail = 'carapacik@gmail.com';
 
@@ -109,8 +109,7 @@ class _CreditCategory extends StatelessWidget {
   const _CreditCategory({
     required this.title,
     required this.peoples,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final String title;
   final List<CreditPeople> peoples;
@@ -145,8 +144,7 @@ class _CreditNameText extends StatelessWidget {
   const _CreditNameText({
     required this.text,
     required this.url,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final String text;
   final String url;

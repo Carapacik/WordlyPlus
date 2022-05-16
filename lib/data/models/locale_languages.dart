@@ -2,17 +2,14 @@ import 'dart:ui';
 
 import 'package:isar/isar.dart';
 
-enum LocaleLanguages { ru, en }
+enum LocaleLanguages {
+  ru._(Locale('ru')),
+  en._(Locale('en'));
 
-extension LocaleLanguagesExt on LocaleLanguages {
-  Locale get locale {
-    switch (this) {
-      case LocaleLanguages.ru:
-        return const Locale('ru');
-      case LocaleLanguages.en:
-        return const Locale('en');
-    }
-  }
+  const LocaleLanguages._(this.locale);
+
+  final Locale locale;
+  static const List<LocaleLanguages> _values = [ru, en];
 }
 
 extension StringExt on String {

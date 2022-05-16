@@ -9,7 +9,7 @@ import 'package:wordly/data/repositories/dictionary_repository.dart';
 import 'package:wordly/resources/resources.dart';
 
 class WordsGrid extends StatelessWidget {
-  const WordsGrid({Key? key}) : super(key: key);
+  const WordsGrid({super.key});
 
   @override
   Widget build(BuildContext context) => ConstrainedBox(
@@ -47,10 +47,7 @@ class WordsGrid extends StatelessWidget {
 }
 
 class _GridItem extends StatelessWidget {
-  const _GridItem({
-    required this.letterEntering,
-    Key? key,
-  }) : super(key: key);
+  const _GridItem({required this.letterEntering});
 
   final LetterInfo letterEntering;
 

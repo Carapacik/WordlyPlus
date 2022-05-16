@@ -33,28 +33,18 @@ abstract class SettingsState extends Equatable {
 
 class SettingsInitial extends SettingsState {
   const SettingsInitial({
-    required DictionaryLanguages dictionaryLanguage,
-    required LocaleLanguages localeLanguage,
-    required bool isDark,
-    required bool isHighContrast,
-  }) : super(
-          dictionaryLanguage: dictionaryLanguage,
-          localeLanguage: localeLanguage,
-          isDark: isDark,
-          isHighContrast: isHighContrast,
-        );
+    required super.dictionaryLanguage,
+    required super.localeLanguage,
+    required super.isDark,
+    required super.isHighContrast,
+  });
 }
 
 class SettingsUpdate extends SettingsState {
   const SettingsUpdate({
-    required DictionaryLanguages dictionaryLanguage,
-    required LocaleLanguages localeLanguage,
-    required bool isDark,
-    required bool isHighContrast,
-  }) : super(
-          dictionaryLanguage: dictionaryLanguage,
-          localeLanguage: localeLanguage,
-          isDark: isDark,
-          isHighContrast: isHighContrast,
-        );
+    required super.dictionaryLanguage,
+    required super.localeLanguage,
+    required super.isDark,
+    required super.isHighContrast,
+  });
 }

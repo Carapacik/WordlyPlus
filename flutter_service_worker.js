@@ -3,9 +3,7 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "assets/AssetManifest.json": "986986e52d937b3ee70ccea881f3452a",
-"assets/assets/strings/en.json": "34d4162cd28dbf2a152ce0fb89d1a13b",
-"assets/assets/strings/ru.json": "fedc16816f6e0d28f1135324ddf86c45",
+  "assets/AssetManifest.json": "dcf0a866d00a0fce60d7a788ab55e8aa",
 "assets/assets/svg/russia.svg": "ee53f807527144316168a79a032104af",
 "assets/assets/svg/us.svg": "29e5e198fbbc17fa414d49e082ed4b1f",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
@@ -13,7 +11,7 @@ const RESOURCES = {
 "assets/google_fonts/Ubuntu-Bold.ttf": "896a60219f6157eab096825a0c9348a8",
 "assets/google_fonts/Ubuntu-Medium.ttf": "d3c3b35e6d478ed149f02fad880dd359",
 "assets/google_fonts/Ubuntu-Regular.ttf": "84ea7c5c9d2fa40c070ccb901046117d",
-"assets/NOTICES": "ca664e96c4732e6a7a6aafd27fc59210",
+"assets/NOTICES": "24e81517ff47ebe0e7e93c30b2b86cc3",
 "canvaskit/canvaskit.js": "c2b4e5f3d7a3d82aed024e7249a78487",
 "canvaskit/canvaskit.wasm": "4b83d89d9fecbea8ca46f2f760c5a9ba",
 "canvaskit/profiling/canvaskit.js": "ae2949af4efc61d28a4a80fffa1db900",
@@ -24,9 +22,9 @@ const RESOURCES = {
 "icons/Icon-512.png": "32ec0c8daace09de928f3aeefbb7c9e2",
 "icons/Icon-maskable-192.png": "feab1450377253fedd65b0a5bdca3442",
 "icons/Icon-maskable-512.png": "32ec0c8daace09de928f3aeefbb7c9e2",
-"index.html": "66eac6f623242ad6c05375ead8b8acf0",
-"/": "66eac6f623242ad6c05375ead8b8acf0",
-"main.dart.js": "790c1b988e30f8c95f5ed8bf27b9a8e2",
+"index.html": "1e99c89e1ecc82af198b8cd30502b2c0",
+"/": "1e99c89e1ecc82af198b8cd30502b2c0",
+"main.dart.js": "c4953997090963238eafc8d45389f505",
 "manifest.json": "5277e8c038f920ca205ce24f1d721fcd",
 "splash/img/dark-1x.png": "1672ad39c3ec3727a510214269ce43f6",
 "splash/img/dark-2x.png": "61026351beb4108880e01687ee385a2a",
@@ -36,8 +34,8 @@ const RESOURCES = {
 "splash/img/light-2x.png": "383c82be40333b6e9c3d9bc325011fb8",
 "splash/img/light-3x.png": "ee1f43f24329e01c53430930b5b2d749",
 "splash/img/light-4x.png": "10603dc1647c1a6baf3f6895a075360d",
-"splash/splash.js": "c6a271349a0cd249bdb6d3c4d12f5dcf",
-"splash/style.css": "09c16af962d51a27be3ff5365bbcc1d0",
+"splash/splash.js": "f6ee10f0a11f96089a97623ece9a1367",
+"splash/style.css": "61ce1a6d9f05e9814e95ee609d3aa20d",
 "version.json": "d4c018517d576513c2d35489291613c6"
 };
 

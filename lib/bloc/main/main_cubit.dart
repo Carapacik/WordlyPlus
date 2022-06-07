@@ -10,6 +10,7 @@ import 'package:wordly/domain/daily_result_repository.dart';
 import 'package:wordly/domain/daily_statistic_repository.dart';
 import 'package:wordly/domain/level_repository.dart';
 import 'package:wordly/domain/settings_repository.dart';
+import 'package:wordly/utils/utils.dart';
 
 part 'main_state.dart';
 
@@ -60,6 +61,7 @@ class MainCubit extends Cubit<MainState> {
       if (state is WinGameState || state is LoseGameState) {
         if (levelRepository.isLevelMode) {
           levelRepository.saveLevelData();
+          appearReview();
         } else {
           final dictionaryLanguage =
               settingsRepository.settingsData.dictionaryLanguage;

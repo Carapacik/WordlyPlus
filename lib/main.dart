@@ -26,14 +26,12 @@ import 'package:wordly/domain/level_repository.dart';
 import 'package:wordly/domain/level_repository_impl.dart';
 import 'package:wordly/domain/settings_repository.dart';
 import 'package:wordly/domain/settings_repository_impl.dart';
-import 'package:wordly/utils/utils.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   setPathUrlStrategy();
-  await checkForAndroidUpdate();
-  await _initSingletons();
+  await _setupServiceLocators();
   runApp(
     MultiBlocProvider(
       providers: [
@@ -50,7 +48,7 @@ Future<void> main() async {
   );
 }
 
-Future<void> _initSingletons() async {
+Future<void> _setupServiceLocators() async {
   await _initLocaleStorage();
   await _initSettingsRepository();
   await _initDailyResultRepository();

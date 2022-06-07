@@ -29,10 +29,6 @@ Future<void> showDailyResultDialog(
         },
       );
       return AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-        insetPadding: const EdgeInsets.all(24),
         backgroundColor: isWin ? AppColors.green : AppColors.red,
         title: Center(
           child: Text(

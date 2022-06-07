@@ -16,8 +16,6 @@ Future<void> showLevelResultDialog(
     builder: (context) {
       final mainCubit = BlocProvider.of<MainCubit>(context);
       return AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        insetPadding: const EdgeInsets.all(24),
         backgroundColor: isWin ? AppColors.green : AppColors.red,
         title: Center(
           child: Text(

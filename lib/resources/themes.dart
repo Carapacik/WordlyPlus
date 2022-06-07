@@ -15,6 +15,7 @@ extension AppThemeExt on AppTheme {
           backgroundColor: const Color(0xFFFFFFFF),
           cardColor: const Color(0xFFDCE1E9),
           shadowColor: const Color(0xFF787C7E),
+          useMaterial3: true,
         );
       case AppTheme.darkTheme:
         return ThemeData.dark().copyWith(
@@ -26,6 +27,7 @@ extension AppThemeExt on AppTheme {
           cardColor: const Color(0xFF6D6F82),
           backgroundColor: const Color(0xDC121213),
           shadowColor: const Color(0xFF494B61),
+          useMaterial3: true,
         );
     }
   }

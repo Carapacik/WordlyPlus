@@ -3,4 +3,3 @@ export 'duration.dart';
 export 'r.dart';
 export 'review.dart';
 export 'share.dart';
-export 'update.dart';

@@ -24,7 +24,7 @@ class BoardRepositoryImpl implements BoardRepository {
         .languageEqualTo(dictionaryLanguage)
         .levelNumberEqualTo(levelNumber)
         .findAll();
-    // Sort ny id
+    // Sort by id
     if (data.isEmpty) {
       finalData = BoardData.init(
         language: dictionaryLanguage,
@@ -67,5 +67,11 @@ class BoardRepositoryImpl implements BoardRepository {
         .levelNumberGreaterThan(0)
         .findAll();
     return data;
+  }
+
+  @override
+  Future<bool> isFirstLaunch() async {
+    final data = await _isar.boardDatas.count();
+    return data == 0;
   }
 }

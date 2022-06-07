@@ -12,4 +12,6 @@ abstract class BoardRepository {
   Future<void> saveBoardData(final BoardData data);
 
   Future<List<BoardData>> getAllData();
+
+  Future<bool> isFirstLaunch();
 }

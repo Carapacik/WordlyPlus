@@ -18,7 +18,7 @@ Future<void> showSnackBar(
       behavior: SnackBarBehavior.floating,
       margin: EdgeInsets.symmetric(
         horizontal: width > 500 ? (width - 500) / 2 + 72 : 12,
-        vertical: 64,
+        vertical: 24,
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),

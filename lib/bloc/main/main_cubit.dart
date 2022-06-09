@@ -50,8 +50,12 @@ class MainCubit extends Cubit<MainState> {
       removeLetter();
       return;
     }
+    // ы key
+    if (event.isKeyPressed(const LogicalKeyboardKey(1099))) {
+      setLetter(KeyboardKeys.s);
+    }
     // mainCubit.setLetter(KeyboardKeys.n);
-    print('Pressed: ${event.logicalKey.debugName}');
+    print(event.logicalKey.debugName);
   }
 
   void setLetter(final KeyboardKeys keyboardKey) {

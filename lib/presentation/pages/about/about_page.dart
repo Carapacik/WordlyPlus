@@ -82,7 +82,8 @@ class AboutPage extends StatelessWidget {
                             TextSpan(
                               text: R.stringsOf(context).contact,
                               style: AppTypography.m16.copyWith(
-                                  color: Theme.of(context).primaryColor),
+                                color: Theme.of(context).primaryColor,
+                              ),
                             ),
                             WidgetSpan(
                               child: SelectableText(

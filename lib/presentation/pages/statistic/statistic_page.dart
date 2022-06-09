@@ -8,7 +8,7 @@ import 'package:wordly/resources/resources.dart';
 import 'package:wordly/utils/utils.dart';
 
 class StatisticPage extends StatelessWidget {
-  const StatisticPage({Key? key}) : super(key: key);
+  const StatisticPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +59,7 @@ class StatisticPage extends StatelessWidget {
 }
 
 class _StatText extends StatelessWidget {
-  const _StatText({
-    required this.value,
-    required this.title,
-    Key? key,
-  }) : super(key: key);
+  const _StatText({required this.value, required this.title});
 
   final num value;
   final String title;
@@ -89,10 +85,7 @@ class _StatText extends StatelessWidget {
 }
 
 class _AttemptContent extends StatelessWidget {
-  const _AttemptContent({
-    required this.attempts,
-    Key? key,
-  }) : super(key: key);
+  const _AttemptContent({required this.attempts});
 
   final List<int> attempts;
 

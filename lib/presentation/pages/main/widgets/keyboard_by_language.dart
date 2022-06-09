@@ -4,7 +4,7 @@ import 'package:wordly/presentation/pages/main/widgets/keyboard_en.dart';
 import 'package:wordly/presentation/pages/main/widgets/keyboard_ru.dart';
 
 class KeyboardByLanguage extends StatelessWidget {
-  const KeyboardByLanguage({required this.language, super.key});
+  const KeyboardByLanguage({this.language = DictionaryLanguages.en, super.key});
 
   final DictionaryLanguages language;
 

@@ -13,7 +13,7 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mainCubit = BlocProvider.of<MainCubit>(context);
+    final mainCubit = context.read<MainCubit>();
     return Container(
       color: Theme.of(context).scaffoldBackgroundColor,
       width: 200,

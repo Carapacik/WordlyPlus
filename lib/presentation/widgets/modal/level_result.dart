@@ -14,7 +14,7 @@ Future<void> showLevelResultDialog(
   await showDialog<void>(
     context: context,
     builder: (context) {
-      final mainCubit = BlocProvider.of<MainCubit>(context);
+      final mainCubit = context.read<MainCubit>();
       return AlertDialog(
         backgroundColor: isWin ? AppColors.green : AppColors.red,
         title: Center(

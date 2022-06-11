@@ -21,7 +21,7 @@ class KeyboardKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mainCubit = BlocProvider.of<MainCubit>(context);
+    final mainCubit = context.read<MainCubit>();
     return BlocBuilder<MainCubit, MainState>(
       buildWhen: (_, currentState) {
         if (currentState is GridUpdateState) {
@@ -94,7 +94,7 @@ class EnterKeyboardKey extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dictionaryRepository = GetIt.I<DictionaryRepository>();
-    final mainCubit = BlocProvider.of<MainCubit>(context);
+    final mainCubit = context.read<MainCubit>();
     return Container(
       margin: const EdgeInsets.only(right: 2),
       height: KeyboardKeys.enter.width(
@@ -151,7 +151,7 @@ class DeleteKeyboardKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mainCubit = BlocProvider.of<MainCubit>(context);
+    final mainCubit = context.read<MainCubit>();
     return Container(
       margin: const EdgeInsets.only(left: 2),
       width: KeyboardKeys.delete.width(

@@ -15,7 +15,7 @@ class SettingsPage extends StatelessWidget {
         appBar: CustomAppBar(title: R.stringsOf(context).settings),
         body: BlocBuilder<SettingsCubit, SettingsState>(
           builder: (context, state) {
-            final settingsCubit = BlocProvider.of<SettingsCubit>(context);
+            final settingsCubit = context.read<SettingsCubit>();
             return ConstraintScreen(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),

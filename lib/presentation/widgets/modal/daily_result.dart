@@ -20,7 +20,7 @@ Future<void> showDailyResultDialog(
           DateTime(now.year, now.month, now.day).add(const Duration(days: 1));
       final endTime = now.millisecondsSinceEpoch +
           nextMidnight.difference(now).inMilliseconds;
-      final mainCubit = BlocProvider.of<MainCubit>(context);
+      final mainCubit = context.read<MainCubit>();
       final countDownController = CountdownTimerController(
         endTime: endTime,
         onEnd: () {

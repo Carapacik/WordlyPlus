@@ -43,7 +43,7 @@ class _MainPageState extends State<MainPage> {
     final levelRepository = GetIt.I<LevelRepository>();
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) {
-        final mainCubit = BlocProvider.of<MainCubit>(context);
+        final mainCubit = context.read<MainCubit>();
         return RawKeyboardListener(
           autofocus: true,
           focusNode: _focusNode,
@@ -79,7 +79,7 @@ class _MainPageState extends State<MainPage> {
             buildWhen: (_, currentState) =>
                 currentState is MainInitial || currentState is GridUpdateState,
             builder: (context, state) {
-              final settingsCubit = BlocProvider.of<SettingsCubit>(context);
+              final settingsCubit = context.read<SettingsCubit>();
               return Scaffold(
                 drawer: const CustomDrawer(),
                 appBar: CustomAppBar(

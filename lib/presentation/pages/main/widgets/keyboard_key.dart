@@ -21,7 +21,7 @@ class KeyboardKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mainCubit = BlocProvider.of<MainCubit>(context);
+    final mainCubit = context.read<MainCubit>();
     return BlocBuilder<MainCubit, MainState>(
       buildWhen: (_, currentState) {
         if (currentState is GridUpdateState) {
@@ -56,8 +56,8 @@ class KeyboardKey extends StatelessWidget {
                 buildWhen: (previous, current) =>
                     previous.isHighContrast != current.isHighContrast,
                 builder: (context, state) {
-                  final keyStatus =
-                      dictionaryRepository.getKeyStatus(keyboardKey.name(lang));
+                  final keyStatus = dictionaryRepository
+                      .getKeyStatus(keyboardKey.fromDictionaryLang(lang));
                   return Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
@@ -68,7 +68,7 @@ class KeyboardKey extends StatelessWidget {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
-                      keyboardKey.name(lang)?.toUpperCase() ?? '',
+                      keyboardKey.fromDictionaryLang(lang)?.toUpperCase() ?? '',
                       style: AppTypography.r14.copyWith(
                         color: keyStatus == LetterStatus.wrongSpot
                             ? Colors.black
@@ -94,7 +94,7 @@ class EnterKeyboardKey extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dictionaryRepository = GetIt.I<DictionaryRepository>();
-    final mainCubit = BlocProvider.of<MainCubit>(context);
+    final mainCubit = context.read<MainCubit>();
     return Container(
       margin: const EdgeInsets.only(right: 2),
       height: KeyboardKeys.enter.width(
@@ -108,7 +108,7 @@ class EnterKeyboardKey extends StatelessWidget {
             dictionaryRepository.getAllLettersInList().map(
               (index, value) {
                 final key = KeyboardKeys.values.firstWhere(
-                  (element) => element.name(lang) == value,
+                  (element) => element.fromDictionaryLang(lang) == value,
                 );
                 if (dictionaryRepository.secretWord[index] == value) {
                   mainCubit.updateKey(key, LetterStatus.correctSpot);
@@ -132,7 +132,7 @@ class EnterKeyboardKey extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
           ),
           child: Text(
-            KeyboardKeys.enter.name(lang)!.toUpperCase(),
+            KeyboardKeys.enter.fromDictionaryLang(lang)!.toUpperCase(),
             style: AppTypography.r14,
           ),
         ),
@@ -151,7 +151,7 @@ class DeleteKeyboardKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mainCubit = BlocProvider.of<MainCubit>(context);
+    final mainCubit = context.read<MainCubit>();
     return Container(
       margin: const EdgeInsets.only(left: 2),
       width: KeyboardKeys.delete.width(

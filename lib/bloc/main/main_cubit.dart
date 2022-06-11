@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
+import 'package:wordly/data/models/dictionary_languages.dart';
 import 'package:wordly/data/models/flushbar_types.dart';
 import 'package:wordly/data/models/keyboard_keys.dart';
 import 'package:wordly/data/models/letter_status.dart';
@@ -17,6 +19,43 @@ part 'main_state.dart';
 class MainCubit extends Cubit<MainState> {
   MainCubit(this.dictionaryRepository) : super(MainInitial());
   final DictionaryRepository dictionaryRepository;
+
+  void keyDown(final RawKeyDownEvent event, final DictionaryLanguages lang) {
+    if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
+      final wordComplete = completeWord();
+      if (wordComplete) {
+        dictionaryRepository.getAllLettersInList().map(
+          (index, value) {
+            final key = KeyboardKeys.values.firstWhere(
+              (element) => element.fromDictionaryLang(lang) == value,
+            );
+            if (dictionaryRepository.secretWord[index] == value) {
+              updateKey(key, LetterStatus.correctSpot);
+              return MapEntry(index, value);
+            }
+            if (dictionaryRepository.secretWord.contains(value)) {
+              updateKey(key, LetterStatus.wrongSpot);
+              return MapEntry(index, value);
+            }
+            updateKey(key, LetterStatus.notInWords);
+            return MapEntry(index, value);
+          },
+        );
+      }
+      return;
+    }
+
+    if (event.isKeyPressed(LogicalKeyboardKey.delete) ||
+        event.isKeyPressed(LogicalKeyboardKey.backspace)) {
+      removeLetter();
+      return;
+    }
+    final key = KeyboardKeys.fromLogicalKey(event.logicalKey);
+    if (key != null) {
+      setLetter(key);
+      return;
+    }
+  }
 
   void setLetter(final KeyboardKeys keyboardKey) {
     if (dictionaryRepository.setLetter(keyboardKey)) {

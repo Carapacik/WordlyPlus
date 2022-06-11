@@ -8,14 +8,14 @@ import 'package:wordly/resources/resources.dart';
 import 'package:wordly/utils/utils.dart';
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: CustomAppBar(title: R.stringsOf(context).settings),
         body: BlocBuilder<SettingsCubit, SettingsState>(
           builder: (context, state) {
-            final settingsCubit = BlocProvider.of<SettingsCubit>(context);
+            final settingsCubit = context.read<SettingsCubit>();
             return ConstraintScreen(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),

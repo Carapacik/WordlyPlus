@@ -27,7 +27,7 @@ class MainCubit extends Cubit<MainState> {
         dictionaryRepository.getAllLettersInList().map(
           (index, value) {
             final key = KeyboardKeys.values.firstWhere(
-              (element) => element.name(lang) == value,
+              (element) => element.fromDictionaryLang(lang) == value,
             );
             if (dictionaryRepository.secretWord[index] == value) {
               updateKey(key, LetterStatus.correctSpot);

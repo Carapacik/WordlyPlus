@@ -57,7 +57,7 @@ class KeyboardKey extends StatelessWidget {
                     previous.isHighContrast != current.isHighContrast,
                 builder: (context, state) {
                   final keyStatus =
-                      dictionaryRepository.getKeyStatus(keyboardKey.name(lang));
+                      dictionaryRepository.getKeyStatus(keyboardKey.fromDictionaryLang(lang));
                   return Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
@@ -68,7 +68,7 @@ class KeyboardKey extends StatelessWidget {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
-                      keyboardKey.name(lang)?.toUpperCase() ?? '',
+                      keyboardKey.fromDictionaryLang(lang)?.toUpperCase() ?? '',
                       style: AppTypography.r14.copyWith(
                         color: keyStatus == LetterStatus.wrongSpot
                             ? Colors.black
@@ -108,7 +108,7 @@ class EnterKeyboardKey extends StatelessWidget {
             dictionaryRepository.getAllLettersInList().map(
               (index, value) {
                 final key = KeyboardKeys.values.firstWhere(
-                  (element) => element.name(lang) == value,
+                  (element) => element.fromDictionaryLang(lang) == value,
                 );
                 if (dictionaryRepository.secretWord[index] == value) {
                   mainCubit.updateKey(key, LetterStatus.correctSpot);
@@ -132,7 +132,7 @@ class EnterKeyboardKey extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
           ),
           child: Text(
-            KeyboardKeys.enter.name(lang)!.toUpperCase(),
+            KeyboardKeys.enter.fromDictionaryLang(lang)!.toUpperCase(),
             style: AppTypography.r14,
           ),
         ),

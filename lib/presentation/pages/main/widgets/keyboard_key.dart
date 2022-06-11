@@ -56,8 +56,8 @@ class KeyboardKey extends StatelessWidget {
                 buildWhen: (previous, current) =>
                     previous.isHighContrast != current.isHighContrast,
                 builder: (context, state) {
-                  final keyStatus =
-                      dictionaryRepository.getKeyStatus(keyboardKey.fromDictionaryLang(lang));
+                  final keyStatus = dictionaryRepository
+                      .getKeyStatus(keyboardKey.fromDictionaryLang(lang));
                   return Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(

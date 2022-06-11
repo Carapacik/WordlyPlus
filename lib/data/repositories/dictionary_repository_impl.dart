@@ -149,8 +149,8 @@ class DictionaryRepositoryImpl implements DictionaryRepository {
       _gridData.add('');
     }
     if (_gridData[_currentWordIndex].length < 5) {
-      _gridData[_currentWordIndex] =
-          _gridData[_currentWordIndex] + (key.fromDictionaryLang(_dictionaryLanguage) ?? '');
+      _gridData[_currentWordIndex] = _gridData[_currentWordIndex] +
+          (key.fromDictionaryLang(_dictionaryLanguage) ?? '');
       return true;
     }
     return false;

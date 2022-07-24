@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_strategy/url_strategy.dart';
-import 'package:wordly/app.dart';
 import 'package:wordly/app/app.dart';
 import 'package:wordly/app/service_locator.dart';
 import 'package:wordly/bloc/dictionary/dictionary_bloc.dart';

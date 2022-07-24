@@ -1,22 +1,16 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:wordly/domain/daily_statistic_repository.dart';
 import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/resources/resources.dart';
-import 'package:wordly/utils/utils.dart';
 
 class StatisticPage extends StatelessWidget {
   const StatisticPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final statisticData = GetIt.I.get<DailyStatisticRepository>().statisticData;
-    final total = statisticData.losesNumber + statisticData.winsNumber;
-    final winRate = total == 0 ? 0 : statisticData.winsNumber / total;
     return Scaffold(
-      appBar: CustomAppBar(title: R.stringsOf(context).statistic),
+      appBar: CustomAppBar(title: context.r.statistic),
       body: ConstraintScreen(
         child: Column(
           children: [
@@ -26,16 +20,16 @@ class StatisticPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _StatText(
-                  value: total,
-                  title: R.stringsOf(context).played,
+                  value:12,
+                  title: context.r.played,
                 ),
                 _StatText(
-                  value: winRate * 100.0,
-                  title: R.stringsOf(context).win_rate,
+                  value:12,
+                  title: context.r.win_rate,
                 ),
                 _StatText(
-                  value: statisticData.currentStreak,
-                  title: R.stringsOf(context).current_streak,
+                  value: 12,
+                  title: context.r.current_streak,
                 ),
               ],
             ),
@@ -44,13 +38,13 @@ class StatisticPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: FittedBox(
                 child: Text(
-                  R.stringsOf(context).guess_distribution.toUpperCase(),
+                  context.r.guess_distribution.toUpperCase(),
                   style: AppTypography.b25,
                 ),
               ),
             ),
             const SizedBox(height: 4),
-            _AttemptContent(attempts: statisticData.attempts),
+            _AttemptContent(attempts: []),
           ],
         ),
       ),
@@ -66,22 +60,22 @@ class _StatText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            value.toString(),
-            style: AppTypography.b25,
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Text(
-            title,
-            style: AppTypography.r14,
-            textAlign: TextAlign.center,
-          )
-        ],
-      );
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(
+        value.toStringAsFixed(2),
+        style: AppTypography.b25,
+      ),
+      const SizedBox(
+        height: 8,
+      ),
+      Text(
+        title,
+        style: AppTypography.r14,
+        textAlign: TextAlign.center,
+      )
+    ],
+  );
 }
 
 class _AttemptContent extends StatelessWidget {

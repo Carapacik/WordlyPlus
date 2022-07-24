@@ -48,5 +48,7 @@ app.*.map.json
 
 # Generated files
 *.g.*
+*.gen.*
 *.freezed.*
-**/r.dart
+**/l10n.dart
+**/resources/intl/

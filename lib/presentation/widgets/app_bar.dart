@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wordly/resources/resources.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
@@ -14,13 +13,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) => AppBar(
         centerTitle: true,
-        title: Text(
-          title,
-          style: AppTypography.b30,
-        ),
+        title: Text(title),
         elevation: 0,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        foregroundColor: Theme.of(context).primaryColor,
         actions: actions,
       );
 

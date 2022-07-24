@@ -1,42 +1,88 @@
 import 'package:flutter/material.dart';
-import 'package:wordly/resources/colors.dart';
+import 'package:wordly/resources/resources.dart';
 
-enum LetterStatus { unknown, notInWords, wrongSpot, correctSpot }
+enum LetterStatus {
+  unknown,
+  notInWord,
+  wrongSpot,
+  correctSpot;
 
-extension LetterStatusExtension on LetterStatus {
-  Color color(final BuildContext context, {final bool highContrast = false}) {
-    switch (this) {
-      case LetterStatus.unknown:
-        return Theme.of(context).cardColor;
-      case LetterStatus.notInWords:
-        return Theme.of(context).shadowColor;
-      case LetterStatus.wrongSpot:
-        return highContrast ? AppColors.highContrastBlue : AppColors.yellow;
-      case LetterStatus.correctSpot:
-        return highContrast ? AppColors.highContrastOrange : AppColors.green;
-    }
-  }
+  const LetterStatus();
 
-  Color itemColor(
+  Color keyboardItemColor(
     final BuildContext context, {
     final bool isHighContrast = false,
   }) {
     switch (this) {
       case LetterStatus.unknown:
         return Colors.transparent;
-      case LetterStatus.notInWords:
-        return Theme.of(context).colorScheme.secondary;
+      case LetterStatus.notInWord:
+        return context.dynamicColor(
+          light: AppColors.grey,
+          dark: AppColors.grey,
+        );
       case LetterStatus.wrongSpot:
-        return isHighContrast ? AppColors.highContrastBlue : AppColors.yellow;
+        return isHighContrast
+            ? context.dynamicColor(
+                light: AppColors.highContrastBlue,
+                dark: AppColors.highContrastBlue,
+              )
+            : context.dynamicColor(
+                light: AppColors.yellow,
+                dark: AppColors.yellow,
+              );
       case LetterStatus.correctSpot:
-        return isHighContrast ? AppColors.highContrastOrange : AppColors.green;
+        return isHighContrast
+            ? context.dynamicColor(
+                light: AppColors.highContrastOrange,
+                dark: AppColors.highContrastOrange,
+              )
+            : context.dynamicColor(
+                light: AppColors.green,
+                dark: AppColors.green,
+              );
+    }
+  }
+
+  Color gridItemColor(
+    final BuildContext context, {
+    final bool isHighContrast = false,
+  }) {
+    switch (this) {
+      case LetterStatus.unknown:
+        return Colors.transparent;
+      case LetterStatus.notInWord:
+        return context.dynamicColor(
+          light: AppColors.grey,
+          dark: AppColors.grey,
+        );
+      case LetterStatus.wrongSpot:
+        return isHighContrast
+            ? context.dynamicColor(
+                light: AppColors.highContrastBlue,
+                dark: AppColors.highContrastBlue,
+              )
+            : context.dynamicColor(
+                light: AppColors.yellow,
+                dark: AppColors.yellow,
+              );
+      case LetterStatus.correctSpot:
+        return isHighContrast
+            ? context.dynamicColor(
+                light: AppColors.highContrastOrange,
+                dark: AppColors.highContrastOrange,
+              )
+            : context.dynamicColor(
+                light: AppColors.green,
+                dark: AppColors.green,
+              );
     }
   }
 
   String toEmoji() {
     switch (this) {
       case LetterStatus.unknown:
-      case LetterStatus.notInWords:
+      case LetterStatus.notInWord:
         return '⬛';
       case LetterStatus.wrongSpot:
         return '🟨';

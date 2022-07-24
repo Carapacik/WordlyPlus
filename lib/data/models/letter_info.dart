@@ -1,7 +1,6 @@
-import 'package:equatable/equatable.dart';
 import 'package:wordly/data/models/letter_status.dart';
 
-class LetterInfo extends Equatable {
+class LetterInfo {
   const LetterInfo({
     required this.letter,
     required this.letterStatus,
@@ -10,6 +9,5 @@ class LetterInfo extends Equatable {
   final String letter;
   final LetterStatus letterStatus;
 
-  @override
-  List<Object?> get props => [letter, letterStatus];
+  bool get isStatusUnknown => letterStatus == LetterStatus.unknown;
 }

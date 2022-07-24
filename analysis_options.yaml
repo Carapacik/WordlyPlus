@@ -1,1 +1,6 @@
 include: package:carapacik_lints/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - lib/resources/intl/**
+    - lib/resources/l10n.dart

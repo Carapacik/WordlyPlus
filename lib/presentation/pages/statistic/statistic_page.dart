@@ -20,11 +20,11 @@ class StatisticPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _StatText(
-                  value:12,
+                  value: 12,
                   title: context.r.played,
                 ),
                 _StatText(
-                  value:12,
+                  value: 12,
                   title: context.r.win_rate,
                 ),
                 _StatText(
@@ -60,22 +60,22 @@ class _StatText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
-        value.toStringAsFixed(2),
-        style: AppTypography.b25,
-      ),
-      const SizedBox(
-        height: 8,
-      ),
-      Text(
-        title,
-        style: AppTypography.r14,
-        textAlign: TextAlign.center,
-      )
-    ],
-  );
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            value.toStringAsFixed(2),
+            style: AppTypography.b25,
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Text(
+            title,
+            style: AppTypography.r14,
+            textAlign: TextAlign.center,
+          )
+        ],
+      );
 }
 
 class _AttemptContent extends StatelessWidget {

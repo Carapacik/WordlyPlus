@@ -6,7 +6,7 @@ part 'dictionary_event.dart';
 part 'dictionary_state.dart';
 
 class DictionaryBloc extends Bloc<DictionaryEvent, DictionaryState> {
-  DictionaryBloc(int dictionary)
+  DictionaryBloc(String dictionary)
       : super(DictionaryState.changeDictionary(dictionary: dictionary)) {
     on<_DictionaryChangedEvent>(_onDictionaryChanged);
   }

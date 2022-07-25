@@ -13,7 +13,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<_ChangeDictionaryEvent>(_onChangeDictionary);
   }
 
-  final int dictionary;
+  final String dictionary;
 
   void _onLetterPressed(
     _LetterPressedEvent event,

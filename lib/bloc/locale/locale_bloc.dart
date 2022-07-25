@@ -6,7 +6,7 @@ part 'locale_event.dart';
 part 'locale_state.dart';
 
 class LocaleBloc extends Bloc<LocaleEvent, LocaleState> {
-  LocaleBloc(int locale) : super(LocaleState.changeLocale(locale: locale)) {
+  LocaleBloc(String locale) : super(LocaleState.changeLocale(locale: locale)) {
     on<_LocaleChangedEvent>(_onLocaleChanged);
   }
 

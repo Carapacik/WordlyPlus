@@ -17,7 +17,7 @@ Future<void> main() async {
   await setupServiceLocators();
 
   final prefs = await SharedPreferences.getInstance();
-  final dictionary = prefs.getInt('dictionary') ?? 0;
+  final dictionary = prefs.getString('dictionary') ?? 'en';
   // TODO get data from services
   runApp(
     MultiBlocProvider(
@@ -26,7 +26,7 @@ Future<void> main() async {
           create: (_) => DictionaryBloc(dictionary),
         ),
         BlocProvider<LocaleBloc>(
-          create: (_) => LocaleBloc(0),
+          create: (_) => LocaleBloc('en'),
         ),
         BlocProvider<GameBloc>(
           create: (_) => GameBloc(dictionary),
@@ -39,4 +39,3 @@ Future<void> main() async {
     ),
   );
 }
-

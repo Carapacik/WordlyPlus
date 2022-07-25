@@ -4,6 +4,6 @@ part of 'locale_bloc.dart';
 class LocaleState with _$LocaleState {
   const LocaleState._();
 
-  const factory LocaleState.changeLocale({required int locale}) =
+  const factory LocaleState.changeLocale({required String locale}) =
       _ChangeLocaleState;
 }

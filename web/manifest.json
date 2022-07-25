@@ -1,6 +1,6 @@
 {
-    "name": "wordly",
-    "short_name": "wordly",
+    "name": "WordlyPlus",
+    "short_name": "WordlyPlus",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

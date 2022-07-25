@@ -34,7 +34,7 @@ dev_dependencies:
   flutter_gen_runner: ^4.3.0
   flutter_native_splash: ^2.2.6
   freezed: ^2.1.0+1
-  icons_launcher: ^1.2.1
+  icons_launcher: ^2.0.0
   json_serializable: ^6.3.1
 
 flutter:
@@ -55,19 +55,6 @@ flutter_gen:
   integrations:
     flutter_svg: true
 
-flutter_icons:
-  image_path: 'assets/ic_logo.png'
-  adaptive_icon_background: 'assets/ic_background.png'
-  adaptive_icon_foreground: 'assets/ic_foreground.png'
-  remove_alpha_ios: false
-  remove_alpha_macos: false
-  android: true
-  ios: true
-  linux: true
-  macos: true
-  web: true
-  windows: true
-
 flutter_native_splash:
   color: '#F4F7FB'
   image: assets/splash_light.png
@@ -80,3 +67,25 @@ flutter_native_splash:
   web: true
   windows: true
   fullscreen: true
+
+icons_launcher:
+  image_path: 'assets/ic_logo.png'
+  platforms:
+    android:
+      enable: true
+      image_path: 'assets/ic_logo.png'
+      adaptive_background_image: 'assets/ic_background.png'
+      adaptive_foreground_image: 'assets/ic_foreground.png'
+      # adaptive_round_image: 'assets/ic_logo_round.png'
+    ios:
+      enable: true
+      image_path: 'assets/ic_logo.png'
+    web:
+      enable: true
+      favicon_path: 'assets/favicon.png'
+    macos:
+      enable: true
+    windows:
+      enable: true
+    linux:
+      enable: true

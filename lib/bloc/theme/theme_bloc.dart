@@ -23,10 +23,19 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   void _onThemeChanged(
     _ToggleThemeEvent event,
     Emitter<ThemeState> emit,
-  ) {}
+  ) {
+    if (state.theme.brightness == Brightness.dark) {
+      emit(state.copyWith(theme: ThemeData.light()));
+      return;
+    }
+    emit(state.copyWith(theme: ThemeData.dark()));
+  }
 
   void _onHighContrastChanged(
     _ToggleHighContrastEvent event,
     Emitter<ThemeState> emit,
-  ) {}
+  ) {
+    // Save this to sp
+    emit(state.copyWith(isHighContrast: !state.isHighContrast));
+  }
 }

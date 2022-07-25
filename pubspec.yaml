@@ -73,13 +73,11 @@ icons_launcher:
   platforms:
     android:
       enable: true
-      image_path: 'assets/ic_logo.png'
       adaptive_background_image: 'assets/ic_background.png'
       adaptive_foreground_image: 'assets/ic_foreground.png'
       # adaptive_round_image: 'assets/ic_logo_round.png'
     ios:
       enable: true
-      image_path: 'assets/ic_logo.png'
     web:
       enable: true
       favicon_path: 'assets/favicon.png'

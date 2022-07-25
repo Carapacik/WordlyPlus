@@ -11,6 +11,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(color: Theme.of(context).backgroundColor),
       width: 200,
       child: SafeArea(
         child: Column(
@@ -66,7 +67,9 @@ class CustomDrawer extends StatelessWidget {
                 Navigator.of(context).pop();
                 Navigator.of(context).push(
                   MaterialPageRoute<void>(
-                    builder: (context) => const SettingsPage(),
+                    builder: (context) {
+                      return const SettingsPage();
+                    },
                   ),
                 );
               },

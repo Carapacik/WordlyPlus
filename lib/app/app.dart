@@ -25,9 +25,10 @@ class App extends StatelessWidget {
               ],
               supportedLocales: R.delegate.supportedLocales,
               onGenerateTitle: (context) => context.r.wordly_title,
-              locale: localeState.locale == 0
+              locale: localeState.locale == 'en'
                   ? const Locale('ru')
                   : const Locale('en'),
+              debugShowCheckedModeBanner: false,
               home: const GamePage(),
             );
           },

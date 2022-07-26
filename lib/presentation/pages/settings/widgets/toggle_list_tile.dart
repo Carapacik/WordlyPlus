@@ -23,7 +23,7 @@ class ToggleListTile extends StatelessWidget {
       children: [
         Text(
           text,
-          style: context.theme.bs,
+          style: context.theme.ll,
         ),
         Switch.adaptive(
           value: value,

@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wordly/data/models/dictionary_enum.dart';
 
-const _defaultWidthRu = 0.13;
-const _defaultWidthEn = 0.15;
+const _defaultWidthRu = 0.1;
+const _defaultWidthEn = 0.125;
 
 enum KeyboardKeys {
   q('й', 'q', LogicalKeyboardKey(1081), LogicalKeyboardKey.keyQ),
@@ -67,23 +70,27 @@ enum KeyboardKeys {
     }
   }
 
-  double size({
+  double size(
+    BuildContext context, {
     required DictionaryEnum dictionary,
-    required double screen,
   }) {
+    final size = MediaQuery.of(context).size;
+    final height = size.height / 3;
+    final width = min(size.width, 400);
+    final keySize = min(height, width);
     if (this == KeyboardKeys.delete || this == KeyboardKeys.enter) {
       switch (dictionary) {
         case DictionaryEnum.ru:
-          return screen * _defaultWidthRu / DictionaryEnum.ru.aspectRatio;
+          return keySize * _defaultWidthRu / DictionaryEnum.ru.aspectRatio;
         case DictionaryEnum.en:
-          return screen * _defaultWidthEn / DictionaryEnum.en.aspectRatio;
+          return keySize * _defaultWidthEn / DictionaryEnum.en.aspectRatio;
       }
     }
     switch (dictionary) {
       case DictionaryEnum.ru:
-        return screen * _defaultWidthRu;
+        return keySize * _defaultWidthRu;
       case DictionaryEnum.en:
-        return screen * _defaultWidthEn;
+        return keySize * _defaultWidthEn;
     }
   }
 

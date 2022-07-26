@@ -24,7 +24,7 @@ class LanguageSelector extends StatelessWidget {
       children: [
         Text(
           text,
-          style: context.theme.bs,
+          style: context.theme.ll,
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10),

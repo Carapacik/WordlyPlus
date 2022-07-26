@@ -18,8 +18,8 @@ class KeyboardKey extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 2),
       width: keyboardKey.size(
+        context,
         dictionary: dictionary,
-        screen: MediaQuery.of(context).size.height / 3,
       ),
       child: AspectRatio(
         aspectRatio: dictionary.aspectRatio,
@@ -33,7 +33,7 @@ class KeyboardKey extends StatelessWidget {
             ),
             child: Text(
               'S',
-              style: context.theme.bs,
+              style: context.theme.ll,
             ),
           ),
         ),
@@ -52,8 +52,8 @@ class EnterKeyboardKey extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(right: 2),
       height: KeyboardKeys.enter.size(
+        context,
         dictionary: dictionary,
-        screen: MediaQuery.of(context).size.height / 3,
       ),
       child: InkWell(
         onTap: () {},
@@ -66,7 +66,7 @@ class EnterKeyboardKey extends StatelessWidget {
           ),
           child: Text(
             KeyboardKeys.enter.fromDictionaryLang(dictionary)!.toUpperCase(),
-            style: context.theme.bs,
+            style: context.theme.ll,
           ),
         ),
       ),
@@ -84,12 +84,12 @@ class DeleteKeyboardKey extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(left: 2),
       width: KeyboardKeys.delete.size(
+        context,
         dictionary: dictionary,
-        screen: MediaQuery.of(context).size.height / 3,
       ),
       height: KeyboardKeys.delete.size(
+        context,
         dictionary: dictionary,
-        screen: MediaQuery.of(context).size.height / 3,
       ),
       child: InkWell(
         // onTap: mainCubit.removeLetter,

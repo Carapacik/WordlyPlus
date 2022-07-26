@@ -66,12 +66,10 @@ class _StatText extends StatelessWidget {
             value.toStringAsFixed(2),
             style: context.theme.tl,
           ),
-          const SizedBox(
-            height: 8,
-          ),
+          const SizedBox(height: 8),
           Text(
             title,
-            style: context.theme.bs,
+            style: context.theme.ll,
             textAlign: TextAlign.center,
           )
         ],

@@ -72,11 +72,14 @@ class _GamePageState extends State<GamePage> {
           ],
         ),
         body: Column(
-          children: const [
+          children: [
             SizedBox(height: 8),
             WordGrid(),
             Spacer(),
-            KeyboardByLanguage(),
+            ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 500),
+              child: KeyboardByLanguage(),
+            ),
             SizedBox(height: 8),
           ],
         ),

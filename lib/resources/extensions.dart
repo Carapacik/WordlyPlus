@@ -26,5 +26,5 @@ extension TextThemeHelper on ThemeData {
 
   TextStyle get bl => textTheme.bodyLarge!;
 
-  TextStyle get bs => textTheme.bodySmall!;
+  TextStyle get ll => textTheme.labelLarge!;
 }

@@ -21,13 +21,8 @@ final lightTheme = _base.copyWith(
       fontSize: 16,
       fontWeight: FontWeight.w700,
     ),
-    bodySmall: const TextStyle(
+    labelLarge: const TextStyle(
       fontSize: 14,
-      fontWeight: FontWeight.w400,
-    ),
-    button: const TextStyle(
-      fontSize: 14,
-      height: 1.15,
       fontWeight: FontWeight.w700,
     ),
   ),
@@ -50,7 +45,7 @@ final lightTheme = _base.copyWith(
   // ),
   appBarTheme: const AppBarTheme(
     elevation: 0,
-    // backgroundColor: AppColors.lightWhite100,
-    // foregroundColor: AppColors.lightDarkBlue100,
+    backgroundColor: AppColors.lightBg,
+    foregroundColor: AppColors.darkBg,
   ),
 );

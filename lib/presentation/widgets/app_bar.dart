@@ -14,7 +14,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) => AppBar(
         centerTitle: true,
         title: Text(title),
-        elevation: 0,
         actions: actions,
       );
 

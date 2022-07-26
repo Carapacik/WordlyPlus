@@ -19,40 +19,12 @@ extension ContextHelper on BuildContext {
   }
 }
 
-extension TextStyleHelper on TextStyle {
-  TextStyle c(Color color) => copyWith(color: color);
-}
-
 extension TextThemeHelper on ThemeData {
   TextStyle get tl => textTheme.titleLarge!;
 
   TextStyle get tm => textTheme.titleMedium!;
 
-  TextStyle get tmm =>
-      textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w500);
-
-  TextStyle get ts => textTheme.titleSmall!;
-
-  TextStyle get tsm =>
-      textTheme.titleSmall!.copyWith(fontWeight: FontWeight.w500);
-
-  TextStyle get ls => textTheme.labelSmall!;
-
-  TextStyle get lsm =>
-      textTheme.labelSmall!.copyWith(fontWeight: FontWeight.w500);
-
   TextStyle get bl => textTheme.bodyLarge!;
 
-  TextStyle get blm =>
-      textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w500);
-
-  TextStyle get bm => textTheme.bodyMedium!;
-
-  TextStyle get bmm =>
-      textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500);
-
   TextStyle get bs => textTheme.bodySmall!;
-
-  TextStyle get bssm =>
-      textTheme.bodySmall!.copyWith(fontWeight: FontWeight.w600);
 }

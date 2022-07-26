@@ -15,7 +15,6 @@ class KeyboardKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.height);
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 2),
       width: keyboardKey.size(
@@ -34,9 +33,7 @@ class KeyboardKey extends StatelessWidget {
             ),
             child: Text(
               'S',
-              style: AppTypography.r14.copyWith(
-                color: Colors.black,
-              ),
+              style: context.theme.bs,
             ),
           ),
         ),
@@ -69,7 +66,7 @@ class EnterKeyboardKey extends StatelessWidget {
           ),
           child: Text(
             KeyboardKeys.enter.fromDictionaryLang(dictionary)!.toUpperCase(),
-            style: AppTypography.r14,
+            style: context.theme.bs,
           ),
         ),
       ),

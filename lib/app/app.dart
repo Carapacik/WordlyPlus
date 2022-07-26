@@ -16,7 +16,7 @@ class App extends StatelessWidget {
         return BlocBuilder<LocaleBloc, LocaleState>(
           builder: (context, localeState) {
             return MaterialApp(
-              theme: themeState.theme,
+              theme: themeState.isDarkTheme ? darkTheme : lightTheme,
               localizationsDelegates: const [
                 R.delegate,
                 GlobalMaterialLocalizations.delegate,

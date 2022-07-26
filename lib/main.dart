@@ -39,7 +39,10 @@ Future<void> main() async {
                   create: (_) => GameBloc(dictionary),
                 ),
                 BlocProvider<ThemeBloc>(
-                  create: (_) => ThemeBloc(ThemeData(), isHighContrast: true),
+                  create: (_) => ThemeBloc(
+                    isDarkTheme: false,
+                    isHighContrast: true,
+                  ),
                 ),
               ],
               child: const App(),

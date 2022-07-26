@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'theme_bloc.freezed.dart';
@@ -7,12 +6,10 @@ part 'theme_event.dart';
 part 'theme_state.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
-  ThemeBloc(
-    ThemeData themeData, {
-    bool isHighContrast = false,
-  }) : super(
+  ThemeBloc({required bool isDarkTheme, required bool isHighContrast})
+      : super(
           ThemeState.changeTheme(
-            theme: themeData,
+            isDarkTheme: isDarkTheme,
             isHighContrast: isHighContrast,
           ),
         ) {
@@ -24,11 +21,8 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     _ToggleThemeEvent event,
     Emitter<ThemeState> emit,
   ) {
-    if (state.theme.brightness == Brightness.dark) {
-      emit(state.copyWith(theme: ThemeData.light()));
-      return;
-    }
-    emit(state.copyWith(theme: ThemeData.dark()));
+    // Save this to sp
+    emit(state.copyWith(isDarkTheme: !state.isDarkTheme));
   }
 
   void _onHighContrastChanged(

@@ -12,7 +12,7 @@ class LevelsPage extends StatelessWidget {
       body: ConstraintScreen(
         child: GridView.builder(
           padding: const EdgeInsets.all(12),
-          itemCount: 1,
+          itemCount: 6,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
             mainAxisSpacing: 10,
@@ -61,9 +61,7 @@ class _GridItem extends StatelessWidget {
           child: Text(
             isComplete ? '$index\n$word' : '$index\n?',
             textAlign: TextAlign.center,
-            style: AppTypography.b30.copyWith(
-              color: Colors.white,
-            ),
+            style: context.theme.tl.copyWith(color: Colors.white),
           ),
         ),
       );

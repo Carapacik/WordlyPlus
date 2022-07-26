@@ -24,7 +24,7 @@ class LanguageSelector extends StatelessWidget {
       children: [
         Text(
           text,
-          style: AppTypography.m14,
+          style: context.theme.bs,
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -50,10 +50,7 @@ class LanguageSelector extends StatelessWidget {
                         height: 25,
                       ),
                       const SizedBox(width: 10),
-                      Text(
-                        'RU',
-                        style: AppTypography.m16,
-                      ),
+                      Text('RU', style: context.theme.bl),
                     ],
                   ),
                 ),
@@ -68,10 +65,7 @@ class LanguageSelector extends StatelessWidget {
                         height: 25,
                       ),
                       const SizedBox(width: 10),
-                      Text(
-                        'EN',
-                        style: AppTypography.m16,
-                      ),
+                      Text('EN', style: context.theme.bl),
                     ],
                   ),
                 ),

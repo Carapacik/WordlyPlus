@@ -11,17 +11,14 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Theme.of(context).backgroundColor),
+      decoration: BoxDecoration(color: context.theme.backgroundColor),
       width: 200,
       child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
-              title: Text(
-                context.r.daily,
-                style: AppTypography.b20,
-              ),
+              title: Text(context.r.daily, style: context.theme.tm),
               onTap: () async {
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute<void>(
@@ -32,10 +29,7 @@ class CustomDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text(
-                context.r.levels,
-                style: AppTypography.b20,
-              ),
+              title: Text(context.r.levels, style: context.theme.tm),
               onTap: () async {
                 await Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute<void>(
@@ -46,10 +40,7 @@ class CustomDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text(
-                context.r.how_to_play,
-                style: AppTypography.b20,
-              ),
+              title: Text(context.r.how_to_play, style: context.theme.tm),
               onTap: () async {
                 await Navigator.of(context).push(
                   MaterialPageRoute<void>(
@@ -59,10 +50,7 @@ class CustomDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text(
-                context.r.settings,
-                style: AppTypography.b20,
-              ),
+              title: Text(context.r.settings, style: context.theme.tm),
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).push(
@@ -76,10 +64,7 @@ class CustomDrawer extends StatelessWidget {
             ),
             const Spacer(),
             ListTile(
-              title: Text(
-                context.r.about,
-                style: AppTypography.b20,
-              ),
+              title: Text(context.r.about, style: context.theme.tm),
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).push(

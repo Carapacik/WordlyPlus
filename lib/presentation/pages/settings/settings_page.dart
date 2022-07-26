@@ -25,43 +25,36 @@ class SettingsPage extends StatelessWidget {
                   const SizedBox(height: 8),
                   ToggleListTile(
                     text: context.r.dark_mode,
-                    value: themeState.theme.brightness == Brightness.dark,
-                    onChanged: (value) {
-                      context.read<ThemeBloc>().add(
-                            const ThemeEvent.toggleTheme(),
-                          );
-                    },
+                    value: themeState.isDarkTheme,
+                    onChanged: (value) => context.read<ThemeBloc>().add(
+                          const ThemeEvent.toggleTheme(),
+                        ),
                   ),
                   const Divider(color: AppColors.grey),
                   ToggleListTile(
                     text: context.r.high_contrast_mode,
                     value: themeState.isHighContrast,
-                    onChanged: (value) {
-                      context.read<ThemeBloc>().add(
-                            const ThemeEvent.toggleHighContrast(),
-                          );
-                    },
+                    onChanged: (value) => context.read<ThemeBloc>().add(
+                          const ThemeEvent.toggleHighContrast(),
+                        ),
                   ),
                   const Divider(color: AppColors.grey),
                   LanguageSelector(
                     text: context.r.app_language,
                     value: context.read<LocaleBloc>().state.locale,
-                    onChanged: (value) {
-                      context.read<LocaleBloc>().add(
-                            LocaleEvent.localeChanged(locale: value!),
-                          );
-                    },
+                    onChanged: (value) => context.read<LocaleBloc>().add(
+                          LocaleEvent.localeChanged(locale: value!),
+                        ),
                   ),
                   const Divider(color: AppColors.grey),
                   LanguageSelector(
                     text: context.r.dictionary_language,
                     value: context.read<DictionaryBloc>().state.dictionary,
-                    onChanged: (value) {
-                      context.read<DictionaryBloc>().add(
-                            DictionaryEvent.dictionaryChanged(
-                                dictionary: value!),
-                          );
-                    },
+                    onChanged: (value) => context.read<DictionaryBloc>().add(
+                          DictionaryEvent.dictionaryChanged(
+                            dictionary: value!,
+                          ),
+                        ),
                   ),
                 ],
               ),

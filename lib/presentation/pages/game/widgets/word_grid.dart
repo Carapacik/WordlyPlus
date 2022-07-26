@@ -52,7 +52,7 @@ class _GridItem extends StatelessWidget {
           ),
           child: Text(
             info.letter.toUpperCase(),
-            style: AppTypography.b30.copyWith(
+            style: context.theme.tl.copyWith(
               color: info.isStatusUnknown ? Colors.black : null,
             ),
           ),

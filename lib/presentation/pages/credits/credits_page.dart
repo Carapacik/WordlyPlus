@@ -74,14 +74,12 @@ class CreditsPage extends StatelessWidget {
                           children: [
                             TextSpan(
                               text: context.r.contact,
-                              style: AppTypography.m16.copyWith(
-                                color: Theme.of(context).primaryColor,
-                              ),
+                              style: context.theme.bl,
                             ),
                             WidgetSpan(
                               child: SelectableText(
                                 email,
-                                style: AppTypography.m18.copyWith(
+                                style: context.theme.tm.copyWith(
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
@@ -113,10 +111,7 @@ class _CreditCategory extends StatelessWidget {
   Widget build(BuildContext context) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            title,
-            style: AppTypography.b25,
-          ),
+          Text(title, style: context.theme.tm),
           const SizedBox(height: 8),
           ListView.separated(
             shrinkWrap: true,
@@ -154,7 +149,7 @@ class _CreditNameText extends StatelessWidget {
             behavior: HitTestBehavior.opaque,
             child: Text(
               text,
-              style: AppTypography.m18
+              style: context.theme.tm
                   .copyWith(decoration: TextDecoration.underline),
             ),
           ),

@@ -5,7 +5,7 @@ class ThemeState with _$ThemeState {
   const ThemeState._();
 
   const factory ThemeState.changeTheme({
-    required ThemeData theme,
+    required bool isDarkTheme,
     required bool isHighContrast,
   }) = _ChangeThemeState;
 }

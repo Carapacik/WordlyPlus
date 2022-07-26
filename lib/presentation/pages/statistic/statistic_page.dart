@@ -39,12 +39,12 @@ class StatisticPage extends StatelessWidget {
               child: FittedBox(
                 child: Text(
                   context.r.guess_distribution.toUpperCase(),
-                  style: AppTypography.b25,
+                  style: context.theme.tl,
                 ),
               ),
             ),
             const SizedBox(height: 4),
-            _AttemptContent(attempts: []),
+            const _AttemptContent(attempts: []),
           ],
         ),
       ),
@@ -64,14 +64,14 @@ class _StatText extends StatelessWidget {
         children: [
           Text(
             value.toStringAsFixed(2),
-            style: AppTypography.b25,
+            style: context.theme.tl,
           ),
           const SizedBox(
             height: 8,
           ),
           Text(
             title,
-            style: AppTypography.r14,
+            style: context.theme.bs,
             textAlign: TextAlign.center,
           )
         ],
@@ -101,7 +101,7 @@ class _AttemptContent extends StatelessWidget {
           height: 20,
           child: Text(
             ' ${attempts[index]}',
-            style: AppTypography.m16,
+            style: context.theme.bl,
           ),
         ),
       ),

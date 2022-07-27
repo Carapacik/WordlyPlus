@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:wordly/data/models/get_name_mixin.dart';
+import 'package:wordly/resources/resources.dart';
 
-enum LocaleEnum {
+enum LocaleEnum with GetNameEnumMixin {
   ru._(Locale('ru')),
   en._(Locale('en'));
 
@@ -16,6 +18,16 @@ enum LocaleEnum {
       return LocaleEnum.en;
     }
     return _toLocaleLanguages(Locale(Platform.localeName));
+  }
+
+  @override
+  String getName(BuildContext context) {
+    switch (this) {
+      case LocaleEnum.ru:
+        return context.r.ru;
+      case LocaleEnum.en:
+        return context.r.en;
+    }
   }
 }
 

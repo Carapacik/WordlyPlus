@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:wordly/data/models/get_name_mixin.dart';
 import 'package:wordly/resources/dictionary_en.dart';
 import 'package:wordly/resources/dictionary_ru.dart';
+import 'package:wordly/resources/resources.dart';
 
-enum DictionaryEnum {
+enum DictionaryEnum with GetNameEnumMixin {
   ru._(2 / 3.4, dictionaryRu),
   en._(2 / 2.7, dictionaryEn);
 
@@ -19,6 +21,16 @@ enum DictionaryEnum {
       return DictionaryEnum.en;
     }
     return _toDictionaryLanguage(Locale(Platform.localeName));
+  }
+
+  @override
+  String getName(BuildContext context) {
+    switch (this) {
+      case DictionaryEnum.ru:
+        return context.r.ru;
+      case DictionaryEnum.en:
+        return context.r.en;
+    }
   }
 }
 

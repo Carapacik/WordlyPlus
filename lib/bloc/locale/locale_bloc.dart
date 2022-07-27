@@ -4,9 +4,7 @@ import 'package:wordly/data/models/locale_enum.dart';
 import 'package:wordly/domain/shared_preferences_service.dart';
 
 part 'locale_bloc.freezed.dart';
-
 part 'locale_event.dart';
-
 part 'locale_state.dart';
 
 class LocaleBloc extends Bloc<LocaleEvent, LocaleState> {

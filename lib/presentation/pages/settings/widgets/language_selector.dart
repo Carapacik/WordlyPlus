@@ -1,80 +1,75 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wordly/bloc/theme/theme_bloc.dart';
+import 'package:wordly/data/models/get_name_mixin.dart';
 import 'package:wordly/resources/resources.dart';
 
-class LanguageSelector extends StatelessWidget {
+class LanguageSelector<T extends GetNameEnumMixin> extends StatelessWidget {
   const LanguageSelector({
-    required this.text,
+    required this.title,
     required this.value,
-    required this.onChanged,
+    required this.items,
+    required this.onTap,
     super.key,
   });
 
-  final String text;
-  final String value;
-  final ValueChanged<String?> onChanged;
+  final String title;
+  final T value;
+  final List<T> items;
+  final ValueChanged<T?> onTap;
 
   @override
   Widget build(BuildContext context) {
-    final isHighContrast = context.read<ThemeBloc>().state.isHighContrast;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          text,
-          style: context.theme.ll,
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          decoration: BoxDecoration(
-            color:
-                isHighContrast ? AppColors.highContrastOrange : AppColors.green,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              alignment: Alignment.bottomCenter,
-              value: value,
-              borderRadius: BorderRadius.circular(10),
-              items: [
-                DropdownMenuItem(
-                  value: 'ru',
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SvgPicture.asset(
-                        Assets.svg.russia.path,
-                        width: 30,
-                        height: 25,
-                      ),
-                      const SizedBox(width: 10),
-                      Text('RU', style: context.theme.bl),
-                    ],
-                  ),
+    return MergeSemantics(
+      child: ListTileTheme.merge(
+        selectedColor: AppColors.green,
+        child: ListTile(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+          title: Text(title, style: context.theme.ll),
+          trailing: Text(value.getName(context), style: context.theme.bl),
+          onTap: () async {
+            final selected = await showModalBottomSheet<T>(
+              context: context,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(24),
                 ),
-                DropdownMenuItem(
-                  value: 'en',
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SvgPicture.asset(
-                        Assets.svg.us.path,
-                        width: 30,
-                        height: 25,
+              ),
+              builder: (context) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(height: 16),
+                    Text(context.r.select_language, style: context.theme.tm),
+                    SizedBox(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: items.length,
+                        padding: EdgeInsets.zero,
+                        itemBuilder: (context, index) => InkWell(
+                          onTap: () => Navigator.of(context).pop(items[index]),
+                          child: ListTile(
+                            title: Text(
+                              items[index].getName(context),
+                              style: context.theme.bl,
+                            ),
+                            trailing: value == items[index]
+                                ? const Icon(Icons.check)
+                                : null,
+                          ),
+                        ),
                       ),
-                      const SizedBox(width: 10),
-                      Text('EN', style: context.theme.bl),
-                    ],
-                  ),
-                ),
-              ],
-              onChanged: onChanged,
-            ),
-          ),
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+                );
+              },
+            );
+            if (selected == null) {
+              return;
+            }
+            onTap(selected);
+          },
         ),
-      ],
+      ),
     );
   }
 }

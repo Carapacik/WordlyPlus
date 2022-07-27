@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordly/data/models/dictionary_enum.dart';
 import 'package:wordly/data/models/locale_enum.dart';

@@ -20,47 +20,45 @@ class SettingsPage extends StatelessWidget {
         return Scaffold(
           appBar: CustomAppBar(title: context.r.settings),
           body: ConstraintScreen(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Column(
-                children: [
-                  const SizedBox(height: 8),
-                  ToggleListTile(
-                    text: context.r.dark_mode,
-                    value: themeState.isDarkTheme,
-                    onChanged: (value) => context.read<ThemeBloc>().add(
-                          const ThemeEvent.toggleTheme(),
+            child: Column(
+              children: [
+                const SizedBox(height: 8),
+                ToggleListTile(
+                  title: context.r.dark_mode,
+                  value: themeState.isDarkTheme,
+                  onChanged: (value) => context.read<ThemeBloc>().add(
+                        const ThemeEvent.toggleTheme(),
+                      ),
+                ),
+                const Divider(color: AppColors.grey),
+                ToggleListTile(
+                  title: context.r.high_contrast_mode,
+                  value: themeState.isHighContrast,
+                  onChanged: (value) => context.read<ThemeBloc>().add(
+                        const ThemeEvent.toggleHighContrast(),
+                      ),
+                ),
+                const Divider(color: AppColors.grey),
+                BlocBuilder<DictionaryBloc, DictionaryState>(
+                  builder: (context, state) => LanguageSelector<DictionaryEnum>(
+                    title: context.r.dictionary_language,
+                    value: context.read<DictionaryBloc>().state.dictionary,
+                    items: DictionaryEnum.values,
+                    onTap: (value) => context.read<DictionaryBloc>().add(
+                          DictionaryEvent.dictionaryChanged(value!),
                         ),
                   ),
-                  const Divider(color: AppColors.grey),
-                  ToggleListTile(
-                    text: context.r.high_contrast_mode,
-                    value: themeState.isHighContrast,
-                    onChanged: (value) => context.read<ThemeBloc>().add(
-                          const ThemeEvent.toggleHighContrast(),
-                        ),
-                  ),
-                  const Divider(color: AppColors.grey),
-                  LanguageSelector(
-                    text: context.r.app_language,
-                    value: context.read<LocaleBloc>().state.locale.toString(),
-                    onChanged: (value) => context.read<LocaleBloc>().add(
-                          LocaleEvent.localeChanged(value!.toLocale),
-                        ),
-                  ),
-                  const Divider(color: AppColors.grey),
-                  LanguageSelector(
-                    text: context.r.dictionary_language,
-                    value: context
-                        .read<DictionaryBloc>()
-                        .state.dictionary.toString(),
-                    onChanged: (value) => context.read<DictionaryBloc>().add(
-                          DictionaryEvent.dictionaryChanged(
-                              value!.toDictionary),
-                        ),
-                  ),
-                ],
-              ),
+                ),
+                const Divider(color: AppColors.grey),
+                LanguageSelector<LocaleEnum>(
+                  title: context.r.app_language,
+                  value: context.read<LocaleBloc>().state.locale,
+                  items: LocaleEnum.values,
+                  onTap: (value) => context.read<LocaleBloc>().add(
+                        LocaleEvent.localeChanged(value!),
+                      ),
+                ),
+              ],
             ),
           ),
         );

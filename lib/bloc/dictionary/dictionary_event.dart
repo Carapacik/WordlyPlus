@@ -4,6 +4,6 @@ part of 'dictionary_bloc.dart';
 class DictionaryEvent with _$DictionaryEvent {
   const DictionaryEvent._();
 
-  const factory DictionaryEvent.dictionaryChanged(
-      {required String dictionary}) = _DictionaryChangedEvent;
+  const factory DictionaryEvent.dictionaryChanged(DictionaryEnum dictionary) =
+      _DictionaryChangedEvent;
 }

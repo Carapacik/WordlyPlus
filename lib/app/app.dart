@@ -16,6 +16,7 @@ class App extends StatelessWidget {
         return BlocBuilder<LocaleBloc, LocaleState>(
           builder: (context, localeState) {
             return MaterialApp(
+              locale: localeState.locale.locale,
               theme: themeState.isDarkTheme ? darkTheme : lightTheme,
               localizationsDelegates: const [
                 R.delegate,
@@ -25,9 +26,6 @@ class App extends StatelessWidget {
               ],
               supportedLocales: R.delegate.supportedLocales,
               onGenerateTitle: (context) => context.r.wordly_title,
-              locale: localeState.locale == 'en'
-                  ? const Locale('ru')
-                  : const Locale('en'),
               debugShowCheckedModeBanner: false,
               home: const GamePage(),
             );

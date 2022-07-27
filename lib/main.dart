@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_it/get_it.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:wordly/app/app.dart';
 import 'package:wordly/app/observer.dart';
@@ -13,6 +13,7 @@ import 'package:wordly/bloc/dictionary/dictionary_bloc.dart';
 import 'package:wordly/bloc/game/game_bloc.dart';
 import 'package:wordly/bloc/locale/locale_bloc.dart';
 import 'package:wordly/bloc/theme/theme_bloc.dart';
+import 'package:wordly/domain/shared_preferences_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,8 +21,12 @@ Future<void> main() async {
   setPathUrlStrategy();
   await setupServiceLocators();
 
-  final prefs = await SharedPreferences.getInstance();
-  final dictionary = prefs.getString('dictionary') ?? 'en';
+  final spService = GetIt.I<SharedPreferencesService>();
+  final isDarkTheme = await spService.getDark();
+  final isHighContrast = await spService.getHighContrast();
+  final dictionary = await spService.getDictionary();
+  final locale = await spService.getLocale();
+
   runZonedGuarded<void>(
     () {
       BlocOverrides.runZoned(
@@ -29,20 +34,27 @@ Future<void> main() async {
           runApp(
             MultiBlocProvider(
               providers: [
+                BlocProvider<ThemeBloc>(
+                  create: (_) => ThemeBloc(
+                    spService: spService,
+                    isDarkTheme: isDarkTheme,
+                    isHighContrast: isHighContrast,
+                  ),
+                ),
                 BlocProvider<DictionaryBloc>(
-                  create: (_) => DictionaryBloc(dictionary),
+                  create: (_) => DictionaryBloc(
+                    spService: spService,
+                    dictionary: dictionary,
+                  ),
                 ),
                 BlocProvider<LocaleBloc>(
-                  create: (_) => LocaleBloc('en'),
+                  create: (_) => LocaleBloc(
+                    spService: spService,
+                    locale: locale,
+                  ),
                 ),
                 BlocProvider<GameBloc>(
                   create: (_) => GameBloc(dictionary),
-                ),
-                BlocProvider<ThemeBloc>(
-                  create: (_) => ThemeBloc(
-                    isDarkTheme: false,
-                    isHighContrast: true,
-                  ),
                 ),
               ],
               child: const App(),

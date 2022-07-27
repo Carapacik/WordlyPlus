@@ -4,6 +4,6 @@ part of 'locale_bloc.dart';
 class LocaleEvent with _$LocaleEvent {
   const LocaleEvent._();
 
-  const factory LocaleEvent.localeChanged({required String locale}) =
+  const factory LocaleEvent.localeChanged(LocaleEnum locale) =
       _LocaleChangedEvent;
 }

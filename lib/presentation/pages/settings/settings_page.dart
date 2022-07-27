@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/bloc/dictionary/dictionary_bloc.dart';
 import 'package:wordly/bloc/locale/locale_bloc.dart';
 import 'package:wordly/bloc/theme/theme_bloc.dart';
+import 'package:wordly/data/models/dictionary_enum.dart';
+import 'package:wordly/data/models/locale_enum.dart';
 import 'package:wordly/presentation/pages/settings/widgets/language_selector.dart';
 import 'package:wordly/presentation/pages/settings/widgets/toggle_list_tile.dart';
 import 'package:wordly/presentation/widgets/widgets.dart';
@@ -41,19 +43,20 @@ class SettingsPage extends StatelessWidget {
                   const Divider(color: AppColors.grey),
                   LanguageSelector(
                     text: context.r.app_language,
-                    value: context.read<LocaleBloc>().state.locale,
+                    value: context.read<LocaleBloc>().state.locale.toString(),
                     onChanged: (value) => context.read<LocaleBloc>().add(
-                          LocaleEvent.localeChanged(locale: value!),
+                          LocaleEvent.localeChanged(value!.toLocale),
                         ),
                   ),
                   const Divider(color: AppColors.grey),
                   LanguageSelector(
                     text: context.r.dictionary_language,
-                    value: context.read<DictionaryBloc>().state.dictionary,
+                    value: context
+                        .read<DictionaryBloc>()
+                        .state.dictionary.toString(),
                     onChanged: (value) => context.read<DictionaryBloc>().add(
                           DictionaryEvent.dictionaryChanged(
-                            dictionary: value!,
-                          ),
+                              value!.toDictionary),
                         ),
                   ),
                 ],

@@ -12,18 +12,22 @@ final lightTheme = _base.copyWith(
     titleLarge: const TextStyle(
       fontSize: 24,
       fontWeight: FontWeight.w700,
+      color: Colors.black,
     ),
     titleMedium: const TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.w500,
+      color: Colors.black,
     ),
     bodyLarge: const TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w700,
+      color: Colors.black,
     ),
     labelLarge: const TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.w700,
+      color: Colors.black,
     ),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(

@@ -12,18 +12,22 @@ final darkTheme = _base.copyWith(
     titleLarge: const TextStyle(
       fontSize: 24,
       fontWeight: FontWeight.w700,
+      color: Colors.white,
     ),
     titleMedium: const TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.w500,
+      color: Colors.white,
     ),
     bodyLarge: const TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w700,
+      color: Colors.white,
     ),
     labelLarge: const TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.w700,
+      color: Colors.white,
     ),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(

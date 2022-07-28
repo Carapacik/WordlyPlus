@@ -49,15 +49,3 @@ extension LocaleInt on int? {
     return LocaleEnum.values[this!];
   }
 }
-
-extension StringExt on String {
-  LocaleEnum get toLocale {
-    switch (this) {
-      case 'ru':
-        return LocaleEnum.ru;
-      case 'en':
-      default:
-        return LocaleEnum.en;
-    }
-  }
-}

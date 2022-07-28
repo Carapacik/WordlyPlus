@@ -26,43 +26,7 @@ class LanguageSelector<T extends GetNameEnumMixin> extends StatelessWidget {
           title: Text(title, style: context.theme.ll),
           trailing: Text(value.getName(context), style: context.theme.bl),
           onTap: () async {
-            final selected = await showModalBottomSheet<T>(
-              context: context,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(24),
-                ),
-              ),
-              builder: (context) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SizedBox(height: 16),
-                    Text(context.r.select_language, style: context.theme.tm),
-                    SizedBox(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: items.length,
-                        padding: EdgeInsets.zero,
-                        itemBuilder: (context, index) => InkWell(
-                          onTap: () => Navigator.of(context).pop(items[index]),
-                          child: ListTile(
-                            title: Text(
-                              items[index].getName(context),
-                              style: context.theme.bl,
-                            ),
-                            trailing: value == items[index]
-                                ? const Icon(Icons.check)
-                                : null,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                  ],
-                );
-              },
-            );
+            final selected = await _selectLanguageBottomSheet(context);
             if (selected == null) {
               return;
             }
@@ -70,6 +34,48 @@ class LanguageSelector<T extends GetNameEnumMixin> extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+
+  Future<T?> _selectLanguageBottomSheet(BuildContext context) async {
+    return showModalBottomSheet<T>(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(24),
+        ),
+      ),
+      builder: (context) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 16),
+              Text(context.r.select_language, style: context.theme.tm),
+              SizedBox(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: items.length,
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (context, index) => InkWell(
+                    onTap: () => Navigator.of(context).pop(items[index]),
+                    child: ListTile(
+                      title: Text(
+                        items[index].getName(context),
+                        style: context.theme.bl,
+                      ),
+                      trailing: value == items[index]
+                          ? const Icon(Icons.check)
+                          : null,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
+          ),
+        );
+      },
     );
   }
 }

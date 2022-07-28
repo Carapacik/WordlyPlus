@@ -51,15 +51,3 @@ extension DictionaryInt on int? {
     return DictionaryEnum.values[this!];
   }
 }
-
-extension StringExt on String {
-  DictionaryEnum get toDictionary {
-    switch (this) {
-      case 'ru':
-        return DictionaryEnum.ru;
-      case 'en':
-      default:
-        return DictionaryEnum.en;
-    }
-  }
-}

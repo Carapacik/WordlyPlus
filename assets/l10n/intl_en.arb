@@ -11,6 +11,7 @@
   "dark_mode": "Dark mode",
   "dictionary": "Dictionary",
   "dictionary_language": "Dictionary language",
+  "en": "English",
   "example_letter": "L",
   "game_design": "Game design",
   "guess_distribution": "Guess distribution",
@@ -27,8 +28,10 @@
   "next_wordle": "Next wordle in",
   "played": "Played",
   "proceed": "Proceed",
+  "ru": "Russian",
   "scenario": "Scenario",
   "secret_word": "Secret word",
+  "select_language": "Select a language",
   "settings": "Settings",
   "share": "Share",
   "statistic": "Statistic",
@@ -40,9 +43,6 @@
   "win_rate": "Win\npercentage",
   "word_not_found": "Word not found in dictionary",
   "word_too_short": "Word is not correct length",
-  "wordly_title": "Wordle",
   "wordly_plus": "Wordly Plus",
-  "ru": "Russian",
-  "en": "English",
-  "select_language": "Select a language"
+  "wordly_title": "Wordle"
 }

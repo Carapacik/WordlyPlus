@@ -11,6 +11,7 @@
   "dark_mode": "Темная тема",
   "dictionary": "Словарь",
   "dictionary_language": "Язык словаря",
+  "en": "Английский",
   "example_letter": "Б",
   "game_design": "Геймпей",
   "guess_distribution": "Распределение догадок",
@@ -27,8 +28,10 @@
   "next_wordle": "Следующее слово через",
   "played": "Сыграно",
   "proceed": "Дальше",
+  "ru": "Русский",
   "scenario": "Сценарий",
   "secret_word": "Загаданное слово",
+  "select_language": "Выберите язык",
   "settings": "Настройки",
   "share": "Поделиться",
   "statistic": "Статистика",
@@ -40,9 +43,6 @@
   "win_rate": "Процент\nпобед",
   "word_not_found": "Слово не найдено в словаре",
   "word_too_short": "Слово неправильной длины",
-  "wordly_title": "Словень",
   "wordly_plus": "Словень Плюс",
-  "ru": "Русский",
-  "en": "Английский",
-  "select_language": "Выберите язык"
+  "wordly_title": "Словень"
 }

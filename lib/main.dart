@@ -13,6 +13,7 @@ import 'package:wordly/bloc/dictionary/dictionary_bloc.dart';
 import 'package:wordly/bloc/game/game_bloc.dart';
 import 'package:wordly/bloc/locale/locale_bloc.dart';
 import 'package:wordly/bloc/theme/theme_bloc.dart';
+import 'package:wordly/domain/game_service.dart';
 import 'package:wordly/domain/shared_preferences_service.dart';
 
 Future<void> main() async {
@@ -29,6 +30,8 @@ Future<void> main() async {
   final isHighContrast = await spService.getHighContrast();
   final dictionary = await spService.getDictionary();
   final locale = await spService.getLocale();
+
+  final gameService = GetIt.I<GameService>();
 
   runZonedGuarded<void>(
     () {
@@ -57,7 +60,10 @@ Future<void> main() async {
                   ),
                 ),
                 BlocProvider<GameBloc>(
-                  create: (_) => GameBloc(dictionary),
+                  create: (_) => GameBloc(
+                    dictionary: dictionary,
+                    gameService: gameService,
+                  ),
                 ),
               ],
               child: const App(),

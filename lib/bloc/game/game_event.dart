@@ -4,7 +4,7 @@ part of 'game_bloc.dart';
 class GameEvent with _$GameEvent {
   const GameEvent._();
 
-  const factory GameEvent.letterPressed({required String letter}) =
+  const factory GameEvent.letterPressed(KeyboardKeys letter) =
       _LetterPressedEvent;
 
   const factory GameEvent.deletePressed() = _DeletePressedEvent;

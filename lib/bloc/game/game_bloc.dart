@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:wordly/data/models/dictionary_enum.dart';
+import 'package:wordly/data/models/keyboard_keys.dart';
 import 'package:wordly/domain/game_service.dart';
 
 part 'game_bloc.freezed.dart';

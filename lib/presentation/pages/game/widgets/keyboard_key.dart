@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/bloc/game/game_bloc.dart';
 import 'package:wordly/data/models/dictionary_enum.dart';
 import 'package:wordly/data/models/keyboard_keys.dart';
 import 'package:wordly/resources/resources.dart';
@@ -24,7 +26,9 @@ class KeyboardKey extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: dictionary.aspectRatio,
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            context.read<GameBloc>().add(GameEvent.letterPressed(keyboardKey));
+          },
           child: Container(
             alignment: Alignment.center,
             decoration: BoxDecoration(
@@ -56,7 +60,9 @@ class EnterKeyboardKey extends StatelessWidget {
         dictionary: dictionary,
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          context.read<GameBloc>().add(const GameEvent.enterPressed());
+        },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 4),
           alignment: Alignment.center,
@@ -92,8 +98,9 @@ class DeleteKeyboardKey extends StatelessWidget {
         dictionary: dictionary,
       ),
       child: InkWell(
-        // onTap: mainCubit.removeLetter,
-        // onLongPress: mainCubit.removeFullWord,
+        onTap: () {
+          context.read<GameBloc>().add(const GameEvent.deletePressed());
+        },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 4),
           alignment: Alignment.center,

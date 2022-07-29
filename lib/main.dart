@@ -14,7 +14,7 @@ import 'package:wordly/bloc/game/game_bloc.dart';
 import 'package:wordly/bloc/locale/locale_bloc.dart';
 import 'package:wordly/bloc/theme/theme_bloc.dart';
 import 'package:wordly/domain/game_service.dart';
-import 'package:wordly/domain/shared_preferences_service.dart';
+import 'package:wordly/domain/settings_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,11 +25,12 @@ Future<void> main() async {
   setPathUrlStrategy();
   await setupServiceLocators();
 
-  final spService = GetIt.I<SharedPreferencesService>();
-  final isDarkTheme = await spService.getDark();
-  final isHighContrast = await spService.getHighContrast();
-  final dictionary = await spService.getDictionary();
-  final locale = await spService.getLocale();
+  final settingsService = GetIt.I<SettingsService>();
+  final isDarkTheme = await settingsService.getDark();
+  final isHighContrast = await settingsService.getHighContrast();
+  final dictionary = await settingsService.getDictionary();
+  final locale = await settingsService.getLocale();
+  final isFirstLaunch = await settingsService.isFirstLaunch();
 
   final gameService = GetIt.I<GameService>();
 
@@ -42,20 +43,20 @@ Future<void> main() async {
               providers: [
                 BlocProvider<ThemeBloc>(
                   create: (_) => ThemeBloc(
-                    spService: spService,
+                    settingsService: settingsService,
                     isDarkTheme: isDarkTheme,
                     isHighContrast: isHighContrast,
                   ),
                 ),
                 BlocProvider<DictionaryBloc>(
                   create: (_) => DictionaryBloc(
-                    spService: spService,
+                    settingsService: settingsService,
                     dictionary: dictionary,
                   ),
                 ),
                 BlocProvider<LocaleBloc>(
                   create: (_) => LocaleBloc(
-                    spService: spService,
+                    settingsService: settingsService,
                     locale: locale,
                   ),
                 ),
@@ -66,7 +67,7 @@ Future<void> main() async {
                   ),
                 ),
               ],
-              child: const App(),
+              child: App(isFirstLaunch: isFirstLaunch),
             ),
           );
         },

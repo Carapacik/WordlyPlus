@@ -4,10 +4,13 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:wordly/bloc/locale/locale_bloc.dart';
 import 'package:wordly/bloc/theme/theme_bloc.dart';
 import 'package:wordly/presentation/pages/game/game_page.dart';
+import 'package:wordly/presentation/pages/tutorial/tutorial_page.dart';
 import 'package:wordly/resources/resources.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const App({required this.isFirstLaunch, super.key});
+
+  final bool isFirstLaunch;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,7 @@ class App extends StatelessWidget {
               supportedLocales: R.delegate.supportedLocales,
               onGenerateTitle: (context) => context.r.wordly_title,
               debugShowCheckedModeBanner: false,
-              home: const GamePage(),
+              home: isFirstLaunch ? const TutorialPage() : const GamePage(),
             );
           },
         );

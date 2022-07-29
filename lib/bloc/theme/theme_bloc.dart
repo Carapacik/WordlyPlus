@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:wordly/domain/shared_preferences_service.dart';
+import 'package:wordly/domain/settings_service.dart';
 
 part 'theme_bloc.freezed.dart';
 part 'theme_event.dart';
@@ -10,7 +10,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   ThemeBloc({
     required bool isDarkTheme,
     required bool isHighContrast,
-    required this.spService,
+    required this.settingsService,
   }) : super(
           ThemeState.changeTheme(
             isDarkTheme: isDarkTheme,
@@ -21,13 +21,13 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     on<_ToggleHighContrastEvent>(_onHighContrastChanged);
   }
 
-  final SharedPreferencesService spService;
+  final SettingsService settingsService;
 
   Future<void> _onThemeChanged(
     _ToggleThemeEvent event,
     Emitter<ThemeState> emit,
   ) async {
-    await spService.saveDark(value: !state.isDarkTheme);
+    await settingsService.saveDark(value: !state.isDarkTheme);
     emit(state.copyWith(isDarkTheme: !state.isDarkTheme));
   }
 
@@ -35,7 +35,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     _ToggleHighContrastEvent event,
     Emitter<ThemeState> emit,
   ) async {
-    await spService.saveHighContrast(value: !state.isHighContrast);
+    await settingsService.saveHighContrast(value: !state.isHighContrast);
     emit(state.copyWith(isHighContrast: !state.isHighContrast));
   }
 }

@@ -2,9 +2,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordly/data/models/dictionary_enum.dart';
 import 'package:wordly/data/models/locale_enum.dart';
 
-class SharedPreferencesService {
-  SharedPreferencesService();
+class SettingsService {
+  SettingsService();
 
+  static const _firstLaunch = 'first_lauch_key';
   static const _isDarkKey = 'is_dark_key';
   static const _isHighContrastKey = 'is_high_contrast_key';
   static const _dictionaryKey = 'dictionary_key';
@@ -48,5 +49,12 @@ class SharedPreferencesService {
   Future<LocaleEnum> getLocale() async {
     final sp = await SharedPreferences.getInstance();
     return sp.getInt(_localeKey).toLocale;
+  }
+
+  Future<bool> isFirstLaunch() async {
+    final sp = await SharedPreferences.getInstance();
+    final isFirstLaunch = sp.getBool(_firstLaunch) ?? false;
+    await sp.setBool(_firstLaunch, true);
+    return isFirstLaunch;
   }
 }

@@ -11,6 +11,6 @@ class GameEvent with _$GameEvent {
 
   const factory GameEvent.enterPressed() = _EnterPressedEvent;
 
-  const factory GameEvent.changeDictionary({required int dictionary}) =
+  const factory GameEvent.changeDictionary(DictionaryEnum dictionary) =
       _ChangeDictionaryEvent;
 }

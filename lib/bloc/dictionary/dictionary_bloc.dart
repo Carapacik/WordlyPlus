@@ -15,7 +15,7 @@ class DictionaryBloc extends Bloc<DictionaryEvent, DictionaryState> {
     on<_DictionaryChangedEvent>(_onDictionaryChanged);
   }
 
-  final SettingsService settingsService;
+  final SaveSettingsService settingsService;
 
   Future<void> _onDictionaryChanged(
     _DictionaryChangedEvent event,

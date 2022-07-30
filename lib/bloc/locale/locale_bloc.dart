@@ -15,7 +15,7 @@ class LocaleBloc extends Bloc<LocaleEvent, LocaleState> {
     on<_LocaleChangedEvent>(_onLocaleChanged);
   }
 
-  final SettingsService settingsService;
+  final SaveSettingsService settingsService;
 
   Future<void> _onLocaleChanged(
     _LocaleChangedEvent event,

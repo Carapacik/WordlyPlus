@@ -2,10 +2,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordly/data/models/dictionary_enum.dart';
 import 'package:wordly/data/models/locale_enum.dart';
 
-class SettingsService {
-  SettingsService();
+class SaveSettingsService {
+  SaveSettingsService();
 
-  static const _firstLaunch = 'first_lauch_key';
+  static const _firstLaunch = 'first_launch_key';
   static const _isDarkKey = 'is_dark_key';
   static const _isHighContrastKey = 'is_high_contrast_key';
   static const _dictionaryKey = 'dictionary_key';

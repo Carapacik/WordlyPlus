@@ -18,7 +18,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   }
 
   final DictionaryEnum dictionary;
-  final GameService gameService;
+  final SaveGameService gameService;
 
   void _onLetterPressed(
     _LetterPressedEvent event,

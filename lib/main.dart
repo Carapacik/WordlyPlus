@@ -25,14 +25,14 @@ Future<void> main() async {
   setPathUrlStrategy();
   await setupServiceLocators();
 
-  final settingsService = GetIt.I<SettingsService>();
+  final settingsService = GetIt.I<SaveSettingsService>();
   final isDarkTheme = await settingsService.getDark();
   final isHighContrast = await settingsService.getHighContrast();
   final dictionary = await settingsService.getDictionary();
   final locale = await settingsService.getLocale();
   final isFirstLaunch = await settingsService.isFirstLaunch();
 
-  final gameService = GetIt.I<GameService>();
+  final gameService = GetIt.I<SaveGameService>();
 
   runZonedGuarded<void>(
     () {
@@ -62,8 +62,8 @@ Future<void> main() async {
                 ),
                 BlocProvider<GameBloc>(
                   create: (_) => GameBloc(
-                    dictionary: dictionary,
                     gameService: gameService,
+                    dictionary: dictionary,
                   ),
                 ),
               ],

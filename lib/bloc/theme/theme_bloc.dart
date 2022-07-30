@@ -8,9 +8,9 @@ part 'theme_state.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   ThemeBloc({
+    required this.settingsService,
     required bool isDarkTheme,
     required bool isHighContrast,
-    required this.settingsService,
   }) : super(
           ThemeState.changeTheme(
             isDarkTheme: isDarkTheme,
@@ -21,7 +21,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     on<_ToggleHighContrastEvent>(_onHighContrastChanged);
   }
 
-  final SettingsService settingsService;
+  final SaveSettingsService settingsService;
 
   Future<void> _onThemeChanged(
     _ToggleThemeEvent event,

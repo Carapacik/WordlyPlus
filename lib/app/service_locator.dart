@@ -7,13 +7,13 @@ Future<void> setupServiceLocators() async {
 }
 
 Future<void> _initSPService() async {
-  GetIt.I.registerSingleton<SettingsService>(
-    SettingsService(),
+  GetIt.I.registerSingleton<SaveSettingsService>(
+    SaveSettingsService(),
   );
 }
 
 Future<void> _initGameService() async {
-  GetIt.I.registerSingleton<GameService>(
-    GameService(),
+  GetIt.I.registerSingleton<SaveGameService>(
+    SaveGameService(),
   );
 }

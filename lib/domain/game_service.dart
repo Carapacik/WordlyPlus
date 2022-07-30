@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class GameService {
-  GameService();
+class SaveGameService {
+  SaveGameService();
 
   static const _dailyBoard = 'daily_board_key';
   static const _dailyWord = 'daily_word_key';

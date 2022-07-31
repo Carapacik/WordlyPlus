@@ -61,8 +61,8 @@ enum KeyboardKeys {
         (element) => element._notNullKeys.contains(logicalKey),
       );
 
-  String? fromDictionaryLang(DictionaryEnum lang) {
-    switch (lang) {
+  String? fromDictionary(DictionaryEnum dictionary) {
+    switch (dictionary) {
       case DictionaryEnum.ru:
         return ruName;
       case DictionaryEnum.en:

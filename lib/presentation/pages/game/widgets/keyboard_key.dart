@@ -71,7 +71,7 @@ class EnterKeyboardKey extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
           ),
           child: Text(
-            KeyboardKeys.enter.fromDictionaryLang(dictionary)!.toUpperCase(),
+            KeyboardKeys.enter.fromDictionary(dictionary)!.toUpperCase(),
             style: context.theme.ll,
           ),
         ),

@@ -20,23 +20,56 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final DictionaryEnum dictionary;
   final SaveGameService gameService;
 
+  bool _isGameComplete = false;
+  int _currentWordIndex = 0;
+  String _secretWord = '';
+  List<String> _gridInfo = [''];
+
   void _onLetterPressed(
     _LetterPressedEvent event,
     Emitter<GameState> emit,
-  ) {}
+  ) {
+    if (_isGameComplete) {
+      return;
+    }
+    if (_gridInfo.length <= _currentWordIndex) {
+      _gridInfo.add('');
+    }
+    if (_gridInfo[_currentWordIndex].length < 5) {
+      _gridInfo[_currentWordIndex] = _gridInfo[_currentWordIndex] +
+          (event.letter.fromDictionary(dictionary) ?? '');
+      // TODO нормальная переменная для board List<LetterInfo>
+      emit(const GameState.boardUpdate(board: ''));
+    }
+  }
 
   void _onDeletePressed(
     _DeletePressedEvent event,
     Emitter<GameState> emit,
-  ) {}
+  ) {
+    if (_gridInfo.length <= _currentWordIndex) {
+      _gridInfo.add('');
+    }
+    final wordLength = _gridInfo[_currentWordIndex].length;
+    if (wordLength > 0) {
+      _gridInfo[_currentWordIndex] =
+          _gridInfo[_currentWordIndex].substring(0, wordLength - 1);
+      // TODO нормальная переменная для board List<LetterInfo>
+      emit(const GameState.boardUpdate(board: ''));
+    }
+  }
 
   void _onEnterPressed(
     _EnterPressedEvent event,
     Emitter<GameState> emit,
-  ) {}
+  ) {
+    // TODO
+  }
 
   void _onChangeDictionary(
     _ChangeDictionaryEvent event,
     Emitter<GameState> emit,
-  ) {}
+  ) {
+    // TODO
+  }
 }

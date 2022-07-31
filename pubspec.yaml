@@ -34,7 +34,7 @@ dev_dependencies:
   flutter_gen_runner: ^4.3.0
   flutter_native_splash: ^2.2.6
   freezed: ^2.1.0+1
-  icons_launcher: ^2.0.1
+  icons_launcher: ^2.0.2
   json_serializable: ^6.3.1
 
 flutter:

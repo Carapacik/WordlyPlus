@@ -33,7 +33,7 @@ class CustomDrawer extends StatelessWidget {
               onTap: () async {
                 await Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute<void>(
-                    builder: (context) => const GamePage(),
+                    builder: (context) => const GamePage(daily: false),
                   ),
                   (route) => false,
                 );

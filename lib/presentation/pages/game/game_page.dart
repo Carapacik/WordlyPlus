@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/bloc/levels/levels_bloc.dart';
+import 'package:wordly/bloc/statistic/statistic_bloc.dart';
 import 'package:wordly/presentation/pages/game/widgets/keyboard_by_language.dart';
 import 'package:wordly/presentation/pages/game/widgets/word_grid.dart';
 import 'package:wordly/presentation/pages/levels/levels_page.dart';
@@ -8,7 +11,9 @@ import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/resources/resources.dart';
 
 class GamePage extends StatefulWidget {
-  const GamePage({super.key});
+  const GamePage({this.daily = true, super.key});
+
+  final bool daily;
 
   @override
   State<GamePage> createState() => _GamePageState();
@@ -43,28 +48,34 @@ class _GamePageState extends State<GamePage> {
       child: Scaffold(
         drawer: const CustomDrawer(),
         appBar: CustomAppBar(
-          title: '',
+          title: widget.daily ? context.r.daily : context.r.levels,
           actions: [
-            if (true)
-              IconButton(
-                tooltip: context.r.view_levels,
-                icon: const Icon(Icons.apps),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute<void>(
-                      builder: (context) => const LevelsPage(),
-                    ),
-                  );
-                },
-              )
-            else
+            if (widget.daily)
               IconButton(
                 tooltip: context.r.view_statistic,
                 icon: const Icon(Icons.leaderboard),
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute<void>(
-                      builder: (_) => const StatisticPage(),
+                      builder: (_) => BlocProvider<StatisticBloc>(
+                        create: (context) => StatisticBloc(),
+                        child: const StatisticPage(),
+                      ),
+                    ),
+                  );
+                },
+              )
+            else
+              IconButton(
+                tooltip: context.r.view_levels,
+                icon: const Icon(Icons.apps),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => BlocProvider<LevelsBloc>(
+                        create: (context) => LevelsBloc(),
+                        child: const LevelsPage(),
+                      ),
                     ),
                   );
                 },
@@ -73,14 +84,14 @@ class _GamePageState extends State<GamePage> {
         ),
         body: Column(
           children: [
-            SizedBox(height: 8),
-            WordGrid(),
-            Spacer(),
+            const SizedBox(height: 8),
+            const WordGrid(),
+            const Spacer(),
             ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 500),
-              child: KeyboardByLanguage(),
+              constraints: const BoxConstraints(maxWidth: 500),
+              child: const KeyboardByLanguage(),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
           ],
         ),
       ),

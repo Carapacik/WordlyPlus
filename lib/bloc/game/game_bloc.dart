@@ -69,7 +69,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
     // If success
     emit(GameState.boardUpdate(_gridInfo));
-    emit(GameState.wordSubmit(_gridInfo));
+    emit(GameState.wordSubmit(""));
   }
 
   void _onChangeDictionary(

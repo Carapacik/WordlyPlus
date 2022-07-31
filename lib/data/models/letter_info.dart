@@ -3,7 +3,7 @@ import 'package:wordly/data/models/letter_status.dart';
 class LetterInfo {
   const LetterInfo({
     required this.letter,
-    required this.letterStatus,
+    this.letterStatus = LetterStatus.unknown,
   });
 
   final String letter;

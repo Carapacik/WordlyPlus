@@ -10,12 +10,11 @@ class GameState with _$GameState {
 
   const factory GameState.lose() = _LoseState;
 
-  const factory GameState.boardUpdate({required String board}) =
+  const factory GameState.boardUpdate(List<LetterInfo> board) =
       _BoardUpdateGameState;
 
-  const factory GameState.wordSubmit({required String board}) =
+  const factory GameState.wordSubmit(List<LetterInfo> board) =
       _BoardUpdateGameState;
 
-  const factory GameState.error({required String errorMessage}) =
-      _ErrorGameState;
+  const factory GameState.error(GameError error) = _ErrorGameState;
 }

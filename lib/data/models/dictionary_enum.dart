@@ -9,7 +9,7 @@ import 'package:wordly/resources/resources.dart';
 
 enum DictionaryEnum with GetNameEnumMixin {
   ru._(2 / 3.4, dictionaryRu),
-  en._(2 / 2.7, dictionaryEn);
+  en._(2 / 2.6, dictionaryEn);
 
   const DictionaryEnum._(this.aspectRatio, this.currentDictionary);
 

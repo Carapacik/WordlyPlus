@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:wordly/data/models/dictionary_enum.dart';
 
 const _defaultWidthRu = 0.1;
-const _defaultWidthEn = 0.125;
+const _defaultWidthEn = 0.12;
 
 enum KeyboardKeys {
   q('й', 'q', LogicalKeyboardKey(1081), LogicalKeyboardKey.keyQ),

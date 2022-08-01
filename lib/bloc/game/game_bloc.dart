@@ -11,8 +11,9 @@ part 'game_event.dart';
 part 'game_state.dart';
 
 class GameBloc extends Bloc<GameEvent, GameState> {
-  GameBloc({required this.dictionary, required this.gameService})
-      : super(const GameState.initial()) {
+  GameBloc({required DictionaryEnum dictionary, required this.gameService})
+      : _dictionary = dictionary,
+        super(const GameState.initial()) {
     on<_LetterPressedEvent>(_onLetterPressed);
     on<_DeletePressedEvent>(_onDeletePressed);
     on<_DeleteLongPressedEvent>(_onDeleteLongPressed);
@@ -20,9 +21,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<_ChangeDictionaryEvent>(_onChangeDictionary);
   }
 
-  final DictionaryEnum dictionary;
   final SaveGameService gameService;
-
+  DictionaryEnum _dictionary;
   List<LetterInfo> _gridInfo = [];
 
   bool _isGameComplete = false;
@@ -38,7 +38,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
     if (_gridInfo.length < (_currentWordIndex + 1) * 5) {
       final newList = List<LetterInfo>.of(_gridInfo)
-        ..add(LetterInfo(letter: event.letter.fromDictionary(dictionary)!));
+        ..add(LetterInfo(letter: event.letter.fromDictionary(_dictionary)!));
       _gridInfo = newList;
       emit(GameState.boardUpdate(newList));
     }
@@ -81,7 +81,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       emit(const GameState.error(GameError.tooShort));
       return;
     }
-    if (!dictionary.currentDictionary.containsKey(_buildWord)) {
+    if (!_dictionary.currentDictionary.containsKey(_buildWord)) {
       emit(const GameState.error(GameError.notFound));
       return;
     }
@@ -95,7 +95,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     _ChangeDictionaryEvent event,
     Emitter<GameState> emit,
   ) {
-    // TODO
+    _dictionary = event.dictionary;
   }
 
   String get _buildWord {

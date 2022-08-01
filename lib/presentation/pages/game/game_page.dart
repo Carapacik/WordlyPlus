@@ -90,17 +90,19 @@ class _GamePageState extends State<GamePage> {
                 ),
             ],
           ),
-          body: Column(
-            children: [
-              const SizedBox(height: 8),
-              const WordGrid(),
-              const Spacer(),
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 500),
-                child: const KeyboardByLanguage(),
-              ),
-              const SizedBox(height: 8),
-            ],
+          body: SafeArea(
+            child: Column(
+              children: [
+                const SizedBox(height: 8),
+                const WordGrid(),
+                const Spacer(),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 500),
+                  child: const KeyboardByLanguage(),
+                ),
+                const SizedBox(height: 8),
+              ],
+            ),
           ),
         ),
       ),

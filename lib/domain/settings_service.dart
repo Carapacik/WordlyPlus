@@ -5,7 +5,7 @@ import 'package:wordly/data/models/locale_enum.dart';
 class SaveSettingsService {
   SaveSettingsService();
 
-  static const _firstLaunch = 'first_launch_key';
+  static const _secondLaunchKey = 'second_launch_key';
   static const _isDarkKey = 'is_dark_key';
   static const _isHighContrastKey = 'is_high_contrast_key';
   static const _dictionaryKey = 'dictionary_key';
@@ -51,10 +51,10 @@ class SaveSettingsService {
     return sp.getInt(_localeKey).toLocale;
   }
 
-  Future<bool> isFirstLaunch() async {
+  Future<bool> isSecondLaunch() async {
     final sp = await SharedPreferences.getInstance();
-    final isFirstLaunch = sp.getBool(_firstLaunch) ?? false;
-    await sp.setBool(_firstLaunch, true);
-    return isFirstLaunch;
+    final isSecondLaunch = sp.getBool(_secondLaunchKey) ?? false;
+    await sp.setBool(_secondLaunchKey, true);
+    return isSecondLaunch;
   }
 }

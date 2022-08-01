@@ -15,6 +15,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       : super(const GameState.initial()) {
     on<_LetterPressedEvent>(_onLetterPressed);
     on<_DeletePressedEvent>(_onDeletePressed);
+    on<_DeleteLongPressedEvent>(_onDeleteLongPressed);
     on<_EnterPressedEvent>(_onEnterPressed);
     on<_ChangeDictionaryEvent>(_onChangeDictionary);
   }
@@ -22,10 +23,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final DictionaryEnum dictionary;
   final SaveGameService gameService;
 
+  List<LetterInfo> _gridInfo = [];
+
   bool _isGameComplete = false;
   int _currentWordIndex = 0;
   String _secretWord = '';
-  List<LetterInfo> _gridInfo = [];
 
   void _onLetterPressed(
     _LetterPressedEvent event,
@@ -34,11 +36,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     if (_isGameComplete) {
       return;
     }
-    if (_gridInfo.length / (_currentWordIndex + 1) < 5) {
-      _gridInfo.add(
-        LetterInfo(letter: event.letter.fromDictionary(dictionary)!),
-      );
-      emit(GameState.boardUpdate(_gridInfo));
+    if (_gridInfo.length < (_currentWordIndex + 1) * 5) {
+      final newList = List<LetterInfo>.of(_gridInfo)
+        ..add(LetterInfo(letter: event.letter.fromDictionary(dictionary)!));
+      _gridInfo = newList;
+      emit(GameState.boardUpdate(newList));
     }
   }
 
@@ -49,9 +51,25 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     if (_isGameComplete) {
       return;
     }
-    if (_gridInfo.length % 5 > 0) {
-      _gridInfo.removeLast();
-      emit(GameState.boardUpdate(_gridInfo));
+    if (_gridInfo.length > _currentWordIndex * 5) {
+      final newList = List<LetterInfo>.of(_gridInfo)..removeLast();
+      _gridInfo = newList;
+      emit(GameState.boardUpdate(newList));
+    }
+  }
+
+  void _onDeleteLongPressed(
+    _DeleteLongPressedEvent event,
+    Emitter<GameState> emit,
+  ) {
+    if (_isGameComplete) {
+      return;
+    }
+    if (_gridInfo.length > _currentWordIndex * 5) {
+      final newList = List<LetterInfo>.of(_gridInfo)
+        ..removeRange(_currentWordIndex * 5, _gridInfo.length);
+      _gridInfo = newList;
+      emit(GameState.boardUpdate(newList));
     }
   }
 
@@ -63,13 +81,14 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       emit(const GameState.error(GameError.tooShort));
       return;
     }
-
-    // If not in dictionary
-    emit(const GameState.error(GameError.notFound));
+    if (!dictionary.currentDictionary.containsKey(_buildWord)) {
+      emit(const GameState.error(GameError.notFound));
+      return;
+    }
 
     // If success
     emit(GameState.boardUpdate(_gridInfo));
-    emit(GameState.wordSubmit(""));
+    // emit(GameState.wordSubmit(""));
   }
 
   void _onChangeDictionary(
@@ -77,5 +96,13 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     Emitter<GameState> emit,
   ) {
     // TODO
+  }
+
+  String get _buildWord {
+    return _gridInfo[_currentWordIndex * 5].letter +
+        _gridInfo[_currentWordIndex * 5 + 1].letter +
+        _gridInfo[_currentWordIndex * 5 + 2].letter +
+        _gridInfo[_currentWordIndex * 5 + 3].letter +
+        _gridInfo[_currentWordIndex * 5 + 4].letter;
   }
 }

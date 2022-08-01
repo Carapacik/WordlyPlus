@@ -30,7 +30,7 @@ Future<void> main() async {
   final isHighContrast = await settingsService.getHighContrast();
   final dictionary = await settingsService.getDictionary();
   final locale = await settingsService.getLocale();
-  final isFirstLaunch = await settingsService.isFirstLaunch();
+  final isSecondLaunch = await settingsService.isSecondLaunch();
 
   final gameService = GetIt.I<SaveGameService>();
 
@@ -67,7 +67,7 @@ Future<void> main() async {
                   ),
                 ),
               ],
-              child: App(isFirstLaunch: isFirstLaunch),
+              child: App(isSecondLaunch: isSecondLaunch),
             ),
           );
         },

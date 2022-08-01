@@ -16,4 +16,6 @@ class GameState with _$GameState {
   const factory GameState.wordSubmit(String her) = _WordSumbitState;
 
   const factory GameState.error(GameError error) = _ErrorState;
+
+  bool get isBoardUpdate => this is _BoardUpdateState;
 }

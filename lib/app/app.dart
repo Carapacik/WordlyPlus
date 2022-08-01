@@ -8,9 +8,9 @@ import 'package:wordly/presentation/pages/tutorial/tutorial_page.dart';
 import 'package:wordly/resources/resources.dart';
 
 class App extends StatelessWidget {
-  const App({required this.isFirstLaunch, super.key});
+  const App({required this.isSecondLaunch, super.key});
 
-  final bool isFirstLaunch;
+  final bool isSecondLaunch;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class App extends StatelessWidget {
               supportedLocales: R.delegate.supportedLocales,
               onGenerateTitle: (context) => context.r.wordly_title,
               debugShowCheckedModeBanner: false,
-              home: isFirstLaunch ? const TutorialPage() : const GamePage(),
+              home: isSecondLaunch ? const GamePage() : const TutorialPage(),
             );
           },
         );

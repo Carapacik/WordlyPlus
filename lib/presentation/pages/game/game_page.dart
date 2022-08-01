@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/bloc/game/game_bloc.dart';
 import 'package:wordly/bloc/levels/levels_bloc.dart';
 import 'package:wordly/bloc/statistic/statistic_bloc.dart';
 import 'package:wordly/presentation/pages/game/widgets/keyboard_by_language.dart';
@@ -45,54 +46,62 @@ class _GamePageState extends State<GamePage> {
           return;
         }
       },
-      child: Scaffold(
-        drawer: const CustomDrawer(),
-        appBar: CustomAppBar(
-          title: widget.daily ? context.r.daily : context.r.levels,
-          actions: [
-            if (widget.daily)
-              IconButton(
-                tooltip: context.r.view_statistic,
-                icon: const Icon(Icons.leaderboard),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute<void>(
-                      builder: (_) => BlocProvider<StatisticBloc>(
-                        create: (context) => StatisticBloc(),
-                        child: const StatisticPage(),
+      child: BlocListener<GameBloc, GameState>(
+        listener: (context, state) {
+          final error = state.whenOrNull(error: (error) => error);
+          if (error != null) {
+            showFloatingSnackBar(context, message: error.getName(context));
+          }
+        },
+        child: Scaffold(
+          drawer: const CustomDrawer(),
+          appBar: CustomAppBar(
+            title: widget.daily ? context.r.daily : context.r.levels,
+            actions: [
+              if (widget.daily)
+                IconButton(
+                  tooltip: context.r.view_statistic,
+                  icon: const Icon(Icons.leaderboard),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => BlocProvider<StatisticBloc>(
+                          create: (context) => StatisticBloc(),
+                          child: const StatisticPage(),
+                        ),
                       ),
-                    ),
-                  );
-                },
-              )
-            else
-              IconButton(
-                tooltip: context.r.view_levels,
-                icon: const Icon(Icons.apps),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute<void>(
-                      builder: (_) => BlocProvider<LevelsBloc>(
-                        create: (context) => LevelsBloc(),
-                        child: const LevelsPage(),
+                    );
+                  },
+                )
+              else
+                IconButton(
+                  tooltip: context.r.view_levels,
+                  icon: const Icon(Icons.apps),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => BlocProvider<LevelsBloc>(
+                          create: (context) => LevelsBloc(),
+                          child: const LevelsPage(),
+                        ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
+            ],
+          ),
+          body: Column(
+            children: [
+              const SizedBox(height: 8),
+              const WordGrid(),
+              const Spacer(),
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 500),
+                child: const KeyboardByLanguage(),
               ),
-          ],
-        ),
-        body: Column(
-          children: [
-            const SizedBox(height: 8),
-            const WordGrid(),
-            const Spacer(),
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 500),
-              child: const KeyboardByLanguage(),
-            ),
-            const SizedBox(height: 8),
-          ],
+              const SizedBox(height: 8),
+            ],
+          ),
         ),
       ),
     );

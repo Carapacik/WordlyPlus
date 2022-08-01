@@ -9,6 +9,8 @@ class GameEvent with _$GameEvent {
 
   const factory GameEvent.deletePressed() = _DeletePressedEvent;
 
+  const factory GameEvent.deleteLongPressed() = _DeleteLongPressedEvent;
+
   const factory GameEvent.enterPressed() = _EnterPressedEvent;
 
   const factory GameEvent.changeDictionary(DictionaryEnum dictionary) =

@@ -4,6 +4,7 @@ import 'package:wordly/domain/settings_service.dart';
 
 Future<void> setupServiceLocators() async {
   await _initSPService();
+  await _initGameService();
 }
 
 Future<void> _initSPService() async {

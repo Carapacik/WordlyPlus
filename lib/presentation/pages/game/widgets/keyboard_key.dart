@@ -36,7 +36,7 @@ class KeyboardKey extends StatelessWidget {
               color: Colors.black12,
             ),
             child: Text(
-              'S',
+              keyboardKey.fromDictionary(dictionary)?.toUpperCase() ?? '',
               style: context.theme.ll,
             ),
           ),
@@ -100,6 +100,9 @@ class DeleteKeyboardKey extends StatelessWidget {
       child: InkWell(
         onTap: () {
           context.read<GameBloc>().add(const GameEvent.deletePressed());
+        },
+        onLongPress: () {
+          context.read<GameBloc>().add(const GameEvent.deleteLongPressed());
         },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 4),

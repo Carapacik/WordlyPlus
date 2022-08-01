@@ -1,6 +1,6 @@
-# Guess the **WORDLE** in six tries
+# Guess the **WORDL** in six tries
 
-<p align="center"><img src="https://raw.githubusercontent.com/Carapacik/WordlePlus/main/assets/splash_light.png" alt="Wordly Plus Logo" width="70%" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/Carapacik/WordlyPlus/main/assets/splash_light.png" alt="Wordly Plus Logo" width="70%" /></p>
 
 <a href='https://play.google.com/store/apps/details?id=com.carapacik.wordly'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height='100px'/></a>
 
@@ -14,5 +14,5 @@ Have 2 game modes:
 - Daily
 - Level
 
-<img src="https://raw.githubusercontent.com/Carapacik/WordlePlus/main/.github/screenshot_1.png" width="40%" /> <img src="https://raw.githubusercontent.com/Carapacik/WordlePlus/main/.github/screenshot_2.png" width="40%" />
-<img src="https://raw.githubusercontent.com/Carapacik/WordlePlus/main/.github/screenshot_3.png" width="40%" /> <img src="https://raw.githubusercontent.com/Carapacik/WordlePlus/main/.github/screenshot_4.png" width="40%" />
+<img src="https://raw.githubusercontent.com/Carapacik/WordlyPlus/main/.github/screenshot_1.png" width="40%" /> <img src="https://raw.githubusercontent.com/Carapacik/WordlyPlus/main/.github/screenshot_2.png" width="40%" />
+<img src="https://raw.githubusercontent.com/Carapacik/WordlyPlus/main/.github/screenshot_3.png" width="40%" /> <img src="https://raw.githubusercontent.com/Carapacik/WordlyPlus/main/.github/screenshot_4.png" width="40%" />

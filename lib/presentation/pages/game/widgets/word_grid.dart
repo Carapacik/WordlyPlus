@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/bloc/game/game_bloc.dart';
 import 'package:wordly/data/models/letter_info.dart';
-import 'package:wordly/data/models/letter_status.dart';
 import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/resources/resources.dart';
 
@@ -18,19 +17,22 @@ class WordGrid extends StatelessWidget {
               boardUpdate: (board) => board,
               orElse: () => <LetterInfo>[],
             );
-            return GridView.count(
+            return GridView.builder(
+              itemCount: 30,
               padding: const EdgeInsets.symmetric(horizontal: 20),
               primary: false,
               shrinkWrap: true,
-              crossAxisCount: 5,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
-              children: List.generate(30, (index) {
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 5,
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 8,
+              ),
+              itemBuilder: (context, index) {
                 final item = gridInfo.length > index
                     ? gridInfo[index]
                     : LetterInfo.empty();
                 return _GridItem(info: item);
-              }),
+              },
             );
           },
         ),
@@ -51,7 +53,7 @@ class _GridItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(6),
             color:
                 info.letterStatus.gridItemColor(context, isHighContrast: true),
-            border: info.letterStatus == LetterStatus.unknown
+            border: info.isStatusUnknown
                 ? Border.all(
                     width: 3,
                     color: context.dynamicColor(
@@ -64,7 +66,7 @@ class _GridItem extends StatelessWidget {
           child: Text(
             info.letter.toUpperCase(),
             style: context.theme.tl.copyWith(
-              color: info.letterStatus == LetterStatus.unknown
+              color: info.isStatusUnknown
                   ? null
                   : context.dynamicColor(
                       light: Colors.black,

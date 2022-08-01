@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/bloc/theme/theme_bloc.dart';
 import 'package:wordly/resources/l10n.dart';
 
 extension ContextHelper on BuildContext {
@@ -7,16 +9,10 @@ extension ContextHelper on BuildContext {
   ThemeData get theme => Theme.of(this);
 
   Color dynamicColor({
-    required final Color light,
-    required final Color dark,
-  }) {
-    switch (MediaQuery.of(this).platformBrightness) {
-      case Brightness.light:
-        return light;
-      case Brightness.dark:
-        return dark;
-    }
-  }
+    required Color light,
+    required Color dark,
+  }) =>
+      read<ThemeBloc>().state.isDarkTheme ? dark : light;
 }
 
 extension TextThemeHelper on ThemeData {

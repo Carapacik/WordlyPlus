@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordly/presentation/pages/game/game_page.dart';
 import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/resources/resources.dart';
 
@@ -9,8 +10,24 @@ class TutorialPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: context.r.how_to_play),
-      drawer: const CustomDrawer(),
-      body: Center(child: Text(context.r.how_to_play)),
+      body: Center(
+        child: Column(
+          children: [
+            Text(context.r.how_to_play),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute<void>(
+                    builder: (context) => const GamePage(),
+                  ),
+                  (route) => false,
+                );
+              },
+              child: const Text('PLAY'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

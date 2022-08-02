@@ -90,26 +90,37 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       return;
     }
     if (word == _secretWord) {
-      var coloredWord = _colorTheWord;
-      // TODO заменить последние 5 элементов на coloredWord
+      _gridInfo.replaceRange(
+        _gridInfo.length - 5,
+        _gridInfo.length,
+        _colorTheWord,
+      );
       _isGameComplete = true;
+
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
       emit(const GameState.win());
       return;
     }
     if (_currentWordIndex == 5) {
-      var coloredWord = _colorTheWord;
-      // TODO заменить последние 5 элементов на coloredWord
+      _gridInfo.replaceRange(
+        _gridInfo.length - 5,
+        _gridInfo.length,
+        _colorTheWord,
+      );
 
       _isGameComplete = true;
+
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
       emit(const GameState.lose());
       return;
     }
 
     if (_dictionary.currentDictionary.containsKey(word)) {
-      var coloredWord = _colorTheWord;
-      // TODO заменить последние 5 элементов на coloredWord
+      _gridInfo.replaceRange(
+        _gridInfo.length - 5,
+        _gridInfo.length,
+        _colorTheWord,
+      );
 
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
     }

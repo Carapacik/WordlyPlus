@@ -52,8 +52,7 @@ class _GridItem extends StatelessWidget {
           alignment: Alignment.center,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(6),
-            color:
-                info.letterStatus.gridItemColor(context, isHighContrast: true),
+            color: info.letterStatus.gridItemColor(context),
             border: info.isStatusUnknown
                 ? Border.all(
                     width: 3,

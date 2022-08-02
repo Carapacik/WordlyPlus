@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/bloc/theme/theme_bloc.dart';
 import 'package:wordly/resources/resources.dart';
 
 enum LetterStatus {
@@ -9,10 +11,8 @@ enum LetterStatus {
 
   const LetterStatus();
 
-  Color keyboardItemColor(
-    final BuildContext context, {
-    final bool isHighContrast = false,
-  }) {
+  Color keyboardItemColor(final BuildContext context) {
+    final isHighContrast = context.read<ThemeBloc>().state.isHighContrast;
     switch (this) {
       case LetterStatus.unknown:
         return Colors.transparent;
@@ -44,10 +44,8 @@ enum LetterStatus {
     }
   }
 
-  Color gridItemColor(
-    final BuildContext context, {
-    final bool isHighContrast = false,
-  }) {
+  Color gridItemColor(final BuildContext context) {
+    final isHighContrast = context.read<ThemeBloc>().state.isHighContrast;
     switch (this) {
       case LetterStatus.unknown:
         return Colors.transparent;

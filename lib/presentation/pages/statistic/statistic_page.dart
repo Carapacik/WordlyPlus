@@ -19,15 +19,15 @@ class StatisticPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _StatText(
+                _StatText<int>(
                   value: 12,
                   title: context.r.played,
                 ),
-                _StatText(
+                _StatText<double>(
                   value: 12,
                   title: context.r.win_rate,
                 ),
-                _StatText(
+                _StatText<int>(
                   value: 12,
                   title: context.r.current_streak,
                 ),
@@ -44,7 +44,7 @@ class StatisticPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 4),
-            const _AttemptContent(attempts: []),
+            const _AttemptContent(attempts: [0, 0, 1, 2, 0, 1]),
           ],
         ),
       ),
@@ -52,10 +52,10 @@ class StatisticPage extends StatelessWidget {
   }
 }
 
-class _StatText extends StatelessWidget {
+class _StatText<T extends num> extends StatelessWidget {
   const _StatText({required this.value, required this.title});
 
-  final num value;
+  final T value;
   final String title;
 
   @override
@@ -63,7 +63,7 @@ class _StatText extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            value.toStringAsFixed(2),
+            value is double ? '${value.toStringAsFixed(2)}%' : value.toString(),
             style: context.theme.tl,
           ),
           const SizedBox(height: 8),

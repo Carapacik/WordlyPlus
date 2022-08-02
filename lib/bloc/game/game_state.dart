@@ -10,12 +10,15 @@ class GameState with _$GameState {
 
   const factory GameState.lose() = _LoseState;
 
+  const factory GameState.error(GameError error) = _ErrorState;
+
   const factory GameState.boardUpdate(List<LetterInfo> board) =
       _BoardUpdateState;
 
-  const factory GameState.wordSubmit(List<LetterInfo> board) = _WordSumbitState;
+  const factory GameState.wordSubmit({
+    required List<LetterInfo> board,
+    required String keyboard,
+  }) = _WordSumbitState;
 
-  const factory GameState.error(GameError error) = _ErrorState;
-
-  bool get isBoardUpdate => this is _BoardUpdateState;
+  bool get isUpdate => this is _BoardUpdateState || this is _WordSumbitState;
 }

@@ -26,7 +26,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   List<LetterInfo> _gridInfo = [];
   bool _isGameComplete = false;
   int _currentWordIndex = 0;
-  String _secretWord = 'abcde';
+  String _secretWord = 'crane';
 
   void _onLetterPressed(
     _LetterPressedEvent event,
@@ -76,6 +76,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     _EnterPressedEvent event,
     Emitter<GameState> emit,
   ) {
+    if (_isGameComplete) {
+      return;
+    }
     if (_gridInfo.length % 5 != 0) {
       emit(const GameState.error(GameError.tooShort));
       return;
@@ -90,7 +93,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
       _isGameComplete = true;
       _currentWordIndex++;
-      emit(GameState.wordSubmit(_gridInfo));
+      emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
       emit(const GameState.win());
       return;
     }
@@ -99,7 +102,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
       _isGameComplete = true;
       _currentWordIndex++;
-      emit(GameState.wordSubmit(_gridInfo));
+      emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
       emit(const GameState.lose());
       return;
     }
@@ -108,7 +111,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       _updateColorsInGrid();
 
       _currentWordIndex++;
-      emit(GameState.wordSubmit(_gridInfo));
+      emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
     }
   }
 

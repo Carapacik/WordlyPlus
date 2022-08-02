@@ -11,10 +11,11 @@ class WordGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ConstraintScreen(
         child: BlocBuilder<GameBloc, GameState>(
-          buildWhen: (_, current) => current.isBoardUpdate,
+          buildWhen: (_, current) => current.isUpdate,
           builder: (context, state) {
             final gridInfo = state.maybeWhen(
               boardUpdate: (board) => board,
+              wordSubmit: (board, _) => board,
               orElse: () => <LetterInfo>[],
             );
             return GridView.builder(

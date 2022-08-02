@@ -42,6 +42,7 @@ class CustomDrawer extends StatelessWidget {
             ListTile(
               title: Text(context.r.how_to_play, style: context.theme.tm),
               onTap: () async {
+                Navigator.of(context).pop();
                 await Navigator.of(context).push(
                   MaterialPageRoute<void>(
                     builder: (context) => const TutorialPage(),

@@ -4,6 +4,7 @@ import 'package:wordly/data/models/dictionary_enum.dart';
 import 'package:wordly/data/models/game_error.dart';
 import 'package:wordly/data/models/keyboard_keys.dart';
 import 'package:wordly/data/models/letter_info.dart';
+import 'package:wordly/data/models/letter_status.dart';
 import 'package:wordly/domain/game_service.dart';
 
 part 'game_bloc.freezed.dart';
@@ -89,28 +90,27 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       return;
     }
     if (word == _secretWord) {
-      _updateColorsInGrid();
-
+      var coloredWord = _colorTheWord;
+      // TODO заменить последние 5 элементов на coloredWord
       _isGameComplete = true;
-      _currentWordIndex++;
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
       emit(const GameState.win());
       return;
     }
     if (_currentWordIndex == 5) {
-      _updateColorsInGrid();
+      var coloredWord = _colorTheWord;
+      // TODO заменить последние 5 элементов на coloredWord
 
       _isGameComplete = true;
-      _currentWordIndex++;
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
       emit(const GameState.lose());
       return;
     }
 
     if (_dictionary.currentDictionary.containsKey(word)) {
-      _updateColorsInGrid();
+      var coloredWord = _colorTheWord;
+      // TODO заменить последние 5 элементов на coloredWord
 
-      _currentWordIndex++;
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
     }
   }
@@ -122,7 +122,28 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     _dictionary = event.dictionary;
   }
 
-  void _updateColorsInGrid() {}
+  List<LetterInfo> get _colorTheWord {
+    final updatedList = <LetterInfo>[];
+    final word = _buildWord;
+
+    for (var i = 0; i < word.length; i++) {
+      final character = word[i];
+      var letterStatus = LetterStatus.unknown;
+      if (character == _secretWord[i]) {
+        letterStatus = LetterStatus.correctSpot;
+      } else if (_secretWord.contains(character)) {
+        letterStatus = LetterStatus.wrongSpot;
+      } else {
+        letterStatus = LetterStatus.notInWord;
+      }
+      updatedList.add(
+        LetterInfo(letter: character, letterStatus: letterStatus),
+      );
+    }
+
+    _currentWordIndex++;
+    return updatedList;
+  }
 
   String get _buildWord {
     return _gridInfo[_currentWordIndex * 5].letter +

@@ -29,10 +29,11 @@ class KeyboardKey extends StatelessWidget {
           onTap: () {
             context.read<GameBloc>().add(GameEvent.letterPressed(keyboardKey));
           },
+          borderRadius: BorderRadius.circular(6),
           child: Container(
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(6),
               color: Colors.black12,
             ),
             child: Text(
@@ -59,17 +60,18 @@ class EnterKeyboardKey extends StatelessWidget {
         context,
         dictionary: dictionary,
       ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(6),
+      ),
       child: InkWell(
         onTap: () {
           context.read<GameBloc>().add(const GameEvent.enterPressed());
         },
+        borderRadius: BorderRadius.circular(6),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 4),
           alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: Colors.black12,
-            borderRadius: BorderRadius.circular(4),
-          ),
+          color: Colors.black12,
           child: Text(
             KeyboardKeys.enter.fromDictionary(dictionary)!.toUpperCase(),
             style: context.theme.ll,
@@ -87,15 +89,13 @@ class DeleteKeyboardKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = KeyboardKeys.delete.size(context, dictionary: dictionary);
     return Container(
       margin: const EdgeInsets.only(left: 2),
-      width: KeyboardKeys.delete.size(
-        context,
-        dictionary: dictionary,
-      ),
-      height: KeyboardKeys.delete.size(
-        context,
-        dictionary: dictionary,
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(6),
       ),
       child: InkWell(
         onTap: () {
@@ -104,13 +104,11 @@ class DeleteKeyboardKey extends StatelessWidget {
         onLongPress: () {
           context.read<GameBloc>().add(const GameEvent.deleteLongPressed());
         },
+        borderRadius: BorderRadius.circular(6),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 4),
           alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: Colors.black12,
-            borderRadius: BorderRadius.circular(4),
-          ),
+          color: Colors.black12,
           child: const Icon(Icons.backspace_outlined),
         ),
       ),

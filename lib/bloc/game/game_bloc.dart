@@ -79,7 +79,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     if (_isGameComplete) {
       return;
     }
-    if (_gridInfo.length % 5 != 0) {
+    if (_gridInfo.isEmpty || _gridInfo.length % 5 != 0) {
       emit(const GameState.error(GameError.tooShort));
       return;
     }

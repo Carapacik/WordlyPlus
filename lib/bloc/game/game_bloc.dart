@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:wordly/data/models/dictionary_enum.dart';
@@ -131,6 +133,18 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     Emitter<GameState> emit,
   ) {
     _dictionary = event.dictionary;
+  }
+
+  void _generateSecretWord({int levelNumber = 0}) {
+    late int index;
+    if (levelNumber == 0) {
+      final now = DateTime.now();
+      final random = Random(now.year * 1000 + now.month * 100 + now.day);
+      index = random.nextInt(_dictionary.currentDictionary.length);
+    } else {
+      index = Random(levelNumber).nextInt(_dictionary.currentDictionary.length);
+    }
+    _secretWord = _dictionary.currentDictionary.keys.elementAt(index);
   }
 
   List<LetterInfo> get _colorTheWord {

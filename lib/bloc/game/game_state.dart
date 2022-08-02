@@ -13,7 +13,7 @@ class GameState with _$GameState {
   const factory GameState.boardUpdate(List<LetterInfo> board) =
       _BoardUpdateState;
 
-  const factory GameState.wordSubmit(String her) = _WordSumbitState;
+  const factory GameState.wordSubmit(List<LetterInfo> board) = _WordSumbitState;
 
   const factory GameState.error(GameError error) = _ErrorState;
 

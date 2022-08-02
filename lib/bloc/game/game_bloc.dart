@@ -24,10 +24,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final SaveGameService gameService;
   DictionaryEnum _dictionary;
   List<LetterInfo> _gridInfo = [];
-
   bool _isGameComplete = false;
   int _currentWordIndex = 0;
-  String _secretWord = '';
+  String _secretWord = 'abcde';
 
   void _onLetterPressed(
     _LetterPressedEvent event,
@@ -81,14 +80,36 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       emit(const GameState.error(GameError.tooShort));
       return;
     }
-    if (!_dictionary.currentDictionary.containsKey(_buildWord)) {
+    final word = _buildWord;
+    if (!_dictionary.currentDictionary.containsKey(word)) {
       emit(const GameState.error(GameError.notFound));
       return;
     }
+    if (word == _secretWord) {
+      _updateColorsInGrid();
 
-    // If success
-    emit(GameState.boardUpdate(_gridInfo));
-    // emit(GameState.wordSubmit(""));
+      _isGameComplete = true;
+      _currentWordIndex++;
+      emit(GameState.wordSubmit(_gridInfo));
+      emit(const GameState.win());
+      return;
+    }
+    if (_currentWordIndex == 5) {
+      _updateColorsInGrid();
+
+      _isGameComplete = true;
+      _currentWordIndex++;
+      emit(GameState.wordSubmit(_gridInfo));
+      emit(const GameState.lose());
+      return;
+    }
+
+    if (_dictionary.currentDictionary.containsKey(word)) {
+      _updateColorsInGrid();
+
+      _currentWordIndex++;
+      emit(GameState.wordSubmit(_gridInfo));
+    }
   }
 
   void _onChangeDictionary(
@@ -97,6 +118,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   ) {
     _dictionary = event.dictionary;
   }
+
+  void _updateColorsInGrid() {}
 
   String get _buildWord {
     return _gridInfo[_currentWordIndex * 5].letter +

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wordly/data/models/dictionary_enum.dart';
 
-const _defaultWidthRu = 0.1;
+const _defaultWidthRu = 0.098;
 const _defaultWidthEn = 0.12;
 
 enum KeyboardKeys {

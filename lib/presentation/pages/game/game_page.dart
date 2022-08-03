@@ -52,6 +52,10 @@ class _GamePageState extends State<GamePage> {
           if (error != null) {
             showFloatingSnackBar(context, message: error.getName(context));
           }
+          final gameResult = state.whenOrNull(complete: (result) => result);
+          if (gameResult != null) {
+            showGameResultDialog(context, result: gameResult);
+          }
         },
         child: Scaffold(
           drawer: const CustomDrawer(),

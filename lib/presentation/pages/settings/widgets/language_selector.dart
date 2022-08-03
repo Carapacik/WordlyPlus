@@ -45,6 +45,7 @@ class LanguageSelector<T extends GetNameEnumMixin> extends StatelessWidget {
           top: Radius.circular(24),
         ),
       ),
+      constraints: const BoxConstraints(maxWidth: 400),
       builder: (context) {
         return SafeArea(
           child: Column(

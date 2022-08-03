@@ -60,8 +60,10 @@ class EnterKeyboardKey extends StatelessWidget {
         context,
         dictionary: dictionary,
       ),
+      clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
+        color: Colors.black12,
       ),
       child: InkWell(
         onTap: () {
@@ -71,7 +73,6 @@ class EnterKeyboardKey extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 4),
           alignment: Alignment.center,
-          color: Colors.black12,
           child: Text(
             KeyboardKeys.enter.fromDictionary(dictionary)!.toUpperCase(),
             style: context.theme.ll,
@@ -96,7 +97,9 @@ class DeleteKeyboardKey extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
+        color: Colors.black12,
       ),
+      clipBehavior: Clip.hardEdge,
       child: InkWell(
         onTap: () {
           context.read<GameBloc>().add(const GameEvent.deletePressed());
@@ -108,7 +111,6 @@ class DeleteKeyboardKey extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 4),
           alignment: Alignment.center,
-          color: Colors.black12,
           child: const Icon(Icons.backspace_outlined),
         ),
       ),

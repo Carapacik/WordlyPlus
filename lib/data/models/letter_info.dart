@@ -25,9 +25,4 @@ class LetterInfo {
 
   @override
   int get hashCode => letter.hashCode ^ letterStatus.hashCode;
-
-  @override
-  String toString() {
-    return 'letter: $letter';
-  }
 }

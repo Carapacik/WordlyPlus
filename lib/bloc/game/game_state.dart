@@ -6,9 +6,7 @@ class GameState with _$GameState {
 
   const factory GameState.initial() = _InitialState;
 
-  const factory GameState.win() = _WinState;
-
-  const factory GameState.lose() = _LoseState;
+  const factory GameState.complete(GameResult result) = _CompleteGameState;
 
   const factory GameState.error(GameError error) = _ErrorState;
 
@@ -21,4 +19,6 @@ class GameState with _$GameState {
   }) = _WordSumbitState;
 
   bool get isUpdate => this is _BoardUpdateState || this is _WordSumbitState;
+
+  bool get isGameComplete => this is _CompleteGameState;
 }

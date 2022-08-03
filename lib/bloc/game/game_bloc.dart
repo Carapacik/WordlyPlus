@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:wordly/data/models/dictionary_enum.dart';
 import 'package:wordly/data/models/game_error.dart';
+import 'package:wordly/data/models/game_result.dart';
 import 'package:wordly/data/models/keyboard_keys.dart';
 import 'package:wordly/data/models/letter_info.dart';
 import 'package:wordly/data/models/letter_status.dart';
@@ -100,7 +101,15 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       _isGameComplete = true;
 
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
-      emit(const GameState.win());
+      emit(
+        GameState.complete(
+          GameResult(
+            isWin: true,
+            word: _secretWord,
+            meaning: _dictionary.currentDictionary[_secretWord] ?? '',
+          ),
+        ),
+      );
       return;
     }
     if (_currentWordIndex == 5) {
@@ -113,7 +122,15 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       _isGameComplete = true;
 
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
-      emit(const GameState.lose());
+      emit(
+        GameState.complete(
+          GameResult(
+            isWin: false,
+            word: _secretWord,
+            meaning: _dictionary.currentDictionary[_secretWord] ?? '',
+          ),
+        ),
+      );
       return;
     }
 

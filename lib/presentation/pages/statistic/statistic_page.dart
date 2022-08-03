@@ -19,15 +19,16 @@ class StatisticPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _StatText<int>(
+                _StatText(
                   value: 12,
                   title: context.r.played,
                 ),
-                _StatText<double>(
+                _StatText(
                   value: 12,
                   title: context.r.win_rate,
+                  percent: true,
                 ),
-                _StatText<int>(
+                _StatText(
                   value: 12,
                   title: context.r.current_streak,
                 ),
@@ -52,18 +53,24 @@ class StatisticPage extends StatelessWidget {
   }
 }
 
-class _StatText<T extends num> extends StatelessWidget {
-  const _StatText({required this.value, required this.title});
+class _StatText extends StatelessWidget {
+  const _StatText({
+    required this.value,
+    required this.title,
+    this.percent = false,
+    super.key,
+  });
 
-  final T value;
+  final num value;
   final String title;
+  final bool percent;
 
   @override
   Widget build(BuildContext context) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            value is double ? '${value.toStringAsFixed(2)}%' : value.toString(),
+            percent ? '${value.toStringAsFixed(2)}%' : value.toString(),
             style: context.theme.tl,
           ),
           const SizedBox(height: 8),

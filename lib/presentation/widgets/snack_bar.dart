@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:wordly/resources/resources.dart';
+import 'package:wordly/utils/utils.dart';
 
 void showFloatingSnackBar(
   final BuildContext context, {
   required String message,
 }) {
-  final width = MediaQuery.of(context).size.width;
-  final double horizontalPadding = width > 500 ? (width - 500) / 2 + 72 : 12;
-  final height = MediaQuery.of(context).size.height;
-  final double bottomPadding = height - 56 - MediaQuery.of(context).padding.top;
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text(
@@ -25,10 +22,10 @@ void showFloatingSnackBar(
       duration: const Duration(milliseconds: 600),
       behavior: SnackBarBehavior.floating,
       margin: EdgeInsets.fromLTRB(
-        horizontalPadding,
+        horizontalPadding(context),
         12,
-        horizontalPadding,
-        bottomPadding,
+        horizontalPadding(context),
+        bottomPadding(context),
       ),
       dismissDirection: DismissDirection.up,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

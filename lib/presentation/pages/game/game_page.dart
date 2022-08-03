@@ -10,6 +10,7 @@ import 'package:wordly/presentation/pages/levels/levels_page.dart';
 import 'package:wordly/presentation/pages/statistic/statistic_page.dart';
 import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/resources/resources.dart';
+import 'package:wordly/utils/utils.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({this.daily = true, super.key});
@@ -42,7 +43,7 @@ class _GamePageState extends State<GamePage> {
       focusNode: _focusNode,
       onKey: (event) {
         if (event is RawKeyDownEvent) {
-          print(event.logicalKey.keyId);
+          onKeyTap(context, event);
           return;
         }
       },

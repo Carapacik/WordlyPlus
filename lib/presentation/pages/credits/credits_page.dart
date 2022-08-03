@@ -54,10 +54,6 @@ class CreditsPage extends StatelessWidget {
                   title: context.r.dictionary,
                   peoples: dictionary,
                 ),
-                _CreditCategory(
-                  title: context.r.scenario,
-                  peoples: rofl,
-                ),
                 const Spacer(),
                 Link(
                   uri: Uri.parse(

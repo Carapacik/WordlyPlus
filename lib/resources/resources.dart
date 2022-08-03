@@ -1,4 +1,3 @@
-export 'assets.gen.dart';
 export 'colors.dart';
 export 'dark_theme.dart';
 export 'l10n.dart';

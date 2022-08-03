@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/bloc/game/game_bloc.dart';
 import 'package:wordly/data/models/game_result.dart';
+import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/resources/resources.dart';
 import 'package:wordly/utils/utils.dart';
 
 void showGameResultDialog(BuildContext context, {required GameResult result}) {
+  final gameBloc = context.read<GameBloc>();
+  final now = DateTime.now();
+  final tomorrow = DateTime(now.year, now.month, now.day + 1);
+  final timeRemaining = tomorrow.difference(now);
   showDialog<void>(
     context: context,
     builder: (context) => Dialog(
@@ -17,7 +24,9 @@ void showGameResultDialog(BuildContext context, {required GameResult result}) {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              result.isWin ? context.r.win_message : context.r.lose_message,
+              result.isWin
+                  ? context.r.win_message.toUpperCase()
+                  : context.r.lose_message.toUpperCase(),
               style: context.theme.tm,
             ),
             const SizedBox(height: 12),
@@ -29,6 +38,20 @@ void showGameResultDialog(BuildContext context, {required GameResult result}) {
               result.meaning,
               style: context.theme.ll,
               textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(context.r.next_wordle, style: context.theme.tm),
+                const SizedBox(width: 12),
+                CountdownTimer(
+                  onEnd: () {
+                    // TODO clear board and restart game
+                  },
+                  timeRemaining: timeRemaining,
+                ),
+              ],
             ),
           ],
         ),

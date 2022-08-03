@@ -13,8 +13,8 @@ import 'package:wordly/bloc/dictionary/dictionary_bloc.dart';
 import 'package:wordly/bloc/game/game_bloc.dart';
 import 'package:wordly/bloc/locale/locale_bloc.dart';
 import 'package:wordly/bloc/theme/theme_bloc.dart';
-import 'package:wordly/domain/game_service.dart';
-import 'package:wordly/domain/settings_service.dart';
+import 'package:wordly/domain/save_game_service.dart';
+import 'package:wordly/domain/save_settings_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,7 +62,7 @@ Future<void> main() async {
                 ),
                 BlocProvider<GameBloc>(
                   create: (_) => GameBloc(
-                    gameService: gameService,
+                    saveGameService: gameService,
                     dictionary: dictionary,
                   ),
                 ),

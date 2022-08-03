@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/bloc/game/game_bloc.dart';
-import 'package:wordly/data/models/game_result.dart';
+import 'package:wordly/data/models.dart';
 import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/resources/resources.dart';
 import 'package:wordly/utils/utils.dart';
 
 void showGameResultDialog(BuildContext context, {required GameResult result}) {
+  // TODO for future events
   final gameBloc = context.read<GameBloc>();
   final now = DateTime.now();
   final tomorrow = DateTime(now.year, now.month, now.day + 1);

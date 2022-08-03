@@ -2,20 +2,15 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:wordly/data/models/dictionary_enum.dart';
-import 'package:wordly/data/models/game_error.dart';
-import 'package:wordly/data/models/game_result.dart';
-import 'package:wordly/data/models/keyboard_keys.dart';
-import 'package:wordly/data/models/letter_info.dart';
-import 'package:wordly/data/models/letter_status.dart';
-import 'package:wordly/domain/game_service.dart';
+import 'package:wordly/data/models.dart';
+import 'package:wordly/domain/save_game_service.dart';
 
 part 'game_bloc.freezed.dart';
 part 'game_event.dart';
 part 'game_state.dart';
 
 class GameBloc extends Bloc<GameEvent, GameState> {
-  GameBloc({required DictionaryEnum dictionary, required this.gameService})
+  GameBloc({required DictionaryEnum dictionary, required this.saveGameService})
       : _dictionary = dictionary,
         super(const GameState.initial()) {
     on<_LetterPressedEvent>(_onLetterPressed);
@@ -25,7 +20,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<_ChangeDictionaryEvent>(_onChangeDictionary);
   }
 
-  final SaveGameService gameService;
+  final SaveGameService saveGameService;
   DictionaryEnum _dictionary;
   List<LetterInfo> _gridInfo = [];
   bool _isGameComplete = false;
@@ -76,10 +71,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
   }
 
-  void _onEnterPressed(
+  Future<void> _onEnterPressed(
     _EnterPressedEvent event,
     Emitter<GameState> emit,
-  ) {
+  ) async {
     if (_isGameComplete) {
       return;
     }
@@ -100,6 +95,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       );
       _isGameComplete = true;
 
+      await saveGameService.saveDailyBoard(_gridInfo, _dictionary);
+      await saveGameService.saveDailyWord(_secretWord, _dictionary);
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
       emit(
         GameState.complete(
@@ -121,6 +118,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
       _isGameComplete = true;
 
+      await saveGameService.saveDailyBoard(_gridInfo, _dictionary);
+      await saveGameService.saveDailyWord(_secretWord, _dictionary);
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
       emit(
         GameState.complete(
@@ -140,7 +139,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         _gridInfo.length,
         _colorTheWord,
       );
-
+      await saveGameService.saveDailyBoard(_gridInfo, _dictionary);
+      await saveGameService.saveDailyWord(_secretWord, _dictionary);
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
     }
   }

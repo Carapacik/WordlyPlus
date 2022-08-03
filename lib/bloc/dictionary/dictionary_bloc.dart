@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:wordly/data/models/dictionary_enum.dart';
-import 'package:wordly/domain/settings_service.dart';
+import 'package:wordly/domain/save_settings_service.dart';
 
 part 'dictionary_bloc.freezed.dart';
 part 'dictionary_event.dart';

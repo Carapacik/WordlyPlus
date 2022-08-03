@@ -1,28 +1,21 @@
-import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:wordly/data/models/letter_status.dart';
 
-@immutable
-class LetterInfo {
-  const LetterInfo({
-    required this.letter,
-    this.letterStatus = LetterStatus.unknown,
-  });
+part 'letter_info.freezed.dart';
+part 'letter_info.g.dart';
 
-  factory LetterInfo.empty() => const LetterInfo(letter: '');
+@freezed
+class LetterInfo with _$LetterInfo {
+  const factory LetterInfo({
+    required String letter,
+    @Default(LetterStatus.unknown) LetterStatus letterStatus,
+  }) = _LetterInfo;
 
-  final String letter;
-  final LetterStatus letterStatus;
+  const factory LetterInfo.empty({
+    @Default('') String letter,
+    @Default(LetterStatus.unknown) LetterStatus letterStatus,
+  }) = _LetterInfoEmpty;
 
-  bool get isStatusUnknown => letterStatus == LetterStatus.unknown;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is LetterInfo &&
-          runtimeType == other.runtimeType &&
-          letter == other.letter &&
-          letterStatus == other.letterStatus;
-
-  @override
-  int get hashCode => letter.hashCode ^ letterStatus.hashCode;
+  factory LetterInfo.fromJson(Map<String, dynamic> json) =>
+      _$LetterInfoFromJson(json);
 }

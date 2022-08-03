@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wordly/data/models/keyboard_keys.dart';
+import 'package:wordly/data/models.dart';
 import 'package:wordly/presentation/pages/game/widgets/keyboard_key.dart';
 
 class KeyboardEn extends StatelessWidget {

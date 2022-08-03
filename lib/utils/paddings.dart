@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 double horizontalPadding(BuildContext context) {
   final width = MediaQuery.of(context).size.width;

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:wordly/domain/settings_service.dart';
+import 'package:wordly/domain/save_settings_service.dart';
 
 part 'theme_bloc.freezed.dart';
 part 'theme_event.dart';

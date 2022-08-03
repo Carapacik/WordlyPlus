@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wordly/data/models/get_name_mixin.dart';
+import 'package:wordly/data/models.dart';
 import 'package:wordly/resources/resources.dart';
 
 class LanguageSelector<T extends GetNameEnumMixin> extends StatelessWidget {

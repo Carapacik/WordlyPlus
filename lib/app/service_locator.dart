@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:wordly/domain/game_service.dart';
-import 'package:wordly/domain/settings_service.dart';
+import 'package:wordly/domain/save_game_service.dart';
+import 'package:wordly/domain/save_settings_service.dart';
 
 Future<void> setupServiceLocators() async {
   await _initSPService();

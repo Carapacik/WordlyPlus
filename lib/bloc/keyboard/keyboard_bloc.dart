@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:wordly/data/models/keyboard_keys.dart';
-import 'package:wordly/data/models/letter_status.dart';
+import 'package:wordly/data/models.dart';
 
 part 'keyboard_bloc.freezed.dart';
 part 'keyboard_event.dart';

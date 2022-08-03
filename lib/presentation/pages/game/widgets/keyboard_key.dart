@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/bloc/game/game_bloc.dart';
-import 'package:wordly/data/models/dictionary_enum.dart';
-import 'package:wordly/data/models/keyboard_keys.dart';
+import 'package:wordly/data/models.dart';
 import 'package:wordly/resources/resources.dart';
 
 class KeyboardKey extends StatelessWidget {

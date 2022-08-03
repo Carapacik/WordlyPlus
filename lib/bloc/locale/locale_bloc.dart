@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:wordly/data/models/locale_enum.dart';
-import 'package:wordly/domain/settings_service.dart';
+import 'package:wordly/data/models.dart';
+import 'package:wordly/domain/save_settings_service.dart';
 
 part 'locale_bloc.freezed.dart';
 part 'locale_event.dart';

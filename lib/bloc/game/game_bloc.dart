@@ -7,9 +7,7 @@ import 'package:wordly/data/models.dart';
 import 'package:wordly/domain/save_game_service.dart';
 
 part 'game_bloc.freezed.dart';
-
 part 'game_event.dart';
-
 part 'game_state.dart';
 
 class GameBloc extends Bloc<GameEvent, GameState> {
@@ -196,8 +194,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     _gridInfo = await saveGameService.getLevelBoard(_dictionary) ?? [];
     final levelNumber = await saveGameService.getLevelNumber(_dictionary);
 
-    _gridInfo = [];
-    _isGameComplete = false;
+    // next level
+    // await saveGameService.saveLevelNumber(levelNumber, _dictionary);
+    // await saveGameService.saveLevelBoard([], _dictionary);
+    // _gridInfo = [];
+    // _isGameComplete = false;
   }
 
   void _onResetGame(

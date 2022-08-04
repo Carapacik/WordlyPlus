@@ -23,7 +23,7 @@ class CustomDrawer extends StatelessWidget {
               title: Text(context.r.daily, style: context.theme.tm),
               onTap: () async {
                 context.read<GameBloc>().add(
-                      const GameEvent.loadGame(isDaily: true),
+                      const GameEvent.loadGame(),
                     );
                 await Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute<void>(

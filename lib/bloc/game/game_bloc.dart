@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:share_plus/share_plus.dart';
@@ -79,6 +80,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   ) {
     if (_isGameComplete) {
       return;
+    }
+    if (kDebugMode) {
+      print(_secretWord);
     }
     if (_gridInfo.length > _currentWordIndex * 5) {
       final newList = List<LetterInfo>.of(_gridInfo)..removeLast();
@@ -187,39 +191,41 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       _isDailyMode = true;
       _generateSecretWord();
       _gridInfo = await saveGameService.getDailyBoard(_dictionary) ?? [];
+      _currentWordIndex = _gridInfo.length ~/ 5;
       final previousResult = await saveGameService.getDailyResult(_dictionary);
       if (previousResult != null && previousResult.word == _secretWord) {
-        _isGameComplete = true;
+        if (previousResult.isWin != null) {
+          _isGameComplete = true;
+          emit(GameState.complete(previousResult));
+        }
       } else {
-        _isGameComplete = false;
-        _gridInfo = [];
+        _resetBoard();
       }
-      emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
+
+      final newList = List<LetterInfo>.of(_gridInfo);
+      emit(GameState.wordSubmit(board: newList, keyboard: ''));
       return;
     }
 
     // Level
     _isDailyMode = false;
     _gridInfo = await saveGameService.getLevelBoard(_dictionary) ?? [];
+    _currentWordIndex = _gridInfo.length ~/ 5;
     final levelInfo = await saveGameService.getLevelInfo(_dictionary);
     _levelNumber = levelInfo?.lastCompletedLevel ?? 1;
     _isGameComplete = levelInfo?.isGameComplete ?? false;
 
     if (_isGameComplete) {
       _generateSecretWord(levelNumber: _levelNumber + 1);
-      _gridInfo = [];
-      _isGameComplete = false;
+      _levelNumber++;
+      _resetBoard();
     } else {
       _generateSecretWord(levelNumber: _levelNumber);
     }
-    emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
-  }
 
-  // next level
-  // await saveGameService.saveLevelNumber(levelNumber, _dictionary);
-  // await saveGameService.saveLevelBoard([], _dictionary);
-  // _gridInfo = [];
-  // _isGameComplete = false;
+    final newList = List<LetterInfo>.of(_gridInfo);
+    emit(GameState.wordSubmit(board: newList, keyboard: ''));
+  }
 
   Future<void> _onShare(
     _ShareEvent event,
@@ -227,7 +233,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   ) async {
     final textFunction = event.textFunction;
     final emojiString = _gridInfo.map((e) => e.letterStatus.toEmoji());
-    final copiedText = textFunction(_currentWordIndex + 1, emojiString);
+    final copiedText = textFunction(_currentWordIndex, emojiString);
     await Clipboard.setData(ClipboardData(text: copiedText));
     await Share.share(copiedText);
   }
@@ -238,6 +244,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   ) {
     _dictionary = event.dictionary;
     // TODO
+  }
+
+  void _resetBoard() {
+    _currentWordIndex = 0;
+    _isGameComplete = false;
+    _gridInfo = [];
   }
 
   void _generateSecretWord({int levelNumber = 0}) {
@@ -258,7 +270,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       await saveGameService.saveDailyResult(gameResult, _dictionary);
       return;
     }
-    await saveGameService.saveDailyBoard(_gridInfo, _dictionary);
+    await saveGameService.saveLevelBoard(_gridInfo, _dictionary);
     await saveGameService.saveLevelInfo(
       LevelInfo(
         lastCompletedLevel: _levelNumber,

@@ -63,7 +63,11 @@ class _GamePageState extends State<GamePage> {
           child: Scaffold(
             drawer: const CustomDrawer(),
             appBar: CustomAppBar(
-              title: widget.isDailyMode ? context.r.daily : context.r.levels,
+              title: widget.isDailyMode
+                  ? context.r.daily
+                  : context.r.level_number(
+                      context.read<GameBloc>().levelNumber,
+                    ),
               actions: [
                 if (widget.isDailyMode)
                   IconButton(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/bloc/game/game_bloc.dart';
 import 'package:wordly/data/models.dart';
+import 'package:wordly/presentation/pages/game/game_page.dart';
 import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/resources/resources.dart';
 import 'package:wordly/utils/utils.dart';
@@ -11,9 +12,6 @@ void showGameResultDialog(
   required GameResult result,
   required bool isDailyMode,
 }) {
-  final now = DateTime.now();
-  final tomorrow = DateTime(now.year, now.month, now.day + 1);
-  final timeRemaining = tomorrow.difference(now);
   showDialog<void>(
     context: context,
     builder: (context) {
@@ -50,40 +48,87 @@ void showGameResultDialog(
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () {
-                    final textFunction = result.isWin!
-                        ? context.r.check_my_result_win
-                        : context.r.check_my_result_lose;
-                    context.read<GameBloc>().add(
-                          GameEvent.share(textFunction: textFunction),
-                        );
-                  },
-                  child: Text(context.r.share),
-                ),
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(context.r.next_wordle, style: context.theme.tm),
-                  const SizedBox(width: 12),
-                  CountdownTimer(
-                    onEnd: () {
-                      Navigator.of(context).pop();
-                      context.read<GameBloc>().add(
-                            const GameEvent.loadGame(),
-                          );
-                    },
-                    timeRemaining: timeRemaining,
-                  ),
-                ],
-              ),
+              if (isDailyMode)
+                _DailyContent(isWin: result.isWin!)
+              else
+                const _LevelContent()
             ],
           ),
         ),
       );
     },
   );
+}
+
+class _DailyContent extends StatelessWidget {
+  const _DailyContent({required this.isWin, super.key});
+
+  final bool isWin;
+
+  @override
+  Widget build(BuildContext context) {
+    final now = DateTime.now();
+    final tomorrow = DateTime(now.year, now.month, now.day + 1);
+    final timeRemaining = tomorrow.difference(now);
+    final gameBloc = context.read<GameBloc>();
+    return Column(
+      children: [
+        SizedBox(
+          width: 300,
+          child: ElevatedButton(
+            onPressed: () {
+              final textFunction = isWin
+                  ? context.r.check_my_result_win
+                  : context.r.check_my_result_lose;
+              gameBloc.add(GameEvent.share(textFunction: textFunction));
+            },
+            child: Text(context.r.share),
+          ),
+        ),
+        const SizedBox(height: 16),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(context.r.next_wordle, style: context.theme.tm),
+            const SizedBox(width: 12),
+            CountdownTimer(
+              onEnd: () {
+                Navigator.of(context).pop();
+                gameBloc.add(const GameEvent.loadGame());
+              },
+              timeRemaining: timeRemaining,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _LevelContent extends StatelessWidget {
+  const _LevelContent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final gameBloc = context.read<GameBloc>();
+    return Column(
+      children: [
+        SizedBox(
+          width: 300,
+          child: ElevatedButton(
+            onPressed: () async {
+              gameBloc.add(const GameEvent.loadGame(isDaily: false));
+              await Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute<void>(
+                  builder: (context) => const GamePage(isDailyMode: false),
+                ),
+                (route) => false,
+              );
+            },
+            child: Text(context.r.next_level),
+          ),
+        ),
+      ],
+    );
+  }
 }

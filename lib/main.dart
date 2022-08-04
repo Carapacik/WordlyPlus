@@ -64,7 +64,7 @@ Future<void> main() async {
                   create: (_) => GameBloc(
                     saveGameService: gameService,
                     dictionary: dictionary,
-                  ),
+                  )..add(const GameEvent.loadGame()),
                 ),
               ],
               child: App(isSecondLaunch: isSecondLaunch),

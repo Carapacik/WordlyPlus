@@ -8,9 +8,8 @@ class SaveGameService {
 
   static const _dailyBoard = 'daily_board_';
   static const _dailyWord = 'daily_word_';
-
   static const _levelBoard = 'level_board_';
-  static const _levelNumber = 'level_number_';
+  static const _levelNumber = 'level_number_'; // Last completed
 
   Future<void> saveDailyWord(String word, DictionaryEnum dictionary) async {
     final sp = await SharedPreferences.getInstance();

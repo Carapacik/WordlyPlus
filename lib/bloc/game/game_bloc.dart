@@ -1,22 +1,28 @@
 import 'dart:math';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:wordly/data/models.dart';
 import 'package:wordly/domain/save_game_service.dart';
 
 part 'game_bloc.freezed.dart';
+
 part 'game_event.dart';
+
 part 'game_state.dart';
 
 class GameBloc extends Bloc<GameEvent, GameState> {
   GameBloc({required DictionaryEnum dictionary, required this.saveGameService})
       : _dictionary = dictionary,
         super(const GameState.initial()) {
+    on<_KeyListenEvent>(_onKeyListen);
     on<_LetterPressedEvent>(_onLetterPressed);
     on<_DeletePressedEvent>(_onDeletePressed);
     on<_DeleteLongPressedEvent>(_onDeleteLongPressed);
     on<_EnterPressedEvent>(_onEnterPressed);
+    on<_LoadGameEvent>(_onLoadGame);
+    on<_ResetGameEvent>(_onResetGame);
     on<_ChangeDictionaryEvent>(_onChangeDictionary);
   }
 
@@ -26,6 +32,28 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   bool _isGameComplete = false;
   int _currentWordIndex = 0;
   String _secretWord = 'crane';
+
+  void _onKeyListen(
+    _KeyListenEvent event,
+    Emitter<GameState> emit,
+  ) {
+    if (event.keyDown.isKeyPressed(LogicalKeyboardKey.enter)) {
+      add(const GameEvent.enterPressed());
+      return;
+    }
+
+    if (event.keyDown.isKeyPressed(LogicalKeyboardKey.delete) ||
+        event.keyDown.isKeyPressed(LogicalKeyboardKey.backspace)) {
+      add(const GameEvent.deletePressed());
+      return;
+    }
+
+    final letter = KeyboardKeys.fromLogicalKey(event.keyDown.logicalKey);
+    if (letter != null) {
+      add(GameEvent.letterPressed(letter));
+      return;
+    }
+  }
 
   void _onLetterPressed(
     _LetterPressedEvent event,
@@ -143,6 +171,43 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       await saveGameService.saveDailyWord(_secretWord, _dictionary);
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
     }
+  }
+
+  Future<void> _onLoadGame(
+    _LoadGameEvent event,
+    Emitter<GameState> emit,
+  ) async {
+    if (event.isDaily) {
+      _generateSecretWord();
+      _gridInfo = await saveGameService.getDailyBoard(_dictionary) ?? [];
+      // TODO Replace previousWord type to GameResult
+      final previousWord = await saveGameService.getDailyWord(_dictionary);
+      if (previousWord == _secretWord) {
+        _isGameComplete = true;
+        // Tomorrow hasn't come yet
+        // TODO Show win/lose dialog
+        // emit(GameState.complete(previous));
+        return;
+      }
+      _isGameComplete = false;
+      _gridInfo = [];
+      return;
+    }
+    _gridInfo = await saveGameService.getLevelBoard(_dictionary) ?? [];
+    final levelNumber = await saveGameService.getLevelNumber(_dictionary);
+
+    _gridInfo = [];
+    _isGameComplete = false;
+  }
+
+  void _onResetGame(
+    _ResetGameEvent event,
+    Emitter<GameState> emit,
+  ) {
+    // ХЗ зачем это
+    _generateSecretWord();
+    _gridInfo = [];
+    _isGameComplete = false;
   }
 
   void _onChangeDictionary(

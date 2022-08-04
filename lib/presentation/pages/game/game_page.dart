@@ -43,7 +43,7 @@ class _GamePageState extends State<GamePage> {
       focusNode: _focusNode,
       onKey: (event) {
         if (event is RawKeyDownEvent) {
-          onKeyTap(context, event);
+          context.read<GameBloc>().add(GameEvent.keyListen(event));
           return;
         }
       },

@@ -15,7 +15,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
-  flutter_svg: ^1.1.1+1
+  flutter_svg: ^1.1.2
   freezed_annotation: ^2.1.0
   get_it: ^7.2.0
   google_fonts: ^3.0.1

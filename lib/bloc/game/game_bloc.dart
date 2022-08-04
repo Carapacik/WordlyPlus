@@ -32,6 +32,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   int _currentWordIndex = 0;
   String _secretWord = '';
   int _levelNumber = 0;
+  bool _isDailyMode = true;
 
   void _onKeyListen(
     _KeyListenEvent event,
@@ -115,6 +116,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       emit(const GameState.error(GameError.notFound));
       return;
     }
+    // Win game
     if (word == _secretWord) {
       _gridInfo.replaceRange(
         _gridInfo.length - 5,
@@ -123,50 +125,52 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       );
       _isGameComplete = true;
 
-      await saveGameService.saveDailyBoard(_gridInfo, _dictionary);
       final gameResult = GameResult(
         isWin: true,
         word: _secretWord,
         meaning: _dictionary.currentDictionary[_secretWord] ?? '',
       );
-      await saveGameService.saveDailyResult(gameResult, _dictionary);
+      _saveResultAndBoard(gameResult);
+
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
       emit(GameState.complete(gameResult));
       return;
     }
+
+    // Lose game (attempts ended)
     if (_currentWordIndex == 5) {
       _gridInfo.replaceRange(
         _gridInfo.length - 5,
         _gridInfo.length,
         _colorTheWord,
       );
-
       _isGameComplete = true;
 
-      await saveGameService.saveDailyBoard(_gridInfo, _dictionary);
       final gameResult = GameResult(
         isWin: false,
         word: _secretWord,
         meaning: _dictionary.currentDictionary[_secretWord] ?? '',
       );
-      await saveGameService.saveDailyResult(gameResult, _dictionary);
+      _saveResultAndBoard(gameResult);
+
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
       emit(GameState.complete(gameResult));
       return;
     }
 
+    // Other (game is not over)
     if (_dictionary.currentDictionary.containsKey(word)) {
       _gridInfo.replaceRange(
         _gridInfo.length - 5,
         _gridInfo.length,
         _colorTheWord,
       );
-      await saveGameService.saveDailyBoard(_gridInfo, _dictionary);
       final gameResult = GameResult(
         word: _secretWord,
         meaning: _dictionary.currentDictionary[_secretWord] ?? '',
       );
-      await saveGameService.saveDailyResult(gameResult, _dictionary);
+      _saveResultAndBoard(gameResult);
+
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
     }
   }
@@ -175,21 +179,25 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     _LoadGameEvent event,
     Emitter<GameState> emit,
   ) async {
+    // Daily
     if (event.isDaily) {
       _levelNumber = 0;
+      _isDailyMode = true;
       _generateSecretWord();
       _gridInfo = await saveGameService.getDailyBoard(_dictionary) ?? [];
-      // TODO Replace previousWord type to GameResult
       final previousResult = await saveGameService.getDailyResult(_dictionary);
       if (previousResult != null && previousResult.word == _secretWord) {
         _isGameComplete = true;
-        emit(GameState.complete(previousResult));
-        return;
+      } else {
+        _isGameComplete = false;
+        _gridInfo = [];
       }
-      _isGameComplete = false;
-      _gridInfo = [];
+      emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
       return;
     }
+
+    // Level
+    _isDailyMode = false;
     _gridInfo = await saveGameService.getLevelBoard(_dictionary) ?? [];
     final levelInfo = await saveGameService.getLevelInfo(_dictionary);
     _levelNumber = levelInfo?.lastCompletedLevel ?? 1;
@@ -199,13 +207,17 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       _generateSecretWord(levelNumber: _levelNumber + 1);
       _gridInfo = [];
       _isGameComplete = false;
+    } else {
+      _generateSecretWord(levelNumber: _levelNumber);
     }
-    // next level
-    // await saveGameService.saveLevelNumber(levelNumber, _dictionary);
-    // await saveGameService.saveLevelBoard([], _dictionary);
-    // _gridInfo = [];
-    // _isGameComplete = false;
+    emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
   }
+
+  // next level
+  // await saveGameService.saveLevelNumber(levelNumber, _dictionary);
+  // await saveGameService.saveLevelBoard([], _dictionary);
+  // _gridInfo = [];
+  // _isGameComplete = false;
 
   Future<void> _onShare(
     _ShareEvent event,
@@ -223,6 +235,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     Emitter<GameState> emit,
   ) {
     _dictionary = event.dictionary;
+    // TODO
   }
 
   void _generateSecretWord({int levelNumber = 0}) {
@@ -235,6 +248,22 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       index = Random(levelNumber).nextInt(_dictionary.currentDictionary.length);
     }
     _secretWord = _dictionary.currentDictionary.keys.elementAt(index);
+  }
+
+  Future<void> _saveResultAndBoard(GameResult gameResult) async {
+    if (_isDailyMode) {
+      await saveGameService.saveDailyBoard(_gridInfo, _dictionary);
+      await saveGameService.saveDailyResult(gameResult, _dictionary);
+      return;
+    }
+    await saveGameService.saveDailyBoard(_gridInfo, _dictionary);
+    await saveGameService.saveLevelInfo(
+      LevelInfo(
+        lastCompletedLevel: _levelNumber,
+        isGameComplete: _isGameComplete,
+      ),
+      _dictionary,
+    );
   }
 
   List<LetterInfo> get _colorTheWord {

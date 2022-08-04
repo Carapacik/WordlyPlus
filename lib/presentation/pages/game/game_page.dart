@@ -26,8 +26,6 @@ class _GamePageState extends State<GamePage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-    });
     _focusNode = FocusNode();
   }
 

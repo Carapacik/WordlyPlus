@@ -41,7 +41,7 @@ class CustomDrawer extends StatelessWidget {
                     );
                 await Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute<void>(
-                    builder: (context) => const GamePage(daily: false),
+                    builder: (context) => const GamePage(isDailyMode: false),
                   ),
                   (route) => false,
                 );

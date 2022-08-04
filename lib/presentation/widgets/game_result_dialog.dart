@@ -6,7 +6,11 @@ import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/resources/resources.dart';
 import 'package:wordly/utils/utils.dart';
 
-void showGameResultDialog(BuildContext context, {required GameResult result}) {
+void showGameResultDialog(
+  BuildContext context, {
+  required GameResult result,
+  required bool isDailyMode,
+}) {
   final now = DateTime.now();
   final tomorrow = DateTime(now.year, now.month, now.day + 1);
   final timeRemaining = tomorrow.difference(now);

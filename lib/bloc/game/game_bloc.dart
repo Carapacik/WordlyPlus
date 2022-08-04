@@ -34,6 +34,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   int _levelNumber = 0;
   bool _isDailyMode = true;
 
+  int get levelNumber => _levelNumber;
+
   void _onKeyListen(
     _KeyListenEvent event,
     Emitter<GameState> emit,

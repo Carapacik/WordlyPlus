@@ -26,6 +26,8 @@ class _GamePageState extends State<GamePage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+    });
     _focusNode = FocusNode();
   }
 
@@ -37,6 +39,7 @@ class _GamePageState extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
+    print("Build");
     return RawKeyboardListener(
       autofocus: true,
       focusNode: _focusNode,
@@ -54,6 +57,7 @@ class _GamePageState extends State<GamePage> {
           }
           final gameResult = state.whenOrNull(complete: (result) => result);
           if (gameResult != null) {
+            print(gameResult);
             showGameResultDialog(context, result: gameResult);
           }
         },

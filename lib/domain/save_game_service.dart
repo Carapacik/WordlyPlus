@@ -9,7 +9,7 @@ class SaveGameService {
   static const _dailyBoardKey = 'daily_board_';
   static const _levelBoardKey = 'level_board_';
   static const _dailyResultKey = 'daily_result_';
-  static const _levelInfoKey = 'level_info_'; // Last completed
+  static const _levelInfoKey = 'level_info_';
 
   Future<void> saveDailyResult(
     GameResult result,

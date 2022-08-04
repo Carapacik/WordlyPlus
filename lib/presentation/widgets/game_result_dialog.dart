@@ -7,7 +7,6 @@ import 'package:wordly/resources/resources.dart';
 import 'package:wordly/utils/utils.dart';
 
 void showGameResultDialog(BuildContext context, {required GameResult result}) {
-  final gameBloc = context.read<GameBloc>();
   final now = DateTime.now();
   final tomorrow = DateTime(now.year, now.month, now.day + 1);
   final timeRemaining = tomorrow.difference(now);
@@ -53,7 +52,9 @@ void showGameResultDialog(BuildContext context, {required GameResult result}) {
                     final textFunction = result.isWin!
                         ? context.r.check_my_result_win
                         : context.r.check_my_result_lose;
-                    gameBloc.add(GameEvent.share(textFunction: textFunction));
+                    context.read<GameBloc>().add(
+                          GameEvent.share(textFunction: textFunction),
+                        );
                   },
                   child: Text(context.r.share),
                 ),
@@ -67,7 +68,9 @@ void showGameResultDialog(BuildContext context, {required GameResult result}) {
                   CountdownTimer(
                     onEnd: () {
                       Navigator.of(context).pop();
-                      gameBloc.add(const GameEvent.loadGame());
+                      context.read<GameBloc>().add(
+                            const GameEvent.loadGame(),
+                          );
                     },
                     timeRemaining: timeRemaining,
                   ),

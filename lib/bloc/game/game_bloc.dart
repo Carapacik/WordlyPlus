@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:wordly/data/models.dart';
 import 'package:wordly/domain/save_game_service.dart';
 
@@ -21,6 +22,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<_EnterPressedEvent>(_onEnterPressed);
     on<_LoadGameEvent>(_onLoadGame);
     on<_ResetGameEvent>(_onResetGame);
+    on<_ShareEvent>(_onShare);
     on<_ChangeDictionaryEvent>(_onChangeDictionary);
   }
 
@@ -29,7 +31,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   List<LetterInfo> _gridInfo = [];
   bool _isGameComplete = false;
   int _currentWordIndex = 0;
-  String _secretWord = 'crane';
+  String _secretWord = '';
 
   void _onKeyListen(
     _KeyListenEvent event,
@@ -201,14 +203,25 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     // _isGameComplete = false;
   }
 
+  // ХЗ зачем это
   void _onResetGame(
     _ResetGameEvent event,
     Emitter<GameState> emit,
   ) {
-    // ХЗ зачем это
     _generateSecretWord();
     _gridInfo = [];
     _isGameComplete = false;
+  }
+
+  Future<void> _onShare(
+    _ShareEvent event,
+    Emitter<GameState> emit,
+  ) async {
+    final textFunction = event.textFunction;
+    final emojiString = _gridInfo.map((e) => e.letterStatus.toEmoji());
+    final copiedText = textFunction(_currentWordIndex + 1, emojiString);
+    await Clipboard.setData(ClipboardData(text: copiedText));
+    await Share.share(copiedText);
   }
 
   void _onChangeDictionary(

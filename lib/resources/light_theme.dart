@@ -34,13 +34,8 @@ final lightTheme = _base.copyWith(
     style: ButtonStyle(
       padding: MaterialStateProperty.all(const EdgeInsets.all(16)),
       elevation: MaterialStateProperty.all(0),
-      // foregroundColor: MaterialStateProperty.all(AppColors.lightWhite100),
-      // backgroundColor: MaterialStateProperty.resolveWith((states) {
-      //   if (states.contains(MaterialState.disabled)) {
-      //     return AppColors.lightLightBlue70;
-      //   }
-      //   return AppColors.lightDarkBlue100;
-      // }),
+      foregroundColor: MaterialStateProperty.all(AppColors.lightBg),
+      backgroundColor: MaterialStateProperty.all(AppColors.darkBg),
     ),
   ),
   // textSelectionTheme: _base.textSelectionTheme.copyWith(

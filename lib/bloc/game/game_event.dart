@@ -1,5 +1,7 @@
 part of 'game_bloc.dart';
 
+typedef TextFunction = String Function(Object, Object);
+
 @freezed
 class GameEvent with _$GameEvent {
   const GameEvent._();
@@ -19,6 +21,9 @@ class GameEvent with _$GameEvent {
       _LoadGameEvent;
 
   const factory GameEvent.resetGame() = _ResetGameEvent;
+
+  const factory GameEvent.share({required TextFunction textFunction}) =
+      _ShareEvent;
 
   const factory GameEvent.changeDictionary(DictionaryEnum dictionary) =
       _ChangeDictionaryEvent;

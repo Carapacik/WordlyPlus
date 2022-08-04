@@ -7,7 +7,6 @@ import 'package:wordly/resources/resources.dart';
 import 'package:wordly/utils/utils.dart';
 
 void showGameResultDialog(BuildContext context, {required GameResult result}) {
-  // TODO for future events
   final gameBloc = context.read<GameBloc>();
   final now = DateTime.now();
   final tomorrow = DateTime(now.year, now.month, now.day + 1);
@@ -40,7 +39,19 @@ void showGameResultDialog(BuildContext context, {required GameResult result}) {
               style: context.theme.ll,
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 16),
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () {
+                  final textFunction = result.isWin
+                      ? context.r.check_my_result_win
+                      : context.r.check_my_result_lose;
+                  gameBloc.add(GameEvent.share(textFunction: textFunction));
+                },
+                child: Text(context.r.share),
+              ),
+            ),
+            const SizedBox(height: 16),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -48,7 +59,7 @@ void showGameResultDialog(BuildContext context, {required GameResult result}) {
                 const SizedBox(width: 12),
                 CountdownTimer(
                   onEnd: () {
-                    // TODO clear board and restart game
+                    gameBloc.add(const GameEvent.loadGame());
                   },
                   timeRemaining: timeRemaining,
                 ),

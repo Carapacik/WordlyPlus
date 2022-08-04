@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/bloc/game/game_bloc.dart';
 import 'package:wordly/presentation/pages/credits/credits_page.dart';
 import 'package:wordly/presentation/pages/game/game_page.dart';
 import 'package:wordly/presentation/pages/settings/settings_page.dart';
@@ -20,7 +22,10 @@ class CustomDrawer extends StatelessWidget {
             ListTile(
               title: Text(context.r.daily, style: context.theme.tm),
               onTap: () async {
-                Navigator.of(context).pushAndRemoveUntil(
+                context.read<GameBloc>().add(
+                      const GameEvent.loadGame(isDaily: true),
+                    );
+                await Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute<void>(
                     builder: (context) => const GamePage(),
                   ),
@@ -31,6 +36,9 @@ class CustomDrawer extends StatelessWidget {
             ListTile(
               title: Text(context.r.levels, style: context.theme.tm),
               onTap: () async {
+                context.read<GameBloc>().add(
+                      const GameEvent.loadGame(isDaily: false),
+                    );
                 await Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute<void>(
                     builder: (context) => const GamePage(daily: false),
@@ -41,9 +49,9 @@ class CustomDrawer extends StatelessWidget {
             ),
             ListTile(
               title: Text(context.r.how_to_play, style: context.theme.tm),
-              onTap: () async {
+              onTap: () {
                 Navigator.of(context).pop();
-                await Navigator.of(context).push(
+                Navigator.of(context).push(
                   MaterialPageRoute<void>(
                     builder: (context) => const TutorialPage(),
                   ),

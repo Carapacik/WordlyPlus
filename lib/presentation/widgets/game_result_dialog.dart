@@ -59,6 +59,7 @@ void showGameResultDialog(BuildContext context, {required GameResult result}) {
                 const SizedBox(width: 12),
                 CountdownTimer(
                   onEnd: () {
+                    Navigator.of(context).pop();
                     gameBloc.add(const GameEvent.loadGame());
                   },
                   timeRemaining: timeRemaining,

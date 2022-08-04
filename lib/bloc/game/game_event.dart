@@ -20,8 +20,6 @@ class GameEvent with _$GameEvent {
   const factory GameEvent.loadGame({@Default(true) bool isDaily}) =
       _LoadGameEvent;
 
-  const factory GameEvent.resetGame() = _ResetGameEvent;
-
   const factory GameEvent.share({required TextFunction textFunction}) =
       _ShareEvent;
 

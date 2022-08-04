@@ -5,4 +5,5 @@ export 'models/get_name_mixin.dart';
 export 'models/keyboard_keys.dart';
 export 'models/letter_info.dart';
 export 'models/letter_status.dart';
+export 'models/level_info.dart';
 export 'models/locale_enum.dart';

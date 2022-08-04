@@ -6,51 +6,65 @@ import 'package:wordly/data/models.dart';
 class SaveGameService {
   SaveGameService();
 
-  static const _dailyBoard = 'daily_board_';
-  static const _dailyWord = 'daily_word_';
-  static const _levelBoard = 'level_board_';
-  static const _levelNumber = 'level_number_'; // Last completed
+  static const _dailyBoardKey = 'daily_board_';
+  static const _levelBoardKey = 'level_board_';
+  static const _dailyResultKey = 'daily_result_';
+  static const _levelInfoKey = 'level_info_'; // Last completed
 
-  Future<void> saveDailyWord(String word, DictionaryEnum dictionary) async {
+  Future<void> saveDailyResult(
+    GameResult result,
+    DictionaryEnum dictionary,
+  ) async {
     final sp = await SharedPreferences.getInstance();
-    await sp.setString(_dailyWord + dictionary.key, word);
+    final rawWord = json.encode(result.toJson());
+    await sp.setString(_dailyResultKey + dictionary.key, rawWord);
   }
 
-  Future<String?> getDailyWord(DictionaryEnum dictionary) async {
+  Future<void> saveLevelInfo(LevelInfo info, DictionaryEnum dictionary) async {
     final sp = await SharedPreferences.getInstance();
-    return sp.getString(_dailyWord + dictionary.key);
+    final rawInfo = json.encode(info.toJson());
+    await sp.setString(_levelInfoKey + dictionary.key, rawInfo);
   }
 
   Future<void> saveDailyBoard(
     List<LetterInfo> board,
     DictionaryEnum dictionary,
   ) async {
-    return _saveBoard(board, _dailyBoard + dictionary.key);
+    return _saveBoard(board, _dailyBoardKey + dictionary.key);
   }
 
   Future<void> saveLevelBoard(
     List<LetterInfo> board,
     DictionaryEnum dictionary,
   ) async {
-    return _saveBoard(board, _levelBoard + dictionary.key);
+    return _saveBoard(board, _levelBoardKey + dictionary.key);
+  }
+
+  Future<GameResult?> getDailyResult(DictionaryEnum dictionary) async {
+    final sp = await SharedPreferences.getInstance();
+    final rawWord = sp.getString(_dailyResultKey + dictionary.key);
+    if (rawWord == null) {
+      return null;
+    }
+    return GameResult.fromJson(json.decode(rawWord) as Map<String, dynamic>);
+  }
+
+  Future<LevelInfo?> getLevelInfo(DictionaryEnum dictionary) async {
+    final sp = await SharedPreferences.getInstance();
+    final rawInfo = sp.getString(_levelInfoKey + dictionary.key);
+
+    if (rawInfo == null) {
+      return null;
+    }
+    return LevelInfo.fromJson(json.decode(rawInfo) as Map<String, dynamic>);
   }
 
   Future<List<LetterInfo>?> getDailyBoard(DictionaryEnum dictionary) async {
-    return _getBoard(_dailyBoard + dictionary.key);
+    return _getBoard(_dailyBoardKey + dictionary.key);
   }
 
   Future<List<LetterInfo>?> getLevelBoard(DictionaryEnum dictionary) async {
-    return _getBoard(_levelBoard + dictionary.key);
-  }
-
-  Future<void> saveLevelNumber(int number, DictionaryEnum dictionary) async {
-    final sp = await SharedPreferences.getInstance();
-    await sp.setInt(_levelNumber + dictionary.key, number);
-  }
-
-  Future<int> getLevelNumber(DictionaryEnum dictionary) async {
-    final sp = await SharedPreferences.getInstance();
-    return sp.getInt(_levelNumber + dictionary.key) ?? 1;
+    return _getBoard(_levelBoardKey + dictionary.key);
   }
 
   Future<void> _saveBoard(List<LetterInfo> list, String key) async {

@@ -9,19 +9,19 @@ part 'locale_state.dart';
 
 class LocaleBloc extends Bloc<LocaleEvent, LocaleState> {
   LocaleBloc({
-    required this.settingsService,
+    required this.saveSettingsService,
     required LocaleEnum locale,
   }) : super(LocaleState.changeLocale(locale)) {
     on<_LocaleChangedEvent>(_onLocaleChanged);
   }
 
-  final SaveSettingsService settingsService;
+  final ISaveSettingsService saveSettingsService;
 
   Future<void> _onLocaleChanged(
     _LocaleChangedEvent event,
     Emitter<LocaleState> emit,
   ) async {
-    await settingsService.saveLocale(event.locale);
+    await saveSettingsService.saveLocale(event.locale);
     emit(LocaleState.changeLocale(event.locale));
   }
 }

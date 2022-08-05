@@ -8,7 +8,7 @@ part 'theme_state.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   ThemeBloc({
-    required this.settingsService,
+    required this.saveSettingsService,
     required bool isDarkTheme,
     required bool isHighContrast,
   }) : super(
@@ -21,13 +21,13 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     on<_ToggleHighContrastEvent>(_onHighContrastChanged);
   }
 
-  final SaveSettingsService settingsService;
+  final ISaveSettingsService saveSettingsService;
 
   Future<void> _onThemeChanged(
     _ToggleThemeEvent event,
     Emitter<ThemeState> emit,
   ) async {
-    await settingsService.saveDark(value: !state.isDarkTheme);
+    await saveSettingsService.saveDark(value: !state.isDarkTheme);
     emit(state.copyWith(isDarkTheme: !state.isDarkTheme));
   }
 
@@ -35,7 +35,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     _ToggleHighContrastEvent event,
     Emitter<ThemeState> emit,
   ) async {
-    await settingsService.saveHighContrast(value: !state.isHighContrast);
+    await saveSettingsService.saveHighContrast(value: !state.isHighContrast);
     emit(state.copyWith(isHighContrast: !state.isHighContrast));
   }
 }

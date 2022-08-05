@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:wordly/bloc/game/game_bloc.dart';
 import 'package:wordly/bloc/levels/levels_bloc.dart';
 import 'package:wordly/bloc/statistic/statistic_bloc.dart';
+import 'package:wordly/data/models.dart';
+import 'package:wordly/domain/save_statistic_service.dart';
 import 'package:wordly/presentation/pages/game/widgets/keyboard_by_language.dart';
 import 'package:wordly/presentation/pages/game/widgets/word_grid.dart';
 import 'package:wordly/presentation/pages/levels/levels_page.dart';
@@ -73,16 +76,7 @@ class _GamePageState extends State<GamePage> {
                   IconButton(
                     tooltip: context.r.view_statistic,
                     icon: const Icon(Icons.leaderboard),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute<void>(
-                          builder: (_) => BlocProvider<StatisticBloc>(
-                            create: (context) => StatisticBloc(),
-                            child: const StatisticPage(),
-                          ),
-                        ),
-                      );
-                    },
+                    onPressed: _onStatisticPressed(context),
                   )
                 else
                   IconButton(
@@ -119,3 +113,24 @@ class _GamePageState extends State<GamePage> {
         ),
       );
 }
+
+VoidCallback _onStatisticPressed(BuildContext context) => () {
+      Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (_) {
+            final service = GetIt.I<ISaveStatisticService>();
+            // TODO
+            final dictionary = DictionaryEnum.en;
+            return BlocProvider<StatisticBloc>(
+              create: (context) => StatisticBloc(
+                service,
+                dictionary,
+              )..add(
+                  const StatisticEvent.statisticLoad(),
+                ),
+              child: const StatisticPage(),
+            );
+          },
+        ),
+      );
+    };

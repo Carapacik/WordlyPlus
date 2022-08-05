@@ -1,20 +1,28 @@
 import 'package:get_it/get_it.dart';
 import 'package:wordly/domain/save_game_service.dart';
 import 'package:wordly/domain/save_settings_service.dart';
+import 'package:wordly/domain/save_statistic_service.dart';
 
 Future<void> setupServiceLocators() async {
-  await _initSPService();
-  await _initGameService();
+  _initSaveSettingsService();
+  _initSaveGameService();
+  _initSaveStatisticService();
 }
 
-Future<void> _initSPService() async {
-  GetIt.I.registerSingleton<SaveSettingsService>(
+Future<void> _initSaveSettingsService() async {
+  GetIt.I.registerSingleton<ISaveSettingsService>(
     SaveSettingsService(),
   );
 }
 
-Future<void> _initGameService() async {
-  GetIt.I.registerSingleton<SaveGameService>(
+Future<void> _initSaveGameService() async {
+  GetIt.I.registerSingleton<ISaveGameService>(
     SaveGameService(),
+  );
+}
+
+Future<void> _initSaveStatisticService() async {
+  GetIt.I.registerSingleton<ISaveStatisticService>(
+    SaveStatisticService(),
   );
 }

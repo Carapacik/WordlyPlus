@@ -7,14 +7,18 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:wordly/data/models.dart';
 import 'package:wordly/domain/save_game_service.dart';
+import 'package:wordly/domain/save_statistic_service.dart';
 
 part 'game_bloc.freezed.dart';
 part 'game_event.dart';
 part 'game_state.dart';
 
 class GameBloc extends Bloc<GameEvent, GameState> {
-  GameBloc({required DictionaryEnum dictionary, required this.saveGameService})
-      : _dictionary = dictionary,
+  GameBloc({
+    required this.saveGameService,
+    required this.saveStatisticService,
+    required DictionaryEnum dictionary,
+  })  : _dictionary = dictionary,
         super(const GameState.initial()) {
     on<_KeyListenEvent>(_onKeyListen);
     on<_LetterPressedEvent>(_onLetterPressed);
@@ -26,7 +30,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<_ChangeDictionaryEvent>(_onChangeDictionary);
   }
 
-  final SaveGameService saveGameService;
+  final ISaveGameService saveGameService;
+  final ISaveStatisticService saveStatisticService;
+
   DictionaryEnum _dictionary;
   List<LetterInfo> _gridInfo = [];
   bool _isGameComplete = false;
@@ -136,7 +142,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         word: _secretWord,
         meaning: _dictionary.currentDictionary[_secretWord] ?? '',
       );
-      _saveResultAndBoard(gameResult);
+      await _saveResultAndBoard(gameResult);
+      await saveStatisticService.saveDailyStatistic(
+        isWin: true,
+        attempt: _currentWordIndex,
+        dictionary: _dictionary,
+      );
 
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
       emit(GameState.complete(gameResult));
@@ -158,6 +169,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         meaning: _dictionary.currentDictionary[_secretWord] ?? '',
       );
       _saveResultAndBoard(gameResult);
+      await saveStatisticService.saveDailyStatistic(
+        isWin: false,
+        attempt: _currentWordIndex,
+        dictionary: _dictionary,
+      );
 
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
       emit(GameState.complete(gameResult));

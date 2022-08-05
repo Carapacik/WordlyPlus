@@ -15,6 +15,7 @@ import 'package:wordly/bloc/locale/locale_bloc.dart';
 import 'package:wordly/bloc/theme/theme_bloc.dart';
 import 'package:wordly/domain/save_game_service.dart';
 import 'package:wordly/domain/save_settings_service.dart';
+import 'package:wordly/domain/save_statistic_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,14 +26,15 @@ Future<void> main() async {
   setPathUrlStrategy();
   await setupServiceLocators();
 
-  final settingsService = GetIt.I<SaveSettingsService>();
+  final settingsService = GetIt.I<ISaveSettingsService>();
   final isDarkTheme = await settingsService.getDark();
   final isHighContrast = await settingsService.getHighContrast();
   final dictionary = await settingsService.getDictionary();
   final locale = await settingsService.getLocale();
   final isSecondLaunch = await settingsService.isSecondLaunch();
 
-  final gameService = GetIt.I<SaveGameService>();
+  final gameService = GetIt.I<ISaveGameService>();
+  final statService = GetIt.I<ISaveStatisticService>();
 
   runZonedGuarded<void>(
     () {
@@ -43,26 +45,27 @@ Future<void> main() async {
               providers: [
                 BlocProvider<ThemeBloc>(
                   create: (_) => ThemeBloc(
-                    settingsService: settingsService,
+                    saveSettingsService: settingsService,
                     isDarkTheme: isDarkTheme,
                     isHighContrast: isHighContrast,
                   ),
                 ),
                 BlocProvider<DictionaryBloc>(
                   create: (_) => DictionaryBloc(
-                    settingsService: settingsService,
+                    saveSettingsService: settingsService,
                     dictionary: dictionary,
                   ),
                 ),
                 BlocProvider<LocaleBloc>(
                   create: (_) => LocaleBloc(
-                    settingsService: settingsService,
+                    saveSettingsService: settingsService,
                     locale: locale,
                   ),
                 ),
                 BlocProvider<GameBloc>(
                   create: (_) => GameBloc(
                     saveGameService: gameService,
+                    saveStatisticService: statService,
                     dictionary: dictionary,
                   )..add(const GameEvent.loadGame()),
                 ),

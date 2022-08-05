@@ -9,19 +9,19 @@ part 'dictionary_state.dart';
 
 class DictionaryBloc extends Bloc<DictionaryEvent, DictionaryState> {
   DictionaryBloc({
-    required this.settingsService,
+    required this.saveSettingsService,
     required DictionaryEnum dictionary,
   }) : super(DictionaryState.changeDictionary(dictionary)) {
     on<_DictionaryChangedEvent>(_onDictionaryChanged);
   }
 
-  final SaveSettingsService settingsService;
+  final ISaveSettingsService saveSettingsService;
 
   Future<void> _onDictionaryChanged(
     _DictionaryChangedEvent event,
     Emitter<DictionaryState> emit,
   ) async {
-    await settingsService.saveDictionary(event.dictionary);
+    await saveSettingsService.saveDictionary(event.dictionary);
     emit(DictionaryState.changeDictionary(event.dictionary));
   }
 }

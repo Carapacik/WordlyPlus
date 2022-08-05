@@ -49,45 +49,45 @@ class _GamePageState extends State<GamePage> {
             return;
           }
         },
-        child: BlocListener<GameBloc, GameState>(
-          listener: (context, state) {
-            final error = state.whenOrNull(error: (error) => error);
-            if (error != null) {
-              showFloatingSnackBar(context, message: error.getName(context));
-            }
-            final gameResult = state.whenOrNull(complete: (result) => result);
-            if (gameResult != null) {
-              showGameResultDialog(
-                context,
-                result: gameResult,
-                isDailyMode: widget.isDailyMode,
-              );
-            }
-          },
-          child: Scaffold(
-            drawer: const CustomDrawer(),
-            appBar: CustomAppBar(
-              title: widget.isDailyMode
-                  ? context.r.daily
-                  : context.r.level_number(
-                      context.read<GameBloc>().levelNumber,
-                    ),
-              actions: [
-                if (widget.isDailyMode)
-                  IconButton(
-                    tooltip: context.r.view_statistic,
-                    icon: const Icon(Icons.leaderboard),
-                    onPressed: _onStatisticPressed(context),
-                  )
-                else
-                  IconButton(
-                    tooltip: context.r.view_levels,
-                    icon: const Icon(Icons.apps),
-                    onPressed: _onLevelsPressed(context),
+        child: Scaffold(
+          drawer: const CustomDrawer(),
+          appBar: CustomAppBar(
+            title: widget.isDailyMode
+                ? context.r.daily
+                : context.r.level_number(
+                    context.read<GameBloc>().levelNumber,
                   ),
-              ],
-            ),
-            body: SafeArea(
+            actions: [
+              if (widget.isDailyMode)
+                IconButton(
+                  tooltip: context.r.view_statistic,
+                  icon: const Icon(Icons.leaderboard),
+                  onPressed: _onStatisticPressed(context),
+                )
+              else
+                IconButton(
+                  tooltip: context.r.view_levels,
+                  icon: const Icon(Icons.apps),
+                  onPressed: _onLevelsPressed(context),
+                ),
+            ],
+          ),
+          body: BlocListener<GameBloc, GameState>(
+            listener: (context, state) {
+              final error = state.whenOrNull(error: (error) => error);
+              if (error != null) {
+                showFloatingSnackBar(context, message: error.getName(context));
+              }
+              final gameResult = state.whenOrNull(complete: (result) => result);
+              if (gameResult != null) {
+                showGameResultDialog(
+                  context,
+                  result: gameResult,
+                  isDailyMode: widget.isDailyMode,
+                );
+              }
+            },
+            child: SafeArea(
               child: Column(
                 children: [
                   const SizedBox(height: 8),

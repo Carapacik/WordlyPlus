@@ -17,8 +17,10 @@ class GameEvent with _$GameEvent {
 
   const factory GameEvent.enterPressed() = _EnterPressedEvent;
 
-  const factory GameEvent.loadGame({@Default(true) bool isDaily}) =
-      _LoadGameEvent;
+  const factory GameEvent.loadGame({
+    @Default(true) bool isDaily,
+    @Default(true) bool isFirst,
+  }) = _LoadGameEvent;
 
   const factory GameEvent.share({required TextFunction textFunction}) =
       _ShareEvent;

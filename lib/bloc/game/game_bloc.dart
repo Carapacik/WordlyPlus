@@ -207,7 +207,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       if (previousResult != null && previousResult.word == _secretWord) {
         if (previousResult.isWin != null) {
           _isGameComplete = true;
-          emit(GameState.complete(previousResult));
+          if (event.isFirst) {
+            emit(GameState.complete(previousResult));
+          }
         }
       } else {
         _resetBoard();
@@ -254,7 +256,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     Emitter<GameState> emit,
   ) {
     _dictionary = event.dictionary;
-    // TODO
+    add(GameEvent.loadGame(isDaily: _isDailyMode, isFirst: false));
   }
 
   void _resetBoard() {

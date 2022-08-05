@@ -4,5 +4,6 @@ part of 'statistic_bloc.dart';
 class StatisticEvent with _$StatisticEvent {
   const StatisticEvent._();
 
-  const factory StatisticEvent.statisticLoad() = _StatisticLoadEvent;
+  const factory StatisticEvent.statisticLoad(DictionaryEnum dictionary) =
+      _StatisticLoadEvent;
 }

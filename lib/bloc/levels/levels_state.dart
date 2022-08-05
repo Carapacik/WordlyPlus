@@ -6,5 +6,6 @@ class LevelsState with _$LevelsState {
 
   const factory LevelsState.initial() = _InitialState;
 
-  const factory LevelsState.levelsLoaded(List levels) = _LevelsLoadedState;
+  const factory LevelsState.levelsLoaded(List<GameResult> levels) =
+      _LevelsLoadedState;
 }

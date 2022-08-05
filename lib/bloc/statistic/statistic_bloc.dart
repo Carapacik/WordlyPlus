@@ -8,20 +8,19 @@ part 'statistic_event.dart';
 part 'statistic_state.dart';
 
 class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
-  StatisticBloc(this.saveStatisticService, this.dictionary)
+  StatisticBloc(this.saveStatisticService)
       : super(const StatisticState.initial()) {
     on<_StatisticLoadEvent>(_onStatisticLoad);
   }
 
   final ISaveStatisticService saveStatisticService;
-  final DictionaryEnum dictionary;
 
   Future<void> _onStatisticLoad(
     _StatisticLoadEvent event,
     Emitter<StatisticState> emit,
   ) async {
     final statistic =
-        await saveStatisticService.getDailyStatistic(dictionary) ??
+        await saveStatisticService.getDailyStatistic(event.dictionary) ??
             StatisticInfo.empty();
     emit(StatisticState.statisticLoaded(statistic));
   }

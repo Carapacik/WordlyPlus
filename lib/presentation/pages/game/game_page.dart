@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:wordly/bloc/dictionary/dictionary_bloc.dart';
 import 'package:wordly/bloc/game/game_bloc.dart';
 import 'package:wordly/bloc/levels/levels_bloc.dart';
 import 'package:wordly/bloc/statistic/statistic_bloc.dart';
-import 'package:wordly/data/models.dart';
+import 'package:wordly/domain/save_levels_service.dart';
 import 'package:wordly/domain/save_statistic_service.dart';
 import 'package:wordly/presentation/pages/game/widgets/keyboard_by_language.dart';
 import 'package:wordly/presentation/pages/game/widgets/word_grid.dart';
@@ -82,16 +83,7 @@ class _GamePageState extends State<GamePage> {
                   IconButton(
                     tooltip: context.r.view_levels,
                     icon: const Icon(Icons.apps),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute<void>(
-                          builder: (_) => BlocProvider<LevelsBloc>(
-                            create: (context) => LevelsBloc(),
-                            child: const LevelsPage(),
-                          ),
-                        ),
-                      );
-                    },
+                    onPressed: _onLevelsPressed(context),
                   ),
               ],
             ),
@@ -112,25 +104,38 @@ class _GamePageState extends State<GamePage> {
           ),
         ),
       );
-}
 
-VoidCallback _onStatisticPressed(BuildContext context) => () {
-      Navigator.of(context).push(
-        MaterialPageRoute<void>(
-          builder: (_) {
-            final service = GetIt.I<ISaveStatisticService>();
-            // TODO
-            final dictionary = DictionaryEnum.en;
-            return BlocProvider<StatisticBloc>(
-              create: (context) => StatisticBloc(
-                service,
-                dictionary,
-              )..add(
-                  const StatisticEvent.statisticLoad(),
-                ),
-              child: const StatisticPage(),
-            );
-          },
-        ),
-      );
-    };
+  VoidCallback _onStatisticPressed(BuildContext context) => () {
+        Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (_) {
+              final service = GetIt.I<ISaveStatisticService>();
+              final dictionary =
+                  context.read<DictionaryBloc>().state.dictionary;
+              return BlocProvider<StatisticBloc>(
+                create: (context) => StatisticBloc(service)
+                  ..add(StatisticEvent.statisticLoad(dictionary)),
+                child: const StatisticPage(),
+              );
+            },
+          ),
+        );
+      };
+
+  VoidCallback _onLevelsPressed(BuildContext context) => () {
+        Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (_) {
+              final service = GetIt.I<ISaveLevelsService>();
+              final dictionary =
+                  context.read<DictionaryBloc>().state.dictionary;
+              return BlocProvider<LevelsBloc>(
+                create: (context) => LevelsBloc(service)
+                  ..add(LevelsEvent.levelsLoad(dictionary)),
+                child: const LevelsPage(),
+              );
+            },
+          ),
+        );
+      };
+}

@@ -7,6 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:wordly/data/models.dart';
 import 'package:wordly/domain/save_game_service.dart';
+import 'package:wordly/domain/save_levels_service.dart';
 import 'package:wordly/domain/save_statistic_service.dart';
 
 part 'game_bloc.freezed.dart';
@@ -17,6 +18,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   GameBloc({
     required this.saveGameService,
     required this.saveStatisticService,
+    required this.saveLevelsService,
     required DictionaryEnum dictionary,
   })  : _dictionary = dictionary,
         super(const GameState.initial()) {
@@ -32,6 +34,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   final ISaveGameService saveGameService;
   final ISaveStatisticService saveStatisticService;
+  final ISaveLevelsService saveLevelsService;
 
   DictionaryEnum _dictionary;
   List<LetterInfo> _gridInfo = [];
@@ -143,11 +146,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         meaning: _dictionary.currentDictionary[_secretWord] ?? '',
       );
       await _saveResultAndBoard(gameResult);
-      await saveStatisticService.saveDailyStatistic(
-        isWin: true,
-        attempt: _currentWordIndex,
-        dictionary: _dictionary,
-      );
+      await _saveStatAndLvl(gameResult);
 
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
       emit(GameState.complete(gameResult));
@@ -168,12 +167,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         word: _secretWord,
         meaning: _dictionary.currentDictionary[_secretWord] ?? '',
       );
-      _saveResultAndBoard(gameResult);
-      await saveStatisticService.saveDailyStatistic(
-        isWin: false,
-        attempt: _currentWordIndex,
-        dictionary: _dictionary,
-      );
+      await _saveResultAndBoard(gameResult);
+      await _saveStatAndLvl(gameResult);
 
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
       emit(GameState.complete(gameResult));
@@ -278,6 +273,21 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       index = Random(levelNumber).nextInt(_dictionary.currentDictionary.length);
     }
     _secretWord = _dictionary.currentDictionary.keys.elementAt(index);
+  }
+
+  Future<void> _saveStatAndLvl(GameResult gameResult) async {
+    if (_isDailyMode) {
+      await saveStatisticService.saveDailyStatistic(
+        isWin: gameResult.isWin!,
+        attempt: _currentWordIndex,
+        dictionary: _dictionary,
+      );
+      return;
+    }
+    await saveLevelsService.saveLevels(
+      gameResult: gameResult,
+      dictionary: _dictionary,
+    );
   }
 
   Future<void> _saveResultAndBoard(GameResult gameResult) async {

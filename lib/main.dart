@@ -14,6 +14,7 @@ import 'package:wordly/bloc/game/game_bloc.dart';
 import 'package:wordly/bloc/locale/locale_bloc.dart';
 import 'package:wordly/bloc/theme/theme_bloc.dart';
 import 'package:wordly/domain/save_game_service.dart';
+import 'package:wordly/domain/save_levels_service.dart';
 import 'package:wordly/domain/save_settings_service.dart';
 import 'package:wordly/domain/save_statistic_service.dart';
 
@@ -35,6 +36,7 @@ Future<void> main() async {
 
   final gameService = GetIt.I<ISaveGameService>();
   final statService = GetIt.I<ISaveStatisticService>();
+  final lvlService = GetIt.I<ISaveLevelsService>();
 
   runZonedGuarded<void>(
     () {
@@ -66,6 +68,7 @@ Future<void> main() async {
                   create: (_) => GameBloc(
                     saveGameService: gameService,
                     saveStatisticService: statService,
+                    saveLevelsService: lvlService,
                     dictionary: dictionary,
                   )..add(const GameEvent.loadGame()),
                 ),

@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:wordly/domain/save_game_service.dart';
+import 'package:wordly/domain/save_levels_service.dart';
 import 'package:wordly/domain/save_settings_service.dart';
 import 'package:wordly/domain/save_statistic_service.dart';
 
@@ -7,6 +8,7 @@ Future<void> setupServiceLocators() async {
   _initSaveSettingsService();
   _initSaveGameService();
   _initSaveStatisticService();
+  _initSaveLevelsService();
 }
 
 Future<void> _initSaveSettingsService() async {
@@ -24,5 +26,11 @@ Future<void> _initSaveGameService() async {
 Future<void> _initSaveStatisticService() async {
   GetIt.I.registerSingleton<ISaveStatisticService>(
     SaveStatisticService(),
+  );
+}
+
+Future<void> _initSaveLevelsService() async {
+  GetIt.I.registerSingleton<ISaveLevelsService>(
+    SaveLevelsService(),
   );
 }

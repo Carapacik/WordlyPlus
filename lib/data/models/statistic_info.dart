@@ -1,8 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'statistic_info.g.dart';
-
-@JsonSerializable(explicitToJson: true)
 class StatisticInfo {
   const StatisticInfo({
     required this.wins,
@@ -14,8 +9,14 @@ class StatisticInfo {
   factory StatisticInfo.empty() =>
       const StatisticInfo(wins: 0, loses: 0, streak: 0, attempts: zeroAttempts);
 
-  factory StatisticInfo.fromJson(Map<String, dynamic> json) =>
-      _$StatisticInfoFromJson(json);
+  factory StatisticInfo.fromJson(Map<String, dynamic> json) => StatisticInfo(
+        wins: json['wins'] as int,
+        loses: json['loses'] as int,
+        attempts: (json['attempts'] as List<dynamic>)
+            .map((dynamic e) => e as int)
+            .toList(),
+        streak: json['streak'] as int,
+      );
 
   final int wins;
   final int loses;
@@ -24,5 +25,10 @@ class StatisticInfo {
 
   static const zeroAttempts = <int>[0, 0, 0, 0, 0, 0];
 
-  Map<String, dynamic> toJson() => _$StatisticInfoToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'wins': wins,
+        'loses': loses,
+        'streak': streak,
+        'attempts': attempts,
+      };
 }

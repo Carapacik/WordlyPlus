@@ -42,8 +42,12 @@ class SaveStatisticService implements ISaveStatisticService {
         previousLoses: previousStatistic?.loses,
       ),
       wins: _calculateWins(isWin: isWin, previousWins: previousStatistic?.wins),
+      streak: _calculateStreak(
+        isWin: isWin,
+        previousStreak: previousStatistic?.streak,
+      ),
       attempts: _calculateAttempts(
-        attempt: isWin ? attempt : -1,
+        attempt: isWin ? attempt - 1 : -1,
         previousAttempts: previousStatistic?.attempts,
       ),
     );
@@ -75,17 +79,26 @@ class SaveStatisticService implements ISaveStatisticService {
     required int attempt,
     required List<int>? previousAttempts,
   }) {
-    const zeroAttempts = <int>[0, 0, 0, 0, 0, 0];
     if (attempt == -1) {
-      return previousAttempts ?? zeroAttempts;
+      return previousAttempts ?? StatisticInfo.zeroAttempts;
     }
     if (previousAttempts == null) {
-      final currentAttempts = List<int>.of(zeroAttempts);
+      final currentAttempts = List<int>.of(StatisticInfo.zeroAttempts);
       currentAttempts[attempt] += 1;
       return currentAttempts;
     }
     final currentAttempts = List<int>.of(previousAttempts);
     currentAttempts[attempt] += 1;
     return currentAttempts;
+  }
+
+  int _calculateStreak({required bool isWin, required int? previousStreak}) {
+    if (!isWin) {
+      return 0;
+    }
+    if (previousStreak == null) {
+      return 1;
+    }
+    return previousStreak + 1;
   }
 }

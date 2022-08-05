@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/bloc/statistic/statistic_bloc.dart';
 import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/resources/resources.dart';
 
@@ -12,41 +14,51 @@ class StatisticPage extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(title: context.r.statistic),
       body: ConstraintScreen(
-        child: Column(
-          children: [
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _StatText(
-                  value: 12,
-                  title: context.r.played,
-                ),
-                _StatText(
-                  value: 12,
-                  title: context.r.win_rate,
-                  percent: true,
-                ),
-                _StatText(
-                  value: 12,
-                  title: context.r.current_streak,
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: FittedBox(
-                child: Text(
-                  context.r.guess_distribution.toUpperCase(),
-                  style: context.theme.tl,
-                ),
-              ),
-            ),
-            const SizedBox(height: 4),
-            const _AttemptContent(attempts: [0, 0, 1, 2, 0, 1]),
-          ],
+        child: BlocBuilder<StatisticBloc, StatisticState>(
+          builder: (context, state) => state.when(
+            initial: () => const Center(child: CircularProgressIndicator()),
+            statisticLoaded: (statistic) {
+              final played = statistic.wins + statistic.loses;
+              final winRate = played != 0 ? statistic.wins * 100 / played : 0;
+              final streak = statistic.streak;
+              return Column(
+                children: [
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _StatText(
+                        value: played,
+                        title: context.r.played,
+                      ),
+                      _StatText(
+                        value: winRate,
+                        title: context.r.win_rate,
+                        percent: true,
+                      ),
+                      _StatText(
+                        value: streak,
+                        title: context.r.current_streak,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: FittedBox(
+                      child: Text(
+                        context.r.guess_distribution.toUpperCase(),
+                        style: context.theme.tl,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  _AttemptContent(attempts: statistic.attempts),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
@@ -70,7 +82,7 @@ class _StatText extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            percent ? '${value.toStringAsFixed(2)}%' : value.toString(),
+            percent ? '${value.toStringAsFixed(1)}%' : value.toString(),
             style: context.theme.tl,
           ),
           const SizedBox(height: 8),
@@ -100,13 +112,19 @@ class _AttemptContent extends StatelessWidget {
         widthFactor: (attempts[index] + 1) / maxValue,
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
+            color:
+                context.dynamicColor(light: Colors.black, dark: Colors.white),
             borderRadius: BorderRadius.circular(4),
           ),
           height: 20,
           child: Text(
             ' ${attempts[index]}',
-            style: context.theme.bl,
+            style: context.theme.bl.copyWith(
+              color: context.dynamicColor(
+                light: Colors.white,
+                dark: Colors.black,
+              ),
+            ),
           ),
         ),
       ),

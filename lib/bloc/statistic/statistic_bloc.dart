@@ -4,9 +4,7 @@ import 'package:wordly/data/models.dart';
 import 'package:wordly/domain/save_statistic_service.dart';
 
 part 'statistic_bloc.freezed.dart';
-
 part 'statistic_event.dart';
-
 part 'statistic_state.dart';
 
 class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
@@ -23,7 +21,8 @@ class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
     Emitter<StatisticState> emit,
   ) async {
     final statistic =
-        await saveStatisticService.getDailyStatistic(dictionary);
+        await saveStatisticService.getDailyStatistic(dictionary) ??
+            StatisticInfo.empty();
     emit(StatisticState.statisticLoaded(statistic));
   }
 }

@@ -33,7 +33,7 @@ class KeyboardKey extends StatelessWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
-              color: Colors.black12,
+              color: Colors.black12, // TODO change color
             ),
             child: Text(
               keyboardKey.fromDictionary(dictionary)?.toUpperCase() ?? '',

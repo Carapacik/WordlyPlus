@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/bloc/levels/levels_bloc.dart';
+import 'package:wordly/presentation/widgets/meaning_dialog.dart';
 import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/resources/resources.dart';
 
@@ -57,7 +58,14 @@ class _GridItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
-          //TODO show dialog meaning
+          if (isWin != null) {
+            showMeaningDialog(
+              context,
+              meaning: meaning,
+              isWin: isWin!,
+              word: word,
+            );
+          }
         },
         child: AspectRatio(
           aspectRatio: 1,

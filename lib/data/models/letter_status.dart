@@ -16,8 +16,8 @@ enum LetterStatus {
     switch (this) {
       case LetterStatus.unknown:
         return context.dynamicColor(
-          light: AppColors.darkBg,
-          dark: AppColors.lightBg,
+          light: AppColors.lightBg,
+          dark: AppColors.darkBg,
         );
       case LetterStatus.notInWord:
         return context.dynamicColor(

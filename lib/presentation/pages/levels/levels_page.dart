@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/bloc/levels/levels_bloc.dart';
-import 'package:wordly/presentation/widgets/meaning_dialog.dart';
 import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/resources/resources.dart';
 
@@ -56,33 +55,33 @@ class _GridItem extends StatelessWidget {
   final int index;
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
-        onTap: () {
-          if (isWin != null) {
-            showMeaningDialog(
-              context,
-              meaning: meaning,
-              isWin: isWin!,
-              word: word,
-            );
-          }
-        },
-        child: AspectRatio(
-          aspectRatio: 1,
-          child: Container(
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: isWin == null
-                  ? AppColors.grey
-                  : isWin!
-                      ? AppColors.green
-                      : AppColors.red,
-            ),
-            child: Text(
-              '$index\n$word',
-              textAlign: TextAlign.center,
-              style: context.theme.tl.copyWith(color: Colors.white),
+  Widget build(BuildContext context) => AspectRatio(
+        aspectRatio: 1,
+        child: Material(
+          clipBehavior: Clip.hardEdge,
+          borderRadius: BorderRadius.circular(8),
+          color: isWin == null
+              ? AppColors.grey
+              : isWin!
+                  ? AppColors.green
+                  : AppColors.red,
+          child: InkWell(
+            onTap: () {
+              if (isWin != null) {
+                showMeaningDialog(
+                  context,
+                  meaning: meaning,
+                  isWin: isWin!,
+                  word: word,
+                );
+              }
+            },
+            child: Center(
+              child: Text(
+                '$index\n$word',
+                textAlign: TextAlign.center,
+                style: context.theme.tl.copyWith(color: Colors.white),
+              ),
             ),
           ),
         ),

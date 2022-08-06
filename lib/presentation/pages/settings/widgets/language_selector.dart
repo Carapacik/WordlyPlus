@@ -53,26 +53,21 @@ class LanguageSelector<T extends GetNameEnumMixin> extends StatelessWidget {
             children: [
               const SizedBox(height: 16),
               Text(context.r.select_language, style: context.theme.tm),
-              SizedBox(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: items.length,
-                  padding: EdgeInsets.zero,
-                  itemBuilder: (context, index) => InkWell(
-                    onTap: () => Navigator.of(context).pop(items[index]),
-                    child: ListTile(
-                      title: Text(
-                        items[index].getName(context),
-                        style: context.theme.bl,
-                      ),
-                      trailing: value == items[index]
-                          ? const Icon(Icons.check)
-                          : null,
-                    ),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: items.length,
+                padding: EdgeInsets.zero,
+                itemBuilder: (context, index) => ListTile(
+                  title: Text(
+                    items[index].getName(context),
+                    style: context.theme.bl,
                   ),
+                  trailing:
+                      value == items[index] ? const Icon(Icons.check) : null,
+                  onTap: () => Navigator.of(context).pop(items[index]),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 4),
             ],
           ),
         );

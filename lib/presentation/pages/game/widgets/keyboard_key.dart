@@ -27,22 +27,22 @@ class KeyboardKey extends StatelessWidget {
         builder: (context, state) {
           return AspectRatio(
             aspectRatio: dictionary.aspectRatio,
-            child: InkWell(
-              onTap: () {
-                context.read<GameBloc>().add(
-                      GameEvent.letterPressed(keyboardKey),
-                    );
-              },
+            child: Material(
+              clipBehavior: Clip.hardEdge,
               borderRadius: BorderRadius.circular(6),
-              child: Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6),
-                  color: _colorByState(state, context),
-                ),
-                child: Text(
-                  keyboardKey.fromDictionary(dictionary)?.toUpperCase() ?? '',
-                  style: context.theme.ll,
+              color: _colorByState(state, context),
+              child: InkWell(
+                onTap: () {
+                  context.read<GameBloc>().add(
+                        GameEvent.letterPressed(keyboardKey),
+                      );
+                },
+                borderRadius: BorderRadius.circular(6),
+                child: Center(
+                  child: Text(
+                    keyboardKey.fromDictionary(dictionary)?.toUpperCase() ?? '',
+                    style: context.theme.ll,
+                  ),
                 ),
               ),
             ),
@@ -73,28 +73,29 @@ class EnterKeyboardKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = KeyboardKeys.enter.size(context, dictionary: dictionary);
     return Container(
       margin: const EdgeInsets.only(right: 2),
-      height: KeyboardKeys.enter.size(
-        context,
-        dictionary: dictionary,
-      ),
-      clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(
+      height: size,
+      child: Material(
+        clipBehavior: Clip.hardEdge,
         borderRadius: BorderRadius.circular(6),
-        color: Colors.black12,
-      ),
-      child: InkWell(
-        onTap: () {
-          context.read<GameBloc>().add(const GameEvent.enterPressed());
-        },
-        borderRadius: BorderRadius.circular(6),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          alignment: Alignment.center,
-          child: Text(
-            KeyboardKeys.enter.fromDictionary(dictionary)!.toUpperCase(),
-            style: context.theme.ll,
+        color: context.dynamicColor(
+          light: AppColors.lightBg,
+          dark: AppColors.darkBg,
+        ),
+        child: InkWell(
+          onTap: () {
+            context.read<GameBloc>().add(const GameEvent.enterPressed());
+          },
+          borderRadius: BorderRadius.circular(6),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            alignment: Alignment.center,
+            child: Text(
+              KeyboardKeys.enter.fromDictionary(dictionary)!.toUpperCase(),
+              style: context.theme.ll,
+            ),
           ),
         ),
       ),
@@ -114,23 +115,26 @@ class DeleteKeyboardKey extends StatelessWidget {
       margin: const EdgeInsets.only(left: 2),
       width: size,
       height: size,
-      decoration: BoxDecoration(
+      child: Material(
+        clipBehavior: Clip.hardEdge,
         borderRadius: BorderRadius.circular(6),
-        color: Colors.black12,
-      ),
-      clipBehavior: Clip.hardEdge,
-      child: InkWell(
-        onTap: () {
-          context.read<GameBloc>().add(const GameEvent.deletePressed());
-        },
-        onLongPress: () {
-          context.read<GameBloc>().add(const GameEvent.deleteLongPressed());
-        },
-        borderRadius: BorderRadius.circular(6),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          alignment: Alignment.center,
-          child: const Icon(Icons.backspace_outlined),
+        color: context.dynamicColor(
+          light: AppColors.lightBg,
+          dark: AppColors.darkBg,
+        ),
+        child: InkWell(
+          onTap: () {
+            context.read<GameBloc>().add(const GameEvent.deletePressed());
+          },
+          onLongPress: () {
+            context.read<GameBloc>().add(const GameEvent.deleteLongPressed());
+          },
+          borderRadius: BorderRadius.circular(6),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            alignment: Alignment.center,
+            child: const Icon(Icons.backspace_outlined),
+          ),
         ),
       ),
     );

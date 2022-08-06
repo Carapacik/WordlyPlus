@@ -5,8 +5,7 @@ double horizontalPadding(BuildContext context) {
   return width > 500 ? (width - 500) / 2 + 72 : 16;
 }
 
-double bottomPadding(BuildContext context) {
-  return MediaQuery.of(context).size.height -
-      56 -
-      MediaQuery.of(context).padding.top;
-}
+double bottomPadding(BuildContext context) =>
+    MediaQuery.of(context).size.height -
+    70 -
+    MediaQuery.of(context).padding.top;

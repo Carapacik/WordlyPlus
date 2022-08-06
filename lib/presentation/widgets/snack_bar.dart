@@ -23,7 +23,7 @@ void showFloatingSnackBar(
       behavior: SnackBarBehavior.floating,
       margin: EdgeInsets.fromLTRB(
         horizontalPadding(context),
-        12,
+        6,
         horizontalPadding(context),
         bottomPadding(context),
       ),

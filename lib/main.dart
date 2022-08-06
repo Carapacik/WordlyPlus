@@ -20,64 +20,59 @@ import 'package:wordly/domain/save_statistic_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([
+  SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
   setPathUrlStrategy();
   await setupServiceLocators();
 
-  final settingsService = GetIt.I<ISaveSettingsService>();
-  final isDarkTheme = await settingsService.getDark();
-  final isHighContrast = await settingsService.getHighContrast();
-  final dictionary = await settingsService.getDictionary();
-  final locale = await settingsService.getLocale();
-  final isSecondLaunch = await settingsService.isSecondLaunch();
-
-  final gameService = GetIt.I<ISaveGameService>();
-  final statService = GetIt.I<ISaveStatisticService>();
-  final lvlService = GetIt.I<ISaveLevelsService>();
-
   runZonedGuarded<void>(
-    () {
-      BlocOverrides.runZoned(
-        () {
-          runApp(
-            MultiBlocProvider(
-              providers: [
-                BlocProvider<ThemeBloc>(
-                  create: (_) => ThemeBloc(
-                    saveSettingsService: settingsService,
-                    isDarkTheme: isDarkTheme,
-                    isHighContrast: isHighContrast,
-                  ),
-                ),
-                BlocProvider<DictionaryBloc>(
-                  create: (_) => DictionaryBloc(
-                    saveSettingsService: settingsService,
-                    dictionary: dictionary,
-                  ),
-                ),
-                BlocProvider<LocaleBloc>(
-                  create: (_) => LocaleBloc(
-                    saveSettingsService: settingsService,
-                    locale: locale,
-                  ),
-                ),
-                BlocProvider<GameBloc>(
-                  create: (_) => GameBloc(
-                    saveGameService: gameService,
-                    saveStatisticService: statService,
-                    saveLevelsService: lvlService,
-                    dictionary: dictionary,
-                  )..add(const GameEvent.loadGame()),
-                ),
-              ],
-              child: App(isSecondLaunch: isSecondLaunch),
+    () async {
+      Bloc.observer = AppBlocObserver();
+      final settingsService = GetIt.I<ISaveSettingsService>();
+      final isDarkTheme = await settingsService.getDark();
+      final isHighContrast = await settingsService.getHighContrast();
+      final dictionary = await settingsService.getDictionary();
+      final locale = await settingsService.getLocale();
+      final isSecondLaunch = await settingsService.isSecondLaunch();
+
+      final gameService = GetIt.I<ISaveGameService>();
+      final statService = GetIt.I<ISaveStatisticService>();
+      final lvlService = GetIt.I<ISaveLevelsService>();
+      runApp(
+        MultiBlocProvider(
+          providers: [
+            BlocProvider<ThemeBloc>(
+              create: (_) => ThemeBloc(
+                saveSettingsService: settingsService,
+                isDarkTheme: isDarkTheme,
+                isHighContrast: isHighContrast,
+              ),
             ),
-          );
-        },
-        blocObserver: AppBlocObserver(),
+            BlocProvider<DictionaryBloc>(
+              create: (_) => DictionaryBloc(
+                saveSettingsService: settingsService,
+                dictionary: dictionary,
+              ),
+            ),
+            BlocProvider<LocaleBloc>(
+              create: (_) => LocaleBloc(
+                saveSettingsService: settingsService,
+                locale: locale,
+              ),
+            ),
+            BlocProvider<GameBloc>(
+              create: (_) => GameBloc(
+                saveGameService: gameService,
+                saveStatisticService: statService,
+                saveLevelsService: lvlService,
+                dictionary: dictionary,
+              )..add(const GameEvent.loadGame()),
+            ),
+          ],
+          child: App(isSecondLaunch: isSecondLaunch),
+        ),
       );
     },
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),

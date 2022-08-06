@@ -51,9 +51,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Text(
-      durationToStringDate(Duration(seconds: _timeRemaining)),
-    );
-  }
+  Widget build(BuildContext context) => Text(
+        durationToStringDate(Duration(seconds: _timeRemaining)),
+      );
 }

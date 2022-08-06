@@ -8,37 +8,35 @@ class LevelsPage extends StatelessWidget {
   const LevelsPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(title: context.r.levels),
-      body: ConstraintScreen(
-        child: BlocBuilder<LevelsBloc, LevelsState>(
-          builder: (context, state) => state.when(
-            initial: () => const Center(child: CircularProgressIndicator()),
-            levelsLoaded: (levels) {
-              return GridView.builder(
-                padding: const EdgeInsets.all(12),
-                itemCount: levels.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
-                ),
-                itemBuilder: (context, index) {
-                  return _GridItem(
+  Widget build(BuildContext context) => Title(
+        color: AppColors.darkBg,
+        title: context.r.levels,
+        child: Scaffold(
+          appBar: CustomAppBar(title: context.r.levels),
+          body: ConstraintScreen(
+            child: BlocBuilder<LevelsBloc, LevelsState>(
+              builder: (context, state) => state.when(
+                initial: () => const Center(child: CircularProgressIndicator()),
+                levelsLoaded: (levels) => GridView.builder(
+                  padding: const EdgeInsets.all(12),
+                  itemCount: levels.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                  ),
+                  itemBuilder: (context, index) => _GridItem(
                     index: index + 1,
                     word: levels[index].word,
                     meaning: levels[index].meaning,
                     isWin: levels[index].isWin,
-                  );
-                },
-              );
-            },
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }
 
 class _GridItem extends StatelessWidget {

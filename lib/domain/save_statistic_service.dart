@@ -37,68 +37,77 @@ class SaveStatisticService implements ISaveStatisticService {
     final sp = await SharedPreferences.getInstance();
     final previousStatistic = await getDailyStatistic(dictionary);
     final currentStatistic = StatisticInfo(
-      loses: _calculateLoses(
+      loses: _calculateLoses(isWin: isWin, previous: previousStatistic?.loses),
+      wins: _calculateWins(isWin: isWin, previous: previousStatistic?.wins),
+      streak:
+          _calculateStreak(isWin: isWin, previous: previousStatistic?.streak),
+      maxStreak: _calculateMaxStreak(
         isWin: isWin,
-        previousLoses: previousStatistic?.loses,
-      ),
-      wins: _calculateWins(isWin: isWin, previousWins: previousStatistic?.wins),
-      streak: _calculateStreak(
-        isWin: isWin,
-        previousStreak: previousStatistic?.streak,
+        previous: previousStatistic?.maxStreak,
       ),
       attempts: _calculateAttempts(
         attempt: isWin ? attempt - 1 : -1,
-        previousAttempts: previousStatistic?.attempts,
+        previous: previousStatistic?.attempts,
       ),
     );
     final rawInfo = json.encode(currentStatistic.toJson());
     await sp.setString(_statisticKey + dictionary.key, rawInfo);
   }
 
-  int _calculateLoses({required bool isWin, required int? previousLoses}) {
+  int _calculateLoses({required bool isWin, required int? previous}) {
     if (isWin) {
-      return previousLoses ?? 0;
+      return previous ?? 0;
     }
-    if (previousLoses == null) {
+    if (previous == null) {
       return 1;
     }
-    return previousLoses + 1;
+    return previous + 1;
   }
 
-  int _calculateWins({required bool isWin, required int? previousWins}) {
+  int _calculateWins({required bool isWin, required int? previous}) {
     if (!isWin) {
-      return previousWins ?? 0;
+      return previous ?? 0;
     }
-    if (previousWins == null) {
+    if (previous == null) {
       return 1;
     }
-    return previousWins + 1;
+    return previous + 1;
+  }
+
+  int _calculateStreak({required bool isWin, required int? previous}) {
+    if (!isWin) {
+      return 0;
+    }
+    if (previous == null) {
+      return 1;
+    }
+    return previous + 1;
+  }
+
+  int _calculateMaxStreak({required bool isWin, required int? previous}) {
+    if (!isWin) {
+      return previous ?? 0;
+    }
+    if (previous == null) {
+      return 1;
+    }
+    return previous + 1;
   }
 
   List<int> _calculateAttempts({
     required int attempt,
-    required List<int>? previousAttempts,
+    required List<int>? previous,
   }) {
     if (attempt == -1) {
-      return previousAttempts ?? StatisticInfo.zeroAttempts;
+      return previous ?? StatisticInfo.zeroAttempts;
     }
-    if (previousAttempts == null) {
+    if (previous == null) {
       final currentAttempts = List<int>.of(StatisticInfo.zeroAttempts);
       currentAttempts[attempt] += 1;
       return currentAttempts;
     }
-    final currentAttempts = List<int>.of(previousAttempts);
+    final currentAttempts = List<int>.of(previous);
     currentAttempts[attempt] += 1;
     return currentAttempts;
-  }
-
-  int _calculateStreak({required bool isWin, required int? previousStreak}) {
-    if (!isWin) {
-      return 0;
-    }
-    if (previousStreak == null) {
-      return 1;
-    }
-    return previousStreak + 1;
   }
 }

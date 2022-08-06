@@ -13,28 +13,22 @@ class App extends StatelessWidget {
   final bool isSecondLaunch;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<ThemeBloc, ThemeState>(
-      builder: (context, themeState) {
-        return BlocBuilder<LocaleBloc, LocaleState>(
-          builder: (context, localeState) {
-            return MaterialApp(
-              locale: localeState.locale.locale,
-              theme: themeState.isDarkTheme ? darkTheme : lightTheme,
-              localizationsDelegates: const [
-                R.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              supportedLocales: R.delegate.supportedLocales,
-              onGenerateTitle: (context) => context.r.wordly_title,
-              debugShowCheckedModeBanner: false,
-              home: isSecondLaunch ? const GamePage() : const TutorialPage(),
-            );
-          },
-        );
-      },
-    );
-  }
+  Widget build(BuildContext context) => BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, themeState) => BlocBuilder<LocaleBloc, LocaleState>(
+          builder: (context, localeState) => MaterialApp(
+            locale: localeState.locale.locale,
+            theme: themeState.isDarkTheme ? darkTheme : lightTheme,
+            localizationsDelegates: const [
+              R.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: R.delegate.supportedLocales,
+            onGenerateTitle: (context) => context.r.wordly_title,
+            debugShowCheckedModeBanner: false,
+            home: isSecondLaunch ? const GamePage() : const TutorialPage(),
+          ),
+        ),
+      );
 }

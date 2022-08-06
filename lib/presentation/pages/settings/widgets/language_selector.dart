@@ -17,37 +17,34 @@ class LanguageSelector<T extends GetNameEnumMixin> extends StatelessWidget {
   final ValueChanged<T?> onTap;
 
   @override
-  Widget build(BuildContext context) {
-    return MergeSemantics(
-      child: ListTileTheme.merge(
-        selectedColor: AppColors.green,
-        child: ListTile(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-          title: Text(title, style: context.theme.ll),
-          trailing: Text(value.getName(context), style: context.theme.bl),
-          onTap: () async {
-            final selected = await _selectLanguageBottomSheet(context);
-            if (selected == null) {
-              return;
-            }
-            onTap(selected);
-          },
+  Widget build(BuildContext context) => MergeSemantics(
+        child: ListTileTheme.merge(
+          selectedColor: AppColors.green,
+          child: ListTile(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+            title: Text(title, style: context.theme.ll),
+            trailing: Text(value.getName(context), style: context.theme.bl),
+            onTap: () async {
+              final selected = await _selectLanguageBottomSheet(context);
+              if (selected == null) {
+                return;
+              }
+              onTap(selected);
+            },
+          ),
         ),
-      ),
-    );
-  }
+      );
 
-  Future<T?> _selectLanguageBottomSheet(BuildContext context) async {
-    return showModalBottomSheet<T>(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(24),
+  Future<T?> _selectLanguageBottomSheet(BuildContext context) async =>
+      showModalBottomSheet<T>(
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(24),
+          ),
         ),
-      ),
-      constraints: const BoxConstraints(maxWidth: 400),
-      builder: (context) {
-        return SafeArea(
+        constraints: const BoxConstraints(maxWidth: 400),
+        builder: (context) => SafeArea(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -70,8 +67,6 @@ class LanguageSelector<T extends GetNameEnumMixin> extends StatelessWidget {
               const SizedBox(height: 4),
             ],
           ),
-        );
-      },
-    );
-  }
+        ),
+      );
 }

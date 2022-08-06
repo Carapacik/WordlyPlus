@@ -10,33 +10,31 @@ void showMeaningDialog(
 }) {
   showDialog<void>(
     context: context,
-    builder: (context) {
-      return Dialog(
-        backgroundColor: isWin ? AppColors.green : AppColors.red,
-        insetPadding:
-            EdgeInsets.symmetric(horizontal: horizontalPadding(context)),
-        insetAnimationDuration: const Duration(milliseconds: 700),
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          constraints: const BoxConstraints(maxHeight: 200),
-          alignment: Alignment.center,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SelectableText(
-                word.toUpperCase(),
-                style: context.theme.tm,
-              ),
-              const SizedBox(height: 16),
-              Text(
-                meaning,
-                style: context.theme.ll,
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
+    builder: (context) => Dialog(
+      backgroundColor: isWin ? AppColors.green : AppColors.red,
+      insetPadding:
+          EdgeInsets.symmetric(horizontal: horizontalPadding(context)),
+      insetAnimationDuration: const Duration(milliseconds: 700),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        constraints: const BoxConstraints(maxHeight: 200),
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SelectableText(
+              word.toUpperCase(),
+              style: context.theme.tm,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              meaning,
+              style: context.theme.ll,
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
-      );
-    },
+      ),
+    ),
   );
 }

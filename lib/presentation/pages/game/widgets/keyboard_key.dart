@@ -15,17 +15,15 @@ class KeyboardKey extends StatelessWidget {
   final DictionaryEnum dictionary;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 2),
-      width: keyboardKey.size(
-        context,
-        dictionary: dictionary,
-      ),
-      child: BlocBuilder<GameBloc, GameState>(
-        buildWhen: (_, current) => current.isSubmit,
-        builder: (context, state) {
-          return AspectRatio(
+  Widget build(BuildContext context) => Container(
+        margin: const EdgeInsets.symmetric(horizontal: 2),
+        width: keyboardKey.size(
+          context,
+          dictionary: dictionary,
+        ),
+        child: BlocBuilder<GameBloc, GameState>(
+          buildWhen: (_, current) => current.isSubmit,
+          builder: (context, state) => AspectRatio(
             aspectRatio: dictionary.aspectRatio,
             child: Material(
               clipBehavior: Clip.hardEdge,
@@ -46,11 +44,9 @@ class KeyboardKey extends StatelessWidget {
                 ),
               ),
             ),
-          );
-        },
-      ),
-    );
-  }
+          ),
+        ),
+      );
 
   Color _colorByState(GameState state, BuildContext context) {
     final color = state.whenOrNull(

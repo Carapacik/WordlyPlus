@@ -11,82 +11,78 @@ class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(color: context.theme.backgroundColor),
-      width: 200,
-      child: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ListTile(
-              title: Text(context.r.daily, style: context.theme.tm),
-              onTap: () async {
-                context.read<GameBloc>().add(
-                      const GameEvent.loadGame(),
-                    );
-                await Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute<void>(
-                    builder: (context) => const GamePage(),
-                  ),
-                  (route) => false,
-                );
-              },
-            ),
-            ListTile(
-              title: Text(context.r.levels, style: context.theme.tm),
-              onTap: () async {
-                context.read<GameBloc>().add(
-                      const GameEvent.loadGame(isDaily: false),
-                    );
-                await Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute<void>(
-                    builder: (context) => const GamePage(isDailyMode: false),
-                  ),
-                  (route) => false,
-                );
-              },
-            ),
-            ListTile(
-              title: Text(context.r.how_to_play, style: context.theme.tm),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (context) => const TutorialPage(),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(context.r.settings, style: context.theme.tm),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (context) {
-                      return const SettingsPage();
-                    },
-                  ),
-                );
-              },
-            ),
-            const Spacer(),
-            ListTile(
-              title: Text(context.r.about, style: context.theme.tm),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (context) => const CreditsPage(),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: 16),
-          ],
+  Widget build(BuildContext context) => Container(
+        decoration: BoxDecoration(color: context.theme.backgroundColor),
+        width: 200,
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ListTile(
+                title: Text(context.r.daily, style: context.theme.tm),
+                onTap: () async {
+                  context.read<GameBloc>().add(
+                        const GameEvent.loadGame(),
+                      );
+                  await Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute<void>(
+                      builder: (context) => const GamePage(),
+                    ),
+                    (route) => false,
+                  );
+                },
+              ),
+              ListTile(
+                title: Text(context.r.levels, style: context.theme.tm),
+                onTap: () async {
+                  context.read<GameBloc>().add(
+                        const GameEvent.loadGame(isDaily: false),
+                      );
+                  await Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute<void>(
+                      builder: (context) => const GamePage(isDailyMode: false),
+                    ),
+                    (route) => false,
+                  );
+                },
+              ),
+              ListTile(
+                title: Text(context.r.how_to_play, style: context.theme.tm),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (context) => const TutorialPage(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                title: Text(context.r.settings, style: context.theme.tm),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (context) => const SettingsPage(),
+                    ),
+                  );
+                },
+              ),
+              const Spacer(),
+              ListTile(
+                title: Text(context.r.about, style: context.theme.tm),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (context) => const CreditsPage(),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 16),
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

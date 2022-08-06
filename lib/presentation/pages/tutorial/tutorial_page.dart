@@ -7,27 +7,29 @@ class TutorialPage extends StatelessWidget {
   const TutorialPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(title: context.r.how_to_play),
-      body: Center(
-        child: Column(
-          children: [
-            Text(context.r.how_to_play),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute<void>(
-                    builder: (context) => const GamePage(),
-                  ),
-                  (route) => false,
-                );
-              },
-              child: const Text('PLAY'),
+  Widget build(BuildContext context) => Title(
+        color: AppColors.darkBg,
+        title: context.r.how_to_play,
+        child: Scaffold(
+          appBar: CustomAppBar(title: context.r.how_to_play),
+          body: Center(
+            child: Column(
+              children: [
+                Text(context.r.how_to_play),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute<void>(
+                        builder: (context) => const GamePage(),
+                      ),
+                      (route) => false,
+                    );
+                  },
+                  child: const Text('PLAY'),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

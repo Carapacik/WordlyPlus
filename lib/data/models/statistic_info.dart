@@ -2,25 +2,33 @@ class StatisticInfo {
   const StatisticInfo({
     required this.wins,
     required this.loses,
-    required this.attempts,
     required this.streak,
+    required this.maxStreak,
+    required this.attempts,
   });
 
-  factory StatisticInfo.empty() =>
-      const StatisticInfo(wins: 0, loses: 0, streak: 0, attempts: zeroAttempts);
+  factory StatisticInfo.empty() => const StatisticInfo(
+        wins: 0,
+        loses: 0,
+        streak: 0,
+        maxStreak: 0,
+        attempts: zeroAttempts,
+      );
 
   factory StatisticInfo.fromJson(Map<String, dynamic> json) => StatisticInfo(
         wins: json['wins'] as int,
         loses: json['loses'] as int,
+        streak: json['streak'] as int,
+        maxStreak: json['maxStreak'] as int,
         attempts: (json['attempts'] as List<dynamic>)
             .map((dynamic e) => e as int)
             .toList(),
-        streak: json['streak'] as int,
       );
 
   final int wins;
   final int loses;
   final int streak;
+  final int maxStreak;
   final List<int> attempts;
 
   static const zeroAttempts = <int>[0, 0, 0, 0, 0, 0];
@@ -29,6 +37,7 @@ class StatisticInfo {
         'wins': wins,
         'loses': loses,
         'streak': streak,
+        'maxStreak': maxStreak,
         'attempts': attempts,
       };
 }

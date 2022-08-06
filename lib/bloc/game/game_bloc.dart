@@ -348,11 +348,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     return updatedList;
   }
 
-  String get _buildWord {
-    return _gridInfo[_currentWordIndex * 5].letter +
-        _gridInfo[_currentWordIndex * 5 + 1].letter +
-        _gridInfo[_currentWordIndex * 5 + 2].letter +
-        _gridInfo[_currentWordIndex * 5 + 3].letter +
-        _gridInfo[_currentWordIndex * 5 + 4].letter;
-  }
+  String get _buildWord =>
+      _gridInfo[_currentWordIndex * 5].letter +
+      _gridInfo[_currentWordIndex * 5 + 1].letter +
+      _gridInfo[_currentWordIndex * 5 + 2].letter +
+      _gridInfo[_currentWordIndex * 5 + 3].letter +
+      _gridInfo[_currentWordIndex * 5 + 4].letter;
 }

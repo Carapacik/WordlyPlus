@@ -56,17 +56,15 @@ class SaveGameService implements ISaveGameService {
   Future<void> saveDailyBoard(
     List<LetterInfo> board,
     DictionaryEnum dictionary,
-  ) async {
-    return _saveBoard(board, _dailyBoardKey + dictionary.key);
-  }
+  ) async =>
+      _saveBoard(board, _dailyBoardKey + dictionary.key);
 
   @override
   Future<void> saveLevelBoard(
     List<LetterInfo> board,
     DictionaryEnum dictionary,
-  ) async {
-    return _saveBoard(board, _levelBoardKey + dictionary.key);
-  }
+  ) async =>
+      _saveBoard(board, _levelBoardKey + dictionary.key);
 
   @override
   Future<GameResult?> getDailyResult(DictionaryEnum dictionary) async {
@@ -90,14 +88,12 @@ class SaveGameService implements ISaveGameService {
   }
 
   @override
-  Future<List<LetterInfo>?> getDailyBoard(DictionaryEnum dictionary) async {
-    return _getBoard(_dailyBoardKey + dictionary.key);
-  }
+  Future<List<LetterInfo>?> getDailyBoard(DictionaryEnum dictionary) async =>
+      _getBoard(_dailyBoardKey + dictionary.key);
 
   @override
-  Future<List<LetterInfo>?> getLevelBoard(DictionaryEnum dictionary) async {
-    return _getBoard(_levelBoardKey + dictionary.key);
-  }
+  Future<List<LetterInfo>?> getLevelBoard(DictionaryEnum dictionary) async =>
+      _getBoard(_levelBoardKey + dictionary.key);
 
   Future<void> _saveBoard(List<LetterInfo> list, String key) async {
     final sp = await SharedPreferences.getInstance();

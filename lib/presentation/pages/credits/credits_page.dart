@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/link.dart';
-import 'package:wordly/presentation/pages/credits/models/credit_people.dart';
 import 'package:wordly/presentation/widgets/widgets.dart';
 import 'package:wordly/resources/resources.dart';
+
+class CreditPeople {
+  const CreditPeople(this.name, this.url);
+
+  final String name;
+  final String url;
+}
 
 class CreditsPage extends StatelessWidget {
   const CreditsPage({super.key});
@@ -29,65 +35,69 @@ class CreditsPage extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: CustomAppBar(
-          title: context.r.about,
-        ),
-        body: ConstraintScreen(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            child: Column(
-              children: [
-                _CreditCategory(
-                  title: context.r.created_by,
-                  peoples: rofl,
-                ),
-                _CreditCategory(
-                  title: context.r.game_design,
-                  peoples: gameDesign,
-                ),
-                _CreditCategory(
-                  title: context.r.visual_design,
-                  peoples: visualDesign,
-                ),
-                _CreditCategory(
-                  title: context.r.dictionary,
-                  peoples: dictionary,
-                ),
-                const Spacer(),
-                Link(
-                  uri: Uri.parse(
-                    'mailto:$email?'
-                    '${context.r.message_new_word}',
+  Widget build(BuildContext context) => Title(
+        color: AppColors.darkBg,
+        title: context.r.about,
+        child: Scaffold(
+          appBar: CustomAppBar(
+            title: context.r.about,
+          ),
+          body: ConstraintScreen(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              child: Column(
+                children: [
+                  _CreditCategory(
+                    title: context.r.created_by,
+                    peoples: rofl,
                   ),
-                  builder: (context, followLink) => MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: followLink,
-                      child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: context.r.contact,
-                              style: context.theme.bl,
-                            ),
-                            WidgetSpan(
-                              child: SelectableText(
-                                email,
-                                style: context.theme.tm.copyWith(
-                                  decoration: TextDecoration.underline,
+                  _CreditCategory(
+                    title: context.r.game_design,
+                    peoples: gameDesign,
+                  ),
+                  _CreditCategory(
+                    title: context.r.visual_design,
+                    peoples: visualDesign,
+                  ),
+                  _CreditCategory(
+                    title: context.r.dictionary,
+                    peoples: dictionary,
+                  ),
+                  const Spacer(),
+                  Link(
+                    uri: Uri.parse(
+                      'mailto:$email?'
+                      '${context.r.message_new_word}',
+                    ),
+                    builder: (context, followLink) => MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: followLink,
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: context.r.contact,
+                                style: context.theme.bl,
+                              ),
+                              WidgetSpan(
+                                child: SelectableText(
+                                  email,
+                                  style: context.theme.tm.copyWith(
+                                    decoration: TextDecoration.underline,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 30),
-              ],
+                  const SizedBox(height: 30),
+                ],
+              ),
             ),
           ),
         ),

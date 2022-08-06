@@ -10,59 +10,67 @@ class StatisticPage extends StatelessWidget {
   const StatisticPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(title: context.r.statistic),
-      body: ConstraintScreen(
-        child: BlocBuilder<StatisticBloc, StatisticState>(
-          builder: (context, state) => state.when(
-            initial: () => const Center(child: CircularProgressIndicator()),
-            statisticLoaded: (statistic) {
-              final played = statistic.wins + statistic.loses;
-              final winRate = played != 0 ? statistic.wins * 100 / played : 0;
-              final streak = statistic.streak;
-              return Column(
-                children: [
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+  Widget build(BuildContext context) => Title(
+        color: AppColors.darkBg,
+        title: context.r.statistic,
+        child: Scaffold(
+          appBar: CustomAppBar(title: context.r.statistic),
+          body: ConstraintScreen(
+            child: BlocBuilder<StatisticBloc, StatisticState>(
+              builder: (context, state) => state.when(
+                initial: () => const Center(child: CircularProgressIndicator()),
+                statisticLoaded: (statistic) {
+                  final played = statistic.wins + statistic.loses;
+                  final winRate =
+                      played != 0 ? statistic.wins * 100 / played : 0;
+                  final streak = statistic.streak;
+                  final maxStreak = statistic.maxStreak;
+                  return Column(
                     children: [
-                      _StatText(
-                        value: played,
-                        title: context.r.played,
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _StatText(
+                            value: played,
+                            title: context.r.played,
+                          ),
+                          _StatText(
+                            value: winRate,
+                            title: context.r.win_rate,
+                            percent: true,
+                          ),
+                          _StatText(
+                            value: streak,
+                            title: context.r.current_streak,
+                          ),
+                          _StatText(
+                            value: maxStreak,
+                            title: context.r.max_streak,
+                          ),
+                        ],
                       ),
-                      _StatText(
-                        value: winRate,
-                        title: context.r.win_rate,
-                        percent: true,
+                      const SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: FittedBox(
+                          child: Text(
+                            context.r.guess_distribution.toUpperCase(),
+                            style: context.theme.tl,
+                          ),
+                        ),
                       ),
-                      _StatText(
-                        value: streak,
-                        title: context.r.current_streak,
-                      ),
+                      const SizedBox(height: 4),
+                      _AttemptContent(attempts: statistic.attempts),
                     ],
-                  ),
-                  const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: FittedBox(
-                      child: Text(
-                        context.r.guess_distribution.toUpperCase(),
-                        style: context.theme.tl,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  _AttemptContent(attempts: statistic.attempts),
-                ],
-              );
-            },
+                  );
+                },
+              ),
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }
 
 class _StatText extends StatelessWidget {

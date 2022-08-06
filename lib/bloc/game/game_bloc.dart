@@ -36,9 +36,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final ISaveStatisticService saveStatisticService;
   final ISaveLevelsService saveLevelsService;
 
-  final Map<KeyboardKeys, LetterStatus> _keyboardInfo = {};
-  List<LetterInfo> _gridInfo = [];
   DictionaryEnum _dictionary;
+  List<LetterInfo> _gridInfo = [];
+  Map<KeyboardKeys, LetterStatus> _keyboardInfo = {};
 
   bool _isGameComplete = false;
   String _secretWord = '';
@@ -215,6 +215,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       }
 
       final newList = List<LetterInfo>.of(_gridInfo);
+      _keyboardInfo = {};
       _colorKeyboard(_gridInfo);
       emit(GameState.wordSubmit(board: newList, keyboard: _keyboardInfo));
       return;
@@ -237,6 +238,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
 
     final newList = List<LetterInfo>.of(_gridInfo);
+    _keyboardInfo = {};
     _colorKeyboard(_gridInfo);
     emit(GameState.wordSubmit(board: newList, keyboard: _keyboardInfo));
   }

@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "about": "About",
   "app_language": "App language",
   "check_my_result_lose": "I couldn't guess the word in {attemptNumber} attempts.\n{emoji}\nCan you do it?\n\nYou can download the game here:\nhttps://play.google.com/store/apps/details?id=com.carapacik.wordly\n",

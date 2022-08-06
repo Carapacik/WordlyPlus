@@ -1,4 +1,5 @@
 {
+  "@@locale": "ru",
   "about": "О приложении",
   "app_language": "Язык приложения",
   "check_my_result_lose": "У меня не получилось разгадать слово за {attemptNumber} попыток.\n{emoji}\nА у тебя получится?\n\nТы можешь скачать игру тут:\nhttps://play.google.com/store/apps/details?id=com.carapacik.wordly\n",

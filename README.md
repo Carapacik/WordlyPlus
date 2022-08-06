@@ -4,7 +4,7 @@
 
 <a href='https://play.google.com/store/apps/details?id=com.carapacik.wordly'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height='100px'/></a>
 
-[![Codemagic build status](https://api.codemagic.io/apps/6228b05f8b3f4a000c890bd3/622c8c92de572f830ba91279/status_badge.svg)](https://codemagic.io/apps/6228b05f8b3f4a000c890bd3/622c8c92de572f830ba91279/latest_build)
+[![Codemagic build status](https://api.codemagic.io/apps/62eec985234279764b041482/62eec985234279764b041481/status_badge.svg)](https://codemagic.io/apps/62eec985234279764b041482/62eec985234279764b041481/latest_build)
 
 Have 2 dictionary languages
 - RU [Dictionary scraper](https://github.com/Carapacik/gufo-me-dictionary-scraper)

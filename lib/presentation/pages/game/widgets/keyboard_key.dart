@@ -129,11 +129,14 @@ class DeleteKeyboardKey extends StatelessWidget {
           onLongPress: () {
             context.read<GameBloc>().add(const GameEvent.deleteLongPressed());
           },
-          borderRadius: BorderRadius.circular(6),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            alignment: Alignment.center,
-            child: const Icon(Icons.backspace_outlined),
+          child: Center(
+            child: Icon(
+              Icons.backspace_outlined,
+              color: context.dynamicColor(
+                light: AppColors.darkBg,
+                dark: AppColors.lightBg,
+              ),
+            ),
           ),
         ),
       ),

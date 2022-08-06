@@ -105,3 +105,14 @@ enum KeyboardKeys {
     return list;
   }
 }
+
+extension KeyboardKeysExt on String {
+  KeyboardKeys? get toKeyboardKeys {
+    for (final element in KeyboardKeys.values) {
+      if (element.ruName == this || element.enName == this) {
+        return element;
+      }
+    }
+    return null;
+  }
+}

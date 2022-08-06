@@ -22,27 +22,47 @@ class KeyboardKey extends StatelessWidget {
         context,
         dictionary: dictionary,
       ),
-      child: AspectRatio(
-        aspectRatio: dictionary.aspectRatio,
-        child: InkWell(
-          onTap: () {
-            context.read<GameBloc>().add(GameEvent.letterPressed(keyboardKey));
-          },
-          borderRadius: BorderRadius.circular(6),
-          child: Container(
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
+      child: BlocBuilder<GameBloc, GameState>(
+        buildWhen: (_, current) => current.isSubmit,
+        builder: (context, state) {
+          return AspectRatio(
+            aspectRatio: dictionary.aspectRatio,
+            child: InkWell(
+              onTap: () {
+                context.read<GameBloc>().add(
+                      GameEvent.letterPressed(keyboardKey),
+                    );
+              },
               borderRadius: BorderRadius.circular(6),
-              color: Colors.black12, // TODO change color
+              child: Container(
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  color: _colorByState(state, context),
+                ),
+                child: Text(
+                  keyboardKey.fromDictionary(dictionary)?.toUpperCase() ?? '',
+                  style: context.theme.ll,
+                ),
+              ),
             ),
-            child: Text(
-              keyboardKey.fromDictionary(dictionary)?.toUpperCase() ?? '',
-              style: context.theme.ll,
-            ),
-          ),
-        ),
+          );
+        },
       ),
     );
+  }
+
+  Color _colorByState(GameState state, BuildContext context) {
+    final color = state.whenOrNull(
+          wordSubmit: (_, keyboard) {
+            if (keyboard.containsKey(keyboardKey)) {
+              return keyboard[keyboardKey]?.keyboardItemColor(context);
+            }
+            return null;
+          },
+        ) ??
+        context.dynamicColor(light: AppColors.lightBg, dark: AppColors.darkBg);
+    return color;
   }
 }
 

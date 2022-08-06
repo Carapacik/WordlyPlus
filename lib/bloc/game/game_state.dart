@@ -14,11 +14,13 @@ class GameState with _$GameState {
       _BoardUpdateState;
 
   const factory GameState.wordSubmit({
-    required List<LetterInfo> board,
-    required String keyboard,
+    required final List<LetterInfo> board,
+    required final Map<KeyboardKeys, LetterStatus> keyboard,
   }) = _WordSumbitState;
 
   bool get isUpdate => this is _BoardUpdateState || this is _WordSumbitState;
+
+  bool get isSubmit => this is _WordSumbitState;
 
   bool get isGameComplete => this is _CompleteGameState;
 }

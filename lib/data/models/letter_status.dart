@@ -15,7 +15,10 @@ enum LetterStatus {
     final isHighContrast = context.read<ThemeBloc>().state.isHighContrast;
     switch (this) {
       case LetterStatus.unknown:
-        return Colors.transparent;
+        return context.dynamicColor(
+          light: AppColors.darkBg,
+          dark: AppColors.lightBg,
+        );
       case LetterStatus.notInWord:
         return context.dynamicColor(
           light: AppColors.grey,

@@ -36,13 +36,15 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final ISaveStatisticService saveStatisticService;
   final ISaveLevelsService saveLevelsService;
 
-  DictionaryEnum _dictionary;
+  final Map<KeyboardKeys, LetterStatus> _keyboardInfo = {};
   List<LetterInfo> _gridInfo = [];
+  DictionaryEnum _dictionary;
+
   bool _isGameComplete = false;
-  int _currentWordIndex = 0;
   String _secretWord = '';
-  int _levelNumber = 0;
+  int _currentWordIndex = 0;
   bool _isDailyMode = true;
+  int _levelNumber = 0;
 
   int get levelNumber => _levelNumber;
 
@@ -89,9 +91,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   ) {
     if (_isGameComplete) {
       return;
-    }
-    if (kDebugMode) {
-      print(_secretWord);
     }
     if (_gridInfo.length > _currentWordIndex * 5) {
       final newList = List<LetterInfo>.of(_gridInfo)..removeLast();
@@ -148,7 +147,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       await _saveResultAndBoard(gameResult);
       await _saveStatAndLvl(gameResult);
 
-      emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
+      emit(GameState.wordSubmit(board: _gridInfo, keyboard: _keyboardInfo));
       emit(GameState.complete(gameResult));
       return;
     }
@@ -170,7 +169,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       await _saveResultAndBoard(gameResult);
       await _saveStatAndLvl(gameResult);
 
-      emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
+      emit(GameState.wordSubmit(board: _gridInfo, keyboard: _keyboardInfo));
       emit(GameState.complete(gameResult));
       return;
     }
@@ -188,7 +187,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       );
       _saveResultAndBoard(gameResult);
 
-      emit(GameState.wordSubmit(board: _gridInfo, keyboard: ''));
+      emit(GameState.wordSubmit(board: _gridInfo, keyboard: _keyboardInfo));
     }
   }
 
@@ -216,7 +215,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       }
 
       final newList = List<LetterInfo>.of(_gridInfo);
-      emit(GameState.wordSubmit(board: newList, keyboard: ''));
+      _colorKeyboard(_gridInfo);
+      emit(GameState.wordSubmit(board: newList, keyboard: _keyboardInfo));
       return;
     }
 
@@ -237,7 +237,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
 
     final newList = List<LetterInfo>.of(_gridInfo);
-    emit(GameState.wordSubmit(board: newList, keyboard: ''));
+    _colorKeyboard(_gridInfo);
+    emit(GameState.wordSubmit(board: newList, keyboard: _keyboardInfo));
   }
 
   Future<void> _onShare(
@@ -275,6 +276,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       index = Random(levelNumber).nextInt(_dictionary.currentDictionary.length);
     }
     _secretWord = _dictionary.currentDictionary.keys.elementAt(index);
+    debugPrint('Secret: $_secretWord');
   }
 
   Future<void> _saveStatAndLvl(GameResult gameResult) async {
@@ -308,6 +310,16 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     );
   }
 
+  void _colorKeyboard(List<LetterInfo> list) {
+    for (final item in list) {
+      final keyboardKey = item.letter.toKeyboardKeys;
+      if (keyboardKey == null) {
+        continue;
+      }
+      _keyboardInfo[keyboardKey] = item.letterStatus;
+    }
+  }
+
   List<LetterInfo> get _colorTheWord {
     final updatedList = <LetterInfo>[];
     final word = _buildWord;
@@ -326,6 +338,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         LetterInfo(letter: character, letterStatus: letterStatus),
       );
     }
+
+    // Color keyboard info only after 5 last items
+    _colorKeyboard(updatedList);
 
     _currentWordIndex++;
     return updatedList;

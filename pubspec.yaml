@@ -1,7 +1,7 @@
 name: wordly
 description: Guess the WORD in six tries
 publish_to: 'none'
-version: 2.0.0+14
+version: 2.0.0+15
 environment:
   sdk: ">=2.17.0 <3.0.0"
   flutter: ">=3.0.0"
@@ -48,9 +48,9 @@ flutter_intl:
 
 flutter_native_splash:
   color: '#F4F7FB'
-  image: assets/splash_light.png
+  image: assets/images/splash_light.png
   color_dark: '#0D1117'
-  image_dark: assets/splash_dark.png
+  image_dark: assets/images/splash_dark.png
   android: true
   ios: true
   linux: true
@@ -60,20 +60,23 @@ flutter_native_splash:
   fullscreen: true
 
 icons_launcher:
-  image_path: 'assets/ic_logo.png'
+  image_path: assets/images/ic_logo_border.png
   platforms:
     android:
       enable: true
-      adaptive_background_image: 'assets/ic_background.png'
-      adaptive_foreground_image: 'assets/ic_foreground.png'
-      adaptive_round_image: 'assets/ic_foreground.png'
+      adaptive_background_image: assets/images/ic_background.png
+      adaptive_foreground_image: assets/images/ic_foreground.png
+      adaptive_round_image: assets/images/ic_foreground.png
     ios:
       enable: true
+      image_path: assets/images/ic_logo.png
     web:
       enable: true
-      favicon_path: 'assets/favicon.png'
+      image_path: assets/images/ic_logo_transparent.png
+      favicon_path: assets/images/ic_logo_transparent.png
     macos:
       enable: true
+      image_path: assets/images/ic_logo.png
     windows:
       enable: true
     linux:

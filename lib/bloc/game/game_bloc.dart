@@ -1,4 +1,5 @@
-import 'dart:math';
+import 'dart:developer' show log;
+import 'dart:math' show Random;
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
@@ -278,7 +279,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       index = Random(levelNumber).nextInt(_dictionary.currentDictionary.length);
     }
     _secretWord = _dictionary.currentDictionary.keys.elementAt(index);
-    debugPrint('Secret: $_secretWord');
+    log('Secret: $_secretWord');
   }
 
   Future<void> _saveStatAndLvl(GameResult gameResult) async {

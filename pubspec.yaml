@@ -47,16 +47,13 @@ flutter_intl:
   arb_dir: assets/l10n/
 
 flutter_native_splash:
-  color: '#F4F7FB'
+  color: '#F4FFFF'
   image: assets/images/splash_light.png
   color_dark: '#0D1117'
   image_dark: assets/images/splash_dark.png
   android: true
   ios: true
-  linux: true
-  macos: true
   web: true
-  windows: true
   fullscreen: true
 
 icons_launcher:

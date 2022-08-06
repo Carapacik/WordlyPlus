@@ -18,7 +18,7 @@ void showMeaningDialog(
         insetAnimationDuration: const Duration(milliseconds: 700),
         child: Container(
           padding: const EdgeInsets.all(16),
-          constraints: const BoxConstraints(minHeight: 200),
+          constraints: const BoxConstraints(maxHeight: 200),
           alignment: Alignment.center,
           child: Column(
             mainAxisSize: MainAxisSize.min,

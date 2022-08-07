@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:wordly/resources/resources.dart';
 import 'package:wordly/utils/utils.dart';
 
 class CountdownTimer extends StatefulWidget {
@@ -53,5 +54,6 @@ class _CountdownTimerState extends State<CountdownTimer> {
   @override
   Widget build(BuildContext context) => Text(
         durationToStringDate(Duration(seconds: _timeRemaining)),
+        style: context.theme.tm,
       );
 }

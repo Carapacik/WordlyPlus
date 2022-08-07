@@ -9,7 +9,7 @@ class LevelsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Title(
-        color: AppColors.darkBg,
+        color: AppColors.bgDark,
         title: context.r.levels,
         child: Scaffold(
           appBar: CustomAppBar(title: context.r.levels),
@@ -59,10 +59,19 @@ class _GridItem extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           borderRadius: BorderRadius.circular(8),
           color: isWin == null
-              ? AppColors.grey
+              ? context.dynamicColor(
+                  light: AppColors.greyLight,
+                  dark: AppColors.greyDark,
+                )
               : isWin!
-                  ? AppColors.green
-                  : AppColors.red,
+                  ? context.dynamicColor(
+                      light: AppColors.greenLight,
+                      dark: AppColors.greenDark,
+                    )
+                  : context.dynamicColor(
+                      light: AppColors.redLight,
+                      dark: AppColors.redDark,
+                    ),
           child: InkWell(
             onTap: () {
               if (isWin != null) {
@@ -78,7 +87,7 @@ class _GridItem extends StatelessWidget {
               child: Text(
                 '$index\n$word',
                 textAlign: TextAlign.center,
-                style: context.theme.tl.copyWith(color: Colors.white),
+                style: context.theme.tl,
               ),
             ),
           ),

@@ -19,12 +19,20 @@ void showGameResultDialog(
         return const SizedBox.shrink();
       }
       return Dialog(
-        backgroundColor: result.isWin! ? AppColors.green : AppColors.red,
+        backgroundColor: result.isWin!
+            ? context.dynamicColor(
+                light: AppColors.greenLight,
+                dark: AppColors.greenDark,
+              )
+            : context.dynamicColor(
+                light: AppColors.redLight,
+                dark: AppColors.redDark,
+              ),
         insetPadding:
             EdgeInsets.symmetric(horizontal: horizontalPadding(context)),
         insetAnimationDuration: const Duration(milliseconds: 500),
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(32),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -74,7 +82,7 @@ class _DailyContent extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          width: 300,
+          width: 200,
           child: ElevatedButton(
             onPressed: () {
               final textFunction = isWin
@@ -89,7 +97,7 @@ class _DailyContent extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(context.r.next_wordle, style: context.theme.tm),
+            Text(context.r.next_wordle, style: context.theme.bl),
             const SizedBox(width: 12),
             CountdownTimer(
               onEnd: () {
@@ -114,7 +122,7 @@ class _LevelContent extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          width: 300,
+          width: 200,
           child: ElevatedButton(
             onPressed: () async {
               gameBloc.add(const GameEvent.loadGame(isDaily: false));

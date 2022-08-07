@@ -6,8 +6,8 @@ final _base = ThemeData.dark();
 
 final darkTheme = _base.copyWith(
   useMaterial3: true,
-  backgroundColor: AppColors.darkBg,
-  scaffoldBackgroundColor: AppColors.darkBg,
+  backgroundColor: AppColors.bgDark,
+  scaffoldBackgroundColor: AppColors.bgDark,
   textTheme: GoogleFonts.ubuntuTextTheme(_base.textTheme).copyWith(
     titleLarge: const TextStyle(
       fontSize: 24,
@@ -34,13 +34,13 @@ final darkTheme = _base.copyWith(
     style: ButtonStyle(
       padding: MaterialStateProperty.all(const EdgeInsets.all(16)),
       elevation: MaterialStateProperty.all(0),
-      foregroundColor: MaterialStateProperty.all(AppColors.lightBg),
-      backgroundColor: MaterialStateProperty.all(AppColors.darkBg),
+      foregroundColor: MaterialStateProperty.all(AppColors.bgLight),
+      backgroundColor: MaterialStateProperty.all(AppColors.bgDark),
     ),
   ),
   appBarTheme: const AppBarTheme(
     elevation: 0,
-    backgroundColor: AppColors.darkBg,
-    foregroundColor: AppColors.lightBg,
+    backgroundColor: AppColors.bgDark,
+    foregroundColor: AppColors.bgLight,
   ),
 );

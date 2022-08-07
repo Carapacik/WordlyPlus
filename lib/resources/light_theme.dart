@@ -6,8 +6,8 @@ final _base = ThemeData.light();
 
 final lightTheme = _base.copyWith(
   useMaterial3: true,
-  backgroundColor: AppColors.lightBg,
-  scaffoldBackgroundColor: AppColors.lightBg,
+  backgroundColor: AppColors.bgLight,
+  scaffoldBackgroundColor: AppColors.bgLight,
   textTheme: GoogleFonts.ubuntuTextTheme(_base.textTheme).copyWith(
     titleLarge: const TextStyle(
       fontSize: 24,
@@ -34,8 +34,8 @@ final lightTheme = _base.copyWith(
     style: ButtonStyle(
       padding: MaterialStateProperty.all(const EdgeInsets.all(16)),
       elevation: MaterialStateProperty.all(0),
-      foregroundColor: MaterialStateProperty.all(AppColors.lightBg),
-      backgroundColor: MaterialStateProperty.all(AppColors.darkBg),
+      foregroundColor: MaterialStateProperty.all(AppColors.bgLight),
+      backgroundColor: MaterialStateProperty.all(AppColors.bgDark),
     ),
   ),
   // textSelectionTheme: _base.textSelectionTheme.copyWith(
@@ -44,7 +44,7 @@ final lightTheme = _base.copyWith(
   // ),
   appBarTheme: const AppBarTheme(
     elevation: 0,
-    backgroundColor: AppColors.lightBg,
-    foregroundColor: AppColors.darkBg,
+    backgroundColor: AppColors.bgLight,
+    foregroundColor: AppColors.bgDark,
   ),
 );

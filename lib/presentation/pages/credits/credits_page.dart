@@ -36,7 +36,7 @@ class CreditsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Title(
-        color: AppColors.darkBg,
+        color: AppColors.bgDark,
         title: context.r.about,
         child: Scaffold(
           appBar: CustomAppBar(

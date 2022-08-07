@@ -11,7 +11,15 @@ void showMeaningDialog(
   showDialog<void>(
     context: context,
     builder: (context) => Dialog(
-      backgroundColor: isWin ? AppColors.green : AppColors.red,
+      backgroundColor: isWin
+          ? context.dynamicColor(
+              light: AppColors.greenLight,
+              dark: AppColors.greenDark,
+            )
+          : context.dynamicColor(
+              light: AppColors.redLight,
+              dark: AppColors.redDark,
+            ),
       insetPadding:
           EdgeInsets.symmetric(horizontal: horizontalPadding(context)),
       insetAnimationDuration: const Duration(milliseconds: 700),

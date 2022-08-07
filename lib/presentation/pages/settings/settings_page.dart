@@ -15,7 +15,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, themeState) => Title(
-          color: AppColors.darkBg,
+          color: AppColors.bgDark,
           title: context.r.settings,
           child: Scaffold(
             appBar: CustomAppBar(title: context.r.settings),
@@ -30,7 +30,7 @@ class SettingsPage extends StatelessWidget {
                           const ThemeEvent.toggleTheme(),
                         ),
                   ),
-                  const Divider(color: AppColors.grey),
+                  const _Divider(),
                   ToggleListTile(
                     title: context.r.high_contrast_mode,
                     value: themeState.isHighContrast,
@@ -38,7 +38,7 @@ class SettingsPage extends StatelessWidget {
                           const ThemeEvent.toggleHighContrast(),
                         ),
                   ),
-                  const Divider(color: AppColors.grey),
+                  const _Divider(),
                   BlocBuilder<DictionaryBloc, DictionaryState>(
                     builder: (context, state) =>
                         LanguageSelector<DictionaryEnum>(
@@ -50,7 +50,7 @@ class SettingsPage extends StatelessWidget {
                           ),
                     ),
                   ),
-                  const Divider(color: AppColors.grey),
+                  const _Divider(),
                   LanguageSelector<LocaleEnum>(
                     title: context.r.app_language,
                     value: context.read<LocaleBloc>().state.locale,
@@ -65,4 +65,18 @@ class SettingsPage extends StatelessWidget {
           ),
         ),
       );
+}
+
+class _Divider extends StatelessWidget {
+  const _Divider({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+      color: context.dynamicColor(
+        light: AppColors.greyLight,
+        dark: AppColors.greyDark,
+      ),
+    );
+  }
 }

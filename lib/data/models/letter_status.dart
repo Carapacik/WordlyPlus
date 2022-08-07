@@ -16,33 +16,33 @@ enum LetterStatus {
     switch (this) {
       case LetterStatus.unknown:
         return context.dynamicColor(
-          light: AppColors.lightBg,
-          dark: AppColors.darkBg,
+          light: AppColors.lightGreyLight,
+          dark: AppColors.lightGreyDark,
         );
       case LetterStatus.notInWord:
         return context.dynamicColor(
-          light: AppColors.grey,
-          dark: AppColors.grey,
+          light: AppColors.greyLight,
+          dark: AppColors.greyDark,
         );
       case LetterStatus.wrongSpot:
         return isHighContrast
             ? context.dynamicColor(
-                light: AppColors.highContrastBlue,
-                dark: AppColors.highContrastBlue,
+                light: AppColors.blueLight,
+                dark: AppColors.blueDark,
               )
             : context.dynamicColor(
-                light: AppColors.yellow,
-                dark: AppColors.yellow,
+                light: AppColors.yellowLight,
+                dark: AppColors.yellowDark,
               );
       case LetterStatus.correctSpot:
         return isHighContrast
             ? context.dynamicColor(
-                light: AppColors.highContrastOrange,
-                dark: AppColors.highContrastOrange,
+                light: AppColors.orangeLight,
+                dark: AppColors.orangeDark,
               )
             : context.dynamicColor(
-                light: AppColors.green,
-                dark: AppColors.green,
+                light: AppColors.greenLight,
+                dark: AppColors.greenDark,
               );
     }
   }
@@ -54,28 +54,28 @@ enum LetterStatus {
         return Colors.transparent;
       case LetterStatus.notInWord:
         return context.dynamicColor(
-          light: AppColors.grey,
-          dark: AppColors.grey,
+          light: AppColors.greyLight,
+          dark: AppColors.greyDark,
         );
       case LetterStatus.wrongSpot:
         return isHighContrast
             ? context.dynamicColor(
-                light: AppColors.highContrastBlue,
-                dark: AppColors.highContrastBlue,
+                light: AppColors.blueLight,
+                dark: AppColors.blueDark,
               )
             : context.dynamicColor(
-                light: AppColors.yellow,
-                dark: AppColors.yellow,
+                light: AppColors.yellowLight,
+                dark: AppColors.yellowDark,
               );
       case LetterStatus.correctSpot:
         return isHighContrast
             ? context.dynamicColor(
-                light: AppColors.highContrastOrange,
-                dark: AppColors.highContrastOrange,
+                light: AppColors.orangeLight,
+                dark: AppColors.orangeDark,
               )
             : context.dynamicColor(
-                light: AppColors.green,
-                dark: AppColors.green,
+                light: AppColors.greenLight,
+                dark: AppColors.greenDark,
               );
     }
   }

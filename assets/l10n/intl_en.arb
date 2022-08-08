@@ -13,14 +13,10 @@
   "dictionary": "Dictionary",
   "dictionary_language": "Dictionary language",
   "en": "English",
-  "example_letter": "L",
   "game_design": "Game design",
   "guess_distribution": "Guess distribution",
   "high_contrast_mode": "High contrast mode",
   "how_to_play": "How to play",
-  "letter_correct": "Letter exists and is in correct spot",
-  "letter_incorrect": "Letter is incorrect",
-  "letter_incorrect_spot": "Letter is in incorrect spot",
   "level_number": "Level {number}",
   "levels": "Levels",
   "lose_message": "You lost",
@@ -28,6 +24,7 @@
   "message_new_word": "subject=Wordle%20-%20New%20word&body=Word%20-%0AMeaning%20-",
   "next_level": "Next level",
   "next_wordle": "Next wordle in",
+  "not_played": "You haven't played a single game",
   "played": "Played",
   "ru": "Russian",
   "secret_word": "Secret word",
@@ -43,6 +40,5 @@
   "win_rate": "Win\nrate",
   "word_not_found": "Word not found in dictionary",
   "word_too_short": "Word is not correct length",
-  "wordly_plus": "Wordly Plus",
-  "wordly_title": "Wordle"
+  "wordly_plus": "Wordly Plus"
 }

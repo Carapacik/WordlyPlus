@@ -6,6 +6,6 @@ class StatisticState with _$StatisticState {
 
   const factory StatisticState.initial() = _InitialState;
 
-  const factory StatisticState.statisticLoaded(StatisticInfo statistic) =
+  const factory StatisticState.statisticLoaded(StatisticInfo? statistic) =
       _StatisticLoadedState;
 }

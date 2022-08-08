@@ -13,14 +13,10 @@
   "dictionary": "Словарь",
   "dictionary_language": "Язык словаря",
   "en": "Английский",
-  "example_letter": "Б",
   "game_design": "Геймпей",
   "guess_distribution": "Распределение догадок",
   "high_contrast_mode": "Режим повышенной контрастности",
   "how_to_play": "Как играть",
-  "letter_correct": "Буква есть в слове и находится на верном месте",
-  "letter_incorrect": "Буквы нет в слове",
-  "letter_incorrect_spot": "Буква в неправильной позиции",
   "level_number": "Уровень {number}",
   "levels": "Уровни",
   "lose_message": "Вы проиграли",
@@ -28,6 +24,7 @@
   "message_new_word": "subject=Словень%20-%20Новое%20слово&body=Слово%20-%0AЗначение%20-",
   "next_level": "Следующий уровень",
   "next_wordle": "Следующее слово через",
+  "not_played": "Вы не сыграли ни одной игры",
   "played": "Сыграно",
   "ru": "Русский",
   "secret_word": "Загаданное слово",
@@ -43,6 +40,5 @@
   "win_rate": "Показатель\nпобед",
   "word_not_found": "Слово не найдено в словаре",
   "word_too_short": "Слово неправильной длины",
-  "wordly_plus": "Словень Плюс",
-  "wordly_title": "Словень"
+  "wordly_plus": "Словень Плюс"
 }

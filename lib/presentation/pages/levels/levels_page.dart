@@ -17,21 +17,27 @@ class LevelsPage extends StatelessWidget {
             child: BlocBuilder<LevelsBloc, LevelsState>(
               builder: (context, state) => state.when(
                 initial: () => const Center(child: CircularProgressIndicator()),
-                levelsLoaded: (levels) => GridView.builder(
-                  padding: const EdgeInsets.all(12),
-                  itemCount: levels.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                  ),
-                  itemBuilder: (context, index) => _GridItem(
-                    index: index + 1,
-                    word: levels[index].word,
-                    meaning: levels[index].meaning,
-                    isWin: levels[index].isWin,
-                  ),
-                ),
+                levelsLoaded: (levels) {
+                  if (levels.isEmpty) {
+                    return const HaveNotPlayed();
+                  }
+                  return GridView.builder(
+                    padding: const EdgeInsets.all(12),
+                    itemCount: levels.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                    ),
+                    itemBuilder: (context, index) => _GridItem(
+                      index: index + 1,
+                      word: levels[index].word,
+                      meaning: levels[index].meaning,
+                      isWin: levels[index].isWin,
+                    ),
+                  );
+                },
               ),
             ),
           ),

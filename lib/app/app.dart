@@ -25,7 +25,7 @@ class App extends StatelessWidget {
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: R.delegate.supportedLocales,
-            onGenerateTitle: (context) => context.r.wordly_title,
+            onGenerateTitle: (context) => context.r.wordly_plus,
             debugShowCheckedModeBanner: false,
             home: isSecondLaunch ? const GamePage() : const TutorialPage(),
           ),

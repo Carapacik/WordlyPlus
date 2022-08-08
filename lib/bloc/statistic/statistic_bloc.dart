@@ -20,8 +20,7 @@ class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
     Emitter<StatisticState> emit,
   ) async {
     final statistic =
-        await statisticRepository.getDailyStatistic(event.dictionary) ??
-            StatisticInfo.empty();
+        await statisticRepository.getDailyStatistic(event.dictionary);
     emit(StatisticState.statisticLoaded(statistic));
   }
 }

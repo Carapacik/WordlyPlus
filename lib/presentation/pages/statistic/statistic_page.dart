@@ -20,6 +20,9 @@ class StatisticPage extends StatelessWidget {
               builder: (context, state) => state.when(
                 initial: () => const Center(child: CircularProgressIndicator()),
                 statisticLoaded: (statistic) {
+                  if (statistic == null) {
+                    return const HaveNotPlayed();
+                  }
                   final played = statistic.wins + statistic.loses;
                   final winRate =
                       played != 0 ? statistic.wins * 100 / played : 0;
@@ -129,7 +132,12 @@ class _AttemptContent extends StatelessWidget {
           height: 20,
           child: Text(
             ' ${attempts[index]}',
-            style: context.theme.bl,
+            style: context.theme.bl.copyWith(
+              color: context.dynamicColor(
+                light: AppColors.light,
+                dark: AppColors.dark,
+              ),
+            ),
           ),
         ),
       ),

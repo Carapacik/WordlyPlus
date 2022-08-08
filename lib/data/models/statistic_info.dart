@@ -7,14 +7,6 @@ class StatisticInfo {
     required this.attempts,
   });
 
-  factory StatisticInfo.empty() => const StatisticInfo(
-        wins: 0,
-        loses: 0,
-        streak: 0,
-        maxStreak: 0,
-        attempts: zeroAttempts,
-      );
-
   factory StatisticInfo.fromJson(Map<String, dynamic> json) => StatisticInfo(
         wins: json['wins'] as int,
         loses: json['loses'] as int,

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/bloc/game/game_bloc.dart';
 import 'package:wordly/data/models.dart';
 import 'package:wordly/presentation/widgets/widgets.dart';
-import 'package:wordly/resources/resources.dart';
 
 class WordGrid extends StatelessWidget {
   const WordGrid({super.key});
@@ -32,45 +31,10 @@ class WordGrid extends StatelessWidget {
                 final item = gridInfo.length > index
                     ? gridInfo[index]
                     : const LetterInfo.empty();
-                return _GridItem(info: item);
+                return CubicItem(info: item);
               },
             );
           },
-        ),
-      );
-}
-
-class _GridItem extends StatelessWidget {
-  const _GridItem({required this.info, super.key});
-
-  final LetterInfo info;
-
-  @override
-  Widget build(BuildContext context) => AspectRatio(
-        aspectRatio: 1,
-        child: Container(
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(6),
-            color: info.letterStatus.itemColor(context),
-            border: info.letterStatus == LetterStatus.unknown
-                ? Border.all(
-                    width: 3,
-                    color: context.dynamicColor(
-                      light: AppColors.dark,
-                      dark: AppColors.light,
-                    ),
-                  )
-                : null,
-          ),
-          child: Text(
-            info.letter.toUpperCase(),
-            style: context.theme.tl.copyWith(
-              color: info.letterStatus == LetterStatus.unknown
-                  ? null
-                  : Colors.white,
-            ),
-          ),
         ),
       );
 }

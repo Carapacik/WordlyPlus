@@ -4,10 +4,10 @@ import 'package:wordly/bloc/theme/theme_bloc.dart';
 import 'package:wordly/resources/resources.dart';
 
 enum LetterStatus {
-  unknown,
-  notInWord,
+  correctSpot,
   wrongSpot,
-  correctSpot;
+  notInWord,
+  unknown;
 
   const LetterStatus();
 

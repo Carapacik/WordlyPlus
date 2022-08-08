@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordly/data/models.dart';
 
-abstract class ISaveLevelsService {
+abstract class ISaveLevelsRepository {
   Future<List<GameResult>?> getLevels(DictionaryEnum dictionary);
 
   Future<void> saveLevels({
@@ -12,9 +12,7 @@ abstract class ISaveLevelsService {
   });
 }
 
-class SaveLevelsService implements ISaveLevelsService {
-  SaveLevelsService();
-
+class SaveLevelsRepository implements ISaveLevelsRepository {
   static const _levelKey = 'level_';
 
   @override

@@ -26,7 +26,7 @@ class ToggleListTile extends StatelessWidget {
           trailing: Switch.adaptive(
             value: value,
             onChanged: onChanged,
-            activeTrackColor: isHighContrast
+            activeColor: isHighContrast
                 ? context.dynamicColor(
                     light: AppColors.orangeLight,
                     dark: AppColors.orangeDark,
@@ -35,8 +35,10 @@ class ToggleListTile extends StatelessWidget {
                     light: AppColors.greenLight,
                     dark: AppColors.greenDark,
                   ),
-            activeColor: Colors.white,
-            inactiveTrackColor: AppColors.greyLight,
+            inactiveTrackColor: context.dynamicColor(
+              light: AppColors.greyDark,
+              dark: AppColors.greyLight,
+            ),
           ),
           selected: value,
           enabled: onChanged != null,

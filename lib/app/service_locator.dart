@@ -1,36 +1,17 @@
 import 'package:get_it/get_it.dart';
-import 'package:wordly/domain/save_game_service.dart';
-import 'package:wordly/domain/save_levels_service.dart';
-import 'package:wordly/domain/save_settings_service.dart';
-import 'package:wordly/domain/save_statistic_service.dart';
+import 'package:wordly/data/repositories.dart';
 
 Future<void> setupServiceLocators() async {
-  _initSaveSettingsService();
-  _initSaveGameService();
-  _initSaveStatisticService();
-  _initSaveLevelsService();
-}
-
-Future<void> _initSaveSettingsService() async {
-  GetIt.I.registerSingleton<ISaveSettingsService>(
-    SaveSettingsService(),
+  GetIt.I.registerSingletonAsync<ISaveSettingsRepository>(
+    () => Future.value(SaveSettingsRepository()),
   );
-}
-
-Future<void> _initSaveGameService() async {
-  GetIt.I.registerSingleton<ISaveGameService>(
-    SaveGameService(),
+  GetIt.I.registerSingletonAsync<ISaveLevelsRepository>(
+    () => Future.value(SaveLevelsRepository()),
   );
-}
-
-Future<void> _initSaveStatisticService() async {
-  GetIt.I.registerSingleton<ISaveStatisticService>(
-    SaveStatisticService(),
+  GetIt.I.registerSingletonAsync<ISaveStatisticRepository>(
+    () => Future.value(SaveStatisticRepository()),
   );
-}
-
-Future<void> _initSaveLevelsService() async {
-  GetIt.I.registerSingleton<ISaveLevelsService>(
-    SaveLevelsService(),
+  GetIt.I.registerSingletonAsync<ISaveGameRepository>(
+    () => Future.value(SaveGameRepository()),
   );
 }

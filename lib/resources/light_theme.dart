@@ -5,6 +5,7 @@ import 'package:wordly/resources/colors.dart';
 final _base = ThemeData.light();
 
 final lightTheme = _base.copyWith(
+  // colorScheme: ColorScheme.fromSeed(seedColor: AppColors.greenLight),
   useMaterial3: true,
   backgroundColor: AppColors.bgLight,
   scaffoldBackgroundColor: AppColors.bgLight,
@@ -32,10 +33,14 @@ final lightTheme = _base.copyWith(
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      padding: MaterialStateProperty.all(const EdgeInsets.all(16)),
+      padding: MaterialStateProperty.all(
+        const EdgeInsets.symmetric(
+          vertical: 12,
+          horizontal: 48,
+        ),
+      ),
       elevation: MaterialStateProperty.all(0),
-      foregroundColor: MaterialStateProperty.all(AppColors.bgLight),
-      backgroundColor: MaterialStateProperty.all(AppColors.bgDark),
+      backgroundColor: MaterialStateProperty.all(AppColors.bgLight),
     ),
   ),
   // textSelectionTheme: _base.textSelectionTheme.copyWith(

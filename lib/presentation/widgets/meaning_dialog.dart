@@ -20,8 +20,9 @@ void showMeaningDialog(
               light: AppColors.redLight,
               dark: AppColors.redDark,
             ),
-      insetPadding:
-          EdgeInsets.symmetric(horizontal: horizontalPadding(context)),
+      insetPadding: EdgeInsets.symmetric(
+        horizontal: horizontalPadding(context),
+      ),
       insetAnimationDuration: const Duration(milliseconds: 700),
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -32,12 +33,12 @@ void showMeaningDialog(
           children: [
             SelectableText(
               word.toUpperCase(),
-              style: context.theme.tm,
+              style: context.theme.tm.copyWith(color: Colors.white),
             ),
             const SizedBox(height: 16),
             Text(
               meaning,
-              style: context.theme.ll,
+              style: context.theme.ll.copyWith(color: Colors.white),
               textAlign: TextAlign.center,
             ),
           ],

@@ -7,9 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:wordly/data/models.dart';
-import 'package:wordly/domain/save_game_service.dart';
-import 'package:wordly/domain/save_levels_service.dart';
-import 'package:wordly/domain/save_statistic_service.dart';
+import 'package:wordly/data/repositories.dart';
 
 part 'game_bloc.freezed.dart';
 part 'game_event.dart';
@@ -17,9 +15,9 @@ part 'game_state.dart';
 
 class GameBloc extends Bloc<GameEvent, GameState> {
   GameBloc({
-    required this.saveGameService,
-    required this.saveStatisticService,
-    required this.saveLevelsService,
+    required this.gameRepository,
+    required this.statisticRepository,
+    required this.levelsRepository,
     required DictionaryEnum dictionary,
   })  : _dictionary = dictionary,
         super(const GameState.initial()) {
@@ -33,9 +31,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<_ChangeDictionaryEvent>(_onChangeDictionary);
   }
 
-  final ISaveGameService saveGameService;
-  final ISaveStatisticService saveStatisticService;
-  final ISaveLevelsService saveLevelsService;
+  final ISaveGameRepository gameRepository;
+  final ISaveStatisticRepository statisticRepository;
+  final ISaveLevelsRepository levelsRepository;
 
   DictionaryEnum _dictionary;
   List<LetterInfo> _gridInfo = [];
@@ -201,9 +199,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       _levelNumber = 0;
       _isDailyMode = true;
       _generateSecretWord();
-      _gridInfo = await saveGameService.getDailyBoard(_dictionary) ?? [];
+      _gridInfo = await gameRepository.getDailyBoard(_dictionary) ?? [];
       _currentWordIndex = _gridInfo.length ~/ 5;
-      final previousResult = await saveGameService.getDailyResult(_dictionary);
+      final previousResult = await gameRepository.getDailyResult(_dictionary);
       if (previousResult != null && previousResult.word == _secretWord) {
         if (previousResult.isWin != null) {
           _isGameComplete = true;
@@ -224,9 +222,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
     // Level
     _isDailyMode = false;
-    _gridInfo = await saveGameService.getLevelBoard(_dictionary) ?? [];
+    _gridInfo = await gameRepository.getLevelBoard(_dictionary) ?? [];
     _currentWordIndex = _gridInfo.length ~/ 5;
-    final levelInfo = await saveGameService.getLevelInfo(_dictionary);
+    final levelInfo = await gameRepository.getLevelInfo(_dictionary);
     _levelNumber = levelInfo?.lastCompletedLevel ?? 1;
     _isGameComplete = levelInfo?.isGameComplete ?? false;
 
@@ -284,14 +282,14 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   Future<void> _saveStatAndLvl(GameResult gameResult) async {
     if (_isDailyMode) {
-      await saveStatisticService.saveDailyStatistic(
+      await statisticRepository.saveDailyStatistic(
         isWin: gameResult.isWin!,
         attempt: _currentWordIndex,
         dictionary: _dictionary,
       );
       return;
     }
-    await saveLevelsService.saveLevels(
+    await levelsRepository.saveLevels(
       gameResult: gameResult,
       dictionary: _dictionary,
     );
@@ -299,12 +297,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   Future<void> _saveResultAndBoard(GameResult gameResult) async {
     if (_isDailyMode) {
-      await saveGameService.saveDailyBoard(_gridInfo, _dictionary);
-      await saveGameService.saveDailyResult(gameResult, _dictionary);
+      await gameRepository.saveDailyBoard(_gridInfo, _dictionary);
+      await gameRepository.saveDailyResult(gameResult, _dictionary);
       return;
     }
-    await saveGameService.saveLevelBoard(_gridInfo, _dictionary);
-    await saveGameService.saveLevelInfo(
+    await gameRepository.saveLevelBoard(_gridInfo, _dictionary);
+    await gameRepository.saveLevelInfo(
       LevelInfo(
         lastCompletedLevel: _levelNumber,
         isGameComplete: _isGameComplete,

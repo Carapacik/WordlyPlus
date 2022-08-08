@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordly/data/models.dart';
 
-abstract class ISaveStatisticService {
+abstract class ISaveStatisticRepository {
   Future<StatisticInfo?> getDailyStatistic(DictionaryEnum dictionary);
 
   Future<void> saveDailyStatistic({
@@ -13,9 +13,7 @@ abstract class ISaveStatisticService {
   });
 }
 
-class SaveStatisticService implements ISaveStatisticService {
-  SaveStatisticService();
-
+class SaveStatisticRepository implements ISaveStatisticRepository {
   static const _statisticKey = 'statistic_';
 
   @override

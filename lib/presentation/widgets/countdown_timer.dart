@@ -54,6 +54,6 @@ class _CountdownTimerState extends State<CountdownTimer> {
   @override
   Widget build(BuildContext context) => Text(
         durationToStringDate(Duration(seconds: _timeRemaining)),
-        style: context.theme.tm,
+        style: context.theme.tm.copyWith(color: Colors.white),
       );
 }

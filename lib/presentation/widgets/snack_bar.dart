@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:wordly/resources/resources.dart';
-import 'package:wordly/utils/utils.dart';
 
 void showFloatingSnackBar(
   final BuildContext context, {
-  required String message,
+  required final String message,
+  required final EdgeInsetsGeometry margin,
 }) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
@@ -16,17 +16,12 @@ void showFloatingSnackBar(
         textAlign: TextAlign.center,
       ),
       backgroundColor: context.dynamicColor(
-        light: Colors.black,
-        dark: Colors.white,
+        light: AppColors.bgDark,
+        dark: AppColors.bgLight,
       ),
-      duration: const Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 700),
       behavior: SnackBarBehavior.floating,
-      margin: EdgeInsets.fromLTRB(
-        horizontalPadding(context),
-        6,
-        horizontalPadding(context),
-        bottomPadding(context),
-      ),
+      margin: margin,
       dismissDirection: DismissDirection.up,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),

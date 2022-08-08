@@ -68,10 +68,7 @@ class _GridItem extends StatelessWidget {
             style: context.theme.tl.copyWith(
               color: info.letterStatus == LetterStatus.unknown
                   ? null
-                  : context.dynamicColor(
-                      light: Colors.black,
-                      dark: Colors.white,
-                    ),
+                  : Colors.white,
             ),
           ),
         ),

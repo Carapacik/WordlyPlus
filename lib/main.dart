@@ -13,10 +13,7 @@ import 'package:wordly/bloc/dictionary/dictionary_bloc.dart';
 import 'package:wordly/bloc/game/game_bloc.dart';
 import 'package:wordly/bloc/locale/locale_bloc.dart';
 import 'package:wordly/bloc/theme/theme_bloc.dart';
-import 'package:wordly/domain/save_game_service.dart';
-import 'package:wordly/domain/save_levels_service.dart';
-import 'package:wordly/domain/save_settings_service.dart';
-import 'package:wordly/domain/save_statistic_service.dart';
+import 'package:wordly/data/repositories.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,43 +27,44 @@ Future<void> main() async {
   runZonedGuarded<void>(
     () async {
       Bloc.observer = AppBlocObserver();
-      final settingsService = GetIt.I<ISaveSettingsService>();
-      final isDarkTheme = await settingsService.getDark();
-      final isHighContrast = await settingsService.getHighContrast();
-      final dictionary = await settingsService.getDictionary();
-      final locale = await settingsService.getLocale();
-      final isSecondLaunch = await settingsService.isSecondLaunch();
+      final gameRepo = GetIt.I<ISaveGameRepository>();
+      final statisticRepo = GetIt.I<ISaveStatisticRepository>();
+      final levelsRepo = GetIt.I<ISaveLevelsRepository>();
+      final settingsRepo = GetIt.I<ISaveSettingsRepository>();
 
-      final gameService = GetIt.I<ISaveGameService>();
-      final statService = GetIt.I<ISaveStatisticService>();
-      final lvlService = GetIt.I<ISaveLevelsService>();
+      final isDarkTheme = await settingsRepo.getDark();
+      final isHighContrast = await settingsRepo.getHighContrast();
+      final dictionary = await settingsRepo.getDictionary();
+      final locale = await settingsRepo.getLocale();
+      final isSecondLaunch = await settingsRepo.isSecondLaunch();
+
       runApp(
         MultiBlocProvider(
           providers: [
             BlocProvider<ThemeBloc>(
               create: (_) => ThemeBloc(
-                saveSettingsService: settingsService,
+                settingsRepository: settingsRepo,
                 isDarkTheme: isDarkTheme,
                 isHighContrast: isHighContrast,
               ),
             ),
             BlocProvider<DictionaryBloc>(
               create: (_) => DictionaryBloc(
-                saveSettingsService: settingsService,
+                settingsRepository: settingsRepo,
                 dictionary: dictionary,
               ),
             ),
             BlocProvider<LocaleBloc>(
               create: (_) => LocaleBloc(
-                saveSettingsService: settingsService,
+                settingsRepository: settingsRepo,
                 locale: locale,
               ),
             ),
             BlocProvider<GameBloc>(
               create: (_) => GameBloc(
-                saveGameService: gameService,
-                saveStatisticService: statService,
-                saveLevelsService: lvlService,
+                gameRepository: gameRepo,
+                statisticRepository: statisticRepo,
+                levelsRepository: levelsRepo,
                 dictionary: dictionary,
               )..add(const GameEvent.loadGame()),
             ),

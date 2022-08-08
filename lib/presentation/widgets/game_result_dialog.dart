@@ -28,8 +28,9 @@ void showGameResultDialog(
                 light: AppColors.redLight,
                 dark: AppColors.redDark,
               ),
-        insetPadding:
-            EdgeInsets.symmetric(horizontal: horizontalPadding(context)),
+        insetPadding: EdgeInsets.symmetric(
+          horizontal: horizontalPadding(context),
+        ),
         insetAnimationDuration: const Duration(milliseconds: 500),
         child: Padding(
           padding: const EdgeInsets.all(32),
@@ -40,19 +41,22 @@ void showGameResultDialog(
                 result.isWin!
                     ? context.r.win_message.toUpperCase()
                     : context.r.lose_message.toUpperCase(),
-                style: context.theme.tm,
+                style: context.theme.tm.copyWith(color: Colors.white),
               ),
               const SizedBox(height: 12),
-              Text(context.r.secret_word, style: context.theme.ll),
+              Text(
+                context.r.secret_word,
+                style: context.theme.ll.copyWith(color: Colors.white),
+              ),
               const SizedBox(height: 4),
               SelectableText(
                 result.word.toUpperCase(),
-                style: context.theme.bl,
+                style: context.theme.bl.copyWith(color: Colors.white),
               ),
               const SizedBox(height: 8),
               Text(
                 result.meaning,
-                style: context.theme.ll,
+                style: context.theme.ll.copyWith(color: Colors.white),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
@@ -81,32 +85,40 @@ class _DailyContent extends StatelessWidget {
     final gameBloc = context.read<GameBloc>();
     return Column(
       children: [
-        SizedBox(
-          width: 200,
-          child: ElevatedButton(
-            onPressed: () {
-              final textFunction = isWin
-                  ? context.r.check_my_result_win
-                  : context.r.check_my_result_lose;
-              gameBloc.add(GameEvent.share(textFunction: textFunction));
-            },
-            child: Text(context.r.share),
+        ElevatedButton(
+          onPressed: () {
+            final textFunction = isWin
+                ? context.r.check_my_result_win
+                : context.r.check_my_result_lose;
+            gameBloc.add(GameEvent.share(textFunction: textFunction));
+          },
+          child: Text(
+            context.r.share,
+            style: context.theme.bl.copyWith(
+              color: isWin
+                  ? context.dynamicColor(
+                      light: AppColors.greenLight,
+                      dark: AppColors.greenDark,
+                    )
+                  : context.dynamicColor(
+                      light: AppColors.redLight,
+                      dark: AppColors.redDark,
+                    ),
+            ),
           ),
         ),
         const SizedBox(height: 16),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(context.r.next_wordle, style: context.theme.bl),
-            const SizedBox(width: 12),
-            CountdownTimer(
-              onEnd: () {
-                Navigator.of(context).pop();
-                gameBloc.add(const GameEvent.loadGame());
-              },
-              timeRemaining: timeRemaining,
-            ),
-          ],
+        Text(
+          context.r.next_wordle,
+          style: context.theme.bl.copyWith(color: Colors.white),
+        ),
+        const SizedBox(height: 8),
+        CountdownTimer(
+          onEnd: () {
+            Navigator.of(context).pop();
+            gameBloc.add(const GameEvent.loadGame());
+          },
+          timeRemaining: timeRemaining,
         ),
       ],
     );

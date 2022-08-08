@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordly/data/models.dart';
 
-abstract class ISaveSettingsService {
+abstract class ISaveSettingsRepository {
   Future<void> saveDark({required bool value});
 
   Future<bool> getDark();
@@ -21,9 +21,7 @@ abstract class ISaveSettingsService {
   Future<bool> isSecondLaunch();
 }
 
-class SaveSettingsService implements ISaveSettingsService {
-  SaveSettingsService();
-
+class SaveSettingsRepository implements ISaveSettingsRepository {
   static const _secondLaunchKey = 'second_launch_key';
   static const _isDarkKey = 'is_dark_key';
   static const _isHighContrastKey = 'is_high_contrast_key';

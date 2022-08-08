@@ -11,13 +11,13 @@ enum LetterStatus {
 
   const LetterStatus();
 
-  Color keyboardItemColor(final BuildContext context) {
+  Color keyboardItemColor(BuildContext context) {
     final isHighContrast = context.read<ThemeBloc>().state.isHighContrast;
     switch (this) {
       case LetterStatus.unknown:
         return context.dynamicColor(
-          light: AppColors.lightGreyLight,
-          dark: AppColors.lightGreyDark,
+          light: AppColors.lightGrey,
+          dark: AppColors.darkGrey,
         );
       case LetterStatus.notInWord:
         return context.dynamicColor(
@@ -47,7 +47,7 @@ enum LetterStatus {
     }
   }
 
-  Color gridItemColor(final BuildContext context) {
+  Color gridItemColor(BuildContext context) {
     final isHighContrast = context.read<ThemeBloc>().state.isHighContrast;
     switch (this) {
       case LetterStatus.unknown:

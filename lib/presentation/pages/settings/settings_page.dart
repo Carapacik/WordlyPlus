@@ -15,7 +15,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, themeState) => Title(
-          color: AppColors.bgDark,
+          color: AppColors.dark,
           title: context.r.settings,
           child: Scaffold(
             appBar: CustomAppBar(title: context.r.settings),

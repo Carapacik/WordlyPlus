@@ -16,8 +16,8 @@ void showFloatingSnackBar(
         textAlign: TextAlign.center,
       ),
       backgroundColor: context.dynamicColor(
-        light: AppColors.bgDark,
-        dark: AppColors.bgLight,
+        light: AppColors.dark,
+        dark: AppColors.light,
       ),
       duration: const Duration(milliseconds: 700),
       behavior: SnackBarBehavior.floating,

@@ -8,7 +8,7 @@ class TutorialPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Title(
-        color: AppColors.bgDark,
+        color: AppColors.dark,
         title: context.r.how_to_play,
         child: Scaffold(
           appBar: CustomAppBar(title: context.r.how_to_play),

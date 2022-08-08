@@ -28,7 +28,7 @@ class KeyboardKey extends StatelessWidget {
             child: Material(
               clipBehavior: Clip.hardEdge,
               borderRadius: BorderRadius.circular(6),
-              color: _colorByState(state, context),
+              color: _bgColorByState(state, context),
               child: InkWell(
                 onTap: () {
                   context.read<GameBloc>().add(
@@ -39,7 +39,9 @@ class KeyboardKey extends StatelessWidget {
                 child: Center(
                   child: Text(
                     keyboardKey.fromDictionary(dictionary)?.toUpperCase() ?? '',
-                    style: context.theme.ll,
+                    style: context.theme.ll.copyWith(
+                      color: _txtColorByState(state, context),
+                    ),
                   ),
                 ),
               ),
@@ -48,7 +50,7 @@ class KeyboardKey extends StatelessWidget {
         ),
       );
 
-  Color _colorByState(GameState state, BuildContext context) {
+  Color _bgColorByState(GameState state, BuildContext context) {
     final color = state.whenOrNull(
           wordSubmit: (_, keyboard) {
             if (keyboard.containsKey(keyboardKey)) {
@@ -58,8 +60,29 @@ class KeyboardKey extends StatelessWidget {
           },
         ) ??
         context.dynamicColor(
-          light: AppColors.lightGreyLight,
-          dark: AppColors.lightGreyDark,
+          light: AppColors.lightGrey,
+          dark: AppColors.darkGrey,
+        );
+    return color;
+  }
+
+  Color _txtColorByState(GameState state, BuildContext context) {
+    final color = state.whenOrNull(
+          wordSubmit: (_, keyboard) {
+            if (keyboard.containsKey(keyboardKey)) {
+              return keyboard[keyboardKey] != LetterStatus.unknown
+                  ? Colors.white
+                  : null;
+            }
+            return context.dynamicColor(
+              light: AppColors.dark,
+              dark: AppColors.light,
+            );
+          },
+        ) ??
+        context.dynamicColor(
+          light: AppColors.lightGrey,
+          dark: AppColors.darkGrey,
         );
     return color;
   }
@@ -80,8 +103,8 @@ class EnterKeyboardKey extends StatelessWidget {
         clipBehavior: Clip.hardEdge,
         borderRadius: BorderRadius.circular(6),
         color: context.dynamicColor(
-          light: AppColors.lightGreyLight,
-          dark: AppColors.lightGreyDark,
+          light: AppColors.lightGrey,
+          dark: AppColors.darkGrey,
         ),
         child: InkWell(
           onTap: () {
@@ -118,8 +141,8 @@ class DeleteKeyboardKey extends StatelessWidget {
         clipBehavior: Clip.hardEdge,
         borderRadius: BorderRadius.circular(6),
         color: context.dynamicColor(
-          light: AppColors.lightGreyLight,
-          dark: AppColors.lightGreyDark,
+          light: AppColors.lightGrey,
+          dark: AppColors.darkGrey,
         ),
         child: InkWell(
           onTap: () {
@@ -132,8 +155,8 @@ class DeleteKeyboardKey extends StatelessWidget {
             child: Icon(
               Icons.backspace_outlined,
               color: context.dynamicColor(
-                light: AppColors.bgDark,
-                dark: AppColors.bgLight,
+                light: AppColors.dark,
+                dark: AppColors.light,
               ),
             ),
           ),

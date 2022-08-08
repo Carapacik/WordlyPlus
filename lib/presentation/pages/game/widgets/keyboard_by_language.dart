@@ -5,7 +5,6 @@ import 'package:wordly/bloc/game/game_bloc.dart';
 import 'package:wordly/data/models.dart';
 import 'package:wordly/presentation/pages/game/widgets/keyboard_en.dart';
 import 'package:wordly/presentation/pages/game/widgets/keyboard_ru.dart';
-import 'package:wordly/data/repositories.dart';
 
 class KeyboardByLanguage extends StatelessWidget {
   const KeyboardByLanguage({super.key});

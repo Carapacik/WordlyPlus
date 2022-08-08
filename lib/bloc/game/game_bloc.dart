@@ -10,7 +10,9 @@ import 'package:wordly/data/models.dart';
 import 'package:wordly/data/repositories.dart';
 
 part 'game_bloc.freezed.dart';
+
 part 'game_event.dart';
+
 part 'game_state.dart';
 
 class GameBloc extends Bloc<GameEvent, GameState> {

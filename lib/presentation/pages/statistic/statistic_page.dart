@@ -11,7 +11,7 @@ class StatisticPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Title(
-        color: AppColors.bgDark,
+        color: AppColors.dark,
         title: context.r.statistic,
         child: Scaffold(
           appBar: CustomAppBar(title: context.r.statistic),

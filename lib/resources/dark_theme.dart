@@ -5,30 +5,30 @@ import 'package:wordly/resources/colors.dart';
 final _base = ThemeData.dark();
 
 final darkTheme = _base.copyWith(
-  useMaterial3: true,
-  backgroundColor: AppColors.bgDark,
-  scaffoldBackgroundColor: AppColors.bgDark,
   // colorScheme: ColorScheme.fromSeed(seedColor: AppColors.greyDark),
+  useMaterial3: true,
+  backgroundColor: AppColors.dark,
+  scaffoldBackgroundColor: AppColors.dark,
   textTheme: GoogleFonts.ubuntuTextTheme(_base.textTheme).copyWith(
     titleLarge: const TextStyle(
       fontSize: 24,
       fontWeight: FontWeight.w700,
-      color: Colors.white,
+      color: AppColors.light,
     ),
     titleMedium: const TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.w500,
-      color: Colors.white,
+      color: AppColors.light,
     ),
     bodyLarge: const TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w700,
-      color: Colors.white,
+      color: AppColors.light,
     ),
     labelLarge: const TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.w700,
-      color: Colors.white,
+      color: AppColors.light,
     ),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
@@ -40,13 +40,13 @@ final darkTheme = _base.copyWith(
         ),
       ),
       elevation: MaterialStateProperty.all(0),
-      foregroundColor: MaterialStateProperty.all(AppColors.bgDark),
-      backgroundColor: MaterialStateProperty.all(AppColors.bgLight),
+      foregroundColor: MaterialStateProperty.all(AppColors.dark),
+      backgroundColor: MaterialStateProperty.all(AppColors.light),
     ),
   ),
   appBarTheme: const AppBarTheme(
     elevation: 0,
-    backgroundColor: AppColors.bgDark,
-    foregroundColor: AppColors.bgLight,
+    backgroundColor: AppColors.dark,
+    foregroundColor: AppColors.light,
   ),
 );

@@ -7,28 +7,28 @@ final _base = ThemeData.light();
 final lightTheme = _base.copyWith(
   // colorScheme: ColorScheme.fromSeed(seedColor: AppColors.greenLight),
   useMaterial3: true,
-  backgroundColor: AppColors.bgLight,
-  scaffoldBackgroundColor: AppColors.bgLight,
+  backgroundColor: AppColors.light,
+  scaffoldBackgroundColor: AppColors.light,
   textTheme: GoogleFonts.ubuntuTextTheme(_base.textTheme).copyWith(
     titleLarge: const TextStyle(
       fontSize: 24,
       fontWeight: FontWeight.w700,
-      color: Colors.black,
+      color: AppColors.dark,
     ),
     titleMedium: const TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.w500,
-      color: Colors.black,
+      color: AppColors.dark,
     ),
     bodyLarge: const TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w700,
-      color: Colors.black,
+      color: AppColors.dark,
     ),
     labelLarge: const TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.w700,
-      color: Colors.black,
+      color: AppColors.dark,
     ),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
@@ -40,16 +40,12 @@ final lightTheme = _base.copyWith(
         ),
       ),
       elevation: MaterialStateProperty.all(0),
-      backgroundColor: MaterialStateProperty.all(AppColors.bgLight),
+      backgroundColor: MaterialStateProperty.all(AppColors.light),
     ),
   ),
-  // textSelectionTheme: _base.textSelectionTheme.copyWith(
-  //   cursorColor: AppColors.lightDarkBlue100,
-  //   selectionHandleColor: AppColors.lightLightBlue100,
-  // ),
   appBarTheme: const AppBarTheme(
     elevation: 0,
-    backgroundColor: AppColors.bgLight,
-    foregroundColor: AppColors.bgDark,
+    backgroundColor: AppColors.light,
+    foregroundColor: AppColors.dark,
   ),
 );

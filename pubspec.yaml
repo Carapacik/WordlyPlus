@@ -1,7 +1,7 @@
 name: wordly
 description: Guess the WORD in six tries
 publish_to: 'none'
-version: 2.0.0+15
+version: 2.0.0+16
 environment:
   sdk: ">=2.17.0 <3.0.0"
   flutter: ">=3.0.0"
@@ -73,7 +73,6 @@ icons_launcher:
       favicon_path: assets/images/ic_logo_transparent.png
     macos:
       enable: true
-      image_path: assets/images/ic_logo.png
     windows:
       enable: true
     linux:

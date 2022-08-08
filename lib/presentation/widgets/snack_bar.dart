@@ -11,7 +11,10 @@ void showFloatingSnackBar(
       content: Text(
         message,
         style: context.theme.bl.copyWith(
-          color: context.dynamicColor(light: Colors.white, dark: Colors.black),
+          color: context.dynamicColor(
+            light: AppColors.light,
+            dark: AppColors.dark,
+          ),
         ),
         textAlign: TextAlign.center,
       ),

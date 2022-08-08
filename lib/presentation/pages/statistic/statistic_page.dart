@@ -120,19 +120,16 @@ class _AttemptContent extends StatelessWidget {
         widthFactor: (attempts[index] + 1) / maxValue,
         child: Container(
           decoration: BoxDecoration(
-            color:
-                context.dynamicColor(light: Colors.black, dark: Colors.white),
+            color: context.dynamicColor(
+              light: AppColors.dark,
+              dark: AppColors.light,
+            ),
             borderRadius: BorderRadius.circular(4),
           ),
           height: 20,
           child: Text(
             ' ${attempts[index]}',
-            style: context.theme.bl.copyWith(
-              color: context.dynamicColor(
-                light: Colors.white,
-                dark: Colors.black,
-              ),
-            ),
+            style: context.theme.bl,
           ),
         ),
       ),

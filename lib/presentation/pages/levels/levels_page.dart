@@ -87,7 +87,7 @@ class _GridItem extends StatelessWidget {
               child: Text(
                 '$index\n$word',
                 textAlign: TextAlign.center,
-                style: context.theme.tl,
+                style: context.theme.tl.copyWith(color: Colors.white),
               ),
             ),
           ),

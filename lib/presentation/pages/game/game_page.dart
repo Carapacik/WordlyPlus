@@ -53,12 +53,6 @@ class _GamePageState extends State<GamePage> {
           listener: (context, state) {
             final error = state.whenOrNull(error: (error) => error);
             if (error != null) {
-              // final top = MediaQuery.of(context).padding.top;
-              // print("top: $top");
-              // final bottom = bottomPadding(context);
-              // final height = MediaQuery.of(context).size.height;
-              // print("Bottom $bottom");
-              // print("height $height");
               showFloatingSnackBar(
                 context,
                 message: error.getName(context),
@@ -102,20 +96,7 @@ class _GamePageState extends State<GamePage> {
                   ),
               ],
             ),
-            body: SafeArea(
-              child: Column(
-                children: [
-                  const SizedBox(height: 8),
-                  const WordGrid(),
-                  const Spacer(),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 500),
-                    child: const KeyboardByLanguage(),
-                  ),
-                  const SizedBox(height: 8),
-                ],
-              ),
-            ),
+            body: const _GameBody(),
           ),
         ),
       );
@@ -153,4 +134,26 @@ class _GamePageState extends State<GamePage> {
           ),
         );
       };
+}
+
+class _GameBody extends StatelessWidget {
+  const _GameBody({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Column(
+        children: [
+          const SizedBox(height: 8),
+          const WordGrid(),
+          const Spacer(),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 500),
+            child: const KeyboardByLanguage(),
+          ),
+          const SizedBox(height: 8),
+        ],
+      ),
+    );
+  }
 }

@@ -52,13 +52,13 @@ class _GridItem extends StatelessWidget {
           alignment: Alignment.center,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(6),
-            color: info.letterStatus.gridItemColor(context),
+            color: info.letterStatus.itemColor(context),
             border: info.letterStatus == LetterStatus.unknown
                 ? Border.all(
                     width: 3,
                     color: context.dynamicColor(
-                      light: Colors.black,
-                      dark: Colors.white,
+                      light: AppColors.dark,
+                      dark: AppColors.light,
                     ),
                   )
                 : null,

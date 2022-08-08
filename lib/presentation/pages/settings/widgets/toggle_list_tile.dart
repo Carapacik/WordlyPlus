@@ -20,18 +20,9 @@ class ToggleListTile extends StatelessWidget {
     final isHighContrast = context.read<ThemeBloc>().state.isHighContrast;
     return MergeSemantics(
       child: ListTileTheme.merge(
-        selectedColor: isHighContrast
-            ? context.dynamicColor(
-                light: AppColors.orangeLight,
-                dark: AppColors.orangeDark,
-              )
-            : context.dynamicColor(
-                light: AppColors.greenLight,
-                dark: AppColors.greenDark,
-              ),
         child: ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-          title: Text(title, style: context.theme.ll),
+          title: Text(title, style: context.theme.bl),
           trailing: Switch.adaptive(
             value: value,
             onChanged: onChanged,
@@ -44,11 +35,8 @@ class ToggleListTile extends StatelessWidget {
                     light: AppColors.greenLight,
                     dark: AppColors.greenDark,
                   ),
-            inactiveTrackColor: context.dynamicColor(
-              light: AppColors.greyLight,
-              dark: AppColors.greyDark,
-            ),
             activeColor: Colors.white,
+            inactiveTrackColor: AppColors.greyLight,
           ),
           selected: value,
           enabled: onChanged != null,

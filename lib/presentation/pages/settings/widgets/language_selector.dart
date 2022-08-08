@@ -19,13 +19,9 @@ class LanguageSelector<T extends GetNameEnumMixin> extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MergeSemantics(
         child: ListTileTheme.merge(
-          selectedColor: context.dynamicColor(
-            light: AppColors.greenLight,
-            dark: AppColors.greenDark,
-          ),
           child: ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-            title: Text(title, style: context.theme.ll),
+            title: Text(title, style: context.theme.bl),
             trailing: Text(value.getName(context), style: context.theme.bl),
             onTap: () async {
               final selected = await _selectLanguageBottomSheet(context);

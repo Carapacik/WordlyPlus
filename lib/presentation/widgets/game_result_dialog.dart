@@ -41,17 +41,17 @@ void showGameResultDialog(
                 result.isWin!
                     ? context.r.win_message.toUpperCase()
                     : context.r.lose_message.toUpperCase(),
-                style: context.theme.tm.copyWith(color: Colors.white),
+                style: context.theme.tl.copyWith(color: Colors.white),
               ),
               const SizedBox(height: 12),
               Text(
                 context.r.secret_word,
-                style: context.theme.ll.copyWith(color: Colors.white),
+                style: context.theme.bl.copyWith(color: Colors.white),
               ),
               const SizedBox(height: 4),
               SelectableText(
                 result.word.toUpperCase(),
-                style: context.theme.bl.copyWith(color: Colors.white),
+                style: context.theme.tm.copyWith(color: Colors.white),
               ),
               const SizedBox(height: 8),
               Text(
@@ -63,7 +63,7 @@ void showGameResultDialog(
               if (isDailyMode)
                 _DailyContent(isWin: result.isWin!)
               else
-                const _LevelContent()
+                _LevelContent(isWin: result.isWin!)
             ],
           ),
         ),
@@ -126,7 +126,9 @@ class _DailyContent extends StatelessWidget {
 }
 
 class _LevelContent extends StatelessWidget {
-  const _LevelContent({super.key});
+  const _LevelContent({required this.isWin, super.key});
+
+  final bool isWin;
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +147,20 @@ class _LevelContent extends StatelessWidget {
                 (route) => false,
               );
             },
-            child: Text(context.r.next_level),
+            child: Text(
+              context.r.next_level,
+              style: context.theme.bl.copyWith(
+                color: isWin
+                    ? context.dynamicColor(
+                        light: AppColors.greenLight,
+                        dark: AppColors.greenDark,
+                      )
+                    : context.dynamicColor(
+                        light: AppColors.redLight,
+                        dark: AppColors.redDark,
+                      ),
+              ),
+            ),
           ),
         ),
       ],

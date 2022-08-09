@@ -27,10 +27,7 @@ class ToggleListTile extends StatelessWidget {
             value: value,
             onChanged: onChanged,
             activeColor: isHighContrast
-                ? context.dynamicColor(
-                    light: AppColors.orangeLight,
-                    dark: AppColors.orangeDark,
-                  )
+                ? AppColors.orange
                 : context.dynamicColor(
                     light: AppColors.greenLight,
                     dark: AppColors.greenDark,

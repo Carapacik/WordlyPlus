@@ -19,8 +19,8 @@ class CubicItem extends StatelessWidget {
                 ? Border.all(
                     width: 3,
                     color: context.dynamicColor(
-                      light: AppColors.dark,
-                      dark: AppColors.light,
+                      light: AppColors.lightGrey,
+                      dark: AppColors.darkGrey,
                     ),
                   )
                 : null,
@@ -28,9 +28,9 @@ class CubicItem extends StatelessWidget {
           child: Text(
             info.letter.toUpperCase(),
             style: context.theme.tl.copyWith(
-              color: info.letterStatus == LetterStatus.unknown
-                  ? null
-                  : Colors.white,
+              color: info.letterStatus != LetterStatus.unknown
+                  ? Colors.white
+                  : null,
             ),
           ),
         ),

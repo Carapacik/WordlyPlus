@@ -64,12 +64,18 @@ class _GamePageState extends State<GamePage> {
                 ),
               );
             }
-            final gameResult = state.whenOrNull(complete: (result) => result);
+            late bool daily;
+            final gameResult = state.whenOrNull(
+              complete: (result, isDaily) {
+                daily = isDaily;
+                return result;
+              },
+            );
             if (gameResult != null) {
               showGameResultDialog(
                 context,
                 result: gameResult,
-                isDailyMode: widget.isDailyMode,
+                isDailyMode: daily,
               );
             }
           },

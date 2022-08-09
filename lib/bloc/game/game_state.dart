@@ -6,7 +6,10 @@ class GameState with _$GameState {
 
   const factory GameState.initial() = _InitialState;
 
-  const factory GameState.complete(GameResult result) = _CompleteGameState;
+  const factory GameState.complete({
+    required GameResult result,
+    @Default(true) bool isDaily,
+  }) = _CompleteGameState;
 
   const factory GameState.error(GameError error) = _ErrorState;
 

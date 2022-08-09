@@ -147,7 +147,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       await _saveStatAndLvl(gameResult);
 
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: _keyboardInfo));
-      emit(GameState.complete(gameResult));
+      emit(GameState.complete(result: gameResult, isDaily: _isDailyMode));
       return;
     }
 
@@ -169,7 +169,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       await _saveStatAndLvl(gameResult);
 
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: _keyboardInfo));
-      emit(GameState.complete(gameResult));
+      emit(GameState.complete(result: gameResult, isDaily: _isDailyMode));
       return;
     }
 
@@ -206,7 +206,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         if (previousResult.isWin != null) {
           _isGameComplete = true;
           if (event.isFirst) {
-            emit(GameState.complete(previousResult));
+            emit(
+              GameState.complete(
+                result: previousResult,
+                isDaily: _isDailyMode,
+              ),
+            );
           }
         }
       } else {

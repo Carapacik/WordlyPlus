@@ -15,10 +15,11 @@ class TutorialPage extends StatelessWidget {
         title: context.r.how_to_play,
         child: Scaffold(
           appBar: CustomAppBar(title: context.r.how_to_play),
-          body: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: ConstraintScreen(
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   const Text(
                     'Each guess must be a valid 5-letter word. Hit the enter button to submit.\n'

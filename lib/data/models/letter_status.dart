@@ -28,20 +28,14 @@ enum LetterStatus {
         );
       case LetterStatus.wrongSpot:
         return isHighContrast
-            ? context.dynamicColor(
-                light: AppColors.blueLight,
-                dark: AppColors.blueDark,
-              )
+            ? AppColors.blue
             : context.dynamicColor(
                 light: AppColors.yellowLight,
                 dark: AppColors.yellowDark,
               );
       case LetterStatus.correctSpot:
         return isHighContrast
-            ? context.dynamicColor(
-                light: AppColors.orangeLight,
-                dark: AppColors.orangeDark,
-              )
+            ? AppColors.orange
             : context.dynamicColor(
                 light: AppColors.greenLight,
                 dark: AppColors.greenDark,

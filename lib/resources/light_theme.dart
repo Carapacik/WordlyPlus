@@ -5,7 +5,6 @@ import 'package:wordly/resources/colors.dart';
 final _base = ThemeData.light();
 
 final lightTheme = _base.copyWith(
-  // colorScheme: ColorScheme.fromSeed(seedColor: AppColors.greenLight),
   useMaterial3: true,
   backgroundColor: AppColors.light,
   scaffoldBackgroundColor: AppColors.light,
@@ -42,6 +41,11 @@ final lightTheme = _base.copyWith(
       elevation: MaterialStateProperty.all(0),
       backgroundColor: MaterialStateProperty.all(AppColors.light),
     ),
+  ),
+  textSelectionTheme: const TextSelectionThemeData(
+    cursorColor: AppColors.greyLight,
+    selectionColor: AppColors.greyLight,
+    selectionHandleColor: AppColors.greyLight,
   ),
   appBarTheme: const AppBarTheme(
     elevation: 0,

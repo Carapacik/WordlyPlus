@@ -8,20 +8,14 @@ import 'package:wordly/resources/dictionary_ru.dart';
 import 'package:wordly/resources/resources.dart';
 
 enum DictionaryEnum with GetNameEnumMixin {
-  ru._(2 / 3.4, dictionaryRu, 'ru', ['пауза', 'фишка', 'лейка']),
-  en._(2 / 2.6, dictionaryEn, 'en', ['pause', 'crane', 'spore']);
+  ru._(2 / 3.4, dictionaryRu, 'ru'),
+  en._(2 / 2.6, dictionaryEn, 'en');
 
-  const DictionaryEnum._(
-    this.aspectRatio,
-    this.currentDictionary,
-    this.key,
-    this.examplesList,
-  );
+  const DictionaryEnum._(this.aspectRatio, this.currentDictionary, this.key);
 
   final double aspectRatio;
   final Map<String, String> currentDictionary;
   final String key;
-  final List<String> examplesList;
 
   static DictionaryEnum get dictionaryBySystemLocale {
     if (kIsWeb) {

@@ -33,7 +33,7 @@ void showMeaningDialog(
           children: [
             SelectableText(
               word.toUpperCase(),
-              style: context.theme.tm.copyWith(color: Colors.white),
+              style: context.theme.tmb.copyWith(color: Colors.white),
             ),
             const SizedBox(height: 16),
             Text(

@@ -6,12 +6,13 @@ import 'package:wordly/data/models/get_name_mixin.dart';
 import 'package:wordly/resources/resources.dart';
 
 enum LocaleEnum with GetNameEnumMixin {
-  ru._(Locale('ru')),
-  en._(Locale('en'));
+  ru._(Locale('ru'), ['пауза', 'фишка', 'лейка']),
+  en._(Locale('en'), ['pause', 'crane', 'spore']);
 
-  const LocaleEnum._(this.locale);
+  const LocaleEnum._(this.locale, this.examplesList);
 
   final Locale locale;
+  final List<String> examplesList;
 
   static LocaleEnum get getSystemLocaleByLanguage {
     if (kIsWeb) {

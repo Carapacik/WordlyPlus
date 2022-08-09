@@ -14,11 +14,27 @@ extension ContextHelper on BuildContext {
 }
 
 extension TextThemeHelper on ThemeData {
-  TextStyle get tl => textTheme.titleLarge!;
+  TextStyle get tl =>
+      textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w400);
 
-  TextStyle get tm => textTheme.titleMedium!;
+  TextStyle get tlb => textTheme.titleLarge!.copyWith(
+        fontWeight: FontWeight.w700,
+        letterSpacing: 0.8,
+      );
 
-  TextStyle get bl => textTheme.bodyLarge!;
+  TextStyle get tm =>
+      textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w500);
+
+  TextStyle get tmb => textTheme.titleMedium!.copyWith(
+        fontWeight: FontWeight.w700,
+        letterSpacing: 2,
+      );
+
+  TextStyle get bl =>
+      textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w400);
+
+  TextStyle get blb =>
+      textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w700);
 
   TextStyle get ll => textTheme.labelLarge!;
 }

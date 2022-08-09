@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:wordly/data/models.dart';
 import 'package:wordly/resources/resources.dart';
 
-class CubicItem extends StatelessWidget {
-  const CubicItem({required this.info, super.key});
+class TileItem extends StatelessWidget {
+  const TileItem({required this.info, super.key});
 
   final LetterInfo info;
 
@@ -27,7 +27,7 @@ class CubicItem extends StatelessWidget {
           ),
           child: Text(
             info.letter.toUpperCase(),
-            style: context.theme.tl.copyWith(
+            style: context.theme.tlb.copyWith(
               color: info.letterStatus != LetterStatus.unknown
                   ? Colors.white
                   : null,

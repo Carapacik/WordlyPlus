@@ -31,7 +31,7 @@ class WordGrid extends StatelessWidget {
                 final item = gridInfo.length > index
                     ? gridInfo[index]
                     : const LetterInfo.empty();
-                return CubicItem(info: item);
+                return TileItem(info: item);
               },
             );
           },

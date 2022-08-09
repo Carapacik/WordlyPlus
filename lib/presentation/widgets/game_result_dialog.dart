@@ -41,7 +41,7 @@ void showGameResultDialog(
                 result.isWin!
                     ? context.r.win_message.toUpperCase()
                     : context.r.lose_message.toUpperCase(),
-                style: context.theme.tl.copyWith(color: Colors.white),
+                style: context.theme.tlb.copyWith(color: Colors.white),
               ),
               const SizedBox(height: 12),
               Text(
@@ -51,7 +51,7 @@ void showGameResultDialog(
               const SizedBox(height: 4),
               SelectableText(
                 result.word.toUpperCase(),
-                style: context.theme.tm.copyWith(color: Colors.white),
+                style: context.theme.tmb.copyWith(color: Colors.white),
               ),
               const SizedBox(height: 8),
               Text(
@@ -94,7 +94,7 @@ class _DailyContent extends StatelessWidget {
           },
           child: Text(
             context.r.share,
-            style: context.theme.bl.copyWith(
+            style: context.theme.blb.copyWith(
               color: isWin
                   ? context.dynamicColor(
                       light: AppColors.greenLight,
@@ -149,7 +149,7 @@ class _LevelContent extends StatelessWidget {
             },
             child: Text(
               context.r.next_level,
-              style: context.theme.bl.copyWith(
+              style: context.theme.blb.copyWith(
                 color: isWin
                     ? context.dynamicColor(
                         light: AppColors.greenLight,

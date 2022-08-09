@@ -19,21 +19,21 @@ class CustomDrawer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ListTile(
-                title: Text(context.r.daily, style: context.theme.tm),
+                title: Text(context.r.daily, style: context.theme.tmb),
                 onTap: () async {
                   context.read<GameBloc>().add(
                         const GameEvent.loadGame(),
                       );
                   await Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute<void>(
-                      builder: (context) => const GamePage(isDailyMode: true),
+                      builder: (context) => const GamePage(),
                     ),
                     (route) => false,
                   );
                 },
               ),
               ListTile(
-                title: Text(context.r.levels, style: context.theme.tm),
+                title: Text(context.r.levels, style: context.theme.tmb),
                 onTap: () async {
                   context.read<GameBloc>().add(
                         const GameEvent.loadGame(isDaily: false),
@@ -47,7 +47,7 @@ class CustomDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text(context.r.how_to_play, style: context.theme.tm),
+                title: Text(context.r.how_to_play, style: context.theme.tmb),
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(
@@ -58,7 +58,7 @@ class CustomDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text(context.r.settings, style: context.theme.tm),
+                title: Text(context.r.settings, style: context.theme.tmb),
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(
@@ -70,7 +70,7 @@ class CustomDrawer extends StatelessWidget {
               ),
               const Spacer(),
               ListTile(
-                title: Text(context.r.about, style: context.theme.tm),
+                title: Text(context.r.about, style: context.theme.tmb),
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(

@@ -8,4 +8,5 @@ double horizontalPadding(BuildContext context) {
 double bottomPadding(BuildContext context) =>
     MediaQuery.of(context).size.height -
     MediaQuery.of(context).padding.top -
+    MediaQuery.of(context).padding.bottom -
     kToolbarHeight;

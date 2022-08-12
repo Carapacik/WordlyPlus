@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:wordly/bloc/dictionary/dictionary_bloc.dart';
 import 'package:wordly/bloc/game/game_bloc.dart';
 import 'package:wordly/bloc/levels/levels_bloc.dart';
@@ -111,7 +110,7 @@ class _GamePageState extends State<GamePage> {
         Navigator.of(context).push(
           MaterialPageRoute<void>(
             builder: (_) {
-              final repository = GetIt.I<ISaveStatisticRepository>();
+              final repository = context.read<ISaveStatisticRepository>();
               final dictionary =
                   context.read<DictionaryBloc>().state.dictionary;
               return BlocProvider<StatisticBloc>(
@@ -128,7 +127,7 @@ class _GamePageState extends State<GamePage> {
         Navigator.of(context).push(
           MaterialPageRoute<void>(
             builder: (_) {
-              final repository = GetIt.I<ISaveLevelsRepository>();
+              final repository = context.read<ISaveLevelsRepository>();
               final dictionary =
                   context.read<DictionaryBloc>().state.dictionary;
               return BlocProvider<LevelsBloc>(

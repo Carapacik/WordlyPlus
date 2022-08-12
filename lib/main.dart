@@ -4,11 +4,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:wordly/app/app.dart';
 import 'package:wordly/app/observer.dart';
-import 'package:wordly/app/service_locator.dart';
 import 'package:wordly/bloc/dictionary/dictionary_bloc.dart';
 import 'package:wordly/bloc/game/game_bloc.dart';
 import 'package:wordly/bloc/locale/locale_bloc.dart';
@@ -22,54 +20,69 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
   setPathUrlStrategy();
-  await setupServiceLocators();
 
   runZonedGuarded<void>(
     () async {
       Bloc.observer = AppBlocObserver();
-      final gameRepo = GetIt.I<ISaveGameRepository>();
-      final statisticRepo = GetIt.I<ISaveStatisticRepository>();
-      final levelsRepo = GetIt.I<ISaveLevelsRepository>();
-      final settingsRepo = GetIt.I<ISaveSettingsRepository>();
+      final ISaveGameRepository gameRepo = SaveGameRepository();
+      final ISaveStatisticRepository statisticRepo = SaveStatisticRepository();
+      final ISaveLevelsRepository levelsRepo = SaveLevelsRepository();
+      final ISaveSettingsRepository settingsRepo = SaveSettingsRepository();
 
+      await settingsRepo.init();
       final isDarkTheme = await settingsRepo.getDark();
       final isHighContrast = await settingsRepo.getHighContrast();
       final dictionary = await settingsRepo.getDictionary();
       final locale = await settingsRepo.getLocale();
-      final isSecondLaunch = await settingsRepo.isSecondLaunch();
 
       runApp(
-        MultiBlocProvider(
+        MultiRepositoryProvider(
           providers: [
-            BlocProvider<ThemeBloc>(
-              create: (_) => ThemeBloc(
-                settingsRepository: settingsRepo,
-                isDarkTheme: isDarkTheme,
-                isHighContrast: isHighContrast,
-              ),
+            RepositoryProvider<ISaveGameRepository>(
+              create: (context) => gameRepo,
             ),
-            BlocProvider<DictionaryBloc>(
-              create: (_) => DictionaryBloc(
-                settingsRepository: settingsRepo,
-                dictionary: dictionary,
-              ),
+            RepositoryProvider<ISaveStatisticRepository>(
+              create: (context) => statisticRepo,
             ),
-            BlocProvider<LocaleBloc>(
-              create: (_) => LocaleBloc(
-                settingsRepository: settingsRepo,
-                locale: locale,
-              ),
+            RepositoryProvider<ISaveLevelsRepository>(
+              create: (context) => levelsRepo,
             ),
-            BlocProvider<GameBloc>(
-              create: (_) => GameBloc(
-                gameRepository: gameRepo,
-                statisticRepository: statisticRepo,
-                levelsRepository: levelsRepo,
-                dictionary: dictionary,
-              )..add(const GameEvent.loadGame()),
+            RepositoryProvider<ISaveSettingsRepository>(
+              create: (context) => settingsRepo,
             ),
           ],
-          child: App(isSecondLaunch: isSecondLaunch),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider<ThemeBloc>(
+                create: (_) => ThemeBloc(
+                  settingsRepository: settingsRepo,
+                  isDarkTheme: isDarkTheme,
+                  isHighContrast: isHighContrast,
+                ),
+              ),
+              BlocProvider<DictionaryBloc>(
+                create: (_) => DictionaryBloc(
+                  settingsRepository: settingsRepo,
+                  dictionary: dictionary,
+                ),
+              ),
+              BlocProvider<LocaleBloc>(
+                create: (_) => LocaleBloc(
+                  settingsRepository: settingsRepo,
+                  locale: locale,
+                ),
+              ),
+              BlocProvider<GameBloc>(
+                create: (_) => GameBloc(
+                  gameRepository: gameRepo,
+                  statisticRepository: statisticRepo,
+                  levelsRepository: levelsRepo,
+                  dictionary: dictionary,
+                )..add(const GameEvent.loadGame()),
+              ),
+            ],
+            child: App(),
+          ),
         ),
       );
     },

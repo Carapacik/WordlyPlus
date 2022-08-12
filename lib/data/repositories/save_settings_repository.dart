@@ -2,6 +2,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordly/data/models.dart';
 
 abstract class ISaveSettingsRepository {
+  bool get isSecondLaunch;
+
   Future<void> saveDark({required bool value});
 
   Future<bool> getDark();
@@ -18,7 +20,7 @@ abstract class ISaveSettingsRepository {
 
   Future<LocaleEnum> getLocale();
 
-  Future<bool> isSecondLaunch();
+  Future<void> init();
 }
 
 class SaveSettingsRepository implements ISaveSettingsRepository {
@@ -27,6 +29,9 @@ class SaveSettingsRepository implements ISaveSettingsRepository {
   static const _isHighContrastKey = 'is_high_contrast_key';
   static const _dictionaryKey = 'dictionary_key';
   static const _localeKey = 'locale_key';
+  late bool _isSecondLaunch;
+
+  bool get isSecondLaunch => _isSecondLaunch;
 
   @override
   Future<void> saveDark({required bool value}) async {
@@ -77,10 +82,10 @@ class SaveSettingsRepository implements ISaveSettingsRepository {
   }
 
   @override
-  Future<bool> isSecondLaunch() async {
+  Future<void> init() async {
     final sp = await SharedPreferences.getInstance();
     final isSecondLaunch = sp.getBool(_secondLaunchKey) ?? false;
     await sp.setBool(_secondLaunchKey, true);
-    return isSecondLaunch;
+    _isSecondLaunch = isSecondLaunch;
   }
 }

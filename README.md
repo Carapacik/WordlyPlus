@@ -1,6 +1,6 @@
 # Guess the **WORDL** in six tries
 
-<p align="center"><img src="https://raw.githubusercontent.com/Carapacik/WordlyPlus/main/assets/splash_light.png" alt="Wordly Plus Logo" width="70%" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/Carapacik/WordlyPlus/main/assets/images/splash_light.png" alt="Wordly Plus Logo" width="70%" /></p>
 
 [![Codemagic build status](https://api.codemagic.io/apps/62eec985234279764b041482/62eec985234279764b041481/status_badge.svg)](https://codemagic.io/apps/62eec985234279764b041482/62eec985234279764b041481/latest_build)
 [![Style](https://img.shields.io/badge/style-carapacik_lints-40c4ff.svg)](https://github.com/Carapacik/carapacik_lints)
@@ -17,5 +17,8 @@ Have 2 game modes:
 - Daily
 - Level
 
-<img src="https://raw.githubusercontent.com/Carapacik/WordlyPlus/main/.github/screenshot_1.png" width="40%" /> <img src="https://raw.githubusercontent.com/Carapacik/WordlyPlus/main/.github/screenshot_2.png" width="40%" />
-<img src="https://raw.githubusercontent.com/Carapacik/WordlyPlus/main/.github/screenshot_3.png" width="40%" /> <img src="https://raw.githubusercontent.com/Carapacik/WordlyPlus/main/.github/screenshot_4.png" width="40%" />
+<p align="center">
+   <img src="https://raw.githubusercontent.com/Carapacik/WordlyPlus/main/.github/screens/1.png" width="40%" /> <img src="https://raw.githubusercontent.com/Carapacik/WordlyPlus/main/.github/screens/2.png" width="40%" />
+   <img src="https://raw.githubusercontent.com/Carapacik/WordlyPlus/main/.github/screens/3.png" width="40%" /> <img src="https://raw.githubusercontent.com/Carapacik/WordlyPlus/main/.github/screens/4.png" width="40%" />
+   <img src="https://raw.githubusercontent.com/Carapacik/WordlyPlus/main/.github/screens/5.png" width="40%" />
+</p>

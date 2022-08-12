@@ -27,7 +27,7 @@ extension TextThemeHelper on ThemeData {
 
   TextStyle get tmb => textTheme.titleMedium!.copyWith(
         fontWeight: FontWeight.w700,
-        letterSpacing: 2,
+        letterSpacing: 1,
       );
 
   TextStyle get bl =>

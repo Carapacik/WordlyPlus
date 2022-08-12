@@ -23,7 +23,7 @@
   "level_number": "Уровень {number}",
   "levels": "Уровни",
   "lose_message": "Вы проиграли",
-  "max_streak": "Максимальная\nСерия",
+  "max_streak": "Макс.\nСерия",
   "message_new_word": "subject=Словень%20-%20Новое%20слово&body=Слово%20-%0AЗначение%20-",
   "next_level": "Следующий уровень",
   "next_wordle": "Следующее слово через",

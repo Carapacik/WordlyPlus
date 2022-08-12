@@ -7,7 +7,7 @@
 [![Star on Github](https://img.shields.io/github/stars/Carapacik/WordlyPlus.svg?style=flat&logo=github&colorB=deeppink&label=stars)](https://github.com/Carapacik/WordlyPlus)
 
 <a href='https://play.google.com/store/apps/details?id=com.carapacik.wordly'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height='90px'/></a>
-<a href='https://apps.apple.com/app/REPLACEHERE'><img src="./.github/download-app-store.svg" height='90px'></a>
+<a href='https://apps.apple.com/app/REPLACEHERE'><img src="./.github/readme/download-on-app-store.png" height='90px'></a>
 
 
 Have 2 dictionary languages
@@ -19,6 +19,6 @@ Have 2 game modes:
 - Level
 
 
-<img src="./.github/screens/1.png" width="40%" /> <img src="./.github/screens/2.png" width="40%" />
-<img src="./.github/screens/3.png" width="40%" /> <img src="./.github/screens/4.png" width="40%" />
-<img src="./.github/screens/5.png" width="40%" />
+<img src="./.github/readme/1.png" width="40%" /> <img src="./.github/readme/2.png" width="40%" />
+<img src="./.github/readme/3.png" width="40%" /> <img src="./.github/readme/4.png" width="40%" />
+<img src="./.github/readme/5.png" width="40%" />

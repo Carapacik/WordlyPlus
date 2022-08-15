@@ -1,9 +1,12 @@
-import 'package:collection/collection.dart';
-import 'package:flutter/services.dart';
-import 'package:wordly/data/models/dictionary_languages.dart';
+import 'dart:math';
 
-const _defaultWidthRu = 0.067;
-const _defaultWidthEn = 0.08;
+import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:wordly/data/models/dictionary_enum.dart';
+
+const _defaultWidthRu = 0.098;
+const _defaultWidthEn = 0.12;
 
 enum KeyboardKeys {
   q('й', 'q', LogicalKeyboardKey(1081), LogicalKeyboardKey.keyQ),
@@ -16,8 +19,8 @@ enum KeyboardKeys {
   i('ш', 'i', LogicalKeyboardKey(1096), LogicalKeyboardKey.keyI),
   o('щ', 'o', LogicalKeyboardKey(1097), LogicalKeyboardKey.keyO),
   p('з', 'p', LogicalKeyboardKey(1079), LogicalKeyboardKey.keyP),
-  a1('х', null, LogicalKeyboardKey(1093), null),
-  a2('ъ', null, LogicalKeyboardKey(1098), null),
+  a1('х', null, LogicalKeyboardKey(1093), LogicalKeyboardKey.bracketLeft),
+  a2('ъ', null, LogicalKeyboardKey(1098), LogicalKeyboardKey.bracketRight),
   a('ф', 'a', LogicalKeyboardKey(1092), LogicalKeyboardKey.keyA),
   s('ы', 's', LogicalKeyboardKey(1099), LogicalKeyboardKey.keyS),
   d('в', 'd', LogicalKeyboardKey(1074), LogicalKeyboardKey.keyD),
@@ -27,8 +30,8 @@ enum KeyboardKeys {
   j('о', 'j', LogicalKeyboardKey(1086), LogicalKeyboardKey.keyJ),
   k('л', 'k', LogicalKeyboardKey(1083), LogicalKeyboardKey.keyK),
   l('д', 'l', LogicalKeyboardKey(1076), LogicalKeyboardKey.keyL),
-  b1('ж', null, LogicalKeyboardKey(1078), null),
-  b2('э', null, LogicalKeyboardKey(1101), null),
+  b1('ж', null, LogicalKeyboardKey(1078), LogicalKeyboardKey.semicolon),
+  b2('э', null, LogicalKeyboardKey(1101), LogicalKeyboardKey.quoteSingle),
   z('я', 'z', LogicalKeyboardKey(1103), LogicalKeyboardKey.keyZ),
   x('ч', 'x', LogicalKeyboardKey(1095), LogicalKeyboardKey.keyX),
   c('с', 'c', LogicalKeyboardKey(1089), LogicalKeyboardKey.keyC),
@@ -36,8 +39,8 @@ enum KeyboardKeys {
   b('и', 'b', LogicalKeyboardKey(1080), LogicalKeyboardKey.keyB),
   n('т', 'n', LogicalKeyboardKey(1090), LogicalKeyboardKey.keyN),
   m('ь', 'm', LogicalKeyboardKey(1100), LogicalKeyboardKey.keyM),
-  c1('б', null, LogicalKeyboardKey(1073), null),
-  c2('ю', null, LogicalKeyboardKey(1102), null),
+  c1('б', null, LogicalKeyboardKey(1073), LogicalKeyboardKey.comma),
+  c2('ю', null, LogicalKeyboardKey(1102), LogicalKeyboardKey.period),
   enter('ввод', 'enter', null, null),
   delete('удалить', 'delete', null, null);
 
@@ -58,41 +61,36 @@ enum KeyboardKeys {
         (element) => element._notNullKeys.contains(logicalKey),
       );
 
-  String? fromDictionaryLang(DictionaryLanguages lang) {
-    switch (lang) {
-      case DictionaryLanguages.ru:
+  String? fromDictionary(DictionaryEnum dictionary) {
+    switch (dictionary) {
+      case DictionaryEnum.ru:
         return ruName;
-      case DictionaryLanguages.en:
+      case DictionaryEnum.en:
         return enName;
     }
   }
 
-  double width({
-    required DictionaryLanguages language,
-    required double screenWidth,
+  double size(
+    BuildContext context, {
+    required DictionaryEnum dictionary,
   }) {
-    final parentWidth = screenWidth > 400 ? 400 : screenWidth;
-    if (this == KeyboardKeys.delete) {
-      switch (language) {
-        case DictionaryLanguages.ru:
-          return parentWidth * _defaultWidthRu / 2 * 3.5;
-        case DictionaryLanguages.en:
-          return parentWidth * _defaultWidthEn / 2 * 2.8;
+    final size = MediaQuery.of(context).size;
+    final height = size.height / 3;
+    final width = min(size.width, 400);
+    final keySize = min(height, width);
+    if (this == KeyboardKeys.delete || this == KeyboardKeys.enter) {
+      switch (dictionary) {
+        case DictionaryEnum.ru:
+          return keySize * _defaultWidthRu / DictionaryEnum.ru.aspectRatio;
+        case DictionaryEnum.en:
+          return keySize * _defaultWidthEn / DictionaryEnum.en.aspectRatio;
       }
     }
-    if (this == KeyboardKeys.enter) {
-      switch (language) {
-        case DictionaryLanguages.ru:
-          return parentWidth * _defaultWidthRu / 2 * 3.5;
-        case DictionaryLanguages.en:
-          return parentWidth * _defaultWidthEn / 2 * 2.8;
-      }
-    }
-    switch (language) {
-      case DictionaryLanguages.ru:
-        return parentWidth * _defaultWidthRu;
-      case DictionaryLanguages.en:
-        return parentWidth * _defaultWidthEn;
+    switch (dictionary) {
+      case DictionaryEnum.ru:
+        return keySize * _defaultWidthRu;
+      case DictionaryEnum.en:
+        return keySize * _defaultWidthEn;
     }
   }
 
@@ -105,5 +103,16 @@ enum KeyboardKeys {
       list.add(enKey!);
     }
     return list;
+  }
+}
+
+extension KeyboardKeysExt on String {
+  KeyboardKeys? get toKeyboardKeys {
+    for (final element in KeyboardKeys.values) {
+      if (element.ruName == this || element.enName == this) {
+        return element;
+      }
+    }
+    return null;
   }
 }

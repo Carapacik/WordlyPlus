@@ -39,7 +39,11 @@ class _GamePageState extends State<GamePage> {
   }
 
   @override
-  Widget build(BuildContext context) => RawKeyboardListener(
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    print('Height ${size.height}');
+    print('Width ${size.width}');
+    return RawKeyboardListener(
         autofocus: true,
         focusNode: _focusNode,
         onKey: (event) {
@@ -105,6 +109,7 @@ class _GamePageState extends State<GamePage> {
           ),
         ),
       );
+  }
 
   VoidCallback _onStatisticPressed(BuildContext context) => () {
         Navigator.of(context).push(

@@ -39,72 +39,75 @@ class _GamePageState extends State<GamePage> {
   }
 
   @override
-  Widget build(BuildContext context) => RawKeyboardListener(
-        autofocus: true,
-        focusNode: _focusNode,
-        onKey: (event) {
-          if (event is RawKeyDownEvent) {
-            context.read<GameBloc>().add(GameEvent.keyListen(event));
-            return;
+  Widget build(BuildContext context) {
+    print(MediaQuery.of(context).size);
+    return RawKeyboardListener(
+      autofocus: true,
+      focusNode: _focusNode,
+      onKey: (event) {
+        if (event is RawKeyDownEvent) {
+          context.read<GameBloc>().add(GameEvent.keyListen(event));
+          return;
+        }
+      },
+      child: BlocListener<GameBloc, GameState>(
+        listener: (context, state) {
+          final error = state.whenOrNull(error: (error) => error);
+          if (error != null) {
+            showFloatingSnackBar(
+              context,
+              message: error.getName(context),
+              margin: EdgeInsets.fromLTRB(
+                horizontalPadding,
+                MediaQuery.of(context).padding.top,
+                horizontalPadding,
+                bottomPadding,
+              ),
+            );
+          }
+          late bool daily;
+          final gameResult = state.whenOrNull(
+            complete: (result, isDaily) {
+              daily = isDaily;
+              return result;
+            },
+          );
+          if (gameResult != null) {
+            showGameResultDialog(
+              context,
+              result: gameResult,
+              isDailyMode: daily,
+            );
           }
         },
-        child: BlocListener<GameBloc, GameState>(
-          listener: (context, state) {
-            final error = state.whenOrNull(error: (error) => error);
-            if (error != null) {
-              showFloatingSnackBar(
-                context,
-                message: error.getName(context),
-                margin: EdgeInsets.fromLTRB(
-                  horizontalPadding,
-                  MediaQuery.of(context).padding.top,
-                  horizontalPadding,
-                  bottomPadding,
-                ),
-              );
-            }
-            late bool daily;
-            final gameResult = state.whenOrNull(
-              complete: (result, isDaily) {
-                daily = isDaily;
-                return result;
-              },
-            );
-            if (gameResult != null) {
-              showGameResultDialog(
-                context,
-                result: gameResult,
-                isDailyMode: daily,
-              );
-            }
-          },
-          child: Scaffold(
-            drawer: const CustomDrawer(),
-            appBar: CustomAppBar(
-              title: widget.isDailyMode
-                  ? context.r.daily
-                  : context.r.level_number(
-                      context.read<GameBloc>().levelNumber,
-                    ),
-              actions: [
-                if (widget.isDailyMode)
-                  IconButton(
-                    tooltip: context.r.view_statistic,
-                    icon: const Icon(Icons.leaderboard),
-                    onPressed: _onStatisticPressed(context),
-                  )
-                else
-                  IconButton(
-                    tooltip: context.r.view_levels,
-                    icon: const Icon(Icons.apps),
-                    onPressed: _onLevelsPressed(context),
+        child: Scaffold(
+          drawer: const CustomDrawer(),
+          appBar: CustomAppBar(
+            title: widget.isDailyMode
+                ? context.r.daily
+                : context.r.level_number(
+                    context.read<GameBloc>().levelNumber,
                   ),
-              ],
-            ),
-            body: const _GameBody(),
+            actions: [
+              if (widget.isDailyMode)
+                IconButton(
+                  tooltip: context.r.view_statistic,
+                  icon: const Icon(Icons.leaderboard),
+                  onPressed: _onStatisticPressed(context),
+                )
+              else
+                IconButton(
+                  tooltip: context.r.view_levels,
+                  icon: const Icon(Icons.apps),
+                  onPressed: _onLevelsPressed(context),
+                ),
+            ],
           ),
+          body: const _GameBody(),
         ),
-      );
+      ),
+    );
+  }
 
   VoidCallback _onStatisticPressed(BuildContext context) => () {
         Navigator.of(context).push(
@@ -145,20 +148,15 @@ class _GameBody extends StatelessWidget {
   const _GameBody({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        children: [
-          const SizedBox(height: 8),
-          const WordGrid(),
-          const Spacer(),
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 500),
-            child: const KeyboardByLanguage(),
-          ),
-          const SizedBox(height: 8),
-        ],
-      ),
-    );
-  }
+  Widget build(BuildContext context) => SafeArea(
+        child: Column(
+          children: const [
+            SizedBox(height: 8),
+            WordGrid(),
+            Spacer(),
+            KeyboardByLanguage(),
+            SizedBox(height: 8),
+          ],
+        ),
+      );
 }

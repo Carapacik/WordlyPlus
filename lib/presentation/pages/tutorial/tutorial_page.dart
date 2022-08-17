@@ -15,78 +15,76 @@ class TutorialPage extends StatelessWidget {
         title: context.r.how_to_play,
         child: Scaffold(
           appBar: CustomAppBar(title: context.r.how_to_play),
-          body: SafeArea(
+          body: ConstraintScreen(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: ConstraintScreen(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      context.r.tutorial_text,
-                      style: context.theme.bl,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 16),
-                    _SpotWord(
-                      typeIndex: 0,
-                      letterIndex: 0,
-                      letter: context.r.the_letter,
-                      spot: context.r.letter_correct_spot,
-                    ),
-                    const SizedBox(height: 16),
-                    _SpotWord(
-                      typeIndex: 1,
-                      letterIndex: 2,
-                      letter: context.r.the_letter,
-                      spot: context.r.letter_wrong_spot,
-                    ),
-                    const SizedBox(height: 16),
-                    _SpotWord(
-                      typeIndex: 2,
-                      letterIndex: 4,
-                      letter: context.r.the_letters,
-                      spot: context.r.letter_not_in_word,
-                    ),
-                    const Spacer(),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute<void>(
-                            builder: (context) => const GamePage(),
-                          ),
-                          (route) => false,
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: context.dynamicColor(
-                          light: AppColors.greyLight,
-                          dark: AppColors.greyDark,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    context.r.tutorial_text,
+                    style: context.theme.bl,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 16),
+                  _SpotWord(
+                    typeIndex: 0,
+                    letterIndex: 0,
+                    letter: context.r.the_letter,
+                    spot: context.r.letter_correct_spot,
+                  ),
+                  const SizedBox(height: 16),
+                  _SpotWord(
+                    typeIndex: 1,
+                    letterIndex: 2,
+                    letter: context.r.the_letter,
+                    spot: context.r.letter_wrong_spot,
+                  ),
+                  const SizedBox(height: 16),
+                  _SpotWord(
+                    typeIndex: 2,
+                    letterIndex: 4,
+                    letter: context.r.the_letters,
+                    spot: context.r.letter_not_in_word,
+                  ),
+                  const Spacer(),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute<void>(
+                          builder: (context) => const GamePage(),
                         ),
+                        (route) => false,
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: context.dynamicColor(
+                        light: AppColors.greyLight,
+                        dark: AppColors.greyDark,
                       ),
-                      child: Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(text: context.r.start),
-                            WidgetSpan(
-                              alignment: PlaceholderAlignment.middle,
-                              baseline: TextBaseline.alphabetic,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 6),
-                                child: Icon(
-                                  Icons.adaptive.arrow_forward,
-                                  color: Colors.white,
-                                ),
+                    ),
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(text: context.r.start),
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            baseline: TextBaseline.alphabetic,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 6),
+                              child: Icon(
+                                Icons.adaptive.arrow_forward,
+                                color: Colors.white,
                               ),
-                            )
-                          ],
-                        ),
-                        style: context.theme.blb.copyWith(color: Colors.white),
+                            ),
+                          )
+                        ],
                       ),
+                      style: context.theme.blb.copyWith(color: Colors.white),
                     ),
-                    const SizedBox(height: 40),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 40),
+                ],
               ),
             ),
           ),

@@ -81,7 +81,7 @@ Future<void> main() async {
                 )..add(const GameEvent.loadGame()),
               ),
             ],
-            child: App(),
+            child: const App(),
           ),
         ),
       );

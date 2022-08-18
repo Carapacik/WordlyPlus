@@ -1,12 +1,17 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
+import 'package:wordly/utils/constants.dart';
 
-double horizontalPadding(BuildContext context) {
-  final width = MediaQuery.of(context).size.width;
-  return width > 500 ? (width - 500) / 2 + 72 : 20;
-}
+double get horizontalPadding => _screenSize.width > maxMobileWidth
+    ? (_screenSize.width - maxMobileWidth) / 2 + 72
+    : 20;
 
-double bottomPadding(BuildContext context) =>
-    MediaQuery.of(context).size.height -
-    MediaQuery.of(context).padding.top -
-    MediaQuery.of(context).padding.bottom -
-    kToolbarHeight;
+double get bottomPadding =>
+    _screenSize.height - _verticalSafeAreaPadding - kToolbarHeight;
+
+Size get _screenSize => ui.window.physicalSize / ui.window.devicePixelRatio;
+
+double get _verticalSafeAreaPadding =>
+    (ui.window.padding.top + ui.window.padding.bottom) /
+    ui.window.devicePixelRatio;

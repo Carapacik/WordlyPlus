@@ -44,9 +44,10 @@ class CreditsPage extends StatelessWidget {
           ),
           body: ConstraintScreen(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
+                  const SizedBox(height: 12),
                   _CreditCategory(
                     title: context.r.created_by,
                     peoples: rofl,

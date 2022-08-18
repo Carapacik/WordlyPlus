@@ -28,9 +28,7 @@ void showGameResultDialog(
                 light: AppColors.redLight,
                 dark: AppColors.redDark,
               ),
-        insetPadding: EdgeInsets.symmetric(
-          horizontal: horizontalPadding(context),
-        ),
+        insetPadding: EdgeInsets.symmetric(horizontal: horizontalPadding),
         insetAnimationDuration: const Duration(milliseconds: 500),
         child: Padding(
           padding: const EdgeInsets.all(32),

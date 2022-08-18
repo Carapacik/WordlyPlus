@@ -22,7 +22,7 @@ class LevelsPage extends StatelessWidget {
                     return const HaveNotPlayed();
                   }
                   return GridView.builder(
-                    padding: const EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(20),
                     itemCount: levels.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(

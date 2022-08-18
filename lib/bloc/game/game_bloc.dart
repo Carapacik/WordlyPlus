@@ -317,9 +317,19 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   }
 
   void _colorKeyboard(List<LetterInfo> list) {
+    bool replaceKeyboardKey(KeyboardKeys? keyboardKey, LetterInfo letter) {
+      return _keyboardInfo.containsKey(keyboardKey) &&
+          (_keyboardInfo[keyboardKey] == LetterStatus.correctSpot ||
+              (_keyboardInfo[keyboardKey] == LetterStatus.wrongSpot &&
+                  letter.letterStatus != LetterStatus.correctSpot));
+    }
+
     for (final item in list) {
       final keyboardKey = item.letter.toKeyboardKeys;
       if (keyboardKey == null) {
+        continue;
+      }
+      if (replaceKeyboardKey(keyboardKey, item)) {
         continue;
       }
       _keyboardInfo[keyboardKey] = item.letterStatus;

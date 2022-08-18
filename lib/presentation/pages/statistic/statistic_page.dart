@@ -56,7 +56,7 @@ class StatisticPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: FittedBox(
                           child: Text(
                             context.r.guess_distribution.toUpperCase(),

@@ -1,12 +1,11 @@
 import 'dart:math';
+import 'dart:ui' as ui;
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wordly/data/models/dictionary_enum.dart';
-
-const _defaultWidthRu = 0.098;
-const _defaultWidthEn = 0.12;
+import 'package:wordly/utils/utils.dart';
 
 enum KeyboardKeys {
   q('й', 'q', LogicalKeyboardKey(1081), LogicalKeyboardKey.keyQ),
@@ -70,28 +69,26 @@ enum KeyboardKeys {
     }
   }
 
-  double size(
-    BuildContext context, {
-    required DictionaryEnum dictionary,
-  }) {
-    final size = MediaQuery.of(context).size;
-    final height = size.height / 3;
-    final width = min(size.width, 400);
-    final keySize = min(height, width);
-    if (this == KeyboardKeys.delete || this == KeyboardKeys.enter) {
-      switch (dictionary) {
-        case DictionaryEnum.ru:
-          return keySize * _defaultWidthRu / DictionaryEnum.ru.aspectRatio;
-        case DictionaryEnum.en:
-          return keySize * _defaultWidthEn / DictionaryEnum.en.aspectRatio;
-      }
-    }
-    switch (dictionary) {
-      case DictionaryEnum.ru:
-        return keySize * _defaultWidthRu;
-      case DictionaryEnum.en:
-        return keySize * _defaultWidthEn;
-    }
+  double sizeUnit(BuildContext context, DictionaryEnum dictionary) {
+    final window = ui.window;
+    final safePaddings =
+        (window.padding.top + window.padding.bottom) / window.devicePixelRatio +
+            kToolbarHeight;
+    final height = MediaQuery.of(context).size.height - safePaddings - 66;
+    final width = MediaQuery.of(context).size.width;
+    final correctHeight = height -
+        _calculateCellSize(
+          height > 1.5 * width
+              ? width > maxMobileWidth
+                  ? maxMobileWidth
+                  : width
+              : height / 2,
+        );
+    final correctWidth = min(width, maxMobileWidth + 40);
+    final oneKeyW = (correctWidth - (dictionary.keysNumber - 2).floor() * 4) /
+        dictionary.keysNumber;
+    final oneKeyH = height > width ? correctHeight / 3 : correctHeight / 6;
+    return min(oneKeyH / 3, oneKeyW / 2);
   }
 
   List<LogicalKeyboardKey> get _notNullKeys {
@@ -104,6 +101,9 @@ enum KeyboardKeys {
     }
     return list;
   }
+
+  // -8 - 40 - 4 * 8          + 5 * 8
+  double _calculateCellSize(double gridWidth) => (gridWidth - 72) / 5 * 6 + 40;
 }
 
 extension KeyboardKeysExt on String {

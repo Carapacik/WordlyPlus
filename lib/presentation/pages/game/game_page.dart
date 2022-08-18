@@ -56,10 +56,10 @@ class _GamePageState extends State<GamePage> {
                 context,
                 message: error.getName(context),
                 margin: EdgeInsets.fromLTRB(
-                  horizontalPadding(context),
+                  horizontalPadding,
                   MediaQuery.of(context).padding.top,
-                  horizontalPadding(context),
-                  bottomPadding(context),
+                  horizontalPadding,
+                  bottomPadding,
                 ),
               );
             }
@@ -145,20 +145,15 @@ class _GameBody extends StatelessWidget {
   const _GameBody({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        children: [
-          const SizedBox(height: 8),
-          const WordGrid(),
-          const Spacer(),
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 500),
-            child: const KeyboardByLanguage(),
-          ),
-          const SizedBox(height: 8),
-        ],
-      ),
-    );
-  }
+  Widget build(BuildContext context) => SafeArea(
+        child: Column(
+          children: const [
+            SizedBox(height: 8),
+            WordGrid(),
+            Spacer(),
+            KeyboardByLanguage(),
+            SizedBox(height: 8),
+          ],
+        ),
+      );
 }

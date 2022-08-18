@@ -85,15 +85,10 @@ enum KeyboardKeys {
               : height / 2,
         );
     final correctWidth = min(width, maxMobileWidth + 40);
-    final oneKeyW = (correctWidth - 36) / 10.5;
+    final oneKeyW = (correctWidth - (dictionary.keysNumber - 2).floor() * 4) /
+        dictionary.keysNumber;
     final oneKeyH = height > width ? correctHeight / 3 : correctHeight / 6;
-    final oneKey = min(oneKeyH / 3, oneKeyW / 2);
-    switch (dictionary) {
-      case DictionaryEnum.ru:
-        return oneKey;
-      case DictionaryEnum.en:
-        return oneKey;
-    }
+    return min(oneKeyH / 3, oneKeyW / 2);
   }
 
   List<LogicalKeyboardKey> get _notNullKeys {
@@ -107,8 +102,8 @@ enum KeyboardKeys {
     return list;
   }
 
-  double _calculateCellSize(double gridWidth) =>
-      (gridWidth - 8 - 40 - 8 * 4) / 5 * 6 + 8 * 5;
+  // -8 - 40 - 4 * 8          + 5 * 8
+  double _calculateCellSize(double gridWidth) => (gridWidth - 72) / 5 * 6 + 40;
 }
 
 extension KeyboardKeysExt on String {

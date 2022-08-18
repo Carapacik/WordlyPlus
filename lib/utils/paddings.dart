@@ -12,5 +12,6 @@ double get bottomPadding =>
 
 Size get _screenSize => ui.window.physicalSize / ui.window.devicePixelRatio;
 
-double get _verticalSafeAreaPadding => (ui.window.padding.top + ui.window.padding.bottom) /
-      ui.window.devicePixelRatio;
+double get _verticalSafeAreaPadding =>
+    (ui.window.padding.top + ui.window.padding.bottom) /
+    ui.window.devicePixelRatio;

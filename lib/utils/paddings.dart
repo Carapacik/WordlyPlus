@@ -3,8 +3,8 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:wordly/utils/constants.dart';
 
-double get horizontalPadding => _screenSize.width > mobileWidth
-    ? (_screenSize.width - mobileWidth) / 2 + 72
+double get horizontalPadding => _screenSize.width > maxMobileWidth
+    ? (_screenSize.width - maxMobileWidth) / 2 + 72
     : 20;
 
 double get bottomPadding =>
@@ -12,9 +12,5 @@ double get bottomPadding =>
 
 Size get _screenSize => ui.window.physicalSize / ui.window.devicePixelRatio;
 
-double get _verticalSafeAreaPadding {
-  final ss = (ui.window.padding.top + ui.window.padding.bottom) /
+double get _verticalSafeAreaPadding => (ui.window.padding.top + ui.window.padding.bottom) /
       ui.window.devicePixelRatio;
-  print(ss);
-  return ss;
-}

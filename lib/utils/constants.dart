@@ -1,1 +1,1 @@
-const mobileWidth = 450.0;
+const maxMobileWidth = 700.0;

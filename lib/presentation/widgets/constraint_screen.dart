@@ -11,7 +11,7 @@ class ConstraintScreen extends StatelessWidget {
         child: Align(
           alignment: Alignment.topCenter,
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: mobileWidth),
+            constraints: const BoxConstraints(maxWidth: maxMobileWidth),
             child: child,
           ),
         ),

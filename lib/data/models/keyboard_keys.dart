@@ -78,7 +78,7 @@ enum KeyboardKeys {
     final width = MediaQuery.of(context).size.width;
     final correctHeight = height -
         _calculateCellSize(
-          height > width
+          height > 1.5 * width
               ? width > maxMobileWidth
                   ? maxMobileWidth
                   : width

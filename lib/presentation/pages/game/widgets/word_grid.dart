@@ -13,7 +13,8 @@ class WordGrid extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return ConstrainedBox(
       constraints: BoxConstraints(
-        maxWidth: size.height > size.width ? maxMobileWidth : size.height / 2,
+        maxWidth:
+            size.height > 1.8 * size.width ? maxMobileWidth : size.height / 2,
       ),
       child: BlocBuilder<GameBloc, GameState>(
         buildWhen: (_, current) => current.isUpdate,

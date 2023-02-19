@@ -1,6 +1,6 @@
 part of 'theme_bloc.dart';
 
-@freezed
+@Freezed()
 class ThemeState with _$ThemeState {
   const ThemeState._();
 

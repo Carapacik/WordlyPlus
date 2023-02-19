@@ -1,6 +1,6 @@
 part of 'levels_bloc.dart';
 
-@freezed
+@Freezed()
 class LevelsEvent with _$LevelsEvent {
   const LevelsEvent._();
 

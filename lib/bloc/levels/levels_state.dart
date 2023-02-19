@@ -1,6 +1,6 @@
 part of 'levels_bloc.dart';
 
-@freezed
+@Freezed()
 class LevelsState with _$LevelsState {
   const LevelsState._();
 

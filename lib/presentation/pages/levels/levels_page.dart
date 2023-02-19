@@ -15,9 +15,11 @@ class LevelsPage extends StatelessWidget {
           appBar: CustomAppBar(title: context.r.levels),
           body: ConstraintScreen(
             child: BlocBuilder<LevelsBloc, LevelsState>(
-              builder: (context, state) => state.when(
-                initial: () => const Center(child: CircularProgressIndicator()),
-                levelsLoaded: (levels) {
+              builder: (context, state) => state.map(
+                initial: (_) =>
+                    const Center(child: CircularProgressIndicator()),
+                levelsLoaded: (s) {
+                  final levels = s.levels;
                   if (levels.isEmpty) {
                     return const HaveNotPlayed();
                   }

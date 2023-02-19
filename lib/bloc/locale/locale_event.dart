@@ -1,6 +1,6 @@
 part of 'locale_bloc.dart';
 
-@freezed
+@Freezed()
 class LocaleEvent with _$LocaleEvent {
   const LocaleEvent._();
 

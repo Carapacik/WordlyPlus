@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_single_quotes, avoid_escaping_inner_quotes
+
 const Map<String, String> dictionaryEn = {
   "aback": "To be very shocked or surprised",
   "abaft": "At the back of or behind a ship or boat",

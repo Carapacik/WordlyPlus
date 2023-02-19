@@ -1,6 +1,6 @@
 part of 'game_bloc.dart';
 
-@freezed
+@Freezed()
 class GameState with _$GameState {
   const GameState._();
 

@@ -12,7 +12,7 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        decoration: BoxDecoration(color: context.theme.backgroundColor),
+        decoration: BoxDecoration(color: context.theme.scaffoldBackgroundColor),
         width: 200,
         child: SafeArea(
           child: Column(
@@ -48,9 +48,9 @@ class CustomDrawer extends StatelessWidget {
               ),
               ListTile(
                 title: Text(context.r.how_to_play, style: context.theme.tmb),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(
+                onTap: () async {
+                  final navigator = Navigator.of(context)..pop();
+                  await navigator.push(
                     MaterialPageRoute<void>(
                       builder: (context) => const TutorialPage(),
                     ),
@@ -59,9 +59,9 @@ class CustomDrawer extends StatelessWidget {
               ),
               ListTile(
                 title: Text(context.r.settings, style: context.theme.tmb),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(
+                onTap: () async {
+                  final navigator = Navigator.of(context)..pop();
+                  await navigator.push(
                     MaterialPageRoute<void>(
                       builder: (context) => const SettingsPage(),
                     ),
@@ -71,9 +71,9 @@ class CustomDrawer extends StatelessWidget {
               const Spacer(),
               ListTile(
                 title: Text(context.r.about, style: context.theme.tmb),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(
+                onTap: () async {
+                  final navigator = Navigator.of(context)..pop();
+                  await navigator.push(
                     MaterialPageRoute<void>(
                       builder: (context) => const CreditsPage(),
                     ),

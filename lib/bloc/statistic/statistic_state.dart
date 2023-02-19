@@ -1,6 +1,6 @@
 part of 'statistic_bloc.dart';
 
-@freezed
+@Freezed()
 class StatisticState with _$StatisticState {
   const StatisticState._();
 

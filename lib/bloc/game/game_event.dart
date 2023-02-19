@@ -2,7 +2,7 @@ part of 'game_bloc.dart';
 
 typedef TextFunction = String Function(Object, Object);
 
-@freezed
+@Freezed()
 class GameEvent with _$GameEvent {
   const GameEvent._();
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wordly/resources/l10n.dart';
 
-extension ContextHelper on BuildContext {
+extension BuildContextX on BuildContext {
   R get r => R.of(this);
 
   ThemeData get theme => Theme.of(this);
@@ -13,7 +13,7 @@ extension ContextHelper on BuildContext {
       Theme.of(this).brightness == Brightness.dark ? dark : light;
 }
 
-extension TextThemeHelper on ThemeData {
+extension ThemeDataX on ThemeData {
   TextStyle get tl =>
       textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w400);
 

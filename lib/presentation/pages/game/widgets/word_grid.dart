@@ -19,9 +19,9 @@ class WordGrid extends StatelessWidget {
       child: BlocBuilder<GameBloc, GameState>(
         buildWhen: (_, current) => current.isUpdate,
         builder: (context, state) {
-          final gridInfo = state.maybeWhen(
-            boardUpdate: (board) => board,
-            wordSubmit: (board, _) => board,
+          final gridInfo = state.maybeMap(
+            boardUpdate: (s) => s.board,
+            wordSubmit: (s) => s.board,
             orElse: () => <LetterInfo>[],
           );
           return GridView.builder(

@@ -1,6 +1,6 @@
 part of 'dictionary_bloc.dart';
 
-@freezed
+@Freezed()
 class DictionaryEvent with _$DictionaryEvent {
   const DictionaryEvent._();
 

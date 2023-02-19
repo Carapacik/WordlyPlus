@@ -17,9 +17,11 @@ class StatisticPage extends StatelessWidget {
           appBar: CustomAppBar(title: context.r.statistic),
           body: ConstraintScreen(
             child: BlocBuilder<StatisticBloc, StatisticState>(
-              builder: (context, state) => state.when(
-                initial: () => const Center(child: CircularProgressIndicator()),
-                statisticLoaded: (statistic) {
+              builder: (context, state) => state.map(
+                initial: (_) =>
+                    const Center(child: CircularProgressIndicator()),
+                statisticLoaded: (s) {
+                  final statistic = s.statistic;
                   if (statistic == null) {
                     return const HaveNotPlayed();
                   }
@@ -81,6 +83,7 @@ class _StatText extends StatelessWidget {
     required this.value,
     required this.title,
     this.percent = false,
+    // ignore: unused_element
     super.key,
   });
 

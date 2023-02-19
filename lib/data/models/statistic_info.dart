@@ -12,9 +12,8 @@ class StatisticInfo {
         loses: json['loses'] as int,
         streak: json['streak'] as int,
         maxStreak: json['maxStreak'] as int,
-        attempts: (json['attempts'] as List<dynamic>)
-            .map((dynamic e) => e as int)
-            .toList(),
+        attempts:
+            (json['attempts'] as List<dynamic>).map((e) => e as int).toList(),
       );
 
   final int wins;

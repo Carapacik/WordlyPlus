@@ -1,6 +1,6 @@
 part of 'theme_bloc.dart';
 
-@freezed
+@Freezed()
 class ThemeEvent with _$ThemeEvent {
   const ThemeEvent._();
 

@@ -53,10 +53,10 @@ class KeyboardKey extends StatelessWidget {
   }
 
   Color _bgColorByState(GameState state, BuildContext context) {
-    final color = state.whenOrNull(
-      wordSubmit: (_, keyboard) {
-        if (keyboard.containsKey(keyboardKey)) {
-          return keyboard[keyboardKey]?.itemColor(context, grid: false);
+    final color = state.mapOrNull(
+      wordSubmit: (s) {
+        if (s.keyboard.containsKey(keyboardKey)) {
+          return s.keyboard[keyboardKey]?.itemColor(context, grid: false);
         }
         return null;
       },
@@ -69,10 +69,10 @@ class KeyboardKey extends StatelessWidget {
   }
 
   Color _txtColorByState(GameState state, BuildContext context) {
-    final color = state.whenOrNull(
-      wordSubmit: (_, keyboard) {
-        if (keyboard.containsKey(keyboardKey)) {
-          return keyboard[keyboardKey] != LetterStatus.unknown
+    final color = state.mapOrNull(
+      wordSubmit: (s) {
+        if (s.keyboard.containsKey(keyboardKey)) {
+          return s.keyboard[keyboardKey] != LetterStatus.unknown
               ? Colors.white
               : null;
         }

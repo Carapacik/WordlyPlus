@@ -68,6 +68,7 @@ class SettingsPage extends StatelessWidget {
 }
 
 class _Divider extends StatelessWidget {
+  // ignore: unused_element
   const _Divider({super.key});
 
   @override

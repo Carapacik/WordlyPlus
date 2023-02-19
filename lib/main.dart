@@ -15,7 +15,7 @@ import 'package:wordly/data/repositories.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
+  await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
@@ -23,7 +23,7 @@ Future<void> main() async {
 
   runZonedGuarded<void>(
     () async {
-      Bloc.observer = AppBlocObserver();
+      Bloc.observer = const AppBlocObserver();
       final ISaveGameRepository gameRepo = SaveGameRepository();
       final ISaveStatisticRepository statisticRepo = SaveStatisticRepository();
       final ISaveLevelsRepository levelsRepo = SaveLevelsRepository();

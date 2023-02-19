@@ -31,6 +31,7 @@ class SaveSettingsRepository implements ISaveSettingsRepository {
   static const _localeKey = 'locale_key';
   late bool _isSecondLaunch;
 
+  @override
   bool get isSecondLaunch => _isSecondLaunch;
 
   @override

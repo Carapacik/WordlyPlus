@@ -23,7 +23,7 @@ class ToggleListTile extends StatelessWidget {
         child: ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: 16),
           title: Text(title, style: context.theme.bl),
-          trailing: Switch.adaptive(
+          trailing: Switch(
             value: value,
             onChanged: onChanged,
             activeColor: isHighContrast

@@ -184,7 +184,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         word: _secretWord,
         meaning: _dictionary.currentDictionary[_secretWord] ?? '',
       );
-      _saveResultAndBoard(gameResult);
+      await _saveResultAndBoard(gameResult);
 
       emit(GameState.wordSubmit(board: _gridInfo, keyboard: _keyboardInfo));
     }

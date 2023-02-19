@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,7 +52,7 @@ class _GamePageState extends State<GamePage> {
         },
         child: BlocListener<GameBloc, GameState>(
           listener: (context, state) {
-            final error = state.whenOrNull(error: (error) => error);
+            final error = state.mapOrNull(error: (s) => s.error);
             if (error != null) {
               showFloatingSnackBar(
                 context,
@@ -64,10 +66,10 @@ class _GamePageState extends State<GamePage> {
               );
             }
             late bool daily;
-            final gameResult = state.whenOrNull(
-              complete: (result, isDaily) {
-                daily = isDaily;
-                return result;
+            final gameResult = state.mapOrNull(
+              complete: (s) {
+                daily = s.isDaily;
+                return s.result;
               },
             );
             if (gameResult != null) {
@@ -107,41 +109,46 @@ class _GamePageState extends State<GamePage> {
       );
 
   VoidCallback _onStatisticPressed(BuildContext context) => () {
-        Navigator.of(context).push(
-          MaterialPageRoute<void>(
-            builder: (_) {
-              final repository = context.read<ISaveStatisticRepository>();
-              final dictionary =
-                  context.read<DictionaryBloc>().state.dictionary;
-              return BlocProvider<StatisticBloc>(
-                create: (context) => StatisticBloc(repository)
-                  ..add(StatisticEvent.statisticLoad(dictionary)),
-                child: const StatisticPage(),
-              );
-            },
+        unawaited(
+          Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) {
+                final repository = context.read<ISaveStatisticRepository>();
+                final dictionary =
+                    context.read<DictionaryBloc>().state.dictionary;
+                return BlocProvider<StatisticBloc>(
+                  create: (context) => StatisticBloc(repository)
+                    ..add(StatisticEvent.statisticLoad(dictionary)),
+                  child: const StatisticPage(),
+                );
+              },
+            ),
           ),
         );
       };
 
   VoidCallback _onLevelsPressed(BuildContext context) => () {
-        Navigator.of(context).push(
-          MaterialPageRoute<void>(
-            builder: (_) {
-              final repository = context.read<ISaveLevelsRepository>();
-              final dictionary =
-                  context.read<DictionaryBloc>().state.dictionary;
-              return BlocProvider<LevelsBloc>(
-                create: (context) => LevelsBloc(repository)
-                  ..add(LevelsEvent.levelsLoad(dictionary)),
-                child: const LevelsPage(),
-              );
-            },
+        unawaited(
+          Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) {
+                final repository = context.read<ISaveLevelsRepository>();
+                final dictionary =
+                    context.read<DictionaryBloc>().state.dictionary;
+                return BlocProvider<LevelsBloc>(
+                  create: (context) => LevelsBloc(repository)
+                    ..add(LevelsEvent.levelsLoad(dictionary)),
+                  child: const LevelsPage(),
+                );
+              },
+            ),
           ),
         );
       };
 }
 
 class _GameBody extends StatelessWidget {
+  // ignore: unused_element
   const _GameBody({super.key});
 
   @override

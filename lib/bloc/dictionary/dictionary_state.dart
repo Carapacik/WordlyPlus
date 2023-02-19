@@ -1,6 +1,6 @@
 part of 'dictionary_bloc.dart';
 
-@freezed
+@Freezed()
 class DictionaryState with _$DictionaryState {
   const DictionaryState._();
 

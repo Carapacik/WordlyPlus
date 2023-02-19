@@ -49,8 +49,8 @@ class TutorialPage extends StatelessWidget {
                   ),
                   const Spacer(),
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushAndRemoveUntil(
+                    onPressed: () async {
+                      await Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute<void>(
                           builder: (context) => const GamePage(),
                         ),
@@ -58,7 +58,7 @@ class TutorialPage extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: context.dynamicColor(
+                      backgroundColor: context.dynamicColor(
                         light: AppColors.greyLight,
                         dark: AppColors.greyDark,
                       ),
@@ -98,6 +98,7 @@ class _SpotWord extends StatelessWidget {
     required this.letterIndex,
     required this.letter,
     required this.spot,
+    // ignore: unused_element
     super.key,
   });
 

@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wordly/resources/colors.dart';
 
-final _base = ThemeData.light();
+final _base = ThemeData.light(useMaterial3: true);
 
 final lightTheme = _base.copyWith(
   useMaterial3: true,
-  backgroundColor: AppColors.light,
   scaffoldBackgroundColor: AppColors.light,
   textTheme: GoogleFonts.ubuntuTextTheme(_base.textTheme).copyWith(
     titleLarge: const TextStyle(

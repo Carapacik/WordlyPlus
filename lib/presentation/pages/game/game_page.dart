@@ -152,9 +152,9 @@ class _GameBody extends StatelessWidget {
   const _GameBody({super.key});
 
   @override
-  Widget build(BuildContext context) => SafeArea(
+  Widget build(BuildContext context) => const SafeArea(
         child: Column(
-          children: const [
+          children: [
             SizedBox(height: 8),
             WordGrid(),
             Spacer(),

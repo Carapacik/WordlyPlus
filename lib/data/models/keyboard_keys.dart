@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:ui' as ui;
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -70,9 +69,9 @@ enum KeyboardKeys {
   }
 
   double sizeUnit(BuildContext context, DictionaryEnum dictionary) {
-    final window = ui.window;
+    final view = View.of(context);
     final safePaddings =
-        (window.padding.top + window.padding.bottom) / window.devicePixelRatio +
+        (view.padding.top + view.padding.bottom) / view.devicePixelRatio +
             kToolbarHeight;
     final height = MediaQuery.of(context).size.height - safePaddings - 66;
     final width = MediaQuery.of(context).size.width;

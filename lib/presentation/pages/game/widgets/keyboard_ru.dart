@@ -6,13 +6,13 @@ class KeyboardRu extends StatelessWidget {
   const KeyboardRu({super.key});
 
   @override
-  Widget build(BuildContext context) => Column(
+  Widget build(BuildContext context) => const Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               KeyboardKey(
                 keyboardKey: KeyboardKeys.q,
                 dictionary: DictionaryEnum.ru,
@@ -63,10 +63,10 @@ class KeyboardRu extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: 4),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Spacer(),
               KeyboardKey(
                 keyboardKey: KeyboardKeys.a,
@@ -115,10 +115,10 @@ class KeyboardRu extends StatelessWidget {
               Spacer(),
             ],
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: 4),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               EnterKeyboardKey(dictionary: DictionaryEnum.ru),
               KeyboardKey(
                 keyboardKey: KeyboardKeys.z,

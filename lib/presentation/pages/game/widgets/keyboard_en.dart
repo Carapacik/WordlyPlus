@@ -6,12 +6,12 @@ class KeyboardEn extends StatelessWidget {
   const KeyboardEn({super.key});
 
   @override
-  Widget build(BuildContext context) => Column(
+  Widget build(BuildContext context) => const Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               KeyboardKey(keyboardKey: KeyboardKeys.q),
               KeyboardKey(keyboardKey: KeyboardKeys.w),
               KeyboardKey(keyboardKey: KeyboardKeys.e),
@@ -24,10 +24,10 @@ class KeyboardEn extends StatelessWidget {
               KeyboardKey(keyboardKey: KeyboardKeys.p),
             ],
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: 4),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Spacer(),
               KeyboardKey(keyboardKey: KeyboardKeys.a),
               KeyboardKey(keyboardKey: KeyboardKeys.s),
@@ -41,10 +41,10 @@ class KeyboardEn extends StatelessWidget {
               Spacer(),
             ],
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: 4),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               EnterKeyboardKey(),
               KeyboardKey(keyboardKey: KeyboardKeys.z),
               KeyboardKey(keyboardKey: KeyboardKeys.x),

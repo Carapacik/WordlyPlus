@@ -58,10 +58,10 @@ class _GamePageState extends State<GamePage> {
                 context,
                 message: error.getName(context),
                 margin: EdgeInsets.fromLTRB(
-                  horizontalPadding,
+                  horizontalPadding(context),
                   MediaQuery.of(context).padding.top,
-                  horizontalPadding,
-                  bottomPadding,
+                  horizontalPadding(context),
+                  bottomPadding(context),
                 ),
               );
             }

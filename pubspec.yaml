@@ -27,7 +27,7 @@ dependencies:
 dev_dependencies:
   build_runner: ^2.4.4
   carapacik_lints: ^1.4.0
-  flutter_native_splash: ^2.2.19
+  flutter_native_splash: ^2.3.0
   freezed: ^2.3.3
   icons_launcher: ^2.1.0
   json_serializable: ^6.7.0

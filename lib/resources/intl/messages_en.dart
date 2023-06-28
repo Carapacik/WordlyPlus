@@ -29,7 +29,6 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m2(number) => "Level ${number}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("About"),
         "app_language": MessageLookupByLibrary.simpleMessage("App language"),

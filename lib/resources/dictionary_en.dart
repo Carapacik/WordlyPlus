@@ -5572,4 +5572,6 @@ const Map<String, String> dictionaryEn = {
       "An area, especially one that is different from the areas around it because it has different characteristics or is used for different purposes",
   "zumba":
       "A brand name for a type of exercise in which you do dance moves and other exercises to Latin American music, usually in a class with other people",
+  "tears":
+      "a drop of salty liquid that flows from the eye, as a result of strong emotion, especially unhappiness, or pain",
 };

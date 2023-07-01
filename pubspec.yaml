@@ -20,7 +20,7 @@ dependencies:
   intl: ^0.18.0
   json_annotation: ^4.8.1
   share_plus: ^7.0.2
-  shared_preferences: ^2.1.2
+  shared_preferences: ^2.2.0
   url_launcher: ^6.1.11
   url_strategy: ^0.2.0
 

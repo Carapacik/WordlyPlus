@@ -30,7 +30,7 @@ dev_dependencies:
   flutter_native_splash: ^2.3.1
   freezed: ^2.3.5
   icons_launcher: ^2.1.2
-  json_serializable: ^6.7.0
+  json_serializable: ^6.7.1
 
 flutter:
   uses-material-design: true

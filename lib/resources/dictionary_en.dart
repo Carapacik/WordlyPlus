@@ -1067,7 +1067,7 @@ const Map<String, String> dictionaryEn = {
   "covet":
       "To want to have something very much, especially something that belongs to someone else",
   "covey": "A group of birds",
-  "cowed": "A large female farm animal kept to produce meat and milk",
+  "cowed": "Frightened by threats or violence into doing something",
   "cower": "To lower your head or body in fear, often while moving backwards",
   "coxae":
       "A Latin word meaning \"hip\" or \"hip joint\", used in medical names and descriptions",

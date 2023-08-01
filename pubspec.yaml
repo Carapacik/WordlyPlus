@@ -15,7 +15,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^2.0.7
-  freezed_annotation: ^2.2.0
+  freezed_annotation: ^2.4.1
   google_fonts: ^5.1.0
   intl: ^0.18.0
   json_annotation: ^4.8.1

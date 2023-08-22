@@ -104,7 +104,7 @@ class _StatText extends StatelessWidget {
             title,
             style: context.theme.ll,
             textAlign: TextAlign.center,
-          )
+          ),
         ],
       );
 }

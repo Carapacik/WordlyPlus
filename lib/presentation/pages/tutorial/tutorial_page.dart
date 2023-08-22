@@ -77,7 +77,7 @@ class TutorialPage extends StatelessWidget {
                                 color: Colors.white,
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                       style: context.theme.blb.copyWith(color: Colors.white),

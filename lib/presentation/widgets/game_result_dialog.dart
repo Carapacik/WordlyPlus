@@ -65,7 +65,7 @@ void showGameResultDialog(
                 if (isDailyMode)
                   _DailyContent(isWin: result.isWin!)
                 else
-                  _LevelContent(isWin: result.isWin!)
+                  _LevelContent(isWin: result.isWin!),
               ],
             ),
           ),

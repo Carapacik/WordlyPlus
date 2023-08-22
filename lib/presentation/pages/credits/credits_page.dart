@@ -15,22 +15,13 @@ class CreditsPage extends StatelessWidget {
 
   static const email = 'carapacik@gmail.com';
 
-  static const rofl = [
-    CreditPeople('Carapacik', 'https://github.com/Carapacik')
-  ];
-
-  static const gameDesign = [
-    CreditPeople('Carapacik', 'https://github.com/Carapacik'),
+  static const _gameDesign = [
+    CreditPeople('Carapacik', 'https://carapacik.github.io'),
     CreditPeople('Sancene', 'https://github.com/Sancene'),
   ];
 
-  static const visualDesign = [
-    CreditPeople('Carapacik', 'https://github.com/Carapacik'),
-    CreditPeople('Mary Wilson', 'https://www.behance.net/bugagam'),
-  ];
-
-  static const dictionary = [
-    CreditPeople('Carapacik', 'https://github.com/Carapacik'),
+  static const _dictionary = [
+    CreditPeople('Carapacik', 'https://carapacik.github.io'),
     CreditPeople('Alex Dekhant', 'https://github.com/Dekhant'),
   ];
 
@@ -49,20 +40,12 @@ class CreditsPage extends StatelessWidget {
                 children: [
                   const SizedBox(height: 12),
                   _CreditCategory(
-                    title: context.r.created_by,
-                    peoples: rofl,
-                  ),
-                  _CreditCategory(
                     title: context.r.game_design,
-                    peoples: gameDesign,
-                  ),
-                  _CreditCategory(
-                    title: context.r.visual_design,
-                    peoples: visualDesign,
+                    peoples: _gameDesign,
                   ),
                   _CreditCategory(
                     title: context.r.dictionary,
-                    peoples: dictionary,
+                    peoples: _dictionary,
                   ),
                   const Spacer(),
                   Link(

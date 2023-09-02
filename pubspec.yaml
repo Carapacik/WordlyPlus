@@ -21,7 +21,7 @@ dependencies:
   json_annotation: ^4.8.1
   share_plus: ^7.1.0
   shared_preferences: ^2.2.1
-  url_launcher: ^6.1.12
+  url_launcher: ^6.1.14
   url_strategy: ^0.2.0
 
 dev_dependencies:

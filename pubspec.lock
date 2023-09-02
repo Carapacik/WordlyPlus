@@ -125,10 +125,10 @@ packages:
     dependency: "direct dev"
     description:
       name: carapacik_lints
-      sha256: "44e0a843cdb7621bbb5177d81b701ac98469f3c0067c8b88dd92043e1e4311bc"
+      sha256: "6ffb75dc7fa47f130435e8f7968c3ae2710ff09aa088d3c4530c48163b9ebdef"
       url: "https://pub.dev"
     source: hosted
-    version: "1.5.0"
+    version: "1.5.1"
   characters:
     dependency: transitive
     description:

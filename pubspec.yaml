@@ -16,7 +16,7 @@ dependencies:
     sdk: flutter
   flutter_svg: ^2.0.7
   freezed_annotation: ^2.4.1
-  google_fonts: ^5.1.0
+  google_fonts: ^6.1.0
   intl: any
   json_annotation: ^4.8.1
   share_plus: ^7.1.0

@@ -27,7 +27,7 @@ Future<void> main() async {
 void _onInitializing(InitializationStepInfo info) {
   final percentage = ((info.step / info.stepsCount) * 100).toInt();
   logger.info(
-    'Inited ${info.stepName} in ${info.msSpent} ms | '
+    'Init ${info.stepName} in ${info.msSpent} ms | '
     'Progress: $percentage%',
   );
 }

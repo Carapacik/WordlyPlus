@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/src/feature/app/widget/locale_scope.dart';
+import 'package:wordly/src/feature/game/logic/game_bloc.dart';
 
 class KeyboardByLanguage extends StatelessWidget {
   const KeyboardByLanguage({super.key});
@@ -107,7 +109,7 @@ class EnterKey extends StatelessWidget {
           color: Colors.grey,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           child: InkWell(
-            onTap: () {},
+            onTap: () => context.read<GameBloc>().add(const GameEvent.enterPressed()),
           ),
         ),
       ),
@@ -129,7 +131,8 @@ class DeleteKey extends StatelessWidget {
           color: Colors.grey,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           child: InkWell(
-            onTap: () {},
+            onTap: () => context.read<GameBloc>().add(const GameEvent.deletePressed()),
+            onLongPress: () => context.read<GameBloc>().add(const GameEvent.deleteLongPressed()),
           ),
         ),
       ),
@@ -151,7 +154,9 @@ class KeyboardKey extends StatelessWidget {
           color: Colors.grey,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              context.read<GameBloc>().add(const GameEvent.letterPressed('key'));
+            },
           ),
         ),
       ),

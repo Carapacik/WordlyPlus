@@ -7,6 +7,7 @@ import 'package:wordly/src/feature/app/data/locale_datasource.dart';
 import 'package:wordly/src/feature/app/data/locale_repository.dart';
 import 'package:wordly/src/feature/app/data/theme_datasource.dart';
 import 'package:wordly/src/feature/app/data/theme_repository.dart';
+import 'package:wordly/src/feature/game/data/game_repository.dart';
 import 'package:wordly/src/feature/initialization/model/dependencies.dart';
 import 'package:wordly/src/feature/initialization/model/initialization_progress.dart';
 import 'package:wordly/src/feature/statistic/data/statistics_datasource.dart';
@@ -63,12 +64,10 @@ mixin InitializationSteps {
     },
     'Game Repository': (progress) async {
       final sharedPreferences = progress.dependencies.sharedPreferences;
-      final gameDataSource = StatisticsDataSourceImpl(
-        sharedPreferences: sharedPreferences,
-      );
-      progress.dependencies.gameRepository = StatisticsRepositoryImpl(
-        gameDataSource,
-      );
+      // final gameDataSource = StatisticsDataSourceImpl(
+      //   sharedPreferences: sharedPreferences,
+      // );
+      progress.dependencies.gameRepository = GameRepository();
     },
   };
 }

@@ -149,9 +149,7 @@ final class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
           ),
         ) {
     on<ThemeEvent>(
-      (event, emit) => event.map(
-        update: (e) => _update(e, emit),
-      ),
+      (event, emit) => event.map(update: (e) => _update(e, emit)),
     );
   }
 
@@ -166,7 +164,7 @@ final class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
       emit(ThemeState.inProgress(event.theme));
       await _themeRepository.setTheme(event.theme);
       emit(ThemeState.idle(event.theme));
-    } catch (e) {
+    } on Object catch (_) {
       logger.warning(
         'Failed to update theme to $event, reverting to $oldTheme',
       );

@@ -103,7 +103,7 @@ abstract base class _DictionaryStateBase {
 /// Extends [_DictionaryEventBase] to provide a common base class for all events.
 ///
 /// Provides a single event, [DictionaryEvent.update], which is used to update the
-/// app's dictionary with the given [Dictionary].
+/// app's dictionary with the given Dictionary.
 @immutable
 sealed class DictionaryEvent extends _DictionaryEventBase {
   /// Creates a new [DictionaryEvent].
@@ -112,7 +112,7 @@ sealed class DictionaryEvent extends _DictionaryEventBase {
   /// [DictionaryBloc].
   const DictionaryEvent();
 
-  /// Updates the app's dictionary with the given [Dictionary].
+  /// Updates the app's dictionary with the given Dictionary.
   const factory DictionaryEvent.update(Locale dictionary) = _DictionaryEventUpdate;
 }
 
@@ -177,7 +177,7 @@ class DictionaryBloc extends Bloc<DictionaryEvent, DictionaryState> {
           ),
         ) {
     on<DictionaryEvent>(
-      (event, emit) => event.map(
+      (event, emit) async => event.map(
         update: (e) => _update(e, emit),
       ),
     );

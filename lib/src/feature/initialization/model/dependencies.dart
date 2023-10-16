@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordly/src/feature/app/data/dictionary_repository.dart';
 import 'package:wordly/src/feature/app/data/locale_repository.dart';
 import 'package:wordly/src/feature/app/data/theme_repository.dart';
+import 'package:wordly/src/feature/game/data/game_repository.dart';
 import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 
 /// {@template dependencies}
@@ -27,7 +28,7 @@ abstract base class Dependencies {
   abstract final IStatisticsRepository statisticsRepository;
 
   /// Dictionary repository
-  abstract final Object gameRepository;
+  abstract final IGameRepository gameRepository;
 
   /// Freeze dependencies, so they cannot be modified
   Dependencies freeze();
@@ -58,7 +59,7 @@ final class DependenciesMutable extends Dependencies {
   late IStatisticsRepository statisticsRepository;
 
   @override
-  late Object gameRepository;
+  late IGameRepository gameRepository;
 
   @override
   Dependencies freeze() => _DependenciesImmutable(
@@ -106,7 +107,7 @@ final class _DependenciesImmutable extends Dependencies {
   final IStatisticsRepository statisticsRepository;
 
   @override
-  final Object gameRepository;
+  final IGameRepository gameRepository;
 }
 
 /// {@template initialization_result}

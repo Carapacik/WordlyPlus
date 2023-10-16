@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
 import 'package:wordly/src/feature/app/widget/locale_scope.dart';
 import 'package:wordly/src/feature/app/widget/material_context.dart';
 import 'package:wordly/src/feature/app/widget/theme_scope.dart';
@@ -49,8 +50,10 @@ class App extends StatelessWidget {
         child: DependenciesScope(
           dependencies: result.dependencies,
           child: const ThemeScope(
-            child: LocaleScope(
-              child: MaterialContext(),
+            child: DictionaryScope(
+              child: LocaleScope(
+                child: MaterialContext(),
+              ),
             ),
           ),
         ),

@@ -175,7 +175,7 @@ class LocaleBloc extends Bloc<LocaleEvent, LocaleState> {
           ),
         ) {
     on<LocaleEvent>(
-      (event, emit) => event.map(
+      (event, emit) async => event.map(
         update: (e) => _update(e, emit),
       ),
     );

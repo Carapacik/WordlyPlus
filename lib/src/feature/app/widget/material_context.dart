@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/src/core/extension/extensions.dart';
 import 'package:wordly/src/core/localization/localization.dart';
+import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
 import 'package:wordly/src/feature/app/widget/locale_scope.dart';
 import 'package:wordly/src/feature/app/widget/theme_scope.dart';
+import 'package:wordly/src/feature/game/logic/game_bloc.dart';
 import 'package:wordly/src/feature/game/widget/game_page.dart';
-import 'package:wordly/src/feature/home/widget/home_screen.dart';
 
 /// {@template material_context}
 /// [MaterialContext] is an entry point to the material context.
@@ -22,6 +25,7 @@ class _MaterialContextState extends State<MaterialContext> {
   @override
   Widget build(BuildContext context) {
     final theme = ThemeScope.of(context).theme;
+    final dictionary = DictionaryScope.of(context).dictionary;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -31,7 +35,13 @@ class _MaterialContextState extends State<MaterialContext> {
       localizationsDelegates: Localization.localizationDelegates,
       supportedLocales: Localization.supportedLocales,
       locale: LocaleScope.of(context).locale,
-      home: const GamePage(),
+      home: BlocProvider(
+        create: (context) => GameBloc(
+          gameRepository: context.dependencies.gameRepository,
+          dictionary: dictionary,
+        ),
+        child: const GamePage(),
+      ),
     );
   }
 }

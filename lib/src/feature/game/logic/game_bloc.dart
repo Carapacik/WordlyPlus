@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:wordly/src/core/utils/pattern_match.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
+import 'package:wordly/src/feature/game/model/letter_info.dart';
 import 'package:wordly/src/feature/game/model/word_error.dart';
 
 @immutable
@@ -12,38 +13,51 @@ sealed class GameState extends _GameStateBase {
   const GameState();
 
   const factory GameState.idle({
-    required List<Object> board,
     required Locale dictionary,
+    required String secretWord,
+    required List<LetterInfo> board,
+    required Map<String, LetterStatus> statuses,
   }) = _GameStateIdle;
 
   const factory GameState.win({
-    required List<Object> board,
     required Locale dictionary,
+    required String secretWord,
+    required List<LetterInfo> board,
+    required Map<String, LetterStatus> statuses,
   }) = _GameStateWin;
 
   const factory GameState.loss({
-    required List<Object> board,
     required Locale dictionary,
+    required String secretWord,
+    required List<LetterInfo> board,
+    required Map<String, LetterStatus> statuses,
   }) = _GameStateLoss;
 
   const factory GameState.error({
-    required List<Object> board,
     required Locale dictionary,
+    required String secretWord,
+    required List<LetterInfo> board,
+    required Map<String, LetterStatus> statuses,
     required WordError error,
   }) = _GameStateError;
 }
 
 final class _GameStateIdle extends GameState {
   const _GameStateIdle({
-    required this.board,
     required this.dictionary,
+    required this.secretWord,
+    required this.board,
+    required this.statuses,
   });
 
   @override
-  final List<Object> board;
-
-  @override
   final Locale dictionary;
+  @override
+  final String secretWord;
+  @override
+  final List<LetterInfo> board;
+  @override
+  final Map<String, LetterStatus> statuses;
 
   @override
   String toString() => 'GameState.idle(board: $board)';
@@ -53,23 +67,34 @@ final class _GameStateIdle extends GameState {
       identical(this, other) ||
       (other is _GameStateIdle &&
           dictionary == other.dictionary &&
-          const DeepCollectionEquality().equals(board, other.board));
+          secretWord == other.secretWord &&
+          const DeepCollectionEquality().equals(board, other.board) &&
+          const DeepCollectionEquality().equals(statuses, other.statuses));
 
   @override
-  int get hashCode => board.hashCode ^ dictionary.hashCode;
+  int get hashCode =>
+      dictionary.hashCode ^
+      secretWord.hashCode ^
+      const DeepCollectionEquality().hash(board) ^
+      const DeepCollectionEquality().hash(statuses);
 }
 
 final class _GameStateWin extends GameState {
   const _GameStateWin({
-    required this.board,
     required this.dictionary,
+    required this.secretWord,
+    required this.board,
+    required this.statuses,
   });
 
   @override
-  final List<Object> board;
-
-  @override
   final Locale dictionary;
+  @override
+  final String secretWord;
+  @override
+  final List<LetterInfo> board;
+  @override
+  final Map<String, LetterStatus> statuses;
 
   @override
   String toString() => 'GameState.win(board: $board)';
@@ -79,23 +104,34 @@ final class _GameStateWin extends GameState {
       identical(this, other) ||
       (other is _GameStateWin &&
           dictionary == other.dictionary &&
-          const DeepCollectionEquality().equals(board, other.board));
+          secretWord == other.secretWord &&
+          const DeepCollectionEquality().equals(board, other.board) &&
+          const DeepCollectionEquality().equals(statuses, other.statuses));
 
   @override
-  int get hashCode => board.hashCode ^ dictionary.hashCode;
+  int get hashCode =>
+      dictionary.hashCode ^
+      secretWord.hashCode ^
+      const DeepCollectionEquality().hash(board) ^
+      const DeepCollectionEquality().hash(statuses);
 }
 
 final class _GameStateLoss extends GameState {
   const _GameStateLoss({
-    required this.board,
     required this.dictionary,
+    required this.secretWord,
+    required this.board,
+    required this.statuses,
   });
 
   @override
-  final List<Object> board;
-
-  @override
   final Locale dictionary;
+  @override
+  final String secretWord;
+  @override
+  final List<LetterInfo> board;
+  @override
+  final Map<String, LetterStatus> statuses;
 
   @override
   String toString() => 'GameState.loss(board: $board)';
@@ -105,25 +141,35 @@ final class _GameStateLoss extends GameState {
       identical(this, other) ||
       (other is _GameStateLoss &&
           dictionary == other.dictionary &&
-          const DeepCollectionEquality().equals(board, other.board));
+          secretWord == other.secretWord &&
+          const DeepCollectionEquality().equals(board, other.board) &&
+          const DeepCollectionEquality().equals(statuses, other.statuses));
 
   @override
-  int get hashCode => board.hashCode ^ dictionary.hashCode;
+  int get hashCode =>
+      dictionary.hashCode ^
+      secretWord.hashCode ^
+      const DeepCollectionEquality().hash(board) ^
+      const DeepCollectionEquality().hash(statuses);
 }
 
 final class _GameStateError extends GameState {
   const _GameStateError({
-    required this.board,
     required this.dictionary,
+    required this.secretWord,
+    required this.board,
+    required this.statuses,
     required this.error,
   });
 
   @override
-  final List<Object> board;
-
-  @override
   final Locale dictionary;
-
+  @override
+  final String secretWord;
+  @override
+  final List<LetterInfo> board;
+  @override
+  final Map<String, LetterStatus> statuses;
   final WordError error;
 
   @override
@@ -134,19 +180,30 @@ final class _GameStateError extends GameState {
       identical(this, other) ||
       (other is _GameStateError &&
           dictionary == other.dictionary &&
+          secretWord == other.secretWord &&
           const DeepCollectionEquality().equals(board, other.board) &&
+          const DeepCollectionEquality().equals(statuses, other.statuses) &&
           error == other.error);
 
   @override
-  int get hashCode => dictionary.hashCode ^ board.hashCode ^ error.hashCode;
+  int get hashCode =>
+      dictionary.hashCode ^
+      secretWord.hashCode ^
+      const DeepCollectionEquality().hash(board) ^
+      const DeepCollectionEquality().hash(statuses) ^
+      error.hashCode;
 }
 
 abstract base class _GameStateBase {
   const _GameStateBase();
 
-  List<Object> get board;
-
   Locale get dictionary;
+
+  String get secretWord;
+
+  List<LetterInfo> get board;
+
+  Map<String, LetterStatus> get statuses;
 
   T map<T>({
     required PatternMatch<T, _GameStateIdle> idle,
@@ -304,7 +361,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     required IGameRepository gameRepository,
   })  : _gameRepository = gameRepository,
         super(
-          GameState.idle(dictionary: dictionary, board: const []),
+          GameState.idle(dictionary: dictionary, board: const [], secretWord: '', statuses: const {}),
         ) {
     on<GameEvent>(
       (event, emit) async => event.map(

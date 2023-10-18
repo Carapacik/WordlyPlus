@@ -4,7 +4,7 @@ publish_to: none
 version: 3.0.0+30
 environment:
   sdk: '>=3.1.0 <4.0.0'
-  flutter: '>=3.13.0 <4.0.0'
+  flutter: '>=3.13.0'
 
 dependencies:
   # Flutter SDK
@@ -41,7 +41,7 @@ dependencies:
   stack_trace: ^1.11.1
 
   # Utils
-  flutter_native_splash: ^2.3.3
+  flutter_native_splash: ^2.3.4
   path: ^1.8.3
   path_provider: ^2.1.1
   platform_info: ^4.0.2

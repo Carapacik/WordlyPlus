@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:wordly/src/core/utils/logger.dart';
 import 'package:wordly/src/core/utils/pattern_match.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
@@ -44,6 +45,8 @@ sealed class GameState extends _GameStateBase {
     required Map<String, LetterStatus> statuses,
     required WordError error,
   }) = _GameStateError;
+
+  int get currentWordIndex => (board.length - 1) ~/ 5;
 }
 
 final class _GameStateIdle extends GameState {
@@ -411,22 +414,78 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   void _changeDictionary(
     _GameEventChangeDictionary event,
     Emitter<GameState> emit,
-  ) {}
+  ) {
+    emit(
+      GameState.idle(
+        dictionary: event.dictionary,
+        secretWord: state.secretWord,
+        gameCompleted: state.gameCompleted,
+        board: state.board,
+        statuses: state.statuses,
+      ),
+    );
+    // TODO(Carapacik): load board
+  }
 
   void _letterPressed(
     _GameEventLetterPressed event,
     Emitter<GameState> emit,
-  ) {}
+  ) {
+    if (state.gameCompleted) {
+      return;
+    }
+    emit(
+      GameState.idle(
+        dictionary: state.dictionary,
+        secretWord: state.secretWord,
+        gameCompleted: state.gameCompleted,
+        board: List.of(state.board)..add(LetterInfo(letter: event.key.toString())),
+        statuses: state.statuses,
+      ),
+    );
+  }
 
   void _deletePressed(
     _GameEventDeletePressed event,
     Emitter<GameState> emit,
-  ) {}
+  ) {
+    if (state.gameCompleted) {
+      return;
+    }
+    if (state.board.length > state.currentWordIndex * 5 && state.board.length % 5 != 0) {
+      emit(
+        GameState.idle(
+          dictionary: state.dictionary,
+          secretWord: state.secretWord,
+          gameCompleted: state.gameCompleted,
+          board: List.of(state.board)..removeLast(),
+          statuses: state.statuses,
+        ),
+      );
+    }
+  }
 
   void _deleteLongPressed(
     _GameEventDeleteLongPressed event,
     Emitter<GameState> emit,
-  ) {}
+  ) {
+    if (state.gameCompleted) {
+      return;
+    }
+    if (state.board.length > state.currentWordIndex * 5 && state.board.length % 5 != 0) {
+      final board = List.of(state.board);
+      logger.info(state.currentWordIndex);
+      emit(
+        GameState.idle(
+          dictionary: state.dictionary,
+          secretWord: state.secretWord,
+          gameCompleted: state.gameCompleted,
+          board: board..removeRange(state.currentWordIndex * 5, board.length),
+          statuses: state.statuses,
+        ),
+      );
+    }
+  }
 
   void _enterPressed(
     _GameEventEnterPressed event,

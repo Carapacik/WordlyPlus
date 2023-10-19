@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/src/feature/app/widget/locale_scope.dart';
 import 'package:wordly/src/feature/game/logic/game_bloc.dart';
+import 'package:wordly/src/feature/game/model/keyboard.dart';
 
 class KeyboardByLanguage extends StatelessWidget {
   const KeyboardByLanguage({super.key});
@@ -31,19 +32,19 @@ class KeyboardEn extends StatelessWidget {
         const SizedBox(height: 8),
         Row(
           mainAxisSize: MainAxisSize.min,
-          children: [for (var i = 0; i < 10; i++) const KeyboardKey()],
+          children: [for (var i = 0; i < KeyboardList.list1.length; i++) KeyboardKey(letter: KeyboardList.list1[i])],
         ),
         const Spacer(),
         Row(
           mainAxisSize: MainAxisSize.min,
-          children: [for (var i = 0; i < 9; i++) const KeyboardKey()],
+          children: [for (var i = 0; i < KeyboardList.list2.length; i++) KeyboardKey(letter: KeyboardList.list2[i])],
         ),
         const Spacer(),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             const EnterKey(),
-            for (var i = 0; i < 7; i++) const KeyboardKey(),
+            for (var i = 0; i < KeyboardList.list3.length; i++) KeyboardKey(letter: KeyboardList.list3[i]),
             const DeleteKey(),
           ],
         ),
@@ -63,19 +64,32 @@ class KeyboardRu extends StatelessWidget {
         const SizedBox(height: 8),
         Row(
           mainAxisSize: MainAxisSize.min,
-          children: [for (var i = 0; i < 12; i++) const KeyboardKey()],
+          children: [
+            for (var i = 0; i < 12; i++)
+              const KeyboardKey(
+                letter: '',
+              )
+          ],
         ),
         const Spacer(),
         Row(
           mainAxisSize: MainAxisSize.min,
-          children: [for (var i = 0; i < 11; i++) const KeyboardKey()],
+          children: [
+            for (var i = 0; i < 11; i++)
+              const KeyboardKey(
+                letter: '',
+              )
+          ],
         ),
         const Spacer(),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             const EnterKey(),
-            for (var i = 0; i < 9; i++) const KeyboardKey(),
+            for (var i = 0; i < 9; i++)
+              const KeyboardKey(
+                letter: '',
+              ),
             const DeleteKey(),
           ],
         ),
@@ -141,7 +155,9 @@ class DeleteKey extends StatelessWidget {
 }
 
 class KeyboardKey extends StatelessWidget {
-  const KeyboardKey({super.key});
+  const KeyboardKey({required this.letter, super.key});
+
+  final String letter;
 
   @override
   Widget build(BuildContext context) {
@@ -155,8 +171,9 @@ class KeyboardKey extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           child: InkWell(
             onTap: () {
-              context.read<GameBloc>().add(const GameEvent.letterPressed('key'));
+              context.read<GameBloc>().add(GameEvent.letterPressed(letter));
             },
+            child: FittedBox(child: Text(letter.toUpperCase())),
           ),
         ),
       ),

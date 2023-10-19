@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m2(number) => "Level ${number}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
+
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("About"),
         "app_language": MessageLookupByLibrary.simpleMessage("App language"),
@@ -39,65 +40,51 @@ class MessageLookup extends MessageLookupByLibrary {
             "If you didn\'t find a word in the dictionary,\nwrite to us, we will add it\nin the next update.\n"),
         "copy": MessageLookupByLibrary.simpleMessage("Copy"),
         "created_by": MessageLookupByLibrary.simpleMessage("Created by"),
-        "current_streak":
-            MessageLookupByLibrary.simpleMessage("Current\nStreak"),
+        "current_streak": MessageLookupByLibrary.simpleMessage("Current\nStreak"),
         "custom_colors": MessageLookupByLibrary.simpleMessage("Custom Colors"),
         "daily": MessageLookupByLibrary.simpleMessage("Daily"),
         "dark_mode": MessageLookupByLibrary.simpleMessage("Dark mode"),
-        "default_themes":
-            MessageLookupByLibrary.simpleMessage("Default Themes"),
+        "default_themes": MessageLookupByLibrary.simpleMessage("Default Themes"),
         "dictionary": MessageLookupByLibrary.simpleMessage("Dictionary"),
-        "dictionary_language":
-            MessageLookupByLibrary.simpleMessage("Dictionary language"),
+        "dictionary_language": MessageLookupByLibrary.simpleMessage("Dictionary language"),
         "en": MessageLookupByLibrary.simpleMessage("English"),
         "game_design": MessageLookupByLibrary.simpleMessage("Game design"),
-        "guess_distribution":
-            MessageLookupByLibrary.simpleMessage("Guess distribution"),
-        "high_contrast_mode":
-            MessageLookupByLibrary.simpleMessage("High contrast mode"),
+        "guess_distribution": MessageLookupByLibrary.simpleMessage("Guess distribution"),
+        "high_contrast_mode": MessageLookupByLibrary.simpleMessage("High contrast mode"),
         "how_to_play": MessageLookupByLibrary.simpleMessage("How to play"),
-        "letter_correct_spot": MessageLookupByLibrary.simpleMessage(
-            "  is in the word and in the correct spot"),
-        "letter_not_in_word": MessageLookupByLibrary.simpleMessage(
-            "  is not in the word in any spot"),
-        "letter_wrong_spot": MessageLookupByLibrary.simpleMessage(
-            "  is in the word but in the wrong spot"),
+        "letter_correct_spot": MessageLookupByLibrary.simpleMessage("  is in the word and in the correct spot"),
+        "letter_not_in_word": MessageLookupByLibrary.simpleMessage("  is not in the word in any spot"),
+        "letter_wrong_spot": MessageLookupByLibrary.simpleMessage("  is in the word but in the wrong spot"),
         "level_number": m2,
         "levels": MessageLookupByLibrary.simpleMessage("Levels"),
         "locales": MessageLookupByLibrary.simpleMessage("Locales"),
         "lose_message": MessageLookupByLibrary.simpleMessage("You lost"),
         "max_streak": MessageLookupByLibrary.simpleMessage("Max\nStreak"),
-        "message_new_word": MessageLookupByLibrary.simpleMessage(
-            "subject=Wordle%20-%20New%20word&body=Word%20-%0AMeaning%20-"),
+        "message_new_word":
+            MessageLookupByLibrary.simpleMessage("subject=Wordle%20-%20New%20word&body=Word%20-%0AMeaning%20-"),
         "next_level": MessageLookupByLibrary.simpleMessage("Next level"),
         "next_wordle": MessageLookupByLibrary.simpleMessage("Next wordle in"),
-        "not_played": MessageLookupByLibrary.simpleMessage(
-            "You haven\'t played a single game"),
+        "not_played": MessageLookupByLibrary.simpleMessage("You haven\'t played a single game"),
         "played": MessageLookupByLibrary.simpleMessage("Played"),
         "ru": MessageLookupByLibrary.simpleMessage("Russian"),
         "secret_word": MessageLookupByLibrary.simpleMessage("Secret word"),
-        "select_language":
-            MessageLookupByLibrary.simpleMessage("Select a language"),
+        "select_language": MessageLookupByLibrary.simpleMessage("Select a language"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
         "start": MessageLookupByLibrary.simpleMessage("Start game"),
         "statistic": MessageLookupByLibrary.simpleMessage("Statistic"),
-        "text_copied": MessageLookupByLibrary.simpleMessage(
-            "The text is copied to the clipboard"),
+        "text_copied": MessageLookupByLibrary.simpleMessage("The text is copied to the clipboard"),
         "the_letter": MessageLookupByLibrary.simpleMessage("The letter  "),
         "the_letters": MessageLookupByLibrary.simpleMessage("The letter  "),
         "tutorial_text": MessageLookupByLibrary.simpleMessage(
             "Each guess must be a valid 5-letter word.\n\nHit the ENTER button to submit.\n\nAfter each guess, the color of the tiles will change to show how close your guess was to the word."),
         "view_levels": MessageLookupByLibrary.simpleMessage("View levels"),
-        "view_statistic":
-            MessageLookupByLibrary.simpleMessage("View statistic"),
+        "view_statistic": MessageLookupByLibrary.simpleMessage("View statistic"),
         "visual_design": MessageLookupByLibrary.simpleMessage("Visual design"),
         "win_message": MessageLookupByLibrary.simpleMessage("You win!"),
         "win_rate": MessageLookupByLibrary.simpleMessage("Win\nrate"),
-        "word_not_found": MessageLookupByLibrary.simpleMessage(
-            "Word not found in dictionary"),
-        "word_too_short":
-            MessageLookupByLibrary.simpleMessage("Word is not correct length"),
+        "word_not_found": MessageLookupByLibrary.simpleMessage("Word not found in dictionary"),
+        "word_too_short": MessageLookupByLibrary.simpleMessage("Word is not correct length"),
         "wordly_plus": MessageLookupByLibrary.simpleMessage("Wordly Plus")
       };
 }

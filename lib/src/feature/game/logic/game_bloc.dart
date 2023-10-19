@@ -1,9 +1,9 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:wordly/src/core/utils/logger.dart';
 import 'package:wordly/src/core/utils/pattern_match.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
@@ -392,9 +392,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         super(
           GameState.idle(
             dictionary: dictionary,
-            secretWord: '',
+            secretWord: 'swoop',
             gameCompleted: false,
-            board: const [],
+            board: gameRepository.loadDailyFromCache(dictionary, DateTime.now().toUtc()) ?? [],
             statuses: const {},
           ),
         ) {
@@ -434,6 +434,14 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     if (state.gameCompleted) {
       return;
     }
+    if (state.board.length > 30) {
+      return;
+    }
+    if (state.board.isNotEmpty &&
+        state.board.length % 5 == 0 &&
+        state.board[state.currentWordIndex * 5].status == LetterStatus.unknown) {
+      return;
+    }
     emit(
       GameState.idle(
         dictionary: state.dictionary,
@@ -452,17 +460,19 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     if (state.gameCompleted) {
       return;
     }
-    if (state.board.length > state.currentWordIndex * 5 && state.board.length % 5 != 0) {
-      emit(
-        GameState.idle(
-          dictionary: state.dictionary,
-          secretWord: state.secretWord,
-          gameCompleted: state.gameCompleted,
-          board: List.of(state.board)..removeLast(),
-          statuses: state.statuses,
-        ),
-      );
+    if (state.board.length <= state.currentWordIndex * 5 ||
+        state.board[state.currentWordIndex * 5].status != LetterStatus.unknown) {
+      return;
     }
+    emit(
+      GameState.idle(
+        dictionary: state.dictionary,
+        secretWord: state.secretWord,
+        gameCompleted: state.gameCompleted,
+        board: List.of(state.board)..removeLast(),
+        statuses: state.statuses,
+      ),
+    );
   }
 
   void _deleteLongPressed(
@@ -472,23 +482,118 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     if (state.gameCompleted) {
       return;
     }
-    if (state.board.length > state.currentWordIndex * 5 && state.board.length % 5 != 0) {
-      final board = List.of(state.board);
-      logger.info(state.currentWordIndex);
-      emit(
-        GameState.idle(
-          dictionary: state.dictionary,
-          secretWord: state.secretWord,
-          gameCompleted: state.gameCompleted,
-          board: board..removeRange(state.currentWordIndex * 5, board.length),
-          statuses: state.statuses,
-        ),
-      );
+    if (state.board.length <= state.currentWordIndex * 5 ||
+        state.board[state.currentWordIndex * 5].status != LetterStatus.unknown) {
+      return;
     }
+    final board = List.of(state.board);
+    emit(
+      GameState.idle(
+        dictionary: state.dictionary,
+        secretWord: state.secretWord,
+        gameCompleted: state.gameCompleted,
+        board: board..removeRange(state.currentWordIndex * 5, board.length),
+        statuses: state.statuses,
+      ),
+    );
   }
 
   void _enterPressed(
     _GameEventEnterPressed event,
     Emitter<GameState> emit,
-  ) {}
+  ) {
+    if (state.gameCompleted) {
+      return;
+    }
+    if (state.board.isEmpty || state.board.length % 5 != 0) {
+      emit(
+        GameState.error(
+          dictionary: state.dictionary,
+          secretWord: state.secretWord,
+          gameCompleted: state.gameCompleted,
+          board: state.board,
+          statuses: state.statuses,
+          error: WordError.tooShort,
+        ),
+      );
+      return;
+    }
+    final word =
+        state.board.slice(state.currentWordIndex * 5, state.board.length).map((l) => l.letter).toList(growable: false);
+    if (!_gameRepository.currentDictionary(state.dictionary).containsKey(word.join())) {
+      emit(
+        GameState.error(
+          dictionary: state.dictionary,
+          secretWord: state.secretWord,
+          gameCompleted: state.gameCompleted,
+          board: state.board,
+          statuses: state.statuses,
+          error: WordError.notFound,
+        ),
+      );
+      return;
+    }
+    if (word.join() == state.secretWord) {
+      final correctWord = word.map((e) => LetterInfo(letter: e, status: LetterStatus.correctSpot));
+      final newBoard = List.of(state.board)..replaceRange(state.currentWordIndex * 5, state.board.length, correctWord);
+      emit(
+        GameState.win(
+          dictionary: state.dictionary,
+          secretWord: state.secretWord,
+          gameCompleted: true,
+          board: newBoard,
+          statuses: state.statuses,
+        ),
+      );
+      unawaited(_gameRepository.saveDailyBoard(state.dictionary, state.board, DateTime.now().toUtc()));
+      return;
+    }
+    final resultWord = <LetterInfo>[];
+    final secretWordDictionary = <String, int>{};
+    for (var i = 0; i < word.length; i++) {
+      resultWord.add(
+        LetterInfo(
+          letter: word[i],
+          status: state.secretWord[i] == word[i] ? LetterStatus.correctSpot : LetterStatus.notInWord,
+        ),
+      );
+      if (state.secretWord[i] != word[i]) {
+        if (secretWordDictionary.containsKey(state.secretWord[i])) {
+          secretWordDictionary[state.secretWord[i]] = secretWordDictionary[state.secretWord[i]]! + 1;
+        } else {
+          secretWordDictionary[state.secretWord[i]] = 1;
+        }
+      }
+    }
+    for (var i = 0; i < resultWord.length; i++) {
+      if (resultWord[i].status == LetterStatus.correctSpot) {
+        continue;
+      }
+      if (secretWordDictionary.containsKey(resultWord[i].letter) && secretWordDictionary[resultWord[i].letter]! > 0) {
+        resultWord[i] = LetterInfo(letter: resultWord[i].letter, status: LetterStatus.wrongSpot);
+      }
+    }
+    final newBoard = List.of(state.board)..replaceRange(state.currentWordIndex * 5, state.board.length, resultWord);
+    if (state.currentWordIndex > 4) {
+      emit(
+        GameState.loss(
+          dictionary: state.dictionary,
+          secretWord: state.secretWord,
+          gameCompleted: true,
+          board: newBoard,
+          statuses: state.statuses,
+        ),
+      );
+    } else {
+      emit(
+        GameState.idle(
+          dictionary: state.dictionary,
+          secretWord: state.secretWord,
+          gameCompleted: state.gameCompleted,
+          board: newBoard,
+          statuses: state.statuses,
+        ),
+      );
+    }
+  }
 }

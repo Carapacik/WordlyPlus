@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wordly/src/core/utils/extensions/string_extension.dart';
 import 'package:wordly/src/core/utils/logger.dart';
 
 /// [BlocObserver] which logs all bloc state changes, errors and events.

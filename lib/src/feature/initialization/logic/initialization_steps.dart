@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordly/src/feature/app/data/dictionary_datasource.dart';
 import 'package:wordly/src/feature/app/data/dictionary_repository.dart';
@@ -7,6 +8,7 @@ import 'package:wordly/src/feature/app/data/locale_datasource.dart';
 import 'package:wordly/src/feature/app/data/locale_repository.dart';
 import 'package:wordly/src/feature/app/data/theme_datasource.dart';
 import 'package:wordly/src/feature/app/data/theme_repository.dart';
+import 'package:wordly/src/feature/game/data/game_datasource.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
 import 'package:wordly/src/feature/initialization/model/dependencies.dart';
 import 'package:wordly/src/feature/initialization/model/initialization_progress.dart';
@@ -64,10 +66,10 @@ mixin InitializationSteps {
     },
     'Game Repository': (progress) async {
       final sharedPreferences = progress.dependencies.sharedPreferences;
-      // final gameDataSource = StatisticsDataSourceImpl(
-      //   sharedPreferences: sharedPreferences,
-      // );
-      final gameRepository = GameRepository();
+      final gameDataSource = GameDataSourceImpl(
+        sharedPreferences: sharedPreferences,
+      );
+      final gameRepository = GameRepository(gameDataSource: gameDataSource);
       await gameRepository.init();
       progress.dependencies.gameRepository = gameRepository;
     },

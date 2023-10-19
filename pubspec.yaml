@@ -44,8 +44,6 @@ dependencies:
   flutter_native_splash: ^2.3.4
   path: ^1.8.3
   path_provider: ^2.1.1
-  platform_info: ^4.0.2
-  pure: ^0.2.0
 
   # Packages
   database:
@@ -60,6 +58,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/dictionary/
     - google_fonts/
 
 flutter_gen:

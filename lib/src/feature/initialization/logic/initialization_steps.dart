@@ -67,7 +67,9 @@ mixin InitializationSteps {
       // final gameDataSource = StatisticsDataSourceImpl(
       //   sharedPreferences: sharedPreferences,
       // );
-      progress.dependencies.gameRepository = GameRepository();
+      final gameRepository = GameRepository();
+      await gameRepository.init();
+      progress.dependencies.gameRepository = gameRepository;
     },
   };
 }

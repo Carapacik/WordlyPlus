@@ -22,18 +22,18 @@ class GamePage extends StatelessWidget {
                 await Navigator.of(context).push(
                   MaterialPageRoute<void>(
                     builder: (context) => StatisticPage(
-                      dictionaryKey: DictionaryScope.of(context, listen: false).dictionary.languageCode,
+                      dictionary: DictionaryScope.of(context, listen: false).dictionary,
                     ),
                   ),
                 );
               },
             )
-          // else
-          //   IconButton(
-          //     tooltip: context.r.view_levels,
-          //     icon: const Icon(Icons.apps),
-          //     onPressed: () {},
-          //   ),
+          else
+            IconButton(
+              tooltip: context.r.view_levels,
+              icon: const Icon(Icons.apps),
+              onPressed: () {},
+            ),
         ],
       ),
       drawer: const CustomDrawer(),

@@ -7,9 +7,9 @@ import 'package:wordly/src/feature/components/widget/not_played.dart';
 import 'package:wordly/src/feature/statistic/model/game_statistics.dart';
 
 class StatisticPage extends StatefulWidget {
-  const StatisticPage({required this.dictionaryKey, super.key});
+  const StatisticPage({required this.dictionary, super.key});
 
-  final String dictionaryKey;
+  final Locale dictionary;
 
   @override
   State<StatisticPage> createState() => _StatisticPageState();
@@ -21,7 +21,7 @@ class _StatisticPageState extends State<StatisticPage> {
   @override
   void initState() {
     super.initState();
-    _statistics = context.dependencies.statisticsRepository.loadAppStatisticFromCache(widget.dictionaryKey);
+    _statistics = context.dependencies.statisticsRepository.loadAppStatisticFromCache(widget.dictionary);
   }
 
   @override
@@ -135,10 +135,7 @@ class _AttemptContent extends StatelessWidget {
         widthFactor: (attempts[index] + 1) / maxValue,
         child: Container(
           decoration: BoxDecoration(
-            // color: context.dynamicColor(
-            //   light: AppColors.dark,
-            //   dark: AppColors.light,
-            // ),
+            color: Colors.yellow,
             borderRadius: BorderRadius.circular(4),
           ),
           height: 20,

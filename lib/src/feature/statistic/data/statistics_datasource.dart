@@ -24,11 +24,11 @@ final class StatisticsDataSourceImpl implements StatisticsDataSource {
   }) : _sharedPreferences = sharedPreferences;
   final SharedPreferences _sharedPreferences;
 
-  static const _prefix = 'statistics_';
+  static const _prefix = 'statistics';
 
   @override
   GameStatistics? loadStatisticsFromCache(String dictionaryKey) {
-    final statistics = _sharedPreferences.getString('$_prefix.$dictionaryKey');
+    final statistics = _sharedPreferences.getString('${_prefix}_$dictionaryKey');
 
     if (statistics == null) {
       return null;
@@ -40,9 +40,6 @@ final class StatisticsDataSourceImpl implements StatisticsDataSource {
   @override
   Future<void> setStatistics(String dictionaryKey, GameStatistics statistics) async {
     final raw = json.encode(statistics.toJson());
-    await _sharedPreferences.setString(
-      '$_prefix.$dictionaryKey',
-      raw,
-    );
+    await _sharedPreferences.setString('${_prefix}_$dictionaryKey', raw);
   }
 }

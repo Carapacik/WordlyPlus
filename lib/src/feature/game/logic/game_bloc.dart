@@ -9,6 +9,7 @@ import 'package:wordly/src/feature/game/data/game_repository.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
 import 'package:wordly/src/feature/game/model/saved_result.dart';
 import 'package:wordly/src/feature/game/model/word_error.dart';
+import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 
 @immutable
 sealed class GameState extends _GameStateBase {
@@ -389,8 +390,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   GameBloc({
     required Locale dictionary,
     required IGameRepository gameRepository,
+    required IStatisticsRepository statisticsRepository,
     required SavedResult? savedResult,
   })  : _gameRepository = gameRepository,
+        _statisticsRepository = statisticsRepository,
         super(_stateBySavedResult(savedResult, dictionary, gameRepository.generateSecretWord(dictionary))) {
     on<GameEvent>(
       (event, emit) async => event.map(
@@ -404,6 +407,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   }
 
   final IGameRepository _gameRepository;
+  final IStatisticsRepository _statisticsRepository;
 
   void _changeDictionary(
     _GameEventChangeDictionary event,
@@ -548,6 +552,13 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           ),
         ),
       );
+      unawaited(
+        _statisticsRepository.setStatistic(
+          state.dictionary,
+          isWin: true,
+          attempt: state.currentWordIndex + 1,
+        ),
+      );
       return;
     }
     final resultWord = <LetterInfo>[];
@@ -599,6 +610,13 @@ class GameBloc extends Bloc<GameEvent, GameState> {
             isWin: false,
             board: state.board,
           ),
+        ),
+      );
+      unawaited(
+        _statisticsRepository.setStatistic(
+          state.dictionary,
+          isWin: false,
+          attempt: state.currentWordIndex + 1,
         ),
       );
     } else {

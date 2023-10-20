@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui' show Locale;
 
 import 'package:wordly/src/feature/statistic/data/statistics_datasource.dart';
 import 'package:wordly/src/feature/statistic/model/game_statistics.dart';
@@ -9,13 +10,13 @@ import 'package:wordly/src/feature/statistic/model/game_statistics.dart';
 abstract interface class IStatisticsRepository {
   /// Set statistic
   Future<void> setStatistic(
-    String dictionaryKey, {
+    Locale dictionary, {
     required bool isWin,
     required int attempt,
   });
 
   /// Observe current statistic changes
-  GameStatistics? loadAppStatisticFromCache(String dictionaryKey);
+  GameStatistics? loadAppStatisticFromCache(Locale dictionary);
 }
 
 /// {@macro statistic_repository}
@@ -27,11 +28,11 @@ final class StatisticsRepositoryImpl implements IStatisticsRepository {
 
   @override
   Future<void> setStatistic(
-    String dictionaryKey, {
+    Locale dictionary, {
     required bool isWin,
     required int attempt,
   }) async {
-    final previousStatistic = _dataSource.loadStatisticsFromCache(dictionaryKey);
+    final previousStatistic = _dataSource.loadStatisticsFromCache(dictionary.languageCode);
     final currentStatistic = GameStatistics(
       loses: _calculateLoses(isWin: isWin, previous: previousStatistic?.loses),
       wins: _calculateWins(isWin: isWin, previous: previousStatistic?.wins),
@@ -45,11 +46,12 @@ final class StatisticsRepositoryImpl implements IStatisticsRepository {
         previous: previousStatistic?.attempts,
       ),
     );
-    await _dataSource.setStatistics(dictionaryKey, currentStatistic);
+    await _dataSource.setStatistics(dictionary.languageCode, currentStatistic);
   }
 
   @override
-  GameStatistics? loadAppStatisticFromCache(String dictionaryKey) => _dataSource.loadStatisticsFromCache(dictionaryKey);
+  GameStatistics? loadAppStatisticFromCache(Locale dictionary) =>
+      _dataSource.loadStatisticsFromCache(dictionary.languageCode);
 
   int _calculateLoses({required bool isWin, required int? previous}) {
     if (isWin) {

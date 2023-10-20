@@ -37,6 +37,7 @@ class _MaterialContextState extends State<MaterialContext> {
       home: BlocProvider(
         create: (context) => GameBloc(
           gameRepository: context.dependencies.gameRepository,
+          statisticsRepository: context.dependencies.statisticsRepository,
           dictionary: dictionary,
           savedResult: context.dependencies.gameRepository.loadDailyFromCache(dictionary, DateTime.now().toUtc()),
         ),

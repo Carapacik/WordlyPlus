@@ -522,14 +522,19 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
     if (word.join() == state.secretWord) {
       final correctWord = word.map((e) => LetterInfo(letter: e, status: LetterStatus.correctSpot));
+
       final newBoard = List.of(state.board)..replaceRange(state.currentWordIndex * 5, state.board.length, correctWord);
+      final newStatuses = Map.of(state.statuses);
+      for (final e in word) {
+        newStatuses[e] = LetterStatus.correctSpot;
+      }
       emit(
         GameState.win(
           dictionary: state.dictionary,
           secretWord: state.secretWord,
           gameCompleted: true,
           board: newBoard,
-          statuses: state.statuses,
+          statuses: newStatuses,
         ),
       );
       unawaited(
@@ -571,6 +576,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       }
     }
     final newBoard = List.of(state.board)..replaceRange(state.currentWordIndex * 5, state.board.length, resultWord);
+    final newStatuses = Map.of(state.statuses);
+    for (final e in resultWord) {
+      newStatuses[e.letter] = e.status;
+    }
     if (state.currentWordIndex > 4) {
       emit(
         GameState.loss(
@@ -578,7 +587,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           secretWord: state.secretWord,
           gameCompleted: true,
           board: newBoard,
-          statuses: state.statuses,
+          statuses: newStatuses,
         ),
       );
       unawaited(
@@ -599,7 +608,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           secretWord: state.secretWord,
           gameCompleted: state.gameCompleted,
           board: newBoard,
-          statuses: state.statuses,
+          statuses: newStatuses,
         ),
       );
       unawaited(
@@ -624,7 +633,7 @@ GameState _stateBySavedResult(SavedResult? savedResult, Locale dictionary, Strin
       secretWord: secretWord,
       gameCompleted: false,
       board: savedResult?.board ?? [],
-      statuses: const {},
+      statuses: _boardToStatuses(savedResult?.board ?? []),
     );
   }
   if (savedResult.isWin ?? false) {
@@ -633,7 +642,7 @@ GameState _stateBySavedResult(SavedResult? savedResult, Locale dictionary, Strin
       secretWord: savedResult.secretWord,
       gameCompleted: true,
       board: savedResult.board,
-      statuses: const {},
+      statuses: _boardToStatuses(savedResult.board),
     );
   }
   return GameState.loss(
@@ -641,6 +650,14 @@ GameState _stateBySavedResult(SavedResult? savedResult, Locale dictionary, Strin
     secretWord: savedResult.secretWord,
     gameCompleted: true,
     board: savedResult.board,
-    statuses: const {},
+    statuses: _boardToStatuses(savedResult.board),
   );
+}
+
+Map<String, LetterStatus> _boardToStatuses(List<LetterInfo> board) {
+  final statuses = <String, LetterStatus>{};
+  for (final e in board) {
+    statuses[e.letter] = e.status;
+  }
+  return statuses;
 }

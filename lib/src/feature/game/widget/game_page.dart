@@ -28,12 +28,12 @@ class GamePage extends StatelessWidget {
                 );
               },
             )
-          else
-            IconButton(
-              tooltip: context.r.view_levels,
-              icon: const Icon(Icons.apps),
-              onPressed: () {},
-            ),
+          // else
+          //   IconButton(
+          //     tooltip: context.r.view_levels,
+          //     icon: const Icon(Icons.apps),
+          //     onPressed: () {},
+          //   ),
         ],
       ),
       drawer: const CustomDrawer(),

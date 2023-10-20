@@ -3,9 +3,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
-import 'package:wordly/src/feature/app/widget/locale_scope.dart';
 import 'package:wordly/src/feature/game/logic/game_bloc.dart';
 import 'package:wordly/src/feature/game/model/keyboard.dart';
+import 'package:wordly/src/feature/game/model/letter_info.dart';
 
 class KeyboardByLanguage extends StatelessWidget {
   const KeyboardByLanguage({super.key});
@@ -28,24 +28,47 @@ class KeyboardEn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final statuses = context.watch<GameBloc>().state.statuses;
     return Column(
       children: [
         const SizedBox(height: 8),
         Row(
           mainAxisSize: MainAxisSize.min,
-          children: [for (var i = 0; i < KeyboardList.list1.length; i++) KeyboardKey(letter: KeyboardList.list1[i])],
+          children: [
+            for (var i = 0; i < KeyboardList.list1.length; i++)
+              KeyboardKey(
+                letter: KeyboardList.list1[i],
+                status: statuses.containsKey(KeyboardList.list1[i])
+                    ? statuses[KeyboardList.list1[i]]!
+                    : LetterStatus.unknown,
+              ),
+          ],
         ),
         const Spacer(),
         Row(
           mainAxisSize: MainAxisSize.min,
-          children: [for (var i = 0; i < KeyboardList.list2.length; i++) KeyboardKey(letter: KeyboardList.list2[i])],
+          children: [
+            for (var i = 0; i < KeyboardList.list2.length; i++)
+              KeyboardKey(
+                letter: KeyboardList.list2[i],
+                status: statuses.containsKey(KeyboardList.list2[i])
+                    ? statuses[KeyboardList.list2[i]]!
+                    : LetterStatus.unknown,
+              )
+          ],
         ),
         const Spacer(),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             const EnterKey(),
-            for (var i = 0; i < KeyboardList.list3.length; i++) KeyboardKey(letter: KeyboardList.list3[i]),
+            for (var i = 0; i < KeyboardList.list3.length; i++)
+              KeyboardKey(
+                letter: KeyboardList.list3[i],
+                status: statuses.containsKey(KeyboardList.list3[i])
+                    ? statuses[KeyboardList.list3[i]]!
+                    : LetterStatus.unknown,
+              ),
             const DeleteKey(),
           ],
         ),
@@ -60,24 +83,47 @@ class KeyboardRu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final statuses = context.watch<GameBloc>().state.statuses;
     return Column(
       children: [
         const SizedBox(height: 8),
         Row(
           mainAxisSize: MainAxisSize.min,
-          children: [for (var i = 0; i < 12; i++) const KeyboardKey(letter: '')],
+          children: [
+            for (var i = 0; i < KeyboardList.list4.length; i++)
+              KeyboardKey(
+                letter: KeyboardList.list4[i],
+                status: statuses.containsKey(KeyboardList.list4[i])
+                    ? statuses[KeyboardList.list4[i]]!
+                    : LetterStatus.unknown,
+              )
+          ],
         ),
         const Spacer(),
         Row(
           mainAxisSize: MainAxisSize.min,
-          children: [for (var i = 0; i < 11; i++) const KeyboardKey(letter: '')],
+          children: [
+            for (var i = 0; i < KeyboardList.list5.length; i++)
+              KeyboardKey(
+                letter: KeyboardList.list5[i],
+                status: statuses.containsKey(KeyboardList.list5[i])
+                    ? statuses[KeyboardList.list5[i]]!
+                    : LetterStatus.unknown,
+              )
+          ],
         ),
         const Spacer(),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             const EnterKey(),
-            for (var i = 0; i < 9; i++) const KeyboardKey(letter: ''),
+            for (var i = 0; i < KeyboardList.list6.length; i++)
+              KeyboardKey(
+                letter: KeyboardList.list6[i],
+                status: statuses.containsKey(KeyboardList.list6[i])
+                    ? statuses[KeyboardList.list6[i]]!
+                    : LetterStatus.unknown,
+              ),
             const DeleteKey(),
           ],
         ),
@@ -106,7 +152,7 @@ class EnterKey extends StatelessWidget {
       padding: const EdgeInsets.only(right: 3),
       child: SizedBox(
         height: 58,
-        width: LocaleScope.of(context).locale.width(context) * 1.65,
+        width: DictionaryScope.of(context).dictionary.width(context) * 1.65,
         child: Material(
           color: Colors.grey,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
@@ -128,7 +174,7 @@ class DeleteKey extends StatelessWidget {
       padding: const EdgeInsets.only(left: 3),
       child: SizedBox(
         height: 58,
-        width: LocaleScope.of(context).locale.width(context) * 1.65,
+        width: DictionaryScope.of(context).dictionary.width(context) * 1.65,
         child: Material(
           color: Colors.grey,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
@@ -143,9 +189,14 @@ class DeleteKey extends StatelessWidget {
 }
 
 class KeyboardKey extends StatelessWidget {
-  const KeyboardKey({required this.letter, super.key});
+  const KeyboardKey({
+    required this.letter,
+    required this.status,
+    super.key,
+  });
 
   final String letter;
+  final LetterStatus status;
 
   @override
   Widget build(BuildContext context) {
@@ -153,9 +204,9 @@ class KeyboardKey extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 3),
       child: SizedBox(
         height: 58,
-        width: LocaleScope.of(context).locale.width(context),
+        width: DictionaryScope.of(context).dictionary.width(context),
         child: Material(
-          color: Colors.grey,
+          color: status.color,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           child: InkWell(
             onTap: () {

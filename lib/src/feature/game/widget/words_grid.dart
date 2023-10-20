@@ -60,7 +60,7 @@ class GridTile extends StatelessWidget {
                 ),
         ),
         child: FittedBox(
-          child: Text(letter.letter),
+          child: Text(letter.letter.toUpperCase()),
         ),
       ),
     );

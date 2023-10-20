@@ -2,11 +2,12 @@ import 'dart:convert' show json;
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
+import 'package:wordly/src/feature/game/model/saved_result.dart';
 
 abstract interface class GameDataSource {
-  Future<void> saveDailyBoard(String dictionary, String date, List<LetterInfo> board);
+  Future<void> saveDailyBoard(String dictionary, String date, SavedResult savedResult);
 
-  List<LetterInfo>? loadDailyFromCache(String dictionary, String date);
+  SavedResult? loadDailyFromCache(String dictionary, String date);
 }
 
 final class GameDataSourceImpl implements GameDataSource {
@@ -18,34 +19,39 @@ final class GameDataSourceImpl implements GameDataSource {
   static const _boardPrefix = 'board';
 
   @override
-  Future<void> saveDailyBoard(String dictionary, String date, List<LetterInfo> board) async {
+  Future<void> saveDailyBoard(String dictionary, String date, SavedResult savedResult) async {
     await _sharedPreferences.setString(
       '${_boardPrefix}_$dictionary',
       json.encode({
         'date': date,
-        'board': board.map((e) => json.encode(e.toJson())).join('|'),
+        'board': savedResult.board.map((e) => json.encode(e.toJson())).join('|'),
+        'secretWord': savedResult.secretWord,
+        'win': savedResult.isWin,
       }),
     );
   }
 
   @override
-  List<LetterInfo>? loadDailyFromCache(String dictionary, String date) {
-    final rawBoard = _sharedPreferences.getString(
+  SavedResult? loadDailyFromCache(String dictionary, String date) {
+    final rawResult = _sharedPreferences.getString(
       '${_boardPrefix}_$dictionary',
     );
-    if (rawBoard == null) {
+    if (rawResult == null) {
       return null;
     }
-    final decodedBoard = json.decode(rawBoard) as Map<String, dynamic>;
-    final oldDate = decodedBoard['date'].toString();
-    if (date != oldDate) {
+    final decodedResult = json.decode(rawResult) as Map<String, dynamic>;
+    final oldDate = decodedResult['date'].toString();
+    final oldSecretWord = decodedResult['secretWord']?.toString();
+    if (date != oldDate || oldSecretWord == null) {
       return null;
     }
-    final ss = decodedBoard['board'].toString().split('|').map((e) => json.decode(e) as Map<String, dynamic>).toList();
-    return decodedBoard['board']
+    final ss = decodedResult['board'].toString().split('|').map((e) => json.decode(e) as Map<String, dynamic>).toList();
+    final board = decodedResult['board']
         .toString()
         .split('|')
         .map((e) => LetterInfo.fromJson(json.decode(e) as Map<String, dynamic>))
         .toList();
+    final isWin = bool.tryParse(decodedResult['win'].toString());
+    return SavedResult(board: board, isWin: isWin, secretWord: oldSecretWord);
   }
 }

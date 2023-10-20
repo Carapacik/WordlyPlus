@@ -26,7 +26,6 @@ class _MaterialContextState extends State<MaterialContext> {
   Widget build(BuildContext context) {
     final theme = ThemeScope.of(context).theme;
     final dictionary = DictionaryScope.of(context).dictionary;
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme.lightTheme,
@@ -39,6 +38,7 @@ class _MaterialContextState extends State<MaterialContext> {
         create: (context) => GameBloc(
           gameRepository: context.dependencies.gameRepository,
           dictionary: dictionary,
+          savedResult: context.dependencies.gameRepository.loadDailyFromCache(dictionary, DateTime.now().toUtc()),
         ),
         child: const GamePage(),
       ),

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:ui';
+import 'dart:ui' show Locale;
 
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +7,7 @@ import 'package:meta/meta.dart';
 import 'package:wordly/src/core/utils/pattern_match.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
+import 'package:wordly/src/feature/game/model/saved_result.dart';
 import 'package:wordly/src/feature/game/model/word_error.dart';
 
 @immutable
@@ -388,16 +389,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   GameBloc({
     required Locale dictionary,
     required IGameRepository gameRepository,
+    required SavedResult? savedResult,
   })  : _gameRepository = gameRepository,
-        super(
-          GameState.idle(
-            dictionary: dictionary,
-            secretWord: 'swoop',
-            gameCompleted: false,
-            board: gameRepository.loadDailyFromCache(dictionary, DateTime.now().toUtc()) ?? [],
-            statuses: const {},
-          ),
-        ) {
+        super(_stateBySavedResult(savedResult, dictionary, gameRepository.generateSecretWord(dictionary))) {
     on<GameEvent>(
       (event, emit) async => event.map(
         changeDictionary: (e) => _changeDictionary(e, emit),
@@ -415,16 +409,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     _GameEventChangeDictionary event,
     Emitter<GameState> emit,
   ) {
-    emit(
-      GameState.idle(
-        dictionary: event.dictionary,
-        secretWord: state.secretWord,
-        gameCompleted: state.gameCompleted,
-        board: state.board,
-        statuses: state.statuses,
-      ),
-    );
-    // TODO(Carapacik): load board
+    final dictionary = event.dictionary;
+    final savedResult = _gameRepository.loadDailyFromCache(dictionary, DateTime.now().toUtc());
+    emit(_stateBySavedResult(savedResult, dictionary, _gameRepository.generateSecretWord(dictionary)));
   }
 
   void _letterPressed(
@@ -545,7 +532,17 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           statuses: state.statuses,
         ),
       );
-      unawaited(_gameRepository.saveDailyBoard(state.dictionary, state.board, DateTime.now().toUtc()));
+      unawaited(
+        _gameRepository.saveDailyBoard(
+          state.dictionary,
+          DateTime.now().toUtc(),
+          SavedResult(
+            secretWord: state.secretWord,
+            isWin: true,
+            board: state.board,
+          ),
+        ),
+      );
       return;
     }
     final resultWord = <LetterInfo>[];
@@ -584,6 +581,17 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           statuses: state.statuses,
         ),
       );
+      unawaited(
+        _gameRepository.saveDailyBoard(
+          state.dictionary,
+          DateTime.now().toUtc(),
+          SavedResult(
+            secretWord: state.secretWord,
+            isWin: false,
+            board: state.board,
+          ),
+        ),
+      );
     } else {
       emit(
         GameState.idle(
@@ -594,6 +602,45 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           statuses: state.statuses,
         ),
       );
+      unawaited(
+        _gameRepository.saveDailyBoard(
+          state.dictionary,
+          DateTime.now().toUtc(),
+          SavedResult(
+            secretWord: state.secretWord,
+            isWin: null,
+            board: state.board,
+          ),
+        ),
+      );
     }
   }
+}
+
+GameState _stateBySavedResult(SavedResult? savedResult, Locale dictionary, String secretWord) {
+  if (savedResult == null || savedResult.isWin == null) {
+    return GameState.idle(
+      dictionary: dictionary,
+      secretWord: secretWord,
+      gameCompleted: false,
+      board: savedResult?.board ?? [],
+      statuses: const {},
+    );
+  }
+  if (savedResult.isWin ?? false) {
+    return GameState.win(
+      dictionary: dictionary,
+      secretWord: savedResult.secretWord,
+      gameCompleted: true,
+      board: savedResult.board,
+      statuses: const {},
+    );
+  }
+  return GameState.loss(
+    dictionary: dictionary,
+    secretWord: savedResult.secretWord,
+    gameCompleted: true,
+    board: savedResult.board,
+    statuses: const {},
+  );
 }

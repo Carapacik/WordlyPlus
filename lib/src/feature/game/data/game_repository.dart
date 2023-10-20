@@ -4,6 +4,7 @@ import 'dart:ui' show Locale;
 
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:intl/intl.dart';
+import 'package:wordly/src/core/utils/logger.dart';
 import 'package:wordly/src/feature/game/data/game_datasource.dart';
 import 'package:wordly/src/feature/game/model/saved_result.dart';
 
@@ -48,13 +49,15 @@ final class GameRepository implements IGameRepository {
     return _enDictionary;
   }
 
+  @override
   String generateSecretWord(Locale dictionary) {
     final currentDict = currentDictionary(dictionary);
-
     final now = DateTime.now().toUtc();
     final random = Random(now.year * 1000 + now.month * 100 + now.day);
     final index = random.nextInt(currentDict.length);
-    return currentDict.keys.elementAt(index);
+    final word = currentDict.keys.elementAt(index);
+    logger.info('Secret word: $word');
+    return word;
   }
 
   @override

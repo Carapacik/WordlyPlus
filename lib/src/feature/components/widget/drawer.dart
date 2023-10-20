@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/src/core/extension/extensions.dart';
+import 'package:wordly/src/feature/game/logic/game_bloc.dart';
 import 'package:wordly/src/feature/game/widget/game_page.dart';
 import 'package:wordly/src/feature/settings/widget/setting_page.dart';
 
@@ -24,10 +26,14 @@ class CustomDrawer extends StatelessWidget {
                 onTap: () async {
                   Scaffold.of(context).closeDrawer();
                   final navigator = Navigator.of(context);
+                  final bloc = context.read<GameBloc>();
                   await Future<void>.delayed(const Duration(milliseconds: 250));
                   await navigator.pushAndRemoveUntil(
                     PageRouteBuilder<void>(
-                      pageBuilder: (context, _, __) => const GamePage(),
+                      pageBuilder: (context, _, __) => BlocProvider.value(
+                        value: bloc,
+                        child: const GamePage(),
+                      ),
                       transitionDuration: Duration.zero,
                       reverseTransitionDuration: Duration.zero,
                     ),
@@ -40,10 +46,14 @@ class CustomDrawer extends StatelessWidget {
                 onTap: () async {
                   Scaffold.of(context).closeDrawer();
                   final navigator = Navigator.of(context);
+                  final bloc = context.read<GameBloc>();
                   await Future<void>.delayed(const Duration(milliseconds: 250));
                   await navigator.pushAndRemoveUntil(
                     PageRouteBuilder<void>(
-                      pageBuilder: (context, _, __) => const GamePage(),
+                      pageBuilder: (context, _, __) => BlocProvider.value(
+                        value: bloc,
+                        child: const GamePage(),
+                      ),
                       transitionDuration: Duration.zero,
                       reverseTransitionDuration: Duration.zero,
                     ),
@@ -56,6 +66,7 @@ class CustomDrawer extends StatelessWidget {
                 onTap: () async {
                   Scaffold.of(context).closeDrawer();
                   final navigator = Navigator.of(context);
+                  final bloc = context.read<GameBloc>();
                   // await navigator.push(
                   //   MaterialPageRoute<void>(
                   //     builder: (context) => const TutorialPage(),
@@ -68,9 +79,13 @@ class CustomDrawer extends StatelessWidget {
                 onTap: () async {
                   Scaffold.of(context).closeDrawer();
                   final navigator = Navigator.of(context);
+                  final bloc = context.read<GameBloc>();
                   await navigator.push(
                     MaterialPageRoute<void>(
-                      builder: (context) => const SettingsPage(),
+                      builder: (context) => BlocProvider.value(
+                        value: bloc,
+                        child: const SettingsPage(),
+                      ),
                     ),
                   );
                 },

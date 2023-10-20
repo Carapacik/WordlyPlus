@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
+import 'package:wordly/src/feature/app/widget/locale_scope.dart';
+import 'package:wordly/src/feature/game/logic/game_bloc.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -27,10 +31,44 @@ class _SettingsPageState extends State<SettingsPage> {
           ColorPicker(
             pickerColor: currentColor,
             onColorChanged: changeColor,
-            labelTypes: [],
+            labelTypes: const [],
             enableAlpha: false,
             portraitOnly: true,
-          )
+          ),
+          Row(
+            children: [
+              TextButton(
+                onPressed: () {
+                  DictionaryScope.of(context).setDictionary(const Locale('ru'));
+                  context.read<GameBloc>().add(const GameEvent.changeDictionary(Locale('ru')));
+                },
+                child: const Text('ru'),
+              ),
+              TextButton(
+                onPressed: () {
+                  DictionaryScope.of(context).setDictionary(const Locale('en'));
+                  context.read<GameBloc>().add(const GameEvent.changeDictionary(Locale('en')));
+                },
+                child: const Text('en'),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              TextButton(
+                onPressed: () {
+                  LocaleScope.of(context).setLocale(const Locale('ru'));
+                },
+                child: const Text('ru'),
+              ),
+              TextButton(
+                onPressed: () {
+                  LocaleScope.of(context).setLocale(const Locale('en'));
+                },
+                child: const Text('en'),
+              ),
+            ],
+          ),
         ],
       ),
     );

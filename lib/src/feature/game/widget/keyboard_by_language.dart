@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
 import 'package:wordly/src/feature/app/widget/locale_scope.dart';
 import 'package:wordly/src/feature/game/logic/game_bloc.dart';
 import 'package:wordly/src/feature/game/model/keyboard.dart';
@@ -13,7 +14,7 @@ class KeyboardByLanguage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 200,
-      child: switch (LocaleScope.of(context).locale) {
+      child: switch (DictionaryScope.of(context).dictionary) {
         const Locale('en') => const KeyboardEn(),
         const Locale('ru') => const KeyboardRu(),
         _ => const SizedBox.shrink(),
@@ -64,32 +65,19 @@ class KeyboardRu extends StatelessWidget {
         const SizedBox(height: 8),
         Row(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            for (var i = 0; i < 12; i++)
-              const KeyboardKey(
-                letter: '',
-              )
-          ],
+          children: [for (var i = 0; i < 12; i++) const KeyboardKey(letter: '')],
         ),
         const Spacer(),
         Row(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            for (var i = 0; i < 11; i++)
-              const KeyboardKey(
-                letter: '',
-              )
-          ],
+          children: [for (var i = 0; i < 11; i++) const KeyboardKey(letter: '')],
         ),
         const Spacer(),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             const EnterKey(),
-            for (var i = 0; i < 9; i++)
-              const KeyboardKey(
-                letter: '',
-              ),
+            for (var i = 0; i < 9; i++) const KeyboardKey(letter: ''),
             const DeleteKey(),
           ],
         ),

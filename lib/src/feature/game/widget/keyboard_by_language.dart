@@ -35,11 +35,11 @@ class KeyboardEn extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            for (var i = 0; i < KeyboardList.list1.length; i++)
+            for (var i = 0; i < KeyboardList.enKeyboard.$1.length; i++)
               KeyboardKey(
-                letter: KeyboardList.list1[i],
-                status: statuses.containsKey(KeyboardList.list1[i])
-                    ? statuses[KeyboardList.list1[i]]!
+                letter: KeyboardList.enKeyboard.$1[i],
+                status: statuses.containsKey(KeyboardList.enKeyboard.$1[i])
+                    ? statuses[KeyboardList.enKeyboard.$1[i]]!
                     : LetterStatus.unknown,
               ),
           ],
@@ -48,13 +48,13 @@ class KeyboardEn extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            for (var i = 0; i < KeyboardList.list2.length; i++)
+            for (var i = 0; i < KeyboardList.enKeyboard.$2.length; i++)
               KeyboardKey(
-                letter: KeyboardList.list2[i],
-                status: statuses.containsKey(KeyboardList.list2[i])
-                    ? statuses[KeyboardList.list2[i]]!
+                letter: KeyboardList.enKeyboard.$2[i],
+                status: statuses.containsKey(KeyboardList.enKeyboard.$2[i])
+                    ? statuses[KeyboardList.enKeyboard.$2[i]]!
                     : LetterStatus.unknown,
-              )
+              ),
           ],
         ),
         const Spacer(),
@@ -62,11 +62,11 @@ class KeyboardEn extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const EnterKey(),
-            for (var i = 0; i < KeyboardList.list3.length; i++)
+            for (var i = 0; i < KeyboardList.enKeyboard.$3.length; i++)
               KeyboardKey(
-                letter: KeyboardList.list3[i],
-                status: statuses.containsKey(KeyboardList.list3[i])
-                    ? statuses[KeyboardList.list3[i]]!
+                letter: KeyboardList.enKeyboard.$3[i],
+                status: statuses.containsKey(KeyboardList.enKeyboard.$3[i])
+                    ? statuses[KeyboardList.enKeyboard.$3[i]]!
                     : LetterStatus.unknown,
               ),
             const DeleteKey(),
@@ -90,26 +90,26 @@ class KeyboardRu extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            for (var i = 0; i < KeyboardList.list4.length; i++)
+            for (var i = 0; i < KeyboardList.ruKeyboard.$1.length; i++)
               KeyboardKey(
-                letter: KeyboardList.list4[i],
-                status: statuses.containsKey(KeyboardList.list4[i])
-                    ? statuses[KeyboardList.list4[i]]!
+                letter: KeyboardList.ruKeyboard.$1[i],
+                status: statuses.containsKey(KeyboardList.ruKeyboard.$1[i])
+                    ? statuses[KeyboardList.ruKeyboard.$1[i]]!
                     : LetterStatus.unknown,
-              )
+              ),
           ],
         ),
         const Spacer(),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            for (var i = 0; i < KeyboardList.list5.length; i++)
+            for (var i = 0; i < KeyboardList.ruKeyboard.$2.length; i++)
               KeyboardKey(
-                letter: KeyboardList.list5[i],
-                status: statuses.containsKey(KeyboardList.list5[i])
-                    ? statuses[KeyboardList.list5[i]]!
+                letter: KeyboardList.ruKeyboard.$2[i],
+                status: statuses.containsKey(KeyboardList.ruKeyboard.$2[i])
+                    ? statuses[KeyboardList.ruKeyboard.$2[i]]!
                     : LetterStatus.unknown,
-              )
+              ),
           ],
         ),
         const Spacer(),
@@ -117,11 +117,11 @@ class KeyboardRu extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const EnterKey(),
-            for (var i = 0; i < KeyboardList.list6.length; i++)
+            for (var i = 0; i < KeyboardList.ruKeyboard.$3.length; i++)
               KeyboardKey(
-                letter: KeyboardList.list6[i],
-                status: statuses.containsKey(KeyboardList.list6[i])
-                    ? statuses[KeyboardList.list6[i]]!
+                letter: KeyboardList.ruKeyboard.$3[i],
+                status: statuses.containsKey(KeyboardList.ruKeyboard.$3[i])
+                    ? statuses[KeyboardList.ruKeyboard.$3[i]]!
                     : LetterStatus.unknown,
               ),
             const DeleteKey(),

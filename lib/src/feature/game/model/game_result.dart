@@ -1,7 +1,7 @@
 import 'package:wordly/src/feature/game/model/letter_info.dart';
 
-class SavedResult {
-  const SavedResult({
+class GameResult {
+  const GameResult({
     required this.secretWord,
     required this.isWin,
     required this.board,

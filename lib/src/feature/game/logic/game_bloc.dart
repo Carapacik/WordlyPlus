@@ -7,7 +7,7 @@ import 'package:meta/meta.dart';
 import 'package:wordly/src/core/utils/pattern_match.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
-import 'package:wordly/src/feature/game/model/saved_result.dart';
+import 'package:wordly/src/feature/game/model/game_result.dart';
 import 'package:wordly/src/feature/game/model/word_error.dart';
 import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 
@@ -391,7 +391,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     required Locale dictionary,
     required IGameRepository gameRepository,
     required IStatisticsRepository statisticsRepository,
-    required SavedResult? savedResult,
+    required GameResult? savedResult,
   })  : _gameRepository = gameRepository,
         _statisticsRepository = statisticsRepository,
         super(_stateBySavedResult(savedResult, dictionary, gameRepository.generateSecretWord(dictionary))) {
@@ -545,7 +545,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         _gameRepository.saveDailyBoard(
           state.dictionary,
           DateTime.now().toUtc(),
-          SavedResult(
+          GameResult(
             secretWord: state.secretWord,
             isWin: true,
             board: state.board,
@@ -605,7 +605,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         _gameRepository.saveDailyBoard(
           state.dictionary,
           DateTime.now().toUtc(),
-          SavedResult(
+          GameResult(
             secretWord: state.secretWord,
             isWin: false,
             board: state.board,
@@ -633,7 +633,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         _gameRepository.saveDailyBoard(
           state.dictionary,
           DateTime.now().toUtc(),
-          SavedResult(
+          GameResult(
             secretWord: state.secretWord,
             isWin: null,
             board: state.board,
@@ -644,7 +644,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   }
 }
 
-GameState _stateBySavedResult(SavedResult? savedResult, Locale dictionary, String secretWord) {
+GameState _stateBySavedResult(GameResult? savedResult, Locale dictionary, String secretWord) {
   if (savedResult == null || savedResult.isWin == null) {
     return GameState.idle(
       dictionary: dictionary,

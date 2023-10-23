@@ -130,27 +130,22 @@ class _AttemptContent extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 24),
       shrinkWrap: true,
       itemCount: attempts.length,
+      separatorBuilder: (_, __) => const SizedBox(height: 4),
       itemBuilder: (context, index) => FractionallySizedBox(
         alignment: Alignment.topLeft,
         widthFactor: (attempts[index] + 1) / maxValue,
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.yellow,
+            color: Colors.green,
             borderRadius: BorderRadius.circular(4),
           ),
           height: 20,
           child: Text(
             ' ${attempts[index]}',
-            style: context.theme.bl.copyWith(
-                // color: context.dynamicColor(
-                //   light: AppColors.light,
-                //   dark: AppColors.dark,
-                // ),
-                ),
+            style: context.theme.bl.copyWith(color: Colors.white),
           ),
         ),
       ),
-      separatorBuilder: (_, __) => const SizedBox(height: 4),
     );
   }
 }

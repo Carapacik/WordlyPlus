@@ -3,10 +3,10 @@ import 'dart:math' show Random;
 import 'dart:ui' show Locale;
 
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' show DateFormat;
 import 'package:wordly/src/core/utils/logger.dart';
 import 'package:wordly/src/feature/game/data/game_datasource.dart';
-import 'package:wordly/src/feature/game/model/saved_result.dart';
+import 'package:wordly/src/feature/game/model/game_result.dart';
 
 abstract interface class IGameRepository {
   Future<void> init();
@@ -15,9 +15,9 @@ abstract interface class IGameRepository {
 
   String generateSecretWord(Locale dictionary);
 
-  SavedResult? loadDailyFromCache(Locale dictionary, DateTime date);
+  GameResult? loadDailyFromCache(Locale dictionary, DateTime date);
 
-  Future<void> saveDailyBoard(Locale dictionary, DateTime date, SavedResult savedResult);
+  Future<void> saveDailyBoard(Locale dictionary, DateTime date, GameResult savedResult);
 }
 
 final class GameRepository implements IGameRepository {
@@ -50,21 +50,26 @@ final class GameRepository implements IGameRepository {
   }
 
   @override
-  String generateSecretWord(Locale dictionary) {
+  String generateSecretWord(Locale dictionary, {int levelNumber = 0}) {
     final currentDict = currentDictionary(dictionary);
-    final now = DateTime.now().toUtc();
-    final random = Random(now.year * 1000 + now.month * 100 + now.day);
-    final index = random.nextInt(currentDict.length);
+    int index;
+    if (levelNumber == 0) {
+      final now = DateTime.now().toUtc();
+      final random = Random(now.year * 1000 + now.month * 100 + now.day);
+      index = random.nextInt(currentDict.length);
+    } else {
+      index = Random(levelNumber).nextInt(currentDict.length);
+    }
     final word = currentDict.keys.elementAt(index);
     logger.info('Secret word: $word');
     return word;
   }
 
   @override
-  SavedResult? loadDailyFromCache(Locale dictionary, DateTime date) =>
+  GameResult? loadDailyFromCache(Locale dictionary, DateTime date) =>
       _gameDataSource.loadDailyFromCache(dictionary.languageCode, DateFormat('dd-MM-yyyy').format(date));
 
   @override
-  Future<void> saveDailyBoard(Locale dictionary, DateTime date, SavedResult savedResult) =>
+  Future<void> saveDailyBoard(Locale dictionary, DateTime date, GameResult savedResult) =>
       _gameDataSource.saveDailyBoard(dictionary.languageCode, DateFormat('dd-MM-yyyy').format(date), savedResult);
 }

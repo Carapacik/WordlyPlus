@@ -2,12 +2,12 @@ import 'dart:convert' show json;
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
-import 'package:wordly/src/feature/game/model/saved_result.dart';
+import 'package:wordly/src/feature/game/model/game_result.dart';
 
 abstract interface class GameDataSource {
-  Future<void> saveDailyBoard(String dictionary, String date, SavedResult savedResult);
+  Future<void> saveDailyBoard(String dictionary, String date, GameResult savedResult);
 
-  SavedResult? loadDailyFromCache(String dictionary, String date);
+  GameResult? loadDailyFromCache(String dictionary, String date);
 }
 
 final class GameDataSourceImpl implements GameDataSource {
@@ -19,7 +19,7 @@ final class GameDataSourceImpl implements GameDataSource {
   static const _boardPrefix = 'board';
 
   @override
-  Future<void> saveDailyBoard(String dictionary, String date, SavedResult savedResult) async {
+  Future<void> saveDailyBoard(String dictionary, String date, GameResult savedResult) async {
     await _sharedPreferences.setString(
       '${_boardPrefix}_$dictionary',
       json.encode({
@@ -32,7 +32,7 @@ final class GameDataSourceImpl implements GameDataSource {
   }
 
   @override
-  SavedResult? loadDailyFromCache(String dictionary, String date) {
+  GameResult? loadDailyFromCache(String dictionary, String date) {
     final rawResult = _sharedPreferences.getString(
       '${_boardPrefix}_$dictionary',
     );
@@ -52,6 +52,6 @@ final class GameDataSourceImpl implements GameDataSource {
         .map((e) => LetterInfo.fromJson(json.decode(e) as Map<String, dynamic>))
         .toList();
     final isWin = bool.tryParse(decodedResult['win'].toString());
-    return SavedResult(board: board, isWin: isWin, secretWord: oldSecretWord);
+    return GameResult(board: board, isWin: isWin, secretWord: oldSecretWord);
   }
 }

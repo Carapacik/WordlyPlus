@@ -158,6 +158,9 @@ class EnterKey extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           child: InkWell(
             onTap: () => context.read<GameBloc>().add(const GameEvent.enterPressed()),
+            child: const FittedBox(
+              child: Text('ENTER'),
+            ),
           ),
         ),
       ),
@@ -181,6 +184,9 @@ class DeleteKey extends StatelessWidget {
           child: InkWell(
             onTap: () => context.read<GameBloc>().add(const GameEvent.deletePressed()),
             onLongPress: () => context.read<GameBloc>().add(const GameEvent.deleteLongPressed()),
+            child: const FittedBox(
+              child: Icon(Icons.backspace_outlined),
+            ),
           ),
         ),
       ),

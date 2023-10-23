@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:wordly/src/core/utils/pattern_match.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
-import 'package:wordly/src/feature/game/model/letter_info.dart';
 import 'package:wordly/src/feature/game/model/game_result.dart';
+import 'package:wordly/src/feature/game/model/letter_info.dart';
 import 'package:wordly/src/feature/game/model/word_error.dart';
 import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 
@@ -251,11 +251,11 @@ abstract base class _GameStateBase {
       };
 
   T maybeMap<T>({
-    required PatternMatch<T, _GameStateIdle>? idle,
-    required PatternMatch<T, _GameStateWin>? win,
-    required PatternMatch<T, _GameStateLoss>? loss,
-    required PatternMatch<T, _GameStateError>? error,
     required T orElse,
+    PatternMatch<T, _GameStateIdle>? idle,
+    PatternMatch<T, _GameStateWin>? win,
+    PatternMatch<T, _GameStateLoss>? loss,
+    PatternMatch<T, _GameStateError>? error,
   }) =>
       map(
         idle: idle ?? (_) => orElse,
@@ -370,12 +370,12 @@ abstract base class _GameEventBase {
       };
 
   T maybeMap<T>({
-    required PatternMatch<T, _GameEventChangeDictionary>? changeDictionary,
-    required PatternMatch<T, _GameEventLetterPressed>? letterPressed,
-    required PatternMatch<T, _GameEventEnterPressed>? enterPressed,
-    required PatternMatch<T, _GameEventDeletePressed>? deletePressed,
-    required PatternMatch<T, _GameEventDeleteLongPressed>? deleteLongPressed,
     required T orElse,
+    PatternMatch<T, _GameEventChangeDictionary>? changeDictionary,
+    PatternMatch<T, _GameEventLetterPressed>? letterPressed,
+    PatternMatch<T, _GameEventEnterPressed>? enterPressed,
+    PatternMatch<T, _GameEventDeletePressed>? deletePressed,
+    PatternMatch<T, _GameEventDeleteLongPressed>? deleteLongPressed,
   }) =>
       map(
         changeDictionary: changeDictionary ?? (_) => orElse,

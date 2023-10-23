@@ -8,7 +8,7 @@ class HaveNotPlayed extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 36),
         child: Text(
           context.r.not_played,
           style: context.theme.tl,

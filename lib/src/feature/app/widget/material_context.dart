@@ -26,22 +26,22 @@ class _MaterialContextState extends State<MaterialContext> {
   Widget build(BuildContext context) {
     final theme = ThemeScope.of(context).theme;
     final dictionary = DictionaryScope.of(context).dictionary;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: theme.lightTheme,
-      darkTheme: theme.darkTheme,
-      themeMode: theme.mode,
-      localizationsDelegates: Localization.localizationDelegates,
-      supportedLocales: Localization.supportedLocales,
-      locale: LocaleScope.of(context).locale,
-      home: BlocProvider(
-        create: (context) => GameBloc(
-          gameRepository: context.dependencies.gameRepository,
-          statisticsRepository: context.dependencies.statisticsRepository,
-          dictionary: dictionary,
-          savedResult: context.dependencies.gameRepository.loadDailyFromCache(dictionary, DateTime.now().toUtc()),
-        ),
-        child: const GamePage(),
+    return BlocProvider(
+      create: (context) => GameBloc(
+        gameRepository: context.dependencies.gameRepository,
+        statisticsRepository: context.dependencies.statisticsRepository,
+        dictionary: dictionary,
+        savedResult: context.dependencies.gameRepository.loadDailyFromCache(dictionary, DateTime.now().toUtc()),
+      ),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: theme.lightTheme,
+        darkTheme: theme.darkTheme,
+        themeMode: theme.mode,
+        localizationsDelegates: Localization.localizationDelegates,
+        supportedLocales: Localization.supportedLocales,
+        locale: LocaleScope.of(context).locale,
+        home: const GamePage(),
       ),
     );
   }

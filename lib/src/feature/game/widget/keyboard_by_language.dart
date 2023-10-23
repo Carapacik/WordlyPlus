@@ -1,10 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
 import 'package:wordly/src/feature/game/logic/game_bloc.dart';
-import 'package:wordly/src/feature/game/model/keyboard.dart';
+import 'package:wordly/src/feature/game/model/keyboard_list.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
 
 class KeyboardByLanguage extends StatelessWidget {
@@ -130,16 +128,6 @@ class KeyboardRu extends StatelessWidget {
         const SizedBox(height: 8),
       ],
     );
-  }
-}
-
-extension on Locale {
-  double width(BuildContext context) {
-    return switch (this) {
-      const Locale('en') => (min(MediaQuery.sizeOf(context).width, 520) - 11 * 6) / 10,
-      const Locale('ru') => (min(MediaQuery.sizeOf(context).width, 520) - 13 * 6) / 12,
-      _ => 0,
-    };
   }
 }
 

@@ -13,11 +13,15 @@ abstract interface class IGameRepository {
 
   Map<String, String> currentDictionary(Locale dictionary);
 
-  String generateSecretWord(Locale dictionary);
+  String generateSecretWord(Locale dictionary, {int levelNumber = 0});
 
   GameResult? loadDailyFromCache(Locale dictionary, DateTime date);
 
   Future<void> saveDailyBoard(Locale dictionary, DateTime date, GameResult savedResult);
+
+  GameResult? loadLvlFromCache(Locale dictionary);
+
+  Future<void> saveLvlBoard(Locale dictionary, GameResult savedResult);
 }
 
 final class GameRepository implements IGameRepository {
@@ -72,4 +76,11 @@ final class GameRepository implements IGameRepository {
   @override
   Future<void> saveDailyBoard(Locale dictionary, DateTime date, GameResult savedResult) =>
       _gameDataSource.saveDailyBoard(dictionary.languageCode, DateFormat('dd-MM-yyyy').format(date), savedResult);
+
+  @override
+  GameResult? loadLvlFromCache(Locale dictionary) => _gameDataSource.loadLvlFromCache(dictionary.languageCode);
+
+  @override
+  Future<void> saveLvlBoard(Locale dictionary, GameResult savedResult) =>
+      _gameDataSource.saveLvlBoard(dictionary.languageCode, savedResult);
 }

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:wordly/src/core/utils/pattern_match.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
+import 'package:wordly/src/feature/game/model/game_mode.dart';
 import 'package:wordly/src/feature/game/model/game_result.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
 import 'package:wordly/src/feature/game/model/word_error.dart';
@@ -18,6 +19,7 @@ sealed class GameState extends _GameStateBase {
   const factory GameState.idle({
     required Locale dictionary,
     required String secretWord,
+    required GameMode gameMode,
     required bool gameCompleted,
     required List<LetterInfo> board,
     required Map<String, LetterStatus> statuses,
@@ -26,6 +28,7 @@ sealed class GameState extends _GameStateBase {
   const factory GameState.win({
     required Locale dictionary,
     required String secretWord,
+    required GameMode gameMode,
     required bool gameCompleted,
     required List<LetterInfo> board,
     required Map<String, LetterStatus> statuses,
@@ -34,6 +37,7 @@ sealed class GameState extends _GameStateBase {
   const factory GameState.loss({
     required Locale dictionary,
     required String secretWord,
+    required GameMode gameMode,
     required bool gameCompleted,
     required List<LetterInfo> board,
     required Map<String, LetterStatus> statuses,
@@ -42,6 +46,7 @@ sealed class GameState extends _GameStateBase {
   const factory GameState.error({
     required Locale dictionary,
     required String secretWord,
+    required GameMode gameMode,
     required bool gameCompleted,
     required List<LetterInfo> board,
     required Map<String, LetterStatus> statuses,
@@ -57,6 +62,7 @@ final class _GameStateIdle extends GameState {
   const _GameStateIdle({
     required this.dictionary,
     required this.secretWord,
+    required this.gameMode,
     required this.gameCompleted,
     required this.board,
     required this.statuses,
@@ -66,6 +72,8 @@ final class _GameStateIdle extends GameState {
   final Locale dictionary;
   @override
   final String secretWord;
+  @override
+  final GameMode gameMode;
   @override
   final bool gameCompleted;
   @override
@@ -82,6 +90,7 @@ final class _GameStateIdle extends GameState {
       (other is _GameStateIdle &&
           dictionary == other.dictionary &&
           secretWord == other.secretWord &&
+          gameMode == other.gameMode &&
           gameCompleted == other.gameCompleted &&
           const DeepCollectionEquality().equals(board, other.board) &&
           const DeepCollectionEquality().equals(statuses, other.statuses));
@@ -90,6 +99,7 @@ final class _GameStateIdle extends GameState {
   int get hashCode =>
       dictionary.hashCode ^
       secretWord.hashCode ^
+      gameMode.hashCode ^
       gameCompleted.hashCode ^
       const DeepCollectionEquality().hash(board) ^
       const DeepCollectionEquality().hash(statuses);
@@ -99,6 +109,7 @@ final class _GameStateWin extends GameState {
   const _GameStateWin({
     required this.dictionary,
     required this.secretWord,
+    required this.gameMode,
     required this.gameCompleted,
     required this.board,
     required this.statuses,
@@ -108,6 +119,8 @@ final class _GameStateWin extends GameState {
   final Locale dictionary;
   @override
   final String secretWord;
+  @override
+  final GameMode gameMode;
   @override
   final bool gameCompleted;
   @override
@@ -124,6 +137,7 @@ final class _GameStateWin extends GameState {
       (other is _GameStateWin &&
           dictionary == other.dictionary &&
           secretWord == other.secretWord &&
+          gameMode == other.gameMode &&
           gameCompleted == other.gameCompleted &&
           const DeepCollectionEquality().equals(board, other.board) &&
           const DeepCollectionEquality().equals(statuses, other.statuses));
@@ -132,6 +146,7 @@ final class _GameStateWin extends GameState {
   int get hashCode =>
       dictionary.hashCode ^
       secretWord.hashCode ^
+      gameMode.hashCode ^
       gameCompleted.hashCode ^
       const DeepCollectionEquality().hash(board) ^
       const DeepCollectionEquality().hash(statuses);
@@ -141,6 +156,7 @@ final class _GameStateLoss extends GameState {
   const _GameStateLoss({
     required this.dictionary,
     required this.secretWord,
+    required this.gameMode,
     required this.gameCompleted,
     required this.board,
     required this.statuses,
@@ -150,6 +166,8 @@ final class _GameStateLoss extends GameState {
   final Locale dictionary;
   @override
   final String secretWord;
+  @override
+  final GameMode gameMode;
   @override
   final bool gameCompleted;
   @override
@@ -166,6 +184,7 @@ final class _GameStateLoss extends GameState {
       (other is _GameStateLoss &&
           dictionary == other.dictionary &&
           secretWord == other.secretWord &&
+          gameMode == other.gameMode &&
           gameCompleted == other.gameCompleted &&
           const DeepCollectionEquality().equals(board, other.board) &&
           const DeepCollectionEquality().equals(statuses, other.statuses));
@@ -174,6 +193,7 @@ final class _GameStateLoss extends GameState {
   int get hashCode =>
       dictionary.hashCode ^
       secretWord.hashCode ^
+      gameMode.hashCode ^
       gameCompleted.hashCode ^
       const DeepCollectionEquality().hash(board) ^
       const DeepCollectionEquality().hash(statuses);
@@ -183,6 +203,7 @@ final class _GameStateError extends GameState {
   const _GameStateError({
     required this.dictionary,
     required this.secretWord,
+    required this.gameMode,
     required this.gameCompleted,
     required this.board,
     required this.statuses,
@@ -193,6 +214,8 @@ final class _GameStateError extends GameState {
   final Locale dictionary;
   @override
   final String secretWord;
+  @override
+  final GameMode gameMode;
   @override
   final bool gameCompleted;
   @override
@@ -210,6 +233,7 @@ final class _GameStateError extends GameState {
       (other is _GameStateError &&
           dictionary == other.dictionary &&
           secretWord == other.secretWord &&
+          gameMode == other.gameMode &&
           gameCompleted == other.gameCompleted &&
           const DeepCollectionEquality().equals(board, other.board) &&
           const DeepCollectionEquality().equals(statuses, other.statuses) &&
@@ -231,6 +255,8 @@ abstract base class _GameStateBase {
   Locale get dictionary;
 
   String get secretWord;
+
+  GameMode get gameMode;
 
   bool get gameCompleted;
 
@@ -273,6 +299,8 @@ sealed class GameEvent extends _GameEventBase {
 
   const factory GameEvent.changeDictionary(Locale dictionary) = _GameEventChangeDictionary;
 
+  const factory GameEvent.changeGameMode(GameMode gameMode) = _GameEventChangeGameMode;
+
   const factory GameEvent.letterPressed(Object key) = _GameEventLetterPressed;
 
   const factory GameEvent.deletePressed() = _GameEventDeletePressed;
@@ -296,6 +324,22 @@ final class _GameEventChangeDictionary extends GameEvent {
 
   @override
   int get hashCode => dictionary.hashCode;
+}
+
+final class _GameEventChangeGameMode extends GameEvent {
+  const _GameEventChangeGameMode(this.gameMode);
+
+  final GameMode gameMode;
+
+  @override
+  String toString() => 'GameEvent.changeGameMode(gameMode: $gameMode)';
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || (other is _GameEventChangeGameMode && gameMode == other.gameMode);
+
+  @override
+  int get hashCode => gameMode.hashCode;
 }
 
 final class _GameEventLetterPressed extends GameEvent {
@@ -357,6 +401,7 @@ abstract base class _GameEventBase {
 
   T map<T>({
     required PatternMatch<T, _GameEventChangeDictionary> changeDictionary,
+    required PatternMatch<T, _GameEventChangeGameMode> changeGameMode,
     required PatternMatch<T, _GameEventLetterPressed> letterPressed,
     required PatternMatch<T, _GameEventEnterPressed> enterPressed,
     required PatternMatch<T, _GameEventDeletePressed> deletePressed,
@@ -364,6 +409,7 @@ abstract base class _GameEventBase {
   }) =>
       switch (this) {
         final _GameEventChangeDictionary event => changeDictionary(event),
+        final _GameEventChangeGameMode event => changeGameMode(event),
         final _GameEventLetterPressed event => letterPressed(event),
         final _GameEventEnterPressed event => enterPressed(event),
         final _GameEventDeletePressed event => deletePressed(event),
@@ -374,6 +420,7 @@ abstract base class _GameEventBase {
   T maybeMap<T>({
     required T orElse,
     PatternMatch<T, _GameEventChangeDictionary>? changeDictionary,
+    PatternMatch<T, _GameEventChangeGameMode>? changeGameMode,
     PatternMatch<T, _GameEventLetterPressed>? letterPressed,
     PatternMatch<T, _GameEventEnterPressed>? enterPressed,
     PatternMatch<T, _GameEventDeletePressed>? deletePressed,
@@ -381,6 +428,7 @@ abstract base class _GameEventBase {
   }) =>
       map(
         changeDictionary: changeDictionary ?? (_) => orElse,
+        changeGameMode: changeGameMode ?? (_) => orElse,
         letterPressed: letterPressed ?? (_) => orElse,
         enterPressed: enterPressed ?? (_) => orElse,
         deletePressed: deletePressed ?? (_) => orElse,
@@ -396,10 +444,18 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     required GameResult? savedResult,
   })  : _gameRepository = gameRepository,
         _statisticsRepository = statisticsRepository,
-        super(_stateBySavedResult(savedResult, dictionary, gameRepository.generateSecretWord(dictionary))) {
+        super(
+          _stateBySavedResult(
+            savedResult,
+            dictionary,
+            GameMode.daily,
+            gameRepository.generateSecretWord(dictionary),
+          ),
+        ) {
     on<GameEvent>(
       (event, emit) async => event.map(
         changeDictionary: (e) => _changeDictionary(e, emit),
+        changeGameMode: (e) => _changeGameMode(e, emit),
         letterPressed: (e) => _letterPressed(e, emit),
         enterPressed: (e) => _enterPressed(e, emit),
         deletePressed: (e) => _deletePressed(e, emit),
@@ -415,9 +471,47 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     _GameEventChangeDictionary event,
     Emitter<GameState> emit,
   ) {
-    final dictionary = event.dictionary;
-    final savedResult = _gameRepository.loadDailyFromCache(dictionary, DateTime.now().toUtc());
-    emit(_stateBySavedResult(savedResult, dictionary, _gameRepository.generateSecretWord(dictionary)));
+    final newDictionary = event.dictionary;
+    final GameResult? savedResult;
+    if (state.gameMode == GameMode.daily) {
+      savedResult = _gameRepository.loadDailyFromCache(newDictionary, DateTime.now().toUtc());
+    } else {
+      savedResult = _gameRepository.loadLvlFromCache(newDictionary);
+    }
+    final newState = _stateBySavedResult(
+      savedResult,
+      newDictionary,
+      state.gameMode,
+      _gameRepository.generateSecretWord(
+        newDictionary,
+        levelNumber: state.gameMode == GameMode.daily ? 0 : savedResult?.lvlNumber ?? 1,
+      ),
+    );
+    emit(newState);
+  }
+
+  void _changeGameMode(
+    _GameEventChangeGameMode event,
+    Emitter<GameState> emit,
+  ) {
+    // TODO(Carapacik): save lvl number
+    final newGameMode = event.gameMode;
+    final GameResult? savedResult;
+    if (newGameMode == GameMode.daily) {
+      savedResult = _gameRepository.loadDailyFromCache(state.dictionary, DateTime.now().toUtc());
+    } else {
+      savedResult = _gameRepository.loadLvlFromCache(state.dictionary);
+    }
+    final newState = _stateBySavedResult(
+      savedResult,
+      state.dictionary,
+      newGameMode,
+      _gameRepository.generateSecretWord(
+        state.dictionary,
+        levelNumber: newGameMode == GameMode.daily ? 0 : savedResult?.lvlNumber ?? 1,
+      ),
+    );
+    emit(newState);
   }
 
   void _letterPressed(
@@ -439,6 +533,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       GameState.idle(
         dictionary: state.dictionary,
         secretWord: state.secretWord,
+        gameMode: state.gameMode,
         gameCompleted: state.gameCompleted,
         board: List.of(state.board)..add(LetterInfo(letter: event.key.toString())),
         statuses: state.statuses,
@@ -461,6 +556,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       GameState.idle(
         dictionary: state.dictionary,
         secretWord: state.secretWord,
+        gameMode: state.gameMode,
         gameCompleted: state.gameCompleted,
         board: List.of(state.board)..removeLast(),
         statuses: state.statuses,
@@ -484,6 +580,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       GameState.idle(
         dictionary: state.dictionary,
         secretWord: state.secretWord,
+        gameMode: state.gameMode,
         gameCompleted: state.gameCompleted,
         board: board..removeRange(state.currentWordIndex * 5, board.length),
         statuses: state.statuses,
@@ -503,6 +600,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         GameState.error(
           dictionary: state.dictionary,
           secretWord: state.secretWord,
+          gameMode: state.gameMode,
           gameCompleted: state.gameCompleted,
           board: state.board,
           statuses: state.statuses,
@@ -518,6 +616,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         GameState.error(
           dictionary: state.dictionary,
           secretWord: state.secretWord,
+          gameMode: state.gameMode,
           gameCompleted: state.gameCompleted,
           board: state.board,
           statuses: state.statuses,
@@ -538,6 +637,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         GameState.win(
           dictionary: state.dictionary,
           secretWord: state.secretWord,
+          gameMode: state.gameMode,
           gameCompleted: true,
           board: newBoard,
           statuses: newStatuses,
@@ -598,6 +698,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         GameState.loss(
           dictionary: state.dictionary,
           secretWord: state.secretWord,
+          gameMode: state.gameMode,
           gameCompleted: true,
           board: newBoard,
           statuses: newStatuses,
@@ -626,6 +727,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         GameState.idle(
           dictionary: state.dictionary,
           secretWord: state.secretWord,
+          gameMode: state.gameMode,
           gameCompleted: state.gameCompleted,
           board: newBoard,
           statuses: newStatuses,
@@ -646,11 +748,17 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   }
 }
 
-GameState _stateBySavedResult(GameResult? savedResult, Locale dictionary, String secretWord) {
+GameState _stateBySavedResult(
+  GameResult? savedResult,
+  Locale dictionary,
+  GameMode gameMode,
+  String secretWord,
+) {
   if (savedResult == null || savedResult.isWin == null) {
     return GameState.idle(
       dictionary: dictionary,
       secretWord: secretWord,
+      gameMode: gameMode,
       gameCompleted: false,
       board: savedResult?.board ?? [],
       statuses: _boardToStatuses(savedResult?.board ?? []),
@@ -660,6 +768,7 @@ GameState _stateBySavedResult(GameResult? savedResult, Locale dictionary, String
     return GameState.win(
       dictionary: dictionary,
       secretWord: savedResult.secretWord,
+      gameMode: gameMode,
       gameCompleted: true,
       board: savedResult.board,
       statuses: _boardToStatuses(savedResult.board),
@@ -668,6 +777,7 @@ GameState _stateBySavedResult(GameResult? savedResult, Locale dictionary, String
   return GameState.loss(
     dictionary: dictionary,
     secretWord: savedResult.secretWord,
+    gameMode: gameMode,
     gameCompleted: true,
     board: savedResult.board,
     statuses: _boardToStatuses(savedResult.board),

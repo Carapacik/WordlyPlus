@@ -23,6 +23,7 @@ sealed class GameState extends _GameStateBase {
     required bool gameCompleted,
     required List<LetterInfo> board,
     required Map<String, LetterStatus> statuses,
+    required int? lvlNumber,
   }) = _GameStateIdle;
 
   const factory GameState.win({
@@ -32,6 +33,7 @@ sealed class GameState extends _GameStateBase {
     required bool gameCompleted,
     required List<LetterInfo> board,
     required Map<String, LetterStatus> statuses,
+    required int? lvlNumber,
   }) = _GameStateWin;
 
   const factory GameState.loss({
@@ -41,6 +43,7 @@ sealed class GameState extends _GameStateBase {
     required bool gameCompleted,
     required List<LetterInfo> board,
     required Map<String, LetterStatus> statuses,
+    required int? lvlNumber,
   }) = _GameStateLoss;
 
   const factory GameState.error({
@@ -51,6 +54,7 @@ sealed class GameState extends _GameStateBase {
     required List<LetterInfo> board,
     required Map<String, LetterStatus> statuses,
     required WordError error,
+    required int? lvlNumber,
   }) = _GameStateError;
 
   int get currentWordIndex => (board.length - 1) ~/ 5;
@@ -66,6 +70,7 @@ final class _GameStateIdle extends GameState {
     required this.gameCompleted,
     required this.board,
     required this.statuses,
+    required this.lvlNumber,
   });
 
   @override
@@ -80,6 +85,8 @@ final class _GameStateIdle extends GameState {
   final List<LetterInfo> board;
   @override
   final Map<String, LetterStatus> statuses;
+  @override
+  final int? lvlNumber;
 
   @override
   String toString() => 'GameState.idle(board: $board)';
@@ -88,12 +95,13 @@ final class _GameStateIdle extends GameState {
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is _GameStateIdle &&
-          dictionary == other.dictionary &&
-          secretWord == other.secretWord &&
-          gameMode == other.gameMode &&
-          gameCompleted == other.gameCompleted &&
-          const DeepCollectionEquality().equals(board, other.board) &&
-          const DeepCollectionEquality().equals(statuses, other.statuses));
+              dictionary == other.dictionary &&
+              secretWord == other.secretWord &&
+              gameMode == other.gameMode &&
+              gameCompleted == other.gameCompleted &&
+              const DeepCollectionEquality().equals(board, other.board) &&
+              const DeepCollectionEquality().equals(statuses, other.statuses)) &&
+          lvlNumber == other.lvlNumber;
 
   @override
   int get hashCode =>
@@ -102,7 +110,8 @@ final class _GameStateIdle extends GameState {
       gameMode.hashCode ^
       gameCompleted.hashCode ^
       const DeepCollectionEquality().hash(board) ^
-      const DeepCollectionEquality().hash(statuses);
+      const DeepCollectionEquality().hash(statuses) ^
+      lvlNumber.hashCode;
 }
 
 final class _GameStateWin extends GameState {
@@ -113,6 +122,7 @@ final class _GameStateWin extends GameState {
     required this.gameCompleted,
     required this.board,
     required this.statuses,
+    required this.lvlNumber,
   });
 
   @override
@@ -127,6 +137,8 @@ final class _GameStateWin extends GameState {
   final List<LetterInfo> board;
   @override
   final Map<String, LetterStatus> statuses;
+  @override
+  final int? lvlNumber;
 
   @override
   String toString() => 'GameState.win(board: $board)';
@@ -135,12 +147,13 @@ final class _GameStateWin extends GameState {
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is _GameStateWin &&
-          dictionary == other.dictionary &&
-          secretWord == other.secretWord &&
-          gameMode == other.gameMode &&
-          gameCompleted == other.gameCompleted &&
-          const DeepCollectionEquality().equals(board, other.board) &&
-          const DeepCollectionEquality().equals(statuses, other.statuses));
+              dictionary == other.dictionary &&
+              secretWord == other.secretWord &&
+              gameMode == other.gameMode &&
+              gameCompleted == other.gameCompleted &&
+              const DeepCollectionEquality().equals(board, other.board) &&
+              const DeepCollectionEquality().equals(statuses, other.statuses)) &&
+          lvlNumber == other.lvlNumber;
 
   @override
   int get hashCode =>
@@ -149,7 +162,8 @@ final class _GameStateWin extends GameState {
       gameMode.hashCode ^
       gameCompleted.hashCode ^
       const DeepCollectionEquality().hash(board) ^
-      const DeepCollectionEquality().hash(statuses);
+      const DeepCollectionEquality().hash(statuses) ^
+      lvlNumber.hashCode;
 }
 
 final class _GameStateLoss extends GameState {
@@ -160,6 +174,7 @@ final class _GameStateLoss extends GameState {
     required this.gameCompleted,
     required this.board,
     required this.statuses,
+    required this.lvlNumber,
   });
 
   @override
@@ -174,6 +189,8 @@ final class _GameStateLoss extends GameState {
   final List<LetterInfo> board;
   @override
   final Map<String, LetterStatus> statuses;
+  @override
+  final int? lvlNumber;
 
   @override
   String toString() => 'GameState.loss(board: $board)';
@@ -182,12 +199,13 @@ final class _GameStateLoss extends GameState {
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is _GameStateLoss &&
-          dictionary == other.dictionary &&
-          secretWord == other.secretWord &&
-          gameMode == other.gameMode &&
-          gameCompleted == other.gameCompleted &&
-          const DeepCollectionEquality().equals(board, other.board) &&
-          const DeepCollectionEquality().equals(statuses, other.statuses));
+              dictionary == other.dictionary &&
+              secretWord == other.secretWord &&
+              gameMode == other.gameMode &&
+              gameCompleted == other.gameCompleted &&
+              const DeepCollectionEquality().equals(board, other.board) &&
+              const DeepCollectionEquality().equals(statuses, other.statuses)) &&
+          lvlNumber == other.lvlNumber;
 
   @override
   int get hashCode =>
@@ -196,7 +214,8 @@ final class _GameStateLoss extends GameState {
       gameMode.hashCode ^
       gameCompleted.hashCode ^
       const DeepCollectionEquality().hash(board) ^
-      const DeepCollectionEquality().hash(statuses);
+      const DeepCollectionEquality().hash(statuses) ^
+      lvlNumber.hashCode;
 }
 
 final class _GameStateError extends GameState {
@@ -208,6 +227,7 @@ final class _GameStateError extends GameState {
     required this.board,
     required this.statuses,
     required this.error,
+    required this.lvlNumber,
   });
 
   @override
@@ -222,6 +242,8 @@ final class _GameStateError extends GameState {
   final List<LetterInfo> board;
   @override
   final Map<String, LetterStatus> statuses;
+  @override
+  final int? lvlNumber;
   final WordError error;
 
   @override
@@ -237,7 +259,8 @@ final class _GameStateError extends GameState {
           gameCompleted == other.gameCompleted &&
           const DeepCollectionEquality().equals(board, other.board) &&
           const DeepCollectionEquality().equals(statuses, other.statuses) &&
-          error == other.error);
+          error == other.error &&
+          lvlNumber == other.lvlNumber);
 
   @override
   int get hashCode =>
@@ -246,7 +269,8 @@ final class _GameStateError extends GameState {
       gameCompleted.hashCode ^
       const DeepCollectionEquality().hash(board) ^
       const DeepCollectionEquality().hash(statuses) ^
-      error.hashCode;
+      error.hashCode ^
+      lvlNumber.hashCode;
 }
 
 abstract base class _GameStateBase {
@@ -263,6 +287,8 @@ abstract base class _GameStateBase {
   List<LetterInfo> get board;
 
   Map<String, LetterStatus> get statuses;
+
+  int? get lvlNumber;
 
   T map<T>({
     required PatternMatch<T, _GameStateIdle> idle,
@@ -494,7 +520,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     _GameEventChangeGameMode event,
     Emitter<GameState> emit,
   ) {
-    // TODO(Carapacik): save lvl number
     final newGameMode = event.gameMode;
     final GameResult? savedResult;
     if (newGameMode == GameMode.daily) {
@@ -537,6 +562,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         gameCompleted: state.gameCompleted,
         board: List.of(state.board)..add(LetterInfo(letter: event.key.toString())),
         statuses: state.statuses,
+        lvlNumber: state.lvlNumber,
       ),
     );
   }
@@ -560,6 +586,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         gameCompleted: state.gameCompleted,
         board: List.of(state.board)..removeLast(),
         statuses: state.statuses,
+        lvlNumber: state.lvlNumber,
       ),
     );
   }
@@ -584,6 +611,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         gameCompleted: state.gameCompleted,
         board: board..removeRange(state.currentWordIndex * 5, board.length),
         statuses: state.statuses,
+        lvlNumber: state.lvlNumber,
       ),
     );
   }
@@ -605,6 +633,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           board: state.board,
           statuses: state.statuses,
           error: WordError.tooShort,
+          lvlNumber: state.lvlNumber,
         ),
       );
       return;
@@ -621,6 +650,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           board: state.board,
           statuses: state.statuses,
           error: WordError.notFound,
+          lvlNumber: state.lvlNumber,
         ),
       );
       return;
@@ -641,8 +671,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           gameCompleted: true,
           board: newBoard,
           statuses: newStatuses,
+          lvlNumber: state.lvlNumber,
         ),
       );
+      // TODO(Carapacik): save lvl number and lvl board
       unawaited(
         _gameRepository.saveDailyBoard(
           state.dictionary,
@@ -702,6 +734,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           gameCompleted: true,
           board: newBoard,
           statuses: newStatuses,
+          lvlNumber: state.lvlNumber,
         ),
       );
       unawaited(
@@ -731,6 +764,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           gameCompleted: state.gameCompleted,
           board: newBoard,
           statuses: newStatuses,
+          lvlNumber: state.lvlNumber,
         ),
       );
       unawaited(
@@ -762,6 +796,7 @@ GameState _stateBySavedResult(
       gameCompleted: false,
       board: savedResult?.board ?? [],
       statuses: _boardToStatuses(savedResult?.board ?? []),
+      lvlNumber: null,
     );
   }
   if (savedResult.isWin ?? false) {
@@ -772,6 +807,7 @@ GameState _stateBySavedResult(
       gameCompleted: true,
       board: savedResult.board,
       statuses: _boardToStatuses(savedResult.board),
+      lvlNumber: gameMode == GameMode.lvl ? savedResult.lvlNumber ?? 1 : null,
     );
   }
   return GameState.loss(
@@ -781,6 +817,7 @@ GameState _stateBySavedResult(
     gameCompleted: true,
     board: savedResult.board,
     statuses: _boardToStatuses(savedResult.board),
+    lvlNumber: gameMode == GameMode.lvl ? savedResult.lvlNumber ?? 1 : null,
   );
 }
 

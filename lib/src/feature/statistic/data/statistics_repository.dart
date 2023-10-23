@@ -9,7 +9,7 @@ import 'package:wordly/src/feature/statistic/model/game_statistics.dart';
 /// {@endtemplate}
 abstract interface class IStatisticsRepository {
   /// Set statistic
-  Future<void> setStatistic(
+  Future<void> saveStatistic(
     Locale dictionary, {
     required bool isWin,
     required int attempt,
@@ -27,7 +27,7 @@ final class StatisticsRepositoryImpl implements IStatisticsRepository {
   final StatisticsDataSource _dataSource;
 
   @override
-  Future<void> setStatistic(
+  Future<void> saveStatistic(
     Locale dictionary, {
     required bool isWin,
     required int attempt,
@@ -46,7 +46,7 @@ final class StatisticsRepositoryImpl implements IStatisticsRepository {
         previous: previousStatistic?.attempts,
       ),
     );
-    await _dataSource.setStatistics(dictionary.languageCode, currentStatistic);
+    await _dataSource.saveStatistics(dictionary.languageCode, currentStatistic);
   }
 
   @override

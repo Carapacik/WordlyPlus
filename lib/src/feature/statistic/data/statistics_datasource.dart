@@ -10,7 +10,7 @@ import 'package:wordly/src/feature/statistic/model/game_statistics.dart';
 /// {@endtemplate}
 abstract interface class StatisticsDataSource {
   /// Set Statistics
-  Future<void> setStatistics(String dictionaryKey, GameStatistics statistics);
+  Future<void> saveStatistics(String dictionaryKey, GameStatistics statistics);
 
   /// Get current Statistics from cache
   GameStatistics? loadStatisticsFromCache(String dictionaryKey);
@@ -38,7 +38,7 @@ final class StatisticsDataSourceImpl implements StatisticsDataSource {
   }
 
   @override
-  Future<void> setStatistics(String dictionaryKey, GameStatistics statistics) async {
+  Future<void> saveStatistics(String dictionaryKey, GameStatistics statistics) async {
     final raw = json.encode(statistics.toJson());
     await _sharedPreferences.setString('${_prefix}_$dictionaryKey', raw);
   }

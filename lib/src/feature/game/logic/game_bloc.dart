@@ -49,6 +49,8 @@ sealed class GameState extends _GameStateBase {
   }) = _GameStateError;
 
   int get currentWordIndex => (board.length - 1) ~/ 5;
+
+  bool get isResultState => maybeMap(win: (_) => true, loss: (_) => true, orElse: false);
 }
 
 final class _GameStateIdle extends GameState {
@@ -553,7 +555,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         ),
       );
       unawaited(
-        _statisticsRepository.setStatistic(
+        _statisticsRepository.saveStatistic(
           state.dictionary,
           isWin: true,
           attempt: state.currentWordIndex + 1,
@@ -613,7 +615,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         ),
       );
       unawaited(
-        _statisticsRepository.setStatistic(
+        _statisticsRepository.saveStatistic(
           state.dictionary,
           isWin: false,
           attempt: state.currentWordIndex + 1,

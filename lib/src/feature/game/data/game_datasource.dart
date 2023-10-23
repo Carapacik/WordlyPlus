@@ -1,8 +1,8 @@
 import 'dart:convert' show json;
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wordly/src/feature/game/model/letter_info.dart';
 import 'package:wordly/src/feature/game/model/game_result.dart';
+import 'package:wordly/src/feature/game/model/letter_info.dart';
 
 abstract interface class GameDataSource {
   Future<void> saveDailyBoard(String dictionary, String date, GameResult savedResult);

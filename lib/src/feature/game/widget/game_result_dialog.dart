@@ -42,8 +42,6 @@ class DialogContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     final padding = width > 350 ? (width - 350) / 2 : 8;
-    print(width);
-    print(padding);
     return Dialog(
       backgroundColor: isWin ? Colors.green : Colors.red,
       insetAnimationDuration: const Duration(milliseconds: 800),
@@ -97,7 +95,7 @@ class _DailyContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final now = DateTime.now().toUtc();
-    final tomorrow = DateTime(now.year, now.month, now.day + 1);
+    final tomorrow = DateTime.utc(now.year, now.month, now.day + 1);
     final timeRemaining = tomorrow.difference(now);
     return Column(
       children: [

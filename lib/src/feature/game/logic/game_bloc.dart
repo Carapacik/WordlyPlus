@@ -674,25 +674,41 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           lvlNumber: state.lvlNumber,
         ),
       );
-      // TODO(Carapacik): save lvl number and lvl board
-      unawaited(
-        _gameRepository.saveDailyBoard(
-          state.dictionary,
-          DateTime.now().toUtc(),
-          GameResult(
-            secretWord: state.secretWord,
-            isWin: true,
-            board: state.board,
-          ),
-        ),
-      );
-      unawaited(
-        _statisticsRepository.saveStatistic(
-          state.dictionary,
-          isWin: true,
-          attempt: state.currentWordIndex + 1,
-        ),
-      );
+
+      switch (state.gameMode) {
+        case GameMode.daily:
+          unawaited(
+            _gameRepository.saveDailyBoard(
+              state.dictionary,
+              DateTime.now().toUtc(),
+              GameResult(
+                secretWord: state.secretWord,
+                isWin: true,
+                board: state.board,
+              ),
+            ),
+          );
+          unawaited(
+            _statisticsRepository.saveStatistic(
+              state.dictionary,
+              isWin: true,
+              attempt: state.currentWordIndex + 1,
+            ),
+          );
+        case GameMode.lvl:
+          unawaited(
+            _gameRepository.saveLvlBoard(
+              state.dictionary,
+              GameResult(
+                secretWord: state.secretWord,
+                isWin: true,
+                board: state.board,
+                lvlNumber: state.lvlNumber,
+              ),
+            ),
+          );
+      }
+
       return;
     }
     final resultWord = <LetterInfo>[];
@@ -737,24 +753,39 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           lvlNumber: state.lvlNumber,
         ),
       );
-      unawaited(
-        _gameRepository.saveDailyBoard(
-          state.dictionary,
-          DateTime.now().toUtc(),
-          GameResult(
-            secretWord: state.secretWord,
-            isWin: false,
-            board: state.board,
-          ),
-        ),
-      );
-      unawaited(
-        _statisticsRepository.saveStatistic(
-          state.dictionary,
-          isWin: false,
-          attempt: state.currentWordIndex + 1,
-        ),
-      );
+      switch (state.gameMode) {
+        case GameMode.daily:
+          unawaited(
+            _gameRepository.saveDailyBoard(
+              state.dictionary,
+              DateTime.now().toUtc(),
+              GameResult(
+                secretWord: state.secretWord,
+                isWin: false,
+                board: state.board,
+              ),
+            ),
+          );
+          unawaited(
+            _statisticsRepository.saveStatistic(
+              state.dictionary,
+              isWin: false,
+              attempt: state.currentWordIndex + 1,
+            ),
+          );
+        case GameMode.lvl:
+          unawaited(
+            _gameRepository.saveLvlBoard(
+              state.dictionary,
+              GameResult(
+                secretWord: state.secretWord,
+                isWin: false,
+                board: state.board,
+                lvlNumber: state.lvlNumber,
+              ),
+            ),
+          );
+      }
     } else {
       emit(
         GameState.idle(
@@ -767,17 +798,30 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           lvlNumber: state.lvlNumber,
         ),
       );
-      unawaited(
-        _gameRepository.saveDailyBoard(
-          state.dictionary,
-          DateTime.now().toUtc(),
-          GameResult(
-            secretWord: state.secretWord,
-            isWin: null,
-            board: state.board,
-          ),
-        ),
-      );
+      switch (state.gameMode) {
+        case GameMode.daily:
+          unawaited(
+            _gameRepository.saveDailyBoard(
+              state.dictionary,
+              DateTime.now().toUtc(),
+              GameResult(
+                secretWord: state.secretWord,
+                board: state.board,
+              ),
+            ),
+          );
+        case GameMode.lvl:
+          unawaited(
+            _gameRepository.saveLvlBoard(
+              state.dictionary,
+              GameResult(
+                secretWord: state.secretWord,
+                board: state.board,
+                lvlNumber: state.lvlNumber,
+              ),
+            ),
+          );
+      }
     }
   }
 }

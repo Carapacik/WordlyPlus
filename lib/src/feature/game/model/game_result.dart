@@ -2,9 +2,9 @@ import 'package:wordly/src/feature/game/model/letter_info.dart';
 
 class GameResult {
   const GameResult({
-    required this.isWin,
     required this.secretWord,
     required this.board,
+    this.isWin,
     this.lvlNumber,
   });
 

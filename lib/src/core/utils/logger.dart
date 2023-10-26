@@ -141,7 +141,7 @@ abstract base class Logger {
 
 /// Default logger using logging package
 final class LoggerLogging extends Logger {
-  final _logger = logging.Logger('SizzleLogger');
+  final _logger = logging.Logger('WordlyPlusLogger');
 
   @override
   void debug(String message) => _logger.fine(message);

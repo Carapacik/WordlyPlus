@@ -16,9 +16,8 @@ Future<void> showLevelDialog(
           backgroundColor: isWin ? Colors.green : Colors.red,
           insetAnimationDuration: const Duration(milliseconds: 800),
           insetPadding: EdgeInsets.symmetric(horizontal: padding.toDouble()),
-          child: Container(
+          child: Padding(
             padding: const EdgeInsets.all(16),
-            alignment: Alignment.center,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

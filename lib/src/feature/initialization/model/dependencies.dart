@@ -3,6 +3,7 @@ import 'package:wordly/src/feature/app/data/dictionary_repository.dart';
 import 'package:wordly/src/feature/app/data/locale_repository.dart';
 import 'package:wordly/src/feature/app/data/theme_repository.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
+import 'package:wordly/src/feature/level/data/level_repository.dart';
 import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 
 /// {@template dependencies}
@@ -14,20 +15,11 @@ abstract base class Dependencies {
 
   /// Shared preferences
   abstract final SharedPreferences sharedPreferences;
-
-  /// Theme repository
   abstract final ThemeRepository themeRepository;
-
-  /// Locale repository
   abstract final LocaleRepository localeRepository;
-
-  /// Dictionary repository
   abstract final DictionaryRepository dictionaryRepository;
-
-  /// Dictionary repository
   abstract final IStatisticsRepository statisticsRepository;
-
-  /// Dictionary repository
+  abstract final ILevelRepository levelRepository;
   abstract final IGameRepository gameRepository;
 
   /// Freeze dependencies, so they cannot be modified
@@ -57,6 +49,8 @@ final class DependenciesMutable extends Dependencies {
 
   @override
   late IStatisticsRepository statisticsRepository;
+  @override
+  late ILevelRepository levelRepository;
 
   @override
   late IGameRepository gameRepository;
@@ -68,6 +62,7 @@ final class DependenciesMutable extends Dependencies {
         localeRepository: localeRepository,
         dictionaryRepository: dictionaryRepository,
         statisticsRepository: statisticsRepository,
+        levelRepository: levelRepository,
         gameRepository: gameRepository,
       );
 }
@@ -85,29 +80,27 @@ final class _DependenciesImmutable extends Dependencies {
     required this.localeRepository,
     required this.dictionaryRepository,
     required this.statisticsRepository,
+    required this.levelRepository,
     required this.gameRepository,
   });
 
   @override
   final SharedPreferences sharedPreferences;
-
   @override
   final ThemeRepository themeRepository;
-
   @override
   final LocaleRepository localeRepository;
+  @override
+  final DictionaryRepository dictionaryRepository;
+  @override
+  final IStatisticsRepository statisticsRepository;
+  @override
+  final ILevelRepository levelRepository;
+  @override
+  final IGameRepository gameRepository;
 
   @override
   Dependencies freeze() => this;
-
-  @override
-  final DictionaryRepository dictionaryRepository;
-
-  @override
-  final IStatisticsRepository statisticsRepository;
-
-  @override
-  final IGameRepository gameRepository;
 }
 
 /// {@template initialization_result}

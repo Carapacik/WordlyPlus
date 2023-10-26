@@ -10,6 +10,7 @@ import 'package:wordly/src/feature/game/model/game_mode.dart';
 import 'package:wordly/src/feature/game/model/game_result.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
 import 'package:wordly/src/feature/game/model/word_error.dart';
+import 'package:wordly/src/feature/level/data/level_repository.dart';
 import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 
 @immutable
@@ -489,9 +490,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     required Locale dictionary,
     required IGameRepository gameRepository,
     required IStatisticsRepository statisticsRepository,
+    required ILevelRepository levelRepository,
     required GameResult? savedResult,
   })  : _gameRepository = gameRepository,
         _statisticsRepository = statisticsRepository,
+        _levelRepository = levelRepository,
         super(
           _stateBySavedResult(
             savedResult,
@@ -515,6 +518,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   final IGameRepository _gameRepository;
   final IStatisticsRepository _statisticsRepository;
+  final ILevelRepository _levelRepository;
 
   void _changeDictionary(
     _GameEventChangeDictionary event,
@@ -750,12 +754,28 @@ class GameBloc extends Bloc<GameEvent, GameState> {
             ),
           );
         case GameMode.lvl:
-          final savedResult = GameResult(
-            secretWord: _gameRepository.generateSecretWord(state.dictionary, levelNumber: (state.lvlNumber ?? 1) + 1),
-            lvlNumber: (state.lvlNumber ?? 1) + 1,
-            board: [],
+          unawaited(
+            _levelRepository.saveLevels(
+              state.dictionary,
+              GameResult(
+                secretWord: state.secretWord,
+                lvlNumber: state.lvlNumber ?? 1,
+                isWin: true,
+                board: [],
+              ),
+            ),
           );
-          unawaited(_gameRepository.saveLvlBoard(state.dictionary, savedResult));
+          unawaited(
+            _gameRepository.saveLvlBoard(
+              state.dictionary,
+              GameResult(
+                secretWord:
+                    _gameRepository.generateSecretWord(state.dictionary, levelNumber: (state.lvlNumber ?? 1) + 1),
+                lvlNumber: (state.lvlNumber ?? 1) + 1,
+                board: [],
+              ),
+            ),
+          );
       }
 
       return;
@@ -823,12 +843,28 @@ class GameBloc extends Bloc<GameEvent, GameState> {
             ),
           );
         case GameMode.lvl:
-          final savedResult = GameResult(
-            secretWord: _gameRepository.generateSecretWord(state.dictionary, levelNumber: (state.lvlNumber ?? 1) + 1),
-            lvlNumber: (state.lvlNumber ?? 1) + 1,
-            board: [],
+          unawaited(
+            _levelRepository.saveLevels(
+              state.dictionary,
+              GameResult(
+                secretWord: state.secretWord,
+                lvlNumber: state.lvlNumber ?? 1,
+                isWin: false,
+                board: [],
+              ),
+            ),
           );
-          unawaited(_gameRepository.saveLvlBoard(state.dictionary, savedResult));
+          unawaited(
+            _gameRepository.saveLvlBoard(
+              state.dictionary,
+              GameResult(
+                secretWord:
+                    _gameRepository.generateSecretWord(state.dictionary, levelNumber: (state.lvlNumber ?? 1) + 1),
+                lvlNumber: (state.lvlNumber ?? 1) + 1,
+                board: [],
+              ),
+            ),
+          );
       }
     } else {
       emit(

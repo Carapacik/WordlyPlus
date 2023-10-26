@@ -11,6 +11,8 @@ import 'package:wordly/src/feature/game/data/game_datasource.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
 import 'package:wordly/src/feature/initialization/model/dependencies.dart';
 import 'package:wordly/src/feature/initialization/model/initialization_progress.dart';
+import 'package:wordly/src/feature/level/data/level_datasource.dart';
+import 'package:wordly/src/feature/level/data/level_repository.dart';
 import 'package:wordly/src/feature/statistic/data/statistics_datasource.dart';
 import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 
@@ -61,6 +63,15 @@ mixin InitializationSteps {
       );
       progress.dependencies.statisticsRepository = StatisticsRepositoryImpl(
         statisticsDataSource,
+      );
+    },
+    'Level Repository': (progress) async {
+      final sharedPreferences = progress.dependencies.sharedPreferences;
+      final lvlDataSource = LevelDataSourceImpl(
+        sharedPreferences: sharedPreferences,
+      );
+      progress.dependencies.levelRepository = LevelRepositoryImpl(
+        lvlDataSource,
       );
     },
     'Game Repository': (progress) async {

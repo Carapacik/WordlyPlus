@@ -30,6 +30,7 @@ class _MaterialContextState extends State<MaterialContext> {
       create: (context) => GameBloc(
         gameRepository: context.dependencies.gameRepository,
         statisticsRepository: context.dependencies.statisticsRepository,
+        levelRepository: context.dependencies.levelRepository,
         dictionary: dictionary,
         savedResult: context.dependencies.gameRepository.loadDailyFromCache(dictionary, DateTime.now().toUtc()),
       ),

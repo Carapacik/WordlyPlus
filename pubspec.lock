@@ -161,21 +161,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
-  database:
-    dependency: "direct main"
-    description:
-      path: "packages/database"
-      relative: true
-    source: path
-    version: "0.0.0"
-  drift:
-    dependency: transitive
-    description:
-      name: drift
-      sha256: ade0bbe936891c9da35ff5d9cb1f155bab357096c1506863e9ff7871857d3587
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.13.0"
   ffi:
     dependency: transitive
     description:
@@ -400,7 +385,7 @@ packages:
     source: hosted
     version: "2.0.1"
   path:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: path
       sha256: "8829d8a55c13fc0e37127c29fedf290c102f4e40ae94ada574091fe0ff96c917"
@@ -408,7 +393,7 @@ packages:
     source: hosted
     version: "1.8.3"
   path_provider:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: path_provider
       sha256: a1aa8aaa2542a6bc57e381f132af822420216c80d4781f7aa085ca3229208aaa
@@ -604,22 +589,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
-  sqlite3:
-    dependency: transitive
-    description:
-      name: sqlite3
-      sha256: db65233e6b99e99b2548932f55a987961bc06d82a31a0665451fa0b4fff4c3fb
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
-  sqlite3_flutter_libs:
-    dependency: transitive
-    description:
-      name: sqlite3_flutter_libs
-      sha256: "11a41f380fbcbda5bbba03ddcdbe0545e46094ab043783c46c70e8335831df03"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.17"
   stack_trace:
     dependency: "direct main"
     description:
@@ -628,14 +597,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.1"
-  stream_channel:
-    dependency: transitive
-    description:
-      name: stream_channel
-      sha256: ba2aa5d8cc609d96bbb2899c28934f9e1af5cddbd60a827822ea467161eb54e7
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.2"
   stream_transform:
     dependency: "direct main"
     description:

@@ -53,16 +53,16 @@ class _StatisticPageState extends State<StatisticPage> {
                         ),
                         _StatText(
                           value: winRate,
-                          title: context.r.win_rate,
+                          title: context.r.winRate,
                           percent: true,
                         ),
                         _StatText(
                           value: streak,
-                          title: context.r.current_streak,
+                          title: context.r.currentStreak,
                         ),
                         _StatText(
                           value: maxStreak,
-                          title: context.r.max_streak,
+                          title: context.r.maxStreak,
                         ),
                       ],
                     ),
@@ -71,7 +71,7 @@ class _StatisticPageState extends State<StatisticPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: FittedBox(
                         child: Text(
-                          context.r.guess_distribution.toUpperCase(),
+                          context.r.guessDistribution.toUpperCase(),
                           style: context.theme.tl,
                         ),
                       ),

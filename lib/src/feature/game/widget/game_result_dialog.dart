@@ -6,9 +6,10 @@ import 'package:wordly/src/feature/game/widget/countdown_timer.dart';
 Future<void> showGameResultDialog(
   BuildContext context,
   String secretWord,
-  String meaning, {
+  String meaning,
+  GameMode mode, {
   required bool isWin,
-  required GameMode mode,
+  required VoidCallback nextLevelPressed,
   VoidCallback? onTimerEnd,
 }) =>
     showDialog(
@@ -18,7 +19,8 @@ Future<void> showGameResultDialog(
         meaning: meaning,
         isWin: isWin,
         mode: mode,
-        onEnd: onTimerEnd,
+        onTimerEnd: onTimerEnd,
+        nextLevelPressed: nextLevelPressed,
       ),
     );
 
@@ -28,7 +30,8 @@ class DialogContent extends StatelessWidget {
     required this.meaning,
     required this.isWin,
     required this.mode,
-    required this.onEnd,
+    required this.onTimerEnd,
+    required this.nextLevelPressed,
     super.key,
   });
 
@@ -36,7 +39,8 @@ class DialogContent extends StatelessWidget {
   final String meaning;
   final bool isWin;
   final GameMode mode;
-  final VoidCallback? onEnd;
+  final VoidCallback? onTimerEnd;
+  final VoidCallback nextLevelPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +58,12 @@ class DialogContent extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                (isWin ? context.r.win_message : context.r.lose_message).toUpperCase(),
+                (isWin ? context.r.winMessage : context.r.loseMessage).toUpperCase(),
                 style: context.theme.tlb.copyWith(color: Colors.white),
               ),
               const SizedBox(height: 12),
               Text(
-                context.r.secret_word,
+                context.r.secretWord,
                 style: context.theme.bl.copyWith(color: Colors.white),
               ),
               const SizedBox(height: 4),
@@ -75,8 +79,8 @@ class DialogContent extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               switch (mode) {
-                GameMode.daily => _DailyContent(isWin: isWin, onEnd: onEnd),
-                GameMode.lvl => _LevelContent(isWin: isWin),
+                GameMode.daily => _DailyContent(isWin: isWin, onEnd: onTimerEnd),
+                GameMode.lvl => _LevelContent(isWin: isWin, nextLevelPressed: nextLevelPressed),
               },
             ],
           ),
@@ -116,7 +120,7 @@ class _DailyContent extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Text(
-          context.r.next_wordle,
+          context.r.nextWord,
           style: context.theme.bl.copyWith(color: Colors.white),
         ),
         const SizedBox(height: 8),
@@ -130,26 +134,19 @@ class _DailyContent extends StatelessWidget {
 }
 
 class _LevelContent extends StatelessWidget {
-  const _LevelContent({required this.isWin});
+  const _LevelContent({required this.isWin, required this.nextLevelPressed});
 
   final bool isWin;
+  final VoidCallback nextLevelPressed;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         ElevatedButton(
-          onPressed: () async {
-            // gameBloc.add(const GameEvent.loadGame(isDaily: false));
-            // await Navigator.of(context).pushAndRemoveUntil(
-            //   MaterialPageRoute<void>(
-            //     builder: (context) => const GamePage(isDailyMode: false),
-            //   ),
-            //       (route) => false,
-            // );
-          },
+          onPressed: nextLevelPressed,
           child: Text(
-            context.r.next_level,
+            context.r.nextLevel,
             style: context.theme.blb.copyWith(
               color: isWin ? Colors.green : Colors.red,
             ),

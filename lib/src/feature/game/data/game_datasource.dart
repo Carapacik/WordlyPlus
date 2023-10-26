@@ -86,12 +86,12 @@ final class GameDataSourceImpl implements GameDataSource {
     if (oldLvlNumber == null || oldSecretWord == null) {
       return null;
     }
-    final board = decodedResult['board']
-        .toString()
-        .split('|')
-        .map((e) => LetterInfo.fromJson(json.decode(e) as Map<String, dynamic>))
-        .toList();
     final isWin = bool.tryParse(decodedResult['win'].toString());
+    var board = <LetterInfo>[];
+    final rawBoard = decodedResult['board'].toString().trim();
+    if (rawBoard.isNotEmpty) {
+      board = rawBoard.split('|').map((e) => LetterInfo.fromJson(json.decode(e) as Map<String, dynamic>)).toList();
+    }
     return GameResult(board: board, isWin: isWin, secretWord: oldSecretWord, lvlNumber: oldLvlNumber);
   }
 }

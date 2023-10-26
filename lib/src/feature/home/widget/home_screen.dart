@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wordly/src/core/localization/localization.dart';
 import 'package:wordly/src/feature/app/model/app_theme.dart';
 import 'package:wordly/src/feature/app/widget/locale_scope.dart';
 import 'package:wordly/src/feature/app/widget/theme_scope.dart';
@@ -21,60 +20,60 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Theme.of(context).colorScheme.background,
         body: CustomScrollView(
           slivers: [
-            SliverAppBar(
-              title: Text(Localization.of(context).app_title),
-            ),
-            SliverList(
-              delegate: SliverChildListDelegate.fixed([
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    Localization.of(context).locales,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.onBackground,
-                        ),
-                  ),
-                ),
-                _LanguagesSelector(Localization.supportedLocales),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    Localization.of(context).default_themes,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.onBackground,
-                        ),
-                  ),
-                ),
-                _ThemeSelector(
-                  [AppTheme.light, AppTheme.dark, AppTheme.system],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8, top: 8),
-                  child: Text(
-                    Localization.of(context).custom_colors,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.onBackground,
-                        ),
-                  ),
-                ),
-                _ThemeSelector(AppTheme.values),
-              ]),
-            ),
-            SliverToBoxAdapter(
-              child: Center(
-                child: SizedBox(
-                  height: 100,
-                  width: 100,
-                  child: Card(
-                    color: Theme.of(context).colorScheme.primaryContainer,
-                    margin: const EdgeInsets.all(8),
-                  ),
-                ),
-              ),
-            ),
+            // SliverAppBar(
+            //   title: Text(Localization.of(context).app_title),
+            // ),
+            // SliverList(
+            //   delegate: SliverChildListDelegate.fixed([
+            //     Padding(
+            //       padding: const EdgeInsets.all(8.0),
+            //       child: Text(
+            //         Localization.of(context).locales,
+            //         style: Theme.of(context).textTheme.titleMedium?.copyWith(
+            //               fontWeight: FontWeight.bold,
+            //               color: Theme.of(context).colorScheme.onBackground,
+            //             ),
+            //       ),
+            //     ),
+            //     _LanguagesSelector(Localization.supportedLocales),
+            //     Padding(
+            //       padding: const EdgeInsets.all(8.0),
+            //       child: Text(
+            //         Localization.of(context).default_themes,
+            //         style: Theme.of(context).textTheme.titleMedium?.copyWith(
+            //               fontWeight: FontWeight.bold,
+            //               color: Theme.of(context).colorScheme.onBackground,
+            //             ),
+            //       ),
+            //     ),
+            //     _ThemeSelector(
+            //       [AppTheme.light, AppTheme.dark, AppTheme.system],
+            //     ),
+            //     Padding(
+            //       padding: const EdgeInsets.only(left: 8, top: 8),
+            //       child: Text(
+            //         Localization.of(context).custom_colors,
+            //         style: Theme.of(context).textTheme.titleMedium?.copyWith(
+            //               fontWeight: FontWeight.bold,
+            //               color: Theme.of(context).colorScheme.onBackground,
+            //             ),
+            //       ),
+            //     ),
+            //     _ThemeSelector(AppTheme.values),
+            //   ]),
+            // ),
+            // SliverToBoxAdapter(
+            //   child: Center(
+            //     child: SizedBox(
+            //       height: 100,
+            //       width: 100,
+            //       child: Card(
+            //         color: Theme.of(context).colorScheme.primaryContainer,
+            //         margin: const EdgeInsets.all(8),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       );

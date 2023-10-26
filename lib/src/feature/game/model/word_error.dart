@@ -8,9 +8,9 @@ enum WordError {
   String localizedText(BuildContext context) {
     switch (this) {
       case WordError.notFound:
-        return context.r.word_not_found;
+        return context.r.wordNotFound;
       case WordError.tooShort:
-        return context.r.word_too_short;
+        return context.r.wordTooShort;
     }
   }
 }

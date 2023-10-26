@@ -27,8 +27,7 @@ class CustomDrawer extends StatelessWidget {
                 onTap: () async {
                   Scaffold.of(context).closeDrawer();
                   final navigator = Navigator.of(context);
-                  final bloc = context.read<GameBloc>();
-                  bloc.add(const GameEvent.changeGameMode(GameMode.daily));
+                  final bloc = context.read<GameBloc>()..add(const GameEvent.changeGameMode(GameMode.daily));
                   await Future<void>.delayed(const Duration(milliseconds: 250));
                   await navigator.pushAndRemoveUntil(
                     PageRouteBuilder<void>(
@@ -48,8 +47,7 @@ class CustomDrawer extends StatelessWidget {
                 onTap: () async {
                   Scaffold.of(context).closeDrawer();
                   final navigator = Navigator.of(context);
-                  final bloc = context.read<GameBloc>();
-                  bloc.add(const GameEvent.changeGameMode(GameMode.lvl));
+                  final bloc = context.read<GameBloc>()..add(const GameEvent.changeGameMode(GameMode.lvl));
                   await Future<void>.delayed(const Duration(milliseconds: 250));
                   await navigator.pushAndRemoveUntil(
                     PageRouteBuilder<void>(
@@ -65,7 +63,7 @@ class CustomDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text(context.r.how_to_play, style: context.theme.tmb),
+                title: Text(context.r.tutorial, style: context.theme.tmb),
                 onTap: () async {
                   Scaffold.of(context).closeDrawer();
                   final navigator = Navigator.of(context);

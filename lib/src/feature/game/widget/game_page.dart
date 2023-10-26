@@ -10,6 +10,7 @@ import 'package:wordly/src/feature/game/model/game_mode.dart';
 import 'package:wordly/src/feature/game/widget/game_result_dialog.dart';
 import 'package:wordly/src/feature/game/widget/keyboard_by_language.dart';
 import 'package:wordly/src/feature/game/widget/words_grid.dart';
+import 'package:wordly/src/feature/level/widget/level_page.dart';
 import 'package:wordly/src/feature/statistic/widget/statistic_page.dart';
 
 class GamePage extends StatefulWidget {
@@ -24,16 +25,18 @@ class _GamePageState extends State<GamePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final state = context.read<GameBloc>().state;
+      final bloc = context.read<GameBloc>();
+      final state = bloc.state;
       if (state.isResultState) {
         unawaited(
           showGameResultDialog(
             context,
             state.secretWord,
             context.dependencies.gameRepository.currentDictionary(state.dictionary)[state.secretWord] ?? '',
+            state.gameMode,
             isWin: state.maybeMap(win: (_) => true, orElse: false),
-            onTimerEnd: GameMode.daily == state.gameMode ? () {} : null,
-            mode: state.gameMode,
+            onTimerEnd: GameMode.daily == state.gameMode ? () => bloc.add(GameEvent.resetBoard(state.gameMode)) : null,
+            nextLevelPressed: () => bloc.add(const GameEvent.resetBoard(GameMode.lvl)),
           ),
         );
       }
@@ -55,9 +58,18 @@ class _GamePageState extends State<GamePage> {
               context,
               state.secretWord,
               context.dependencies.gameRepository.currentDictionary(state.dictionary)[state.secretWord] ?? '',
+              state.gameMode,
               isWin: state.maybeMap(win: (_) => true, orElse: false),
-              onTimerEnd: GameMode.daily == state.gameMode ? () {} : null,
-              mode: state.gameMode,
+              onTimerEnd: GameMode.daily == state.gameMode
+                  ? () {
+                      Navigator.of(context).pop();
+                      context.read<GameBloc>().add(GameEvent.resetBoard(state.gameMode));
+                    }
+                  : null,
+              nextLevelPressed: () {
+                Navigator.of(context).pop();
+                context.read<GameBloc>().add(const GameEvent.resetBoard(GameMode.lvl));
+              },
             ),
           );
         }
@@ -66,7 +78,7 @@ class _GamePageState extends State<GamePage> {
         appBar: AppBar(
           title: BlocBuilder<GameBloc, GameState>(
             builder: (context, state) => Text(
-              state.gameMode == GameMode.daily ? context.r.daily : context.r.level_number(state.lvlNumber ?? 1),
+              state.gameMode == GameMode.daily ? context.r.daily : context.r.levelNumber(state.lvlNumber ?? 1),
             ),
           ),
           actions: [
@@ -74,7 +86,7 @@ class _GamePageState extends State<GamePage> {
               builder: (context, state) {
                 if (state.gameMode == GameMode.daily) {
                   return IconButton(
-                    tooltip: context.r.view_statistic,
+                    tooltip: context.r.viewStatistic,
                     icon: const Icon(Icons.leaderboard),
                     onPressed: () async {
                       await Navigator.of(context).push(
@@ -88,12 +100,12 @@ class _GamePageState extends State<GamePage> {
                   );
                 } else {
                   return IconButton(
-                    tooltip: context.r.view_levels,
+                    tooltip: context.r.viewLevels,
                     icon: const Icon(Icons.apps),
                     onPressed: () async {
                       await Navigator.of(context).push(
                         MaterialPageRoute<void>(
-                          builder: (context) => StatisticPage(
+                          builder: (context) => LevelPage(
                             dictionary: DictionaryScope.of(context, listen: false).dictionary,
                           ),
                         ),

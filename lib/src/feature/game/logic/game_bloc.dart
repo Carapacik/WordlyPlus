@@ -327,6 +327,8 @@ sealed class GameEvent extends _GameEventBase {
 
   const factory GameEvent.changeGameMode(GameMode gameMode) = _GameEventChangeGameMode;
 
+  const factory GameEvent.resetBoard(GameMode gameMode) = _GameEventResetBoard;
+
   const factory GameEvent.letterPressed(Object key) = _GameEventLetterPressed;
 
   const factory GameEvent.deletePressed() = _GameEventDeletePressed;
@@ -363,6 +365,22 @@ final class _GameEventChangeGameMode extends GameEvent {
   @override
   bool operator ==(Object other) =>
       identical(this, other) || (other is _GameEventChangeGameMode && gameMode == other.gameMode);
+
+  @override
+  int get hashCode => gameMode.hashCode;
+}
+
+final class _GameEventResetBoard extends GameEvent {
+  const _GameEventResetBoard(this.gameMode);
+
+  final GameMode gameMode;
+
+  @override
+  String toString() => 'GameEvent.resetBoard(gameMode: $gameMode)';
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || (other is _GameEventResetBoard && gameMode == other.gameMode);
 
   @override
   int get hashCode => gameMode.hashCode;
@@ -428,6 +446,7 @@ abstract base class _GameEventBase {
   T map<T>({
     required PatternMatch<T, _GameEventChangeDictionary> changeDictionary,
     required PatternMatch<T, _GameEventChangeGameMode> changeGameMode,
+    required PatternMatch<T, _GameEventResetBoard> resetBoard,
     required PatternMatch<T, _GameEventLetterPressed> letterPressed,
     required PatternMatch<T, _GameEventEnterPressed> enterPressed,
     required PatternMatch<T, _GameEventDeletePressed> deletePressed,
@@ -436,6 +455,7 @@ abstract base class _GameEventBase {
       switch (this) {
         final _GameEventChangeDictionary event => changeDictionary(event),
         final _GameEventChangeGameMode event => changeGameMode(event),
+        final _GameEventResetBoard event => resetBoard(event),
         final _GameEventLetterPressed event => letterPressed(event),
         final _GameEventEnterPressed event => enterPressed(event),
         final _GameEventDeletePressed event => deletePressed(event),
@@ -447,6 +467,7 @@ abstract base class _GameEventBase {
     required T orElse,
     PatternMatch<T, _GameEventChangeDictionary>? changeDictionary,
     PatternMatch<T, _GameEventChangeGameMode>? changeGameMode,
+    PatternMatch<T, _GameEventResetBoard>? resetBoard,
     PatternMatch<T, _GameEventLetterPressed>? letterPressed,
     PatternMatch<T, _GameEventEnterPressed>? enterPressed,
     PatternMatch<T, _GameEventDeletePressed>? deletePressed,
@@ -455,6 +476,7 @@ abstract base class _GameEventBase {
       map(
         changeDictionary: changeDictionary ?? (_) => orElse,
         changeGameMode: changeGameMode ?? (_) => orElse,
+        resetBoard: resetBoard ?? (_) => orElse,
         letterPressed: letterPressed ?? (_) => orElse,
         enterPressed: enterPressed ?? (_) => orElse,
         deletePressed: deletePressed ?? (_) => orElse,
@@ -482,6 +504,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       (event, emit) async => event.map(
         changeDictionary: (e) => _changeDictionary(e, emit),
         changeGameMode: (e) => _changeGameMode(e, emit),
+        resetBoard: (e) => _resetBoard(e, emit),
         letterPressed: (e) => _letterPressed(e, emit),
         enterPressed: (e) => _enterPressed(e, emit),
         deletePressed: (e) => _deletePressed(e, emit),
@@ -541,6 +564,33 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         state.dictionary,
         levelNumber: newGameMode == GameMode.daily ? 0 : savedResult?.lvlNumber ?? 1,
       ),
+    );
+    emit(newState);
+  }
+
+  void _resetBoard(
+    _GameEventResetBoard event,
+    Emitter<GameState> emit,
+  ) {
+    final GameResult? savedResult;
+    if (event.gameMode == GameMode.daily) {
+      savedResult = GameResult(
+        secretWord: _gameRepository.generateSecretWord(state.dictionary),
+        board: [],
+      );
+    } else {
+      savedResult = GameResult(
+        secretWord: _gameRepository.generateSecretWord(state.dictionary, levelNumber: (state.lvlNumber ?? 1) + 1),
+        lvlNumber: (state.lvlNumber ?? 1) + 1,
+        board: [],
+      );
+      unawaited(_gameRepository.saveLvlBoard(state.dictionary, savedResult));
+    }
+    final newState = _stateBySavedResult(
+      savedResult,
+      state.dictionary,
+      event.gameMode,
+      savedResult.secretWord,
     );
     emit(newState);
   }
@@ -663,7 +713,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
     if (word.join() == state.secretWord) {
       final correctWord = word.map((e) => LetterInfo(letter: e, status: LetterStatus.correctSpot));
-
       final newBoard = List.of(state.board)..replaceRange(state.currentWordIndex * 5, state.board.length, correctWord);
       final newStatuses = Map.of(state.statuses);
       for (final e in word) {
@@ -701,17 +750,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
             ),
           );
         case GameMode.lvl:
-          unawaited(
-            _gameRepository.saveLvlBoard(
-              state.dictionary,
-              GameResult(
-                secretWord: state.secretWord,
-                isWin: true,
-                board: state.board,
-                lvlNumber: state.lvlNumber,
-              ),
-            ),
+          final savedResult = GameResult(
+            secretWord: _gameRepository.generateSecretWord(state.dictionary, levelNumber: (state.lvlNumber ?? 1) + 1),
+            lvlNumber: (state.lvlNumber ?? 1) + 1,
+            board: [],
           );
+          unawaited(_gameRepository.saveLvlBoard(state.dictionary, savedResult));
       }
 
       return;
@@ -779,17 +823,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
             ),
           );
         case GameMode.lvl:
-          unawaited(
-            _gameRepository.saveLvlBoard(
-              state.dictionary,
-              GameResult(
-                secretWord: state.secretWord,
-                isWin: false,
-                board: state.board,
-                lvlNumber: state.lvlNumber,
-              ),
-            ),
+          final savedResult = GameResult(
+            secretWord: _gameRepository.generateSecretWord(state.dictionary, levelNumber: (state.lvlNumber ?? 1) + 1),
+            lvlNumber: (state.lvlNumber ?? 1) + 1,
+            board: [],
           );
+          unawaited(_gameRepository.saveLvlBoard(state.dictionary, savedResult));
       }
     } else {
       emit(

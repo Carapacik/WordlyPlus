@@ -20,84 +20,39 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(attemptNumber, emoji) =>
-      "I couldn\'t guess the word in ${attemptNumber} attempts.\n${emoji}\nCan you do it?\n\nYou can download the game here:\nhttps://play.google.com/store/apps/details?id=com.carapacik.wordly\n";
-
-  static String m1(attemptNumber, emoji) =>
-      "The word is solved in ${attemptNumber}/6 attempts\n${emoji}\nCan you repeat my result?\n\nYou can download the game here:\nhttps://play.google.com/store/apps/details?id=com.carapacik.wordly\n";
-
-  static String m2(number) => "Level ${number}";
+  static String m0(number) => "Level ${number}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
+
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("About"),
-        "app_language": MessageLookupByLibrary.simpleMessage("App language"),
-        "app_title": MessageLookupByLibrary.simpleMessage("Wordly Plus"),
-        "check_my_result_lose": m0,
-        "check_my_result_win": m1,
-        "contact": MessageLookupByLibrary.simpleMessage(
-            "If you didn\'t find a word in the dictionary,\nwrite to us, we will add it\nin the next update.\n"),
-        "copy": MessageLookupByLibrary.simpleMessage("Copy"),
-        "created_by": MessageLookupByLibrary.simpleMessage("Created by"),
-        "current_streak":
-            MessageLookupByLibrary.simpleMessage("Current\nStreak"),
-        "custom_colors": MessageLookupByLibrary.simpleMessage("Custom Colors"),
+        "appTitle": MessageLookupByLibrary.simpleMessage("Wordly Plus"),
+        "currentStreak": MessageLookupByLibrary.simpleMessage("Current\nStreak"),
         "daily": MessageLookupByLibrary.simpleMessage("Daily"),
-        "dark_mode": MessageLookupByLibrary.simpleMessage("Dark mode"),
-        "default_themes":
-            MessageLookupByLibrary.simpleMessage("Default Themes"),
-        "dictionary": MessageLookupByLibrary.simpleMessage("Dictionary"),
-        "dictionary_language":
-            MessageLookupByLibrary.simpleMessage("Dictionary language"),
         "en": MessageLookupByLibrary.simpleMessage("English"),
-        "game_design": MessageLookupByLibrary.simpleMessage("Game design"),
-        "guess_distribution":
-            MessageLookupByLibrary.simpleMessage("Guess distribution"),
-        "high_contrast_mode":
-            MessageLookupByLibrary.simpleMessage("High contrast mode"),
-        "how_to_play": MessageLookupByLibrary.simpleMessage("How to play"),
-        "letter_correct_spot": MessageLookupByLibrary.simpleMessage(
-            "  is in the word and in the correct spot"),
-        "letter_not_in_word": MessageLookupByLibrary.simpleMessage(
-            "  is not in the word in any spot"),
-        "letter_wrong_spot": MessageLookupByLibrary.simpleMessage(
-            "  is in the word but in the wrong spot"),
-        "level_number": m2,
+        "guessDistribution": MessageLookupByLibrary.simpleMessage("Guess distribution"),
+        "levelNumber": m0,
         "levels": MessageLookupByLibrary.simpleMessage("Levels"),
-        "locales": MessageLookupByLibrary.simpleMessage("Locales"),
-        "lose_message": MessageLookupByLibrary.simpleMessage("You lost"),
-        "max_streak": MessageLookupByLibrary.simpleMessage("Max\nStreak"),
-        "message_new_word": MessageLookupByLibrary.simpleMessage(
-            "subject=Wordle%20-%20New%20word&body=Word%20-%0AMeaning%20-"),
-        "next_level": MessageLookupByLibrary.simpleMessage("Next level"),
-        "next_wordle": MessageLookupByLibrary.simpleMessage("Next wordle in"),
-        "not_played": MessageLookupByLibrary.simpleMessage(
-            "You haven\'t played a single game"),
+        "loseMessage": MessageLookupByLibrary.simpleMessage("You lost"),
+        "maxStreak": MessageLookupByLibrary.simpleMessage("Max\nStreak"),
+        "message_new_word":
+            MessageLookupByLibrary.simpleMessage("subject=Wordle%20-%20New%20word&body=Word%20-%0AMeaning%20-"),
+        "nextLevel": MessageLookupByLibrary.simpleMessage("Next level"),
+        "nextWord": MessageLookupByLibrary.simpleMessage("Next wordle in"),
+        "notPlayed": MessageLookupByLibrary.simpleMessage("You haven\'t played a single game"),
         "played": MessageLookupByLibrary.simpleMessage("Played"),
         "ru": MessageLookupByLibrary.simpleMessage("Russian"),
-        "secret_word": MessageLookupByLibrary.simpleMessage("Secret word"),
-        "select_language":
-            MessageLookupByLibrary.simpleMessage("Select a language"),
+        "secretWord": MessageLookupByLibrary.simpleMessage("Secret word"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
         "start": MessageLookupByLibrary.simpleMessage("Start game"),
         "statistic": MessageLookupByLibrary.simpleMessage("Statistic"),
-        "text_copied": MessageLookupByLibrary.simpleMessage(
-            "The text is copied to the clipboard"),
-        "the_letter": MessageLookupByLibrary.simpleMessage("The letter  "),
-        "the_letters": MessageLookupByLibrary.simpleMessage("The letter  "),
-        "tutorial_text": MessageLookupByLibrary.simpleMessage(
-            "Each guess must be a valid 5-letter word.\n\nHit the ENTER button to submit.\n\nAfter each guess, the color of the tiles will change to show how close your guess was to the word."),
-        "view_levels": MessageLookupByLibrary.simpleMessage("View levels"),
-        "view_statistic":
-            MessageLookupByLibrary.simpleMessage("View statistic"),
-        "visual_design": MessageLookupByLibrary.simpleMessage("Visual design"),
-        "win_message": MessageLookupByLibrary.simpleMessage("You win!"),
-        "win_rate": MessageLookupByLibrary.simpleMessage("Win\nrate"),
-        "word_not_found": MessageLookupByLibrary.simpleMessage(
-            "Word not found in dictionary"),
-        "word_too_short":
-            MessageLookupByLibrary.simpleMessage("Word is not correct length"),
-        "wordly_plus": MessageLookupByLibrary.simpleMessage("Wordly Plus")
+        "tutorial": MessageLookupByLibrary.simpleMessage("How to play"),
+        "viewLevels": MessageLookupByLibrary.simpleMessage("View levels"),
+        "viewStatistic": MessageLookupByLibrary.simpleMessage("View statistic"),
+        "winMessage": MessageLookupByLibrary.simpleMessage("You win!"),
+        "winRate": MessageLookupByLibrary.simpleMessage("Win\nrate"),
+        "wordNotFound": MessageLookupByLibrary.simpleMessage("Word not found in dictionary"),
+        "wordTooShort": MessageLookupByLibrary.simpleMessage("Word is not correct length")
       };
 }

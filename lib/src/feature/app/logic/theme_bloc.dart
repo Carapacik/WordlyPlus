@@ -149,7 +149,7 @@ final class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
           ),
         ) {
     on<ThemeEvent>(
-      (event, emit) => event.map(update: (e) => _update(e, emit)),
+      (event, emit) async => event.map(update: (e) => _update(e, emit)),
     );
   }
 

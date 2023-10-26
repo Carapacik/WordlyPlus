@@ -43,7 +43,9 @@ final class ThemeDataSourceImpl extends PreferencesDao implements ThemeDataSourc
 
     final type = _themeMode.read();
 
-    if (type == null) return null;
+    if (type == null) {
+      return null;
+    }
 
     return AppTheme(
       seed: seedColor != null ? Color(seedColor) : null,

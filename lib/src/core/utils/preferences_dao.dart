@@ -77,9 +77,13 @@ final class _PreferencesEntry<T extends Object> extends PreferencesEntry<T> {
   T? read() {
     final value = _sharedPreferences.get(key);
 
-    if (value == null) return null;
+    if (value == null) {
+      return null;
+    }
 
-    if (value is T) return value;
+    if (value is T) {
+      return value;
+    }
 
     throw Exception(
       'The value of $key is not of type ${T.runtimeType}',

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wordly/src/core/extension/extensions.dart';
+import 'package:wordly/src/core/utils/extensions/extensions.dart';
 
 Future<void> showLevelDialog(
   BuildContext context, {

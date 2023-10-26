@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wordly/src/core/extension/extensions.dart';
+import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/components/widget/not_played.dart';
 import 'package:wordly/src/feature/game/model/game_result.dart';

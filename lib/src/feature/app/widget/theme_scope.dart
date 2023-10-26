@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:wordly/src/core/utils/mixin/scope_mixin.dart';
+import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/app/logic/theme_bloc.dart';
 import 'package:wordly/src/feature/app/model/app_theme.dart';
 import 'package:wordly/src/feature/initialization/widget/dependencies_scope.dart';
@@ -36,8 +36,11 @@ class ThemeScope extends StatefulWidget {
   final Widget child;
 
   /// Get the [ThemeController] of the closest [ThemeScope] ancestor.
-  static ThemeController of(BuildContext context, {bool listen = true}) =>
-      ScopeMixin.scopeOf<_ThemeInherited>(context, listen: listen).controller;
+  static ThemeController of(
+    BuildContext context, {
+    bool listen = true,
+  }) =>
+      context.inhOf<_ThemeInherited>(listen: listen).controller;
 
   @override
   State<ThemeScope> createState() => _ThemeScopeState();
@@ -59,7 +62,9 @@ class _ThemeScopeState extends State<ThemeScope> implements ThemeController {
   StreamSubscription<void>? _subscription;
 
   void _listener(ThemeState state) {
-    if (_state == state) return;
+    if (_state == state) {
+      return;
+    }
 
     setState(() => _state = state);
   }
@@ -78,8 +83,8 @@ class _ThemeScopeState extends State<ThemeScope> implements ThemeController {
 
   @override
   void dispose() {
-    _bloc.close();
-    _subscription?.cancel();
+    unawaited(_bloc.close());
+    unawaited(_subscription?.cancel());
     super.dispose();
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wordly/src/core/extension/extensions.dart';
 import 'package:wordly/src/core/localization/localization.dart';
+import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
 import 'package:wordly/src/feature/app/widget/locale_scope.dart';
 import 'package:wordly/src/feature/app/widget/theme_scope.dart';

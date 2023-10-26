@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:wordly/src/core/utils/mixin/scope_mixin.dart';
+import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/initialization/model/dependencies.dart';
 
 /// {@template dependencies_scope}
@@ -19,8 +19,7 @@ class DependenciesScope extends InheritedWidget {
   final Dependencies dependencies;
 
   /// Get the dependencies from the [context].
-  static Dependencies of(BuildContext context) =>
-      ScopeMixin.scopeOf<DependenciesScope>(context, listen: false).dependencies;
+  static Dependencies of(BuildContext context) => context.inhOf<DependenciesScope>(listen: false).dependencies;
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

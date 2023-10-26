@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wordly/src/core/extension/extensions.dart';
+import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
 import 'package:wordly/src/feature/components/widget/drawer.dart';
 import 'package:wordly/src/feature/game/logic/game_bloc.dart';

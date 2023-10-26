@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:wordly/src/core/utils/mixin/scope_mixin.dart';
+import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/app/logic/locale_bloc.dart';
 import 'package:wordly/src/feature/initialization/widget/dependencies_scope.dart';
 
@@ -46,8 +46,11 @@ class LocaleScope extends StatefulWidget {
   /// rebuild the widget when the locale changes. If [listen] is false, the
   /// returned [LocaleController] will not rebuild the widget when the locale
   /// changes.
-  static LocaleController of(BuildContext context, {bool listen = true}) =>
-      ScopeMixin.scopeOf<_LocaleInherited>(context, listen: listen).controller;
+  static LocaleController of(
+    BuildContext context, {
+    bool listen = true,
+  }) =>
+      context.inhOf<_LocaleInherited>(listen: listen).controller;
 
   @override
   State<LocaleScope> createState() => _LocaleScopeState();
@@ -89,8 +92,8 @@ class _LocaleScopeState extends State<LocaleScope> implements LocaleController {
 
   @override
   void dispose() {
-    _bloc.close();
-    _subscription?.cancel();
+    unawaited(_bloc.close());
+    unawaited(_subscription?.cancel());
     super.dispose();
   }
 

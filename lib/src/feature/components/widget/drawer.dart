@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wordly/src/core/extension/extensions.dart';
+import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/game/logic/game_bloc.dart';
 import 'package:wordly/src/feature/game/model/game_mode.dart';
 import 'package:wordly/src/feature/game/widget/game_page.dart';

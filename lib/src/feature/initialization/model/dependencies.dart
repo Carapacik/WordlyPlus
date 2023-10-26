@@ -21,9 +21,6 @@ abstract base class Dependencies {
   abstract final IStatisticsRepository statisticsRepository;
   abstract final ILevelRepository levelRepository;
   abstract final IGameRepository gameRepository;
-
-  /// Freeze dependencies, so they cannot be modified
-  Dependencies freeze();
 }
 
 /// {@template mutable_dependencies}
@@ -54,53 +51,6 @@ final class DependenciesMutable extends Dependencies {
 
   @override
   late IGameRepository gameRepository;
-
-  @override
-  Dependencies freeze() => _DependenciesImmutable(
-        sharedPreferences: sharedPreferences,
-        themeRepository: themeRepository,
-        localeRepository: localeRepository,
-        dictionaryRepository: dictionaryRepository,
-        statisticsRepository: statisticsRepository,
-        levelRepository: levelRepository,
-        gameRepository: gameRepository,
-      );
-}
-
-/// {@template immutable_dependencies}
-/// Immutable version of dependencies
-///
-/// Used to store dependencies
-/// {@endtemplate}
-final class _DependenciesImmutable extends Dependencies {
-  /// {@macro immutable_dependencies}
-  const _DependenciesImmutable({
-    required this.sharedPreferences,
-    required this.themeRepository,
-    required this.localeRepository,
-    required this.dictionaryRepository,
-    required this.statisticsRepository,
-    required this.levelRepository,
-    required this.gameRepository,
-  });
-
-  @override
-  final SharedPreferences sharedPreferences;
-  @override
-  final ThemeRepository themeRepository;
-  @override
-  final LocaleRepository localeRepository;
-  @override
-  final DictionaryRepository dictionaryRepository;
-  @override
-  final IStatisticsRepository statisticsRepository;
-  @override
-  final ILevelRepository levelRepository;
-  @override
-  final IGameRepository gameRepository;
-
-  @override
-  Dependencies freeze() => this;
 }
 
 /// {@template initialization_result}

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:wordly/src/core/utils/mixin/scope_mixin.dart';
+import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/app/logic/dictionary_bloc.dart';
 import 'package:wordly/src/feature/initialization/widget/dependencies_scope.dart';
 
@@ -44,8 +44,11 @@ class DictionaryScope extends StatefulWidget {
   /// rebuild the widget when the dictionary changes. If [listen] is false, the
   /// returned [DictionaryController] will not rebuild the widget when the dictionary
   /// changes.
-  static DictionaryController of(BuildContext context, {bool listen = true}) =>
-      ScopeMixin.scopeOf<_DictionaryInherited>(context, listen: listen).controller;
+  static DictionaryController of(
+    BuildContext context, {
+    bool listen = true,
+  }) =>
+      context.inhOf<_DictionaryInherited>(listen: listen).controller;
 
   @override
   State<DictionaryScope> createState() => _DictionaryScopeState();
@@ -87,8 +90,8 @@ class _DictionaryScopeState extends State<DictionaryScope> implements Dictionary
 
   @override
   void dispose() {
-    _bloc.close();
-    _subscription?.cancel();
+    unawaited(_bloc.close());
+    unawaited(_subscription?.cancel());
     super.dispose();
   }
 

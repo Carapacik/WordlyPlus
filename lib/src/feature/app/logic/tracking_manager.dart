@@ -74,7 +74,7 @@ final class SentryTrackingManager extends ExceptionTrackingManagerBase {
 
   @override
   Future<void> _report(LogMessage log) async {
-    final buffer = StringBuffer(log.message);
+    final buffer = StringBuffer()..write(log.message);
     if (log.error != null) {
       buffer.write('| ${log.error}');
     }

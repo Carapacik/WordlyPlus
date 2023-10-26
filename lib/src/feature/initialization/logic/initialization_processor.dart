@@ -26,7 +26,7 @@ mixin InitializationProcessor {
       dependencies: DependenciesMutable(),
       environmentStore: env,
     );
-    if (env.isProduction && !kDebugMode) {
+    if (!kDebugMode) {
       final trackingManager = factory.createTrackingManager(env);
       await trackingManager.enableReporting();
     }
@@ -51,7 +51,7 @@ mixin InitializationProcessor {
     }
     stopwatch.stop();
     final result = InitializationResult(
-      dependencies: progress.freeze(),
+      dependencies: progress.dependencies,
       stepCount: stepCount,
       msSpent: stopwatch.elapsedMilliseconds,
     );

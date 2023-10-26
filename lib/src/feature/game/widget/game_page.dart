@@ -32,8 +32,8 @@ class _GamePageState extends State<GamePage> {
             state.secretWord,
             context.dependencies.gameRepository.currentDictionary(state.dictionary)[state.secretWord] ?? '',
             isWin: state.maybeMap(win: (_) => true, orElse: false),
-            onTimerEnd: GameMode.daily == GameMode.daily ? () {} : null,
-            mode: GameMode.daily,
+            onTimerEnd: GameMode.daily == state.gameMode ? () {} : null,
+            mode: state.gameMode,
           ),
         );
       }
@@ -45,6 +45,7 @@ class _GamePageState extends State<GamePage> {
     return BlocListener<GameBloc, GameState>(
       listenWhen: (previous, current) =>
           previous.gameCompleted != current.gameCompleted &&
+          previous.gameMode == current.gameMode &&
           previous.dictionary == current.dictionary &&
           current.isResultState,
       listener: (context, state) {
@@ -55,35 +56,53 @@ class _GamePageState extends State<GamePage> {
               state.secretWord,
               context.dependencies.gameRepository.currentDictionary(state.dictionary)[state.secretWord] ?? '',
               isWin: state.maybeMap(win: (_) => true, orElse: false),
-              onTimerEnd: GameMode.daily == GameMode.daily ? () {} : null,
-              mode: GameMode.daily,
+              onTimerEnd: GameMode.daily == state.gameMode ? () {} : null,
+              mode: state.gameMode,
             ),
           );
         }
       },
       child: Scaffold(
         appBar: AppBar(
+          title: BlocBuilder<GameBloc, GameState>(
+            builder: (context, state) => Text(
+              state.gameMode == GameMode.daily ? context.r.daily : context.r.level_number(state.lvlNumber ?? 1),
+            ),
+          ),
           actions: [
-            if (true)
-              IconButton(
-                tooltip: context.r.view_statistic,
-                icon: const Icon(Icons.leaderboard),
-                onPressed: () async {
-                  await Navigator.of(context).push(
-                    MaterialPageRoute<void>(
-                      builder: (context) => StatisticPage(
-                        dictionary: DictionaryScope.of(context, listen: false).dictionary,
-                      ),
-                    ),
+            BlocBuilder<GameBloc, GameState>(
+              builder: (context, state) {
+                if (state.gameMode == GameMode.daily) {
+                  return IconButton(
+                    tooltip: context.r.view_statistic,
+                    icon: const Icon(Icons.leaderboard),
+                    onPressed: () async {
+                      await Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (context) => StatisticPage(
+                            dictionary: DictionaryScope.of(context, listen: false).dictionary,
+                          ),
+                        ),
+                      );
+                    },
                   );
-                },
-              )
-            else
-              IconButton(
-                tooltip: context.r.view_levels,
-                icon: const Icon(Icons.apps),
-                onPressed: () {},
-              ),
+                } else {
+                  return IconButton(
+                    tooltip: context.r.view_levels,
+                    icon: const Icon(Icons.apps),
+                    onPressed: () async {
+                      await Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (context) => StatisticPage(
+                            dictionary: DictionaryScope.of(context, listen: false).dictionary,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }
+              },
+            ),
           ],
         ),
         drawer: const CustomDrawer(),

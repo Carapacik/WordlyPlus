@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/src/core/extension/extensions.dart';
 import 'package:wordly/src/feature/game/logic/game_bloc.dart';
+import 'package:wordly/src/feature/game/model/game_mode.dart';
 import 'package:wordly/src/feature/game/widget/game_page.dart';
 import 'package:wordly/src/feature/settings/widget/setting_page.dart';
 
@@ -27,6 +28,7 @@ class CustomDrawer extends StatelessWidget {
                   Scaffold.of(context).closeDrawer();
                   final navigator = Navigator.of(context);
                   final bloc = context.read<GameBloc>();
+                  bloc.add(const GameEvent.changeGameMode(GameMode.daily));
                   await Future<void>.delayed(const Duration(milliseconds: 250));
                   await navigator.pushAndRemoveUntil(
                     PageRouteBuilder<void>(
@@ -47,6 +49,7 @@ class CustomDrawer extends StatelessWidget {
                   Scaffold.of(context).closeDrawer();
                   final navigator = Navigator.of(context);
                   final bloc = context.read<GameBloc>();
+                  bloc.add(const GameEvent.changeGameMode(GameMode.lvl));
                   await Future<void>.delayed(const Duration(milliseconds: 250));
                   await navigator.pushAndRemoveUntil(
                     PageRouteBuilder<void>(

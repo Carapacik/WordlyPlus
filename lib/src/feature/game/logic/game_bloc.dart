@@ -497,6 +497,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     _GameEventChangeDictionary event,
     Emitter<GameState> emit,
   ) {
+    if (state.dictionary == event.dictionary) {
+      return;
+    }
     final newDictionary = event.dictionary;
     final GameResult? savedResult;
     if (state.gameMode == GameMode.daily) {
@@ -520,6 +523,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     _GameEventChangeGameMode event,
     Emitter<GameState> emit,
   ) {
+    if (state.gameMode == event.gameMode) {
+      return;
+    }
     final newGameMode = event.gameMode;
     final GameResult? savedResult;
     if (newGameMode == GameMode.daily) {
@@ -674,7 +680,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           lvlNumber: state.lvlNumber,
         ),
       );
-
       switch (state.gameMode) {
         case GameMode.daily:
           unawaited(
@@ -840,7 +845,7 @@ GameState _stateBySavedResult(
       gameCompleted: false,
       board: savedResult?.board ?? [],
       statuses: _boardToStatuses(savedResult?.board ?? []),
-      lvlNumber: null,
+      lvlNumber: gameMode == GameMode.lvl ? savedResult?.lvlNumber ?? 1 : null,
     );
   }
   if (savedResult.isWin ?? false) {

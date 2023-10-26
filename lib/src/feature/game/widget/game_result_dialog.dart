@@ -14,6 +14,7 @@ Future<void> showGameResultDialog(
 }) =>
     showDialog(
       context: context,
+      barrierDismissible: mode == GameMode.daily,
       builder: (context) => DialogContent(
         secretWord: secretWord,
         meaning: meaning,

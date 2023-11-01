@@ -19,7 +19,7 @@ dependencies:
   google_fonts: ^6.1.0
   intl: any
   json_annotation: ^4.8.1
-  share_plus: ^7.1.0
+  share_plus: ^7.2.1
   shared_preferences: ^2.2.1
   url_launcher: ^6.1.14
   url_strategy: ^0.2.0

@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("О приложении"),
+        "appDictionary": MessageLookupByLibrary.simpleMessage("Язык словаря"),
+        "appLanguage": MessageLookupByLibrary.simpleMessage("Язык приложения"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Словень Плюс"),
         "currentStreak": MessageLookupByLibrary.simpleMessage("Текущая\nСерия"),
         "daily": MessageLookupByLibrary.simpleMessage("Ежедневный"),
@@ -49,6 +51,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "share": MessageLookupByLibrary.simpleMessage("Поделиться"),
         "start": MessageLookupByLibrary.simpleMessage("Начать играть"),
         "statistic": MessageLookupByLibrary.simpleMessage("Статистика"),
+        "themeDark": MessageLookupByLibrary.simpleMessage("Темная"),
+        "themeLight": MessageLookupByLibrary.simpleMessage("Светлая"),
+        "themeMode": MessageLookupByLibrary.simpleMessage("Тема"),
+        "themeSystem": MessageLookupByLibrary.simpleMessage("Системная"),
         "tutorial": MessageLookupByLibrary.simpleMessage("Как играть"),
         "viewLevels": MessageLookupByLibrary.simpleMessage("Посмотреть уровни"),
         "viewStatistic":

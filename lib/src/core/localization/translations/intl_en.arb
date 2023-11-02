@@ -30,5 +30,11 @@
   "winMessage": "You win!",
   "winRate": "Win\nrate",
   "wordNotFound": "Word not found in dictionary",
-  "wordTooShort": "Word is not correct length"
+  "wordTooShort": "Word is not correct length",
+  "themeMode": "Theme mode",
+  "themeSystem": "System",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+  "appLanguage": "App language",
+  "appDictionary": "App dictionary"
 }

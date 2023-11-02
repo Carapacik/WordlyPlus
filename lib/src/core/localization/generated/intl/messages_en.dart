@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("About"),
+        "appDictionary": MessageLookupByLibrary.simpleMessage("App dictionary"),
+        "appLanguage": MessageLookupByLibrary.simpleMessage("App language"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Wordly Plus"),
         "currentStreak":
             MessageLookupByLibrary.simpleMessage("Current\nStreak"),
@@ -49,6 +51,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "share": MessageLookupByLibrary.simpleMessage("Share"),
         "start": MessageLookupByLibrary.simpleMessage("Start game"),
         "statistic": MessageLookupByLibrary.simpleMessage("Statistic"),
+        "themeDark": MessageLookupByLibrary.simpleMessage("Dark"),
+        "themeLight": MessageLookupByLibrary.simpleMessage("Light"),
+        "themeMode": MessageLookupByLibrary.simpleMessage("Theme mode"),
+        "themeSystem": MessageLookupByLibrary.simpleMessage("System"),
         "tutorial": MessageLookupByLibrary.simpleMessage("How to play"),
         "viewLevels": MessageLookupByLibrary.simpleMessage("View levels"),
         "viewStatistic": MessageLookupByLibrary.simpleMessage("View statistic"),

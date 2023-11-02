@@ -330,6 +330,66 @@ class GeneratedLocalization {
       args: [],
     );
   }
+
+  /// `Theme mode`
+  String get themeMode {
+    return Intl.message(
+      'Theme mode',
+      name: 'themeMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `System`
+  String get themeSystem {
+    return Intl.message(
+      'System',
+      name: 'themeSystem',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Light`
+  String get themeLight {
+    return Intl.message(
+      'Light',
+      name: 'themeLight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark`
+  String get themeDark {
+    return Intl.message(
+      'Dark',
+      name: 'themeDark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App language`
+  String get appLanguage {
+    return Intl.message(
+      'App language',
+      name: 'appLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App dictionary`
+  String get appDictionary {
+    return Intl.message(
+      'App dictionary',
+      name: 'appDictionary',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate

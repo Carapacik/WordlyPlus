@@ -30,5 +30,11 @@
   "winMessage": "Вы победили!",
   "winRate": "Показатель\nпобед",
   "wordNotFound": "Слово не найдено в словаре",
-  "wordTooShort": "Слово неправильной длины"
+  "wordTooShort": "Слово неправильной длины",
+  "themeMode": "Тема",
+  "themeSystem": "Системная",
+  "themeLight": "Светлая",
+  "themeDark": "Темная",
+  "appLanguage": "Язык приложения",
+  "appDictionary": "Язык словаря"
 }

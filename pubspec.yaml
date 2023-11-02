@@ -37,11 +37,11 @@ dependencies:
 
   # Logging
   logging: ^1.2.0
-  sentry_flutter: ^7.11.0
+  sentry_flutter: ^7.12.0
   stack_trace: ^1.11.1
 
   # Utils
-  flutter_native_splash: ^2.3.4
+  flutter_native_splash: ^2.3.5
 
 dev_dependencies:
   carapacik_lints: ^1.5.1

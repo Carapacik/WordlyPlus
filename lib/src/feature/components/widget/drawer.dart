@@ -16,9 +16,9 @@ class CustomDrawer extends StatelessWidget {
     return SizedBox(
       width: 200,
       child: DecoratedBox(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.horizontal(right: Radius.circular(16)),
-          color: Colors.white,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.horizontal(right: Radius.circular(16)),
+          color: context.theme.colorScheme.background,
         ),
         child: SafeArea(
           child: Column(

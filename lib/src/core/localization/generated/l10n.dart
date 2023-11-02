@@ -390,6 +390,46 @@ class GeneratedLocalization {
       args: [],
     );
   }
+
+  /// `Color mode`
+  String get colorMode {
+    return Intl.message(
+      'Color mode',
+      name: 'colorMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Default`
+  String get casual {
+    return Intl.message(
+      'Default',
+      name: 'casual',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `High contrast`
+  String get highContrast {
+    return Intl.message(
+      'High contrast',
+      name: 'highContrast',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Other`
+  String get other {
+    return Intl.message(
+      'Other',
+      name: 'other',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate

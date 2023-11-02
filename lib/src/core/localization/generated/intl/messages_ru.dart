@@ -28,11 +28,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "appDictionary": MessageLookupByLibrary.simpleMessage("Язык словаря"),
         "appLanguage": MessageLookupByLibrary.simpleMessage("Язык приложения"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Словень Плюс"),
+        "casual": MessageLookupByLibrary.simpleMessage("Обычный"),
+        "colorMode": MessageLookupByLibrary.simpleMessage("Цветовой режим"),
         "currentStreak": MessageLookupByLibrary.simpleMessage("Текущая\nСерия"),
         "daily": MessageLookupByLibrary.simpleMessage("Ежедневный"),
         "en": MessageLookupByLibrary.simpleMessage("Английский"),
         "guessDistribution":
             MessageLookupByLibrary.simpleMessage("Распределение догадок"),
+        "highContrast":
+            MessageLookupByLibrary.simpleMessage("Высокий контраст"),
         "levelNumber": m0,
         "levels": MessageLookupByLibrary.simpleMessage("Уровни"),
         "loseMessage": MessageLookupByLibrary.simpleMessage("Вы проиграли"),
@@ -44,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Следующее слово через"),
         "notPlayed":
             MessageLookupByLibrary.simpleMessage("Вы не сыграли ни одной игры"),
+        "other": MessageLookupByLibrary.simpleMessage("Другой"),
         "played": MessageLookupByLibrary.simpleMessage("Сыграно"),
         "ru": MessageLookupByLibrary.simpleMessage("Русский"),
         "secretWord": MessageLookupByLibrary.simpleMessage("Загаданное слово"),

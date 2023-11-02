@@ -36,5 +36,9 @@
   "themeLight": "Light",
   "themeDark": "Dark",
   "appLanguage": "App language",
-  "appDictionary": "App dictionary"
+  "appDictionary": "App dictionary",
+  "colorMode": "Color mode",
+  "casual": "Default",
+  "highContrast": "High contrast",
+  "other": "Other"
 }

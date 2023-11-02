@@ -36,5 +36,9 @@
   "themeLight": "Светлая",
   "themeDark": "Темная",
   "appLanguage": "Язык приложения",
-  "appDictionary": "Язык словаря"
+  "appDictionary": "Язык словаря",
+  "colorMode": "Цветовой режим",
+  "casual": "Обычный",
+  "highContrast": "Высокий контраст",
+  "other": "Другой"
 }

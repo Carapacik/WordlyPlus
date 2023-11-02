@@ -6,6 +6,7 @@ import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
 import 'package:wordly/src/feature/app/widget/locale_scope.dart';
 import 'package:wordly/src/feature/app/widget/theme_scope.dart';
 import 'package:wordly/src/feature/game/logic/game_bloc.dart';
+import 'package:wordly/src/feature/settings/widget/change_color_page.dart';
 import 'package:wordly/src/feature/settings/widget/list_item_selector.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -16,19 +17,10 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool lightTheme = true;
-  Color currentColor = Colors.amber;
-  List<Color> currentColors = [Colors.yellow, Colors.green];
-  List<Color> colorHistory = [];
-
-  void changeColor(Color color) => setState(() => currentColor = color);
-
-  void changeColors(List<Color> colors) => setState(() => currentColors = colors);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text(context.r.settings)),
       body: Column(
         children: [
           ListItemSelector<Locale>(
@@ -57,6 +49,26 @@ class _SettingsPageState extends State<SettingsPage> {
             onChange: (mode) {
               ThemeScope.of(context).setTheme(AppTheme(mode: mode));
             },
+          ),
+          MergeSemantics(
+            child: ListTileTheme.merge(
+              child: ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                title: Text(context.r.colorMode, style: context.theme.bl),
+                trailing: Text('VALUE', style: context.theme.bl),
+                onTap: () async {
+                  final selected = await Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (context) => const ChangeColorPage(colorMode: ColorMode.casual),
+                    ),
+                  );
+                  // if (selected == null) {
+                  //   return;
+                  // }
+                  // onChange(selected);
+                },
+              ),
+            ),
           ),
         ],
       ),

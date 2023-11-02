@@ -28,12 +28,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "appDictionary": MessageLookupByLibrary.simpleMessage("App dictionary"),
         "appLanguage": MessageLookupByLibrary.simpleMessage("App language"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Wordly Plus"),
+        "casual": MessageLookupByLibrary.simpleMessage("Default"),
+        "colorMode": MessageLookupByLibrary.simpleMessage("Color mode"),
         "currentStreak":
             MessageLookupByLibrary.simpleMessage("Current\nStreak"),
         "daily": MessageLookupByLibrary.simpleMessage("Daily"),
         "en": MessageLookupByLibrary.simpleMessage("English"),
         "guessDistribution":
             MessageLookupByLibrary.simpleMessage("Guess distribution"),
+        "highContrast": MessageLookupByLibrary.simpleMessage("High contrast"),
         "levelNumber": m0,
         "levels": MessageLookupByLibrary.simpleMessage("Levels"),
         "loseMessage": MessageLookupByLibrary.simpleMessage("You lost"),
@@ -44,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nextWord": MessageLookupByLibrary.simpleMessage("Next wordle in"),
         "notPlayed": MessageLookupByLibrary.simpleMessage(
             "You haven\'t played a single game"),
+        "other": MessageLookupByLibrary.simpleMessage("Other"),
         "played": MessageLookupByLibrary.simpleMessage("Played"),
         "ru": MessageLookupByLibrary.simpleMessage("Russian"),
         "secretWord": MessageLookupByLibrary.simpleMessage("Secret word"),

@@ -6,6 +6,7 @@ import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
 import 'package:wordly/src/feature/app/widget/locale_scope.dart';
 import 'package:wordly/src/feature/app/widget/theme_scope.dart';
 import 'package:wordly/src/feature/game/logic/game_bloc.dart';
+import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 import 'package:wordly/src/feature/settings/widget/change_color_page.dart';
 import 'package:wordly/src/feature/settings/widget/list_item_selector.dart';
 
@@ -59,7 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 onTap: () async {
                   final selected = await Navigator.of(context).push(
                     MaterialPageRoute<void>(
-                      builder: (context) => const ChangeColorPage(colorMode: ColorMode.casual),
+                      builder: (context) => ChangeColorPage(previousResult: ChangeColorResult()),
                     ),
                   );
                   // if (selected == null) {

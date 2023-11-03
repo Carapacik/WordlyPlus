@@ -58,15 +58,16 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: Text(context.r.colorMode, style: context.theme.bl),
                 trailing: Text('VALUE', style: context.theme.bl),
                 onTap: () async {
-                  final selected = await Navigator.of(context).push(
-                    MaterialPageRoute<void>(
+                  final result = await Navigator.of(context).push(
+                    MaterialPageRoute<ChangeColorResult>(
                       builder: (context) => ChangeColorPage(previousResult: ChangeColorResult()),
                     ),
                   );
-                  // if (selected == null) {
-                  //   return;
-                  // }
-                  // onChange(selected);
+                  if (result == null) {
+                    return;
+                  }
+                  print(result.mode);
+                  print(result.otherColors);
                 },
               ),
             ),

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart' show Color, ThemeMode;
 import 'package:wordly/src/core/utils/preferences_dao.dart';
 import 'package:wordly/src/feature/app/model/app_theme.dart';
+import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 
 /// {@template theme_datasource}
 /// [ThemeDataSource] is an entry point to the theme data layer.
@@ -23,33 +24,48 @@ final class ThemeDataSourceImpl extends PreferencesDao implements ThemeDataSourc
   /// {@macro theme_datasource}
   ThemeDataSourceImpl(super._sharedPreferences);
 
-  PreferencesEntry<int> get _seedColor => intEntry('theme.seed_color');
+  PreferencesEntry<String> get _themeMode => stringEntry('theme.mode');
 
-  PreferencesEntry<String> get _themeMode => stringEntry(
-        'theme.mode',
-      );
+  PreferencesEntry<int> get _colorMode => intEntry('theme.colorMode');
+
+  PreferencesEntry<int> get _otherColor1 => intEntry('theme.otherColor1');
+
+  PreferencesEntry<int> get _otherColor2 => intEntry('theme.otherColor2');
+
+  PreferencesEntry<int> get _otherColor3 => intEntry('theme.otherColor3');
 
   @override
   Future<void> setTheme(AppTheme theme) async {
-    await _seedColor.setIfNullRemove(theme.seed?.value);
     await _themeMode.setIfNullRemove(_themeModeCodec.encode(theme.mode));
-
-    return;
+    await _colorMode.setIfNullRemove(theme.colorMode.index);
+    if (theme.otherColors != null) {
+      await _otherColor1.setIfNullRemove(theme.otherColors?.$1.value);
+      await _otherColor2.setIfNullRemove(theme.otherColors?.$2.value);
+      await _otherColor3.setIfNullRemove(theme.otherColors?.$3.value);
+    }
   }
 
   @override
   AppTheme? loadThemeFromCache() {
-    final seedColor = _seedColor.read();
+    final themeMode = _themeMode.read();
+    final colorModeIndex = _colorMode.read();
 
-    final type = _themeMode.read();
-
-    if (type == null) {
+    if (themeMode == null || colorModeIndex == null) {
       return null;
+    }
+    final otherColor1 = _otherColor1.read();
+    final otherColor2 = _otherColor2.read();
+    final otherColor3 = _otherColor3.read();
+
+    (Color, Color, Color)? otherColors;
+    if (otherColor1 != null && otherColor2 != null && otherColor3 != null) {
+      otherColors = (Color(otherColor1), Color(otherColor2), Color(otherColor3));
     }
 
     return AppTheme(
-      seed: seedColor != null ? Color(seedColor) : null,
-      mode: _themeModeCodec.decode(type),
+      mode: _themeModeCodec.decode(themeMode),
+      colorMode: ColorMode.values[colorModeIndex],
+      otherColors: otherColors,
     );
   }
 }

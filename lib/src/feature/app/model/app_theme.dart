@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 
 /// {@template app_theme}
 /// An immutable class that holds properties needed
@@ -10,14 +11,15 @@ final class AppTheme with Diagnosticable {
   /// {@macro app_theme}
   AppTheme({
     required this.mode,
-    this.seed,
+    required this.colorMode,
+    this.otherColors,
   })  : darkTheme = ThemeData(
-          colorSchemeSeed: seed ?? Colors.pink,
+          colorSchemeSeed: otherColors?.$1 ?? Colors.green,
           brightness: Brightness.dark,
           useMaterial3: true,
         ),
         lightTheme = ThemeData(
-          colorSchemeSeed: seed ?? Colors.pink,
+          colorSchemeSeed: otherColors?.$1 ?? Colors.green,
           brightness: Brightness.light,
           useMaterial3: true,
         );
@@ -25,28 +27,20 @@ final class AppTheme with Diagnosticable {
   /// The type of theme to use.
   final ThemeMode mode;
 
-  /// The seed color to generate the [ColorScheme] from.
-  final Color? seed;
+  /// The type of color mode to use.
+  final ColorMode colorMode;
+
+  /// Other colors for cells
+  final (Color, Color, Color)? otherColors;
 
   /// Light mode [AppTheme].
-  static final light = AppTheme(mode: ThemeMode.light);
+  static final light = AppTheme(mode: ThemeMode.light, colorMode: ColorMode.casual);
 
   /// Dark mode [AppTheme].
-  static final dark = AppTheme(mode: ThemeMode.dark);
+  static final dark = AppTheme(mode: ThemeMode.dark, colorMode: ColorMode.casual);
 
   /// System mode [AppTheme].
-  static final system = AppTheme(mode: ThemeMode.system);
-
-  /// All the light [AppTheme]s.
-  static final values = [
-    ...List.generate(
-      Colors.primaries.length,
-      (index) => AppTheme(
-        seed: Colors.primaries[index],
-        mode: ThemeMode.system,
-      ),
-    ),
-  ];
+  static final system = AppTheme(mode: ThemeMode.system, colorMode: ColorMode.casual);
 
   /// The dark [ThemeData] for this [AppTheme].
   final ThemeData darkTheme;
@@ -70,20 +64,26 @@ final class AppTheme with Diagnosticable {
   }
 
   @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(ColorProperty('seed', seed))
-      ..add(EnumProperty<ThemeMode>('type', mode))
-      ..add(DiagnosticsProperty<ThemeData>('lightTheme', lightTheme))
-      ..add(DiagnosticsProperty<ThemeData>('darkTheme', darkTheme));
-  }
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is AppTheme && runtimeType == other.runtimeType && seed == other.seed && mode == other.mode;
+      other is AppTheme &&
+          runtimeType == other.runtimeType &&
+          mode == other.mode &&
+          colorMode == other.colorMode &&
+          otherColors == other.otherColors;
 
   @override
-  int get hashCode => mode.hashCode ^ seed.hashCode;
+  int get hashCode => mode.hashCode ^ colorMode.hashCode ^ otherColors.hashCode;
+
+  AppTheme copyWith({
+    ThemeMode? themeMode,
+    ColorMode? colorMode,
+    (Color, Color, Color)? otherColors,
+  }) {
+    return AppTheme(
+      mode: themeMode ?? mode,
+      colorMode: colorMode ?? this.colorMode,
+      otherColors: otherColors ?? this.otherColors,
+    );
+  }
 }

@@ -26,7 +26,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
   @override
   void initState() {
     super.initState();
-    _currentColorMode = widget.previousResult.mode;
+    _currentColorMode = widget.previousResult.colorMode;
     _currentOtherColors = widget.previousResult.otherColors ?? (Colors.green, Colors.yellow, Colors.grey);
   }
 
@@ -35,7 +35,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
     final word = _wordByDictionary(DictionaryScope.of(context).dictionary);
     return WillPopScope(
       onWillPop: () async {
-        Navigator.of(context).pop(ChangeColorResult(mode: _currentColorMode, otherColors: _currentOtherColors));
+        Navigator.of(context).pop(ChangeColorResult(colorMode: _currentColorMode, otherColors: _currentOtherColors));
         return false;
       },
       child: Scaffold(

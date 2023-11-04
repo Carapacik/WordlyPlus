@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
-import 'package:wordly/src/feature/app/model/app_theme.dart';
 import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
 import 'package:wordly/src/feature/app/widget/locale_scope.dart';
 import 'package:wordly/src/feature/app/widget/theme_scope.dart';
@@ -48,7 +47,11 @@ class _SettingsPageState extends State<SettingsPage> {
               (ThemeMode.light, context.r.themeLight),
             ],
             onChange: (mode) {
-              ThemeScope.of(context).setTheme(AppTheme(mode: mode));
+              final themeScope = ThemeScope.of(context, listen: false);
+              final previousTheme = themeScope.theme;
+              themeScope.setTheme(
+                previousTheme.copyWith(themeMode: mode),
+              );
             },
           ),
           MergeSemantics(
@@ -56,18 +59,29 @@ class _SettingsPageState extends State<SettingsPage> {
               child: ListTile(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                 title: Text(context.r.colorMode, style: context.theme.bl),
-                trailing: Text('VALUE', style: context.theme.bl),
+                trailing: Text(ThemeScope.of(context).theme.colorMode.localized(context), style: context.theme.bl),
                 onTap: () async {
+                  final themeScope = ThemeScope.of(context, listen: false);
+                  final previousTheme = themeScope.theme;
                   final result = await Navigator.of(context).push(
                     MaterialPageRoute<ChangeColorResult>(
-                      builder: (context) => ChangeColorPage(previousResult: ChangeColorResult()),
+                      builder: (context) => ChangeColorPage(
+                        previousResult: ChangeColorResult(
+                          colorMode: previousTheme.colorMode,
+                          otherColors: previousTheme.otherColors,
+                        ),
+                      ),
                     ),
                   );
                   if (result == null) {
                     return;
                   }
-                  print(result.mode);
-                  print(result.otherColors);
+                  themeScope.setTheme(
+                    previousTheme.copyWith(
+                      colorMode: result.colorMode,
+                      otherColors: result.otherColors,
+                    ),
+                  );
                 },
               ),
             ),

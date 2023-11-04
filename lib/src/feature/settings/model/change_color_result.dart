@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 
 class ChangeColorResult {
-  const ChangeColorResult({this.mode = ColorMode.casual, this.otherColors});
+  const ChangeColorResult({this.colorMode = ColorMode.casual, this.otherColors});
 
-  final ColorMode mode;
+  final ColorMode colorMode;
   final (Color, Color, Color)? otherColors;
 }
 

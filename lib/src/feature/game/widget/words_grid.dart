@@ -47,7 +47,7 @@ class GridTile extends StatelessWidget {
       child: Container(
         constraints: const BoxConstraints(maxHeight: 60, maxWidth: 60),
         decoration: BoxDecoration(
-          color: letter.status.color,
+          color: letter.status.color(context),
           borderRadius: BorderRadius.circular(6),
           border: letter.status == LetterStatus.unknown
               ? Border.all(

@@ -24,24 +24,24 @@ final class ThemeDataSourceImpl extends PreferencesDao implements ThemeDataSourc
   /// {@macro theme_datasource}
   ThemeDataSourceImpl(super._sharedPreferences);
 
-  PreferencesEntry<String> get _themeMode => stringEntry('theme.mode');
+  PreferencesEntry<String> get _themeMode => stringEntry('theme_mode');
 
-  PreferencesEntry<int> get _colorMode => intEntry('theme.colorMode');
+  PreferencesEntry<int> get _colorMode => intEntry('color_mode');
 
-  PreferencesEntry<int> get _otherColor1 => intEntry('theme.otherColor1');
+  PreferencesEntry<int> _otherColor1(int index) => intEntry('other_color1_$index');
 
-  PreferencesEntry<int> get _otherColor2 => intEntry('theme.otherColor2');
+  PreferencesEntry<int> _otherColor2(int index) => intEntry('other_color2_$index');
 
-  PreferencesEntry<int> get _otherColor3 => intEntry('theme.otherColor3');
+  PreferencesEntry<int> _otherColor3(int index) => intEntry('other_color3_$index');
 
   @override
   Future<void> setTheme(AppTheme theme) async {
     await _themeMode.setIfNullRemove(_themeModeCodec.encode(theme.mode));
     await _colorMode.setIfNullRemove(theme.colorMode.index);
     if (theme.otherColors != null) {
-      await _otherColor1.setIfNullRemove(theme.otherColors?.$1.value);
-      await _otherColor2.setIfNullRemove(theme.otherColors?.$2.value);
-      await _otherColor3.setIfNullRemove(theme.otherColors?.$3.value);
+      await _otherColor1(theme.mode.index).setIfNullRemove(theme.otherColors?.$1.value);
+      await _otherColor2(theme.mode.index).setIfNullRemove(theme.otherColors?.$2.value);
+      await _otherColor3(theme.mode.index).setIfNullRemove(theme.otherColors?.$3.value);
     }
   }
 
@@ -53,9 +53,10 @@ final class ThemeDataSourceImpl extends PreferencesDao implements ThemeDataSourc
     if (themeMode == null || colorModeIndex == null) {
       return null;
     }
-    final otherColor1 = _otherColor1.read();
-    final otherColor2 = _otherColor2.read();
-    final otherColor3 = _otherColor3.read();
+    final themeModeDecoded = _themeModeCodec.decode(themeMode);
+    final otherColor1 = _otherColor1(themeModeDecoded.index).read();
+    final otherColor2 = _otherColor2(themeModeDecoded.index).read();
+    final otherColor3 = _otherColor3(themeModeDecoded.index).read();
 
     (Color, Color, Color)? otherColors;
     if (otherColor1 != null && otherColor2 != null && otherColor3 != null) {

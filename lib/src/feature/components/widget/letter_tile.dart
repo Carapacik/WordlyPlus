@@ -24,7 +24,7 @@ class LetterTile extends StatelessWidget {
         child: Container(
           constraints: const BoxConstraints(maxHeight: 60, maxWidth: 60),
           decoration: BoxDecoration(
-            color: color ?? letter.status.color,
+            color: color ?? letter.status.color(context),
             borderRadius: BorderRadius.circular(6),
             border: Border.all(
               width: 3,

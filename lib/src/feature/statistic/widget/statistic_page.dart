@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
+import 'package:wordly/src/feature/app/widget/theme_scope.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/components/widget/not_played.dart';
 import 'package:wordly/src/feature/statistic/model/game_statistics.dart';
@@ -136,7 +137,7 @@ class _AttemptContent extends StatelessWidget {
         widthFactor: (attempts[index] + 1) / maxValue,
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.green,
+            color: ThemeScope.of(context).theme.correctColor,
             borderRadius: BorderRadius.circular(4),
           ),
           height: 20,

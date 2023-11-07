@@ -63,6 +63,39 @@ final class AppTheme with Diagnosticable {
     }
   }
 
+  Color get correctColor {
+    switch (colorMode) {
+      case ColorMode.casual:
+        return Colors.green;
+      case ColorMode.highContrast:
+        return Colors.orange;
+      case ColorMode.other:
+        return otherColors?.$1 ?? Colors.green;
+    }
+  }
+
+  Color get wrongSpotColor {
+    switch (colorMode) {
+      case ColorMode.casual:
+        return Colors.yellow;
+      case ColorMode.highContrast:
+        return Colors.blue;
+      case ColorMode.other:
+        return otherColors?.$2 ?? Colors.yellow;
+    }
+  }
+
+  Color get notInWordColor {
+    switch (colorMode) {
+      case ColorMode.casual:
+        return Colors.grey;
+      case ColorMode.highContrast:
+        return Colors.grey;
+      case ColorMode.other:
+        return otherColors?.$3 ?? Colors.grey;
+    }
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

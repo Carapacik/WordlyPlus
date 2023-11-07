@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordly/src/feature/app/widget/theme_scope.dart';
 
 @immutable
 class LetterInfo {
@@ -35,14 +36,15 @@ enum LetterStatus {
   notInWord,
   unknown;
 
-  Color get color {
+  Color color(BuildContext context) {
+    final theme = ThemeScope.of(context).theme;
     switch (this) {
       case LetterStatus.correctSpot:
-        return Colors.green;
+        return theme.correctColor;
       case LetterStatus.wrongSpot:
-        return Colors.yellow;
+        return theme.wrongSpotColor;
       case LetterStatus.notInWord:
-        return Colors.grey;
+        return theme.notInWordColor;
       case LetterStatus.unknown:
         return Colors.transparent;
     }

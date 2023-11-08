@@ -200,7 +200,7 @@ class KeyboardKey extends StatelessWidget {
         height: 58,
         width: DictionaryScope.of(context).dictionary.width(context),
         child: Material(
-          color: status.color(context),
+          color: status.color(context) ?? Colors.grey,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           child: InkWell(
             onTap: () {

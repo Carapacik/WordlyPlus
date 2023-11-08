@@ -36,7 +36,7 @@ enum LetterStatus {
   notInWord,
   unknown;
 
-  Color color(BuildContext context) {
+  Color? color(BuildContext context) {
     final theme = ThemeScope.of(context).theme;
     switch (this) {
       case LetterStatus.correctSpot:
@@ -46,7 +46,7 @@ enum LetterStatus {
       case LetterStatus.notInWord:
         return theme.notInWordColor;
       case LetterStatus.unknown:
-        return Colors.transparent;
+        return null;
     }
   }
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
 import 'package:wordly/src/feature/app/widget/theme_scope.dart';
@@ -29,6 +28,9 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
   void initState() {
     super.initState();
     _currentColorMode = widget.previousResult.colorMode;
+    if (_currentColorMode == ColorMode.other) {
+      _currentSelectedTileIndex = 0;
+    }
     _currentOtherColors = widget.previousResult.otherColors ?? (Colors.green, Colors.yellow, Colors.grey);
   }
 
@@ -76,9 +78,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
                       onTap: _currentColorMode == ColorMode.other
                           ? () {
                               if (word[index].status != LetterStatus.unknown) {
-                                setState(() {
-                                  _currentSelectedTileIndex = index;
-                                });
+                                setState(() => _currentSelectedTileIndex = index);
                               }
                             }
                           : null,
@@ -141,32 +141,15 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
   }
 
   Color? _currentColorByStatus(ColorMode mode, LetterStatus? status) {
-    if (status == null) {
+    if (status == null || mode != ColorMode.other) {
       return null;
     }
-    switch (mode) {
-      case ColorMode.casual:
-        final casualModeColors = {
-          LetterStatus.correctSpot: AppColors.green,
-          LetterStatus.wrongSpot: AppColors.yellow,
-          LetterStatus.notInWord: AppColors.grey,
-        };
-        return casualModeColors[status];
-      case ColorMode.highContrast:
-        final highContrastModeColors = {
-          LetterStatus.correctSpot: AppColors.orange,
-          LetterStatus.wrongSpot: AppColors.blue,
-          LetterStatus.notInWord: AppColors.grey,
-        };
-        return highContrastModeColors[status];
-      case ColorMode.other:
-        final otherModeColors = {
-          LetterStatus.correctSpot: _currentOtherColors.$1,
-          LetterStatus.wrongSpot: _currentOtherColors.$2,
-          LetterStatus.notInWord: _currentOtherColors.$3,
-        };
-        return otherModeColors[status];
-    }
+    final otherModeColors = {
+      LetterStatus.correctSpot: _currentOtherColors.$1,
+      LetterStatus.wrongSpot: _currentOtherColors.$2,
+      LetterStatus.notInWord: _currentOtherColors.$3,
+    };
+    return otherModeColors[status];
   }
 
   List<LetterInfo> _wordByDictionary(Locale dictionary) {

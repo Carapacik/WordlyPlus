@@ -60,11 +60,11 @@ final class AppTheme with Diagnosticable {
       case ThemeMode.dark:
         return darkTheme;
       case ThemeMode.system:
-        return isDark(context) ? darkTheme : lightTheme;
+        return MediaQuery.platformBrightnessOf(context) == Brightness.dark ? darkTheme : lightTheme;
     }
   }
 
-  bool isDark(BuildContext context) => MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+  bool isDark(BuildContext context) => computeTheme(context) == darkTheme;
 
   Color get correctColor {
     switch (colorMode) {

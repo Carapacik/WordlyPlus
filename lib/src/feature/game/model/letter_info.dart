@@ -63,8 +63,9 @@ enum LetterStatus {
       return darken(color, 0.3);
     }
     // for empty basic tiles
-    if (isDark && this == LetterStatus.notInWord || !isDark && this == LetterStatus.unknown) {
-      return isDark ? AppColors.secondary : AppColors.primary;
+    if (this == LetterStatus.notInWord || this == LetterStatus.unknown) {
+      final primary = !isDark && this == LetterStatus.notInWord || isDark && this == LetterStatus.unknown;
+      return primary ? AppColors.secondary : AppColors.primary;
     }
     // for high contrast
     if (theme.colorMode == ColorMode.highContrast) {

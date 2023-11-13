@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
+import 'package:wordly/src/feature/app/widget/theme_scope.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/components/widget/letter_tile.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
@@ -30,6 +32,16 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
     _currentOtherColors = widget.previousResult.otherColors ?? (Colors.green, Colors.yellow, Colors.grey);
   }
 
+  void _changeTheme(BuildContext context) {
+    final themeScope = ThemeScope.of(context, listen: false);
+    themeScope.setTheme(
+      themeScope.theme.copyWith(
+        colorMode: _currentColorMode,
+        otherColors: _currentOtherColors,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final word = _wordByDictionary(DictionaryScope.of(context).dictionary);
@@ -55,7 +67,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
                     itemCount: word.length,
                     separatorBuilder: (_, __) => const SizedBox(width: 8),
                     itemBuilder: (context, index) => LetterTile(
-                      letter: word[index],
+                      info: word[index],
                       color: _currentColorByStatus(
                         _currentColorMode,
                         word[index].status,
@@ -64,7 +76,9 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
                       onTap: _currentColorMode == ColorMode.other
                           ? () {
                               if (word[index].status != LetterStatus.unknown) {
-                                setState(() => _currentSelectedTileIndex = index);
+                                setState(() {
+                                  _currentSelectedTileIndex = index;
+                                });
                               }
                             }
                           : null,
@@ -91,6 +105,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
                     } else {
                       _currentSelectedTileIndex ??= 0;
                     }
+                    _changeTheme(context);
                   }),
                 ),
               ),
@@ -114,6 +129,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
                         status == LetterStatus.wrongSpot ? color : _currentOtherColors.$2,
                         status == LetterStatus.notInWord ? color : _currentOtherColors.$3
                       );
+                      _changeTheme(context);
                     });
                   },
                 ),
@@ -131,16 +147,16 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
     switch (mode) {
       case ColorMode.casual:
         final casualModeColors = {
-          LetterStatus.correctSpot: Colors.green,
-          LetterStatus.wrongSpot: Colors.yellow,
-          LetterStatus.notInWord: Colors.grey,
+          LetterStatus.correctSpot: AppColors.green,
+          LetterStatus.wrongSpot: AppColors.yellow,
+          LetterStatus.notInWord: AppColors.grey,
         };
         return casualModeColors[status];
       case ColorMode.highContrast:
         final highContrastModeColors = {
-          LetterStatus.correctSpot: Colors.orange,
-          LetterStatus.wrongSpot: Colors.blue,
-          LetterStatus.notInWord: Colors.grey,
+          LetterStatus.correctSpot: AppColors.orange,
+          LetterStatus.wrongSpot: AppColors.blue,
+          LetterStatus.notInWord: AppColors.grey,
         };
         return highContrastModeColors[status];
       case ColorMode.other:

@@ -3,14 +3,14 @@ import 'package:wordly/src/feature/game/model/letter_info.dart';
 
 class LetterTile extends StatelessWidget {
   const LetterTile({
-    required this.letter,
+    required this.info,
     required this.onTap,
     this.selected = false,
     this.color,
     super.key,
   });
 
-  final LetterInfo letter;
+  final LetterInfo info;
   final Color? color;
   final VoidCallback? onTap;
   final bool selected;
@@ -24,19 +24,21 @@ class LetterTile extends StatelessWidget {
         child: Container(
           constraints: const BoxConstraints(maxHeight: 60, maxWidth: 60),
           decoration: BoxDecoration(
-            color: color ?? letter.status.cellColor(context),
-            borderRadius: BorderRadius.circular(6),
+            color: color ?? info.status.cellColor(context),
+            borderRadius: BorderRadius.circular(12),
             border: Border.all(
               width: 3,
-              color: selected
-                  ? Colors.red
-                  : letter.status == LetterStatus.unknown
-                      ? Colors.grey
-                      : Colors.transparent,
+              color: selected ? Colors.red : Colors.transparent,
             ),
           ),
-          child: FittedBox(
-            child: Text(letter.letter.toUpperCase()),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: FittedBox(
+              child: Text(
+                info.letter.toUpperCase(),
+                style: TextStyle(color: info.status.textColor(context)),
+              ),
+            ),
           ),
         ),
       ),

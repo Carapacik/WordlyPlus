@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/color.dart';
 import 'package:wordly/src/feature/app/widget/theme_scope.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
@@ -55,22 +56,32 @@ enum LetterStatus {
   Color? textColor(BuildContext context) {
     final theme = ThemeScope.of(context).theme;
     final isDark = theme.isDark(context);
+    final color = cellColor(context);
+
+    // other mode not in word always darken
+    if (theme.colorMode == ColorMode.other && this == LetterStatus.notInWord) {
+      return darken(color, 0.3);
+    }
+    // for empty basic tiles
+    if (isDark && this == LetterStatus.notInWord || !isDark && this == LetterStatus.unknown) {
+      return isDark ? AppColors.secondary : AppColors.primary;
+    }
+    // for high contrast
     if (theme.colorMode == ColorMode.highContrast) {
       return Colors.white;
     }
-    final color = cellColor(context);
-    return isDark ? darken(color, 0.2) : lighten(color, 0.2);
+    return darken(color, 0.3);
   }
 
   String get emoji {
     switch (this) {
-      case LetterStatus.unknown:
-      case LetterStatus.notInWord:
-        return '⬛';
-      case LetterStatus.wrongSpot:
-        return '🟨';
       case LetterStatus.correctSpot:
         return '🟩';
+      case LetterStatus.wrongSpot:
+        return '🟨';
+      case LetterStatus.notInWord:
+      case LetterStatus.unknown:
+        return '⬛';
     }
   }
 }

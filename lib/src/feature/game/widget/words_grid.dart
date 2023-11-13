@@ -25,7 +25,7 @@ class WordsGrid extends StatelessWidget {
                 crossAxisSpacing: 8,
               ),
               itemBuilder: (_, index) => GridTile(
-                letter: state.board.length > index ? state.board[index] : const LetterInfo(letter: ''),
+                info: state.board.length > index ? state.board[index] : const LetterInfo(letter: ''),
               ),
             );
           },
@@ -36,9 +36,9 @@ class WordsGrid extends StatelessWidget {
 }
 
 class GridTile extends StatelessWidget {
-  const GridTile({required this.letter, super.key});
+  const GridTile({required this.info, super.key});
 
-  final LetterInfo letter;
+  final LetterInfo info;
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +47,9 @@ class GridTile extends StatelessWidget {
       child: Container(
         constraints: const BoxConstraints(maxHeight: 60, maxWidth: 60),
         decoration: BoxDecoration(
-          color: letter.status.color(context),
+          color: info.status.cellColor(context),
           borderRadius: BorderRadius.circular(6),
-          border: letter.status == LetterStatus.unknown
+          border: info.status == LetterStatus.unknown
               ? Border.all(
                   width: 3,
                   color: Colors.grey,
@@ -60,7 +60,10 @@ class GridTile extends StatelessWidget {
                 ),
         ),
         child: FittedBox(
-          child: Text(letter.letter.toUpperCase()),
+          child: Text(
+            info.letter.toUpperCase(),
+            style: TextStyle(color: info.status.textColor(context)),
+          ),
         ),
       ),
     );

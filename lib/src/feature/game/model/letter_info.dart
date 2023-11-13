@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordly/src/core/utils/color.dart';
 import 'package:wordly/src/feature/app/widget/theme_scope.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 
@@ -37,7 +38,7 @@ enum LetterStatus {
   notInWord,
   unknown;
 
-  Color? cellColor(BuildContext context) {
+  Color cellColor(BuildContext context) {
     final theme = ThemeScope.of(context).theme;
     switch (this) {
       case LetterStatus.correctSpot:
@@ -45,27 +46,20 @@ enum LetterStatus {
       case LetterStatus.wrongSpot:
         return theme.wrongSpotColor;
       case LetterStatus.notInWord:
-        return theme.notInWordColor;
+        return theme.notInWordColor(context);
       case LetterStatus.unknown:
-        return null;
+        return theme.unknownColor(context);
     }
   }
 
   Color? textColor(BuildContext context) {
     final theme = ThemeScope.of(context).theme;
+    final isDark = theme.isDark(context);
     if (theme.colorMode == ColorMode.highContrast) {
       return Colors.white;
     }
-    switch (this) {
-      case LetterStatus.correctSpot:
-        return theme.correctColor;
-      case LetterStatus.wrongSpot:
-        return theme.wrongSpotColor;
-      case LetterStatus.notInWord:
-        return theme.notInWordColor;
-      case LetterStatus.unknown:
-        return null;
-    }
+    final color = cellColor(context);
+    return isDark ? darken(color, 0.2) : lighten(color, 0.2);
   }
 
   String get emoji {

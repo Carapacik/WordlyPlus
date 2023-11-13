@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 
 /// {@template app_theme}
@@ -59,41 +60,48 @@ final class AppTheme with Diagnosticable {
       case ThemeMode.dark:
         return darkTheme;
       case ThemeMode.system:
-        return MediaQuery.platformBrightnessOf(context) == Brightness.dark ? darkTheme : lightTheme;
+        return isDark(context) ? darkTheme : lightTheme;
     }
   }
+
+  bool isDark(BuildContext context) => MediaQuery.platformBrightnessOf(context) == Brightness.dark;
 
   Color get correctColor {
     switch (colorMode) {
       case ColorMode.casual:
-        return Colors.green;
+        return AppColors.green;
       case ColorMode.highContrast:
-        return Colors.orange;
+        return AppColors.orange;
       case ColorMode.other:
-        return otherColors?.$1 ?? Colors.green;
+        return otherColors?.$1 ?? AppColors.green;
     }
   }
 
   Color get wrongSpotColor {
     switch (colorMode) {
       case ColorMode.casual:
-        return Colors.yellow;
+        return AppColors.yellow;
       case ColorMode.highContrast:
-        return Colors.blue;
+        return AppColors.blue;
       case ColorMode.other:
-        return otherColors?.$2 ?? Colors.yellow;
+        return otherColors?.$2 ?? AppColors.yellow;
     }
   }
 
-  Color get notInWordColor {
+  Color notInWordColor(BuildContext context) {
+    final isDarkTheme = isDark(context);
     switch (colorMode) {
       case ColorMode.casual:
-        return Colors.grey;
       case ColorMode.highContrast:
-        return Colors.grey;
+        return isDarkTheme ? AppColors.tertiary : AppColors.grey;
       case ColorMode.other:
-        return otherColors?.$3 ?? Colors.grey;
+        return otherColors?.$3 ?? (isDarkTheme ? AppColors.tertiary : AppColors.grey);
     }
+  }
+
+  Color unknownColor(BuildContext context) {
+    final isDarkTheme = isDark(context);
+    return isDarkTheme ? AppColors.grey : AppColors.tertiary;
   }
 
   @override

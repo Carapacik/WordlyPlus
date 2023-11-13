@@ -142,12 +142,18 @@ class EnterKey extends StatelessWidget {
         height: 58,
         width: DictionaryScope.of(context).dictionary.width(context) * 1.65,
         child: Material(
-          color: Colors.grey,
+          color: LetterStatus.unknown.cellColor(context),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           child: InkWell(
             onTap: () => context.read<GameBloc>().add(const GameEvent.enterPressed()),
-            child: const FittedBox(
-              child: Text('ENTER'),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
+              child: FittedBox(
+                child: Icon(
+                  Icons.send,
+                  color: LetterStatus.unknown.textColor(context),
+                ),
+              ),
             ),
           ),
         ),
@@ -167,13 +173,19 @@ class DeleteKey extends StatelessWidget {
         height: 58,
         width: DictionaryScope.of(context).dictionary.width(context) * 1.65,
         child: Material(
-          color: Colors.grey,
+          color: LetterStatus.unknown.cellColor(context),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           child: InkWell(
             onTap: () => context.read<GameBloc>().add(const GameEvent.deletePressed()),
             onLongPress: () => context.read<GameBloc>().add(const GameEvent.deleteLongPressed()),
-            child: const FittedBox(
-              child: Icon(Icons.backspace_outlined),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
+              child: FittedBox(
+                child: Icon(
+                  Icons.backspace_outlined,
+                  color: LetterStatus.unknown.textColor(context),
+                ),
+              ),
             ),
           ),
         ),
@@ -200,13 +212,24 @@ class KeyboardKey extends StatelessWidget {
         height: 58,
         width: DictionaryScope.of(context).dictionary.width(context),
         child: Material(
-          color: status.cellColor(context) ?? Colors.grey,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+          color: status.cellColor(context),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
           child: InkWell(
             onTap: () {
               context.read<GameBloc>().add(GameEvent.letterPressed(letter));
             },
-            child: FittedBox(child: Text(letter.toUpperCase())),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
+              child: FittedBox(
+                child: Text(
+                  letter.toUpperCase(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: status.textColor(context),
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
       ),

@@ -48,21 +48,15 @@ class GridTile extends StatelessWidget {
         constraints: const BoxConstraints(maxHeight: 60, maxWidth: 60),
         decoration: BoxDecoration(
           color: info.status.cellColor(context),
-          borderRadius: BorderRadius.circular(6),
-          border: info.status == LetterStatus.unknown
-              ? Border.all(
-                  width: 3,
-                  color: Colors.grey,
-                )
-              : Border.all(
-                  width: 3,
-                  color: Colors.transparent,
-                ),
+          borderRadius: BorderRadius.circular(12),
         ),
-        child: FittedBox(
-          child: Text(
-            info.letter.toUpperCase(),
-            style: TextStyle(color: info.status.textColor(context)),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: FittedBox(
+            child: Text(
+              info.letter.toUpperCase(),
+              style: TextStyle(color: info.status.textColor(context)),
+            ),
           ),
         ),
       ),

@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m0(number) => "Уровень ${number}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
+
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("О приложении"),
         "appDictionary": MessageLookupByLibrary.simpleMessage("Язык словаря"),
@@ -33,21 +34,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "currentStreak": MessageLookupByLibrary.simpleMessage("Текущая\nСерия"),
         "daily": MessageLookupByLibrary.simpleMessage("Ежедневный"),
         "en": MessageLookupByLibrary.simpleMessage("Английский"),
-        "guessDistribution":
-            MessageLookupByLibrary.simpleMessage("Распределение догадок"),
-        "highContrast":
-            MessageLookupByLibrary.simpleMessage("Высокий контраст"),
+        "guessDistribution": MessageLookupByLibrary.simpleMessage("Распределение догадок"),
+        "highContrast": MessageLookupByLibrary.simpleMessage("Высокий контраст"),
         "levelNumber": m0,
         "levels": MessageLookupByLibrary.simpleMessage("Уровни"),
         "loseMessage": MessageLookupByLibrary.simpleMessage("Вы проиграли"),
         "maxStreak": MessageLookupByLibrary.simpleMessage("Макс.\nСерия"),
-        "message_new_word": MessageLookupByLibrary.simpleMessage(
-            "subject=Словень%20-%20Новое%20слово&body=Слово%20-%0AЗначение%20-"),
+        "message_new_word":
+            MessageLookupByLibrary.simpleMessage("subject=Словень%20-%20Новое%20слово&body=Слово%20-%0AЗначение%20-"),
         "nextLevel": MessageLookupByLibrary.simpleMessage("Следующий уровень"),
-        "nextWord":
-            MessageLookupByLibrary.simpleMessage("Следующее слово через"),
-        "notPlayed":
-            MessageLookupByLibrary.simpleMessage("Вы не сыграли ни одной игры"),
+        "nextWord": MessageLookupByLibrary.simpleMessage("Следующее слово через"),
+        "notPlayed": MessageLookupByLibrary.simpleMessage("Вы не сыграли ни одной игры"),
         "other": MessageLookupByLibrary.simpleMessage("Другой"),
         "played": MessageLookupByLibrary.simpleMessage("Сыграно"),
         "ru": MessageLookupByLibrary.simpleMessage("Русский"),
@@ -62,13 +59,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "themeSystem": MessageLookupByLibrary.simpleMessage("Системная"),
         "tutorial": MessageLookupByLibrary.simpleMessage("Как играть"),
         "viewLevels": MessageLookupByLibrary.simpleMessage("Посмотреть уровни"),
-        "viewStatistic":
-            MessageLookupByLibrary.simpleMessage("Посмотреть статистику"),
+        "viewStatistic": MessageLookupByLibrary.simpleMessage("Посмотреть статистику"),
         "winMessage": MessageLookupByLibrary.simpleMessage("Вы победили!"),
         "winRate": MessageLookupByLibrary.simpleMessage("Показатель\nпобед"),
-        "wordNotFound":
-            MessageLookupByLibrary.simpleMessage("Слово не найдено в словаре"),
-        "wordTooShort":
-            MessageLookupByLibrary.simpleMessage("Слово неправильной длины")
+        "wordNotFound": MessageLookupByLibrary.simpleMessage("Слово не найдено в словаре"),
+        "wordTooShort": MessageLookupByLibrary.simpleMessage("Слово неправильной длины")
       };
 }

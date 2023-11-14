@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/game/model/game_mode.dart';
 import 'package:wordly/src/feature/game/widget/countdown_timer.dart';
@@ -48,7 +49,7 @@ class DialogContent extends StatelessWidget {
     final width = MediaQuery.sizeOf(context).width;
     final padding = width > 350 ? (width - 350) / 2 : 8;
     return Dialog(
-      backgroundColor: isWin ? Colors.green : Colors.red,
+      backgroundColor: isWin ? AppColors.green : AppColors.red,
       insetAnimationDuration: const Duration(milliseconds: 800),
       insetPadding: EdgeInsets.symmetric(horizontal: padding.toDouble()),
       child: Padding(
@@ -114,7 +115,7 @@ class _DailyContent extends StatelessWidget {
           child: Text(
             context.r.share,
             style: context.theme.blb.copyWith(
-              color: isWin ? Colors.green : Colors.red,
+              color: isWin ? AppColors.green : AppColors.red,
             ),
             textAlign: TextAlign.center,
           ),
@@ -149,7 +150,7 @@ class _LevelContent extends StatelessWidget {
           child: Text(
             context.r.nextLevel,
             style: context.theme.blb.copyWith(
-              color: isWin ? Colors.green : Colors.red,
+              color: isWin ? AppColors.green : AppColors.red,
             ),
             textAlign: TextAlign.center,
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 
 Future<void> showLevelDialog(
@@ -13,7 +14,7 @@ Future<void> showLevelDialog(
         final width = MediaQuery.sizeOf(context).width;
         final padding = width > 350 ? (width - 350) / 2 : 8;
         return Dialog(
-          backgroundColor: isWin ? Colors.green : Colors.red,
+          backgroundColor: isWin ? AppColors.green : AppColors.red,
           insetAnimationDuration: const Duration(milliseconds: 800),
           insetPadding: EdgeInsets.symmetric(horizontal: padding.toDouble()),
           child: Padding(

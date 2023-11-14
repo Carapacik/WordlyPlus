@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:meta/meta.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:wordly/src/core/utils/logger.dart';
 
 /// A class which is responsible for disabling error tracking.
@@ -78,19 +77,19 @@ final class SentryTrackingManager extends ExceptionTrackingManagerBase {
     if (log.error != null) {
       buffer.write('| ${log.error}');
     }
-    await Sentry.captureException(
-      buffer.toString(),
-      stackTrace: log.stackTrace,
-    );
+    // await Sentry.captureException(
+    //   buffer.toString(),
+    //   stackTrace: log.stackTrace,
+    // );
 
     return;
   }
 
   @override
   Future<void> enableReporting() async {
-    await Sentry.init(
-      (options) => options.dsn = sentryDsn,
-    );
+    // await Sentry.init(
+    //   (options) => options.dsn = sentryDsn,
+    // );
     await super.enableReporting();
 
     return;
@@ -98,7 +97,7 @@ final class SentryTrackingManager extends ExceptionTrackingManagerBase {
 
   @override
   Future<void> disableReporting() async {
-    await Sentry.close();
+    // await Sentry.close();
     await super.disableReporting();
 
     return;

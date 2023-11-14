@@ -1,3 +1,5 @@
+import 'dart:math' as math show pi;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
@@ -147,7 +149,7 @@ class EnterKey extends StatelessWidget {
           child: InkWell(
             onTap: () => context.read<GameBloc>().add(const GameEvent.enterPressed()),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
               child: FittedBox(
                 child: Icon(
                   Icons.send,
@@ -179,7 +181,7 @@ class DeleteKey extends StatelessWidget {
             onTap: () => context.read<GameBloc>().add(const GameEvent.deletePressed()),
             onLongPress: () => context.read<GameBloc>().add(const GameEvent.deleteLongPressed()),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
               child: FittedBox(
                 child: Icon(
                   Icons.backspace_outlined,

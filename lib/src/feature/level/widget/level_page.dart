@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/components/widget/not_played.dart';
@@ -71,10 +72,10 @@ class _LevelItem extends StatelessWidget {
         clipBehavior: Clip.hardEdge,
         borderRadius: BorderRadius.circular(8),
         color: level.isWin == null
-            ? Colors.grey
+            ? AppColors.grey
             : level.isWin!
-                ? Colors.green
-                : Colors.red,
+                ? AppColors.green
+                : AppColors.red,
         child: InkWell(
           onTap: () async {
             if (level.isWin != null) {

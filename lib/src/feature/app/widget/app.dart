@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
 import 'package:wordly/src/feature/app/widget/locale_scope.dart';
 import 'package:wordly/src/feature/app/widget/material_context.dart';
@@ -31,15 +30,12 @@ class App extends StatelessWidget {
   final InitializationResult result;
 
   @override
-  Widget build(BuildContext context) => DefaultAssetBundle(
-        bundle: SentryAssetBundle(),
-        child: DependenciesScope(
-          dependencies: result.dependencies,
-          child: const ThemeScope(
-            child: DictionaryScope(
-              child: LocaleScope(
-                child: MaterialContext(),
-              ),
+  Widget build(BuildContext context) => DependenciesScope(
+        dependencies: result.dependencies,
+        child: const ThemeScope(
+          child: DictionaryScope(
+            child: LocaleScope(
+              child: MaterialContext(),
             ),
           ),
         ),

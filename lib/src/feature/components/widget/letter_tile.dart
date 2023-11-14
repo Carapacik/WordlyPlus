@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
 
 class LetterTile extends StatelessWidget {
@@ -28,7 +29,7 @@ class LetterTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               width: 3,
-              color: selected ? Colors.red : Colors.transparent,
+              color: selected ? AppColors.red : Colors.transparent,
             ),
           ),
           child: Padding(

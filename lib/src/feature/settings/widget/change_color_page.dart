@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
 import 'package:wordly/src/feature/app/widget/theme_scope.dart';
@@ -31,7 +32,8 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
     if (_currentColorMode == ColorMode.other) {
       _currentSelectedTileIndex = 0;
     }
-    _currentOtherColors = widget.previousResult.otherColors ?? (Colors.green, Colors.yellow, Colors.grey);
+    _currentOtherColors = widget.previousResult.otherColors ??
+        (AppColors.green, AppColors.yellow, LetterStatus.notInWord.cellColor(context));
   }
 
   void _changeTheme(BuildContext context) {

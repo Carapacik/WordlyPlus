@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:wordly/src/core/localization/localization.dart';
+import 'package:wordly/src/feature/initialization/model/dependencies.dart';
+import 'package:wordly/src/feature/initialization/widget/dependencies_scope.dart';
 
 /// List of extensions for [BuildContext]
 extension ContextExtension on BuildContext {
@@ -8,9 +11,7 @@ extension ContextExtension on BuildContext {
   /// when that widget changes (or a new widget of that type is introduced,
   /// or the widget goes away), this build context is rebuilt so that it can
   /// obtain new values from that widget.
-  T? inhMaybeOf<T extends InheritedWidget>({
-    bool listen = true,
-  }) =>
+  T? inhMaybeOf<T extends InheritedWidget>({bool listen = true}) =>
       listen ? dependOnInheritedWidgetOfExactType<T>() : getInheritedWidgetOfExactType<T>();
 
   /// Obtain the nearest widget of the given type T,
@@ -19,13 +20,17 @@ extension ContextExtension on BuildContext {
   /// when that widget changes (or a new widget of that type is introduced,
   /// or the widget goes away), this build context is rebuilt so that it can
   /// obtain new values from that widget.
-  T inhOf<T extends InheritedWidget>({
-    bool listen = true,
-  }) =>
+  T inhOf<T extends InheritedWidget>({bool listen = true}) =>
       inhMaybeOf<T>(listen: listen) ??
       (throw ArgumentError(
         'Out of scope, not found inherited widget '
             'a $T of the exact type',
         'out_of_scope',
       ));
+
+  Dependencies get dependencies => DependenciesScope.of(this);
+
+  ThemeData get theme => Theme.of(this);
+
+  Localization get r => Localization.of(this);
 }

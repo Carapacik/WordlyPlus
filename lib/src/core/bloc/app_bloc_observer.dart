@@ -3,11 +3,11 @@ import 'package:wordly/src/core/utils/logger.dart';
 
 /// [BlocObserver] which logs all bloc state changes, errors and events.
 class AppBlocObserver extends BlocObserver {
+  /// [BlocObserver] which logs all bloc state changes, errors and events.
+  const AppBlocObserver();
+
   @override
-  void onTransition(
-    Bloc<Object?, Object?> bloc,
-    Transition<Object?, Object?> transition,
-  ) {
+  void onTransition(Bloc<Object?, Object?> bloc, Transition<Object?, Object?> transition) {
     final buffer = StringBuffer()
       ..writeln('Bloc: ${bloc.runtimeType} | ${transition.event.runtimeType}')
       ..write('Transition: ${transition.currentState.runtimeType}')
@@ -27,11 +27,7 @@ class AppBlocObserver extends BlocObserver {
   }
 
   @override
-  void onError(
-    BlocBase<Object?> bloc,
-    Object error,
-    StackTrace stackTrace,
-  ) {
+  void onError(BlocBase<Object?> bloc, Object error, StackTrace stackTrace) {
     logger.error(
       'Bloc: ${bloc.runtimeType} | $error',
       stackTrace: stackTrace,

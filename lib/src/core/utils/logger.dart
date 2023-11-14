@@ -114,10 +114,7 @@ abstract base class Logger {
   void verbose(String message);
 
   /// Set up the logger
-  L runLogging<L>(
-    L Function() fn, [
-    LogOptions options = const LogOptions(),
-  ]);
+  L runLogging<L>(L Function() fn, [LogOptions options = const LogOptions()]);
 
   /// Stream of logs
   Stream<LogMessage> get logs;
@@ -141,7 +138,7 @@ abstract base class Logger {
 
 /// Default logger using logging package
 final class LoggerLogging extends Logger {
-  final _logger = logging.Logger('WordlyPlusLogger');
+  final _logger = logging.Logger('SizzleLogger');
 
   @override
   void debug(String message) => _logger.fine(message);
@@ -164,25 +161,16 @@ final class LoggerLogging extends Logger {
       );
 
   @override
-  L runLogging<L>(
-    L Function() fn, [
-    LogOptions options = const LogOptions(),
-  ]) {
+  L runLogging<L>(L Function() fn, [LogOptions options = const LogOptions()]) {
     if (kReleaseMode && !options.logInRelease) {
       return fn();
     }
     logging.hierarchicalLoggingEnabled = true;
 
-    _logger.onRecord.where((event) => event.loggerName == 'WordlyPlusLogger').listen((event) {
+    _logger.onRecord.where((event) => event.loggerName == 'SizzleLogger').listen((event) {
       final logMessage = event.toLogMessage();
-      final message = options.formatter?.call(
-            logMessage,
-            options,
-          ) ??
-          _formatLoggerMessage(
-            log: logMessage,
-            options: options,
-          );
+      final message =
+          options.formatter?.call(logMessage, options) ?? _formatLoggerMessage(log: logMessage, options: options);
 
       if (logMessage.logLevel.compareTo(options.level) < 0) {
         return;

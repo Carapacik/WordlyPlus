@@ -32,10 +32,7 @@ abstract interface class LocaleController {
 /// [LocaleController] with the new locale when it changes.
 class LocaleScope extends StatefulWidget {
   /// Creates a new [LocaleScope] with the given child widget.
-  const LocaleScope({
-    required this.child,
-    super.key,
-  });
+  const LocaleScope({required this.child, super.key});
 
   /// The child widget.
   final Widget child;
@@ -46,10 +43,7 @@ class LocaleScope extends StatefulWidget {
   /// rebuild the widget when the locale changes. If [listen] is false, the
   /// returned [LocaleController] will not rebuild the widget when the locale
   /// changes.
-  static LocaleController of(
-    BuildContext context, {
-    bool listen = true,
-  }) =>
+  static LocaleController of(BuildContext context, {bool listen = true}) =>
       context.inhOf<_LocaleInherited>(listen: listen).controller;
 
   @override
@@ -80,6 +74,7 @@ class _LocaleScopeState extends State<LocaleScope> implements LocaleController {
 
   @override
   void initState() {
+    super.initState();
     _bloc = LocaleBloc(
       localeRepository: DependenciesScope.of(context).localeRepository,
     );
@@ -87,7 +82,6 @@ class _LocaleScopeState extends State<LocaleScope> implements LocaleController {
     _state = _bloc.state;
 
     _subscription = _bloc.stream.listen(_listener);
-    super.initState();
   }
 
   @override
@@ -104,8 +98,8 @@ class _LocaleScopeState extends State<LocaleScope> implements LocaleController {
   }
 
   @override
-  void setLocale(Locale locale) => _bloc.add(
-        LocaleEvent.update(locale),
+  void setLocale(Locale newLocale) => _bloc.add(
+        LocaleEvent.update(locale: newLocale),
       );
 
   @override

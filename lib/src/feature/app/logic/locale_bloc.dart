@@ -8,14 +8,14 @@ import 'package:wordly/src/feature/app/data/locale_repository.dart';
 part 'locale_bloc.freezed.dart';
 
 /// Locale event for [LocaleBloc]
-@freezed
+@Freezed()
 sealed class LocaleEvent with _$LocaleEvent {
   /// Updates the locale with the given [locale].
   const factory LocaleEvent.update({required Locale locale}) = _LocaleEventUpdate;
 }
 
 /// Locale state for [LocaleBloc]
-@freezed
+@Freezed()
 sealed class LocaleState with _$LocaleState {
   /// Initial state of the locale bloc.
   const factory LocaleState.idle({required Locale locale}) = _LocaleStateIdle;

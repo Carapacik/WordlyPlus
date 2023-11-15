@@ -11,6 +11,8 @@ import 'package:wordly/src/feature/initialization/widget/dependencies_scope.dart
 /// {@endtemplate}
 abstract interface class DictionaryController {
   /// Get the current dictionary.
+  ///
+  /// This is handy to be obtained in the [MaterialApp].
   Locale get dictionary;
 
   /// Set the dictionary to [dictionary].
@@ -30,10 +32,7 @@ abstract interface class DictionaryController {
 /// [DictionaryController] with the new dictionary when it changes.
 class DictionaryScope extends StatefulWidget {
   /// Creates a new [DictionaryScope] with the given child widget.
-  const DictionaryScope({
-    required this.child,
-    super.key,
-  });
+  const DictionaryScope({required this.child, super.key});
 
   /// The child widget.
   final Widget child;
@@ -44,10 +43,7 @@ class DictionaryScope extends StatefulWidget {
   /// rebuild the widget when the dictionary changes. If [listen] is false, the
   /// returned [DictionaryController] will not rebuild the widget when the dictionary
   /// changes.
-  static DictionaryController of(
-    BuildContext context, {
-    bool listen = true,
-  }) =>
+  static DictionaryController of(BuildContext context, {bool listen = true}) =>
       context.inhOf<_DictionaryInherited>(listen: listen).controller;
 
   @override
@@ -78,6 +74,7 @@ class _DictionaryScopeState extends State<DictionaryScope> implements Dictionary
 
   @override
   void initState() {
+    super.initState();
     _bloc = DictionaryBloc(
       dictionaryRepository: DependenciesScope.of(context).dictionaryRepository,
     );
@@ -85,7 +82,6 @@ class _DictionaryScopeState extends State<DictionaryScope> implements Dictionary
     _state = _bloc.state;
 
     _subscription = _bloc.stream.listen(_listener);
-    super.initState();
   }
 
   @override
@@ -102,8 +98,8 @@ class _DictionaryScopeState extends State<DictionaryScope> implements Dictionary
   }
 
   @override
-  void setDictionary(Locale dictionary) => _bloc.add(
-        DictionaryEvent.update(dictionary),
+  void setDictionary(Locale newDictionary) => _bloc.add(
+        DictionaryEvent.update(dictionary: newDictionary),
       );
 
   @override

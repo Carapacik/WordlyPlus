@@ -23,6 +23,7 @@ mixin _$DictionaryEvent {
     required TResult Function(_DictionaryEventUpdate value) update,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_DictionaryEventUpdate value)? update,
@@ -36,26 +37,25 @@ mixin _$DictionaryEvent {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $DictionaryEventCopyWith<DictionaryEvent> get copyWith =>
-      throw _privateConstructorUsedError;
+  $DictionaryEventCopyWith<DictionaryEvent> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $DictionaryEventCopyWith<$Res> {
-  factory $DictionaryEventCopyWith(
-          DictionaryEvent value, $Res Function(DictionaryEvent) then) =
+  factory $DictionaryEventCopyWith(DictionaryEvent value, $Res Function(DictionaryEvent) then) =
       _$DictionaryEventCopyWithImpl<$Res, DictionaryEvent>;
+
   @useResult
   $Res call({Locale dictionary});
 }
 
 /// @nodoc
-class _$DictionaryEventCopyWithImpl<$Res, $Val extends DictionaryEvent>
-    implements $DictionaryEventCopyWith<$Res> {
+class _$DictionaryEventCopyWithImpl<$Res, $Val extends DictionaryEvent> implements $DictionaryEventCopyWith<$Res> {
   _$DictionaryEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
+
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -74,12 +74,11 @@ class _$DictionaryEventCopyWithImpl<$Res, $Val extends DictionaryEvent>
 }
 
 /// @nodoc
-abstract class _$$DictionaryEventUpdateImplCopyWith<$Res>
-    implements $DictionaryEventCopyWith<$Res> {
+abstract class _$$DictionaryEventUpdateImplCopyWith<$Res> implements $DictionaryEventCopyWith<$Res> {
   factory _$$DictionaryEventUpdateImplCopyWith(
-          _$DictionaryEventUpdateImpl value,
-          $Res Function(_$DictionaryEventUpdateImpl) then) =
+          _$DictionaryEventUpdateImpl value, $Res Function(_$DictionaryEventUpdateImpl) then) =
       __$$DictionaryEventUpdateImplCopyWithImpl<$Res>;
+
   @override
   @useResult
   $Res call({Locale dictionary});
@@ -89,8 +88,8 @@ abstract class _$$DictionaryEventUpdateImplCopyWith<$Res>
 class __$$DictionaryEventUpdateImplCopyWithImpl<$Res>
     extends _$DictionaryEventCopyWithImpl<$Res, _$DictionaryEventUpdateImpl>
     implements _$$DictionaryEventUpdateImplCopyWith<$Res> {
-  __$$DictionaryEventUpdateImplCopyWithImpl(_$DictionaryEventUpdateImpl _value,
-      $Res Function(_$DictionaryEventUpdateImpl) _then)
+  __$$DictionaryEventUpdateImplCopyWithImpl(
+      _$DictionaryEventUpdateImpl _value, $Res Function(_$DictionaryEventUpdateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -125,8 +124,7 @@ class _$DictionaryEventUpdateImpl implements _DictionaryEventUpdate {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DictionaryEventUpdateImpl &&
-            (identical(other.dictionary, dictionary) ||
-                other.dictionary == dictionary));
+            (identical(other.dictionary, dictionary) || other.dictionary == dictionary));
   }
 
   @override
@@ -135,9 +133,8 @@ class _$DictionaryEventUpdateImpl implements _DictionaryEventUpdate {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DictionaryEventUpdateImplCopyWith<_$DictionaryEventUpdateImpl>
-      get copyWith => __$$DictionaryEventUpdateImplCopyWithImpl<
-          _$DictionaryEventUpdateImpl>(this, _$identity);
+  _$$DictionaryEventUpdateImplCopyWith<_$DictionaryEventUpdateImpl> get copyWith =>
+      __$$DictionaryEventUpdateImplCopyWithImpl<_$DictionaryEventUpdateImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -169,15 +166,14 @@ class _$DictionaryEventUpdateImpl implements _DictionaryEventUpdate {
 }
 
 abstract class _DictionaryEventUpdate implements DictionaryEvent {
-  const factory _DictionaryEventUpdate({required final Locale dictionary}) =
-      _$DictionaryEventUpdateImpl;
+  const factory _DictionaryEventUpdate({required final Locale dictionary}) = _$DictionaryEventUpdateImpl;
 
   @override
   Locale get dictionary;
+
   @override
   @JsonKey(ignore: true)
-  _$$DictionaryEventUpdateImplCopyWith<_$DictionaryEventUpdateImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$DictionaryEventUpdateImplCopyWith<_$DictionaryEventUpdateImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -190,6 +186,7 @@ mixin _$DictionaryState {
     required TResult Function(_DictionaryStateInProgress value) inProgress,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_DictionaryStateIdle value)? idle,
@@ -205,26 +202,25 @@ mixin _$DictionaryState {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $DictionaryStateCopyWith<DictionaryState> get copyWith =>
-      throw _privateConstructorUsedError;
+  $DictionaryStateCopyWith<DictionaryState> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $DictionaryStateCopyWith<$Res> {
-  factory $DictionaryStateCopyWith(
-          DictionaryState value, $Res Function(DictionaryState) then) =
+  factory $DictionaryStateCopyWith(DictionaryState value, $Res Function(DictionaryState) then) =
       _$DictionaryStateCopyWithImpl<$Res, DictionaryState>;
+
   @useResult
   $Res call({Locale dictionary});
 }
 
 /// @nodoc
-class _$DictionaryStateCopyWithImpl<$Res, $Val extends DictionaryState>
-    implements $DictionaryStateCopyWith<$Res> {
+class _$DictionaryStateCopyWithImpl<$Res, $Val extends DictionaryState> implements $DictionaryStateCopyWith<$Res> {
   _$DictionaryStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
+
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -243,11 +239,11 @@ class _$DictionaryStateCopyWithImpl<$Res, $Val extends DictionaryState>
 }
 
 /// @nodoc
-abstract class _$$DictionaryStateIdleImplCopyWith<$Res>
-    implements $DictionaryStateCopyWith<$Res> {
-  factory _$$DictionaryStateIdleImplCopyWith(_$DictionaryStateIdleImpl value,
-          $Res Function(_$DictionaryStateIdleImpl) then) =
+abstract class _$$DictionaryStateIdleImplCopyWith<$Res> implements $DictionaryStateCopyWith<$Res> {
+  factory _$$DictionaryStateIdleImplCopyWith(
+          _$DictionaryStateIdleImpl value, $Res Function(_$DictionaryStateIdleImpl) then) =
       __$$DictionaryStateIdleImplCopyWithImpl<$Res>;
+
   @override
   @useResult
   $Res call({Locale dictionary});
@@ -257,8 +253,8 @@ abstract class _$$DictionaryStateIdleImplCopyWith<$Res>
 class __$$DictionaryStateIdleImplCopyWithImpl<$Res>
     extends _$DictionaryStateCopyWithImpl<$Res, _$DictionaryStateIdleImpl>
     implements _$$DictionaryStateIdleImplCopyWith<$Res> {
-  __$$DictionaryStateIdleImplCopyWithImpl(_$DictionaryStateIdleImpl _value,
-      $Res Function(_$DictionaryStateIdleImpl) _then)
+  __$$DictionaryStateIdleImplCopyWithImpl(
+      _$DictionaryStateIdleImpl _value, $Res Function(_$DictionaryStateIdleImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -293,8 +289,7 @@ class _$DictionaryStateIdleImpl implements _DictionaryStateIdle {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DictionaryStateIdleImpl &&
-            (identical(other.dictionary, dictionary) ||
-                other.dictionary == dictionary));
+            (identical(other.dictionary, dictionary) || other.dictionary == dictionary));
   }
 
   @override
@@ -304,8 +299,7 @@ class _$DictionaryStateIdleImpl implements _DictionaryStateIdle {
   @override
   @pragma('vm:prefer-inline')
   _$$DictionaryStateIdleImplCopyWith<_$DictionaryStateIdleImpl> get copyWith =>
-      __$$DictionaryStateIdleImplCopyWithImpl<_$DictionaryStateIdleImpl>(
-          this, _$identity);
+      __$$DictionaryStateIdleImplCopyWithImpl<_$DictionaryStateIdleImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -340,24 +334,22 @@ class _$DictionaryStateIdleImpl implements _DictionaryStateIdle {
 }
 
 abstract class _DictionaryStateIdle implements DictionaryState {
-  const factory _DictionaryStateIdle({required final Locale dictionary}) =
-      _$DictionaryStateIdleImpl;
+  const factory _DictionaryStateIdle({required final Locale dictionary}) = _$DictionaryStateIdleImpl;
 
   @override
   Locale get dictionary;
+
   @override
   @JsonKey(ignore: true)
-  _$$DictionaryStateIdleImplCopyWith<_$DictionaryStateIdleImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$DictionaryStateIdleImplCopyWith<_$DictionaryStateIdleImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$DictionaryStateInProgressImplCopyWith<$Res>
-    implements $DictionaryStateCopyWith<$Res> {
+abstract class _$$DictionaryStateInProgressImplCopyWith<$Res> implements $DictionaryStateCopyWith<$Res> {
   factory _$$DictionaryStateInProgressImplCopyWith(
-          _$DictionaryStateInProgressImpl value,
-          $Res Function(_$DictionaryStateInProgressImpl) then) =
+          _$DictionaryStateInProgressImpl value, $Res Function(_$DictionaryStateInProgressImpl) then) =
       __$$DictionaryStateInProgressImplCopyWithImpl<$Res>;
+
   @override
   @useResult
   $Res call({Locale dictionary});
@@ -368,8 +360,7 @@ class __$$DictionaryStateInProgressImplCopyWithImpl<$Res>
     extends _$DictionaryStateCopyWithImpl<$Res, _$DictionaryStateInProgressImpl>
     implements _$$DictionaryStateInProgressImplCopyWith<$Res> {
   __$$DictionaryStateInProgressImplCopyWithImpl(
-      _$DictionaryStateInProgressImpl _value,
-      $Res Function(_$DictionaryStateInProgressImpl) _then)
+      _$DictionaryStateInProgressImpl _value, $Res Function(_$DictionaryStateInProgressImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -404,8 +395,7 @@ class _$DictionaryStateInProgressImpl implements _DictionaryStateInProgress {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DictionaryStateInProgressImpl &&
-            (identical(other.dictionary, dictionary) ||
-                other.dictionary == dictionary));
+            (identical(other.dictionary, dictionary) || other.dictionary == dictionary));
   }
 
   @override
@@ -414,9 +404,8 @@ class _$DictionaryStateInProgressImpl implements _DictionaryStateInProgress {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DictionaryStateInProgressImplCopyWith<_$DictionaryStateInProgressImpl>
-      get copyWith => __$$DictionaryStateInProgressImplCopyWithImpl<
-          _$DictionaryStateInProgressImpl>(this, _$identity);
+  _$$DictionaryStateInProgressImplCopyWith<_$DictionaryStateInProgressImpl> get copyWith =>
+      __$$DictionaryStateInProgressImplCopyWithImpl<_$DictionaryStateInProgressImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -451,13 +440,13 @@ class _$DictionaryStateInProgressImpl implements _DictionaryStateInProgress {
 }
 
 abstract class _DictionaryStateInProgress implements DictionaryState {
-  const factory _DictionaryStateInProgress({required final Locale dictionary}) =
-      _$DictionaryStateInProgressImpl;
+  const factory _DictionaryStateInProgress({required final Locale dictionary}) = _$DictionaryStateInProgressImpl;
 
   @override
   Locale get dictionary;
+
   @override
   @JsonKey(ignore: true)
-  _$$DictionaryStateInProgressImplCopyWith<_$DictionaryStateInProgressImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$DictionaryStateInProgressImplCopyWith<_$DictionaryStateInProgressImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

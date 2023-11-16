@@ -23,6 +23,7 @@ mixin _$LocaleEvent {
     required TResult Function(_LocaleEventUpdate value) update,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LocaleEventUpdate value)? update,
@@ -36,26 +37,25 @@ mixin _$LocaleEvent {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $LocaleEventCopyWith<LocaleEvent> get copyWith =>
-      throw _privateConstructorUsedError;
+  $LocaleEventCopyWith<LocaleEvent> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $LocaleEventCopyWith<$Res> {
-  factory $LocaleEventCopyWith(
-          LocaleEvent value, $Res Function(LocaleEvent) then) =
+  factory $LocaleEventCopyWith(LocaleEvent value, $Res Function(LocaleEvent) then) =
       _$LocaleEventCopyWithImpl<$Res, LocaleEvent>;
+
   @useResult
   $Res call({Locale locale});
 }
 
 /// @nodoc
-class _$LocaleEventCopyWithImpl<$Res, $Val extends LocaleEvent>
-    implements $LocaleEventCopyWith<$Res> {
+class _$LocaleEventCopyWithImpl<$Res, $Val extends LocaleEvent> implements $LocaleEventCopyWith<$Res> {
   _$LocaleEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
+
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -74,22 +74,19 @@ class _$LocaleEventCopyWithImpl<$Res, $Val extends LocaleEvent>
 }
 
 /// @nodoc
-abstract class _$$LocaleEventUpdateImplCopyWith<$Res>
-    implements $LocaleEventCopyWith<$Res> {
-  factory _$$LocaleEventUpdateImplCopyWith(_$LocaleEventUpdateImpl value,
-          $Res Function(_$LocaleEventUpdateImpl) then) =
+abstract class _$$LocaleEventUpdateImplCopyWith<$Res> implements $LocaleEventCopyWith<$Res> {
+  factory _$$LocaleEventUpdateImplCopyWith(_$LocaleEventUpdateImpl value, $Res Function(_$LocaleEventUpdateImpl) then) =
       __$$LocaleEventUpdateImplCopyWithImpl<$Res>;
+
   @override
   @useResult
   $Res call({Locale locale});
 }
 
 /// @nodoc
-class __$$LocaleEventUpdateImplCopyWithImpl<$Res>
-    extends _$LocaleEventCopyWithImpl<$Res, _$LocaleEventUpdateImpl>
+class __$$LocaleEventUpdateImplCopyWithImpl<$Res> extends _$LocaleEventCopyWithImpl<$Res, _$LocaleEventUpdateImpl>
     implements _$$LocaleEventUpdateImplCopyWith<$Res> {
-  __$$LocaleEventUpdateImplCopyWithImpl(_$LocaleEventUpdateImpl _value,
-      $Res Function(_$LocaleEventUpdateImpl) _then)
+  __$$LocaleEventUpdateImplCopyWithImpl(_$LocaleEventUpdateImpl _value, $Res Function(_$LocaleEventUpdateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -134,8 +131,7 @@ class _$LocaleEventUpdateImpl implements _LocaleEventUpdate {
   @override
   @pragma('vm:prefer-inline')
   _$$LocaleEventUpdateImplCopyWith<_$LocaleEventUpdateImpl> get copyWith =>
-      __$$LocaleEventUpdateImplCopyWithImpl<_$LocaleEventUpdateImpl>(
-          this, _$identity);
+      __$$LocaleEventUpdateImplCopyWithImpl<_$LocaleEventUpdateImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -167,15 +163,14 @@ class _$LocaleEventUpdateImpl implements _LocaleEventUpdate {
 }
 
 abstract class _LocaleEventUpdate implements LocaleEvent {
-  const factory _LocaleEventUpdate({required final Locale locale}) =
-      _$LocaleEventUpdateImpl;
+  const factory _LocaleEventUpdate({required final Locale locale}) = _$LocaleEventUpdateImpl;
 
   @override
   Locale get locale;
+
   @override
   @JsonKey(ignore: true)
-  _$$LocaleEventUpdateImplCopyWith<_$LocaleEventUpdateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$LocaleEventUpdateImplCopyWith<_$LocaleEventUpdateImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -188,6 +183,7 @@ mixin _$LocaleState {
     required TResult Function(_LocaleStateInProgress value) inProgress,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LocaleStateIdle value)? idle,
@@ -203,26 +199,25 @@ mixin _$LocaleState {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $LocaleStateCopyWith<LocaleState> get copyWith =>
-      throw _privateConstructorUsedError;
+  $LocaleStateCopyWith<LocaleState> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $LocaleStateCopyWith<$Res> {
-  factory $LocaleStateCopyWith(
-          LocaleState value, $Res Function(LocaleState) then) =
+  factory $LocaleStateCopyWith(LocaleState value, $Res Function(LocaleState) then) =
       _$LocaleStateCopyWithImpl<$Res, LocaleState>;
+
   @useResult
   $Res call({Locale locale});
 }
 
 /// @nodoc
-class _$LocaleStateCopyWithImpl<$Res, $Val extends LocaleState>
-    implements $LocaleStateCopyWith<$Res> {
+class _$LocaleStateCopyWithImpl<$Res, $Val extends LocaleState> implements $LocaleStateCopyWith<$Res> {
   _$LocaleStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
+
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -241,22 +236,19 @@ class _$LocaleStateCopyWithImpl<$Res, $Val extends LocaleState>
 }
 
 /// @nodoc
-abstract class _$$LocaleStateIdleImplCopyWith<$Res>
-    implements $LocaleStateCopyWith<$Res> {
-  factory _$$LocaleStateIdleImplCopyWith(_$LocaleStateIdleImpl value,
-          $Res Function(_$LocaleStateIdleImpl) then) =
+abstract class _$$LocaleStateIdleImplCopyWith<$Res> implements $LocaleStateCopyWith<$Res> {
+  factory _$$LocaleStateIdleImplCopyWith(_$LocaleStateIdleImpl value, $Res Function(_$LocaleStateIdleImpl) then) =
       __$$LocaleStateIdleImplCopyWithImpl<$Res>;
+
   @override
   @useResult
   $Res call({Locale locale});
 }
 
 /// @nodoc
-class __$$LocaleStateIdleImplCopyWithImpl<$Res>
-    extends _$LocaleStateCopyWithImpl<$Res, _$LocaleStateIdleImpl>
+class __$$LocaleStateIdleImplCopyWithImpl<$Res> extends _$LocaleStateCopyWithImpl<$Res, _$LocaleStateIdleImpl>
     implements _$$LocaleStateIdleImplCopyWith<$Res> {
-  __$$LocaleStateIdleImplCopyWithImpl(
-      _$LocaleStateIdleImpl _value, $Res Function(_$LocaleStateIdleImpl) _then)
+  __$$LocaleStateIdleImplCopyWithImpl(_$LocaleStateIdleImpl _value, $Res Function(_$LocaleStateIdleImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -301,8 +293,7 @@ class _$LocaleStateIdleImpl implements _LocaleStateIdle {
   @override
   @pragma('vm:prefer-inline')
   _$$LocaleStateIdleImplCopyWith<_$LocaleStateIdleImpl> get copyWith =>
-      __$$LocaleStateIdleImplCopyWithImpl<_$LocaleStateIdleImpl>(
-          this, _$identity);
+      __$$LocaleStateIdleImplCopyWithImpl<_$LocaleStateIdleImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -337,24 +328,22 @@ class _$LocaleStateIdleImpl implements _LocaleStateIdle {
 }
 
 abstract class _LocaleStateIdle implements LocaleState {
-  const factory _LocaleStateIdle({required final Locale locale}) =
-      _$LocaleStateIdleImpl;
+  const factory _LocaleStateIdle({required final Locale locale}) = _$LocaleStateIdleImpl;
 
   @override
   Locale get locale;
+
   @override
   @JsonKey(ignore: true)
-  _$$LocaleStateIdleImplCopyWith<_$LocaleStateIdleImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$LocaleStateIdleImplCopyWith<_$LocaleStateIdleImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LocaleStateInProgressImplCopyWith<$Res>
-    implements $LocaleStateCopyWith<$Res> {
+abstract class _$$LocaleStateInProgressImplCopyWith<$Res> implements $LocaleStateCopyWith<$Res> {
   factory _$$LocaleStateInProgressImplCopyWith(
-          _$LocaleStateInProgressImpl value,
-          $Res Function(_$LocaleStateInProgressImpl) then) =
+          _$LocaleStateInProgressImpl value, $Res Function(_$LocaleStateInProgressImpl) then) =
       __$$LocaleStateInProgressImplCopyWithImpl<$Res>;
+
   @override
   @useResult
   $Res call({Locale locale});
@@ -364,8 +353,8 @@ abstract class _$$LocaleStateInProgressImplCopyWith<$Res>
 class __$$LocaleStateInProgressImplCopyWithImpl<$Res>
     extends _$LocaleStateCopyWithImpl<$Res, _$LocaleStateInProgressImpl>
     implements _$$LocaleStateInProgressImplCopyWith<$Res> {
-  __$$LocaleStateInProgressImplCopyWithImpl(_$LocaleStateInProgressImpl _value,
-      $Res Function(_$LocaleStateInProgressImpl) _then)
+  __$$LocaleStateInProgressImplCopyWithImpl(
+      _$LocaleStateInProgressImpl _value, $Res Function(_$LocaleStateInProgressImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -409,9 +398,8 @@ class _$LocaleStateInProgressImpl implements _LocaleStateInProgress {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LocaleStateInProgressImplCopyWith<_$LocaleStateInProgressImpl>
-      get copyWith => __$$LocaleStateInProgressImplCopyWithImpl<
-          _$LocaleStateInProgressImpl>(this, _$identity);
+  _$$LocaleStateInProgressImplCopyWith<_$LocaleStateInProgressImpl> get copyWith =>
+      __$$LocaleStateInProgressImplCopyWithImpl<_$LocaleStateInProgressImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -446,13 +434,12 @@ class _$LocaleStateInProgressImpl implements _LocaleStateInProgress {
 }
 
 abstract class _LocaleStateInProgress implements LocaleState {
-  const factory _LocaleStateInProgress({required final Locale locale}) =
-      _$LocaleStateInProgressImpl;
+  const factory _LocaleStateInProgress({required final Locale locale}) = _$LocaleStateInProgressImpl;
 
   @override
   Locale get locale;
+
   @override
   @JsonKey(ignore: true)
-  _$$LocaleStateInProgressImplCopyWith<_$LocaleStateInProgressImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$LocaleStateInProgressImplCopyWith<_$LocaleStateInProgressImpl> get copyWith => throw _privateConstructorUsedError;
 }

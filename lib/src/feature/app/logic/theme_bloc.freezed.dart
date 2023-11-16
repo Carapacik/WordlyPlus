@@ -23,6 +23,7 @@ mixin _$ThemeEvent {
     required TResult Function(_ThemeEventUpdate value) update,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_ThemeEventUpdate value)? update,
@@ -36,26 +37,25 @@ mixin _$ThemeEvent {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ThemeEventCopyWith<ThemeEvent> get copyWith =>
-      throw _privateConstructorUsedError;
+  $ThemeEventCopyWith<ThemeEvent> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ThemeEventCopyWith<$Res> {
-  factory $ThemeEventCopyWith(
-          ThemeEvent value, $Res Function(ThemeEvent) then) =
+  factory $ThemeEventCopyWith(ThemeEvent value, $Res Function(ThemeEvent) then) =
       _$ThemeEventCopyWithImpl<$Res, ThemeEvent>;
+
   @useResult
   $Res call({AppTheme theme});
 }
 
 /// @nodoc
-class _$ThemeEventCopyWithImpl<$Res, $Val extends ThemeEvent>
-    implements $ThemeEventCopyWith<$Res> {
+class _$ThemeEventCopyWithImpl<$Res, $Val extends ThemeEvent> implements $ThemeEventCopyWith<$Res> {
   _$ThemeEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
+
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -74,22 +74,19 @@ class _$ThemeEventCopyWithImpl<$Res, $Val extends ThemeEvent>
 }
 
 /// @nodoc
-abstract class _$$ThemeEventUpdateImplCopyWith<$Res>
-    implements $ThemeEventCopyWith<$Res> {
-  factory _$$ThemeEventUpdateImplCopyWith(_$ThemeEventUpdateImpl value,
-          $Res Function(_$ThemeEventUpdateImpl) then) =
+abstract class _$$ThemeEventUpdateImplCopyWith<$Res> implements $ThemeEventCopyWith<$Res> {
+  factory _$$ThemeEventUpdateImplCopyWith(_$ThemeEventUpdateImpl value, $Res Function(_$ThemeEventUpdateImpl) then) =
       __$$ThemeEventUpdateImplCopyWithImpl<$Res>;
+
   @override
   @useResult
   $Res call({AppTheme theme});
 }
 
 /// @nodoc
-class __$$ThemeEventUpdateImplCopyWithImpl<$Res>
-    extends _$ThemeEventCopyWithImpl<$Res, _$ThemeEventUpdateImpl>
+class __$$ThemeEventUpdateImplCopyWithImpl<$Res> extends _$ThemeEventCopyWithImpl<$Res, _$ThemeEventUpdateImpl>
     implements _$$ThemeEventUpdateImplCopyWith<$Res> {
-  __$$ThemeEventUpdateImplCopyWithImpl(_$ThemeEventUpdateImpl _value,
-      $Res Function(_$ThemeEventUpdateImpl) _then)
+  __$$ThemeEventUpdateImplCopyWithImpl(_$ThemeEventUpdateImpl _value, $Res Function(_$ThemeEventUpdateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -134,8 +131,7 @@ class _$ThemeEventUpdateImpl implements _ThemeEventUpdate {
   @override
   @pragma('vm:prefer-inline')
   _$$ThemeEventUpdateImplCopyWith<_$ThemeEventUpdateImpl> get copyWith =>
-      __$$ThemeEventUpdateImplCopyWithImpl<_$ThemeEventUpdateImpl>(
-          this, _$identity);
+      __$$ThemeEventUpdateImplCopyWithImpl<_$ThemeEventUpdateImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -167,15 +163,14 @@ class _$ThemeEventUpdateImpl implements _ThemeEventUpdate {
 }
 
 abstract class _ThemeEventUpdate implements ThemeEvent {
-  const factory _ThemeEventUpdate(final AppTheme theme) =
-      _$ThemeEventUpdateImpl;
+  const factory _ThemeEventUpdate(final AppTheme theme) = _$ThemeEventUpdateImpl;
 
   @override
   AppTheme get theme;
+
   @override
   @JsonKey(ignore: true)
-  _$$ThemeEventUpdateImplCopyWith<_$ThemeEventUpdateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ThemeEventUpdateImplCopyWith<_$ThemeEventUpdateImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -188,6 +183,7 @@ mixin _$ThemeState {
     required TResult Function(_ThemeStateInProgress value) inProgress,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_ThemeStateIdle value)? idle,
@@ -203,26 +199,25 @@ mixin _$ThemeState {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ThemeStateCopyWith<ThemeState> get copyWith =>
-      throw _privateConstructorUsedError;
+  $ThemeStateCopyWith<ThemeState> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ThemeStateCopyWith<$Res> {
-  factory $ThemeStateCopyWith(
-          ThemeState value, $Res Function(ThemeState) then) =
+  factory $ThemeStateCopyWith(ThemeState value, $Res Function(ThemeState) then) =
       _$ThemeStateCopyWithImpl<$Res, ThemeState>;
+
   @useResult
   $Res call({AppTheme theme});
 }
 
 /// @nodoc
-class _$ThemeStateCopyWithImpl<$Res, $Val extends ThemeState>
-    implements $ThemeStateCopyWith<$Res> {
+class _$ThemeStateCopyWithImpl<$Res, $Val extends ThemeState> implements $ThemeStateCopyWith<$Res> {
   _$ThemeStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
+
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -241,22 +236,19 @@ class _$ThemeStateCopyWithImpl<$Res, $Val extends ThemeState>
 }
 
 /// @nodoc
-abstract class _$$ThemeStateIdleImplCopyWith<$Res>
-    implements $ThemeStateCopyWith<$Res> {
-  factory _$$ThemeStateIdleImplCopyWith(_$ThemeStateIdleImpl value,
-          $Res Function(_$ThemeStateIdleImpl) then) =
+abstract class _$$ThemeStateIdleImplCopyWith<$Res> implements $ThemeStateCopyWith<$Res> {
+  factory _$$ThemeStateIdleImplCopyWith(_$ThemeStateIdleImpl value, $Res Function(_$ThemeStateIdleImpl) then) =
       __$$ThemeStateIdleImplCopyWithImpl<$Res>;
+
   @override
   @useResult
   $Res call({AppTheme theme});
 }
 
 /// @nodoc
-class __$$ThemeStateIdleImplCopyWithImpl<$Res>
-    extends _$ThemeStateCopyWithImpl<$Res, _$ThemeStateIdleImpl>
+class __$$ThemeStateIdleImplCopyWithImpl<$Res> extends _$ThemeStateCopyWithImpl<$Res, _$ThemeStateIdleImpl>
     implements _$$ThemeStateIdleImplCopyWith<$Res> {
-  __$$ThemeStateIdleImplCopyWithImpl(
-      _$ThemeStateIdleImpl _value, $Res Function(_$ThemeStateIdleImpl) _then)
+  __$$ThemeStateIdleImplCopyWithImpl(_$ThemeStateIdleImpl _value, $Res Function(_$ThemeStateIdleImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -301,8 +293,7 @@ class _$ThemeStateIdleImpl implements _ThemeStateIdle {
   @override
   @pragma('vm:prefer-inline')
   _$$ThemeStateIdleImplCopyWith<_$ThemeStateIdleImpl> get copyWith =>
-      __$$ThemeStateIdleImplCopyWithImpl<_$ThemeStateIdleImpl>(
-          this, _$identity);
+      __$$ThemeStateIdleImplCopyWithImpl<_$ThemeStateIdleImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -341,29 +332,28 @@ abstract class _ThemeStateIdle implements ThemeState {
 
   @override
   AppTheme get theme;
+
   @override
   @JsonKey(ignore: true)
-  _$$ThemeStateIdleImplCopyWith<_$ThemeStateIdleImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ThemeStateIdleImplCopyWith<_$ThemeStateIdleImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ThemeStateInProgressImplCopyWith<$Res>
-    implements $ThemeStateCopyWith<$Res> {
-  factory _$$ThemeStateInProgressImplCopyWith(_$ThemeStateInProgressImpl value,
-          $Res Function(_$ThemeStateInProgressImpl) then) =
+abstract class _$$ThemeStateInProgressImplCopyWith<$Res> implements $ThemeStateCopyWith<$Res> {
+  factory _$$ThemeStateInProgressImplCopyWith(
+          _$ThemeStateInProgressImpl value, $Res Function(_$ThemeStateInProgressImpl) then) =
       __$$ThemeStateInProgressImplCopyWithImpl<$Res>;
+
   @override
   @useResult
   $Res call({AppTheme theme});
 }
 
 /// @nodoc
-class __$$ThemeStateInProgressImplCopyWithImpl<$Res>
-    extends _$ThemeStateCopyWithImpl<$Res, _$ThemeStateInProgressImpl>
+class __$$ThemeStateInProgressImplCopyWithImpl<$Res> extends _$ThemeStateCopyWithImpl<$Res, _$ThemeStateInProgressImpl>
     implements _$$ThemeStateInProgressImplCopyWith<$Res> {
-  __$$ThemeStateInProgressImplCopyWithImpl(_$ThemeStateInProgressImpl _value,
-      $Res Function(_$ThemeStateInProgressImpl) _then)
+  __$$ThemeStateInProgressImplCopyWithImpl(
+      _$ThemeStateInProgressImpl _value, $Res Function(_$ThemeStateInProgressImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -407,10 +397,8 @@ class _$ThemeStateInProgressImpl implements _ThemeStateInProgress {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ThemeStateInProgressImplCopyWith<_$ThemeStateInProgressImpl>
-      get copyWith =>
-          __$$ThemeStateInProgressImplCopyWithImpl<_$ThemeStateInProgressImpl>(
-              this, _$identity);
+  _$$ThemeStateInProgressImplCopyWith<_$ThemeStateInProgressImpl> get copyWith =>
+      __$$ThemeStateInProgressImplCopyWithImpl<_$ThemeStateInProgressImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -445,13 +433,12 @@ class _$ThemeStateInProgressImpl implements _ThemeStateInProgress {
 }
 
 abstract class _ThemeStateInProgress implements ThemeState {
-  const factory _ThemeStateInProgress(final AppTheme theme) =
-      _$ThemeStateInProgressImpl;
+  const factory _ThemeStateInProgress(final AppTheme theme) = _$ThemeStateInProgressImpl;
 
   @override
   AppTheme get theme;
+
   @override
   @JsonKey(ignore: true)
-  _$$ThemeStateInProgressImplCopyWith<_$ThemeStateInProgressImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$ThemeStateInProgressImplCopyWith<_$ThemeStateInProgressImpl> get copyWith => throw _privateConstructorUsedError;
 }

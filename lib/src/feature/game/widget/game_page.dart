@@ -34,7 +34,7 @@ class _GamePageState extends State<GamePage> {
             state.secretWord,
             context.dependencies.gameRepository.currentDictionary(state.dictionary)[state.secretWord] ?? '',
             state.gameMode,
-            isWin: state.maybeMap(win: (_) => true, orElse: false),
+            isWin: state.maybeMap(win: (_) => true, orElse: () => false),
             onTimerEnd: GameMode.daily == state.gameMode ? () => bloc.add(GameEvent.resetBoard(state.gameMode)) : null,
             nextLevelPressed: () => bloc.add(const GameEvent.resetBoard(GameMode.lvl)),
           ),
@@ -59,7 +59,7 @@ class _GamePageState extends State<GamePage> {
               state.secretWord,
               context.dependencies.gameRepository.currentDictionary(state.dictionary)[state.secretWord] ?? '',
               state.gameMode,
-              isWin: state.maybeMap(win: (_) => true, orElse: false),
+              isWin: state.maybeMap(win: (_) => true, orElse: () => false),
               onTimerEnd: GameMode.daily == state.gameMode
                   ? () {
                       Navigator.of(context).pop();

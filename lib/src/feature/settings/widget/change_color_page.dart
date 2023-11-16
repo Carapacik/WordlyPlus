@@ -49,10 +49,9 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
   @override
   Widget build(BuildContext context) {
     final word = _wordByDictionary(DictionaryScope.of(context).dictionary);
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      onPopInvoked: (_) {
         Navigator.of(context).pop(ChangeColorResult(colorMode: _currentColorMode, otherColors: _currentOtherColors));
-        return false;
       },
       child: Scaffold(
         appBar: AppBar(title: Text(context.r.colorMode)),

@@ -3,8 +3,7 @@ import 'dart:ui' show Locale;
 
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
-import 'package:wordly/src/core/utils/pattern_match.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
 import 'package:wordly/src/feature/game/model/game_mode.dart';
 import 'package:wordly/src/feature/game/model/game_result.dart';
@@ -13,9 +12,28 @@ import 'package:wordly/src/feature/game/model/word_error.dart';
 import 'package:wordly/src/feature/level/data/level_repository.dart';
 import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 
-@immutable
-sealed class GameState extends _GameStateBase {
-  const GameState();
+part 'game_bloc.freezed.dart';
+
+@Freezed()
+sealed class GameEvent with _$GameEvent {
+  const factory GameEvent.changeDictionary(Locale dictionary) = _GameEventChangeDictionary;
+
+  const factory GameEvent.changeGameMode(GameMode gameMode) = _GameEventChangeGameMode;
+
+  const factory GameEvent.resetBoard(GameMode gameMode) = _GameEventResetBoard;
+
+  const factory GameEvent.letterPressed(String key) = _GameEventLetterPressed;
+
+  const factory GameEvent.deletePressed() = _GameEventDeletePressed;
+
+  const factory GameEvent.deleteLongPressed() = _GameEventDeleteLongPressed;
+
+  const factory GameEvent.enterPressed() = _GameEventEnterPressed;
+}
+
+@Freezed()
+sealed class GameState with _$GameState {
+  const GameState._();
 
   const factory GameState.idle({
     required Locale dictionary,
@@ -60,429 +78,7 @@ sealed class GameState extends _GameStateBase {
 
   int get currentWordIndex => (board.length - 1) ~/ 5;
 
-  bool get isResultState => maybeMap(win: (_) => true, loss: (_) => true, orElse: false);
-}
-
-final class _GameStateIdle extends GameState {
-  const _GameStateIdle({
-    required this.dictionary,
-    required this.secretWord,
-    required this.gameMode,
-    required this.gameCompleted,
-    required this.board,
-    required this.statuses,
-    required this.lvlNumber,
-  });
-
-  @override
-  final Locale dictionary;
-  @override
-  final String secretWord;
-  @override
-  final GameMode gameMode;
-  @override
-  final bool gameCompleted;
-  @override
-  final List<LetterInfo> board;
-  @override
-  final Map<String, LetterStatus> statuses;
-  @override
-  final int? lvlNumber;
-
-  @override
-  String toString() => 'GameState.idle(board: $board)';
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is _GameStateIdle &&
-              dictionary == other.dictionary &&
-              secretWord == other.secretWord &&
-              gameMode == other.gameMode &&
-              gameCompleted == other.gameCompleted &&
-              const DeepCollectionEquality().equals(board, other.board) &&
-              const DeepCollectionEquality().equals(statuses, other.statuses)) &&
-          lvlNumber == other.lvlNumber;
-
-  @override
-  int get hashCode =>
-      dictionary.hashCode ^
-      secretWord.hashCode ^
-      gameMode.hashCode ^
-      gameCompleted.hashCode ^
-      const DeepCollectionEquality().hash(board) ^
-      const DeepCollectionEquality().hash(statuses) ^
-      lvlNumber.hashCode;
-}
-
-final class _GameStateWin extends GameState {
-  const _GameStateWin({
-    required this.dictionary,
-    required this.secretWord,
-    required this.gameMode,
-    required this.gameCompleted,
-    required this.board,
-    required this.statuses,
-    required this.lvlNumber,
-  });
-
-  @override
-  final Locale dictionary;
-  @override
-  final String secretWord;
-  @override
-  final GameMode gameMode;
-  @override
-  final bool gameCompleted;
-  @override
-  final List<LetterInfo> board;
-  @override
-  final Map<String, LetterStatus> statuses;
-  @override
-  final int? lvlNumber;
-
-  @override
-  String toString() => 'GameState.win(board: $board)';
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is _GameStateWin &&
-              dictionary == other.dictionary &&
-              secretWord == other.secretWord &&
-              gameMode == other.gameMode &&
-              gameCompleted == other.gameCompleted &&
-              const DeepCollectionEquality().equals(board, other.board) &&
-              const DeepCollectionEquality().equals(statuses, other.statuses)) &&
-          lvlNumber == other.lvlNumber;
-
-  @override
-  int get hashCode =>
-      dictionary.hashCode ^
-      secretWord.hashCode ^
-      gameMode.hashCode ^
-      gameCompleted.hashCode ^
-      const DeepCollectionEquality().hash(board) ^
-      const DeepCollectionEquality().hash(statuses) ^
-      lvlNumber.hashCode;
-}
-
-final class _GameStateLoss extends GameState {
-  const _GameStateLoss({
-    required this.dictionary,
-    required this.secretWord,
-    required this.gameMode,
-    required this.gameCompleted,
-    required this.board,
-    required this.statuses,
-    required this.lvlNumber,
-  });
-
-  @override
-  final Locale dictionary;
-  @override
-  final String secretWord;
-  @override
-  final GameMode gameMode;
-  @override
-  final bool gameCompleted;
-  @override
-  final List<LetterInfo> board;
-  @override
-  final Map<String, LetterStatus> statuses;
-  @override
-  final int? lvlNumber;
-
-  @override
-  String toString() => 'GameState.loss(board: $board)';
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is _GameStateLoss &&
-              dictionary == other.dictionary &&
-              secretWord == other.secretWord &&
-              gameMode == other.gameMode &&
-              gameCompleted == other.gameCompleted &&
-              const DeepCollectionEquality().equals(board, other.board) &&
-              const DeepCollectionEquality().equals(statuses, other.statuses)) &&
-          lvlNumber == other.lvlNumber;
-
-  @override
-  int get hashCode =>
-      dictionary.hashCode ^
-      secretWord.hashCode ^
-      gameMode.hashCode ^
-      gameCompleted.hashCode ^
-      const DeepCollectionEquality().hash(board) ^
-      const DeepCollectionEquality().hash(statuses) ^
-      lvlNumber.hashCode;
-}
-
-final class _GameStateError extends GameState {
-  const _GameStateError({
-    required this.dictionary,
-    required this.secretWord,
-    required this.gameMode,
-    required this.gameCompleted,
-    required this.board,
-    required this.statuses,
-    required this.error,
-    required this.lvlNumber,
-  });
-
-  @override
-  final Locale dictionary;
-  @override
-  final String secretWord;
-  @override
-  final GameMode gameMode;
-  @override
-  final bool gameCompleted;
-  @override
-  final List<LetterInfo> board;
-  @override
-  final Map<String, LetterStatus> statuses;
-  @override
-  final int? lvlNumber;
-  final WordError error;
-
-  @override
-  String toString() => 'GameState.error(board: $board, error: $error)';
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is _GameStateError &&
-          dictionary == other.dictionary &&
-          secretWord == other.secretWord &&
-          gameMode == other.gameMode &&
-          gameCompleted == other.gameCompleted &&
-          const DeepCollectionEquality().equals(board, other.board) &&
-          const DeepCollectionEquality().equals(statuses, other.statuses) &&
-          error == other.error &&
-          lvlNumber == other.lvlNumber);
-
-  @override
-  int get hashCode =>
-      dictionary.hashCode ^
-      secretWord.hashCode ^
-      gameCompleted.hashCode ^
-      const DeepCollectionEquality().hash(board) ^
-      const DeepCollectionEquality().hash(statuses) ^
-      error.hashCode ^
-      lvlNumber.hashCode;
-}
-
-abstract base class _GameStateBase {
-  const _GameStateBase();
-
-  Locale get dictionary;
-
-  String get secretWord;
-
-  GameMode get gameMode;
-
-  bool get gameCompleted;
-
-  List<LetterInfo> get board;
-
-  Map<String, LetterStatus> get statuses;
-
-  int? get lvlNumber;
-
-  T map<T>({
-    required PatternMatch<T, _GameStateIdle> idle,
-    required PatternMatch<T, _GameStateWin> win,
-    required PatternMatch<T, _GameStateLoss> loss,
-    required PatternMatch<T, _GameStateError> error,
-  }) =>
-      switch (this) {
-        final _GameStateIdle state => idle(state),
-        final _GameStateWin state => win(state),
-        final _GameStateLoss state => loss(state),
-        final _GameStateError state => error(state),
-        _ => throw AssertionError('Unknown state: $this'),
-      };
-
-  T maybeMap<T>({
-    required T orElse,
-    PatternMatch<T, _GameStateIdle>? idle,
-    PatternMatch<T, _GameStateWin>? win,
-    PatternMatch<T, _GameStateLoss>? loss,
-    PatternMatch<T, _GameStateError>? error,
-  }) =>
-      map(
-        idle: idle ?? (_) => orElse,
-        win: win ?? (_) => orElse,
-        loss: loss ?? (_) => orElse,
-        error: error ?? (_) => orElse,
-      );
-}
-
-@immutable
-sealed class GameEvent extends _GameEventBase {
-  const GameEvent();
-
-  const factory GameEvent.changeDictionary(Locale dictionary) = _GameEventChangeDictionary;
-
-  const factory GameEvent.changeGameMode(GameMode gameMode) = _GameEventChangeGameMode;
-
-  const factory GameEvent.resetBoard(GameMode gameMode) = _GameEventResetBoard;
-
-  const factory GameEvent.letterPressed(Object key) = _GameEventLetterPressed;
-
-  const factory GameEvent.deletePressed() = _GameEventDeletePressed;
-
-  const factory GameEvent.deleteLongPressed() = _GameEventDeleteLongPressed;
-
-  const factory GameEvent.enterPressed() = _GameEventEnterPressed;
-}
-
-final class _GameEventChangeDictionary extends GameEvent {
-  const _GameEventChangeDictionary(this.dictionary);
-
-  final Locale dictionary;
-
-  @override
-  String toString() => 'GameEvent.changeDictionary(dictionary: $dictionary)';
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) || (other is _GameEventChangeDictionary && dictionary == other.dictionary);
-
-  @override
-  int get hashCode => dictionary.hashCode;
-}
-
-final class _GameEventChangeGameMode extends GameEvent {
-  const _GameEventChangeGameMode(this.gameMode);
-
-  final GameMode gameMode;
-
-  @override
-  String toString() => 'GameEvent.changeGameMode(gameMode: $gameMode)';
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) || (other is _GameEventChangeGameMode && gameMode == other.gameMode);
-
-  @override
-  int get hashCode => gameMode.hashCode;
-}
-
-final class _GameEventResetBoard extends GameEvent {
-  const _GameEventResetBoard(this.gameMode);
-
-  final GameMode gameMode;
-
-  @override
-  String toString() => 'GameEvent.resetBoard(gameMode: $gameMode)';
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) || (other is _GameEventResetBoard && gameMode == other.gameMode);
-
-  @override
-  int get hashCode => gameMode.hashCode;
-}
-
-final class _GameEventLetterPressed extends GameEvent {
-  const _GameEventLetterPressed(this.key);
-
-  final Object key;
-
-  @override
-  String toString() => 'GameEvent.letterPressed(key: $key)';
-
-  @override
-  bool operator ==(Object other) => identical(this, other) || (other is _GameEventLetterPressed && key == other.key);
-
-  @override
-  int get hashCode => key.hashCode;
-}
-
-final class _GameEventEnterPressed extends GameEvent {
-  const _GameEventEnterPressed();
-
-  @override
-  String toString() => 'GameEvent.enterPressed()';
-
-  @override
-  bool operator ==(Object other) => identical(this, other) || (other is _GameEventEnterPressed);
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-}
-
-final class _GameEventDeletePressed extends GameEvent {
-  const _GameEventDeletePressed();
-
-  @override
-  String toString() => 'GameEvent.deletePressed()';
-
-  @override
-  bool operator ==(Object other) => identical(this, other) || (other is _GameEventDeletePressed);
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-}
-
-final class _GameEventDeleteLongPressed extends GameEvent {
-  const _GameEventDeleteLongPressed();
-
-  @override
-  String toString() => 'GameEvent.deleteLongPressed()';
-
-  @override
-  bool operator ==(Object other) => identical(this, other) || (other is _GameEventDeleteLongPressed);
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-}
-
-abstract base class _GameEventBase {
-  const _GameEventBase();
-
-  T map<T>({
-    required PatternMatch<T, _GameEventChangeDictionary> changeDictionary,
-    required PatternMatch<T, _GameEventChangeGameMode> changeGameMode,
-    required PatternMatch<T, _GameEventResetBoard> resetBoard,
-    required PatternMatch<T, _GameEventLetterPressed> letterPressed,
-    required PatternMatch<T, _GameEventEnterPressed> enterPressed,
-    required PatternMatch<T, _GameEventDeletePressed> deletePressed,
-    required PatternMatch<T, _GameEventDeleteLongPressed> deleteLongPressed,
-  }) =>
-      switch (this) {
-        final _GameEventChangeDictionary event => changeDictionary(event),
-        final _GameEventChangeGameMode event => changeGameMode(event),
-        final _GameEventResetBoard event => resetBoard(event),
-        final _GameEventLetterPressed event => letterPressed(event),
-        final _GameEventEnterPressed event => enterPressed(event),
-        final _GameEventDeletePressed event => deletePressed(event),
-        final _GameEventDeleteLongPressed event => deleteLongPressed(event),
-        _ => throw AssertionError('Unknown event: $this'),
-      };
-
-  T maybeMap<T>({
-    required T orElse,
-    PatternMatch<T, _GameEventChangeDictionary>? changeDictionary,
-    PatternMatch<T, _GameEventChangeGameMode>? changeGameMode,
-    PatternMatch<T, _GameEventResetBoard>? resetBoard,
-    PatternMatch<T, _GameEventLetterPressed>? letterPressed,
-    PatternMatch<T, _GameEventEnterPressed>? enterPressed,
-    PatternMatch<T, _GameEventDeletePressed>? deletePressed,
-    PatternMatch<T, _GameEventDeleteLongPressed>? deleteLongPressed,
-  }) =>
-      map(
-        changeDictionary: changeDictionary ?? (_) => orElse,
-        changeGameMode: changeGameMode ?? (_) => orElse,
-        resetBoard: resetBoard ?? (_) => orElse,
-        letterPressed: letterPressed ?? (_) => orElse,
-        enterPressed: enterPressed ?? (_) => orElse,
-        deletePressed: deletePressed ?? (_) => orElse,
-        deleteLongPressed: deleteLongPressed ?? (_) => orElse,
-      );
+  bool get isResultState => maybeMap(win: (_) => true, loss: (_) => true, orElse: () => false);
 }
 
 class GameBloc extends Bloc<GameEvent, GameState> {
@@ -620,7 +216,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         secretWord: state.secretWord,
         gameMode: state.gameMode,
         gameCompleted: state.gameCompleted,
-        board: List.of(state.board)..add(LetterInfo(letter: event.key.toString())),
+        board: List.of(state.board)..add(LetterInfo(letter: event.key)),
         statuses: state.statuses,
         lvlNumber: state.lvlNumber,
       ),

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui' show Locale;
 
 import 'package:collection/collection.dart';
+import 'package:flutter/services.dart' show KeyEvent, LogicalKeyboardKey;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
@@ -29,6 +30,8 @@ sealed class GameEvent with _$GameEvent {
   const factory GameEvent.deleteLongPressed() = _GameEventDeleteLongPressed;
 
   const factory GameEvent.enterPressed() = _GameEventEnterPressed;
+
+  const factory GameEvent.listenKeyEvent(KeyEvent keyEvent) = _GameEventListenKeyEvent;
 }
 
 @Freezed()
@@ -108,6 +111,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         enterPressed: (e) => _enterPressed(e, emit),
         deletePressed: (e) => _deletePressed(e, emit),
         deleteLongPressed: (e) => _deleteLongPressed(e, emit),
+        listenKeyEvent: (e) => _listenKeyEvent(e, emit),
       ),
     );
   }
@@ -116,10 +120,27 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final IStatisticsRepository _statisticsRepository;
   final ILevelRepository _levelRepository;
 
-  void _changeDictionary(
-    _GameEventChangeDictionary event,
-    Emitter<GameState> emit,
-  ) {
+  void _listenKeyEvent(_GameEventListenKeyEvent event, Emitter<GameState> emit) {
+    final key = event.keyEvent;
+    if (key.logicalKey == LogicalKeyboardKey.enter) {
+      add(const GameEvent.enterPressed());
+      return;
+    }
+
+    if (key.logicalKey == LogicalKeyboardKey.delete || key.logicalKey == LogicalKeyboardKey.backspace) {
+      add(const GameEvent.deletePressed());
+      return;
+    }
+
+    // TODO(Carapacik): letter
+    // final letter = KeyboardKeys.fromLogicalKey(event.keyDown.logicalKey);
+    // if (letter != null) {
+    //   add(GameEvent.letterPressed(letter));
+    //   return;
+    // }
+  }
+
+  void _changeDictionary(_GameEventChangeDictionary event, Emitter<GameState> emit) {
     if (state.dictionary == event.dictionary) {
       return;
     }

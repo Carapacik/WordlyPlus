@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
@@ -21,9 +22,12 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
+  late final FocusNode _focusNode;
+
   @override
   void initState() {
     super.initState();
+    _focusNode = FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final bloc = context.read<GameBloc>();
       final state = bloc.state;
@@ -44,34 +48,19 @@ class _GamePageState extends State<GamePage> {
   }
 
   @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocListener<GameBloc, GameState>(
-      listenWhen: (previous, current) =>
-          previous.gameCompleted != current.gameCompleted &&
-          previous.gameMode == current.gameMode &&
-          previous.dictionary == current.dictionary &&
-          current.isResultState,
-      listener: (context, state) {
-        if (state.isResultState) {
-          unawaited(
-            showGameResultDialog(
-              context,
-              state.secretWord,
-              context.dependencies.gameRepository.currentDictionary(state.dictionary)[state.secretWord] ?? '',
-              state.gameMode,
-              isWin: state.maybeMap(win: (_) => true, orElse: () => false),
-              onTimerEnd: GameMode.daily == state.gameMode
-                  ? () {
-                      Navigator.of(context).pop();
-                      context.read<GameBloc>().add(GameEvent.resetBoard(state.gameMode));
-                    }
-                  : null,
-              nextLevelPressed: () {
-                Navigator.of(context).pop();
-                context.read<GameBloc>().add(const GameEvent.resetBoard(GameMode.lvl));
-              },
-            ),
-          );
+    return KeyboardListener(
+      focusNode: _focusNode,
+      autofocus: true,
+      onKeyEvent: (event) {
+        if (event is KeyDownEvent) {
+          context.read<GameBloc>().add(GameEvent.listenKeyEvent(event));
         }
       },
       child: Scaffold(
@@ -129,12 +118,43 @@ class GameBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
-      child: Column(
-        children: [
-          Center(child: WordsGrid()),
-          Center(child: KeyboardByLanguage()),
-        ],
+    return BlocListener<GameBloc, GameState>(
+      listenWhen: (previous, current) =>
+          previous.gameCompleted != current.gameCompleted &&
+          previous.gameMode == current.gameMode &&
+          previous.dictionary == current.dictionary &&
+          current.isResultState,
+      listener: (context, state) {
+        if (state.isResultState) {
+          final bloc = context.read<GameBloc>();
+          unawaited(
+            showGameResultDialog(
+              context,
+              state.secretWord,
+              context.dependencies.gameRepository.currentDictionary(state.dictionary)[state.secretWord] ?? '',
+              state.gameMode,
+              isWin: state.maybeMap(win: (_) => true, orElse: () => false),
+              onTimerEnd: GameMode.daily == state.gameMode
+                  ? () {
+                      Navigator.of(context).pop();
+                      bloc.add(GameEvent.resetBoard(state.gameMode));
+                    }
+                  : null,
+              nextLevelPressed: () {
+                Navigator.of(context).pop();
+                bloc.add(const GameEvent.resetBoard(GameMode.lvl));
+              },
+            ),
+          );
+        }
+      },
+      child: const SafeArea(
+        child: Column(
+          children: [
+            Center(child: WordsGrid()),
+            Center(child: KeyboardByLanguage()),
+          ],
+        ),
       ),
     );
   }

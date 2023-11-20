@@ -42,6 +42,7 @@ class _MaterialContextState extends State<MaterialContext> {
         localizationsDelegates: Localization.localizationDelegates,
         supportedLocales: Localization.supportedLocales,
         locale: LocaleScope.of(context).locale,
+        onGenerateTitle: (context) => context.r.appTitle,
         home: const GamePage(),
       ),
     );

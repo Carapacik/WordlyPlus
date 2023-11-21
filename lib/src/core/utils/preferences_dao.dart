@@ -7,8 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// {@endtemplate}
 abstract base class PreferencesDao {
   /// {@macro preferences_dao}
-  PreferencesDao(this._sharedPreferences);
-
+  const PreferencesDao({required SharedPreferences sharedPreferences}) : _sharedPreferences = sharedPreferences;
   final SharedPreferences _sharedPreferences;
 
   /// Obtain [bool] entry from the preferences.
@@ -71,7 +70,11 @@ final class _PreferencesEntry<T extends Object> extends PreferencesEntry<T> {
     required SharedPreferences sharedPreferences,
     required this.key,
   }) : _sharedPreferences = sharedPreferences;
+
   final SharedPreferences _sharedPreferences;
+
+  @override
+  final String key;
 
   @override
   T? read() {
@@ -85,13 +88,8 @@ final class _PreferencesEntry<T extends Object> extends PreferencesEntry<T> {
       return value;
     }
 
-    throw Exception(
-      'The value of $key is not of type ${T.runtimeType}',
-    );
+    throw Exception('The value of $key is not of type ${T.runtimeType}');
   }
-
-  @override
-  final String key;
 
   @override
   Future<void> set(T value) => switch (value) {

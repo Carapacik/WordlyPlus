@@ -33,7 +33,7 @@ mixin InitializationSteps {
     },
     'Theme Repository': (progress) async {
       final sharedPreferences = progress.dependencies.sharedPreferences;
-      final themeDataSource = ThemeDataSourceImpl(sharedPreferences);
+      final themeDataSource = ThemeDataSourceImpl(sharedPreferences: sharedPreferences);
       progress.dependencies.themeRepository = ThemeRepositoryImpl(
         themeDataSource,
       );

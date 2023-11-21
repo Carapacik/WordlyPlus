@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:wordly/src/core/localization/generated/l10n.dart';
@@ -34,6 +35,19 @@ final class Localization extends GeneratedLocalization {
 
   /// Locale which is currently used.
   final Locale locale;
+
+  /// Computes the default locale.
+  ///
+  /// This is the locale that is used when no locale is specified.
+  static Locale computeDefaultLocale() {
+    final locale = PlatformDispatcher.instance.locale;
+
+    if (const AppLocalizationDelegate().isSupported(locale)) {
+      return locale;
+    }
+
+    return const Locale('en');
+  }
 
   /// Obtain [Localization] instance from [BuildContext].
   static Localization of(BuildContext context) =>

@@ -23,7 +23,6 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m0(number) => "Level ${number}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("About"),
         "appDictionary": MessageLookupByLibrary.simpleMessage("App dictionary"),
@@ -31,20 +30,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "appTitle": MessageLookupByLibrary.simpleMessage("Wordly Plus"),
         "casual": MessageLookupByLibrary.simpleMessage("Default"),
         "colorMode": MessageLookupByLibrary.simpleMessage("Color mode"),
-        "currentStreak": MessageLookupByLibrary.simpleMessage("Current\nStreak"),
+        "currentStreak":
+            MessageLookupByLibrary.simpleMessage("Current\nStreak"),
         "daily": MessageLookupByLibrary.simpleMessage("Daily"),
         "en": MessageLookupByLibrary.simpleMessage("English"),
-        "guessDistribution": MessageLookupByLibrary.simpleMessage("Guess distribution"),
+        "guessDistribution":
+            MessageLookupByLibrary.simpleMessage("Guess distribution"),
         "highContrast": MessageLookupByLibrary.simpleMessage("High contrast"),
         "levelNumber": m0,
         "levels": MessageLookupByLibrary.simpleMessage("Levels"),
         "loseMessage": MessageLookupByLibrary.simpleMessage("You lost"),
         "maxStreak": MessageLookupByLibrary.simpleMessage("Max\nStreak"),
-        "message_new_word":
-            MessageLookupByLibrary.simpleMessage("subject=Wordle%20-%20New%20word&body=Word%20-%0AMeaning%20-"),
+        "message_new_word": MessageLookupByLibrary.simpleMessage(
+            "subject=Wordle%20-%20New%20word&body=Word%20-%0AMeaning%20-"),
         "nextLevel": MessageLookupByLibrary.simpleMessage("Next level"),
         "nextWord": MessageLookupByLibrary.simpleMessage("Next wordle in"),
-        "notPlayed": MessageLookupByLibrary.simpleMessage("You haven\'t played a single game"),
+        "notPlayed": MessageLookupByLibrary.simpleMessage(
+            "You haven\'t played a single game"),
         "other": MessageLookupByLibrary.simpleMessage("Other"),
         "played": MessageLookupByLibrary.simpleMessage("Played"),
         "ru": MessageLookupByLibrary.simpleMessage("Russian"),
@@ -62,7 +64,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "viewStatistic": MessageLookupByLibrary.simpleMessage("View statistic"),
         "winMessage": MessageLookupByLibrary.simpleMessage("You win!"),
         "winRate": MessageLookupByLibrary.simpleMessage("Win\nrate"),
-        "wordNotFound": MessageLookupByLibrary.simpleMessage("Word not found in dictionary"),
-        "wordTooShort": MessageLookupByLibrary.simpleMessage("Word is not correct length")
+        "wordNotFound": MessageLookupByLibrary.simpleMessage(
+            "Word not found in dictionary"),
+        "wordTooShort":
+            MessageLookupByLibrary.simpleMessage("Word is not correct length")
       };
 }

@@ -22,7 +22,7 @@ abstract interface class ThemeDataSource {
 /// {@macro theme_datasource}
 final class ThemeDataSourceImpl extends PreferencesDao implements ThemeDataSource {
   /// {@macro theme_datasource}
-  ThemeDataSourceImpl(super._sharedPreferences);
+  ThemeDataSourceImpl({required super.sharedPreferences});
 
   PreferencesEntry<String> get _themeMode => stringEntry('theme_mode');
 

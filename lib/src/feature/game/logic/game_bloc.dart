@@ -8,6 +8,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
 import 'package:wordly/src/feature/game/model/game_mode.dart';
 import 'package:wordly/src/feature/game/model/game_result.dart';
+import 'package:wordly/src/feature/game/model/keyboard.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
 import 'package:wordly/src/feature/game/model/word_error.dart';
 import 'package:wordly/src/feature/level/data/level_repository.dart';
@@ -132,12 +133,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       return;
     }
 
-    // TODO(Carapacik): letter
-    // final letter = KeyboardKeys.fromLogicalKey(event.keyDown.logicalKey);
-    // if (letter != null) {
-    //   add(GameEvent.letterPressed(letter));
-    //   return;
-    // }
+    final letter = GameKeyboardKey.toLetter(key.logicalKey, state.dictionary);
+    if (letter != null) {
+      add(GameEvent.letterPressed(letter));
+      return;
+    }
   }
 
   void _changeDictionary(_GameEventChangeDictionary event, Emitter<GameState> emit) {

@@ -3,7 +3,12 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart' as logging;
 
-/// Logger instance
+/// Logger instance declared as global variable
+///
+/// Usage:
+/// ```dart
+/// logger.info('Hello World!');
+/// ```
 final Logger logger = LoggerLogging();
 
 /// Typedef for the log formatter
@@ -138,7 +143,7 @@ abstract base class Logger {
 
 /// Default logger using logging package
 final class LoggerLogging extends Logger {
-  final _logger = logging.Logger('SizzleLogger');
+  final _logger = logging.Logger('WordlyLogger');
 
   @override
   void debug(String message) => _logger.fine(message);
@@ -167,7 +172,7 @@ final class LoggerLogging extends Logger {
     }
     logging.hierarchicalLoggingEnabled = true;
 
-    _logger.onRecord.where((event) => event.loggerName == 'SizzleLogger').listen((event) {
+    _logger.onRecord.where((event) => event.loggerName == 'WordlyLogger').listen((event) {
       final logMessage = event.toLogMessage();
       final message =
           options.formatter?.call(logMessage, options) ?? _formatLoggerMessage(log: logMessage, options: options);
@@ -201,12 +206,12 @@ String _formatLoggerMessage({
   buffer.write(log.message);
   if (log.error != null) {
     buffer
-      ..write(' | ')
+      ..writeln()
       ..write(log.error);
   }
   if (log.stackTrace != null) {
     buffer
-      ..write(' | ')
+      ..writeln()
       ..writeln(log.stackTrace);
   }
 

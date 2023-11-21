@@ -9,48 +9,19 @@ import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 /// {@template dependencies}
 /// Dependencies container
 /// {@endtemplate}
-abstract base class Dependencies {
+base class Dependencies {
   /// {@macro dependencies}
-  const Dependencies();
+  Dependencies();
 
   /// Shared preferences
-  abstract final SharedPreferences sharedPreferences;
-  abstract final ThemeRepository themeRepository;
-  abstract final LocaleRepository localeRepository;
-  abstract final DictionaryRepository dictionaryRepository;
-  abstract final IStatisticsRepository statisticsRepository;
-  abstract final ILevelRepository levelRepository;
-  abstract final IGameRepository gameRepository;
-}
+  late final SharedPreferences sharedPreferences;
 
-/// {@template mutable_dependencies}
-/// Mutable version of dependencies
-///
-/// Used to build dependencies
-/// {@endtemplate}
-final class DependenciesMutable extends Dependencies {
-  /// {@macro mutable_dependencies}
-  DependenciesMutable();
-
-  @override
-  late SharedPreferences sharedPreferences;
-
-  @override
-  late ThemeRepository themeRepository;
-
-  @override
-  late LocaleRepository localeRepository;
-
-  @override
-  late DictionaryRepository dictionaryRepository;
-
-  @override
-  late IStatisticsRepository statisticsRepository;
-  @override
-  late ILevelRepository levelRepository;
-
-  @override
-  late IGameRepository gameRepository;
+  late final ThemeRepository themeRepository;
+  late final LocaleRepository localeRepository;
+  late final DictionaryRepository dictionaryRepository;
+  late final IStatisticsRepository statisticsRepository;
+  late final ILevelRepository levelRepository;
+  late final IGameRepository gameRepository;
 }
 
 /// {@template initialization_result}

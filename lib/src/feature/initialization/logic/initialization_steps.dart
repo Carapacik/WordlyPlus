@@ -31,24 +31,20 @@ mixin InitializationSteps {
       final sharedPreferences = await SharedPreferences.getInstance();
       progress.dependencies.sharedPreferences = sharedPreferences;
     },
-    'Theme Repository': (progress) async {
+    'Settings Repository': (progress) async {
       final sharedPreferences = progress.dependencies.sharedPreferences;
       final themeDataSource = ThemeDataSourceImpl(sharedPreferences: sharedPreferences);
       progress.dependencies.themeRepository = ThemeRepositoryImpl(
         themeDataSource,
       );
-    },
-    'Locale Repository': (progress) async {
-      final sharedPreferences = progress.dependencies.sharedPreferences;
+
       final localeDataSource = LocaleDataSourceImpl(
         sharedPreferences: sharedPreferences,
       );
       progress.dependencies.localeRepository = LocaleRepositoryImpl(
         localeDataSource,
       );
-    },
-    'Dictionary Repository': (progress) async {
-      final sharedPreferences = progress.dependencies.sharedPreferences;
+
       final dictionaryDataSource = DictionaryDataSourceImpl(
         sharedPreferences: sharedPreferences,
       );

@@ -39,8 +39,8 @@ enum LetterStatus {
   notInWord,
   unknown;
 
-  Color cellColor(BuildContext context) {
-    final theme = SettingsScope.themeOf(context).theme;
+  Color cellColor(BuildContext context, {bool listen = true}) {
+    final theme = SettingsScope.of(context, listen: listen).theme;
     switch (this) {
       case LetterStatus.correctSpot:
         return theme.correctColor;

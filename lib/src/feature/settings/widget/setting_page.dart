@@ -67,11 +67,12 @@ class _SettingsPageState extends State<SettingsPage> {
                       style: context.theme.bl,
                     ),
                     onTap: () async {
-                      final themeScope = SettingsScope.of(context);
-                      final previousTheme = themeScope.theme;
+                      final scope = SettingsScope.of(context, listen: false);
+                      final previousTheme = scope.theme;
                       final result = await Navigator.of(context).push(
                         MaterialPageRoute<ChangeColorResult>(
                           builder: (context) => ChangeColorPage(
+                            dictionary: scope.dictionary,
                             previousResult: ChangeColorResult(
                               colorMode: previousTheme.colorMode,
                               otherColors: previousTheme.otherColors,
@@ -82,7 +83,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       if (result == null) {
                         return;
                       }
-                      themeScope.setTheme(
+                      scope.setTheme(
                         previousTheme.copyWith(
                           colorMode: result.colorMode,
                           otherColors: result.otherColors,

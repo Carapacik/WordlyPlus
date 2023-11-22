@@ -9,9 +9,10 @@ import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 
 class ChangeColorPage extends StatefulWidget {
-  const ChangeColorPage({required this.previousResult, super.key});
+  const ChangeColorPage({required this.previousResult, required this.dictionary, super.key});
 
   final ChangeColorResult previousResult;
+  final Locale dictionary;
 
   @override
   State<ChangeColorPage> createState() => _ChangeColorPageState();
@@ -32,7 +33,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
       _currentSelectedTileIndex = 0;
     }
     _currentOtherColors = widget.previousResult.otherColors ??
-        (AppColors.green, AppColors.yellow, LetterStatus.notInWord.cellColor(context));
+        (AppColors.green, AppColors.yellow, LetterStatus.notInWord.cellColor(context, listen: false));
   }
 
   void _changeTheme(BuildContext context) {
@@ -47,7 +48,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
 
   @override
   Widget build(BuildContext context) {
-    final word = _wordByDictionary(SettingsScope.dictionaryOf(context).dictionary);
+    final word = _wordByDictionary(widget.dictionary);
     return Scaffold(
       appBar: AppBar(title: Text(context.r.colorMode)),
       body: ConstraintScreen(

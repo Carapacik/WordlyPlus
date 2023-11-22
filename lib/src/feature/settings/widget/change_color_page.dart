@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
-import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
-import 'package:wordly/src/feature/app/widget/theme_scope.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/components/widget/letter_tile.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
+import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 
 class ChangeColorPage extends StatefulWidget {
   const ChangeColorPage({required this.previousResult, super.key});
@@ -37,7 +36,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
   }
 
   void _changeTheme(BuildContext context) {
-    final themeScope = ThemeScope.of(context, listen: false);
+    final themeScope = SettingsScope.themeOf(context);
     themeScope.setTheme(
       themeScope.theme.copyWith(
         colorMode: _currentColorMode,
@@ -48,7 +47,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
 
   @override
   Widget build(BuildContext context) {
-    final word = _wordByDictionary(DictionaryScope.of(context).dictionary);
+    final word = _wordByDictionary(SettingsScope.dictionaryOf(context).dictionary);
     return Scaffold(
       appBar: AppBar(title: Text(context.r.colorMode)),
       body: ConstraintScreen(

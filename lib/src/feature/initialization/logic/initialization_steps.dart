@@ -1,18 +1,18 @@
 import 'dart:async';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wordly/src/feature/app/data/dictionary_datasource.dart';
-import 'package:wordly/src/feature/app/data/dictionary_repository.dart';
-import 'package:wordly/src/feature/app/data/locale_datasource.dart';
-import 'package:wordly/src/feature/app/data/locale_repository.dart';
-import 'package:wordly/src/feature/app/data/theme_datasource.dart';
-import 'package:wordly/src/feature/app/data/theme_repository.dart';
 import 'package:wordly/src/feature/game/data/game_datasource.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
 import 'package:wordly/src/feature/initialization/model/dependencies.dart';
 import 'package:wordly/src/feature/initialization/model/initialization_progress.dart';
 import 'package:wordly/src/feature/level/data/level_datasource.dart';
 import 'package:wordly/src/feature/level/data/level_repository.dart';
+import 'package:wordly/src/feature/settings/data/color_mode_codec.dart';
+import 'package:wordly/src/feature/settings/data/dictionary_datasource.dart';
+import 'package:wordly/src/feature/settings/data/locale_datasource.dart';
+import 'package:wordly/src/feature/settings/data/settings_repository.dart';
+import 'package:wordly/src/feature/settings/data/theme_datasource.dart';
+import 'package:wordly/src/feature/settings/data/theme_mode_codec.dart';
 import 'package:wordly/src/feature/statistic/data/statistics_datasource.dart';
 import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 
@@ -33,23 +33,21 @@ mixin InitializationSteps {
     },
     'Settings Repository': (progress) async {
       final sharedPreferences = progress.dependencies.sharedPreferences;
-      final themeDataSource = ThemeDataSourceImpl(sharedPreferences: sharedPreferences);
-      progress.dependencies.themeRepository = ThemeRepositoryImpl(
-        themeDataSource,
+      final themeDataSource = ThemeDataSourceImpl(
+        sharedPreferences: sharedPreferences,
+        themeModeCodec: const ThemeModeCodec(),
+        colorModeCodec: const ColorModeCodec(),
       );
-
       final localeDataSource = LocaleDataSourceImpl(
         sharedPreferences: sharedPreferences,
       );
-      progress.dependencies.localeRepository = LocaleRepositoryImpl(
-        localeDataSource,
-      );
-
       final dictionaryDataSource = DictionaryDataSourceImpl(
         sharedPreferences: sharedPreferences,
       );
-      progress.dependencies.dictionaryRepository = DictionaryRepositoryImpl(
-        dictionaryDataSource,
+      progress.dependencies.settingsRepository = SettingsRepositoryImpl(
+        themeDataSource: themeDataSource,
+        dictionaryDataSource: dictionaryDataSource,
+        localeDataSource: localeDataSource,
       );
     },
     'Statistics Repository': (progress) async {

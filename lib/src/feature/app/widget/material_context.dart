@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/src/core/localization/localization.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
-import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
-import 'package:wordly/src/feature/app/widget/locale_scope.dart';
-import 'package:wordly/src/feature/app/widget/theme_scope.dart';
-import 'package:wordly/src/feature/game/logic/game_bloc.dart';
+import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
 import 'package:wordly/src/feature/game/widget/game_page.dart';
+import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 
 /// {@template material_context}
 /// [MaterialContext] is an entry point to the material context.
@@ -24,8 +22,9 @@ class MaterialContext extends StatefulWidget {
 class _MaterialContextState extends State<MaterialContext> {
   @override
   Widget build(BuildContext context) {
-    final theme = ThemeScope.of(context).theme;
-    final dictionary = DictionaryScope.of(context).dictionary;
+    final theme = SettingsScope.themeOf(context).theme;
+    final locale = SettingsScope.localeOf(context).locale;
+    final dictionary = SettingsScope.dictionaryOf(context).dictionary;
     return BlocProvider(
       create: (context) => GameBloc(
         gameRepository: context.dependencies.gameRepository,
@@ -41,7 +40,7 @@ class _MaterialContextState extends State<MaterialContext> {
         themeMode: theme.mode,
         localizationsDelegates: Localization.localizationDelegates,
         supportedLocales: Localization.supportedLocales,
-        locale: LocaleScope.of(context).locale,
+        locale: locale,
         onGenerateTitle: (context) => context.r.appTitle,
         home: const GamePage(),
       ),

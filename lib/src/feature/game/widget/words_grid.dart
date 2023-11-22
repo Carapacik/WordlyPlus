@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wordly/src/feature/game/logic/game_bloc.dart';
+import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
 
 class WordsGrid extends StatelessWidget {

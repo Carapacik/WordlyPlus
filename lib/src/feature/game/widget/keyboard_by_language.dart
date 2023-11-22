@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
-import 'package:wordly/src/feature/game/logic/game_bloc.dart';
+import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
 import 'package:wordly/src/feature/game/model/keyboard.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
+import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 
 class KeyboardByLanguage extends StatelessWidget {
   const KeyboardByLanguage({super.key});
@@ -12,7 +12,7 @@ class KeyboardByLanguage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 200,
-      child: switch (DictionaryScope.of(context).dictionary) {
+      child: switch (SettingsScope.dictionaryOf(context).dictionary) {
         const Locale('en') => const KeyboardEn(),
         const Locale('ru') => const KeyboardRu(),
         _ => const SizedBox.shrink(),
@@ -140,7 +140,7 @@ class EnterKey extends StatelessWidget {
       padding: const EdgeInsets.only(right: 3),
       child: SizedBox(
         height: 58,
-        width: DictionaryScope.of(context).dictionary.width(context) * 1.65,
+        width: SettingsScope.dictionaryOf(context).dictionary.width(context) * 1.65,
         child: Material(
           color: LetterStatus.unknown.cellColor(context),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
@@ -171,7 +171,7 @@ class DeleteKey extends StatelessWidget {
       padding: const EdgeInsets.only(left: 3),
       child: SizedBox(
         height: 58,
-        width: DictionaryScope.of(context).dictionary.width(context) * 1.65,
+        width: SettingsScope.dictionaryOf(context).dictionary.width(context) * 1.65,
         child: Material(
           color: LetterStatus.unknown.cellColor(context),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
@@ -210,7 +210,7 @@ class KeyboardKey extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 3),
       child: SizedBox(
         height: 58,
-        width: DictionaryScope.of(context).dictionary.width(context),
+        width: SettingsScope.dictionaryOf(context).dictionary.width(context),
         child: Material(
           color: status.cellColor(context),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),

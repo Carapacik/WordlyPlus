@@ -34,37 +34,32 @@ final class AppTheme with Diagnosticable {
   /// Other colors for cells
   final (Color, Color, Color)? otherColors;
 
-  /// Light mode [AppTheme].
-  static final light = AppTheme(mode: ThemeMode.light, colorMode: ColorMode.casual);
-
-  /// Dark mode [AppTheme].
-  static final dark = AppTheme(mode: ThemeMode.dark, colorMode: ColorMode.casual);
-
-  /// System mode [AppTheme].
-  static final system = AppTheme(mode: ThemeMode.system, colorMode: ColorMode.casual);
-
   /// The dark [ThemeData] for this [AppTheme].
   final ThemeData darkTheme;
 
   /// The light [ThemeData] for this [AppTheme].
   final ThemeData lightTheme;
 
+  /// The default [AppTheme].
+  static final defaultTheme = AppTheme(
+    mode: ThemeMode.system,
+    colorMode: ColorMode.casual,
+  );
+
   /// The [ThemeData] for this [AppTheme].
   /// This is computed based on the [mode].
-  ///
-  /// Could be useful for theme showcase.
-  ThemeData computeTheme(BuildContext context) {
+  ThemeData computeTheme() {
     switch (mode) {
       case ThemeMode.light:
         return lightTheme;
       case ThemeMode.dark:
         return darkTheme;
       case ThemeMode.system:
-        return MediaQuery.platformBrightnessOf(context) == Brightness.dark ? darkTheme : lightTheme;
+        return isDark() ? darkTheme : lightTheme;
     }
   }
 
-  bool isDark(BuildContext context) => computeTheme(context) == darkTheme;
+  bool isDark() => PlatformDispatcher.instance.platformBrightness == Brightness.dark;
 
   Color get correctColor {
     switch (colorMode) {
@@ -89,7 +84,7 @@ final class AppTheme with Diagnosticable {
   }
 
   Color notInWordColor(BuildContext context) {
-    final isDarkTheme = isDark(context);
+    final isDarkTheme = isDark();
     switch (colorMode) {
       case ColorMode.casual:
       case ColorMode.highContrast:
@@ -100,7 +95,7 @@ final class AppTheme with Diagnosticable {
   }
 
   Color unknownColor(BuildContext context) {
-    final isDarkTheme = isDark(context);
+    final isDarkTheme = isDark();
     return isDarkTheme ? AppColors.grey : AppColors.tertiary;
   }
 

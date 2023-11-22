@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
-import 'package:wordly/src/feature/app/widget/dictionary_scope.dart';
 import 'package:wordly/src/feature/components/widget/drawer.dart';
-import 'package:wordly/src/feature/game/logic/game_bloc.dart';
+import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
 import 'package:wordly/src/feature/game/model/game_mode.dart';
 import 'package:wordly/src/feature/game/widget/game_result_dialog.dart';
 import 'package:wordly/src/feature/game/widget/keyboard_by_language.dart';
 import 'package:wordly/src/feature/game/widget/words_grid.dart';
 import 'package:wordly/src/feature/level/widget/level_page.dart';
+import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 import 'package:wordly/src/feature/statistic/widget/statistic_page.dart';
 
 class GamePage extends StatefulWidget {
@@ -81,7 +81,7 @@ class _GamePageState extends State<GamePage> {
                       await Navigator.of(context).push(
                         MaterialPageRoute<void>(
                           builder: (context) => StatisticPage(
-                            dictionary: DictionaryScope.of(context, listen: false).dictionary,
+                            dictionary: SettingsScope.dictionaryOf(context).dictionary,
                           ),
                         ),
                       );
@@ -95,7 +95,7 @@ class _GamePageState extends State<GamePage> {
                       await Navigator.of(context).push(
                         MaterialPageRoute<void>(
                           builder: (context) => LevelPage(
-                            dictionary: DictionaryScope.of(context, listen: false).dictionary,
+                            dictionary: SettingsScope.dictionaryOf(context).dictionary,
                           ),
                         ),
                       );

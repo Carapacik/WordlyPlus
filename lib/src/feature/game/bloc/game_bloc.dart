@@ -237,7 +237,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         secretWord: state.secretWord,
         gameMode: state.gameMode,
         gameCompleted: state.gameCompleted,
-        board: List.of(state.board)..add(LetterInfo(letter: event.key)),
+        board: List.of(state.board)..add(LetterInfo(letter: event.key.toLowerCase())),
         statuses: state.statuses,
         lvlNumber: state.lvlNumber,
       ),

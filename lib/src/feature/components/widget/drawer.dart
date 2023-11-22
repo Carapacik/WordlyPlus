@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/about/widget/about_page.dart';
-import 'package:wordly/src/feature/game/logic/game_bloc.dart';
+import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
 import 'package:wordly/src/feature/game/model/game_mode.dart';
 import 'package:wordly/src/feature/game/widget/game_page.dart';
 import 'package:wordly/src/feature/settings/widget/setting_page.dart';

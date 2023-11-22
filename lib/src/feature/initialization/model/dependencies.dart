@@ -1,9 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wordly/src/feature/app/data/dictionary_repository.dart';
-import 'package:wordly/src/feature/app/data/locale_repository.dart';
-import 'package:wordly/src/feature/app/data/theme_repository.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
 import 'package:wordly/src/feature/level/data/level_repository.dart';
+import 'package:wordly/src/feature/settings/data/settings_repository.dart';
 import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 
 /// {@template dependencies}
@@ -16,9 +14,7 @@ base class Dependencies {
   /// Shared preferences
   late final SharedPreferences sharedPreferences;
 
-  late final ThemeRepository themeRepository;
-  late final LocaleRepository localeRepository;
-  late final DictionaryRepository dictionaryRepository;
+  late final SettingsRepository settingsRepository;
   late final IStatisticsRepository statisticsRepository;
   late final ILevelRepository levelRepository;
   late final IGameRepository gameRepository;

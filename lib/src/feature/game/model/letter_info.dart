@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/color.dart';
-import 'package:wordly/src/feature/app/widget/theme_scope.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
+import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 
 @immutable
 class LetterInfo {
@@ -40,7 +40,7 @@ enum LetterStatus {
   unknown;
 
   Color cellColor(BuildContext context) {
-    final theme = ThemeScope.of(context).theme;
+    final theme = SettingsScope.themeOf(context).theme;
     switch (this) {
       case LetterStatus.correctSpot:
         return theme.correctColor;
@@ -54,8 +54,8 @@ enum LetterStatus {
   }
 
   Color? textColor(BuildContext context) {
-    final theme = ThemeScope.of(context).theme;
-    final isDark = theme.isDark(context);
+    final theme = SettingsScope.themeOf(context).theme;
+    final isDark = theme.isDark();
     final color = cellColor(context);
 
     // other mode not in word always darken

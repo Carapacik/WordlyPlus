@@ -83,6 +83,8 @@ sealed class GameState with _$GameState {
   int get currentWordIndex => (board.length - 1) ~/ 5;
 
   bool get isResultState => maybeMap(win: (_) => true, loss: (_) => true, orElse: () => false);
+
+  bool get isErrorState => maybeMap(error: (_) => true, orElse: () => false);
 }
 
 class GameBloc extends Bloc<GameEvent, GameState> {

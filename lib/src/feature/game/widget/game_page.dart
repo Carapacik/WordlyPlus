@@ -120,10 +120,11 @@ class GameBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<GameBloc, GameState>(
       listenWhen: (previous, current) =>
-          previous.gameCompleted != current.gameCompleted &&
-          previous.gameMode == current.gameMode &&
-          previous.dictionary == current.dictionary &&
-          current.isResultState,
+          (previous.gameCompleted != current.gameCompleted &&
+              previous.gameMode == current.gameMode &&
+              previous.dictionary == current.dictionary &&
+              current.isResultState) ||
+          current.isErrorState,
       listener: (context, state) {
         if (state.isResultState) {
           final bloc = context.read<GameBloc>();
@@ -144,6 +145,24 @@ class GameBody extends StatelessWidget {
                 Navigator.of(context).pop();
                 bloc.add(const GameEvent.resetBoard(GameMode.lvl));
               },
+            ),
+          );
+          return;
+        }
+        if (state.isErrorState) {
+          final error = state.mapOrNull(error: (s) => s.error);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: context.theme.scaffoldBackgroundColor,
+              content: Text(
+                error?.localizedText(context) ?? '',
+                style: context.theme.bl.copyWith(color: context.theme.indicatorColor),
+                textAlign: TextAlign.center,
+              ),
+              duration: const Duration(milliseconds: 500),
+              behavior: SnackBarBehavior.floating,
+              dismissDirection: DismissDirection.up,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             ),
           );
         }

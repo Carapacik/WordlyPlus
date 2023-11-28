@@ -20,7 +20,13 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ru';
 
-  static String m0(number) => "Уровень ${number}";
+  static String m0(attemptNumber) =>
+      "У меня не получилось разгадать слово за ${attemptNumber} попыток.";
+
+  static String m1(attemptNumber) =>
+      "Я угадал слово за ${attemptNumber}/6 попыток.";
+
+  static String m2(number) => "Уровень ${number}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -29,6 +35,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "appLanguage": MessageLookupByLibrary.simpleMessage("Язык приложения"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Словень Плюс"),
         "casual": MessageLookupByLibrary.simpleMessage("Обычный"),
+        "checkResult": MessageLookupByLibrary.simpleMessage(
+            "Можешь проверить свой результат тут:"),
+        "checkResultLose": m0,
+        "checkResultWin": m1,
         "colorMode": MessageLookupByLibrary.simpleMessage("Цветовой режим"),
         "currentStreak": MessageLookupByLibrary.simpleMessage("Текущая\nСерия"),
         "daily": MessageLookupByLibrary.simpleMessage("Ежедневный"),
@@ -37,12 +47,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Распределение догадок"),
         "highContrast":
             MessageLookupByLibrary.simpleMessage("Высокий контраст"),
-        "levelNumber": m0,
+        "levelNumber": m2,
         "levels": MessageLookupByLibrary.simpleMessage("Уровни"),
         "loseMessage": MessageLookupByLibrary.simpleMessage("Вы проиграли"),
         "maxStreak": MessageLookupByLibrary.simpleMessage("Макс.\nСерия"),
-        "message_new_word": MessageLookupByLibrary.simpleMessage(
-            "subject=Словень%20-%20Новое%20слово&body=Слово%20-%0AЗначение%20-"),
         "nextLevel": MessageLookupByLibrary.simpleMessage("Следующий уровень"),
         "nextWord":
             MessageLookupByLibrary.simpleMessage("Следующее слово через"),

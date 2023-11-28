@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show Clipboard, ClipboardData;
+import 'package:share_plus/share_plus.dart';
 import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/game/model/game_mode.dart';
@@ -11,6 +13,7 @@ Future<void> showGameResultDialog(
   GameMode mode, {
   required bool isWin,
   required VoidCallback nextLevelPressed,
+  String? shareString,
   VoidCallback? onTimerEnd,
 }) =>
     showDialog(
@@ -21,6 +24,7 @@ Future<void> showGameResultDialog(
         meaning: meaning,
         isWin: isWin,
         mode: mode,
+        shareString: shareString,
         onTimerEnd: onTimerEnd,
         nextLevelPressed: nextLevelPressed,
       ),
@@ -32,6 +36,7 @@ class DialogContent extends StatelessWidget {
     required this.meaning,
     required this.isWin,
     required this.mode,
+    required this.shareString,
     required this.onTimerEnd,
     required this.nextLevelPressed,
     super.key,
@@ -41,6 +46,7 @@ class DialogContent extends StatelessWidget {
   final String meaning;
   final bool isWin;
   final GameMode mode;
+  final String? shareString;
   final VoidCallback? onTimerEnd;
   final VoidCallback nextLevelPressed;
 
@@ -82,7 +88,7 @@ class DialogContent extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               switch (mode) {
-                GameMode.daily => _DailyContent(isWin: isWin, onEnd: onTimerEnd),
+                GameMode.daily => _DailyContent(isWin: isWin, shareString: shareString, onEnd: onTimerEnd),
                 GameMode.lvl => _LevelContent(isWin: isWin, nextLevelPressed: nextLevelPressed),
               },
             ],
@@ -94,10 +100,11 @@ class DialogContent extends StatelessWidget {
 }
 
 class _DailyContent extends StatelessWidget {
-  const _DailyContent({required this.isWin, this.onEnd});
+  const _DailyContent({required this.isWin, required this.shareString, this.onEnd});
 
   final bool isWin;
   final VoidCallback? onEnd;
+  final String? shareString;
 
   @override
   Widget build(BuildContext context) {
@@ -106,24 +113,24 @@ class _DailyContent extends StatelessWidget {
     final timeRemaining = tomorrow.difference(now);
     return Column(
       children: [
-        ElevatedButton(
-          onPressed: () {
-            // final textFunction = isWin
-            //     ? context.r.check_my_result_win
-            //     : context.r.check_my_result_lose;
-            // gameBloc.add(GameEvent.share(textFunction: textFunction));
-          },
-          child: Text(
-            context.r.share,
-            style: TextStyle(
-              color: isWin ? AppColors.green : AppColors.red,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+        if (shareString != null) ...[
+          ElevatedButton(
+            onPressed: () async {
+              await Clipboard.setData(ClipboardData(text: shareString!));
+              await Share.share(shareString!);
+            },
+            child: Text(
+              context.r.share,
+              style: TextStyle(
+                color: isWin ? AppColors.green : AppColors.red,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
           ),
-        ),
-        const SizedBox(height: 24),
+          const SizedBox(height: 24),
+        ],
         Text(
           context.r.nextWord,
           style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),

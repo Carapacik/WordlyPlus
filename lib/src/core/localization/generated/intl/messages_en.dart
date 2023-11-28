@@ -20,7 +20,13 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(number) => "Level ${number}";
+  static String m0(attemptNumber) =>
+      "I couldn\'t guess the word in ${attemptNumber} attempts.";
+
+  static String m1(attemptNumber) =>
+      "The word is solved in ${attemptNumber}/6 attempts.";
+
+  static String m2(number) => "Level ${number}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -29,6 +35,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "appLanguage": MessageLookupByLibrary.simpleMessage("App language"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Wordly Plus"),
         "casual": MessageLookupByLibrary.simpleMessage("Default"),
+        "checkResult": MessageLookupByLibrary.simpleMessage(
+            "You can check your result here:"),
+        "checkResultLose": m0,
+        "checkResultWin": m1,
         "colorMode": MessageLookupByLibrary.simpleMessage("Color mode"),
         "currentStreak":
             MessageLookupByLibrary.simpleMessage("Current\nStreak"),
@@ -37,14 +47,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "guessDistribution":
             MessageLookupByLibrary.simpleMessage("Guess distribution"),
         "highContrast": MessageLookupByLibrary.simpleMessage("High contrast"),
-        "levelNumber": m0,
+        "levelNumber": m2,
         "levels": MessageLookupByLibrary.simpleMessage("Levels"),
         "loseMessage": MessageLookupByLibrary.simpleMessage("You lost"),
         "maxStreak": MessageLookupByLibrary.simpleMessage("Max\nStreak"),
-        "message_new_word": MessageLookupByLibrary.simpleMessage(
-            "subject=Wordle%20-%20New%20word&body=Word%20-%0AMeaning%20-"),
         "nextLevel": MessageLookupByLibrary.simpleMessage("Next level"),
-        "nextWord": MessageLookupByLibrary.simpleMessage("Next wordle in"),
+        "nextWord": MessageLookupByLibrary.simpleMessage("Next word in"),
         "notPlayed": MessageLookupByLibrary.simpleMessage(
             "You haven\'t played a single game"),
         "other": MessageLookupByLibrary.simpleMessage("Other"),

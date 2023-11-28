@@ -51,6 +51,36 @@ class GeneratedLocalization {
         context, GeneratedLocalization);
   }
 
+  /// `About`
+  String get about {
+    return Intl.message(
+      'About',
+      name: 'about',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App dictionary`
+  String get appDictionary {
+    return Intl.message(
+      'App dictionary',
+      name: 'appDictionary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App language`
+  String get appLanguage {
+    return Intl.message(
+      'App language',
+      name: 'appLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Wordly Plus`
   String get appTitle {
     return Intl.message(
@@ -61,11 +91,51 @@ class GeneratedLocalization {
     );
   }
 
-  /// `About`
-  String get about {
+  /// `Default`
+  String get casual {
     return Intl.message(
-      'About',
-      name: 'about',
+      'Default',
+      name: 'casual',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can check your result here:`
+  String get checkResult {
+    return Intl.message(
+      'You can check your result here:',
+      name: 'checkResult',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I couldn't guess the word in {attemptNumber} attempts.`
+  String checkResultLose(Object attemptNumber) {
+    return Intl.message(
+      'I couldn\'t guess the word in $attemptNumber attempts.',
+      name: 'checkResultLose',
+      desc: '',
+      args: [attemptNumber],
+    );
+  }
+
+  /// `The word is solved in {attemptNumber}/6 attempts.`
+  String checkResultWin(Object attemptNumber) {
+    return Intl.message(
+      'The word is solved in $attemptNumber/6 attempts.',
+      name: 'checkResultWin',
+      desc: '',
+      args: [attemptNumber],
+    );
+  }
+
+  /// `Color mode`
+  String get colorMode {
+    return Intl.message(
+      'Color mode',
+      name: 'colorMode',
       desc: '',
       args: [],
     );
@@ -111,11 +181,11 @@ class GeneratedLocalization {
     );
   }
 
-  /// `How to play`
-  String get tutorial {
+  /// `High contrast`
+  String get highContrast {
     return Intl.message(
-      'How to play',
-      name: 'tutorial',
+      'High contrast',
+      name: 'highContrast',
       desc: '',
       args: [],
     );
@@ -161,16 +231,6 @@ class GeneratedLocalization {
     );
   }
 
-  /// `subject=Wordle%20-%20New%20word&body=Word%20-%0AMeaning%20-`
-  String get message_new_word {
-    return Intl.message(
-      'subject=Wordle%20-%20New%20word&body=Word%20-%0AMeaning%20-',
-      name: 'message_new_word',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Next level`
   String get nextLevel {
     return Intl.message(
@@ -181,10 +241,10 @@ class GeneratedLocalization {
     );
   }
 
-  /// `Next wordle in`
+  /// `Next word in`
   String get nextWord {
     return Intl.message(
-      'Next wordle in',
+      'Next word in',
       name: 'nextWord',
       desc: '',
       args: [],
@@ -196,6 +256,16 @@ class GeneratedLocalization {
     return Intl.message(
       'You haven\'t played a single game',
       name: 'notPlayed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Other`
+  String get other {
+    return Intl.message(
+      'Other',
+      name: 'other',
       desc: '',
       args: [],
     );
@@ -271,6 +341,56 @@ class GeneratedLocalization {
     );
   }
 
+  /// `Dark`
+  String get themeDark {
+    return Intl.message(
+      'Dark',
+      name: 'themeDark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Light`
+  String get themeLight {
+    return Intl.message(
+      'Light',
+      name: 'themeLight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Theme mode`
+  String get themeMode {
+    return Intl.message(
+      'Theme mode',
+      name: 'themeMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `System`
+  String get themeSystem {
+    return Intl.message(
+      'System',
+      name: 'themeSystem',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `How to play`
+  String get tutorial {
+    return Intl.message(
+      'How to play',
+      name: 'tutorial',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `View levels`
   String get viewLevels {
     return Intl.message(
@@ -326,106 +446,6 @@ class GeneratedLocalization {
     return Intl.message(
       'Word is not correct length',
       name: 'wordTooShort',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Theme mode`
-  String get themeMode {
-    return Intl.message(
-      'Theme mode',
-      name: 'themeMode',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `System`
-  String get themeSystem {
-    return Intl.message(
-      'System',
-      name: 'themeSystem',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Light`
-  String get themeLight {
-    return Intl.message(
-      'Light',
-      name: 'themeLight',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Dark`
-  String get themeDark {
-    return Intl.message(
-      'Dark',
-      name: 'themeDark',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `App language`
-  String get appLanguage {
-    return Intl.message(
-      'App language',
-      name: 'appLanguage',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `App dictionary`
-  String get appDictionary {
-    return Intl.message(
-      'App dictionary',
-      name: 'appDictionary',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Color mode`
-  String get colorMode {
-    return Intl.message(
-      'Color mode',
-      name: 'colorMode',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Default`
-  String get casual {
-    return Intl.message(
-      'Default',
-      name: 'casual',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `High contrast`
-  String get highContrast {
-    return Intl.message(
-      'High contrast',
-      name: 'highContrast',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Other`
-  String get other {
-    return Intl.message(
-      'Other',
-      name: 'other',
       desc: '',
       args: [],
     );

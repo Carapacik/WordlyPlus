@@ -85,6 +85,14 @@ sealed class GameState with _$GameState {
   bool get isResultState => maybeMap(win: (_) => true, loss: (_) => true, orElse: () => false);
 
   bool get isErrorState => maybeMap(error: (_) => true, orElse: () => false);
+
+  (bool, int, String)? get buildResultString {
+    final result = mapOrNull(win: (_) => true, loss: (_) => false);
+    if (result == null) {
+      return null;
+    }
+    return (result, currentWordIndex, board.map((e) => e.status.emoji).join());
+  }
 }
 
 class GameBloc extends Bloc<GameEvent, GameState> {

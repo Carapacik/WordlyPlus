@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
+import 'package:wordly/src/core/utils/share.dart';
 import 'package:wordly/src/feature/components/widget/drawer.dart';
 import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
 import 'package:wordly/src/feature/game/model/game_mode.dart';
@@ -40,6 +41,7 @@ class _GamePageState extends State<GamePage> {
             state.gameMode,
             isWin: state.maybeMap(win: (_) => true, orElse: () => false),
             onTimerEnd: GameMode.daily == state.gameMode ? () => bloc.add(GameEvent.resetBoard(state.gameMode)) : null,
+            shareString: shareString(context, state.buildResultString),
             nextLevelPressed: () => bloc.add(const GameEvent.resetBoard(GameMode.lvl)),
           ),
         );
@@ -143,6 +145,7 @@ class GameBody extends StatelessWidget {
                       bloc.add(GameEvent.resetBoard(state.gameMode));
                     }
                   : null,
+              shareString: shareString(context, state.buildResultString),
               nextLevelPressed: () {
                 Navigator.of(context).pop();
                 bloc.add(const GameEvent.resetBoard(GameMode.lvl));

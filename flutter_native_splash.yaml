@@ -14,15 +14,15 @@ flutter_native_splash:
   # of your splash screen to a solid color.  Use background_image to set the background of your
   # splash screen to a png image.  This is useful for gradients. The image will be stretch to the
   # size of the app. Only one parameter can be used, color and background_image cannot both be set.
-  # color: "#ffffff"
-  background_image: "assets/images/splash.png"
+  color: "#FFFFFF"
+  # background_image: "assets/images/splash.png"
 
   # Optional parameters are listed below.  To enable a parameter, uncomment the line by removing
   # the leading # character.
 
   # The image parameter allows you to specify an image used in the splash screen.  It must be a
   # png file and should be sized for 4x pixel density.
-  #image: assets/splash.png
+  image: "assets/images/splash.png"
 
   # The branding property allows you to specify an image used as branding in the splash screen.
   # It must be a png file. It is supported for Android, iOS and the Web.  For Android 12,
@@ -38,8 +38,8 @@ flutter_native_splash:
   # parameters from above. If the image_dark parameter is specified, color_dark or
   # background_image_dark must be specified.  color_dark and background_image_dark cannot both be
   # set.
-  #color_dark: "#042a49"
-  #background_image_dark: "assets/dark-background.png"
+  color_dark: "#191C1B"
+  #background_image_dark: "assets/images/splash.png"
   #image_dark: assets/splash-invert.png
   #branding_dark: assets/dart_dark.png
 
@@ -134,7 +134,7 @@ flutter_native_splash:
   #       To show the notification bar, add the following code to your Flutter app:
   #       WidgetsFlutterBinding.ensureInitialized();
   #       SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top], );
-  fullscreen: true
+  #fullscreen: true
 
   # On web, the splash screen fades out in 250ms.  This fade delay can be adjusted by changing
   # the web_splash_fade_time_ms parameter.

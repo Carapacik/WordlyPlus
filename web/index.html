@@ -1,30 +1,30 @@
-<!DOCTYPE html><html><head>
-  <base href="/WordlyPlus/">
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="/WordlyPlus/">
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="description" content="Guess the WORD in six tries">
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="Guess the WORD in six tries">
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="wordly">
+    <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-  <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="wordly">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png">
+    <title>Wordly Plus</title>
+    <link rel="manifest" href="manifest.json">
 
-  <title>Wordly Plus</title>
-  <link rel="manifest" href="manifest.json">
-
-  <script>
+    <script>
     // The value below is injected by flutter build, do not touch.
     const serviceWorkerVersion = null;
-  </script>
-  <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js" defer=""></script>
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
-  <style id="splash-screen-style">
+    </script>
+    <!-- This script adds the flutter initialization JS code -->
+    <script src="flutter.js" defer=""></script>
+    <style id="splash-screen-style">
     .flutter-loader {
       z-index: 999999;
     }
@@ -39,9 +39,8 @@
         opacity: 1;
         /* animation type and duration */
         transition: opacity 0.25s;
-        background-color: #ffffff;
-        background-image: url("splash/img/light-background.png");
-        -moz-osx-font-smoothing: grayscale;
+        background-color: #FFFFFF;
+              -moz-osx-font-smoothing: grayscale;
         -webkit-font-smoothing: antialiased;
     }
     
@@ -97,8 +96,15 @@
       bottom: 0;
       right: 0;
     }
-  </style>
-  <script id="splash-screen-script">
+
+    @media (prefers-color-scheme: dark) {
+      #splash {
+        background-color: #191C1B;
+          }
+    }
+
+    </style>
+    <script id="splash-screen-script">
     function removeSplashFromWeb() {
       const splashElement = document.getElementById("splash");
       splashElement.classList.add("remove");
@@ -107,10 +113,22 @@
         document.getElementById("splash-screen-script")?.remove();
       }, 750 /* animation time + wait rendering and others(500ms) */);
     }
-  </script>
+
+    </script>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+          name="viewport">
 </head>
 <body>
-  <script>
+<div id="splash">
+    <picture>
+        <source srcset="splash/img/light-1x.png 1x, splash/img/light-2x.png 2x, splash/img/light-3x.png 3x, splash/img/light-4x.png 4x"
+                media="(prefers-color-scheme: light)">
+        <source srcset="splash/img/dark-1x.png 1x, splash/img/dark-2x.png 2x, splash/img/dark-3x.png 3x, splash/img/dark-4x.png 4x"
+                media="(prefers-color-scheme: dark)">
+        <img class="center" aria-hidden="true" src="splash/img/light-1x.png" alt="">
+    </picture>
+</div>
+<script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
@@ -124,7 +142,6 @@
         }
       });
     });
-  </script>
-
-
-</body></html>
+</script>
+</body>
+</html>

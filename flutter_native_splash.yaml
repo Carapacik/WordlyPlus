@@ -74,9 +74,9 @@ flutter_native_splash:
 
   # The android, ios and web parameters can be used to disable generating a splash screen on a given
   # platform.
-  #android: false
-  #ios: false
-  #web: false
+  android: true
+  ios: true
+  web: true
 
   # Platform specific images can be specified with the following parameters, which will override
   # the respective parameter.  You may specify all, selected, or none of these parameters:
@@ -134,7 +134,7 @@ flutter_native_splash:
   #       To show the notification bar, add the following code to your Flutter app:
   #       WidgetsFlutterBinding.ensureInitialized();
   #       SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top], );
-  #fullscreen: true
+  fullscreen: true
 
   # On web, the splash screen fades out in 250ms.  This fade delay can be adjusted by changing
   # the web_splash_fade_time_ms parameter.

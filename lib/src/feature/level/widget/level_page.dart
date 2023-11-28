@@ -30,7 +30,7 @@ class _LevelPageState extends State<LevelPage> {
       color: Colors.black,
       title: context.r.levels,
       child: Scaffold(
-        appBar: AppBar(title: Text(context.r.levels)),
+        appBar: AppBar(title: Text(context.r.levels), centerTitle: true),
         body: ConstraintScreen(
           child: Builder(
             builder: (context) {
@@ -91,7 +91,7 @@ class _LevelItem extends StatelessWidget {
             child: Text(
               '${level.lvlNumber}\n${level.secretWord}',
               textAlign: TextAlign.center,
-              style: context.theme.tl.copyWith(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
           ),
         ),

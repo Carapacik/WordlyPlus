@@ -65,9 +65,11 @@ class _GamePageState extends State<GamePage> {
       },
       child: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           title: BlocBuilder<GameBloc, GameState>(
             builder: (context, state) => Text(
               state.gameMode == GameMode.daily ? context.r.daily : context.r.levelNumber(state.lvlNumber ?? 1),
+              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
             ),
           ),
           actions: [
@@ -153,15 +155,16 @@ class GameBody extends StatelessWidget {
           final error = state.mapOrNull(error: (s) => s.error);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              backgroundColor: context.theme.scaffoldBackgroundColor,
+              backgroundColor: context.theme.indicatorColor,
               content: Text(
                 error?.localizedText(context) ?? '',
-                style: context.theme.bl.copyWith(color: context.theme.indicatorColor),
+                style: TextStyle(color: context.theme.scaffoldBackgroundColor),
                 textAlign: TextAlign.center,
               ),
               duration: const Duration(milliseconds: 500),
               behavior: SnackBarBehavior.floating,
               dismissDirection: DismissDirection.up,
+              width: 350,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             ),
           );

@@ -10,7 +10,7 @@ class AboutPage extends StatelessWidget {
       color: Colors.black,
       title: context.r.about,
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(title: Text(context.r.about), centerTitle: true),
       ),
     );
   }

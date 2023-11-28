@@ -427,7 +427,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     final newBoard = List.of(state.board)..replaceRange(state.currentWordIndex * 5, state.board.length, resultWord);
     final newStatuses = Map.of(state.statuses);
     for (final e in resultWord) {
-      newStatuses[e.letter] = e.status;
+      if (!newStatuses.containsKey(e.letter) ||
+          newStatuses.containsKey(e.letter) && newStatuses[e.letter]! < e.status) {
+        newStatuses[e.letter] = e.status;
+      }
     }
     if (state.currentWordIndex > 4) {
       emit(

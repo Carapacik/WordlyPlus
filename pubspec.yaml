@@ -50,15 +50,26 @@ dev_dependencies:
   flutter_gen_runner: ^5.3.2
   flutter_launcher_icons: ^0.13.1
   freezed: ^2.4.5
-  intl_utils: ^2.8.5
-
-dependency_overrides:
-  analyzer: ^6.2.0
+  intl_utils: ^2.8.6
 
 flutter:
   uses-material-design: true
   assets:
     - assets/dictionary/
+    - assets/fonts/
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: assets/fonts/Nunito-Regular.ttf
+        - asset: assets/fonts/Nunito-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Nunito-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Nunito-ExtraBold.ttf
+          weight: 800
+    - family: RobotoMono
+      fonts:
+        - asset: assets/fonts/RobotoMono-Regular.ttf
 
 flutter_gen:
   output: lib/src/core/assets/generated
@@ -72,28 +83,23 @@ flutter_intl:
   output_dir: lib/src/core/localization/generated
 
 flutter_launcher_icons:
-  #  image_path: "assets/images/icon-128x128.png"
   image_path_android: "assets/images/icon-1024x1024.png"
-  image_path_ios: "assets/images/icon-1024x1024.png"
-  android: true # can specify file name here e.g. "ic_launcher"
-  ios: true # can specify file name here e.g. "My-Launcher-Icon"
-  # adaptive_icon_background: "assets/images/christmas-background.png" # only available for Android 8.0 devices and above
-  # adaptive_icon_foreground: "assets/images/icon-foreground-432x432.png" # only available for Android 8.0 devices and above
+  image_path_ios: "assets/images/icon-borderless-1024x1024.png"
+  android: true
+  ios: true
+  adaptive_icon_background: "assets/images/icon-background-1024x1024.png"
+  adaptive_icon_foreground: "assets/images/icon-foreground-1024x1024.png"
   min_sdk_android: 23
   remove_alpha_ios: true
-  background_color_ios: "#ffffff"
-
+  background_color_ios: "#F4FFFF"
   web:
     generate: true
     image_path: "assets/images/icon-1024x1024.png"
-    # background_color: "#hexcode"
-    # theme_color: "#hexcode"
-
-  windows:
-    generate: true
-    image_path: "assets/images/icon-1024x1024.png"
-    icon_size: 48 # min:48, max:256, default: 48
-
+    background_color: "#F4FFFF"
   macos:
     generate: true
     image_path: "assets/images/icon-1024x1024.png"
+  windows:
+    generate: true
+    image_path: "assets/images/icon-1024x1024.png"
+    icon_size: 256

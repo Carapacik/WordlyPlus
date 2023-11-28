@@ -25,7 +25,7 @@ class CustomDrawer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ListTile(
-                title: Text(context.r.daily, style: context.theme.tmb),
+                title: Text(context.r.daily, style: const TextStyle(fontWeight: FontWeight.w500)),
                 onTap: () async {
                   Scaffold.of(context).closeDrawer();
                   final navigator = Navigator.of(context);
@@ -45,7 +45,7 @@ class CustomDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text(context.r.levels, style: context.theme.tmb),
+                title: Text(context.r.levels, style: const TextStyle(fontWeight: FontWeight.w500)),
                 onTap: () async {
                   Scaffold.of(context).closeDrawer();
                   final navigator = Navigator.of(context);
@@ -65,7 +65,7 @@ class CustomDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text(context.r.tutorial, style: context.theme.tmb),
+                title: Text(context.r.tutorial, style: const TextStyle(fontWeight: FontWeight.w500)),
                 onTap: () async {
                   Scaffold.of(context).closeDrawer();
                   final navigator = Navigator.of(context);
@@ -77,7 +77,7 @@ class CustomDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text(context.r.settings, style: context.theme.tmb),
+                title: Text(context.r.settings, style: const TextStyle(fontWeight: FontWeight.w500)),
                 onTap: () async {
                   Scaffold.of(context).closeDrawer();
                   final navigator = Navigator.of(context);
@@ -93,7 +93,7 @@ class CustomDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text(context.r.about, style: context.theme.tmb),
+                title: Text(context.r.about, style: const TextStyle(fontWeight: FontWeight.w500)),
                 onTap: () async {
                   Scaffold.of(context).closeDrawer();
                   final navigator = Navigator.of(context);

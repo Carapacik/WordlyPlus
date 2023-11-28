@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wordly/src/core/utils/extensions/extensions.dart';
 
 class ListItemSelector<T> extends StatelessWidget {
   const ListItemSelector({
@@ -20,8 +19,8 @@ class ListItemSelector<T> extends StatelessWidget {
         child: ListTileTheme.merge(
           child: ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-            title: Text(title, style: context.theme.bl),
-            trailing: Text(currentValue.$2, style: context.theme.bl),
+            title: Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+            trailing: Text(currentValue.$2, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
             onTap: () async {
               final selected = await _selectLanguageBottomSheet(context);
               if (selected == null) {
@@ -44,16 +43,13 @@ class ListItemSelector<T> extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 16),
-              Text(title, style: context.theme.tm),
+              Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: items.length,
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) => ListTile(
-                  title: Text(
-                    items[index].$2,
-                    style: context.theme.bl,
-                  ),
+                  title: Text(items[index].$2),
                   trailing: currentValue.$1 == items[index].$1 ? const Icon(Icons.check) : null,
                   onTap: () => Navigator.of(context).pop(items[index].$1),
                 ),

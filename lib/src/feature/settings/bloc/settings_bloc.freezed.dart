@@ -32,6 +32,7 @@ mixin _$SettingsState {
     required TResult Function(_ErrorSettingsState value) error,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_IdleSettingsState value)? idle,
@@ -49,26 +50,25 @@ mixin _$SettingsState {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $SettingsStateCopyWith<SettingsState> get copyWith =>
-      throw _privateConstructorUsedError;
+  $SettingsStateCopyWith<SettingsState> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $SettingsStateCopyWith<$Res> {
-  factory $SettingsStateCopyWith(
-          SettingsState value, $Res Function(SettingsState) then) =
+  factory $SettingsStateCopyWith(SettingsState value, $Res Function(SettingsState) then) =
       _$SettingsStateCopyWithImpl<$Res, SettingsState>;
+
   @useResult
   $Res call({Locale locale, Locale dictionary, AppTheme appTheme});
 }
 
 /// @nodoc
-class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
-    implements $SettingsStateCopyWith<$Res> {
+class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState> implements $SettingsStateCopyWith<$Res> {
   _$SettingsStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
+
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -97,22 +97,19 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
 }
 
 /// @nodoc
-abstract class _$$IdleSettingsStateImplCopyWith<$Res>
-    implements $SettingsStateCopyWith<$Res> {
-  factory _$$IdleSettingsStateImplCopyWith(_$IdleSettingsStateImpl value,
-          $Res Function(_$IdleSettingsStateImpl) then) =
+abstract class _$$IdleSettingsStateImplCopyWith<$Res> implements $SettingsStateCopyWith<$Res> {
+  factory _$$IdleSettingsStateImplCopyWith(_$IdleSettingsStateImpl value, $Res Function(_$IdleSettingsStateImpl) then) =
       __$$IdleSettingsStateImplCopyWithImpl<$Res>;
+
   @override
   @useResult
   $Res call({Locale locale, Locale dictionary, AppTheme appTheme});
 }
 
 /// @nodoc
-class __$$IdleSettingsStateImplCopyWithImpl<$Res>
-    extends _$SettingsStateCopyWithImpl<$Res, _$IdleSettingsStateImpl>
+class __$$IdleSettingsStateImplCopyWithImpl<$Res> extends _$SettingsStateCopyWithImpl<$Res, _$IdleSettingsStateImpl>
     implements _$$IdleSettingsStateImplCopyWith<$Res> {
-  __$$IdleSettingsStateImplCopyWithImpl(_$IdleSettingsStateImpl _value,
-      $Res Function(_$IdleSettingsStateImpl) _then)
+  __$$IdleSettingsStateImplCopyWithImpl(_$IdleSettingsStateImpl _value, $Res Function(_$IdleSettingsStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -142,9 +139,7 @@ class __$$IdleSettingsStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$IdleSettingsStateImpl extends _IdleSettingsState {
-  const _$IdleSettingsStateImpl(
-      {required this.locale, required this.dictionary, required this.appTheme})
-      : super._();
+  const _$IdleSettingsStateImpl({required this.locale, required this.dictionary, required this.appTheme}) : super._();
 
   /// The current locale.
   @override
@@ -169,10 +164,8 @@ class _$IdleSettingsStateImpl extends _IdleSettingsState {
         (other.runtimeType == runtimeType &&
             other is _$IdleSettingsStateImpl &&
             (identical(other.locale, locale) || other.locale == locale) &&
-            (identical(other.dictionary, dictionary) ||
-                other.dictionary == dictionary) &&
-            (identical(other.appTheme, appTheme) ||
-                other.appTheme == appTheme));
+            (identical(other.dictionary, dictionary) || other.dictionary == dictionary) &&
+            (identical(other.appTheme, appTheme) || other.appTheme == appTheme));
   }
 
   @override
@@ -182,8 +175,7 @@ class _$IdleSettingsStateImpl extends _IdleSettingsState {
   @override
   @pragma('vm:prefer-inline')
   _$$IdleSettingsStateImplCopyWith<_$IdleSettingsStateImpl> get copyWith =>
-      __$$IdleSettingsStateImplCopyWithImpl<_$IdleSettingsStateImpl>(
-          this, _$identity);
+      __$$IdleSettingsStateImplCopyWithImpl<_$IdleSettingsStateImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -225,33 +217,35 @@ abstract class _IdleSettingsState extends SettingsState {
       {required final Locale locale,
       required final Locale dictionary,
       required final AppTheme appTheme}) = _$IdleSettingsStateImpl;
+
   const _IdleSettingsState._() : super._();
 
   @override
 
   /// The current locale.
   Locale get locale;
+
   @override
 
   /// The current dictionary.
   Locale get dictionary;
+
   @override
 
   /// The current theme mode.
   AppTheme get appTheme;
+
   @override
   @JsonKey(ignore: true)
-  _$$IdleSettingsStateImplCopyWith<_$IdleSettingsStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$IdleSettingsStateImplCopyWith<_$IdleSettingsStateImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ProcessingSettingsStateImplCopyWith<$Res>
-    implements $SettingsStateCopyWith<$Res> {
+abstract class _$$ProcessingSettingsStateImplCopyWith<$Res> implements $SettingsStateCopyWith<$Res> {
   factory _$$ProcessingSettingsStateImplCopyWith(
-          _$ProcessingSettingsStateImpl value,
-          $Res Function(_$ProcessingSettingsStateImpl) then) =
+          _$ProcessingSettingsStateImpl value, $Res Function(_$ProcessingSettingsStateImpl) then) =
       __$$ProcessingSettingsStateImplCopyWithImpl<$Res>;
+
   @override
   @useResult
   $Res call({Locale locale, Locale dictionary, AppTheme appTheme});
@@ -262,8 +256,7 @@ class __$$ProcessingSettingsStateImplCopyWithImpl<$Res>
     extends _$SettingsStateCopyWithImpl<$Res, _$ProcessingSettingsStateImpl>
     implements _$$ProcessingSettingsStateImplCopyWith<$Res> {
   __$$ProcessingSettingsStateImplCopyWithImpl(
-      _$ProcessingSettingsStateImpl _value,
-      $Res Function(_$ProcessingSettingsStateImpl) _then)
+      _$ProcessingSettingsStateImpl _value, $Res Function(_$ProcessingSettingsStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -293,8 +286,7 @@ class __$$ProcessingSettingsStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ProcessingSettingsStateImpl extends _ProcessingSettingsState {
-  const _$ProcessingSettingsStateImpl(
-      {required this.locale, required this.dictionary, required this.appTheme})
+  const _$ProcessingSettingsStateImpl({required this.locale, required this.dictionary, required this.appTheme})
       : super._();
 
   /// The current locale.
@@ -320,10 +312,8 @@ class _$ProcessingSettingsStateImpl extends _ProcessingSettingsState {
         (other.runtimeType == runtimeType &&
             other is _$ProcessingSettingsStateImpl &&
             (identical(other.locale, locale) || other.locale == locale) &&
-            (identical(other.dictionary, dictionary) ||
-                other.dictionary == dictionary) &&
-            (identical(other.appTheme, appTheme) ||
-                other.appTheme == appTheme));
+            (identical(other.dictionary, dictionary) || other.dictionary == dictionary) &&
+            (identical(other.appTheme, appTheme) || other.appTheme == appTheme));
   }
 
   @override
@@ -332,9 +322,8 @@ class _$ProcessingSettingsStateImpl extends _ProcessingSettingsState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ProcessingSettingsStateImplCopyWith<_$ProcessingSettingsStateImpl>
-      get copyWith => __$$ProcessingSettingsStateImplCopyWithImpl<
-          _$ProcessingSettingsStateImpl>(this, _$identity);
+  _$$ProcessingSettingsStateImplCopyWith<_$ProcessingSettingsStateImpl> get copyWith =>
+      __$$ProcessingSettingsStateImplCopyWithImpl<_$ProcessingSettingsStateImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -376,44 +365,45 @@ abstract class _ProcessingSettingsState extends SettingsState {
       {required final Locale locale,
       required final Locale dictionary,
       required final AppTheme appTheme}) = _$ProcessingSettingsStateImpl;
+
   const _ProcessingSettingsState._() : super._();
 
   @override
 
   /// The current locale.
   Locale get locale;
+
   @override
 
   /// The current dictionary.
   Locale get dictionary;
+
   @override
 
   /// The current theme mode.
   AppTheme get appTheme;
+
   @override
   @JsonKey(ignore: true)
-  _$$ProcessingSettingsStateImplCopyWith<_$ProcessingSettingsStateImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$ProcessingSettingsStateImplCopyWith<_$ProcessingSettingsStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ErrorSettingsStateImplCopyWith<$Res>
-    implements $SettingsStateCopyWith<$Res> {
-  factory _$$ErrorSettingsStateImplCopyWith(_$ErrorSettingsStateImpl value,
-          $Res Function(_$ErrorSettingsStateImpl) then) =
+abstract class _$$ErrorSettingsStateImplCopyWith<$Res> implements $SettingsStateCopyWith<$Res> {
+  factory _$$ErrorSettingsStateImplCopyWith(
+          _$ErrorSettingsStateImpl value, $Res Function(_$ErrorSettingsStateImpl) then) =
       __$$ErrorSettingsStateImplCopyWithImpl<$Res>;
+
   @override
   @useResult
-  $Res call(
-      {Locale locale, Locale dictionary, AppTheme appTheme, String message});
+  $Res call({Locale locale, Locale dictionary, AppTheme appTheme, String message});
 }
 
 /// @nodoc
-class __$$ErrorSettingsStateImplCopyWithImpl<$Res>
-    extends _$SettingsStateCopyWithImpl<$Res, _$ErrorSettingsStateImpl>
+class __$$ErrorSettingsStateImplCopyWithImpl<$Res> extends _$SettingsStateCopyWithImpl<$Res, _$ErrorSettingsStateImpl>
     implements _$$ErrorSettingsStateImplCopyWith<$Res> {
-  __$$ErrorSettingsStateImplCopyWithImpl(_$ErrorSettingsStateImpl _value,
-      $Res Function(_$ErrorSettingsStateImpl) _then)
+  __$$ErrorSettingsStateImplCopyWithImpl(_$ErrorSettingsStateImpl _value, $Res Function(_$ErrorSettingsStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -449,10 +439,7 @@ class __$$ErrorSettingsStateImplCopyWithImpl<$Res>
 
 class _$ErrorSettingsStateImpl extends _ErrorSettingsState {
   const _$ErrorSettingsStateImpl(
-      {required this.locale,
-      required this.dictionary,
-      required this.appTheme,
-      required this.message})
+      {required this.locale, required this.dictionary, required this.appTheme, required this.message})
       : super._();
 
   /// The current locale.
@@ -482,23 +469,19 @@ class _$ErrorSettingsStateImpl extends _ErrorSettingsState {
         (other.runtimeType == runtimeType &&
             other is _$ErrorSettingsStateImpl &&
             (identical(other.locale, locale) || other.locale == locale) &&
-            (identical(other.dictionary, dictionary) ||
-                other.dictionary == dictionary) &&
-            (identical(other.appTheme, appTheme) ||
-                other.appTheme == appTheme) &&
+            (identical(other.dictionary, dictionary) || other.dictionary == dictionary) &&
+            (identical(other.appTheme, appTheme) || other.appTheme == appTheme) &&
             (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, locale, dictionary, appTheme, message);
+  int get hashCode => Object.hash(runtimeType, locale, dictionary, appTheme, message);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ErrorSettingsStateImplCopyWith<_$ErrorSettingsStateImpl> get copyWith =>
-      __$$ErrorSettingsStateImplCopyWithImpl<_$ErrorSettingsStateImpl>(
-          this, _$identity);
+      __$$ErrorSettingsStateImplCopyWithImpl<_$ErrorSettingsStateImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -541,16 +524,19 @@ abstract class _ErrorSettingsState extends SettingsState {
       required final Locale dictionary,
       required final AppTheme appTheme,
       required final String message}) = _$ErrorSettingsStateImpl;
+
   const _ErrorSettingsState._() : super._();
 
   @override
 
   /// The current locale.
   Locale get locale;
+
   @override
 
   /// The current dictionary.
   Locale get dictionary;
+
   @override
 
   /// The current theme mode.
@@ -558,10 +544,10 @@ abstract class _ErrorSettingsState extends SettingsState {
 
   /// The error message.
   String get message;
+
   @override
   @JsonKey(ignore: true)
-  _$$ErrorSettingsStateImplCopyWith<_$ErrorSettingsStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ErrorSettingsStateImplCopyWith<_$ErrorSettingsStateImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -569,11 +555,11 @@ mixin _$SettingsEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_UpdateThemeSettingsEvent value) updateTheme,
-    required TResult Function(_UpdateDictionarySettingsEvent value)
-        updateDictionary,
+    required TResult Function(_UpdateDictionarySettingsEvent value) updateDictionary,
     required TResult Function(_UpdateLocaleSettingsEvent value) updateLocale,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_UpdateThemeSettingsEvent value)? updateTheme,
@@ -593,18 +579,17 @@ mixin _$SettingsEvent {
 
 /// @nodoc
 abstract class $SettingsEventCopyWith<$Res> {
-  factory $SettingsEventCopyWith(
-          SettingsEvent value, $Res Function(SettingsEvent) then) =
+  factory $SettingsEventCopyWith(SettingsEvent value, $Res Function(SettingsEvent) then) =
       _$SettingsEventCopyWithImpl<$Res, SettingsEvent>;
 }
 
 /// @nodoc
-class _$SettingsEventCopyWithImpl<$Res, $Val extends SettingsEvent>
-    implements $SettingsEventCopyWith<$Res> {
+class _$SettingsEventCopyWithImpl<$Res, $Val extends SettingsEvent> implements $SettingsEventCopyWith<$Res> {
   _$SettingsEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
+
   // ignore: unused_field
   final $Res Function($Val) _then;
 }
@@ -612,9 +597,9 @@ class _$SettingsEventCopyWithImpl<$Res, $Val extends SettingsEvent>
 /// @nodoc
 abstract class _$$UpdateThemeSettingsEventImplCopyWith<$Res> {
   factory _$$UpdateThemeSettingsEventImplCopyWith(
-          _$UpdateThemeSettingsEventImpl value,
-          $Res Function(_$UpdateThemeSettingsEventImpl) then) =
+          _$UpdateThemeSettingsEventImpl value, $Res Function(_$UpdateThemeSettingsEventImpl) then) =
       __$$UpdateThemeSettingsEventImplCopyWithImpl<$Res>;
+
   @useResult
   $Res call({AppTheme appTheme});
 }
@@ -624,8 +609,7 @@ class __$$UpdateThemeSettingsEventImplCopyWithImpl<$Res>
     extends _$SettingsEventCopyWithImpl<$Res, _$UpdateThemeSettingsEventImpl>
     implements _$$UpdateThemeSettingsEventImplCopyWith<$Res> {
   __$$UpdateThemeSettingsEventImplCopyWithImpl(
-      _$UpdateThemeSettingsEventImpl _value,
-      $Res Function(_$UpdateThemeSettingsEventImpl) _then)
+      _$UpdateThemeSettingsEventImpl _value, $Res Function(_$UpdateThemeSettingsEventImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -661,8 +645,7 @@ class _$UpdateThemeSettingsEventImpl implements _UpdateThemeSettingsEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UpdateThemeSettingsEventImpl &&
-            (identical(other.appTheme, appTheme) ||
-                other.appTheme == appTheme));
+            (identical(other.appTheme, appTheme) || other.appTheme == appTheme));
   }
 
   @override
@@ -671,16 +654,14 @@ class _$UpdateThemeSettingsEventImpl implements _UpdateThemeSettingsEvent {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UpdateThemeSettingsEventImplCopyWith<_$UpdateThemeSettingsEventImpl>
-      get copyWith => __$$UpdateThemeSettingsEventImplCopyWithImpl<
-          _$UpdateThemeSettingsEventImpl>(this, _$identity);
+  _$$UpdateThemeSettingsEventImplCopyWith<_$UpdateThemeSettingsEventImpl> get copyWith =>
+      __$$UpdateThemeSettingsEventImplCopyWithImpl<_$UpdateThemeSettingsEventImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_UpdateThemeSettingsEvent value) updateTheme,
-    required TResult Function(_UpdateDictionarySettingsEvent value)
-        updateDictionary,
+    required TResult Function(_UpdateDictionarySettingsEvent value) updateDictionary,
     required TResult Function(_UpdateLocaleSettingsEvent value) updateLocale,
   }) {
     return updateTheme(this);
@@ -712,34 +693,32 @@ class _$UpdateThemeSettingsEventImpl implements _UpdateThemeSettingsEvent {
 }
 
 abstract class _UpdateThemeSettingsEvent implements SettingsEvent {
-  const factory _UpdateThemeSettingsEvent({required final AppTheme appTheme}) =
-      _$UpdateThemeSettingsEventImpl;
+  const factory _UpdateThemeSettingsEvent({required final AppTheme appTheme}) = _$UpdateThemeSettingsEventImpl;
 
   /// The new theme mode.
   AppTheme get appTheme;
+
   @JsonKey(ignore: true)
-  _$$UpdateThemeSettingsEventImplCopyWith<_$UpdateThemeSettingsEventImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$UpdateThemeSettingsEventImplCopyWith<_$UpdateThemeSettingsEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$UpdateDictionarySettingsEventImplCopyWith<$Res> {
   factory _$$UpdateDictionarySettingsEventImplCopyWith(
-          _$UpdateDictionarySettingsEventImpl value,
-          $Res Function(_$UpdateDictionarySettingsEventImpl) then) =
+          _$UpdateDictionarySettingsEventImpl value, $Res Function(_$UpdateDictionarySettingsEventImpl) then) =
       __$$UpdateDictionarySettingsEventImplCopyWithImpl<$Res>;
+
   @useResult
   $Res call({Locale dictionary});
 }
 
 /// @nodoc
 class __$$UpdateDictionarySettingsEventImplCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res,
-        _$UpdateDictionarySettingsEventImpl>
+    extends _$SettingsEventCopyWithImpl<$Res, _$UpdateDictionarySettingsEventImpl>
     implements _$$UpdateDictionarySettingsEventImplCopyWith<$Res> {
   __$$UpdateDictionarySettingsEventImplCopyWithImpl(
-      _$UpdateDictionarySettingsEventImpl _value,
-      $Res Function(_$UpdateDictionarySettingsEventImpl) _then)
+      _$UpdateDictionarySettingsEventImpl _value, $Res Function(_$UpdateDictionarySettingsEventImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -758,8 +737,7 @@ class __$$UpdateDictionarySettingsEventImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$UpdateDictionarySettingsEventImpl
-    implements _UpdateDictionarySettingsEvent {
+class _$UpdateDictionarySettingsEventImpl implements _UpdateDictionarySettingsEvent {
   const _$UpdateDictionarySettingsEventImpl({required this.dictionary});
 
   /// The new locale.
@@ -776,8 +754,7 @@ class _$UpdateDictionarySettingsEventImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UpdateDictionarySettingsEventImpl &&
-            (identical(other.dictionary, dictionary) ||
-                other.dictionary == dictionary));
+            (identical(other.dictionary, dictionary) || other.dictionary == dictionary));
   }
 
   @override
@@ -786,17 +763,14 @@ class _$UpdateDictionarySettingsEventImpl
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UpdateDictionarySettingsEventImplCopyWith<
-          _$UpdateDictionarySettingsEventImpl>
-      get copyWith => __$$UpdateDictionarySettingsEventImplCopyWithImpl<
-          _$UpdateDictionarySettingsEventImpl>(this, _$identity);
+  _$$UpdateDictionarySettingsEventImplCopyWith<_$UpdateDictionarySettingsEventImpl> get copyWith =>
+      __$$UpdateDictionarySettingsEventImplCopyWithImpl<_$UpdateDictionarySettingsEventImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_UpdateThemeSettingsEvent value) updateTheme,
-    required TResult Function(_UpdateDictionarySettingsEvent value)
-        updateDictionary,
+    required TResult Function(_UpdateDictionarySettingsEvent value) updateDictionary,
     required TResult Function(_UpdateLocaleSettingsEvent value) updateLocale,
   }) {
     return updateDictionary(this);
@@ -828,23 +802,23 @@ class _$UpdateDictionarySettingsEventImpl
 }
 
 abstract class _UpdateDictionarySettingsEvent implements SettingsEvent {
-  const factory _UpdateDictionarySettingsEvent(
-      {required final Locale dictionary}) = _$UpdateDictionarySettingsEventImpl;
+  const factory _UpdateDictionarySettingsEvent({required final Locale dictionary}) =
+      _$UpdateDictionarySettingsEventImpl;
 
   /// The new locale.
   Locale get dictionary;
+
   @JsonKey(ignore: true)
-  _$$UpdateDictionarySettingsEventImplCopyWith<
-          _$UpdateDictionarySettingsEventImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$UpdateDictionarySettingsEventImplCopyWith<_$UpdateDictionarySettingsEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$UpdateLocaleSettingsEventImplCopyWith<$Res> {
   factory _$$UpdateLocaleSettingsEventImplCopyWith(
-          _$UpdateLocaleSettingsEventImpl value,
-          $Res Function(_$UpdateLocaleSettingsEventImpl) then) =
+          _$UpdateLocaleSettingsEventImpl value, $Res Function(_$UpdateLocaleSettingsEventImpl) then) =
       __$$UpdateLocaleSettingsEventImplCopyWithImpl<$Res>;
+
   @useResult
   $Res call({Locale locale});
 }
@@ -854,8 +828,7 @@ class __$$UpdateLocaleSettingsEventImplCopyWithImpl<$Res>
     extends _$SettingsEventCopyWithImpl<$Res, _$UpdateLocaleSettingsEventImpl>
     implements _$$UpdateLocaleSettingsEventImplCopyWith<$Res> {
   __$$UpdateLocaleSettingsEventImplCopyWithImpl(
-      _$UpdateLocaleSettingsEventImpl _value,
-      $Res Function(_$UpdateLocaleSettingsEventImpl) _then)
+      _$UpdateLocaleSettingsEventImpl _value, $Res Function(_$UpdateLocaleSettingsEventImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -900,16 +873,14 @@ class _$UpdateLocaleSettingsEventImpl implements _UpdateLocaleSettingsEvent {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UpdateLocaleSettingsEventImplCopyWith<_$UpdateLocaleSettingsEventImpl>
-      get copyWith => __$$UpdateLocaleSettingsEventImplCopyWithImpl<
-          _$UpdateLocaleSettingsEventImpl>(this, _$identity);
+  _$$UpdateLocaleSettingsEventImplCopyWith<_$UpdateLocaleSettingsEventImpl> get copyWith =>
+      __$$UpdateLocaleSettingsEventImplCopyWithImpl<_$UpdateLocaleSettingsEventImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_UpdateThemeSettingsEvent value) updateTheme,
-    required TResult Function(_UpdateDictionarySettingsEvent value)
-        updateDictionary,
+    required TResult Function(_UpdateDictionarySettingsEvent value) updateDictionary,
     required TResult Function(_UpdateLocaleSettingsEvent value) updateLocale,
   }) {
     return updateLocale(this);
@@ -941,12 +912,12 @@ class _$UpdateLocaleSettingsEventImpl implements _UpdateLocaleSettingsEvent {
 }
 
 abstract class _UpdateLocaleSettingsEvent implements SettingsEvent {
-  const factory _UpdateLocaleSettingsEvent({required final Locale locale}) =
-      _$UpdateLocaleSettingsEventImpl;
+  const factory _UpdateLocaleSettingsEvent({required final Locale locale}) = _$UpdateLocaleSettingsEventImpl;
 
   /// The new locale.
   Locale get locale;
+
   @JsonKey(ignore: true)
-  _$$UpdateLocaleSettingsEventImplCopyWith<_$UpdateLocaleSettingsEventImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$UpdateLocaleSettingsEventImplCopyWith<_$UpdateLocaleSettingsEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

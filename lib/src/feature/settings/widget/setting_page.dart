@@ -22,7 +22,7 @@ class _SettingsPageState extends State<SettingsPage> {
       color: Colors.black,
       title: context.r.settings,
       child: Scaffold(
-        appBar: AppBar(title: Text(context.r.settings)),
+        appBar: AppBar(title: Text(context.r.settings), centerTitle: true),
         body: ConstraintScreen(
           child: Column(
             children: [
@@ -61,10 +61,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: ListTileTheme.merge(
                   child: ListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                    title: Text(context.r.colorMode, style: context.theme.bl),
+                    title: Text(context.r.colorMode, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                     trailing: Text(
                       SettingsScope.of(context).theme.colorMode.localized(context),
-                      style: context.theme.bl,
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     onTap: () async {
                       final scope = SettingsScope.of(context, listen: false);

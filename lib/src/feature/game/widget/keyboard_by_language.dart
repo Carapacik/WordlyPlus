@@ -224,8 +224,8 @@ class KeyboardKey extends StatelessWidget {
                 child: Text(
                   letter.toUpperCase(),
                   style: TextStyle(
-                    fontWeight: FontWeight.w500,
                     color: status.textColor(context),
+                    fontFamily: 'RobotoMono',
                   ),
                 ),
               ),

@@ -61,25 +61,26 @@ class DialogContent extends StatelessWidget {
             children: [
               Text(
                 (isWin ? context.r.winMessage : context.r.loseMessage).toUpperCase(),
-                style: context.theme.tlb.copyWith(color: Colors.white),
+                style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w800),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 24),
+              Text(
+                context.r.secretWord,
+                style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(height: 12),
+              SelectableText(
+                secretWord.toUpperCase(),
+                style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 12),
               Text(
-                context.r.secretWord,
-                style: context.theme.bl.copyWith(color: Colors.white),
-              ),
-              const SizedBox(height: 4),
-              SelectableText(
-                secretWord.toUpperCase(),
-                style: context.theme.tmb.copyWith(color: Colors.white),
-              ),
-              const SizedBox(height: 8),
-              Text(
                 meaning,
-                style: context.theme.ll.copyWith(color: Colors.white),
+                style: const TextStyle(color: Colors.white, fontSize: 14),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 24),
               switch (mode) {
                 GameMode.daily => _DailyContent(isWin: isWin, onEnd: onTimerEnd),
                 GameMode.lvl => _LevelContent(isWin: isWin, nextLevelPressed: nextLevelPressed),
@@ -114,18 +115,20 @@ class _DailyContent extends StatelessWidget {
           },
           child: Text(
             context.r.share,
-            style: context.theme.blb.copyWith(
+            style: TextStyle(
               color: isWin ? AppColors.green : AppColors.red,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
             ),
             textAlign: TextAlign.center,
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 24),
         Text(
           context.r.nextWord,
-          style: context.theme.bl.copyWith(color: Colors.white),
+          style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 4),
         CountdownTimer(
           onEnd: onEnd,
           timeRemaining: timeRemaining,
@@ -143,19 +146,17 @@ class _LevelContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ElevatedButton(
-          onPressed: nextLevelPressed,
-          child: Text(
-            context.r.nextLevel,
-            style: context.theme.blb.copyWith(
-              color: isWin ? AppColors.green : AppColors.red,
-            ),
-            textAlign: TextAlign.center,
-          ),
+    return ElevatedButton(
+      onPressed: nextLevelPressed,
+      child: Text(
+        context.r.nextLevel,
+        style: TextStyle(
+          color: isWin ? AppColors.green : AppColors.red,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
         ),
-      ],
+        textAlign: TextAlign.center,
+      ),
     );
   }
 }

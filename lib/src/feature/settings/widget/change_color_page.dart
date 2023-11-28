@@ -50,7 +50,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
   Widget build(BuildContext context) {
     final word = _wordByDictionary(widget.dictionary);
     return Scaffold(
-      appBar: AppBar(title: Text(context.r.colorMode)),
+      appBar: AppBar(title: Text(context.r.colorMode), centerTitle: true),
       body: ConstraintScreen(
         child: ListView(
           children: [
@@ -92,7 +92,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
               itemBuilder: (context, index) => ListTile(
                 title: Text(
                   ColorMode.values[index].localized(context),
-                  style: context.theme.bl,
+                  style: const TextStyle(fontSize: 16),
                 ),
                 trailing: _currentColorMode == ColorMode.values[index] ? const Icon(Icons.check) : null,
                 onTap: () => setState(() {

@@ -37,7 +37,7 @@ class LetterTile extends StatelessWidget {
             child: FittedBox(
               child: Text(
                 info.letter.toUpperCase(),
-                style: TextStyle(color: info.status.textColor(context)),
+                style: TextStyle(color: info.status.textColor(context), fontWeight: FontWeight.w800),
               ),
             ),
           ),

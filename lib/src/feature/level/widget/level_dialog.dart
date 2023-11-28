@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:wordly/src/core/resources/resources.dart';
-import 'package:wordly/src/core/utils/extensions/extensions.dart';
 
 Future<void> showLevelDialog(
   BuildContext context, {
@@ -24,12 +23,12 @@ Future<void> showLevelDialog(
               children: [
                 SelectableText(
                   word.toUpperCase(),
-                  style: context.theme.tmb.copyWith(color: Colors.white),
+                  style: const TextStyle(color: Colors.white, fontSize: 24),
                 ),
                 const SizedBox(height: 16),
                 Text(
                   meaning,
-                  style: context.theme.ll.copyWith(color: Colors.white),
+                  style: const TextStyle(color: Colors.white, fontSize: 16),
                   textAlign: TextAlign.center,
                 ),
               ],

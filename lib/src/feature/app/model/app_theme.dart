@@ -18,11 +18,13 @@ final class AppTheme with Diagnosticable {
           colorSchemeSeed: otherColors?.$1 ?? AppColors.green,
           brightness: Brightness.dark,
           useMaterial3: true,
+          fontFamily: 'Nunito',
         ),
         lightTheme = ThemeData(
           colorSchemeSeed: otherColors?.$1 ?? AppColors.green,
           brightness: Brightness.light,
           useMaterial3: true,
+          fontFamily: 'Nunito',
         );
 
   /// The type of theme to use.

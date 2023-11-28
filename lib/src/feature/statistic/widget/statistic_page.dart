@@ -73,7 +73,7 @@ class _StatisticPageState extends State<StatisticPage> {
                       child: FittedBox(
                         child: Text(
                           context.r.guessDistribution.toUpperCase(),
-                          style: context.theme.tl,
+                          style: const TextStyle(fontWeight: FontWeight.w700),
                         ),
                       ),
                     ),
@@ -107,12 +107,12 @@ class _StatText extends StatelessWidget {
         children: [
           Text(
             percent ? '${value.toStringAsFixed(1)}%' : value.toString(),
-            style: context.theme.tl,
+            style: const TextStyle(fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 8),
           Text(
             title,
-            style: context.theme.ll,
+            style: const TextStyle(fontWeight: FontWeight.w500),
             textAlign: TextAlign.center,
           ),
         ],
@@ -143,7 +143,7 @@ class _AttemptContent extends StatelessWidget {
           height: 20,
           child: Text(
             ' ${attempts[index]}',
-            style: context.theme.bl.copyWith(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
       ),

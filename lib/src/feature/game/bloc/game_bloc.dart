@@ -86,12 +86,12 @@ sealed class GameState with _$GameState {
 
   bool get isErrorState => maybeMap(error: (_) => true, orElse: () => false);
 
-  (bool, int, String)? get buildResultString {
+  (bool, int, List<LetterInfo>)? get buildResultString {
     final result = mapOrNull(win: (_) => true, loss: (_) => false);
     if (result == null) {
       return null;
     }
-    return (result, currentWordIndex, board.map((e) => e.status.emoji).join());
+    return (result, currentWordIndex + 1, board);
   }
 }
 

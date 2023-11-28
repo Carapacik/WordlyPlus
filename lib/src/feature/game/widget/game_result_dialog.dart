@@ -115,6 +115,7 @@ class _DailyContent extends StatelessWidget {
       children: [
         if (shareString != null) ...[
           ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
             onPressed: () async {
               await Clipboard.setData(ClipboardData(text: shareString!));
               await Share.share(shareString!);
@@ -154,6 +155,7 @@ class _LevelContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
       onPressed: nextLevelPressed,
       child: Text(
         context.r.nextLevel,

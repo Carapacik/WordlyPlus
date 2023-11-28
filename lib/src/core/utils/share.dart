@@ -4,8 +4,9 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:wordly/src/core/constants/constants.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
+import 'package:wordly/src/feature/game/model/letter_info.dart';
 
-String? shareString(BuildContext context, (bool, int, String)? result) {
+String? shareString(BuildContext context, (bool, int, List<LetterInfo>)? result) {
   if (result == null) {
     return null;
   }
@@ -31,11 +32,11 @@ String? shareString(BuildContext context, (bool, int, String)? result) {
   return sb.toString();
 }
 
-List<String> _splitBy5Symbols(String string) {
+List<String> _splitBy5Symbols(List<LetterInfo> letters) {
   final list = <String>[];
   final sb = StringBuffer();
-  for (var i = 0; i < string.length; i++) {
-    sb.write(string[i]);
+  for (var i = 0; i < letters.length; i++) {
+    sb.write(letters[i]);
     if ((i + 1) % 5 == 0) {
       list.add(sb.toString());
       sb.clear();

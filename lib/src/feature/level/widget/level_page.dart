@@ -97,7 +97,7 @@ class _LevelItem extends StatelessWidget {
             child: Text(
               '${level.lvlNumber}\n${level.secretWord}',
               textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white, fontSize: 24),
             ),
           ),
         ),

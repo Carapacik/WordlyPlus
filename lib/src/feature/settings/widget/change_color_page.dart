@@ -50,7 +50,13 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
   Widget build(BuildContext context) {
     final word = _wordByDictionary(widget.dictionary);
     return Scaffold(
-      appBar: AppBar(title: Text(context.r.colorMode), centerTitle: true),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          context.r.colorMode,
+          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
+        ),
+      ),
       body: ConstraintScreen(
         child: ListView(
           children: [

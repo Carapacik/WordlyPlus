@@ -10,7 +10,13 @@ class TutorialPage extends StatelessWidget {
       color: Colors.black,
       title: context.r.tutorial,
       child: Scaffold(
-        appBar: AppBar(title: Text(context.r.tutorial), centerTitle: true),
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            context.r.tutorial,
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
+          ),
+        ),
       ),
     );
   }

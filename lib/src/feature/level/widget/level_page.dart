@@ -30,7 +30,13 @@ class _LevelPageState extends State<LevelPage> {
       color: Colors.black,
       title: context.r.levels,
       child: Scaffold(
-        appBar: AppBar(title: Text(context.r.levels), centerTitle: true),
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            context.r.levels,
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
+          ),
+        ),
         body: ConstraintScreen(
           child: Builder(
             builder: (context) {

@@ -22,7 +22,13 @@ class _SettingsPageState extends State<SettingsPage> {
       color: Colors.black,
       title: context.r.settings,
       child: Scaffold(
-        appBar: AppBar(title: Text(context.r.settings), centerTitle: true),
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            context.r.settings,
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
+          ),
+        ),
         body: ConstraintScreen(
           child: Column(
             children: [

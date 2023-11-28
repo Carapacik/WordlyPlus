@@ -83,8 +83,9 @@ enum LetterStatus {
       case LetterStatus.wrongSpot:
         return '🟨';
       case LetterStatus.notInWord:
-      case LetterStatus.unknown:
         return '⬛';
+      case LetterStatus.unknown:
+        return '';
     }
   }
 }

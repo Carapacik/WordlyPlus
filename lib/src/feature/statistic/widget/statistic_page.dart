@@ -30,7 +30,13 @@ class _StatisticPageState extends State<StatisticPage> {
         color: Colors.black,
         title: context.r.statistic,
         child: Scaffold(
-          appBar: AppBar(title: Text(context.r.statistic)),
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text(
+              context.r.statistic,
+              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
+            ),
+          ),
           body: ConstraintScreen(
             child: Builder(
               builder: (context) {

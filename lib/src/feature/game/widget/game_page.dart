@@ -8,6 +8,7 @@ import 'package:wordly/src/core/utils/share.dart';
 import 'package:wordly/src/feature/components/widget/drawer.dart';
 import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
 import 'package:wordly/src/feature/game/model/game_mode.dart';
+import 'package:wordly/src/feature/game/model/letter_info.dart';
 import 'package:wordly/src/feature/game/widget/game_result_dialog.dart';
 import 'package:wordly/src/feature/game/widget/keyboard_by_language.dart';
 import 'package:wordly/src/feature/game/widget/words_grid.dart';
@@ -158,16 +159,17 @@ class GameBody extends StatelessWidget {
           final error = state.mapOrNull(error: (s) => s.error);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              backgroundColor: context.theme.indicatorColor,
+              backgroundColor: LetterStatus.unknown.cellColor(context),
               content: Text(
                 error?.localizedText(context) ?? '',
-                style: TextStyle(color: context.theme.scaffoldBackgroundColor),
+                style: TextStyle(color: LetterStatus.unknown.textColor(context), fontSize: 16),
                 textAlign: TextAlign.center,
               ),
               duration: const Duration(milliseconds: 500),
               behavior: SnackBarBehavior.floating,
               dismissDirection: DismissDirection.up,
               width: 350,
+              elevation: 4,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             ),
           );

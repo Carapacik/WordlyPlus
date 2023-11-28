@@ -95,7 +95,7 @@ class _LevelItem extends StatelessWidget {
           },
           child: Center(
             child: Text(
-              '${level.lvlNumber}\n${level.secretWord}',
+              '${level.lvlNumber}\n${level.secretWord.toUpperCase()}',
               textAlign: TextAlign.center,
               style: const TextStyle(color: Colors.white, fontSize: 24),
             ),

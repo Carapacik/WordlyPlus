@@ -36,7 +36,7 @@ List<String> _splitBy5Symbols(List<LetterInfo> letters) {
   final list = <String>[];
   final sb = StringBuffer();
   for (var i = 0; i < letters.length; i++) {
-    sb.write(letters[i]);
+    sb.write(letters[i].status.emoji);
     if ((i + 1) % 5 == 0) {
       list.add(sb.toString());
       sb.clear();

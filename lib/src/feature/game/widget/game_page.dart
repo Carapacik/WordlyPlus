@@ -165,7 +165,7 @@ class GameBody extends StatelessWidget {
                 style: TextStyle(color: LetterStatus.unknown.textColor(context), fontSize: 16),
                 textAlign: TextAlign.center,
               ),
-              duration: const Duration(milliseconds: 500),
+              duration: const Duration(seconds: 2),
               behavior: SnackBarBehavior.floating,
               dismissDirection: DismissDirection.up,
               width: 350,

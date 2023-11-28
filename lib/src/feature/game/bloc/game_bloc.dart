@@ -323,6 +323,17 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           lvlNumber: state.lvlNumber,
         ),
       );
+      emit(
+        GameState.idle(
+          dictionary: state.dictionary,
+          secretWord: state.secretWord,
+          gameMode: state.gameMode,
+          gameCompleted: state.gameCompleted,
+          board: state.board,
+          statuses: state.statuses,
+          lvlNumber: state.lvlNumber,
+        ),
+      );
       return;
     }
     final word =
@@ -337,6 +348,17 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           board: state.board,
           statuses: state.statuses,
           error: WordError.notFound,
+          lvlNumber: state.lvlNumber,
+        ),
+      );
+      emit(
+        GameState.idle(
+          dictionary: state.dictionary,
+          secretWord: state.secretWord,
+          gameMode: state.gameMode,
+          gameCompleted: state.gameCompleted,
+          board: state.board,
+          statuses: state.statuses,
           lvlNumber: state.lvlNumber,
         ),
       );

@@ -41,7 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "checkResultWin": m1,
         "colorMode": MessageLookupByLibrary.simpleMessage("Color mode"),
         "contact": MessageLookupByLibrary.simpleMessage(
-            "If you didn\'t find a word in the dictionary or it has the wrong definition,\nwrite to us, we will add it\nin the next update.\n"),
+            "If you didn\'t find a word in the dictionary\nor it has the wrong definition,\nwrite to us, we will add it\nin the next update.\n"),
         "currentStreak":
             MessageLookupByLibrary.simpleMessage("Current\nStreak"),
         "daily": MessageLookupByLibrary.simpleMessage("Daily"),

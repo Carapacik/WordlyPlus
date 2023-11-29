@@ -12,7 +12,7 @@
   "checkResultLose": "I couldn't guess the word in {attemptNumber} attempts.",
   "checkResultWin": "The word is solved in {attemptNumber}/6 attempts.",
   "colorMode": "Color mode",
-  "contact": "If you didn't find a word in the dictionary or it has the wrong definition,\nwrite to us, we will add it\nin the next update.\n",
+  "contact": "If you didn't find a word in the dictionary\nor it has the wrong definition,\nwrite to us, we will add it\nin the next update.\n",
   "currentStreak": "Current\nStreak",
   "daily": "Daily",
   "en": "English",

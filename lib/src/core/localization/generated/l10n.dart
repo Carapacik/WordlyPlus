@@ -141,10 +141,10 @@ class GeneratedLocalization {
     );
   }
 
-  /// `If you didn't find a word in the dictionary or it has the wrong definition,\nwrite to us, we will add it\nin the next update.\n`
+  /// `If you didn't find a word in the dictionary\nor it has the wrong definition,\nwrite to us, we will add it\nin the next update.\n`
   String get contact {
     return Intl.message(
-      'If you didn\'t find a word in the dictionary or it has the wrong definition,\nwrite to us, we will add it\nin the next update.\n',
+      'If you didn\'t find a word in the dictionary\nor it has the wrong definition,\nwrite to us, we will add it\nin the next update.\n',
       name: 'contact',
       desc: '',
       args: [],

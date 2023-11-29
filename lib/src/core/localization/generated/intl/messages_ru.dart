@@ -41,7 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "checkResultWin": m1,
         "colorMode": MessageLookupByLibrary.simpleMessage("Цветовой режим"),
         "contact": MessageLookupByLibrary.simpleMessage(
-            "Если вы не нашли слово в словаре или оно имеет неправильное определение,\nнапишите нам, мы добавим его\nв следующем обновлении.\n"),
+            "Если вы не нашли слово в словаре\nили оно имеет неправильное определение,\nнапишите нам, мы добавим его\nв следующем обновлении.\n"),
         "currentStreak": MessageLookupByLibrary.simpleMessage("Текущая\nСерия"),
         "daily": MessageLookupByLibrary.simpleMessage("Ежедневный"),
         "en": MessageLookupByLibrary.simpleMessage("Английский"),

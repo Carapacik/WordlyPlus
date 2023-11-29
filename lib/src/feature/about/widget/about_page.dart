@@ -27,7 +27,7 @@ class AboutPage extends StatelessWidget {
               const Text('Carapacik Space', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700)),
               const _CreditNameText(text: 'Roman Laptev - Carapacik', url: 'https://carapacik.github.io/'),
               const _CreditNameText(text: 'Dmitriy Lukyanov (Design)', url: 'https://t.me/kamalledln'),
-              const Spacer(flex: 3),
+              const Spacer(flex: 10),
               Link(
                 uri: Uri.parse(
                   'mailto:$email?'
@@ -41,10 +41,7 @@ class AboutPage extends StatelessWidget {
                       textAlign: TextAlign.center,
                       text: TextSpan(
                         children: [
-                          TextSpan(
-                            text: context.r.contact,
-                            style: const TextStyle(fontSize: 16),
-                          ),
+                          TextSpan(text: context.r.contact),
                           const WidgetSpan(
                             child: SelectableText(
                               email,
@@ -56,6 +53,11 @@ class AboutPage extends StatelessWidget {
                             ),
                           ),
                         ],
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: context.theme.colorScheme.onSurface,
+                        ),
                       ),
                     ),
                   ),

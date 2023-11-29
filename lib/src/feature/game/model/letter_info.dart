@@ -57,7 +57,7 @@ enum LetterStatus {
 
   Color? textColor(BuildContext context) {
     final theme = SettingsScope.themeOf(context).theme;
-    final isDark = theme.isDark();
+    final isDark = theme.isDarkTheme(context);
     final color = cellColor(context);
 
     // other mode not in word always darken

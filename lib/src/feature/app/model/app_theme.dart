@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:wordly/src/core/resources/resources.dart';
+import 'package:wordly/src/core/utils/extensions/context_extension.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 
 /// {@template app_theme}
@@ -57,11 +58,11 @@ final class AppTheme with Diagnosticable {
       case ThemeMode.dark:
         return darkTheme;
       case ThemeMode.system:
-        return isDark() ? darkTheme : lightTheme;
+        return PlatformDispatcher.instance.platformBrightness == Brightness.dark ? darkTheme : lightTheme;
     }
   }
 
-  bool isDark() => PlatformDispatcher.instance.platformBrightness == Brightness.dark;
+  bool isDarkTheme(BuildContext context) => context.theme.brightness == Brightness.dark;
 
   Color get correctColor {
     switch (colorMode) {
@@ -86,19 +87,18 @@ final class AppTheme with Diagnosticable {
   }
 
   Color notInWordColor(BuildContext context) {
-    final isDarkTheme = isDark();
+    final isDark = isDarkTheme(context);
     switch (colorMode) {
       case ColorMode.casual:
       case ColorMode.highContrast:
-        return isDarkTheme ? AppColors.tertiary : AppColors.grey;
+        return isDark ? AppColors.tertiary : AppColors.grey;
       case ColorMode.other:
-        return otherColors?.$3 ?? (isDarkTheme ? AppColors.tertiary : AppColors.grey);
+        return otherColors?.$3 ?? (isDark ? AppColors.tertiary : AppColors.grey);
     }
   }
 
   Color unknownColor(BuildContext context) {
-    final isDarkTheme = isDark();
-    return isDarkTheme ? AppColors.grey : AppColors.tertiary;
+    return isDarkTheme(context) ? AppColors.grey : AppColors.tertiary;
   }
 
   @override

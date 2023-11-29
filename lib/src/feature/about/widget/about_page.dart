@@ -24,8 +24,8 @@ class AboutPage extends StatelessWidget {
           child: Column(
             children: [
               const Spacer(),
-              const Text('Game', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700)),
-              const _CreditNameText(text: 'Carapacik', url: 'https://carapacik.github.io/'),
+              const Text('Carapacik Space', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700)),
+              const _CreditNameText(text: 'Roman Laptev - Carapacik', url: 'https://carapacik.github.io/'),
               const _CreditNameText(text: 'Dmitriy Lukyanov (Design)', url: 'https://t.me/kamalledln'),
               const Spacer(flex: 3),
               Link(

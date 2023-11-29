@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "checkResultLose": m0,
         "checkResultWin": m1,
         "colorMode": MessageLookupByLibrary.simpleMessage("Color mode"),
+        "contact": MessageLookupByLibrary.simpleMessage(
+            "If you didn\'t find a word in the dictionary or it has the wrong definition,\nwrite to us, we will add it\nin the next update.\n"),
         "currentStreak":
             MessageLookupByLibrary.simpleMessage("Current\nStreak"),
         "daily": MessageLookupByLibrary.simpleMessage("Daily"),
@@ -59,6 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "played": MessageLookupByLibrary.simpleMessage("Played"),
         "ru": MessageLookupByLibrary.simpleMessage("Russian"),
         "secretWord": MessageLookupByLibrary.simpleMessage("Secret word"),
+        "sendMessage": MessageLookupByLibrary.simpleMessage(
+            "subject=WordlyPlus%20-%20New%20word&body=Word%20-%0AMeaning%20-"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
         "start": MessageLookupByLibrary.simpleMessage("Start game"),

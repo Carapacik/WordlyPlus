@@ -141,6 +141,16 @@ class GeneratedLocalization {
     );
   }
 
+  /// `If you didn't find a word in the dictionary or it has the wrong definition,\nwrite to us, we will add it\nin the next update.\n`
+  String get contact {
+    return Intl.message(
+      'If you didn\'t find a word in the dictionary or it has the wrong definition,\nwrite to us, we will add it\nin the next update.\n',
+      name: 'contact',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Current\nStreak`
   String get currentStreak {
     return Intl.message(
@@ -296,6 +306,16 @@ class GeneratedLocalization {
     return Intl.message(
       'Secret word',
       name: 'secretWord',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `subject=WordlyPlus%20-%20New%20word&body=Word%20-%0AMeaning%20-`
+  String get sendMessage {
+    return Intl.message(
+      'subject=WordlyPlus%20-%20New%20word&body=Word%20-%0AMeaning%20-',
+      name: 'sendMessage',
       desc: '',
       args: [],
     );

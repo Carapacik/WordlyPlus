@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "checkResultLose": m0,
         "checkResultWin": m1,
         "colorMode": MessageLookupByLibrary.simpleMessage("Цветовой режим"),
+        "contact": MessageLookupByLibrary.simpleMessage(
+            "Если вы не нашли слово в словаре или оно имеет неправильное определение,\nнапишите нам, мы добавим его\nв следующем обновлении.\n"),
         "currentStreak": MessageLookupByLibrary.simpleMessage("Текущая\nСерия"),
         "daily": MessageLookupByLibrary.simpleMessage("Ежедневный"),
         "en": MessageLookupByLibrary.simpleMessage("Английский"),
@@ -60,6 +62,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "played": MessageLookupByLibrary.simpleMessage("Сыграно"),
         "ru": MessageLookupByLibrary.simpleMessage("Русский"),
         "secretWord": MessageLookupByLibrary.simpleMessage("Загаданное слово"),
+        "sendMessage": MessageLookupByLibrary.simpleMessage(
+            "subject=WordlyPlus%20-%20Новое%20слово&body=Слово%20-%0AЗначение%20-"),
         "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
         "share": MessageLookupByLibrary.simpleMessage("Поделиться"),
         "start": MessageLookupByLibrary.simpleMessage("Начать играть"),

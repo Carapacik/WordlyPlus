@@ -66,53 +66,57 @@ class _GamePageState extends State<GamePage> {
           context.read<GameBloc>().add(GameEvent.listenKeyEvent(event));
         }
       },
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: BlocBuilder<GameBloc, GameState>(
-            builder: (context, state) => Text(
-              state.gameMode == GameMode.daily ? context.r.daily : context.r.levelNumber(state.lvlNumber ?? 1),
-              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
+      child: Title(
+        color: Colors.black,
+        title: context.r.appTitle,
+        child: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: BlocBuilder<GameBloc, GameState>(
+              builder: (context, state) => Text(
+                state.gameMode == GameMode.daily ? context.r.daily : context.r.levelNumber(state.lvlNumber ?? 1),
+                style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
+              ),
             ),
+            actions: [
+              BlocBuilder<GameBloc, GameState>(
+                builder: (context, state) {
+                  if (state.gameMode == GameMode.daily) {
+                    return IconButton(
+                      tooltip: context.r.viewStatistic,
+                      icon: const Icon(Icons.leaderboard),
+                      onPressed: () async {
+                        await Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                            builder: (context) => StatisticPage(
+                              dictionary: SettingsScope.dictionaryOf(context).dictionary,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  } else {
+                    return IconButton(
+                      tooltip: context.r.viewLevels,
+                      icon: const Icon(Icons.apps),
+                      onPressed: () async {
+                        await Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                            builder: (context) => LevelPage(
+                              dictionary: SettingsScope.dictionaryOf(context).dictionary,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
+            ],
           ),
-          actions: [
-            BlocBuilder<GameBloc, GameState>(
-              builder: (context, state) {
-                if (state.gameMode == GameMode.daily) {
-                  return IconButton(
-                    tooltip: context.r.viewStatistic,
-                    icon: const Icon(Icons.leaderboard),
-                    onPressed: () async {
-                      await Navigator.of(context).push(
-                        MaterialPageRoute<void>(
-                          builder: (context) => StatisticPage(
-                            dictionary: SettingsScope.dictionaryOf(context).dictionary,
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                } else {
-                  return IconButton(
-                    tooltip: context.r.viewLevels,
-                    icon: const Icon(Icons.apps),
-                    onPressed: () async {
-                      await Navigator.of(context).push(
-                        MaterialPageRoute<void>(
-                          builder: (context) => LevelPage(
-                            dictionary: SettingsScope.dictionaryOf(context).dictionary,
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                }
-              },
-            ),
-          ],
+          drawer: const CustomDrawer(),
+          body: const GameBody(),
         ),
-        drawer: const CustomDrawer(),
-        body: const GameBody(),
       ),
     );
   }

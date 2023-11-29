@@ -4,6 +4,7 @@ import 'dart:ui' show Locale;
 
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:intl/intl.dart' show DateFormat;
+import 'package:wordly/src/core/assets/generated/assets.gen.dart';
 import 'package:wordly/src/core/utils/logger.dart';
 import 'package:wordly/src/feature/game/data/game_datasource.dart';
 import 'package:wordly/src/feature/game/model/game_result.dart';
@@ -34,11 +35,9 @@ final class GameRepository implements IGameRepository {
 
   @override
   Future<void> init() async {
-    final rawDictionaryRu =
-        await rootBundle.loadString('assets/dictionary/ru.json').then(json.decode) as Map<String, dynamic>;
+    final rawDictionaryRu = await rootBundle.loadString(Assets.dictionary.ru).then(json.decode) as Map<String, dynamic>;
     _ruDictionary = rawDictionaryRu.map((key, value) => MapEntry(key, value.toString()));
-    final rawDictionaryEn =
-        await rootBundle.loadString('assets/dictionary/en.json').then(json.decode) as Map<String, dynamic>;
+    final rawDictionaryEn = await rootBundle.loadString(Assets.dictionary.en).then(json.decode) as Map<String, dynamic>;
     _enDictionary = rawDictionaryEn.map((key, value) => MapEntry(key, value.toString()));
   }
 

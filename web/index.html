@@ -1,4 +1,6 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html>
+<html>
+<head>
     <base href="/WordlyPlus/">
     <meta charset="UTF-8">
     <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -22,10 +24,9 @@
     </script>
     <!-- This script adds the flutter initialization JS code -->
     <script src="flutter.js" defer=""></script>
-    
-    
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
-  <style id="splash-screen-style">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+          name="viewport">
+    <style id="splash-screen-style">
     .flutter-loader {
       z-index: 999999;
     }
@@ -103,8 +104,9 @@
         background-color: #191C1B;
           }
     }
-  </style>
-  <script id="splash-screen-script">
+
+    </style>
+    <script id="splash-screen-script">
     function removeSplashFromWeb() {
       const splashElement = document.getElementById("splash");
       splashElement.classList.add("remove");
@@ -113,17 +115,18 @@
         document.getElementById("splash-screen-script")?.remove();
       }, 750 /* animation time + wait rendering and others(500ms) */);
     }
-  </script>
+    </script>
 </head>
 <body>
-  <div id="splash">
+<div id="splash">
     <picture>
-        <source srcset="splash/img/light-1x.png 1x, splash/img/light-2x.png 2x, splash/img/light-3x.png 3x, splash/img/light-4x.png 4x" media="(prefers-color-scheme: light)">
-        <source srcset="splash/img/dark-1x.png 1x, splash/img/dark-2x.png 2x, splash/img/dark-3x.png 3x, splash/img/dark-4x.png 4x" media="(prefers-color-scheme: dark)">
+        <source srcset="splash/img/light-1x.png 1x, splash/img/light-2x.png 2x, splash/img/light-3x.png 3x, splash/img/light-4x.png 4x"
+                media="(prefers-color-scheme: light)">
+        <source srcset="splash/img/dark-1x.png 1x, splash/img/dark-2x.png 2x, splash/img/dark-3x.png 3x, splash/img/dark-4x.png 4x"
+                media="(prefers-color-scheme: dark)">
         <img class="center" aria-hidden="true" src="splash/img/light-1x.png" alt="">
     </picture>
-  </div>
-
+</div>
 <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
@@ -139,5 +142,5 @@
       });
     });
 </script>
-
-</body></html>
+</body>
+</html>

@@ -48,10 +48,10 @@
 		<key>UIStatusBarHidden</key>
 		<false/>
 		<key>LSApplicationQueriesSchemes</key>
-        <array>
-            <string>https</string>
-            <string>mailto</string>
-        </array>
+		<array>
+			<string>https</string>
+			<string>mailto</string>
+		</array>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
 	</dict>

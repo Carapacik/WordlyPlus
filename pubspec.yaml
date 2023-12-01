@@ -8,7 +8,7 @@ environment:
 
 dependencies:
   bloc: ^8.1.2
-  collection: any
+  collection: 1.18.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.3

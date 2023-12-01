@@ -39,7 +39,7 @@ enum LetterStatus {
   notInWord,
   unknown;
 
-  bool operator <(LetterStatus other) => index < other.index;
+  bool operator <(LetterStatus other) => other.index < index;
 
   Color cellColor(BuildContext context, {bool listen = true}) {
     final theme = SettingsScope.of(context, listen: listen).theme;

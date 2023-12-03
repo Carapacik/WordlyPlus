@@ -123,6 +123,7 @@ class GameBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final useSpacer = MediaQuery.sizeOf(context).height > 800;
     return BlocListener<GameBloc, GameState>(
       listenWhen: (previous, current) =>
           (previous.gameCompleted != current.gameCompleted &&
@@ -175,11 +176,15 @@ class GameBody extends StatelessWidget {
           );
         }
       },
-      child: const SafeArea(
+      child: SafeArea(
         child: Column(
           children: [
-            Center(child: WordsGrid()),
-            Center(child: KeyboardByLanguage()),
+            const SizedBox(height: 12),
+            const Center(child: WordsGrid()),
+            if (useSpacer) const Spacer(),
+            const Center(child: KeyboardByLanguage()),
+            if (useSpacer) const Spacer(),
+            const SizedBox(height: 12),
           ],
         ),
       ),

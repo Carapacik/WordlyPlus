@@ -55,8 +55,8 @@ enum LetterStatus {
     }
   }
 
-  Color? textColor(BuildContext context) {
-    final theme = SettingsScope.themeOf(context).theme;
+  Color? textColor(BuildContext context, {bool listen = true}) {
+    final theme = SettingsScope.of(context, listen: listen).theme;
     final isDark = theme.isDarkTheme(context);
     final color = cellColor(context);
 

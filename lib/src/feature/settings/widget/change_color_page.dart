@@ -32,8 +32,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
     if (_currentColorMode == ColorMode.other) {
       _currentSelectedTileIndex = 0;
     }
-    _currentOtherColors = widget.previousResult.otherColors ??
-        (AppColors.green, AppColors.yellow, LetterStatus.notInWord.cellColor(context, listen: false));
+    _currentOtherColors = widget.previousResult.otherColors ?? (AppColors.green, AppColors.yellow, AppColors.grey);
   }
 
   void _changeTheme(BuildContext context) {

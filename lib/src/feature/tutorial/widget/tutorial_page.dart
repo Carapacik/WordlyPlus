@@ -53,7 +53,9 @@ class TutorialPage extends StatelessWidget {
                     children: [
                       TextSpan(text: '\u2022'),
                       WidgetSpan(child: SizedBox(width: 6)),
-                      TextSpan(text: 'After each guess, the color of the tiles will change to show how close your guess was to the word.'),
+                      TextSpan(
+                          text:
+                              'After each guess, the color of the tiles will change to show how close your guess was to the word.'),
                     ],
                   ),
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),

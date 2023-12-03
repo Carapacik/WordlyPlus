@@ -14,6 +14,9 @@ abstract interface class StatisticsDataSource {
 
   /// Get current Statistics from cache
   GameStatistics? loadStatisticsFromCache(String dictionaryKey);
+
+  /// Run migration from old api
+  Future<void> runMigration();
 }
 
 /// {@macro Statistics_datasource}
@@ -42,4 +45,7 @@ final class StatisticsDataSourceImpl implements StatisticsDataSource {
     final raw = json.encode(statistics.toJson());
     await _sharedPreferences.setString('${_prefix}_$dictionaryKey', raw);
   }
+
+  @override
+  Future<void> runMigration() async {}
 }

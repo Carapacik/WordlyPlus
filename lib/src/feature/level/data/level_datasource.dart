@@ -15,6 +15,9 @@ abstract interface class LevelDataSource {
 
   /// Get current Level from cache
   List<GameResult>? loadLevelFromCache(String dictionaryKey);
+
+  /// Run migration from old api
+  Future<void> runMigration();
 }
 
 /// {@macro Level_datasource}
@@ -49,4 +52,7 @@ final class LevelDataSourceImpl implements LevelDataSource {
     final rawLevels = previousLevels.map((rawItem) => json.encode(rawItem.toJson())).toList();
     await _sharedPreferences.setStringList('${_prefix}_$dictionaryKey', rawLevels);
   }
+
+  @override
+  Future<void> runMigration() async {}
 }

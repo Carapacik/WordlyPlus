@@ -55,6 +55,7 @@ mixin InitializationSteps {
       final statisticsDataSource = StatisticsDataSourceImpl(
         sharedPreferences: sharedPreferences,
       );
+      await statisticsDataSource.runMigration();
       progress.dependencies.statisticsRepository = StatisticsRepositoryImpl(
         statisticsDataSource,
       );
@@ -64,6 +65,7 @@ mixin InitializationSteps {
       final lvlDataSource = LevelDataSourceImpl(
         sharedPreferences: sharedPreferences,
       );
+      await lvlDataSource.runMigration();
       progress.dependencies.levelRepository = LevelRepositoryImpl(
         lvlDataSource,
       );

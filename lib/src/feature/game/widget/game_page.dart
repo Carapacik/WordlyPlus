@@ -15,6 +15,7 @@ import 'package:wordly/src/feature/game/widget/words_grid.dart';
 import 'package:wordly/src/feature/level/widget/level_page.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 import 'package:wordly/src/feature/statistic/widget/statistic_page.dart';
+import 'package:wordly/src/feature/tutorial/widget/tutorial_page.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({super.key});
@@ -31,6 +32,18 @@ class _GamePageState extends State<GamePage> {
     super.initState();
     _focusNode = FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (context.dependencies.gameRepository.isFirstEnter) {
+        unawaited(context.dependencies.gameRepository.saveFirstEnter());
+        unawaited(
+          Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (context) => const TutorialPage(),
+              fullscreenDialog: true,
+            ),
+          ),
+        );
+        return;
+      }
       final bloc = context.read<GameBloc>();
       final state = bloc.state;
       if (state.isResultState) {

@@ -64,6 +64,7 @@ class CustomDrawer extends StatelessWidget {
             await navigator.push(
               MaterialPageRoute<void>(
                 builder: (context) => const TutorialPage(),
+                fullscreenDialog: true,
               ),
             );
           },
@@ -92,6 +93,7 @@ class CustomDrawer extends StatelessWidget {
             await navigator.push(
               MaterialPageRoute<void>(
                 builder: (context) => const AboutPage(),
+                fullscreenDialog: true,
               ),
             );
           },

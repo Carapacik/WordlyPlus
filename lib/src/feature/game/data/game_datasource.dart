@@ -13,6 +13,10 @@ abstract interface class GameDataSource {
   GameResult? loadDailyFromCache(String dictionary, String date);
 
   GameResult? loadLvlFromCache(String dictionary);
+
+  bool get isFirstEnter;
+
+  Future<void> saveFirstEnter();
 }
 
 final class GameDataSourceImpl implements GameDataSource {
@@ -22,6 +26,13 @@ final class GameDataSourceImpl implements GameDataSource {
   final SharedPreferences _sharedPreferences;
 
   static const _boardPrefix = 'board';
+  static const _firstEnterPrefix = 'is_first_enter';
+
+  @override
+  bool get isFirstEnter => _sharedPreferences.getBool(_firstEnterPrefix) ?? true;
+
+  @override
+  Future<void> saveFirstEnter() => _sharedPreferences.setBool(_firstEnterPrefix, false);
 
   @override
   Future<void> saveDailyBoard(String dictionary, String date, GameResult savedResult) async {

@@ -12,6 +12,10 @@ import 'package:wordly/src/feature/game/model/game_result.dart';
 abstract interface class IGameRepository {
   Future<void> init();
 
+  bool get isFirstEnter;
+
+  Future<void> saveFirstEnter();
+
   Map<String, String> currentDictionary(Locale dictionary);
 
   String generateSecretWord(Locale dictionary, {int levelNumber = 0});
@@ -82,4 +86,10 @@ final class GameRepository implements IGameRepository {
   @override
   Future<void> saveLvlBoard(Locale dictionary, GameResult savedResult) =>
       _gameDataSource.saveLvlBoard(dictionary.languageCode, savedResult);
+
+  @override
+  bool get isFirstEnter => _gameDataSource.isFirstEnter;
+
+  @override
+  Future<void> saveFirstEnter() => _gameDataSource.saveFirstEnter();
 }

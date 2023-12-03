@@ -20,21 +20,23 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ru';
 
-  static String m0(attemptNumber) => "У меня не получилось разгадать слово за ${attemptNumber} попыток.";
+  static String m0(attemptNumber) =>
+      "У меня не получилось разгадать слово за ${attemptNumber} попыток.";
 
-  static String m1(attemptNumber) => "Я угадал слово за ${attemptNumber}/6 попыток.";
+  static String m1(attemptNumber) =>
+      "Я угадал слово за ${attemptNumber}/6 попыток.";
 
   static String m2(number) => "Уровень ${number}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("О приложении"),
         "appDictionary": MessageLookupByLibrary.simpleMessage("Язык словаря"),
         "appLanguage": MessageLookupByLibrary.simpleMessage("Язык приложения"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Словень Плюс"),
         "casual": MessageLookupByLibrary.simpleMessage("Обычный"),
-        "checkResult": MessageLookupByLibrary.simpleMessage("Можешь проверить свой результат тут:"),
+        "checkResult": MessageLookupByLibrary.simpleMessage(
+            "Можешь проверить свой результат тут:"),
         "checkResultLose": m0,
         "checkResultWin": m1,
         "colorMode": MessageLookupByLibrary.simpleMessage("Цветовой режим"),
@@ -43,15 +45,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "currentStreak": MessageLookupByLibrary.simpleMessage("Текущая\nСерия"),
         "daily": MessageLookupByLibrary.simpleMessage("Ежедневный"),
         "en": MessageLookupByLibrary.simpleMessage("Английский"),
-        "guessDistribution": MessageLookupByLibrary.simpleMessage("Распределение догадок"),
-        "highContrast": MessageLookupByLibrary.simpleMessage("Высокий контраст"),
+        "guessDistribution":
+            MessageLookupByLibrary.simpleMessage("Распределение догадок"),
+        "highContrast":
+            MessageLookupByLibrary.simpleMessage("Высокий контраст"),
         "levelNumber": m2,
         "levels": MessageLookupByLibrary.simpleMessage("Уровни"),
         "loseMessage": MessageLookupByLibrary.simpleMessage("Вы проиграли"),
         "maxStreak": MessageLookupByLibrary.simpleMessage("Макс.\nСерия"),
         "nextLevel": MessageLookupByLibrary.simpleMessage("Следующий уровень"),
-        "nextWord": MessageLookupByLibrary.simpleMessage("Следующее слово через"),
-        "notPlayed": MessageLookupByLibrary.simpleMessage("Вы не сыграли ни одной игры"),
+        "nextWord":
+            MessageLookupByLibrary.simpleMessage("Следующее слово через"),
+        "notPlayed":
+            MessageLookupByLibrary.simpleMessage("Вы не сыграли ни одной игры"),
         "other": MessageLookupByLibrary.simpleMessage("Другой"),
         "played": MessageLookupByLibrary.simpleMessage("Сыграно"),
         "ru": MessageLookupByLibrary.simpleMessage("Русский"),
@@ -68,10 +74,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "themeSystem": MessageLookupByLibrary.simpleMessage("Системная"),
         "tutorial": MessageLookupByLibrary.simpleMessage("Как играть"),
         "viewLevels": MessageLookupByLibrary.simpleMessage("Посмотреть уровни"),
-        "viewStatistic": MessageLookupByLibrary.simpleMessage("Посмотреть статистику"),
+        "viewStatistic":
+            MessageLookupByLibrary.simpleMessage("Посмотреть статистику"),
         "winMessage": MessageLookupByLibrary.simpleMessage("Вы победили!"),
         "winRate": MessageLookupByLibrary.simpleMessage("Показатель\nпобед"),
-        "wordNotFound": MessageLookupByLibrary.simpleMessage("Слово не найдено в словаре"),
-        "wordTooShort": MessageLookupByLibrary.simpleMessage("Слово неправильной длины")
+        "wordNotFound":
+            MessageLookupByLibrary.simpleMessage("Слово не найдено в словаре"),
+        "wordTooShort":
+            MessageLookupByLibrary.simpleMessage("Слово неправильной длины")
       };
 }

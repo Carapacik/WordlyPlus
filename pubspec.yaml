@@ -14,17 +14,10 @@ dependencies:
   async: any
   meta: any
 
-  # Design
-  flutter_colorpicker: ^1.0.3
-
   # Localization
   intl: any
   flutter_localizations:
     sdk: flutter
-
-  # Stream
-  stream_transform: ^2.1.0
-  rxdart: ^0.27.7
 
   # BLoC
   bloc: ^8.1.2
@@ -42,6 +35,7 @@ dependencies:
   stack_trace: ^1.11.1
 
   # Utils
+  flutter_colorpicker: ^1.0.3
   flutter_native_splash: ^2.3.6
   share_plus: ^7.2.1
   url_launcher: ^6.2.1

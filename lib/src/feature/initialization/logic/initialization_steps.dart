@@ -55,7 +55,6 @@ mixin InitializationSteps {
       final statisticsDataSource = StatisticsDataSourceImpl(
         sharedPreferences: sharedPreferences,
       );
-      await statisticsDataSource.runMigration();
       progress.dependencies.statisticsRepository = StatisticsRepositoryImpl(
         statisticsDataSource,
       );

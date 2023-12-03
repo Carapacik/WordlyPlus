@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/src/core/assets/generated/assets.gen.dart';
+import 'package:wordly/src/core/assets/generated/fonts.gen.dart';
 import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
 import 'package:wordly/src/feature/game/model/keyboard.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
@@ -226,7 +228,7 @@ class KeyboardKey extends StatelessWidget {
                   letter.toUpperCase(),
                   style: TextStyle(
                     color: status.textColor(context),
-                    fontFamily: 'RobotoMono',
+                    fontFamily: FontFamily.robotoMono,
                   ),
                 ),
               ),

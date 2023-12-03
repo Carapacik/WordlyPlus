@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:wordly/src/core/assets/generated/fonts.gen.dart';
 import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/context_extension.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
@@ -18,12 +19,12 @@ final class AppTheme with Diagnosticable {
   })  : lightTheme = ThemeData(
           brightness: Brightness.light,
           colorSchemeSeed: colorMode == ColorMode.other ? otherColors?.$1 ?? AppColors.green : AppColors.green,
-          fontFamily: 'Nunito',
+          fontFamily: FontFamily.nunito,
         ),
         darkTheme = ThemeData(
           brightness: Brightness.dark,
           colorSchemeSeed: colorMode == ColorMode.other ? otherColors?.$1 ?? AppColors.green : AppColors.green,
-          fontFamily: 'Nunito',
+          fontFamily: FontFamily.nunito,
         );
 
   /// The type of theme to use.

@@ -632,14 +632,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
-  rxdart:
-    dependency: "direct main"
-    description:
-      name: rxdart
-      sha256: "0c7c0cedd93788d996e33041ffecda924cc54389199cde4e6a34b440f50044cb"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.27.7"
   share_plus:
     dependency: "direct main"
     description:
@@ -774,7 +766,7 @@ packages:
     source: hosted
     version: "2.1.2"
   stream_transform:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: stream_transform
       sha256: "14a00e794c7c11aa145a170587321aedce29769c08d7f58b1d141da75e3b1c6f"

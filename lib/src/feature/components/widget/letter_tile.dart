@@ -5,16 +5,16 @@ import 'package:wordly/src/feature/game/model/letter_info.dart';
 class LetterTile extends StatelessWidget {
   const LetterTile({
     required this.info,
-    required this.onTap,
     this.selected = false,
+    this.onTap,
     this.color,
     super.key,
   });
 
   final LetterInfo info;
-  final Color? color;
-  final VoidCallback? onTap;
   final bool selected;
+  final VoidCallback? onTap;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {

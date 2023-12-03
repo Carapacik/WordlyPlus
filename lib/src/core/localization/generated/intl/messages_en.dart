@@ -46,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Current\nStreak"),
         "daily": MessageLookupByLibrary.simpleMessage("Daily"),
         "en": MessageLookupByLibrary.simpleMessage("English"),
+        "examples": MessageLookupByLibrary.simpleMessage("Examples"),
         "guessDistribution":
             MessageLookupByLibrary.simpleMessage("Guess distribution"),
         "highContrast": MessageLookupByLibrary.simpleMessage("High contrast"),
@@ -53,6 +54,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "levels": MessageLookupByLibrary.simpleMessage("Levels"),
         "loseMessage": MessageLookupByLibrary.simpleMessage("You lost"),
         "maxStreak": MessageLookupByLibrary.simpleMessage("Max\nStreak"),
+        "newWordAvailableEachDay": MessageLookupByLibrary.simpleMessage(
+            "A new word will be available each day!"),
         "nextLevel": MessageLookupByLibrary.simpleMessage("Next level"),
         "nextWord": MessageLookupByLibrary.simpleMessage("Next word in"),
         "notPlayed": MessageLookupByLibrary.simpleMessage(
@@ -72,6 +75,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "themeMode": MessageLookupByLibrary.simpleMessage("Theme mode"),
         "themeSystem": MessageLookupByLibrary.simpleMessage("System"),
         "tutorial": MessageLookupByLibrary.simpleMessage("How to play"),
+        "tutorialDescription1": MessageLookupByLibrary.simpleMessage(
+            "Each guess must be a valid 5 letter word. Hit the enter button to submit."),
+        "tutorialDescription2": MessageLookupByLibrary.simpleMessage(
+            "After each guess, the color of the tiles will change to show how close your guess was to the word."),
+        "tutorialNotInWordSpot": MessageLookupByLibrary.simpleMessage(
+            "The letter E is not in the word in any spot."),
+        "tutorialTitle":
+            MessageLookupByLibrary.simpleMessage("Guess the WORD in 6 tries."),
+        "tutorialWordCorrectSpot": MessageLookupByLibrary.simpleMessage(
+            "The letter P is in the word and in the correct spot."),
+        "tutorialWordWrongSpot": MessageLookupByLibrary.simpleMessage(
+            "The letter A is in the word but in the wrong spot."),
         "viewLevels": MessageLookupByLibrary.simpleMessage("View levels"),
         "viewStatistic": MessageLookupByLibrary.simpleMessage("View statistic"),
         "winMessage": MessageLookupByLibrary.simpleMessage("You win!"),

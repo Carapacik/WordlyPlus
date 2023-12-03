@@ -45,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "currentStreak": MessageLookupByLibrary.simpleMessage("Текущая\nСерия"),
         "daily": MessageLookupByLibrary.simpleMessage("Ежедневный"),
         "en": MessageLookupByLibrary.simpleMessage("Английский"),
+        "examples": MessageLookupByLibrary.simpleMessage("Примеры"),
         "guessDistribution":
             MessageLookupByLibrary.simpleMessage("Распределение догадок"),
         "highContrast":
@@ -53,6 +54,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "levels": MessageLookupByLibrary.simpleMessage("Уровни"),
         "loseMessage": MessageLookupByLibrary.simpleMessage("Вы проиграли"),
         "maxStreak": MessageLookupByLibrary.simpleMessage("Макс.\nСерия"),
+        "newWordAvailableEachDay": MessageLookupByLibrary.simpleMessage(
+            "Новое слово будет доступно каждый день!"),
         "nextLevel": MessageLookupByLibrary.simpleMessage("Следующий уровень"),
         "nextWord":
             MessageLookupByLibrary.simpleMessage("Следующее слово через"),
@@ -73,6 +76,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "themeMode": MessageLookupByLibrary.simpleMessage("Тема"),
         "themeSystem": MessageLookupByLibrary.simpleMessage("Системная"),
         "tutorial": MessageLookupByLibrary.simpleMessage("Как играть"),
+        "tutorialDescription1": MessageLookupByLibrary.simpleMessage(
+            "Каждое предположение должно быть словом из 5 букв. Нажмите кнопку ввода, чтобы отправить."),
+        "tutorialDescription2": MessageLookupByLibrary.simpleMessage(
+            "После каждого угадывания цвет плиток будет меняться, чтобы показать, насколько близко ваше предположение было к слову."),
+        "tutorialNotInWordSpot": MessageLookupByLibrary.simpleMessage(
+            "Буквы А нет в слове ни в одном месте."),
+        "tutorialTitle": MessageLookupByLibrary.simpleMessage(
+            "Угадайте СЛОВО за 6 попыток."),
+        "tutorialWordCorrectSpot": MessageLookupByLibrary.simpleMessage(
+            "Буква П есть в слове и в нужном месте."),
+        "tutorialWordWrongSpot": MessageLookupByLibrary.simpleMessage(
+            "Буква Ш есть в слове, но не в том месте."),
         "viewLevels": MessageLookupByLibrary.simpleMessage("Посмотреть уровни"),
         "viewStatistic":
             MessageLookupByLibrary.simpleMessage("Посмотреть статистику"),

@@ -32,40 +32,40 @@ class TutorialPage extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.only(bottom: MediaQuery.paddingOf(context).bottom + 16),
               children: [
-                const Text(
-                  'Guess the WORD in 6 tries.',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                Text(
+                  context.r.tutorialTitle,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 16),
-                const Text.rich(
+                Text.rich(
                   TextSpan(
                     children: [
-                      TextSpan(text: '\u2022'),
-                      WidgetSpan(child: SizedBox(width: 6)),
-                      TextSpan(text: 'Each guess must be a valid 5 letter word. Hit the enter button to submit.'),
+                      const TextSpan(text: '\u2022'),
+                      const WidgetSpan(child: SizedBox(width: 6)),
+                      TextSpan(text: context.r.tutorialDescription1),
                     ],
                   ),
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 16),
-                const Text.rich(
+                Text.rich(
                   TextSpan(
                     children: [
-                      TextSpan(text: '\u2022'),
-                      WidgetSpan(child: SizedBox(width: 6)),
+                      const TextSpan(text: '\u2022'),
+                      const WidgetSpan(child: SizedBox(width: 6)),
                       TextSpan(
-                          text:
-                              'After each guess, the color of the tiles will change to show how close your guess was to the word.'),
+                        text: context.r.tutorialDescription2,
+                      ),
                     ],
                   ),
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 16),
                 const Divider(color: AppColors.secondary),
                 const SizedBox(height: 16),
-                const Text(
-                  'Examples',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                Text(
+                  context.r.examples,
+                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 16),
                 ConstrainedBox(
@@ -82,9 +82,9 @@ class TutorialPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  'The letter W is in the word and in the correct spot.',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                Text(
+                  context.r.tutorialWordCorrectSpot,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 16),
                 ConstrainedBox(
@@ -101,9 +101,9 @@ class TutorialPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  'The letter I is in the word but in the wrong spot.',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                Text(
+                  context.r.tutorialWordWrongSpot,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 16),
                 ConstrainedBox(
@@ -120,15 +120,15 @@ class TutorialPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  'The letter U is not in the word in any spot.',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                Text(
+                  context.r.tutorialNotInWordSpot,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 16),
                 const Divider(color: AppColors.secondary),
                 const SizedBox(height: 16),
                 Text(
-                  'A new WORD will be available each day!'.toUpperCase(),
+                  context.r.newWordAvailableEachDay.toUpperCase(),
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
                 ),
               ],
@@ -143,18 +143,18 @@ class TutorialPage extends StatelessWidget {
     switch (dictionary) {
       case const Locale('en'):
         return const [
-          LetterInfo(letter: 'w', status: LetterStatus.correctSpot),
-          LetterInfo(letter: 'e'),
+          LetterInfo(letter: 'p', status: LetterStatus.correctSpot),
           LetterInfo(letter: 'a'),
-          LetterInfo(letter: 'r'),
-          LetterInfo(letter: 'y'),
+          LetterInfo(letter: 'u'),
+          LetterInfo(letter: 's'),
+          LetterInfo(letter: 'e'),
         ];
       case const Locale('ru'):
         return const [
           LetterInfo(letter: 'п', status: LetterStatus.correctSpot),
           LetterInfo(letter: 'а'),
-          LetterInfo(letter: 'у', status: LetterStatus.notInWord),
-          LetterInfo(letter: 'з', status: LetterStatus.wrongSpot),
+          LetterInfo(letter: 'у'),
+          LetterInfo(letter: 'з'),
           LetterInfo(letter: 'а'),
         ];
     }
@@ -165,18 +165,18 @@ class TutorialPage extends StatelessWidget {
     switch (dictionary) {
       case const Locale('en'):
         return const [
-          LetterInfo(letter: 'p'),
-          LetterInfo(letter: 'i', status: LetterStatus.wrongSpot),
-          LetterInfo(letter: 'l'),
-          LetterInfo(letter: 'l'),
-          LetterInfo(letter: 's'),
+          LetterInfo(letter: 'c'),
+          LetterInfo(letter: 'r'),
+          LetterInfo(letter: 'a', status: LetterStatus.wrongSpot),
+          LetterInfo(letter: 'n'),
+          LetterInfo(letter: 'e'),
         ];
       case const Locale('ru'):
         return const [
-          LetterInfo(letter: 'п', status: LetterStatus.correctSpot),
-          LetterInfo(letter: 'а'),
-          LetterInfo(letter: 'у', status: LetterStatus.notInWord),
-          LetterInfo(letter: 'з', status: LetterStatus.wrongSpot),
+          LetterInfo(letter: 'ф'),
+          LetterInfo(letter: 'и'),
+          LetterInfo(letter: 'ш', status: LetterStatus.wrongSpot),
+          LetterInfo(letter: 'к'),
           LetterInfo(letter: 'а'),
         ];
     }
@@ -187,19 +187,19 @@ class TutorialPage extends StatelessWidget {
     switch (dictionary) {
       case const Locale('en'):
         return const [
-          LetterInfo(letter: 'v'),
-          LetterInfo(letter: 'a'),
-          LetterInfo(letter: 'g'),
-          LetterInfo(letter: 'u', status: LetterStatus.notInWord),
-          LetterInfo(letter: 'e'),
+          LetterInfo(letter: 's'),
+          LetterInfo(letter: 'p'),
+          LetterInfo(letter: 'o'),
+          LetterInfo(letter: 'r'),
+          LetterInfo(letter: 'e', status: LetterStatus.notInWord),
         ];
       case const Locale('ru'):
         return const [
-          LetterInfo(letter: 'п', status: LetterStatus.correctSpot),
-          LetterInfo(letter: 'а'),
-          LetterInfo(letter: 'у', status: LetterStatus.notInWord),
-          LetterInfo(letter: 'з', status: LetterStatus.wrongSpot),
-          LetterInfo(letter: 'а'),
+          LetterInfo(letter: 'л'),
+          LetterInfo(letter: 'е'),
+          LetterInfo(letter: 'й'),
+          LetterInfo(letter: 'к'),
+          LetterInfo(letter: 'а', status: LetterStatus.notInWord),
         ];
     }
     return [];

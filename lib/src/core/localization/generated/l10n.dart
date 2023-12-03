@@ -181,6 +181,16 @@ class GeneratedLocalization {
     );
   }
 
+  /// `Examples`
+  String get examples {
+    return Intl.message(
+      'Examples',
+      name: 'examples',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Guess distribution`
   String get guessDistribution {
     return Intl.message(
@@ -236,6 +246,16 @@ class GeneratedLocalization {
     return Intl.message(
       'Max\nStreak',
       name: 'maxStreak',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A new word will be available each day!`
+  String get newWordAvailableEachDay {
+    return Intl.message(
+      'A new word will be available each day!',
+      name: 'newWordAvailableEachDay',
       desc: '',
       args: [],
     );
@@ -406,6 +426,66 @@ class GeneratedLocalization {
     return Intl.message(
       'How to play',
       name: 'tutorial',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Each guess must be a valid 5 letter word. Hit the enter button to submit.`
+  String get tutorialDescription1 {
+    return Intl.message(
+      'Each guess must be a valid 5 letter word. Hit the enter button to submit.',
+      name: 'tutorialDescription1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `After each guess, the color of the tiles will change to show how close your guess was to the word.`
+  String get tutorialDescription2 {
+    return Intl.message(
+      'After each guess, the color of the tiles will change to show how close your guess was to the word.',
+      name: 'tutorialDescription2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The letter E is not in the word in any spot.`
+  String get tutorialNotInWordSpot {
+    return Intl.message(
+      'The letter E is not in the word in any spot.',
+      name: 'tutorialNotInWordSpot',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Guess the WORD in 6 tries.`
+  String get tutorialTitle {
+    return Intl.message(
+      'Guess the WORD in 6 tries.',
+      name: 'tutorialTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The letter P is in the word and in the correct spot.`
+  String get tutorialWordCorrectSpot {
+    return Intl.message(
+      'The letter P is in the word and in the correct spot.',
+      name: 'tutorialWordCorrectSpot',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The letter A is in the word but in the wrong spot.`
+  String get tutorialWordWrongSpot {
+    return Intl.message(
+      'The letter A is in the word but in the wrong spot.',
+      name: 'tutorialWordWrongSpot',
       desc: '',
       args: [],
     );

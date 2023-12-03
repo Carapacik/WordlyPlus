@@ -11,17 +11,13 @@ String? shareString(BuildContext context, (bool, int, List<LetterInfo>)? result)
     return null;
   }
   final sb = StringBuffer()
-    ..write(result.$1 ? context.r.checkResultWin(result.$2) : context.r.checkResultLose(result.$2))
-    ..write('\n');
+    ..writeln(result.$1 ? context.r.checkResultWin(result.$2) : context.r.checkResultLose(result.$2));
   for (final e in _splitBy5Symbols(result.$3)) {
-    sb
-      ..write(e)
-      ..write('\n');
+    sb.writeln(e);
   }
   sb
     ..write('\n')
-    ..write(context.r.checkResult)
-    ..write('\n')
+    ..writeln(context.r.checkResult)
     ..write(
       kIsWeb
           ? webLink

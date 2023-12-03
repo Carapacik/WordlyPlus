@@ -1,6 +1,3 @@
-import 'package:flutter/foundation.dart';
-import 'package:wordly/src/core/utils/logger.dart';
-import 'package:wordly/src/feature/app/logic/tracking_manager.dart';
 import 'package:wordly/src/feature/initialization/logic/initialization_steps.dart';
 import 'package:wordly/src/feature/initialization/model/dependencies.dart';
 import 'package:wordly/src/feature/initialization/model/environment_store.dart';
@@ -26,10 +23,6 @@ mixin InitializationProcessor {
       dependencies: Dependencies(),
       environmentStore: env,
     );
-    if (!kDebugMode) {
-      final trackingManager = factory.createTrackingManager(env);
-      await trackingManager.enableReporting();
-    }
     hook.onInit?.call();
     try {
       await for (final step in Stream.fromIterable(steps.entries)) {

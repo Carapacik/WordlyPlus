@@ -14,7 +14,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NavigationDrawer(
-      backgroundColor: context.theme.scaffoldBackgroundColor,
+      backgroundColor: context.theme.colorScheme.background,
       children: [
         ListTile(
           title: Text(context.r.daily, style: const TextStyle(fontWeight: FontWeight.w500)),

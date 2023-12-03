@@ -37,13 +37,25 @@ class TutorialPage extends StatelessWidget {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  'Each guess must be a valid 5 letter word. Hit the enter button to submit.',
+                const Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(text: '\u2022'),
+                      WidgetSpan(child: SizedBox(width: 6)),
+                      TextSpan(text: 'Each guess must be a valid 5 letter word. Hit the enter button to submit.'),
+                    ],
+                  ),
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  'After each guess, the color of the tiles will change to show how close your guess was to the word.',
+                const Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(text: '\u2022'),
+                      WidgetSpan(child: SizedBox(width: 6)),
+                      TextSpan(text: 'After each guess, the color of the tiles will change to show how close your guess was to the word.'),
+                    ],
+                  ),
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 16),
@@ -53,7 +65,9 @@ class TutorialPage extends StatelessWidget {
                   'Examples',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
                 ),
-                Center(
+                const SizedBox(height: 16),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 350, maxHeight: 60),
                   child: ListView.separated(
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
@@ -65,7 +79,14 @@ class TutorialPage extends StatelessWidget {
                     itemBuilder: (context, index) => LetterTile(info: wordWithCorrectSpot[index]),
                   ),
                 ),
-                Center(
+                const SizedBox(height: 16),
+                const Text(
+                  'The letter W is in the word and in the correct spot.',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(height: 16),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 350, maxHeight: 60),
                   child: ListView.separated(
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
@@ -77,7 +98,14 @@ class TutorialPage extends StatelessWidget {
                     itemBuilder: (context, index) => LetterTile(info: wordWithWrongSpot[index]),
                   ),
                 ),
-                Center(
+                const SizedBox(height: 16),
+                const Text(
+                  'The letter I is in the word but in the wrong spot.',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(height: 16),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 350, maxHeight: 60),
                   child: ListView.separated(
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
@@ -88,6 +116,11 @@ class TutorialPage extends StatelessWidget {
                     separatorBuilder: (_, __) => const SizedBox(width: 8),
                     itemBuilder: (context, index) => LetterTile(info: wordNotSpot[index]),
                   ),
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'The letter U is not in the word in any spot.',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 16),
                 const Divider(color: AppColors.secondary),

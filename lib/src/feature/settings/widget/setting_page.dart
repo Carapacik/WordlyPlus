@@ -74,8 +74,9 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     onTap: () async {
                       final scope = SettingsScope.of(context, listen: false);
+                      final navigator = Navigator.of(context);
                       final previousTheme = scope.theme;
-                      final result = await Navigator.of(context).push(
+                      final result = await navigator.push(
                         MaterialPageRoute<ChangeColorResult>(
                           builder: (context) => ChangeColorPage(
                             dictionary: scope.dictionary,

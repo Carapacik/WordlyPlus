@@ -81,7 +81,7 @@ class _GamePageState extends State<GamePage> {
                 if (state.gameMode == GameMode.daily) {
                   return IconButton(
                     tooltip: context.r.viewStatistic,
-                    icon: const Icon(Icons.leaderboard),
+                    icon: const Icon(Icons.leaderboard_outlined),
                     onPressed: () async {
                       await Navigator.of(context).push(
                         MaterialPageRoute<void>(

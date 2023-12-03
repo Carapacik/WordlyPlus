@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart' show Locale;
-import 'package:wordly/src/feature/app/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/data/dictionary_datasource.dart';
 import 'package:wordly/src/feature/settings/data/locale_datasource.dart';
 import 'package:wordly/src/feature/settings/data/theme_datasource.dart';
+import 'package:wordly/src/feature/settings/model/app_theme.dart';
 
 /// Settings repository
 abstract interface class SettingsRepository {

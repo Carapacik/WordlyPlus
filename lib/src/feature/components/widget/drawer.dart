@@ -14,7 +14,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NavigationDrawer(
-      children:  [
+      children: [
         ListTile(
           title: Text(context.r.daily, style: const TextStyle(fontWeight: FontWeight.w500)),
           onTap: () async {
@@ -31,7 +31,7 @@ class CustomDrawer extends StatelessWidget {
                 transitionDuration: Duration.zero,
                 reverseTransitionDuration: Duration.zero,
               ),
-                  (route) => false,
+              (route) => false,
             );
           },
         ),
@@ -51,7 +51,7 @@ class CustomDrawer extends StatelessWidget {
                 transitionDuration: Duration.zero,
                 reverseTransitionDuration: Duration.zero,
               ),
-                  (route) => false,
+              (route) => false,
             );
           },
         ),

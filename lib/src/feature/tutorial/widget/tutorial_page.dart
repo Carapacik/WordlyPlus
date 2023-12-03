@@ -17,6 +17,11 @@ class TutorialPage extends StatelessWidget {
             style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
           ),
         ),
+        body: const SafeArea(
+          child: Column(
+            children: [],
+          ),
+        ),
       ),
     );
   }

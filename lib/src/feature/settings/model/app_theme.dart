@@ -15,16 +15,14 @@ final class AppTheme with Diagnosticable {
     required this.mode,
     required this.colorMode,
     this.otherColors,
-  })  : darkTheme = ThemeData(
-          colorSchemeSeed: otherColors?.$1 ?? AppColors.green,
-          brightness: Brightness.dark,
-          useMaterial3: true,
+  })  : lightTheme = ThemeData(
+          brightness: Brightness.light,
+          colorSchemeSeed: colorMode == ColorMode.other ? otherColors?.$1 ?? AppColors.green : AppColors.green,
           fontFamily: 'Nunito',
         ),
-        lightTheme = ThemeData(
-          colorSchemeSeed: otherColors?.$1 ?? AppColors.green,
-          brightness: Brightness.light,
-          useMaterial3: true,
+        darkTheme = ThemeData(
+          brightness: Brightness.dark,
+          colorSchemeSeed: colorMode == ColorMode.other ? otherColors?.$1 ?? AppColors.green : AppColors.green,
           fontFamily: 'Nunito',
         );
 

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart' show Locale;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:wordly/src/core/localization/localization.dart';
-import 'package:wordly/src/feature/app/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/data/settings_repository.dart';
+import 'package:wordly/src/feature/settings/model/app_theme.dart';
 
 part 'settings_bloc.freezed.dart';
 
 /// States for the [SettingsBloc].
-@freezed
+@Freezed()
 sealed class SettingsState with _$SettingsState {
   const SettingsState._();
 
@@ -53,7 +53,7 @@ sealed class SettingsState with _$SettingsState {
 }
 
 /// Events for the [SettingsBloc].
-@freezed
+@Freezed()
 sealed class SettingsEvent with _$SettingsEvent {
   /// Event to update the theme mode.
   const factory SettingsEvent.updateTheme({

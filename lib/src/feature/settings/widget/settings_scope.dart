@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
-import 'package:wordly/src/feature/app/model/app_theme.dart';
 import 'package:wordly/src/feature/initialization/widget/dependencies_scope.dart';
 import 'package:wordly/src/feature/settings/bloc/settings_bloc.dart';
+import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 
 /// {@template theme_scope_controller}

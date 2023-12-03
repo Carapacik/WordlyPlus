@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart' show Color, ThemeMode;
 import 'package:wordly/src/core/utils/preferences_dao.dart';
-import 'package:wordly/src/feature/app/model/app_theme.dart';
+import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 
 /// {@template theme_datasource}

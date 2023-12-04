@@ -12,10 +12,10 @@ class TutorialPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dictionary = SettingsScope.dictionaryOf(context).dictionary;
-    final wordWithCorrectSpot = _wordWithCorrectSpot(dictionary);
-    final wordWithWrongSpot = _wordWithWrongSpot(dictionary);
-    final wordNotSpot = _wordNotSpot(dictionary);
+    final locale = SettingsScope.localeOf(context).locale;
+    final wordWithCorrectSpot = _wordWithCorrectSpot(locale);
+    final wordWithWrongSpot = _wordWithWrongSpot(locale);
+    final wordNotSpot = _wordNotSpot(locale);
     return Title(
       color: Colors.black,
       title: context.r.tutorial,
@@ -141,16 +141,8 @@ class TutorialPage extends StatelessWidget {
     );
   }
 
-  List<LetterInfo> _wordWithCorrectSpot(Locale dictionary) {
-    switch (dictionary) {
-      case const Locale('en'):
-        return const [
-          LetterInfo(letter: 'p', status: LetterStatus.correctSpot),
-          LetterInfo(letter: 'a'),
-          LetterInfo(letter: 'u'),
-          LetterInfo(letter: 's'),
-          LetterInfo(letter: 'e'),
-        ];
+  List<LetterInfo> _wordWithCorrectSpot(Locale locale) {
+    switch (locale) {
       case const Locale('ru'):
         return const [
           LetterInfo(letter: 'п', status: LetterStatus.correctSpot),
@@ -160,19 +152,17 @@ class TutorialPage extends StatelessWidget {
           LetterInfo(letter: 'а'),
         ];
     }
-    return [];
+    return const [
+      LetterInfo(letter: 'p', status: LetterStatus.correctSpot),
+      LetterInfo(letter: 'a'),
+      LetterInfo(letter: 'u'),
+      LetterInfo(letter: 's'),
+      LetterInfo(letter: 'e'),
+    ];
   }
 
-  List<LetterInfo> _wordWithWrongSpot(Locale dictionary) {
-    switch (dictionary) {
-      case const Locale('en'):
-        return const [
-          LetterInfo(letter: 'c'),
-          LetterInfo(letter: 'r'),
-          LetterInfo(letter: 'a', status: LetterStatus.wrongSpot),
-          LetterInfo(letter: 'n'),
-          LetterInfo(letter: 'e'),
-        ];
+  List<LetterInfo> _wordWithWrongSpot(Locale locale) {
+    switch (locale) {
       case const Locale('ru'):
         return const [
           LetterInfo(letter: 'ф'),
@@ -182,19 +172,17 @@ class TutorialPage extends StatelessWidget {
           LetterInfo(letter: 'а'),
         ];
     }
-    return [];
+    return const [
+      LetterInfo(letter: 'c'),
+      LetterInfo(letter: 'r'),
+      LetterInfo(letter: 'a', status: LetterStatus.wrongSpot),
+      LetterInfo(letter: 'n'),
+      LetterInfo(letter: 'e'),
+    ];
   }
 
-  List<LetterInfo> _wordNotSpot(Locale dictionary) {
-    switch (dictionary) {
-      case const Locale('en'):
-        return const [
-          LetterInfo(letter: 's'),
-          LetterInfo(letter: 'p'),
-          LetterInfo(letter: 'o'),
-          LetterInfo(letter: 'r'),
-          LetterInfo(letter: 'e', status: LetterStatus.notInWord),
-        ];
+  List<LetterInfo> _wordNotSpot(Locale locale) {
+    switch (locale) {
       case const Locale('ru'):
         return const [
           LetterInfo(letter: 'л'),
@@ -204,6 +192,12 @@ class TutorialPage extends StatelessWidget {
           LetterInfo(letter: 'а', status: LetterStatus.notInWord),
         ];
     }
-    return [];
+    return const [
+      LetterInfo(letter: 's'),
+      LetterInfo(letter: 'p'),
+      LetterInfo(letter: 'o'),
+      LetterInfo(letter: 'r'),
+      LetterInfo(letter: 'e', status: LetterStatus.notInWord),
+    ];
   }
 }

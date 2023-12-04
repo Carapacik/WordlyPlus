@@ -19,12 +19,20 @@ final class AppTheme with Diagnosticable {
   })  : lightTheme = ThemeData(
           brightness: Brightness.light,
           extensions: const [BackgroundCustomColors(background: Colors.white)],
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.white,
+            surfaceTintColor: Colors.white,
+          ),
           colorSchemeSeed: colorMode == ColorMode.other ? otherColors?.$1 ?? AppColors.green : AppColors.green,
           fontFamily: FontFamily.nunito,
         ),
         darkTheme = ThemeData(
           brightness: Brightness.dark,
           extensions: const [BackgroundCustomColors(background: AppColors.darkBackground)],
+          appBarTheme: const AppBarTheme(
+            backgroundColor: AppColors.darkBackground,
+            surfaceTintColor: AppColors.darkBackground,
+          ),
           colorSchemeSeed: colorMode == ColorMode.other ? otherColors?.$1 ?? AppColors.green : AppColors.green,
           fontFamily: FontFamily.nunito,
         );

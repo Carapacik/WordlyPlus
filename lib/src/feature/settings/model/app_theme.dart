@@ -18,11 +18,13 @@ final class AppTheme with Diagnosticable {
     this.otherColors,
   })  : lightTheme = ThemeData(
           brightness: Brightness.light,
+          extensions: const [BackgroundCustomColors(background: Colors.white)],
           colorSchemeSeed: colorMode == ColorMode.other ? otherColors?.$1 ?? AppColors.green : AppColors.green,
           fontFamily: FontFamily.nunito,
         ),
         darkTheme = ThemeData(
           brightness: Brightness.dark,
+          extensions: const [BackgroundCustomColors(background: AppColors.darkBackground)],
           colorSchemeSeed: colorMode == ColorMode.other ? otherColors?.$1 ?? AppColors.green : AppColors.green,
           fontFamily: FontFamily.nunito,
         );
@@ -122,5 +124,26 @@ final class AppTheme with Diagnosticable {
       colorMode: colorMode ?? this.colorMode,
       otherColors: otherColors ?? this.otherColors,
     );
+  }
+}
+
+@immutable
+class BackgroundCustomColors extends ThemeExtension<BackgroundCustomColors> {
+  const BackgroundCustomColors({
+    required this.background,
+  });
+
+  final Color? background;
+
+  @override
+  ThemeExtension<BackgroundCustomColors> copyWith({Color? background}) =>
+      BackgroundCustomColors(background: background ?? this.background);
+
+  @override
+  ThemeExtension<BackgroundCustomColors> lerp(covariant ThemeExtension<BackgroundCustomColors>? other, double t) {
+    if (other is! BackgroundCustomColors) {
+      return this;
+    }
+    return BackgroundCustomColors(background: Color.lerp(background, other.background, t));
   }
 }

@@ -5,6 +5,7 @@ import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/components/widget/letter_tile.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
+import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 
@@ -49,6 +50,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
   Widget build(BuildContext context) {
     final word = _wordByDictionary(widget.dictionary);
     return Scaffold(
+      backgroundColor: context.theme.extension<BackgroundCustomColors>()?.background,
       appBar: AppBar(
         centerTitle: true,
         title: Text(

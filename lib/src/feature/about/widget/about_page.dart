@@ -3,6 +3,7 @@ import 'package:url_launcher/link.dart';
 import 'package:wordly/src/core/constants/constants.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
+import 'package:wordly/src/feature/settings/model/app_theme.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -13,6 +14,7 @@ class AboutPage extends StatelessWidget {
       color: Colors.black,
       title: context.r.about,
       child: Scaffold(
+        backgroundColor: context.theme.extension<BackgroundCustomColors>()?.background,
         appBar: AppBar(
           centerTitle: true,
           title: Text(

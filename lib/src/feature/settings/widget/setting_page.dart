@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
+import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 import 'package:wordly/src/feature/settings/widget/change_color_page.dart';
 import 'package:wordly/src/feature/settings/widget/list_item_selector.dart';
@@ -22,6 +23,7 @@ class _SettingsPageState extends State<SettingsPage> {
       color: Colors.black,
       title: context.r.settings,
       child: Scaffold(
+        backgroundColor: context.theme.extension<BackgroundCustomColors>()?.background,
         appBar: AppBar(
           centerTitle: true,
           title: Text(

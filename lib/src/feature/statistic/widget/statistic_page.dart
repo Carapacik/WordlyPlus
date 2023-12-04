@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/components/widget/not_played.dart';
+import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 import 'package:wordly/src/feature/statistic/model/game_statistics.dart';
 
@@ -30,6 +31,7 @@ class _StatisticPageState extends State<StatisticPage> {
         color: Colors.black,
         title: context.r.statistic,
         child: Scaffold(
+          backgroundColor: context.theme.extension<BackgroundCustomColors>()?.background,
           appBar: AppBar(
             centerTitle: true,
             title: Text(

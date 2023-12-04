@@ -4,6 +4,7 @@ import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/components/widget/letter_tile.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
+import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 
 class TutorialPage extends StatelessWidget {
@@ -19,6 +20,7 @@ class TutorialPage extends StatelessWidget {
       color: Colors.black,
       title: context.r.tutorial,
       child: Scaffold(
+        backgroundColor: context.theme.extension<BackgroundCustomColors>()?.background,
         appBar: AppBar(
           centerTitle: true,
           title: Text(

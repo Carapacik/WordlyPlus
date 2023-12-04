@@ -13,6 +13,7 @@ import 'package:wordly/src/feature/game/widget/game_result_dialog.dart';
 import 'package:wordly/src/feature/game/widget/keyboard_by_language.dart';
 import 'package:wordly/src/feature/game/widget/words_grid.dart';
 import 'package:wordly/src/feature/level/widget/level_page.dart';
+import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 import 'package:wordly/src/feature/statistic/widget/statistic_page.dart';
 import 'package:wordly/src/feature/tutorial/widget/tutorial_page.dart';
@@ -80,6 +81,7 @@ class _GamePageState extends State<GamePage> {
         }
       },
       child: Scaffold(
+        backgroundColor: context.theme.extension<BackgroundCustomColors>()?.background,
         appBar: AppBar(
           centerTitle: true,
           title: BlocBuilder<GameBloc, GameState>(

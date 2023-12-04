@@ -5,6 +5,7 @@ import 'package:wordly/src/feature/about/widget/about_page.dart';
 import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
 import 'package:wordly/src/feature/game/model/game_mode.dart';
 import 'package:wordly/src/feature/game/widget/game_page.dart';
+import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/widget/setting_page.dart';
 import 'package:wordly/src/feature/tutorial/widget/tutorial_page.dart';
 
@@ -14,7 +15,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NavigationDrawer(
-      backgroundColor: context.theme.colorScheme.background,
+      backgroundColor: context.theme.extension<BackgroundCustomColors>()?.background,
       children: [
         ListTile(
           title: Text(context.r.daily, style: const TextStyle(fontWeight: FontWeight.w500)),

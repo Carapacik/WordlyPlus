@@ -5,6 +5,7 @@ import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/components/widget/not_played.dart';
 import 'package:wordly/src/feature/game/model/game_result.dart';
 import 'package:wordly/src/feature/level/widget/level_dialog.dart';
+import 'package:wordly/src/feature/settings/model/app_theme.dart';
 
 class LevelPage extends StatefulWidget {
   const LevelPage({required this.dictionary, super.key});
@@ -30,6 +31,7 @@ class _LevelPageState extends State<LevelPage> {
       color: Colors.black,
       title: context.r.levels,
       child: Scaffold(
+        backgroundColor: context.theme.extension<BackgroundCustomColors>()?.background,
         appBar: AppBar(
           centerTitle: true,
           title: Text(

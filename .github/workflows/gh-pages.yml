@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - 3.0
 
 jobs:
   pages:

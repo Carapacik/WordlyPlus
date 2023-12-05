@@ -26,6 +26,11 @@
 	<string>$(PRODUCT_COPYRIGHT)</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>https</string>
+      <string>mailto</string>
+    </array>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>

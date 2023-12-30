@@ -86,7 +86,7 @@ base class LogMessage {
   });
 
   /// Log message
-  final String message;
+  final Object message;
 
   /// Log Error
   final Object? error;
@@ -104,19 +104,19 @@ base class LogMessage {
 /// Logger interface
 abstract base class Logger {
   /// Logs the error to the console
-  void error(String message, {Object? error, StackTrace? stackTrace});
+  void error(Object message, {Object? error, StackTrace? stackTrace});
 
   /// Logs the warning to the console
-  void warning(String message);
+  void warning(Object message);
 
   /// Logs the info to the console
-  void info(String message);
+  void info(Object message);
 
   /// Logs the debug to the console
-  void debug(String message);
+  void debug(Object message);
 
   /// Logs the verbose to the console
-  void verbose(String message);
+  void verbose(Object message);
 
   /// Set up the logger
   L runLogging<L>(L Function() fn, [LogOptions options = const LogOptions()]);
@@ -126,39 +126,57 @@ abstract base class Logger {
 
   /// Handy method to log zoneError
   void logZoneError(Object error, StackTrace stackTrace) {
-    this.error('Top-level error: $error', stackTrace: stackTrace);
+    this.error(
+      'Zone(${Zone.current.hashCode}) error: $error',
+      error: error,
+      stackTrace: stackTrace,
+    );
   }
 
   /// Handy method to log [FlutterError]
   void logFlutterError(FlutterErrorDetails details) {
-    error(details.exceptionAsString(), stackTrace: details.stack);
+    if (details.silent) {
+      return;
+    }
+
+    final description = details.exceptionAsString();
+
+    error(
+      'Flutter Error: $description',
+      error: details.exception,
+      stackTrace: details.stack,
+    );
   }
 
   /// Handy method to log [PlatformDispatcher] error
   bool logPlatformDispatcherError(Object error, StackTrace stackTrace) {
-    this.error('PlatformDispatcherError', error: error, stackTrace: stackTrace);
+    this.error(
+      'Platform Dispatcher Error: $error',
+      error: error,
+      stackTrace: stackTrace,
+    );
     return true;
   }
 }
 
 /// Default logger using logging package
 final class LoggerLogging extends Logger {
-  final _logger = logging.Logger('WordlyLogger');
+  final _logger = logging.Logger('SizzleLogger');
 
   @override
-  void debug(String message) => _logger.fine(message);
+  void debug(Object message) => _logger.fine(message);
 
   @override
-  void error(String message, {Object? error, StackTrace? stackTrace}) => _logger.severe(message, error, stackTrace);
+  void error(Object message, {Object? error, StackTrace? stackTrace}) => _logger.severe(message, error, stackTrace);
 
   @override
-  void info(String message) => _logger.info(message);
+  void info(Object message) => _logger.info(message);
 
   @override
-  void verbose(String message) => _logger.finest(message);
+  void verbose(Object message) => _logger.finest(message);
 
   @override
-  void warning(String message) => _logger.warning(message);
+  void warning(Object message) => _logger.warning(message);
 
   @override
   Stream<LogMessage> get logs => _logger.onRecord.map(
@@ -172,7 +190,7 @@ final class LoggerLogging extends Logger {
     }
     logging.hierarchicalLoggingEnabled = true;
 
-    _logger.onRecord.where((event) => event.loggerName == 'WordlyLogger').listen((event) {
+    _logger.onRecord.where((event) => event.loggerName == 'SizzleLogger').listen((event) {
       final logMessage = event.toLogMessage();
       final message =
           options.formatter?.call(logMessage, options) ?? _formatLoggerMessage(log: logMessage, options: options);
@@ -181,7 +199,7 @@ final class LoggerLogging extends Logger {
         return;
       }
 
-      debugPrint(message);
+      Zone.current.print(message);
     });
 
     return fn();
@@ -212,7 +230,7 @@ String _formatLoggerMessage({
   if (log.stackTrace != null) {
     buffer
       ..writeln()
-      ..writeln(log.stackTrace);
+      ..write(log.stackTrace);
   }
 
   return buffer.toString();

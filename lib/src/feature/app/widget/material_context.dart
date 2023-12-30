@@ -11,15 +11,14 @@ import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 ///
 /// This widget sets locales, themes and routing.
 /// {@endtemplate}
-class MaterialContext extends StatefulWidget {
+class MaterialContext extends StatelessWidget {
   /// {@macro material_context}
   const MaterialContext({super.key});
 
-  @override
-  State<MaterialContext> createState() => _MaterialContextState();
-}
+  // This global key is needed for [MaterialApp]
+  // to work properly when Widgets Inspector is enabled.
+  static final _globalKey = GlobalKey();
 
-class _MaterialContextState extends State<MaterialContext> {
   @override
   Widget build(BuildContext context) {
     final theme = SettingsScope.themeOf(context).theme;
@@ -34,6 +33,7 @@ class _MaterialContextState extends State<MaterialContext> {
         savedResult: context.dependencies.gameRepository.loadDailyFromCache(dictionary, DateTime.now().toUtc()),
       ),
       child: MaterialApp(
+        key: _globalKey,
         debugShowCheckedModeBanner: false,
         theme: theme.lightTheme,
         darkTheme: theme.darkTheme,
@@ -43,6 +43,11 @@ class _MaterialContextState extends State<MaterialContext> {
         locale: locale,
         onGenerateTitle: (context) => context.r.appTitle,
         home: const GamePage(),
+        builder: (context, child) => MediaQuery.withClampedTextScaling(
+          minScaleFactor: 1,
+          maxScaleFactor: 2,
+          child: child!,
+        ),
       ),
     );
   }

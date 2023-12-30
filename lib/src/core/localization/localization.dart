@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:wordly/src/core/localization/generated/l10n.dart';
@@ -40,8 +39,7 @@ final class Localization extends GeneratedLocalization {
   ///
   /// This is the locale that is used when no locale is specified.
   static Locale computeDefaultLocale() {
-    final locale = PlatformDispatcher.instance.locale;
-
+    final locale = WidgetsBinding.instance.platformDispatcher.locale;
     if (const AppLocalizationDelegate().isSupported(locale)) {
       return locale;
     }

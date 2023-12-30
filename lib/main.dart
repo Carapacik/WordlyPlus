@@ -14,8 +14,8 @@ Future<void> main() async {
     onInit: _onInit,
   );
   await logger.runLogging(
-    () async => runZonedGuarded(
-      () async => AppRunner().initializeAndRun(hook),
+    () => runZonedGuarded(
+      () => AppRunner().initializeAndRun(hook),
       logger.logZoneError,
     ),
     const LogOptions(),

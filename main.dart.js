@@ -28290,7 +28290,7 @@ A.aum.prototype={
 $1(a){var s=A.f4().b
 if(s==null)s=null
 else{s=s.canvasKitBaseUrl
-if(s==null)s=null}return(s==null?"https://www.gstatic.com/flutter-canvaskit/04817c99c9fd4956f27505204f7e344335810aed/":s)+a},
+if(s==null)s=null}return(s==null?"https://www.gstatic.com/flutter-canvaskit/e76c956498841e1ab458577d3892003e553e4f3c/":s)+a},
 $S:69}
 A.auD.prototype={
 $1(a){this.a.remove()

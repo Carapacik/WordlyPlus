@@ -3,22 +3,23 @@ import 'dart:async';
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:wordly/src/core/constant/config.dart';
 import 'package:wordly/src/core/utils/app_bloc_observer.dart';
 import 'package:wordly/src/core/utils/logger.dart';
 import 'package:wordly/src/feature/app/widget/app.dart';
 import 'package:wordly/src/feature/initialization/logic/initialization_processor.dart';
-import 'package:wordly/src/feature/initialization/logic/initialization_steps.dart';
-import 'package:wordly/src/feature/initialization/model/initialization_hook.dart';
+import 'package:wordly/src/feature/initialization/widget/initialization_failed_app.dart';
 
+/// {@template app_runner}
 /// A class which is responsible for initialization and running the app.
-final class AppRunner with InitializationSteps, InitializationProcessor, InitializationFactoryImpl {
-  /// Start the initialization and in case of success run application
-  Future<void> initializeAndRun(InitializationHook hook) async {
-    final binding = WidgetsFlutterBinding.ensureInitialized();
+/// {@endtemplate}
+final class AppRunner {
+  /// {@macro app_runner}
+  const AppRunner();
 
-    // Preserve splash screen
-    FlutterNativeSplash.preserve(widgetsBinding: binding);
+  /// Start the initialization and in case of success run application
+  Future<void> initializeAndRun() async {
+    final binding = WidgetsFlutterBinding.ensureInitialized()..deferFirstFrame();
 
     // Override logging
     FlutterError.onError = logger.logFlutterError;
@@ -27,16 +28,30 @@ final class AppRunner with InitializationSteps, InitializationProcessor, Initial
     // Setup bloc observer and transformer
     Bloc.observer = const AppBlocObserver();
     Bloc.transformer = bloc_concurrency.sequential();
+    const config = Config();
+    const initializationProcessor = InitializationProcessor(config);
 
-    final result = await processInitialization(
-      steps: initializationSteps,
-      hook: hook,
-      factory: this,
-    );
-    // Allow rendering
-    FlutterNativeSplash.remove();
+    Future<void> initializeAndRun() async {
+      try {
+        final result = await initializationProcessor.initialize();
+        // Attach this widget to the root of the tree.
+        runApp(App(result: result));
+      } on Object catch (e, stackTrace) {
+        logger.error('Initialization failed', error: e, stackTrace: stackTrace);
+        runApp(
+          InitializationFailedApp(
+            error: e,
+            stackTrace: stackTrace,
+            retryInitialization: initializeAndRun,
+          ),
+        );
+      } finally {
+        // Allow rendering
+        binding.allowFirstFrame();
+      }
+    }
 
-    // Attach this widget to the root of the tree.
-    runApp(App(result: result));
+    // Run the app
+    await initializeAndRun();
   }
 }

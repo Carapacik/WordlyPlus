@@ -6,11 +6,9 @@
 
 <a href='https://play.google.com/store/apps/details?id=com.carapacik.wordly'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height='90px'/></a>
 
-Based on [sizzle_starter](https://github.com/hawkkiller/sizzle_starter)
-
 Have 2 dictionary languages
-- RU  - [Dictionary scraper](https://github.com/Carapacik/gufo-me-dictionary-scraper)
 - EN  - [Dictionary scraper](https://github.com/Carapacik/cambridge-dictionary-scraper)
+- RU  - [Dictionary scraper](https://github.com/Carapacik/gufo-me-dictionary-scraper)
 
 Have 2 game modes:
 - Daily (default)

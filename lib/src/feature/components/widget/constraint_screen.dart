@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:wordly/src/core/constants/constants.dart';
+import 'package:wordly/src/core/constant/config.dart';
 
 class ConstraintScreen extends StatelessWidget {
-  const ConstraintScreen({required this.child, super.key});
+  const ConstraintScreen({required this.child, this.safeAreaBottom = true, super.key});
 
+  final bool safeAreaBottom;
   final Widget child;
 
   @override
   Widget build(BuildContext context) => SafeArea(
+        bottom: safeAreaBottom,
         child: Align(
           alignment: Alignment.topCenter,
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: maxMobileWidth),
+            constraints: BoxConstraints(maxWidth: const Config().maxMobileWidth),
             child: child,
           ),
         ),

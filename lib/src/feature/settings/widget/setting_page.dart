@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
-import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 import 'package:wordly/src/feature/settings/widget/change_color_page.dart';
 import 'package:wordly/src/feature/settings/widget/list_item_selector.dart';
@@ -21,13 +21,13 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Title(
       color: Colors.black,
-      title: context.r.settings,
+      title: context.l10n.settings,
       child: Scaffold(
         backgroundColor: context.theme.extension<BackgroundCustomColors>()?.background,
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            context.r.settings,
+            context.l10n.settings,
             style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
           ),
         ),
@@ -35,27 +35,27 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Column(
             children: [
               ListItemSelector<Locale>(
-                title: context.r.appDictionary,
+                title: context.l10n.appDictionary,
                 currentValue: (SettingsScope.of(context).dictionary, _localeName(SettingsScope.of(context).dictionary)),
-                items: [(const Locale('ru'), context.r.ru), (const Locale('en'), context.r.en)],
+                items: [(const Locale('ru'), context.l10n.ru), (const Locale('en'), context.l10n.en)],
                 onChange: (d) {
                   SettingsScope.dictionaryOf(context).setDictionary(d);
                   context.read<GameBloc>().add(GameEvent.changeDictionary(d));
                 },
               ),
               ListItemSelector<Locale>(
-                title: context.r.appLanguage,
+                title: context.l10n.appLanguage,
                 currentValue: (SettingsScope.of(context).locale, _localeName(SettingsScope.of(context).locale)),
-                items: [(const Locale('ru'), context.r.ru), (const Locale('en'), context.r.en)],
+                items: [(const Locale('ru'), context.l10n.ru), (const Locale('en'), context.l10n.en)],
                 onChange: (l) => SettingsScope.localeOf(context).setLocale(l),
               ),
               ListItemSelector<ThemeMode>(
-                title: context.r.themeMode,
+                title: context.l10n.themeMode,
                 currentValue: (SettingsScope.of(context).theme.mode, _themeName(SettingsScope.of(context).theme.mode)),
                 items: [
-                  (ThemeMode.system, context.r.themeSystem),
-                  (ThemeMode.dark, context.r.themeDark),
-                  (ThemeMode.light, context.r.themeLight),
+                  (ThemeMode.system, context.l10n.themeSystem),
+                  (ThemeMode.dark, context.l10n.themeDark),
+                  (ThemeMode.light, context.l10n.themeLight),
                 ],
                 onChange: (mode) {
                   final themeScope = SettingsScope.themeOf(context);
@@ -69,7 +69,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: ListTileTheme.merge(
                   child: ListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                    title: Text(context.r.colorMode, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                    title:
+                        Text(context.l10n.colorMode, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                     trailing: Text(
                       SettingsScope.of(context).theme.colorMode.localized(context),
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
@@ -111,18 +112,18 @@ class _SettingsPageState extends State<SettingsPage> {
 
   String _localeName(Locale locale) {
     final locales = {
-      const Locale('en'): context.r.en,
-      const Locale('ru'): context.r.ru,
+      'en': context.l10n.en,
+      'ru': context.l10n.ru,
     };
-    return locales[locale] ?? context.r.en;
+    return locales[locale.languageCode] ?? context.l10n.en;
   }
 
   String _themeName(ThemeMode mode) {
     final themeModes = {
-      ThemeMode.system: context.r.themeSystem,
-      ThemeMode.dark: context.r.themeDark,
-      ThemeMode.light: context.r.themeLight,
+      ThemeMode.system: context.l10n.themeSystem,
+      ThemeMode.dark: context.l10n.themeDark,
+      ThemeMode.light: context.l10n.themeLight,
     };
-    return themeModes[mode] ?? context.r.themeSystem;
+    return themeModes[mode] ?? context.l10n.themeSystem;
   }
 }

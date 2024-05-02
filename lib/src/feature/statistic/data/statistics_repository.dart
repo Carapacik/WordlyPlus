@@ -7,32 +7,33 @@ import 'package:wordly/src/feature/statistic/model/game_statistics.dart';
 /// {@template statistic_repository}
 /// Repository which manages the daily statistic.
 /// {@endtemplate}
-abstract interface class IStatisticsRepository {
+abstract interface class StatisticsRepository {
   /// Set statistic
-  Future<void> saveStatistic(
+  Future<void> setStatistics(
     Locale dictionary, {
     required bool isWin,
     required int attempt,
   });
 
   /// Observe current statistic changes
-  GameStatistics? loadAppStatisticFromCache(Locale dictionary);
+  GameStatistics? getStatistics(Locale dictionary);
 }
 
 /// {@macro statistic_repository}
-final class StatisticsRepositoryImpl implements IStatisticsRepository {
+final class StatisticsRepositoryImpl implements StatisticsRepository {
   /// {@macro statistic_repository}
-  const StatisticsRepositoryImpl(this._dataSource);
+  const StatisticsRepositoryImpl({required StatisticsDataSource statisticsDataSource})
+      : _statisticsDataSource = statisticsDataSource;
 
-  final StatisticsDataSource _dataSource;
+  final StatisticsDataSource _statisticsDataSource;
 
   @override
-  Future<void> saveStatistic(
+  Future<void> setStatistics(
     Locale dictionary, {
     required bool isWin,
     required int attempt,
   }) async {
-    final previousStatistic = _dataSource.loadStatisticsFromCache(dictionary.languageCode);
+    final previousStatistic = _statisticsDataSource.getStatistics(dictionary.languageCode);
     final currentStatistic = GameStatistics(
       loses: _calculateLoses(isWin: isWin, previous: previousStatistic?.loses),
       wins: _calculateWins(isWin: isWin, previous: previousStatistic?.wins),
@@ -46,12 +47,11 @@ final class StatisticsRepositoryImpl implements IStatisticsRepository {
         previous: previousStatistic?.attempts,
       ),
     );
-    await _dataSource.saveStatistics(dictionary.languageCode, currentStatistic);
+    await _statisticsDataSource.setStatistics(dictionary.languageCode, currentStatistic);
   }
 
   @override
-  GameStatistics? loadAppStatisticFromCache(Locale dictionary) =>
-      _dataSource.loadStatisticsFromCache(dictionary.languageCode);
+  GameStatistics? getStatistics(Locale dictionary) => _statisticsDataSource.getStatistics(dictionary.languageCode);
 
   int _calculateLoses({required bool isWin, required int? previous}) {
     if (isWin) {

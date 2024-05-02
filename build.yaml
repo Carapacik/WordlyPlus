@@ -3,6 +3,7 @@ targets:
     builders:
       freezed:
         options:
+          copy_with: false
           when:
             when: false
             maybe_when: false

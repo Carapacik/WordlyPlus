@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:wordly/src/core/constants/constants.dart';
+import 'package:wordly/src/core/constant/config.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
 
@@ -11,19 +11,19 @@ String? shareString(BuildContext context, (bool, int, List<LetterInfo>)? result)
     return null;
   }
   final sb = StringBuffer()
-    ..writeln(result.$1 ? context.r.checkResultWin(result.$2) : context.r.checkResultLose(result.$2));
+    ..writeln(result.$1 ? context.l10n.checkResultWin(result.$2) : context.l10n.checkResultLose(result.$2));
   for (final e in _splitBy5Symbols(result.$3)) {
     sb.writeln(e);
   }
   sb
     ..write('\n')
-    ..writeln(context.r.checkResult)
+    ..writeln(context.l10n.checkResult)
     ..write(
       kIsWeb
-          ? webLink
+          ? const Config().webLink
           : Platform.isAndroid
-              ? androidLink
-              : webLink,
+              ? const Config().androidLink
+              : const Config().webLink,
     );
   return sb.toString();
 }

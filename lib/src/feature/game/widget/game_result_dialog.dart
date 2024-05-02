@@ -66,13 +66,13 @@ class DialogContent extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                (isWin ? context.r.winMessage : context.r.loseMessage).toUpperCase(),
+                (isWin ? context.l10n.winMessage : context.l10n.loseMessage).toUpperCase(),
                 style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w800),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),
               Text(
-                context.r.secretWord,
+                context.l10n.secretWord,
                 style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 12),
@@ -121,7 +121,7 @@ class _DailyContent extends StatelessWidget {
               await Share.share(shareString!);
             },
             child: Text(
-              context.r.share,
+              context.l10n.share,
               style: TextStyle(
                 color: isWin ? AppColors.green : AppColors.red,
                 fontSize: 16,
@@ -133,7 +133,7 @@ class _DailyContent extends StatelessWidget {
           const SizedBox(height: 24),
         ],
         Text(
-          context.r.nextWord,
+          context.l10n.nextWord,
           style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: 4),
@@ -158,7 +158,7 @@ class _LevelContent extends StatelessWidget {
       style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
       onPressed: nextLevelPressed,
       child: Text(
-        context.r.nextLevel,
+        context.l10n.nextLevel,
         style: TextStyle(
           color: isWin ? AppColors.green : AppColors.red,
           fontSize: 16,

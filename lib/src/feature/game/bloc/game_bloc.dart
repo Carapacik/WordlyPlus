@@ -16,7 +16,7 @@ import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 
 part 'game_bloc.freezed.dart';
 
-@Freezed()
+@Freezed(copyWith: false)
 sealed class GameEvent with _$GameEvent {
   const factory GameEvent.changeDictionary(Locale dictionary) = _GameEventChangeDictionary;
 
@@ -99,7 +99,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   GameBloc({
     required Locale dictionary,
     required IGameRepository gameRepository,
-    required IStatisticsRepository statisticsRepository,
+    required StatisticsRepository statisticsRepository,
     required ILevelRepository levelRepository,
     required GameResult? savedResult,
   })  : _gameRepository = gameRepository,
@@ -128,7 +128,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   }
 
   final IGameRepository _gameRepository;
-  final IStatisticsRepository _statisticsRepository;
+  final StatisticsRepository _statisticsRepository;
   final ILevelRepository _levelRepository;
 
   void _listenKeyEvent(_GameEventListenKeyEvent event, Emitter<GameState> emit) {
@@ -151,15 +151,15 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   }
 
   void _changeDictionary(_GameEventChangeDictionary event, Emitter<GameState> emit) {
-    if (state.dictionary == event.dictionary) {
+    final newDictionary = event.dictionary;
+    if (state.dictionary.languageCode == newDictionary.languageCode) {
       return;
     }
-    final newDictionary = event.dictionary;
     final GameResult? savedResult;
     if (state.gameMode == GameMode.daily) {
-      savedResult = _gameRepository.loadDailyFromCache(newDictionary, DateTime.now().toUtc());
+      savedResult = _gameRepository.getDaily(newDictionary, DateTime.now().toUtc());
     } else {
-      savedResult = _gameRepository.loadLvlFromCache(newDictionary);
+      savedResult = _gameRepository.getLvl(newDictionary);
     }
     final newState = _stateBySavedResult(
       savedResult,
@@ -183,9 +183,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     final newGameMode = event.gameMode;
     final GameResult? savedResult;
     if (newGameMode == GameMode.daily) {
-      savedResult = _gameRepository.loadDailyFromCache(state.dictionary, DateTime.now().toUtc());
+      savedResult = _gameRepository.getDaily(state.dictionary, DateTime.now().toUtc());
     } else {
-      savedResult = _gameRepository.loadLvlFromCache(state.dictionary);
+      savedResult = _gameRepository.getLvl(state.dictionary);
     }
     final newState = _stateBySavedResult(
       savedResult,
@@ -215,7 +215,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         lvlNumber: (state.lvlNumber ?? 1) + 1,
         board: [],
       );
-      unawaited(_gameRepository.saveLvlBoard(state.dictionary, savedResult));
+      unawaited(_gameRepository.setLvlBoard(state.dictionary, savedResult));
     }
     final newState = _stateBySavedResult(
       savedResult,
@@ -385,7 +385,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       switch (state.gameMode) {
         case GameMode.daily:
           unawaited(
-            _gameRepository.saveDailyBoard(
+            _gameRepository.setDailyBoard(
               state.dictionary,
               DateTime.now().toUtc(),
               GameResult(
@@ -396,7 +396,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
             ),
           );
           unawaited(
-            _statisticsRepository.saveStatistic(
+            _statisticsRepository.setStatistics(
               state.dictionary,
               isWin: true,
               attempt: state.currentWordIndex + 1,
@@ -404,7 +404,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           );
         case GameMode.lvl:
           unawaited(
-            _levelRepository.saveLevels(
+            _levelRepository.setLevels(
               state.dictionary,
               GameResult(
                 secretWord: state.secretWord,
@@ -415,7 +415,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
             ),
           );
           unawaited(
-            _gameRepository.saveLvlBoard(
+            _gameRepository.setLvlBoard(
               state.dictionary,
               GameResult(
                 secretWord:
@@ -478,7 +478,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       switch (state.gameMode) {
         case GameMode.daily:
           unawaited(
-            _gameRepository.saveDailyBoard(
+            _gameRepository.setDailyBoard(
               state.dictionary,
               DateTime.now().toUtc(),
               GameResult(
@@ -489,7 +489,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
             ),
           );
           unawaited(
-            _statisticsRepository.saveStatistic(
+            _statisticsRepository.setStatistics(
               state.dictionary,
               isWin: false,
               attempt: state.currentWordIndex + 1,
@@ -497,7 +497,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           );
         case GameMode.lvl:
           unawaited(
-            _levelRepository.saveLevels(
+            _levelRepository.setLevels(
               state.dictionary,
               GameResult(
                 secretWord: state.secretWord,
@@ -508,7 +508,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
             ),
           );
           unawaited(
-            _gameRepository.saveLvlBoard(
+            _gameRepository.setLvlBoard(
               state.dictionary,
               GameResult(
                 secretWord:
@@ -534,7 +534,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       switch (state.gameMode) {
         case GameMode.daily:
           unawaited(
-            _gameRepository.saveDailyBoard(
+            _gameRepository.setDailyBoard(
               state.dictionary,
               DateTime.now().toUtc(),
               GameResult(
@@ -545,7 +545,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           );
         case GameMode.lvl:
           unawaited(
-            _gameRepository.saveLvlBoard(
+            _gameRepository.setLvlBoard(
               state.dictionary,
               GameResult(
                 secretWord: state.secretWord,

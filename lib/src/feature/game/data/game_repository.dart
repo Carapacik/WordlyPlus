@@ -14,19 +14,19 @@ abstract interface class IGameRepository {
 
   bool get isFirstEnter;
 
-  Future<void> saveFirstEnter();
+  Future<void> setFirstEnter();
 
   Map<String, String> currentDictionary(Locale dictionary);
 
   String generateSecretWord(Locale dictionary, {int levelNumber = 0});
 
-  GameResult? loadDailyFromCache(Locale dictionary, DateTime date);
+  GameResult? getDaily(Locale dictionary, DateTime date);
 
-  Future<void> saveDailyBoard(Locale dictionary, DateTime date, GameResult savedResult);
+  Future<void> setDailyBoard(Locale dictionary, DateTime date, GameResult savedResult);
 
-  GameResult? loadLvlFromCache(Locale dictionary);
+  GameResult? getLvl(Locale dictionary);
 
-  Future<void> saveLvlBoard(Locale dictionary, GameResult savedResult);
+  Future<void> setLvlBoard(Locale dictionary, GameResult savedResult);
 }
 
 final class GameRepository implements IGameRepository {
@@ -46,15 +46,11 @@ final class GameRepository implements IGameRepository {
   }
 
   @override
-  Map<String, String> currentDictionary(Locale dictionary) {
-    switch (dictionary) {
-      case const Locale('ru'):
-        return _ruDictionary;
-      case const Locale('en'):
-        return _enDictionary;
-    }
-    return _enDictionary;
-  }
+  Map<String, String> currentDictionary(Locale dictionary) => switch (dictionary.languageCode) {
+        'ru' => _ruDictionary,
+        'en' => _enDictionary,
+        _ => _enDictionary,
+      };
 
   @override
   String generateSecretWord(Locale dictionary, {int levelNumber = 0}) {
@@ -73,23 +69,23 @@ final class GameRepository implements IGameRepository {
   }
 
   @override
-  GameResult? loadDailyFromCache(Locale dictionary, DateTime date) =>
-      _gameDataSource.loadDailyFromCache(dictionary.languageCode, DateFormat('dd-MM-yyyy').format(date));
+  GameResult? getDaily(Locale dictionary, DateTime date) =>
+      _gameDataSource.getDaily(dictionary.languageCode, DateFormat('dd-MM-yyyy').format(date));
 
   @override
-  Future<void> saveDailyBoard(Locale dictionary, DateTime date, GameResult savedResult) =>
-      _gameDataSource.saveDailyBoard(dictionary.languageCode, DateFormat('dd-MM-yyyy').format(date), savedResult);
+  Future<void> setDailyBoard(Locale dictionary, DateTime date, GameResult savedResult) =>
+      _gameDataSource.setDailyBoard(dictionary.languageCode, DateFormat('dd-MM-yyyy').format(date), savedResult);
 
   @override
-  GameResult? loadLvlFromCache(Locale dictionary) => _gameDataSource.loadLvlFromCache(dictionary.languageCode);
+  GameResult? getLvl(Locale dictionary) => _gameDataSource.getLvl(dictionary.languageCode);
 
   @override
-  Future<void> saveLvlBoard(Locale dictionary, GameResult savedResult) =>
-      _gameDataSource.saveLvlBoard(dictionary.languageCode, savedResult);
+  Future<void> setLvlBoard(Locale dictionary, GameResult savedResult) =>
+      _gameDataSource.setLvlBoard(dictionary.languageCode, savedResult);
 
   @override
   bool get isFirstEnter => _gameDataSource.isFirstEnter;
 
   @override
-  Future<void> saveFirstEnter() => _gameDataSource.saveFirstEnter();
+  Future<void> setFirstEnter() => _gameDataSource.setFirstEnter();
 }

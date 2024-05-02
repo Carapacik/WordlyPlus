@@ -7,7 +7,7 @@ Color darken(Color color, [double amount = 0.1]) {
   return hslDark.toColor();
 }
 
-Color lighten(Color color, [double amount = .1]) {
+Color lighten(Color color, [double amount = 0.1]) {
   final hsl = HSLColor.fromColor(color);
   final hslLight = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
 

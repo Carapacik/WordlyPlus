@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -12,43 +13,40 @@ import 'intl/messages_all.dart';
 // ignore_for_file: join_return_with_assignment, prefer_final_in_for_each
 // ignore_for_file: avoid_redundant_argument_values, avoid_escaping_inner_quotes
 
-class GeneratedLocalization {
-  GeneratedLocalization();
+class AppLocalizations {
+  AppLocalizations();
 
-  static GeneratedLocalization? _current;
+  static AppLocalizations? _current;
 
-  static GeneratedLocalization get current {
+  static AppLocalizations get current {
     assert(_current != null,
-        'No instance of GeneratedLocalization was loaded. Try to initialize the GeneratedLocalization delegate before accessing GeneratedLocalization.current.');
+        'No instance of AppLocalizations was loaded. Try to initialize the AppLocalizations delegate before accessing AppLocalizations.current.');
     return _current!;
   }
 
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
-  static Future<GeneratedLocalization> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
+  static Future<AppLocalizations> load(Locale locale) {
+    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
-      final instance = GeneratedLocalization();
-      GeneratedLocalization._current = instance;
+      final instance = AppLocalizations();
+      AppLocalizations._current = instance;
 
       return instance;
     });
   }
 
-  static GeneratedLocalization of(BuildContext context) {
-    final instance = GeneratedLocalization.maybeOf(context);
+  static AppLocalizations of(BuildContext context) {
+    final instance = AppLocalizations.maybeOf(context);
     assert(instance != null,
-        'No instance of GeneratedLocalization present in the widget tree. Did you add GeneratedLocalization.delegate in localizationsDelegates?');
+        'No instance of AppLocalizations present in the widget tree. Did you add AppLocalizations.delegate in localizationsDelegates?');
     return instance!;
   }
 
-  static GeneratedLocalization? maybeOf(BuildContext context) {
-    return Localizations.of<GeneratedLocalization>(
-        context, GeneratedLocalization);
+  static AppLocalizations? maybeOf(BuildContext context) {
+    return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
   /// `About`
@@ -552,8 +550,7 @@ class GeneratedLocalization {
   }
 }
 
-class AppLocalizationDelegate
-    extends LocalizationsDelegate<GeneratedLocalization> {
+class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {
   const AppLocalizationDelegate();
 
   List<Locale> get supportedLocales {
@@ -565,9 +562,10 @@ class AppLocalizationDelegate
 
   @override
   bool isSupported(Locale locale) => _isSupported(locale);
+
   @override
-  Future<GeneratedLocalization> load(Locale locale) =>
-      GeneratedLocalization.load(locale);
+  Future<AppLocalizations> load(Locale locale) => AppLocalizations.load(locale);
+
   @override
   bool shouldReload(AppLocalizationDelegate old) => false;
 

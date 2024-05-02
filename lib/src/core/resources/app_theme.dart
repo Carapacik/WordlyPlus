@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:wordly/src/core/assets/generated/fonts.gen.dart';
 import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/context_extension.dart';
@@ -73,41 +74,36 @@ final class AppTheme with Diagnosticable {
 
   bool isDarkTheme(BuildContext context) => context.theme.brightness == Brightness.dark;
 
-  Color get correctColor {
-    switch (colorMode) {
-      case ColorMode.casual:
-        return AppColors.green;
-      case ColorMode.highContrast:
-        return AppColors.orange;
-      case ColorMode.other:
-        return otherColors?.$1 ?? AppColors.green;
-    }
-  }
+  Color get correctColor => switch (colorMode) {
+        ColorMode.casual => AppColors.green,
+        ColorMode.highContrast => AppColors.orange,
+        ColorMode.other => otherColors?.$1 ?? AppColors.green
+      };
 
-  Color get wrongSpotColor {
-    switch (colorMode) {
-      case ColorMode.casual:
-        return AppColors.yellow;
-      case ColorMode.highContrast:
-        return AppColors.blue;
-      case ColorMode.other:
-        return otherColors?.$2 ?? AppColors.yellow;
-    }
-  }
+  Color get wrongSpotColor => switch (colorMode) {
+        ColorMode.casual => AppColors.yellow,
+        ColorMode.highContrast => AppColors.blue,
+        ColorMode.other => otherColors?.$2 ?? AppColors.yellow
+      };
 
   Color notInWordColor(BuildContext context) {
     final isDark = isDarkTheme(context);
-    switch (colorMode) {
-      case ColorMode.casual:
-      case ColorMode.highContrast:
-        return isDark ? AppColors.tertiary : AppColors.grey;
-      case ColorMode.other:
-        return otherColors?.$3 ?? (isDark ? AppColors.tertiary : AppColors.grey);
+    if (colorMode case ColorMode.casual || ColorMode.highContrast) {
+      return isDark ? AppColors.tertiary : AppColors.grey;
     }
+    return otherColors?.$3 ?? (isDark ? AppColors.tertiary : AppColors.grey);
   }
 
-  Color unknownColor(BuildContext context) {
-    return isDarkTheme(context) ? AppColors.grey : AppColors.tertiary;
+  Color unknownColor(BuildContext context) => isDarkTheme(context) ? AppColors.grey : AppColors.tertiary;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(EnumProperty<ThemeMode>('mode', mode))
+      ..add(EnumProperty<ColorMode>('colorMode', colorMode))
+      ..add(DiagnosticsProperty<ThemeData>('lightTheme', lightTheme))
+      ..add(DiagnosticsProperty<ThemeData>('darkTheme', darkTheme));
   }
 
   @override
@@ -120,19 +116,18 @@ final class AppTheme with Diagnosticable {
           otherColors == other.otherColors;
 
   @override
-  int get hashCode => mode.hashCode ^ colorMode.hashCode ^ otherColors.hashCode;
+  int get hashCode => Object.hash(mode, colorMode, otherColors);
 
   AppTheme copyWith({
     ThemeMode? themeMode,
     ColorMode? colorMode,
     (Color, Color, Color)? otherColors,
-  }) {
-    return AppTheme(
-      mode: themeMode ?? mode,
-      colorMode: colorMode ?? this.colorMode,
-      otherColors: otherColors ?? this.otherColors,
-    );
-  }
+  }) =>
+      AppTheme(
+        mode: themeMode ?? mode,
+        colorMode: colorMode ?? this.colorMode,
+        otherColors: otherColors ?? this.otherColors,
+      );
 }
 
 @immutable

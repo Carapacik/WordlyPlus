@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/core/utils/share.dart';
 import 'package:wordly/src/feature/components/widget/drawer.dart';
@@ -13,7 +14,6 @@ import 'package:wordly/src/feature/game/widget/game_result_dialog.dart';
 import 'package:wordly/src/feature/game/widget/keyboard_by_language.dart';
 import 'package:wordly/src/feature/game/widget/words_grid.dart';
 import 'package:wordly/src/feature/level/widget/level_page.dart';
-import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 import 'package:wordly/src/feature/statistic/widget/statistic_page.dart';
 import 'package:wordly/src/feature/tutorial/widget/tutorial_page.dart';
@@ -34,7 +34,7 @@ class _GamePageState extends State<GamePage> {
     _focusNode = FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (context.dependencies.gameRepository.isFirstEnter) {
-        unawaited(context.dependencies.gameRepository.saveFirstEnter());
+        unawaited(context.dependencies.gameRepository.setFirstEnter());
         unawaited(
           Navigator.of(context).push(
             MaterialPageRoute<void>(
@@ -86,7 +86,7 @@ class _GamePageState extends State<GamePage> {
           centerTitle: true,
           title: BlocBuilder<GameBloc, GameState>(
             builder: (context, state) => Text(
-              state.gameMode == GameMode.daily ? context.r.daily : context.r.levelNumber(state.lvlNumber ?? 1),
+              state.gameMode == GameMode.daily ? context.l10n.daily : context.l10n.levelNumber(state.lvlNumber ?? 1),
               style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
             ),
           ),
@@ -95,7 +95,7 @@ class _GamePageState extends State<GamePage> {
               builder: (context, state) {
                 if (state.gameMode == GameMode.daily) {
                   return IconButton(
-                    tooltip: context.r.viewStatistic,
+                    tooltip: context.l10n.viewStatistic,
                     icon: const Icon(Icons.leaderboard_outlined),
                     onPressed: () async {
                       await Navigator.of(context).push(
@@ -109,7 +109,7 @@ class _GamePageState extends State<GamePage> {
                   );
                 } else {
                   return IconButton(
-                    tooltip: context.r.viewLevels,
+                    tooltip: context.l10n.viewLevels,
                     icon: const Icon(Icons.apps),
                     onPressed: () async {
                       await Navigator.of(context).push(

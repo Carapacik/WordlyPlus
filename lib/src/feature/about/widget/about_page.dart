@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/link.dart';
-import 'package:wordly/src/core/constants/constants.dart';
+import 'package:wordly/src/core/constant/config.dart';
+import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
-import 'package:wordly/src/feature/settings/model/app_theme.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -12,13 +12,13 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Title(
       color: Colors.black,
-      title: context.r.about,
+      title: context.l10n.about,
       child: Scaffold(
         backgroundColor: context.theme.extension<BackgroundCustomColors>()?.background,
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            context.r.about,
+            context.l10n.about,
             style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
           ),
         ),
@@ -27,13 +27,12 @@ class AboutPage extends StatelessWidget {
             children: [
               const Spacer(),
               const Text('Carapacik Space', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700)),
-              const _CreditNameText(text: 'Roman Laptev - Carapacik', url: 'https://carapacik.github.io/'),
-              const _CreditNameText(text: 'Dmitriy Lukyanov (Design)', url: 'https://t.me/kamalledln'),
+              const _CreditNameText(text: 'Roman Laptev - Carapacik', url: 'https://carapacik.github.io'),
               const Spacer(flex: 10),
               Link(
                 uri: Uri.parse(
-                  'mailto:$email?'
-                  '${context.r.sendMessage}',
+                  'mailto:${const Config().email}?'
+                  '${context.l10n.sendMessage}',
                 ),
                 builder: (context, followLink) => MouseRegion(
                   cursor: SystemMouseCursors.click,
@@ -43,11 +42,11 @@ class AboutPage extends StatelessWidget {
                       textAlign: TextAlign.center,
                       text: TextSpan(
                         children: [
-                          TextSpan(text: context.r.contact),
-                          const WidgetSpan(
+                          TextSpan(text: context.l10n.contact),
+                          WidgetSpan(
                             child: SelectableText(
-                              email,
-                              style: TextStyle(
+                              const Config().email,
+                              style: const TextStyle(
                                 decoration: TextDecoration.underline,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 24,

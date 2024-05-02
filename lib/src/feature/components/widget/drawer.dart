@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/about/widget/about_page.dart';
 import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
 import 'package:wordly/src/feature/game/model/game_mode.dart';
 import 'package:wordly/src/feature/game/widget/game_page.dart';
-import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/widget/setting_page.dart';
 import 'package:wordly/src/feature/tutorial/widget/tutorial_page.dart';
 
@@ -18,7 +18,7 @@ class CustomDrawer extends StatelessWidget {
       backgroundColor: context.theme.extension<BackgroundCustomColors>()?.background,
       children: [
         ListTile(
-          title: Text(context.r.daily, style: const TextStyle(fontWeight: FontWeight.w500)),
+          title: Text(context.l10n.daily, style: const TextStyle(fontWeight: FontWeight.w500)),
           onTap: () async {
             Scaffold.of(context).closeDrawer();
             final navigator = Navigator.of(context);
@@ -38,7 +38,7 @@ class CustomDrawer extends StatelessWidget {
           },
         ),
         ListTile(
-          title: Text(context.r.levels, style: const TextStyle(fontWeight: FontWeight.w500)),
+          title: Text(context.l10n.levels, style: const TextStyle(fontWeight: FontWeight.w500)),
           onTap: () async {
             Scaffold.of(context).closeDrawer();
             final navigator = Navigator.of(context);
@@ -58,7 +58,7 @@ class CustomDrawer extends StatelessWidget {
           },
         ),
         ListTile(
-          title: Text(context.r.tutorial, style: const TextStyle(fontWeight: FontWeight.w500)),
+          title: Text(context.l10n.tutorial, style: const TextStyle(fontWeight: FontWeight.w500)),
           onTap: () async {
             Scaffold.of(context).closeDrawer();
             final navigator = Navigator.of(context);
@@ -71,7 +71,7 @@ class CustomDrawer extends StatelessWidget {
           },
         ),
         ListTile(
-          title: Text(context.r.settings, style: const TextStyle(fontWeight: FontWeight.w500)),
+          title: Text(context.l10n.settings, style: const TextStyle(fontWeight: FontWeight.w500)),
           onTap: () async {
             Scaffold.of(context).closeDrawer();
             final navigator = Navigator.of(context);
@@ -87,7 +87,7 @@ class CustomDrawer extends StatelessWidget {
           },
         ),
         ListTile(
-          title: Text(context.r.about, style: const TextStyle(fontWeight: FontWeight.w500)),
+          title: Text(context.l10n.about, style: const TextStyle(fontWeight: FontWeight.w500)),
           onTap: () async {
             Scaffold.of(context).closeDrawer();
             final navigator = Navigator.of(context);

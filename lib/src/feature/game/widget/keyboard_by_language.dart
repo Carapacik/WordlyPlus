@@ -14,9 +14,9 @@ class KeyboardByLanguage extends StatelessWidget {
     final dictionary = SettingsScope.of(context).dictionary;
     return SizedBox(
       height: 200,
-      child: switch (dictionary) {
-        const Locale('en') => const KeyboardEn(),
-        const Locale('ru') => const KeyboardRu(),
+      child: switch (dictionary.languageCode) {
+        'en' => const KeyboardEn(),
+        'ru' => const KeyboardRu(),
         _ => const SizedBox.shrink(),
       },
     );

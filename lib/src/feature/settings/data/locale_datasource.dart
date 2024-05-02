@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart' show Locale;
+import 'dart:ui';
+
 import 'package:wordly/src/core/utils/preferences_dao.dart';
 
 /// {@template locale_datasource}
@@ -11,13 +12,13 @@ abstract interface class LocaleDataSource {
   Future<void> setLocale(Locale locale);
 
   /// Get current locale from cache
-  Locale? loadLocaleFromCache();
+  Future<Locale?> getLocale();
 }
 
 /// {@macro locale_datasource}
-final class LocaleDataSourceImpl extends PreferencesDao implements LocaleDataSource {
+final class LocaleDataSourceLocal extends PreferencesDao implements LocaleDataSource {
   /// {@macro locale_datasource}
-  const LocaleDataSourceImpl({required super.sharedPreferences});
+  const LocaleDataSourceLocal({required super.sharedPreferences});
 
   PreferencesEntry<String> get _locale => stringEntry('settings.locale');
 
@@ -27,12 +28,10 @@ final class LocaleDataSourceImpl extends PreferencesDao implements LocaleDataSou
   }
 
   @override
-  Locale? loadLocaleFromCache() {
+  Future<Locale?> getLocale() async {
     final languageCode = _locale.read();
 
-    if (languageCode == null) {
-      return null;
-    }
+    if (languageCode == null) return null;
 
     return Locale.fromSubtags(languageCode: languageCode);
   }

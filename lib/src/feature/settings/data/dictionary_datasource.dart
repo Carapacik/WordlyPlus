@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart' show Locale;
+import 'dart:ui';
+
 import 'package:wordly/src/core/utils/preferences_dao.dart';
 
 /// {@template dictionary_datasource}
@@ -11,13 +12,13 @@ abstract interface class DictionaryDataSource {
   Future<void> setDictionary(Locale dictionary);
 
   /// Get current dictionary from cache
-  Locale? loadDictionaryFromCache();
+  Future<Locale?> getDictionary();
 }
 
 /// {@macro dictionary_datasource}
-final class DictionaryDataSourceImpl extends PreferencesDao implements DictionaryDataSource {
+final class DictionaryDataSourceLocal extends PreferencesDao implements DictionaryDataSource {
   /// {@macro dictionary_datasource}
-  const DictionaryDataSourceImpl({required super.sharedPreferences});
+  const DictionaryDataSourceLocal({required super.sharedPreferences});
 
   PreferencesEntry<String> get _dictionary => stringEntry('settings.dictionary');
 
@@ -27,7 +28,7 @@ final class DictionaryDataSourceImpl extends PreferencesDao implements Dictionar
   }
 
   @override
-  Locale? loadDictionaryFromCache() {
+  Future<Locale?> getDictionary() async {
     final languageCode = _dictionary.read();
 
     if (languageCode == null) {

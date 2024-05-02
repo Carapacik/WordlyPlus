@@ -1,70 +1,64 @@
 import 'dart:convert' show json;
 
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wordly/src/core/utils/preferences_dao.dart';
 import 'package:wordly/src/feature/game/model/game_mode.dart';
 import 'package:wordly/src/feature/game/model/game_result.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
 
 abstract interface class GameDataSource {
-  Future<void> saveDailyBoard(String dictionary, String date, GameResult savedResult);
+  Future<void> setDailyBoard(String dictionary, String date, GameResult savedResult);
 
-  Future<void> saveLvlBoard(String dictionary, GameResult savedResult);
+  Future<void> setLvlBoard(String dictionary, GameResult savedResult);
 
-  GameResult? loadDailyFromCache(String dictionary, String date);
+  GameResult? getDaily(String dictionary, String date);
 
-  GameResult? loadLvlFromCache(String dictionary);
+  GameResult? getLvl(String dictionary);
 
   bool get isFirstEnter;
 
-  Future<void> saveFirstEnter();
+  Future<void> setFirstEnter();
 }
 
-final class GameDataSourceImpl implements GameDataSource {
-  const GameDataSourceImpl({
-    required SharedPreferences sharedPreferences,
-  }) : _sharedPreferences = sharedPreferences;
-  final SharedPreferences _sharedPreferences;
+final class GameDataSourceLocal extends PreferencesDao implements GameDataSource {
+  const GameDataSourceLocal({
+    required super.sharedPreferences,
+  });
 
-  static const _boardPrefix = 'board';
-  static const _firstEnterPrefix = 'is_first_enter';
+  PreferencesEntry<String> _board(String dictionary, int index) => stringEntry('board_${dictionary}_$index');
 
-  @override
-  bool get isFirstEnter => _sharedPreferences.getBool(_firstEnterPrefix) ?? true;
+  PreferencesEntry<bool> get _firstEnter => boolEntry('is_first_enter');
 
   @override
-  Future<void> saveFirstEnter() => _sharedPreferences.setBool(_firstEnterPrefix, false);
+  bool get isFirstEnter => _firstEnter.read() ?? true;
 
   @override
-  Future<void> saveDailyBoard(String dictionary, String date, GameResult savedResult) async {
-    await _sharedPreferences.setString(
-      '${_boardPrefix}_${dictionary}_${GameMode.daily.index}',
-      json.encode({
-        'date': date,
-        'board': savedResult.board.map((e) => json.encode(e.toJson())).join('|'),
-        'secretWord': savedResult.secretWord,
-        'win': savedResult.isWin,
-      }),
-    );
-  }
+  Future<void> setFirstEnter() => _firstEnter.setIfNullRemove(false);
 
   @override
-  Future<void> saveLvlBoard(String dictionary, GameResult savedResult) async {
-    await _sharedPreferences.setString(
-      '${_boardPrefix}_${dictionary}_${GameMode.lvl.index}',
-      json.encode({
-        'lvl': savedResult.lvlNumber,
-        'board': savedResult.board.map((e) => json.encode(e.toJson())).join('|'),
-        'secretWord': savedResult.secretWord,
-        'win': savedResult.isWin,
-      }),
-    );
-  }
+  Future<void> setDailyBoard(String dictionary, String date, GameResult savedResult) async =>
+      _board(dictionary, GameMode.daily.index).setIfNullRemove(
+        json.encode({
+          'date': date,
+          'board': savedResult.board.map((e) => json.encode(e.toJson())).join('|'),
+          'secretWord': savedResult.secretWord,
+          'win': savedResult.isWin,
+        }),
+      );
 
   @override
-  GameResult? loadDailyFromCache(String dictionary, String date) {
-    final rawResult = _sharedPreferences.getString(
-      '${_boardPrefix}_${dictionary}_${GameMode.daily.index}',
-    );
+  Future<void> setLvlBoard(String dictionary, GameResult savedResult) async =>
+      _board(dictionary, GameMode.lvl.index).setIfNullRemove(
+        json.encode({
+          'lvl': savedResult.lvlNumber,
+          'board': savedResult.board.map((e) => json.encode(e.toJson())).join('|'),
+          'secretWord': savedResult.secretWord,
+          'win': savedResult.isWin,
+        }),
+      );
+
+  @override
+  GameResult? getDaily(String dictionary, String date) {
+    final rawResult = _board(dictionary, GameMode.daily.index).read();
     if (rawResult == null) {
       return null;
     }
@@ -84,10 +78,8 @@ final class GameDataSourceImpl implements GameDataSource {
   }
 
   @override
-  GameResult? loadLvlFromCache(String dictionary) {
-    final rawResult = _sharedPreferences.getString(
-      '${_boardPrefix}_${dictionary}_${GameMode.lvl.index}',
-    );
+  GameResult? getLvl(String dictionary) {
+    final rawResult = _board(dictionary, GameMode.lvl.index).read();
     if (rawResult == null) {
       return null;
     }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wordly/src/core/localization/localization.dart';
-import 'package:wordly/src/core/utils/extensions/extensions.dart';
+import 'package:wordly/src/core/constant/localization/localization.dart';
+import 'package:wordly/src/core/utils/extensions/context_extension.dart';
 import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
 import 'package:wordly/src/feature/game/widget/game_page.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
@@ -24,30 +24,25 @@ class MaterialContext extends StatelessWidget {
     final theme = SettingsScope.themeOf(context).theme;
     final locale = SettingsScope.localeOf(context).locale;
     final dictionary = SettingsScope.dictionaryOf(context).dictionary;
+
     return BlocProvider(
       create: (context) => GameBloc(
         gameRepository: context.dependencies.gameRepository,
         statisticsRepository: context.dependencies.statisticsRepository,
         levelRepository: context.dependencies.levelRepository,
         dictionary: dictionary,
-        savedResult: context.dependencies.gameRepository.loadDailyFromCache(dictionary, DateTime.now().toUtc()),
+        savedResult: context.dependencies.gameRepository.getDaily(dictionary, DateTime.now().toUtc()),
       ),
       child: MaterialApp(
-        key: _globalKey,
-        debugShowCheckedModeBanner: false,
         theme: theme.lightTheme,
         darkTheme: theme.darkTheme,
         themeMode: theme.mode,
         localizationsDelegates: Localization.localizationDelegates,
         supportedLocales: Localization.supportedLocales,
         locale: locale,
-        onGenerateTitle: (context) => context.r.appTitle,
+        onGenerateTitle: (context) => context.l10n.appTitle,
         home: const GamePage(),
-        builder: (context, child) => MediaQuery.withClampedTextScaling(
-          minScaleFactor: 1,
-          maxScaleFactor: 2,
-          child: child!,
-        ),
+        builder: (context, child) => MediaQuery.withNoTextScaling(key: _globalKey, child: child!),
       ),
     );
   }

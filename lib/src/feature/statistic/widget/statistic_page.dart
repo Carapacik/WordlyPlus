@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/components/widget/not_played.dart';
-import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 import 'package:wordly/src/feature/statistic/model/game_statistics.dart';
 
@@ -23,19 +23,19 @@ class _StatisticPageState extends State<StatisticPage> {
   @override
   void initState() {
     super.initState();
-    _statistics = context.dependencies.statisticsRepository.loadAppStatisticFromCache(widget.dictionary);
+    _statistics = context.dependencies.statisticsRepository.getStatistics(widget.dictionary);
   }
 
   @override
   Widget build(BuildContext context) => Title(
         color: Colors.black,
-        title: context.r.statistic,
+        title: context.l10n.statistic,
         child: Scaffold(
           backgroundColor: context.theme.extension<BackgroundCustomColors>()?.background,
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              context.r.statistic,
+              context.l10n.statistic,
               style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
             ),
           ),
@@ -58,20 +58,20 @@ class _StatisticPageState extends State<StatisticPage> {
                       children: [
                         _StatText(
                           value: played,
-                          title: context.r.played,
+                          title: context.l10n.played,
                         ),
                         _StatText(
                           value: winRate,
-                          title: context.r.winRate,
+                          title: context.l10n.winRate,
                           percent: true,
                         ),
                         _StatText(
                           value: streak,
-                          title: context.r.currentStreak,
+                          title: context.l10n.currentStreak,
                         ),
                         _StatText(
                           value: maxStreak,
-                          title: context.r.maxStreak,
+                          title: context.l10n.maxStreak,
                         ),
                       ],
                     ),
@@ -80,7 +80,7 @@ class _StatisticPageState extends State<StatisticPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: FittedBox(
                         child: Text(
-                          context.r.guessDistribution.toUpperCase(),
+                          context.l10n.guessDistribution.toUpperCase(),
                           style: const TextStyle(fontWeight: FontWeight.w700),
                         ),
                       ),

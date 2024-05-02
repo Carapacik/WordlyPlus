@@ -29,29 +29,21 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace "com.carapacik.wordly"
-    compileSdkVersion 34
-    ndkVersion flutter.ndkVersion
+    namespace = "com.carapacik.wordly"
+    compileSdk = 34
+    ndkVersion = "26.3.11579264"
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     defaultConfig {
-        applicationId "com.carapacik.wordly"
-        minSdkVersion 24
-        targetSdkVersion 34
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        applicationId = "com.carapacik.wordly"
+        minSdk = 24
+        targetSdk = 34
+        versionCode = flutterVersionCode.toInteger()
+        versionName = flutterVersionName
     }
 
     signingConfigs {
@@ -71,7 +63,5 @@ android {
 }
 
 flutter {
-    source '../..'
+    source = "../.."
 }
-
-dependencies {}

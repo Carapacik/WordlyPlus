@@ -5,7 +5,6 @@ import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/components/widget/letter_tile.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
-import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 
@@ -54,7 +53,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          context.r.colorMode,
+          context.l10n.colorMode,
           style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
         ),
       ),
@@ -155,25 +154,21 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
     return otherModeColors[status];
   }
 
-  List<LetterInfo> _wordByDictionary(Locale dictionary) {
-    switch (dictionary) {
-      case const Locale('en'):
-        return const [
-          LetterInfo(letter: 'p', status: LetterStatus.correctSpot),
-          LetterInfo(letter: 'a'),
-          LetterInfo(letter: 'u', status: LetterStatus.notInWord),
-          LetterInfo(letter: 's', status: LetterStatus.wrongSpot),
-          LetterInfo(letter: 'e'),
-        ];
-      case const Locale('ru'):
-        return const [
-          LetterInfo(letter: 'п', status: LetterStatus.correctSpot),
-          LetterInfo(letter: 'а'),
-          LetterInfo(letter: 'у', status: LetterStatus.notInWord),
-          LetterInfo(letter: 'з', status: LetterStatus.wrongSpot),
-          LetterInfo(letter: 'а'),
-        ];
-    }
-    return [];
-  }
+  List<LetterInfo> _wordByDictionary(Locale dictionary) => switch (dictionary.languageCode) {
+        'en' => const [
+            LetterInfo(letter: 'p', status: LetterStatus.correctSpot),
+            LetterInfo(letter: 'a'),
+            LetterInfo(letter: 'u', status: LetterStatus.notInWord),
+            LetterInfo(letter: 's', status: LetterStatus.wrongSpot),
+            LetterInfo(letter: 'e'),
+          ],
+        'ru' => const [
+            LetterInfo(letter: 'п', status: LetterStatus.correctSpot),
+            LetterInfo(letter: 'а'),
+            LetterInfo(letter: 'у', status: LetterStatus.notInWord),
+            LetterInfo(letter: 'з', status: LetterStatus.wrongSpot),
+            LetterInfo(letter: 'а'),
+          ],
+        _ => []
+      };
 }

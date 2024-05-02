@@ -4,7 +4,6 @@ import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/components/widget/letter_tile.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
-import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 
 class TutorialPage extends StatelessWidget {
@@ -18,24 +17,25 @@ class TutorialPage extends StatelessWidget {
     final wordNotSpot = _wordNotSpot(locale);
     return Title(
       color: Colors.black,
-      title: context.r.tutorial,
+      title: context.l10n.tutorial,
       child: Scaffold(
         backgroundColor: context.theme.extension<BackgroundCustomColors>()?.background,
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            context.r.tutorial,
+            context.l10n.tutorial,
             style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
           ),
         ),
         body: ConstraintScreen(
+          safeAreaBottom: false,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ListView(
               padding: EdgeInsets.only(bottom: MediaQuery.paddingOf(context).bottom + 16),
               children: [
                 Text(
-                  context.r.tutorialTitle,
+                  context.l10n.tutorialTitle,
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 16),
@@ -44,7 +44,7 @@ class TutorialPage extends StatelessWidget {
                     children: [
                       const TextSpan(text: '\u2022'),
                       const WidgetSpan(child: SizedBox(width: 6)),
-                      TextSpan(text: context.r.tutorialDescription1),
+                      TextSpan(text: context.l10n.tutorialDescription1),
                     ],
                   ),
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
@@ -56,7 +56,7 @@ class TutorialPage extends StatelessWidget {
                       const TextSpan(text: '\u2022'),
                       const WidgetSpan(child: SizedBox(width: 6)),
                       TextSpan(
-                        text: context.r.tutorialDescription2,
+                        text: context.l10n.tutorialDescription2,
                       ),
                     ],
                   ),
@@ -66,7 +66,7 @@ class TutorialPage extends StatelessWidget {
                 const Divider(color: AppColors.secondary),
                 const SizedBox(height: 16),
                 Text(
-                  context.r.examples,
+                  context.l10n.examples,
                   style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 16),
@@ -85,7 +85,7 @@ class TutorialPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  context.r.tutorialWordCorrectSpot,
+                  context.l10n.tutorialWordCorrectSpot,
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 16),
@@ -104,7 +104,7 @@ class TutorialPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  context.r.tutorialWordWrongSpot,
+                  context.l10n.tutorialWordWrongSpot,
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 16),
@@ -123,14 +123,14 @@ class TutorialPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  context.r.tutorialNotInWordSpot,
+                  context.l10n.tutorialNotInWordSpot,
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 16),
                 const Divider(color: AppColors.secondary),
                 const SizedBox(height: 16),
                 Text(
-                  context.r.newWordAvailableEachDay.toUpperCase(),
+                  context.l10n.newWordAvailableEachDay.toUpperCase(),
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
                 ),
               ],

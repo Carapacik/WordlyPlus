@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wordly/src/core/localization/localization.dart';
+import 'package:wordly/src/core/constant/localization/generated/l10n.dart';
+import 'package:wordly/src/core/constant/localization/localization.dart';
 import 'package:wordly/src/feature/initialization/model/dependencies.dart';
 import 'package:wordly/src/feature/initialization/widget/dependencies_scope.dart';
 
@@ -45,7 +46,7 @@ extension ContextExtension on BuildContext {
 
   Dependencies get dependencies => DependenciesScope.of(this);
 
-  ThemeData get theme => Theme.of(this);
+  AppLocalizations get l10n => Localization.of(this);
 
-  Localization get r => Localization.of(this);
+  ThemeData get theme => Theme.of(this);
 }

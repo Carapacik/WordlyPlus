@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
 import 'package:wordly/src/feature/level/data/level_repository.dart';
-import 'package:wordly/src/feature/settings/data/settings_repository.dart';
+import 'package:wordly/src/feature/settings/bloc/settings_bloc.dart';
 import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 
 /// {@template dependencies}
@@ -9,15 +9,22 @@ import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 /// {@endtemplate}
 base class Dependencies {
   /// {@macro dependencies}
-  Dependencies();
+  const Dependencies({
+    required this.sharedPreferences,
+    required this.settingsBloc,
+    required this.gameRepository,
+    required this.levelRepository,
+    required this.statisticsRepository,
+  });
 
-  /// Shared preferences
-  late final SharedPreferences sharedPreferences;
+  /// [SharedPreferences] instance, used to store Key-Value pairs.
+  final SharedPreferences sharedPreferences;
 
-  late final SettingsRepository settingsRepository;
-  late final IStatisticsRepository statisticsRepository;
-  late final ILevelRepository levelRepository;
-  late final IGameRepository gameRepository;
+  /// [SettingsBloc] instance, used to manage theme and locale.
+  final SettingsBloc settingsBloc;
+  final StatisticsRepository statisticsRepository;
+  final ILevelRepository levelRepository;
+  final IGameRepository gameRepository;
 }
 
 /// {@template initialization_result}
@@ -27,15 +34,11 @@ final class InitializationResult {
   /// {@macro initialization_result}
   const InitializationResult({
     required this.dependencies,
-    required this.stepCount,
     required this.msSpent,
   });
 
   /// The dependencies
   final Dependencies dependencies;
-
-  /// The number of steps
-  final int stepCount;
 
   /// The number of milliseconds spent
   final int msSpent;
@@ -43,7 +46,6 @@ final class InitializationResult {
   @override
   String toString() => '$InitializationResult('
       'dependencies: $dependencies, '
-      'stepCount: $stepCount, '
       'msSpent: $msSpent'
       ')';
 }

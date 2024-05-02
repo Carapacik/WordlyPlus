@@ -10,7 +10,7 @@ class HaveNotPlayed extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 36),
         child: Text(
-          context.r.notPlayed,
+          context.l10n.notPlayed,
           style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
           textAlign: TextAlign.center,
         ),

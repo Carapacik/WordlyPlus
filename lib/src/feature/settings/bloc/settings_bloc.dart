@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart' show Locale;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:wordly/src/core/localization/localization.dart';
-import 'package:wordly/src/feature/settings/data/settings_repository.dart';
-import 'package:wordly/src/feature/settings/model/app_theme.dart';
+import 'package:wordly/src/core/resources/resources.dart';
+import 'package:wordly/src/feature/settings/data/dictionary_repository.dart';
+import 'package:wordly/src/feature/settings/data/locale_repository.dart';
+import 'package:wordly/src/feature/settings/data/theme_repository.dart';
 
 part 'settings_bloc.freezed.dart';
 
@@ -15,46 +16,48 @@ sealed class SettingsState with _$SettingsState {
   /// Idle state for the [SettingsBloc].
   const factory SettingsState.idle({
     /// The current locale.
-    required Locale locale,
+    Locale? locale,
 
     /// The current dictionary.
-    required Locale dictionary,
+    Locale? dictionary,
 
     /// The current theme mode.
-    required AppTheme appTheme,
+    AppTheme? appTheme,
   }) = _IdleSettingsState;
 
   /// Processing state for the [SettingsBloc].
   const factory SettingsState.processing({
     /// The current locale.
-    required Locale locale,
+    Locale? locale,
 
     /// The current dictionary.
-    required Locale dictionary,
+    Locale? dictionary,
 
     /// The current theme mode.
-    required AppTheme appTheme,
+    AppTheme? appTheme,
   }) = _ProcessingSettingsState;
 
   /// Error state for the [SettingsBloc].
   const factory SettingsState.error({
+    /// The error message.
+    required Object cause,
+
     /// The current locale.
-    required Locale locale,
+    Locale? locale,
 
     /// The current dictionary.
-    required Locale dictionary,
+    Locale? dictionary,
 
     /// The current theme mode.
-    required AppTheme appTheme,
-
-    /// The error message.
-    required String message,
+    AppTheme? appTheme,
   }) = _ErrorSettingsState;
 }
 
 /// Events for the [SettingsBloc].
-@Freezed()
+@Freezed(copyWith: false)
 sealed class SettingsEvent with _$SettingsEvent {
+  const SettingsEvent._();
+
   /// Event to update the theme mode.
   const factory SettingsEvent.updateTheme({
     /// The new theme mode.
@@ -79,51 +82,53 @@ sealed class SettingsEvent with _$SettingsEvent {
 /// {@endtemplate}
 final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   /// {@macro settings_bloc}
-  SettingsBloc({required SettingsRepository settingsRepository})
-      : _settingsRepository = settingsRepository,
-        super(
-          SettingsState.idle(
-            appTheme: settingsRepository.fetchThemeFromCache() ?? AppTheme.defaultTheme,
-            dictionary: settingsRepository.fetchDictionaryFromCache() ?? const Locale('en'),
-            locale: settingsRepository.fetchLocaleFromCache() ?? Localization.computeDefaultLocale(),
-          ),
-        ) {
+  SettingsBloc({
+    required LocaleRepository localeRepository,
+    required DictionaryRepository dictionaryRepository,
+    required ThemeRepository themeRepository,
+    required SettingsState initialState,
+  })  : _localeRepository = localeRepository,
+        _dictionaryRepository = dictionaryRepository,
+        _themeRepository = themeRepository,
+        super(initialState) {
     on<SettingsEvent>(
-      (event, emit) => event.map(
-        updateTheme: (event) async => _updateTheme(event, emit),
-        updateDictionary: (event) async => _updateDictionary(event, emit),
-        updateLocale: (event) async => _updateLocale(event, emit),
+      (event, emit) async => event.map(
+        updateTheme: (event) => _updateTheme(event, emit),
+        updateLocale: (event) => _updateLocale(event, emit),
+        updateDictionary: (event) => _updateDictionary(event, emit),
       ),
     );
   }
 
-  final SettingsRepository _settingsRepository;
+  final LocaleRepository _localeRepository;
+  final DictionaryRepository _dictionaryRepository;
+  final ThemeRepository _themeRepository;
 
   Future<void> _updateTheme(
     _UpdateThemeSettingsEvent event,
     Emitter<SettingsState> emitter,
   ) async {
     emitter(
-      _ProcessingSettingsState(
+      SettingsState.processing(
         appTheme: state.appTheme,
-        dictionary: state.dictionary,
         locale: state.locale,
+        dictionary: state.dictionary,
       ),
     );
 
     try {
-      await _settingsRepository.setTheme(event.appTheme);
+      await _themeRepository.setTheme(event.appTheme);
 
       emitter(
-        SettingsState.idle(appTheme: event.appTheme, dictionary: state.dictionary, locale: state.locale),
+        SettingsState.idle(appTheme: event.appTheme, locale: state.locale, dictionary: state.dictionary),
       );
     } on Object catch (e) {
       emitter(
         SettingsState.error(
           appTheme: state.appTheme,
-          dictionary: state.dictionary,
           locale: state.locale,
-          message: e.toString(),
+          dictionary: state.dictionary,
+          cause: e,
         ),
       );
       rethrow;
@@ -135,26 +140,26 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     Emitter<SettingsState> emitter,
   ) async {
     emitter(
-      _ProcessingSettingsState(
+      SettingsState.processing(
         appTheme: state.appTheme,
-        dictionary: state.dictionary,
         locale: state.locale,
+        dictionary: state.dictionary,
       ),
     );
 
     try {
-      await _settingsRepository.setDictionary(event.dictionary);
+      await _dictionaryRepository.setDictionary(event.dictionary);
 
       emitter(
-        SettingsState.idle(appTheme: state.appTheme, dictionary: event.dictionary, locale: state.locale),
+        SettingsState.idle(appTheme: state.appTheme, locale: state.locale, dictionary: event.dictionary),
       );
     } on Object catch (e) {
       emitter(
         SettingsState.error(
           appTheme: state.appTheme,
-          dictionary: state.dictionary,
           locale: state.locale,
-          message: e.toString(),
+          dictionary: state.dictionary,
+          cause: e,
         ),
       );
       rethrow;
@@ -166,26 +171,30 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     Emitter<SettingsState> emitter,
   ) async {
     emitter(
-      _ProcessingSettingsState(
+      SettingsState.processing(
         appTheme: state.appTheme,
-        dictionary: state.dictionary,
         locale: state.locale,
+        dictionary: state.dictionary,
       ),
     );
 
     try {
-      await _settingsRepository.setLocale(event.locale);
+      await _localeRepository.setLocale(event.locale);
 
       emitter(
-        SettingsState.idle(appTheme: state.appTheme, dictionary: state.dictionary, locale: event.locale),
+        SettingsState.idle(
+          appTheme: state.appTheme,
+          locale: event.locale,
+          dictionary: state.dictionary,
+        ),
       );
     } on Object catch (e) {
       emitter(
         SettingsState.error(
           appTheme: state.appTheme,
-          dictionary: state.dictionary,
           locale: state.locale,
-          message: e.toString(),
+          dictionary: state.dictionary,
+          cause: e,
         ),
       );
       rethrow;

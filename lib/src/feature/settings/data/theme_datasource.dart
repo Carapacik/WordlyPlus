@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart' show Color, ThemeMode;
+import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/preferences_dao.dart';
-import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 
 /// {@template theme_datasource}
-/// [ThemeDataSource] is an entry point to the theme data layer.
+/// [ThemeDataSource] is a data source that provides theme data.
 ///
 /// This is used to set and get theme.
 /// {@endtemplate}
@@ -16,22 +16,20 @@ abstract interface class ThemeDataSource {
   Future<void> setTheme(AppTheme theme);
 
   /// Get current theme from cache
-  AppTheme? loadThemeFromCache();
+  Future<AppTheme?> getTheme();
 }
 
 /// {@macro theme_datasource}
-final class ThemeDataSourceImpl extends PreferencesDao implements ThemeDataSource {
+final class ThemeDataSourceLocal extends PreferencesDao implements ThemeDataSource {
   /// {@macro theme_datasource}
-  const ThemeDataSourceImpl({
+  const ThemeDataSourceLocal({
     required super.sharedPreferences,
-    required Codec<ThemeMode, String> themeModeCodec,
-    required Codec<ColorMode, String> colorModeCodec,
-  })  : _colorModeCodec = colorModeCodec,
-        _themeModeCodec = themeModeCodec;
+    required this.themeModeCodec,
+    required this.colorModeCodec,
+  });
 
-  /// Codec for [ThemeMode]
-  final Codec<ThemeMode, String> _themeModeCodec;
-  final Codec<ColorMode, String> _colorModeCodec;
+  final Codec<ThemeMode, String> themeModeCodec;
+  final Codec<ColorMode, String> colorModeCodec;
 
   PreferencesEntry<String> get _themeMode => stringEntry('theme.mode');
 
@@ -45,8 +43,8 @@ final class ThemeDataSourceImpl extends PreferencesDao implements ThemeDataSourc
 
   @override
   Future<void> setTheme(AppTheme theme) async {
-    await _themeMode.setIfNullRemove(_themeModeCodec.encode(theme.mode));
-    await _colorMode.setIfNullRemove(_colorModeCodec.encode(theme.colorMode));
+    await _themeMode.setIfNullRemove(themeModeCodec.encode(theme.mode));
+    await _colorMode.setIfNullRemove(colorModeCodec.encode(theme.colorMode));
     if (theme.otherColors != null) {
       await _otherColor1(theme.mode.index).setIfNullRemove(theme.otherColors?.$1.value);
       await _otherColor2(theme.mode.index).setIfNullRemove(theme.otherColors?.$2.value);
@@ -55,15 +53,15 @@ final class ThemeDataSourceImpl extends PreferencesDao implements ThemeDataSourc
   }
 
   @override
-  AppTheme? loadThemeFromCache() {
+  Future<AppTheme?> getTheme() async {
     final themeMode = _themeMode.read();
     final colorMode = _colorMode.read();
 
     if (themeMode == null || colorMode == null) {
       return null;
     }
-    final decodedThemeMode = _themeModeCodec.decode(themeMode);
-    final decodedColorMode = _colorModeCodec.decode(colorMode);
+    final decodedThemeMode = themeModeCodec.decode(themeMode);
+    final decodedColorMode = colorModeCodec.decode(colorMode);
     final otherColor1 = _otherColor1(decodedThemeMode.index).read();
     final otherColor2 = _otherColor2(decodedThemeMode.index).read();
     final otherColor3 = _otherColor3(decodedThemeMode.index).read();

@@ -8,22 +8,22 @@ import 'package:wordly/src/feature/level/data/level_datasource.dart';
 /// Repository which manages the daily statistic.
 /// {@endtemplate}
 abstract interface class ILevelRepository {
-  List<GameResult>? loadLevelFromCache(Locale dictionary);
+  List<GameResult>? getLevels(Locale dictionary);
 
-  Future<void> saveLevels(Locale dictionary, GameResult levelInfo);
+  Future<void> setLevels(Locale dictionary, GameResult levelInfo);
 }
 
 /// {@macro statistic_repository}
 final class LevelRepositoryImpl implements ILevelRepository {
   /// {@macro statistic_repository}
-  const LevelRepositoryImpl(this._dataSource);
+  const LevelRepositoryImpl({required LevelDataSource levelDataSource}) : _levelDataSource = levelDataSource;
 
-  final LevelDataSource _dataSource;
-
-  @override
-  Future<void> saveLevels(Locale dictionary, GameResult levelInfo) async =>
-      _dataSource.saveLevels(dictionary.languageCode, levelInfo);
+  final LevelDataSource _levelDataSource;
 
   @override
-  List<GameResult>? loadLevelFromCache(Locale dictionary) => _dataSource.loadLevelFromCache(dictionary.languageCode);
+  Future<void> setLevels(Locale dictionary, GameResult levelInfo) async =>
+      _levelDataSource.setLevels(dictionary.languageCode, levelInfo);
+
+  @override
+  List<GameResult>? getLevels(Locale dictionary) => _levelDataSource.getLevels(dictionary.languageCode);
 }

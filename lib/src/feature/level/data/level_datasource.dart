@@ -3,60 +3,60 @@ import 'dart:convert' show json;
 import 'dart:ui' show Locale;
 
 import 'package:collection/collection.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wordly/src/core/utils/preferences_dao.dart';
 import 'package:wordly/src/feature/game/model/game_result.dart';
 
-/// {@template Level_datasource}
-/// [LevelDataSource] is an entry point to the Level data layer.
+/// {@template level_datasource}
+/// [LevelDataSource] is an entry point to the level data layer.
 ///
-/// This is used to set and get Level.
+/// This is used to set and get level.
 /// {@endtemplate}
 abstract interface class LevelDataSource {
-  /// Set Level
-  Future<void> saveLevels(String dictionaryKey, GameResult levels);
+  /// Set level
+  Future<void> setLevels(String dictionaryKey, GameResult levels);
 
-  /// Get current Level from cache
-  List<GameResult>? loadLevelFromCache(String dictionaryKey);
+  /// Get current level from cache
+  List<GameResult>? getLevels(String dictionaryKey);
 
   /// Run migration from old api
   Future<void> runMigration();
 }
 
 /// {@macro Level_datasource}
-final class LevelDataSourceImpl implements LevelDataSource {
+final class LevelDataSourceLocal extends PreferencesDao implements LevelDataSource {
   /// {@macro Level_datasource}
-  const LevelDataSourceImpl({
-    required SharedPreferences sharedPreferences,
-  }) : _sharedPreferences = sharedPreferences;
-  final SharedPreferences _sharedPreferences;
+  const LevelDataSourceLocal({
+    required super.sharedPreferences,
+  });
 
-  static const _prefix = 'level';
-  static const _migrationVersionPrefix = 'level_migration_version';
+  PreferencesEntry<Iterable<String>> _level(String dictionaryKey) => iterableStringEntry('level$dictionaryKey');
+
+  PreferencesEntry<int> get _migrationVersion => intEntry('level_migration_version');
 
   @override
-  List<GameResult>? loadLevelFromCache(String dictionaryKey) {
-    final levels = _sharedPreferences.getStringList('${_prefix}_$dictionaryKey');
+  List<GameResult>? getLevels(String dictionaryKey) {
+    final levels = _level(dictionaryKey).read();
     if (levels == null) {
       return null;
     }
     try {
       return levels.map((l) => GameResult.fromJson(json.decode(l) as Map<String, dynamic>)).toList();
     } on Object catch (_) {
-      unawaited(_sharedPreferences.setStringList('${_prefix}_$dictionaryKey', []));
+      unawaited(_level(dictionaryKey).remove());
       return null;
     }
   }
 
   @override
-  Future<void> saveLevels(String dictionaryKey, GameResult level) async {
-    final previousLevels = (loadLevelFromCache(dictionaryKey) ?? [])..add(level);
-    final rawLevels = previousLevels.map((rawItem) => json.encode(rawItem.toJson())).toList();
-    await _sharedPreferences.setStringList('${_prefix}_$dictionaryKey', rawLevels);
+  Future<void> setLevels(String dictionaryKey, GameResult level) async {
+    final previousLevels = (getLevels(dictionaryKey) ?? [])..add(level);
+    final rawLevels = previousLevels.map((rawItem) => json.encode(rawItem.toJson()));
+    await _level(dictionaryKey).setIfNullRemove(rawLevels);
   }
 
   @override
   Future<void> runMigration() async {
-    final migrationVersion = _sharedPreferences.getInt(_migrationVersionPrefix);
+    final migrationVersion = _migrationVersion.read();
     if (migrationVersion == null || migrationVersion < 1) {
       return;
     }
@@ -66,8 +66,7 @@ final class LevelDataSourceImpl implements LevelDataSource {
     ];
     for (final dictionary in dictionaries) {
       try {
-        final key = '${_prefix}_${dictionary.languageCode}';
-        final levels = _sharedPreferences.getStringList(key);
+        final levels = _level(dictionary.languageCode).read();
         if (levels == null || levels.isEmpty) {
           continue;
         }
@@ -76,7 +75,7 @@ final class LevelDataSourceImpl implements LevelDataSource {
         if (!decodedFirst.containsKey('word') || !decodedFirst.containsKey('isWin')) {
           continue;
         }
-        await _sharedPreferences.setStringList(key, []);
+        await _level(dictionary.languageCode).remove();
         final newLevels = levels.mapIndexed((index, e) {
           final decoded = json.decode(e) as Map<String, dynamic>;
           return GameResult(
@@ -85,11 +84,11 @@ final class LevelDataSourceImpl implements LevelDataSource {
             lvlNumber: index + 1,
           );
         });
-        await _sharedPreferences.setStringList(key, newLevels.map((e) => json.encode(e.toJson())).toList());
+        await _level(dictionary.languageCode).setIfNullRemove(newLevels.map((e) => json.encode(e.toJson())));
       } on Object {
         // for new api
       }
     }
-    await _sharedPreferences.setInt(_migrationVersionPrefix, 1);
+    await _migrationVersion.setIfNullRemove(1);
   }
 }

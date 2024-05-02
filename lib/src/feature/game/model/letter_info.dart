@@ -43,16 +43,12 @@ enum LetterStatus {
 
   Color cellColor(BuildContext context, {bool listen = true}) {
     final theme = SettingsScope.of(context, listen: listen).theme;
-    switch (this) {
-      case LetterStatus.correctSpot:
-        return theme.correctColor;
-      case LetterStatus.wrongSpot:
-        return theme.wrongSpotColor;
-      case LetterStatus.notInWord:
-        return theme.notInWordColor(context);
-      case LetterStatus.unknown:
-        return theme.unknownColor(context);
-    }
+    return switch (this) {
+      LetterStatus.correctSpot => theme.correctColor,
+      LetterStatus.wrongSpot => theme.wrongSpotColor,
+      LetterStatus.notInWord => theme.notInWordColor(context),
+      LetterStatus.unknown => theme.unknownColor(context)
+    };
   }
 
   Color? textColor(BuildContext context, {bool listen = true}) {

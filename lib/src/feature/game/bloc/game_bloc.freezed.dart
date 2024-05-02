@@ -12,7 +12,7 @@ part of 'game_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$GameEvent {
@@ -57,54 +57,6 @@ mixin _$GameEvent {
 }
 
 /// @nodoc
-abstract class $GameEventCopyWith<$Res> {
-  factory $GameEventCopyWith(GameEvent value, $Res Function(GameEvent) then) = _$GameEventCopyWithImpl<$Res, GameEvent>;
-}
-
-/// @nodoc
-class _$GameEventCopyWithImpl<$Res, $Val extends GameEvent> implements $GameEventCopyWith<$Res> {
-  _$GameEventCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$GameEventChangeDictionaryImplCopyWith<$Res> {
-  factory _$$GameEventChangeDictionaryImplCopyWith(
-          _$GameEventChangeDictionaryImpl value, $Res Function(_$GameEventChangeDictionaryImpl) then) =
-      __$$GameEventChangeDictionaryImplCopyWithImpl<$Res>;
-
-  @useResult
-  $Res call({Locale dictionary});
-}
-
-/// @nodoc
-class __$$GameEventChangeDictionaryImplCopyWithImpl<$Res>
-    extends _$GameEventCopyWithImpl<$Res, _$GameEventChangeDictionaryImpl>
-    implements _$$GameEventChangeDictionaryImplCopyWith<$Res> {
-  __$$GameEventChangeDictionaryImplCopyWithImpl(
-      _$GameEventChangeDictionaryImpl _value, $Res Function(_$GameEventChangeDictionaryImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? dictionary = null,
-  }) {
-    return _then(_$GameEventChangeDictionaryImpl(
-      null == dictionary
-          ? _value.dictionary
-          : dictionary // ignore: cast_nullable_to_non_nullable
-              as Locale,
-    ));
-  }
-}
-
-/// @nodoc
 
 class _$GameEventChangeDictionaryImpl implements _GameEventChangeDictionary {
   const _$GameEventChangeDictionaryImpl(this.dictionary);
@@ -118,7 +70,7 @@ class _$GameEventChangeDictionaryImpl implements _GameEventChangeDictionary {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GameEventChangeDictionaryImpl &&
@@ -127,12 +79,6 @@ class _$GameEventChangeDictionaryImpl implements _GameEventChangeDictionary {
 
   @override
   int get hashCode => Object.hash(runtimeType, dictionary);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$GameEventChangeDictionaryImplCopyWith<_$GameEventChangeDictionaryImpl> get copyWith =>
-      __$$GameEventChangeDictionaryImplCopyWithImpl<_$GameEventChangeDictionaryImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -188,42 +134,6 @@ abstract class _GameEventChangeDictionary implements GameEvent {
   const factory _GameEventChangeDictionary(final Locale dictionary) = _$GameEventChangeDictionaryImpl;
 
   Locale get dictionary;
-
-  @JsonKey(ignore: true)
-  _$$GameEventChangeDictionaryImplCopyWith<_$GameEventChangeDictionaryImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$GameEventChangeGameModeImplCopyWith<$Res> {
-  factory _$$GameEventChangeGameModeImplCopyWith(
-          _$GameEventChangeGameModeImpl value, $Res Function(_$GameEventChangeGameModeImpl) then) =
-      __$$GameEventChangeGameModeImplCopyWithImpl<$Res>;
-
-  @useResult
-  $Res call({GameMode gameMode});
-}
-
-/// @nodoc
-class __$$GameEventChangeGameModeImplCopyWithImpl<$Res>
-    extends _$GameEventCopyWithImpl<$Res, _$GameEventChangeGameModeImpl>
-    implements _$$GameEventChangeGameModeImplCopyWith<$Res> {
-  __$$GameEventChangeGameModeImplCopyWithImpl(
-      _$GameEventChangeGameModeImpl _value, $Res Function(_$GameEventChangeGameModeImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? gameMode = null,
-  }) {
-    return _then(_$GameEventChangeGameModeImpl(
-      null == gameMode
-          ? _value.gameMode
-          : gameMode // ignore: cast_nullable_to_non_nullable
-              as GameMode,
-    ));
-  }
 }
 
 /// @nodoc
@@ -240,7 +150,7 @@ class _$GameEventChangeGameModeImpl implements _GameEventChangeGameMode {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GameEventChangeGameModeImpl &&
@@ -249,12 +159,6 @@ class _$GameEventChangeGameModeImpl implements _GameEventChangeGameMode {
 
   @override
   int get hashCode => Object.hash(runtimeType, gameMode);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$GameEventChangeGameModeImplCopyWith<_$GameEventChangeGameModeImpl> get copyWith =>
-      __$$GameEventChangeGameModeImplCopyWithImpl<_$GameEventChangeGameModeImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -310,41 +214,6 @@ abstract class _GameEventChangeGameMode implements GameEvent {
   const factory _GameEventChangeGameMode(final GameMode gameMode) = _$GameEventChangeGameModeImpl;
 
   GameMode get gameMode;
-
-  @JsonKey(ignore: true)
-  _$$GameEventChangeGameModeImplCopyWith<_$GameEventChangeGameModeImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$GameEventResetBoardImplCopyWith<$Res> {
-  factory _$$GameEventResetBoardImplCopyWith(
-          _$GameEventResetBoardImpl value, $Res Function(_$GameEventResetBoardImpl) then) =
-      __$$GameEventResetBoardImplCopyWithImpl<$Res>;
-
-  @useResult
-  $Res call({GameMode gameMode});
-}
-
-/// @nodoc
-class __$$GameEventResetBoardImplCopyWithImpl<$Res> extends _$GameEventCopyWithImpl<$Res, _$GameEventResetBoardImpl>
-    implements _$$GameEventResetBoardImplCopyWith<$Res> {
-  __$$GameEventResetBoardImplCopyWithImpl(
-      _$GameEventResetBoardImpl _value, $Res Function(_$GameEventResetBoardImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? gameMode = null,
-  }) {
-    return _then(_$GameEventResetBoardImpl(
-      null == gameMode
-          ? _value.gameMode
-          : gameMode // ignore: cast_nullable_to_non_nullable
-              as GameMode,
-    ));
-  }
 }
 
 /// @nodoc
@@ -361,7 +230,7 @@ class _$GameEventResetBoardImpl implements _GameEventResetBoard {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GameEventResetBoardImpl &&
@@ -370,12 +239,6 @@ class _$GameEventResetBoardImpl implements _GameEventResetBoard {
 
   @override
   int get hashCode => Object.hash(runtimeType, gameMode);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$GameEventResetBoardImplCopyWith<_$GameEventResetBoardImpl> get copyWith =>
-      __$$GameEventResetBoardImplCopyWithImpl<_$GameEventResetBoardImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -431,41 +294,6 @@ abstract class _GameEventResetBoard implements GameEvent {
   const factory _GameEventResetBoard(final GameMode gameMode) = _$GameEventResetBoardImpl;
 
   GameMode get gameMode;
-
-  @JsonKey(ignore: true)
-  _$$GameEventResetBoardImplCopyWith<_$GameEventResetBoardImpl> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$GameEventLetterPressedImplCopyWith<$Res> {
-  factory _$$GameEventLetterPressedImplCopyWith(
-          _$GameEventLetterPressedImpl value, $Res Function(_$GameEventLetterPressedImpl) then) =
-      __$$GameEventLetterPressedImplCopyWithImpl<$Res>;
-
-  @useResult
-  $Res call({String key});
-}
-
-/// @nodoc
-class __$$GameEventLetterPressedImplCopyWithImpl<$Res>
-    extends _$GameEventCopyWithImpl<$Res, _$GameEventLetterPressedImpl>
-    implements _$$GameEventLetterPressedImplCopyWith<$Res> {
-  __$$GameEventLetterPressedImplCopyWithImpl(
-      _$GameEventLetterPressedImpl _value, $Res Function(_$GameEventLetterPressedImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? key = null,
-  }) {
-    return _then(_$GameEventLetterPressedImpl(
-      null == key
-          ? _value.key
-          : key // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
@@ -482,7 +310,7 @@ class _$GameEventLetterPressedImpl implements _GameEventLetterPressed {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GameEventLetterPressedImpl &&
@@ -491,12 +319,6 @@ class _$GameEventLetterPressedImpl implements _GameEventLetterPressed {
 
   @override
   int get hashCode => Object.hash(runtimeType, key);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$GameEventLetterPressedImplCopyWith<_$GameEventLetterPressedImpl> get copyWith =>
-      __$$GameEventLetterPressedImplCopyWithImpl<_$GameEventLetterPressedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -552,26 +374,6 @@ abstract class _GameEventLetterPressed implements GameEvent {
   const factory _GameEventLetterPressed(final String key) = _$GameEventLetterPressedImpl;
 
   String get key;
-
-  @JsonKey(ignore: true)
-  _$$GameEventLetterPressedImplCopyWith<_$GameEventLetterPressedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$GameEventDeletePressedImplCopyWith<$Res> {
-  factory _$$GameEventDeletePressedImplCopyWith(
-          _$GameEventDeletePressedImpl value, $Res Function(_$GameEventDeletePressedImpl) then) =
-      __$$GameEventDeletePressedImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$GameEventDeletePressedImplCopyWithImpl<$Res>
-    extends _$GameEventCopyWithImpl<$Res, _$GameEventDeletePressedImpl>
-    implements _$$GameEventDeletePressedImplCopyWith<$Res> {
-  __$$GameEventDeletePressedImplCopyWithImpl(
-      _$GameEventDeletePressedImpl _value, $Res Function(_$GameEventDeletePressedImpl) _then)
-      : super(_value, _then);
 }
 
 /// @nodoc
@@ -585,7 +387,7 @@ class _$GameEventDeletePressedImpl implements _GameEventDeletePressed {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) || (other.runtimeType == runtimeType && other is _$GameEventDeletePressedImpl);
   }
 
@@ -647,22 +449,6 @@ abstract class _GameEventDeletePressed implements GameEvent {
 }
 
 /// @nodoc
-abstract class _$$GameEventDeleteLongPressedImplCopyWith<$Res> {
-  factory _$$GameEventDeleteLongPressedImplCopyWith(
-          _$GameEventDeleteLongPressedImpl value, $Res Function(_$GameEventDeleteLongPressedImpl) then) =
-      __$$GameEventDeleteLongPressedImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$GameEventDeleteLongPressedImplCopyWithImpl<$Res>
-    extends _$GameEventCopyWithImpl<$Res, _$GameEventDeleteLongPressedImpl>
-    implements _$$GameEventDeleteLongPressedImplCopyWith<$Res> {
-  __$$GameEventDeleteLongPressedImplCopyWithImpl(
-      _$GameEventDeleteLongPressedImpl _value, $Res Function(_$GameEventDeleteLongPressedImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
 
 class _$GameEventDeleteLongPressedImpl implements _GameEventDeleteLongPressed {
   const _$GameEventDeleteLongPressedImpl();
@@ -673,7 +459,7 @@ class _$GameEventDeleteLongPressedImpl implements _GameEventDeleteLongPressed {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) || (other.runtimeType == runtimeType && other is _$GameEventDeleteLongPressedImpl);
   }
 
@@ -735,21 +521,6 @@ abstract class _GameEventDeleteLongPressed implements GameEvent {
 }
 
 /// @nodoc
-abstract class _$$GameEventEnterPressedImplCopyWith<$Res> {
-  factory _$$GameEventEnterPressedImplCopyWith(
-          _$GameEventEnterPressedImpl value, $Res Function(_$GameEventEnterPressedImpl) then) =
-      __$$GameEventEnterPressedImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$GameEventEnterPressedImplCopyWithImpl<$Res> extends _$GameEventCopyWithImpl<$Res, _$GameEventEnterPressedImpl>
-    implements _$$GameEventEnterPressedImplCopyWith<$Res> {
-  __$$GameEventEnterPressedImplCopyWithImpl(
-      _$GameEventEnterPressedImpl _value, $Res Function(_$GameEventEnterPressedImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
 
 class _$GameEventEnterPressedImpl implements _GameEventEnterPressed {
   const _$GameEventEnterPressedImpl();
@@ -760,7 +531,7 @@ class _$GameEventEnterPressedImpl implements _GameEventEnterPressed {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) || (other.runtimeType == runtimeType && other is _$GameEventEnterPressedImpl);
   }
 
@@ -822,38 +593,6 @@ abstract class _GameEventEnterPressed implements GameEvent {
 }
 
 /// @nodoc
-abstract class _$$GameEventListenKeyEventImplCopyWith<$Res> {
-  factory _$$GameEventListenKeyEventImplCopyWith(
-          _$GameEventListenKeyEventImpl value, $Res Function(_$GameEventListenKeyEventImpl) then) =
-      __$$GameEventListenKeyEventImplCopyWithImpl<$Res>;
-
-  @useResult
-  $Res call({KeyEvent keyEvent});
-}
-
-/// @nodoc
-class __$$GameEventListenKeyEventImplCopyWithImpl<$Res>
-    extends _$GameEventCopyWithImpl<$Res, _$GameEventListenKeyEventImpl>
-    implements _$$GameEventListenKeyEventImplCopyWith<$Res> {
-  __$$GameEventListenKeyEventImplCopyWithImpl(
-      _$GameEventListenKeyEventImpl _value, $Res Function(_$GameEventListenKeyEventImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? keyEvent = null,
-  }) {
-    return _then(_$GameEventListenKeyEventImpl(
-      null == keyEvent
-          ? _value.keyEvent
-          : keyEvent // ignore: cast_nullable_to_non_nullable
-              as KeyEvent,
-    ));
-  }
-}
-
-/// @nodoc
 
 class _$GameEventListenKeyEventImpl implements _GameEventListenKeyEvent {
   const _$GameEventListenKeyEventImpl(this.keyEvent);
@@ -867,7 +606,7 @@ class _$GameEventListenKeyEventImpl implements _GameEventListenKeyEvent {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GameEventListenKeyEventImpl &&
@@ -876,12 +615,6 @@ class _$GameEventListenKeyEventImpl implements _GameEventListenKeyEvent {
 
   @override
   int get hashCode => Object.hash(runtimeType, keyEvent);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$GameEventListenKeyEventImplCopyWith<_$GameEventListenKeyEventImpl> get copyWith =>
-      __$$GameEventListenKeyEventImplCopyWithImpl<_$GameEventListenKeyEventImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -937,10 +670,6 @@ abstract class _GameEventListenKeyEvent implements GameEvent {
   const factory _GameEventListenKeyEvent(final KeyEvent keyEvent) = _$GameEventListenKeyEventImpl;
 
   KeyEvent get keyEvent;
-
-  @JsonKey(ignore: true)
-  _$$GameEventListenKeyEventImplCopyWith<_$GameEventListenKeyEventImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -985,145 +714,6 @@ mixin _$GameState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $GameStateCopyWith<GameState> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $GameStateCopyWith<$Res> {
-  factory $GameStateCopyWith(GameState value, $Res Function(GameState) then) = _$GameStateCopyWithImpl<$Res, GameState>;
-
-  @useResult
-  $Res call(
-      {Locale dictionary,
-      String secretWord,
-      GameMode gameMode,
-      bool gameCompleted,
-      List<LetterInfo> board,
-      Map<String, LetterStatus> statuses,
-      int? lvlNumber});
-}
-
-/// @nodoc
-class _$GameStateCopyWithImpl<$Res, $Val extends GameState> implements $GameStateCopyWith<$Res> {
-  _$GameStateCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? dictionary = null,
-    Object? secretWord = null,
-    Object? gameMode = null,
-    Object? gameCompleted = null,
-    Object? board = null,
-    Object? statuses = null,
-    Object? lvlNumber = freezed,
-  }) {
-    return _then(_value.copyWith(
-      dictionary: null == dictionary
-          ? _value.dictionary
-          : dictionary // ignore: cast_nullable_to_non_nullable
-              as Locale,
-      secretWord: null == secretWord
-          ? _value.secretWord
-          : secretWord // ignore: cast_nullable_to_non_nullable
-              as String,
-      gameMode: null == gameMode
-          ? _value.gameMode
-          : gameMode // ignore: cast_nullable_to_non_nullable
-              as GameMode,
-      gameCompleted: null == gameCompleted
-          ? _value.gameCompleted
-          : gameCompleted // ignore: cast_nullable_to_non_nullable
-              as bool,
-      board: null == board
-          ? _value.board
-          : board // ignore: cast_nullable_to_non_nullable
-              as List<LetterInfo>,
-      statuses: null == statuses
-          ? _value.statuses
-          : statuses // ignore: cast_nullable_to_non_nullable
-              as Map<String, LetterStatus>,
-      lvlNumber: freezed == lvlNumber
-          ? _value.lvlNumber
-          : lvlNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$GameStateIdleImplCopyWith<$Res> implements $GameStateCopyWith<$Res> {
-  factory _$$GameStateIdleImplCopyWith(_$GameStateIdleImpl value, $Res Function(_$GameStateIdleImpl) then) =
-      __$$GameStateIdleImplCopyWithImpl<$Res>;
-
-  @override
-  @useResult
-  $Res call(
-      {Locale dictionary,
-      String secretWord,
-      GameMode gameMode,
-      bool gameCompleted,
-      List<LetterInfo> board,
-      Map<String, LetterStatus> statuses,
-      int? lvlNumber});
-}
-
-/// @nodoc
-class __$$GameStateIdleImplCopyWithImpl<$Res> extends _$GameStateCopyWithImpl<$Res, _$GameStateIdleImpl>
-    implements _$$GameStateIdleImplCopyWith<$Res> {
-  __$$GameStateIdleImplCopyWithImpl(_$GameStateIdleImpl _value, $Res Function(_$GameStateIdleImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? dictionary = null,
-    Object? secretWord = null,
-    Object? gameMode = null,
-    Object? gameCompleted = null,
-    Object? board = null,
-    Object? statuses = null,
-    Object? lvlNumber = freezed,
-  }) {
-    return _then(_$GameStateIdleImpl(
-      dictionary: null == dictionary
-          ? _value.dictionary
-          : dictionary // ignore: cast_nullable_to_non_nullable
-              as Locale,
-      secretWord: null == secretWord
-          ? _value.secretWord
-          : secretWord // ignore: cast_nullable_to_non_nullable
-              as String,
-      gameMode: null == gameMode
-          ? _value.gameMode
-          : gameMode // ignore: cast_nullable_to_non_nullable
-              as GameMode,
-      gameCompleted: null == gameCompleted
-          ? _value.gameCompleted
-          : gameCompleted // ignore: cast_nullable_to_non_nullable
-              as bool,
-      board: null == board
-          ? _value._board
-          : board // ignore: cast_nullable_to_non_nullable
-              as List<LetterInfo>,
-      statuses: null == statuses
-          ? _value._statuses
-          : statuses // ignore: cast_nullable_to_non_nullable
-              as Map<String, LetterStatus>,
-      lvlNumber: freezed == lvlNumber
-          ? _value.lvlNumber
-          : lvlNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ));
-  }
 }
 
 /// @nodoc
@@ -1176,7 +766,7 @@ class _$GameStateIdleImpl extends _GameStateIdle {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GameStateIdleImpl &&
@@ -1192,12 +782,6 @@ class _$GameStateIdleImpl extends _GameStateIdle {
   @override
   int get hashCode => Object.hash(runtimeType, dictionary, secretWord, gameMode, gameCompleted,
       const DeepCollectionEquality().hash(_board), const DeepCollectionEquality().hash(_statuses), lvlNumber);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$GameStateIdleImplCopyWith<_$GameStateIdleImpl> get copyWith =>
-      __$$GameStateIdleImplCopyWithImpl<_$GameStateIdleImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1269,77 +853,6 @@ abstract class _GameStateIdle extends GameState {
 
   @override
   int? get lvlNumber;
-
-  @override
-  @JsonKey(ignore: true)
-  _$$GameStateIdleImplCopyWith<_$GameStateIdleImpl> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$GameStateWinImplCopyWith<$Res> implements $GameStateCopyWith<$Res> {
-  factory _$$GameStateWinImplCopyWith(_$GameStateWinImpl value, $Res Function(_$GameStateWinImpl) then) =
-      __$$GameStateWinImplCopyWithImpl<$Res>;
-
-  @override
-  @useResult
-  $Res call(
-      {Locale dictionary,
-      String secretWord,
-      GameMode gameMode,
-      bool gameCompleted,
-      List<LetterInfo> board,
-      Map<String, LetterStatus> statuses,
-      int? lvlNumber});
-}
-
-/// @nodoc
-class __$$GameStateWinImplCopyWithImpl<$Res> extends _$GameStateCopyWithImpl<$Res, _$GameStateWinImpl>
-    implements _$$GameStateWinImplCopyWith<$Res> {
-  __$$GameStateWinImplCopyWithImpl(_$GameStateWinImpl _value, $Res Function(_$GameStateWinImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? dictionary = null,
-    Object? secretWord = null,
-    Object? gameMode = null,
-    Object? gameCompleted = null,
-    Object? board = null,
-    Object? statuses = null,
-    Object? lvlNumber = freezed,
-  }) {
-    return _then(_$GameStateWinImpl(
-      dictionary: null == dictionary
-          ? _value.dictionary
-          : dictionary // ignore: cast_nullable_to_non_nullable
-              as Locale,
-      secretWord: null == secretWord
-          ? _value.secretWord
-          : secretWord // ignore: cast_nullable_to_non_nullable
-              as String,
-      gameMode: null == gameMode
-          ? _value.gameMode
-          : gameMode // ignore: cast_nullable_to_non_nullable
-              as GameMode,
-      gameCompleted: null == gameCompleted
-          ? _value.gameCompleted
-          : gameCompleted // ignore: cast_nullable_to_non_nullable
-              as bool,
-      board: null == board
-          ? _value._board
-          : board // ignore: cast_nullable_to_non_nullable
-              as List<LetterInfo>,
-      statuses: null == statuses
-          ? _value._statuses
-          : statuses // ignore: cast_nullable_to_non_nullable
-              as Map<String, LetterStatus>,
-      lvlNumber: freezed == lvlNumber
-          ? _value.lvlNumber
-          : lvlNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ));
-  }
 }
 
 /// @nodoc
@@ -1392,7 +905,7 @@ class _$GameStateWinImpl extends _GameStateWin {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GameStateWinImpl &&
@@ -1408,12 +921,6 @@ class _$GameStateWinImpl extends _GameStateWin {
   @override
   int get hashCode => Object.hash(runtimeType, dictionary, secretWord, gameMode, gameCompleted,
       const DeepCollectionEquality().hash(_board), const DeepCollectionEquality().hash(_statuses), lvlNumber);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$GameStateWinImplCopyWith<_$GameStateWinImpl> get copyWith =>
-      __$$GameStateWinImplCopyWithImpl<_$GameStateWinImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1485,77 +992,6 @@ abstract class _GameStateWin extends GameState {
 
   @override
   int? get lvlNumber;
-
-  @override
-  @JsonKey(ignore: true)
-  _$$GameStateWinImplCopyWith<_$GameStateWinImpl> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$GameStateLossImplCopyWith<$Res> implements $GameStateCopyWith<$Res> {
-  factory _$$GameStateLossImplCopyWith(_$GameStateLossImpl value, $Res Function(_$GameStateLossImpl) then) =
-      __$$GameStateLossImplCopyWithImpl<$Res>;
-
-  @override
-  @useResult
-  $Res call(
-      {Locale dictionary,
-      String secretWord,
-      GameMode gameMode,
-      bool gameCompleted,
-      List<LetterInfo> board,
-      Map<String, LetterStatus> statuses,
-      int? lvlNumber});
-}
-
-/// @nodoc
-class __$$GameStateLossImplCopyWithImpl<$Res> extends _$GameStateCopyWithImpl<$Res, _$GameStateLossImpl>
-    implements _$$GameStateLossImplCopyWith<$Res> {
-  __$$GameStateLossImplCopyWithImpl(_$GameStateLossImpl _value, $Res Function(_$GameStateLossImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? dictionary = null,
-    Object? secretWord = null,
-    Object? gameMode = null,
-    Object? gameCompleted = null,
-    Object? board = null,
-    Object? statuses = null,
-    Object? lvlNumber = freezed,
-  }) {
-    return _then(_$GameStateLossImpl(
-      dictionary: null == dictionary
-          ? _value.dictionary
-          : dictionary // ignore: cast_nullable_to_non_nullable
-              as Locale,
-      secretWord: null == secretWord
-          ? _value.secretWord
-          : secretWord // ignore: cast_nullable_to_non_nullable
-              as String,
-      gameMode: null == gameMode
-          ? _value.gameMode
-          : gameMode // ignore: cast_nullable_to_non_nullable
-              as GameMode,
-      gameCompleted: null == gameCompleted
-          ? _value.gameCompleted
-          : gameCompleted // ignore: cast_nullable_to_non_nullable
-              as bool,
-      board: null == board
-          ? _value._board
-          : board // ignore: cast_nullable_to_non_nullable
-              as List<LetterInfo>,
-      statuses: null == statuses
-          ? _value._statuses
-          : statuses // ignore: cast_nullable_to_non_nullable
-              as Map<String, LetterStatus>,
-      lvlNumber: freezed == lvlNumber
-          ? _value.lvlNumber
-          : lvlNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ));
-  }
 }
 
 /// @nodoc
@@ -1608,7 +1044,7 @@ class _$GameStateLossImpl extends _GameStateLoss {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GameStateLossImpl &&
@@ -1624,12 +1060,6 @@ class _$GameStateLossImpl extends _GameStateLoss {
   @override
   int get hashCode => Object.hash(runtimeType, dictionary, secretWord, gameMode, gameCompleted,
       const DeepCollectionEquality().hash(_board), const DeepCollectionEquality().hash(_statuses), lvlNumber);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$GameStateLossImplCopyWith<_$GameStateLossImpl> get copyWith =>
-      __$$GameStateLossImplCopyWithImpl<_$GameStateLossImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1701,83 +1131,6 @@ abstract class _GameStateLoss extends GameState {
 
   @override
   int? get lvlNumber;
-
-  @override
-  @JsonKey(ignore: true)
-  _$$GameStateLossImplCopyWith<_$GameStateLossImpl> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$GameStateErrorImplCopyWith<$Res> implements $GameStateCopyWith<$Res> {
-  factory _$$GameStateErrorImplCopyWith(_$GameStateErrorImpl value, $Res Function(_$GameStateErrorImpl) then) =
-      __$$GameStateErrorImplCopyWithImpl<$Res>;
-
-  @override
-  @useResult
-  $Res call(
-      {Locale dictionary,
-      String secretWord,
-      GameMode gameMode,
-      bool gameCompleted,
-      List<LetterInfo> board,
-      Map<String, LetterStatus> statuses,
-      WordError error,
-      int? lvlNumber});
-}
-
-/// @nodoc
-class __$$GameStateErrorImplCopyWithImpl<$Res> extends _$GameStateCopyWithImpl<$Res, _$GameStateErrorImpl>
-    implements _$$GameStateErrorImplCopyWith<$Res> {
-  __$$GameStateErrorImplCopyWithImpl(_$GameStateErrorImpl _value, $Res Function(_$GameStateErrorImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? dictionary = null,
-    Object? secretWord = null,
-    Object? gameMode = null,
-    Object? gameCompleted = null,
-    Object? board = null,
-    Object? statuses = null,
-    Object? error = null,
-    Object? lvlNumber = freezed,
-  }) {
-    return _then(_$GameStateErrorImpl(
-      dictionary: null == dictionary
-          ? _value.dictionary
-          : dictionary // ignore: cast_nullable_to_non_nullable
-              as Locale,
-      secretWord: null == secretWord
-          ? _value.secretWord
-          : secretWord // ignore: cast_nullable_to_non_nullable
-              as String,
-      gameMode: null == gameMode
-          ? _value.gameMode
-          : gameMode // ignore: cast_nullable_to_non_nullable
-              as GameMode,
-      gameCompleted: null == gameCompleted
-          ? _value.gameCompleted
-          : gameCompleted // ignore: cast_nullable_to_non_nullable
-              as bool,
-      board: null == board
-          ? _value._board
-          : board // ignore: cast_nullable_to_non_nullable
-              as List<LetterInfo>,
-      statuses: null == statuses
-          ? _value._statuses
-          : statuses // ignore: cast_nullable_to_non_nullable
-              as Map<String, LetterStatus>,
-      error: null == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as WordError,
-      lvlNumber: freezed == lvlNumber
-          ? _value.lvlNumber
-          : lvlNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ));
-  }
 }
 
 /// @nodoc
@@ -1833,7 +1186,7 @@ class _$GameStateErrorImpl extends _GameStateError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GameStateErrorImpl &&
@@ -1850,12 +1203,6 @@ class _$GameStateErrorImpl extends _GameStateError {
   @override
   int get hashCode => Object.hash(runtimeType, dictionary, secretWord, gameMode, gameCompleted,
       const DeepCollectionEquality().hash(_board), const DeepCollectionEquality().hash(_statuses), error, lvlNumber);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$GameStateErrorImplCopyWith<_$GameStateErrorImpl> get copyWith =>
-      __$$GameStateErrorImplCopyWithImpl<_$GameStateErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1930,8 +1277,4 @@ abstract class _GameStateError extends GameState {
 
   @override
   int? get lvlNumber;
-
-  @override
-  @JsonKey(ignore: true)
-  _$$GameStateErrorImplCopyWith<_$GameStateErrorImpl> get copyWith => throw _privateConstructorUsedError;
 }

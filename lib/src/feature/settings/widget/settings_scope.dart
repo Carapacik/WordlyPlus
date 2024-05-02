@@ -1,11 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/src/core/constant/localization/localization.dart';
+import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
-import 'package:wordly/src/feature/initialization/widget/dependencies_scope.dart';
 import 'package:wordly/src/feature/settings/bloc/settings_bloc.dart';
-import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 
 /// {@template theme_scope_controller}
@@ -28,14 +26,14 @@ abstract interface class ThemeScopeController {
   void setTheme(AppTheme appTheme);
 }
 
-/// {@template locale_scope_controller}
+/// {@template dictionary_scope_controller}
 /// A controller that holds and operates the app dictionary.
 /// {@endtemplate}
 abstract interface class DictionaryScopeController {
-  /// Get the current [dictionary]
+  /// Get the current dictionary
   Locale get dictionary;
 
-  /// Set locale to [dictionary].
+  /// Set dictionary to [dictionary].
   void setDictionary(Locale dictionary);
 }
 
@@ -77,10 +75,17 @@ enum _SettingsScopeAspect {
 /// {@endtemplate}
 class SettingsScope extends StatefulWidget {
   /// {@macro settings_scope}
-  const SettingsScope({required this.child, super.key});
+  const SettingsScope({
+    required this.child,
+    required this.settingsBloc,
+    super.key,
+  });
 
   /// The child widget.
   final Widget child;
+
+  /// The [SettingsBloc] instance.
+  final SettingsBloc settingsBloc;
 
   /// Get the [SettingsScopeController] of the closest [SettingsScope] ancestor.
   static SettingsScopeController of(
@@ -116,78 +121,44 @@ class SettingsScope extends StatefulWidget {
 
 /// State for widget SettingsScope
 class _SettingsScopeState extends State<SettingsScope> implements SettingsScopeController {
-  late final SettingsBloc _settingsBloc;
+  @override
+  void setLocale(Locale locale) => widget.settingsBloc.add(SettingsEvent.updateLocale(locale: locale));
 
   @override
-  void initState() {
-    super.initState();
-    _settingsBloc = SettingsBloc(
-      settingsRepository: DependenciesScope.of(context).settingsRepository,
-    );
-  }
+  void setDictionary(Locale dictionary) =>
+      widget.settingsBloc.add(SettingsEvent.updateDictionary(dictionary: dictionary));
 
   @override
-  void dispose() {
-    unawaited(_settingsBloc.close());
-    super.dispose();
-  }
+  void setThemeMode(ThemeMode themeMode) => widget.settingsBloc
+      .add(SettingsEvent.updateTheme(appTheme: AppTheme(mode: themeMode, colorMode: theme.colorMode)));
 
   @override
-  void setLocale(Locale locale) {
-    _settingsBloc.add(SettingsEvent.updateLocale(locale: locale));
-  }
+  void setColorMode(ColorMode colorMode) =>
+      widget.settingsBloc.add(SettingsEvent.updateTheme(appTheme: AppTheme(mode: theme.mode, colorMode: colorMode)));
 
   @override
-  void setDictionary(Locale dictionary) {
-    _settingsBloc.add(SettingsEvent.updateDictionary(dictionary: dictionary));
-  }
+  void setOtherColors((Color, Color, Color) otherColors) => widget.settingsBloc.add(
+        SettingsEvent.updateTheme(
+          appTheme: AppTheme(mode: theme.mode, colorMode: theme.colorMode, otherColors: otherColors),
+        ),
+      );
 
   @override
-  void setThemeMode(ThemeMode themeMode) {
-    _settingsBloc.add(
-      SettingsEvent.updateTheme(
-        appTheme: AppTheme(mode: themeMode, colorMode: theme.colorMode),
-      ),
-    );
-  }
+  void setTheme(AppTheme appTheme) => widget.settingsBloc.add(SettingsEvent.updateTheme(appTheme: appTheme));
 
   @override
-  void setColorMode(ColorMode colorMode) {
-    _settingsBloc.add(
-      SettingsEvent.updateTheme(
-        appTheme: AppTheme(mode: theme.mode, colorMode: colorMode),
-      ),
-    );
-  }
+  Locale get locale => widget.settingsBloc.state.locale ?? Localization.computeDefaultLocale();
 
   @override
-  void setOtherColors((Color, Color, Color) otherColors) {
-    _settingsBloc.add(
-      SettingsEvent.updateTheme(
-        appTheme: AppTheme(mode: theme.mode, colorMode: theme.colorMode, otherColors: otherColors),
-      ),
-    );
-  }
+  Locale get dictionary =>
+      widget.settingsBloc.state.dictionary ?? Localization.computeDefaultLocale(withDictionary: true);
 
   @override
-  void setTheme(AppTheme appTheme) {
-    _settingsBloc.add(
-      SettingsEvent.updateTheme(appTheme: appTheme),
-    );
-  }
-
-  @override
-  Locale get locale => _settingsBloc.state.locale;
-
-  @override
-  Locale get dictionary => _settingsBloc.state.dictionary;
-
-  @override
-  AppTheme get theme => _settingsBloc.state.appTheme;
+  AppTheme get theme => widget.settingsBloc.state.appTheme ?? AppTheme.defaultTheme;
 
   @override
   Widget build(BuildContext context) => BlocBuilder<SettingsBloc, SettingsState>(
-        bloc: _settingsBloc,
+        bloc: widget.settingsBloc,
         builder: (context, state) => _InheritedSettingsScope(
           controller: this,
           state: state,
@@ -220,9 +191,16 @@ class _InheritedSettingsScope extends InheritedModel<_SettingsScopeAspect> {
       shouldNotify = shouldNotify || state.appTheme != oldWidget.state.appTheme;
     }
 
+    if (dependencies.contains(_SettingsScopeAspect.dictionary)) {
+      final dictionary = state.dictionary?.languageCode;
+      final oldDictionary = oldWidget.state.dictionary?.languageCode;
+
+      shouldNotify = shouldNotify || dictionary != oldDictionary;
+    }
+
     if (dependencies.contains(_SettingsScopeAspect.locale)) {
-      final locale = state.locale.languageCode;
-      final oldLocale = oldWidget.state.locale.languageCode;
+      final locale = state.locale?.languageCode;
+      final oldLocale = oldWidget.state.locale?.languageCode;
 
       shouldNotify = shouldNotify || locale != oldLocale;
     }

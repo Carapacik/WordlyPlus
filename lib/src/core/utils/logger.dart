@@ -126,11 +126,7 @@ abstract base class Logger {
 
   /// Handy method to log zoneError
   void logZoneError(Object error, StackTrace stackTrace) {
-    this.error(
-      'Zone(${Zone.current.hashCode}) error: $error',
-      error: error,
-      stackTrace: stackTrace,
-    );
+    this.error('Zone error: $error', error: error, stackTrace: stackTrace);
   }
 
   /// Handy method to log [FlutterError]
@@ -161,7 +157,7 @@ abstract base class Logger {
 
 /// Default logger using logging package
 final class LoggerLogging extends Logger {
-  final _logger = logging.Logger('SizzleLogger');
+  final _logger = logging.Logger('WordlyLogger');
 
   @override
   void debug(Object message) => _logger.fine(message);
@@ -190,7 +186,7 @@ final class LoggerLogging extends Logger {
     }
     logging.hierarchicalLoggingEnabled = true;
 
-    _logger.onRecord.where((event) => event.loggerName == 'SizzleLogger').listen((event) {
+    _logger.onRecord.where((event) => event.loggerName == 'WordlyLogger').listen((event) {
       final logMessage = event.toLogMessage();
       final message =
           options.formatter?.call(logMessage, options) ?? _formatLoggerMessage(log: logMessage, options: options);

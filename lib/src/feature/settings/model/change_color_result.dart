@@ -13,14 +13,9 @@ enum ColorMode {
   highContrast,
   other;
 
-  String localized(BuildContext context) {
-    switch (this) {
-      case ColorMode.casual:
-        return context.r.casual;
-      case ColorMode.highContrast:
-        return context.r.highContrast;
-      case ColorMode.other:
-        return context.r.other;
-    }
-  }
+  String localized(BuildContext context) => switch (this) {
+        ColorMode.casual => context.l10n.casual,
+        ColorMode.highContrast => context.l10n.highContrast,
+        ColorMode.other => context.l10n.other
+      };
 }

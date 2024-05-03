@@ -30,7 +30,6 @@ final class InitializationProcessor {
 
   Future<Dependencies> _initDependencies() async {
     final sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.clear();
     final settingsBloc = await _initSettingsBloc(sharedPreferences);
 
     final gameRepository = GameRepository(

@@ -123,7 +123,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
                       _currentColorMode,
                       _currentSelectedTileIndex == null ? null : word[_currentSelectedTileIndex!].status,
                     ) ??
-                    context.theme.colorScheme.background,
+                    context.theme.colorScheme.surface,
                 onColorChanged: (color) {
                   final status = word[_currentSelectedTileIndex!].status;
                   setState(() {

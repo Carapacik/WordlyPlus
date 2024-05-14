@@ -31,7 +31,9 @@ final class LocaleDataSourceLocal extends PreferencesDao implements LocaleDataSo
   Future<Locale?> getLocale() async {
     final languageCode = _locale.read();
 
-    if (languageCode == null) return null;
+    if (languageCode == null) {
+      return null;
+    }
 
     return Locale.fromSubtags(languageCode: languageCode);
   }

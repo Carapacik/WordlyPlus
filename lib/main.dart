@@ -8,5 +8,4 @@ void main() => logger.runLogging(
         () async => const AppRunner().initializeAndRun(),
         logger.logZoneError,
       ),
-      const LogOptions(),
     );

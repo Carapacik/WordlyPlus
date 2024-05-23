@@ -1,38 +1,39 @@
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
+import 'package:wordly/src/feature/initialization/logic/initialization_processor.dart';
 import 'package:wordly/src/feature/level/data/level_repository.dart';
 import 'package:wordly/src/feature/settings/bloc/settings_bloc.dart';
 import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 
 /// {@template dependencies}
-/// Dependencies container
+/// Composed dependencies from the [CompositionRoot].
+///
+/// This class is used to pass dependencies to the application.
+///
+/// {@macro composition_process}
 /// {@endtemplate}
 base class Dependencies {
   /// {@macro dependencies}
   const Dependencies({
-    required this.sharedPreferences,
     required this.settingsBloc,
     required this.gameRepository,
     required this.levelRepository,
     required this.statisticsRepository,
   });
 
-  /// [SharedPreferences] instance, used to store Key-Value pairs.
-  final SharedPreferences sharedPreferences;
-
-  /// [SettingsBloc] instance, used to manage theme and locale.
   final SettingsBloc settingsBloc;
   final StatisticsRepository statisticsRepository;
   final ILevelRepository levelRepository;
   final IGameRepository gameRepository;
 }
 
-/// {@template initialization_result}
-/// Result of initialization
+/// {@template composition_result}
+/// Result of composition
+///
+/// {@macro composition_process}
 /// {@endtemplate}
-final class InitializationResult {
-  /// {@macro initialization_result}
-  const InitializationResult({
+final class CompositionResult {
+  /// {@macro composition_result}
+  const CompositionResult({
     required this.dependencies,
     required this.msSpent,
   });
@@ -44,7 +45,7 @@ final class InitializationResult {
   final int msSpent;
 
   @override
-  String toString() => '$InitializationResult('
+  String toString() => '$CompositionResult('
       'dependencies: $dependencies, '
       'msSpent: $msSpent'
       ')';

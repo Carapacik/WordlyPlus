@@ -15,9 +15,8 @@ class App extends StatelessWidget {
   /// {@macro app}
   const App({required this.result, super.key});
 
-  /// The initialization result from the [InitializationProcessor]
-  /// which contains initialized dependencies.
-  final InitializationResult result;
+  /// The result from the [CompositionRoot].
+  final CompositionResult result;
 
   @override
   Widget build(BuildContext context) => DependenciesScope(

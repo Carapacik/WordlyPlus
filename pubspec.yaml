@@ -1,7 +1,7 @@
 name: wordly
 description: Guess the WORD in six tries
 publish_to: none
-version: 3.1.2+37
+version: 3.1.3+38
 environment:
   sdk: '>=3.4.0 <4.0.0'
   flutter: '>=3.22.0'
@@ -34,15 +34,14 @@ dependencies:
   logging: ^1.2.0
 
   # Utils
-  flutter_colorpicker:
-    git: https://github.com/mchome/flutter_colorpicker
+  flutter_colorpicker: ^1.1.0
   share_plus: ^9.0.0
   url_launcher: ^6.2.6
 
 dev_dependencies:
   build_runner: ^2.4.10
   carapacik_lints: ^1.8.1
-  flutter_gen_runner: ^5.4.0
+  flutter_gen_runner: ^5.5.0+1
   #flutter_launcher_icons: ^0.13.1
   #flutter_native_splash: ^2.4.0
   freezed: ^2.5.2

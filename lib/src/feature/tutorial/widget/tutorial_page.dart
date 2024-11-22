@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordly/src/core/constant/localization/localization.dart';
 import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
@@ -11,7 +12,7 @@ class TutorialPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locale = SettingsScope.settingsOf(context).locale;
+    final locale = SettingsScope.settingsOf(context).locale ?? Localization.computeDefaultLocale();
     final wordWithCorrectSpot = _wordWithCorrectSpot(locale);
     final wordWithWrongSpot = _wordWithWrongSpot(locale);
     final wordNotSpot = _wordNotSpot(locale);

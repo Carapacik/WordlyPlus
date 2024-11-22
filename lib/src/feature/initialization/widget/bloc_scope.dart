@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/src/core/constant/localization/localization.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
@@ -19,7 +20,7 @@ class BlocScope extends StatelessWidget {
             gameRepository: context.dependencies.gameRepository,
             statisticsRepository: context.dependencies.statisticsRepository,
             levelRepository: context.dependencies.levelRepository,
-            dictionary: dictionary,
+            dictionary: dictionary ?? Localization.computeDefaultLocale(withDictionary: true),
             savedResult: context.dependencies.gameRepository.savedResult,
           ),
         ),

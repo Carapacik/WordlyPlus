@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/src/core/constant/localization/localization.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
@@ -37,7 +38,10 @@ class _SettingsPageState extends State<SettingsPage> {
             children: [
               ListItemSelector<Locale>(
                 title: context.l10n.appDictionary,
-                currentValue: (settings.dictionary, _localeName(settings.dictionary)),
+                currentValue: (
+                  settings.dictionary ?? Localization.computeDefaultLocale(withDictionary: true),
+                  _localeName(settings.dictionary)
+                ),
                 items: [(const Locale('ru'), context.l10n.ru), (const Locale('en'), context.l10n.en)],
                 onChange: (d) {
                   final appSettingsBloc = SettingsScope.of(context, listen: false);
@@ -52,7 +56,10 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               ListItemSelector<Locale>(
                 title: context.l10n.appLanguage,
-                currentValue: (settings.locale, _localeName(settings.locale)),
+                currentValue: (
+                  settings.locale ?? Localization.computeDefaultLocale(withDictionary: true),
+                  _localeName(settings.locale)
+                ),
                 items: [(const Locale('ru'), context.l10n.ru), (const Locale('en'), context.l10n.en)],
                 onChange: (l) {
                   final appSettingsBloc = SettingsScope.of(context, listen: false);
@@ -100,7 +107,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       final result = await navigator.push(
                         MaterialPageRoute<ChangeColorResult>(
                           builder: (context) => ChangeColorPage(
-                            dictionary: appSettings.dictionary,
+                            dictionary:
+                                appSettings.dictionary ?? Localization.computeDefaultLocale(withDictionary: true),
                             previousResult: ChangeColorResult(
                               colorMode: previousTheme.colorMode,
                               otherColors: previousTheme.otherColors,
@@ -132,12 +140,12 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  String _localeName(Locale locale) {
+  String _localeName(Locale? locale) {
     final locales = {
       'en': context.l10n.en,
       'ru': context.l10n.ru,
     };
-    return locales[locale.languageCode] ?? context.l10n.en;
+    return locales[(locale ?? Localization.computeDefaultLocale(withDictionary: true)).languageCode] ?? context.l10n.en;
   }
 
   String _themeName(ThemeMode mode) {

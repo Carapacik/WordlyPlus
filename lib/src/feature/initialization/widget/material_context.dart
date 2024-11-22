@@ -35,7 +35,7 @@ class MaterialContext extends StatelessWidget {
         key: _globalKey,
         data: mediaQueryData.copyWith(
           textScaler: TextScaler.linear(
-            mediaQueryData.textScaler.scale(settings.textScale).clamp(0.5, 2),
+            mediaQueryData.textScaler.scale(settings.textScale ?? 1).clamp(0.5, 2),
           ),
         ),
         child: child!,

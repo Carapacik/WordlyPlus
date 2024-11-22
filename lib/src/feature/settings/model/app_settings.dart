@@ -11,8 +11,8 @@ class AppSettings with Diagnosticable {
   /// {@macro app_settings}
   const AppSettings({
     required this.appTheme,
-    this.locale = const Locale('en'),
-    this.dictionary = const Locale('en'),
+    this.locale,
+    this.dictionary,
     this.textScale = 1,
   });
 
@@ -20,13 +20,13 @@ class AppSettings with Diagnosticable {
   final AppTheme appTheme;
 
   /// The locale of the app.
-  final Locale locale;
+  final Locale? locale;
 
   /// The dictionary of the app.
-  final Locale dictionary;
+  final Locale? dictionary;
 
   /// The text scale of the app.
-  final double textScale;
+  final double? textScale;
 
   /// Copy the [AppSettings] with new values.
   AppSettings copyWith({

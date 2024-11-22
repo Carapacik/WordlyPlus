@@ -188,13 +188,22 @@ class AppSettingsPersistedEntry extends SharedPreferencesEntry<AppSettings> {
       ],
     ].wait;
 
-    await [
-      _localeLanguageCode.set(value.locale.languageCode),
-      _localeCountryCode.set(value.locale.countryCode ?? ''),
-      _dictionaryLanguageCode.set(value.dictionary.languageCode),
-      _dictionaryCountryCode.set(value.dictionary.countryCode ?? ''),
-    ].wait;
+    if (value.locale != null) {
+      await [
+        _localeLanguageCode.set(value.locale!.languageCode),
+        _localeCountryCode.set(value.locale!.countryCode ?? ''),
+      ].wait;
+    }
 
-    await _textScale.set(value.textScale);
+    if (value.dictionary != null) {
+      await [
+        _dictionaryLanguageCode.set(value.dictionary!.languageCode),
+        _dictionaryCountryCode.set(value.dictionary!.countryCode ?? ''),
+      ].wait;
+    }
+
+    if (value.textScale != null) {
+      await _textScale.set(value.textScale!);
+    }
   }
 }

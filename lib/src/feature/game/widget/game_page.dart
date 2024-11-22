@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/src/core/constant/localization/localization.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/core/utils/share.dart';
 import 'package:wordly/src/feature/components/widget/drawer.dart';
@@ -103,7 +104,8 @@ class _GamePageState extends State<GamePage> {
                       await Navigator.of(context).push(
                         MaterialPageRoute<void>(
                           builder: (context) => StatisticPage(
-                            dictionary: SettingsScope.settingsOf(context).dictionary,
+                            dictionary: SettingsScope.settingsOf(context).dictionary ??
+                                Localization.computeDefaultLocale(withDictionary: true),
                           ),
                         ),
                       );
@@ -117,7 +119,8 @@ class _GamePageState extends State<GamePage> {
                       await Navigator.of(context).push(
                         MaterialPageRoute<void>(
                           builder: (context) => LevelPage(
-                            dictionary: SettingsScope.settingsOf(context).dictionary,
+                            dictionary: SettingsScope.settingsOf(context).dictionary ??
+                                Localization.computeDefaultLocale(withDictionary: true),
                           ),
                         ),
                       );

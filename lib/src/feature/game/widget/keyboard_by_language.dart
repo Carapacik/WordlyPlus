@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/src/core/assets/generated/fonts.gen.dart';
+import 'package:wordly/src/core/constant/localization/localization.dart';
 import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
 import 'package:wordly/src/feature/game/model/keyboard.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
@@ -11,7 +12,8 @@ class KeyboardByLanguage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dictionary = SettingsScope.settingsOf(context).dictionary;
+    final dictionary =
+        SettingsScope.settingsOf(context).dictionary ?? Localization.computeDefaultLocale(withDictionary: true);
     return SizedBox(
       height: 200,
       child: switch (dictionary.languageCode) {
@@ -138,11 +140,13 @@ class EnterKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dictionary =
+        SettingsScope.settingsOf(context).dictionary ?? Localization.computeDefaultLocale(withDictionary: true);
     return Padding(
       padding: const EdgeInsets.only(right: 3),
       child: SizedBox(
         height: 58,
-        width: SettingsScope.settingsOf(context).dictionary.width(context) * 1.65,
+        width: dictionary.width(context) * 1.65,
         child: Material(
           color: LetterStatus.unknown.cellColor(context),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
@@ -169,11 +173,13 @@ class DeleteKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dictionary =
+        SettingsScope.settingsOf(context).dictionary ?? Localization.computeDefaultLocale(withDictionary: true);
     return Padding(
       padding: const EdgeInsets.only(left: 3),
       child: SizedBox(
         height: 58,
-        width: SettingsScope.settingsOf(context).dictionary.width(context) * 1.65,
+        width: dictionary.width(context) * 1.65,
         child: Material(
           color: LetterStatus.unknown.cellColor(context),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
@@ -208,11 +214,13 @@ class KeyboardKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dictionary =
+        SettingsScope.settingsOf(context).dictionary ?? Localization.computeDefaultLocale(withDictionary: true);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 3),
       child: SizedBox(
         height: 58,
-        width: SettingsScope.settingsOf(context).dictionary.width(context),
+        width: dictionary.width(context),
         child: Material(
           color: status.cellColor(context),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),

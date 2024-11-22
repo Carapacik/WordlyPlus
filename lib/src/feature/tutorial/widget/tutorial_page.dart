@@ -11,7 +11,7 @@ class TutorialPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locale = SettingsScope.localeOf(context).locale;
+    final locale = SettingsScope.settingsOf(context).locale;
     final wordWithCorrectSpot = _wordWithCorrectSpot(locale);
     final wordWithWrongSpot = _wordWithWrongSpot(locale);
     final wordNotSpot = _wordNotSpot(locale);

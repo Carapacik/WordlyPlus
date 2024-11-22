@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/components/widget/not_played.dart';
@@ -18,12 +17,13 @@ class StatisticPage extends StatefulWidget {
 }
 
 class _StatisticPageState extends State<StatisticPage> {
-  GameStatistics? _statistics;
+  late Future<GameStatistics?> _getStatisticsFuture;
 
   @override
   void initState() {
     super.initState();
-    _statistics = context.dependencies.statisticsRepository.getStatistics(widget.dictionary);
+    // ignore: discarded_futures
+    _getStatisticsFuture = context.dependencies.statisticsRepository.getStatistics(widget.dictionary);
   }
 
   @override
@@ -40,15 +40,17 @@ class _StatisticPageState extends State<StatisticPage> {
             ),
           ),
           body: ConstraintScreen(
-            child: Builder(
-              builder: (context) {
-                if (_statistics == null) {
+            child: FutureBuilder(
+              future: _getStatisticsFuture,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData || snapshot.data == null) {
                   return const HaveNotPlayed();
                 }
-                final played = _statistics!.wins + _statistics!.loses;
-                final winRate = played != 0 ? _statistics!.wins * 100 / played : 0;
-                final streak = _statistics!.streak;
-                final maxStreak = _statistics!.maxStreak;
+                final statistics = snapshot.requireData;
+                final played = statistics!.wins + statistics.loses;
+                final winRate = played != 0 ? statistics.wins * 100 / played : 0;
+                final streak = statistics.streak;
+                final maxStreak = statistics.maxStreak;
                 return Column(
                   children: [
                     const SizedBox(height: 16),
@@ -86,7 +88,7 @@ class _StatisticPageState extends State<StatisticPage> {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    _AttemptContent(attempts: _statistics!.attempts),
+                    _AttemptContent(attempts: statistics.attempts),
                   ],
                 );
               },
@@ -145,7 +147,7 @@ class _AttemptContent extends StatelessWidget {
         widthFactor: (attempts[index] + 1) / maxValue,
         child: Container(
           decoration: BoxDecoration(
-            color: SettingsScope.themeOf(context).theme.correctColor,
+            color: SettingsScope.settingsOf(context).appTheme.correctColor,
             borderRadius: BorderRadius.circular(4),
           ),
           height: 20,

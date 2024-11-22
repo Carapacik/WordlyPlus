@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/link.dart';
 import 'package:wordly/src/core/constant/config.dart';
-import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 
@@ -63,6 +62,11 @@ class AboutPage extends StatelessWidget {
                     ),
                   ),
                 ),
+              ),
+              const Spacer(),
+              Text(
+                context.dependencies.packageInfo.version,
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
               const Spacer(),
             ],

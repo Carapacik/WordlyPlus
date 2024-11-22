@@ -11,7 +11,7 @@ class KeyboardByLanguage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dictionary = SettingsScope.of(context).dictionary;
+    final dictionary = SettingsScope.settingsOf(context).dictionary;
     return SizedBox(
       height: 200,
       child: switch (dictionary.languageCode) {
@@ -142,7 +142,7 @@ class EnterKey extends StatelessWidget {
       padding: const EdgeInsets.only(right: 3),
       child: SizedBox(
         height: 58,
-        width: SettingsScope.dictionaryOf(context).dictionary.width(context) * 1.65,
+        width: SettingsScope.settingsOf(context).dictionary.width(context) * 1.65,
         child: Material(
           color: LetterStatus.unknown.cellColor(context),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
@@ -173,7 +173,7 @@ class DeleteKey extends StatelessWidget {
       padding: const EdgeInsets.only(left: 3),
       child: SizedBox(
         height: 58,
-        width: SettingsScope.dictionaryOf(context).dictionary.width(context) * 1.65,
+        width: SettingsScope.settingsOf(context).dictionary.width(context) * 1.65,
         child: Material(
           color: LetterStatus.unknown.cellColor(context),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
@@ -212,7 +212,7 @@ class KeyboardKey extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 3),
       child: SizedBox(
         height: 58,
-        width: SettingsScope.dictionaryOf(context).dictionary.width(context),
+        width: SettingsScope.settingsOf(context).dictionary.width(context),
         child: Material(
           color: status.cellColor(context),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),

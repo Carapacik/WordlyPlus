@@ -42,7 +42,7 @@ enum LetterStatus {
   bool operator <(LetterStatus other) => other.index < index;
 
   Color cellColor(BuildContext context, {bool listen = true}) {
-    final theme = SettingsScope.of(context, listen: listen).theme;
+    final theme = SettingsScope.settingsOf(context, listen: listen).appTheme;
     return switch (this) {
       LetterStatus.correctSpot => theme.correctColor,
       LetterStatus.wrongSpot => theme.wrongSpotColor,
@@ -52,7 +52,7 @@ enum LetterStatus {
   }
 
   Color? textColor(BuildContext context, {bool listen = true}) {
-    final theme = SettingsScope.of(context, listen: listen).theme;
+    final theme = SettingsScope.settingsOf(context, listen: listen).appTheme;
     final isDark = theme.isDarkTheme(context);
     final color = cellColor(context);
 
@@ -72,16 +72,10 @@ enum LetterStatus {
     return darken(color, 0.3);
   }
 
-  String get emoji {
-    switch (this) {
-      case LetterStatus.correctSpot:
-        return '🟩';
-      case LetterStatus.wrongSpot:
-        return '🟨';
-      case LetterStatus.notInWord:
-        return '⬛';
-      case LetterStatus.unknown:
-        return '';
-    }
-  }
+  String get emoji => switch (this) {
+        LetterStatus.correctSpot => '🟩',
+        LetterStatus.wrongSpot => '🟨',
+        LetterStatus.notInWord => '⬛',
+        LetterStatus.unknown => ''
+      };
 }

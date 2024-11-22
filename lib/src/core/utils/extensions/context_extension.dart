@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wordly/src/core/constant/localization/generated/l10n.dart';
 import 'package:wordly/src/core/constant/localization/localization.dart';
-import 'package:wordly/src/feature/initialization/model/dependencies.dart';
+import 'package:wordly/src/feature/initialization/model/dependencies_container.dart';
 import 'package:wordly/src/feature/initialization/widget/dependencies_scope.dart';
 
 /// List of extensions for [BuildContext]
@@ -30,23 +30,26 @@ extension ContextExtension on BuildContext {
       ));
 
   /// Maybe inherit specific aspect from [InheritedModel].
-  T? maybeInheritFrom<A extends Object, T extends InheritedModel<A>>(
+  T? maybeInheritFrom<A extends Object, T extends InheritedModel<A>>({
     A? aspect,
-  ) =>
+  }) =>
       InheritedModel.inheritFrom<T>(this, aspect: aspect);
 
   /// Inherit specific aspect from [InheritedModel].
   T inheritFrom<A extends Object, T extends InheritedModel<A>>({A? aspect}) =>
-      InheritedModel.inheritFrom<T>(this, aspect: aspect) ??
+      maybeInheritFrom(aspect: aspect) ??
       (throw ArgumentError(
         'Out of scope, not found inherited model '
             'a $T of the exact type',
         'out_of_scope',
       ));
 
-  Dependencies get dependencies => DependenciesScope.of(this);
-
+  /// Localization of app
   AppLocalizations get l10n => Localization.of(this);
 
+  /// Get dependencies container
+  DependenciesContainer get dependencies => DependenciesScope.of(this);
+
+  /// Get theme
   ThemeData get theme => Theme.of(this);
 }

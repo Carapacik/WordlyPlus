@@ -5,14 +5,15 @@ import 'dart:ui' show Locale;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:wordly/src/core/assets/generated/assets.gen.dart';
-import 'package:wordly/src/core/utils/logger.dart';
 import 'package:wordly/src/feature/game/data/game_datasource.dart';
 import 'package:wordly/src/feature/game/model/game_result.dart';
 
 abstract interface class IGameRepository {
-  Future<void> init();
+  Future<void> init(Locale dictionary);
 
-  bool get isFirstEnter;
+  Future<bool> get isFirstEnter;
+
+  GameResult? get savedResult;
 
   Future<void> setFirstEnter();
 
@@ -20,29 +21,30 @@ abstract interface class IGameRepository {
 
   String generateSecretWord(Locale dictionary, {int levelNumber = 0});
 
-  GameResult? getDaily(Locale dictionary, DateTime date);
+  Future<GameResult?> getDaily(Locale dictionary, DateTime date);
 
   Future<void> setDailyBoard(Locale dictionary, DateTime date, GameResult savedResult);
 
-  GameResult? getLvl(Locale dictionary);
+  Future<GameResult?> getLvl(Locale dictionary);
 
   Future<void> setLvlBoard(Locale dictionary, GameResult savedResult);
 }
 
 final class GameRepository implements IGameRepository {
-  GameRepository({required GameDataSource gameDataSource}) : _gameDataSource = gameDataSource;
+  GameRepository({required IGameDatasource gameDataSource}) : _gameDataSource = gameDataSource;
 
-  final GameDataSource _gameDataSource;
-
+  final IGameDatasource _gameDataSource;
   late final Map<String, String> _ruDictionary;
   late final Map<String, String> _enDictionary;
+  late final GameResult? _savedResult;
 
   @override
-  Future<void> init() async {
+  Future<void> init(Locale dictionary) async {
     final rawDictionaryRu = await rootBundle.loadString(Assets.dictionary.ru).then(json.decode) as Map<String, dynamic>;
     _ruDictionary = rawDictionaryRu.map((key, value) => MapEntry(key, value.toString()));
     final rawDictionaryEn = await rootBundle.loadString(Assets.dictionary.en).then(json.decode) as Map<String, dynamic>;
     _enDictionary = rawDictionaryEn.map((key, value) => MapEntry(key, value.toString()));
+    _savedResult = await getDaily(dictionary, DateTime.now().toUtc());
   }
 
   @override
@@ -64,12 +66,11 @@ final class GameRepository implements IGameRepository {
       index = Random(levelNumber).nextInt(currentDict.length);
     }
     final word = currentDict.keys.elementAt(index);
-    logger.info('Secret word: $word');
     return word;
   }
 
   @override
-  GameResult? getDaily(Locale dictionary, DateTime date) =>
+  Future<GameResult?> getDaily(Locale dictionary, DateTime date) =>
       _gameDataSource.getDaily(dictionary.languageCode, DateFormat('dd-MM-yyyy').format(date));
 
   @override
@@ -77,15 +78,18 @@ final class GameRepository implements IGameRepository {
       _gameDataSource.setDailyBoard(dictionary.languageCode, DateFormat('dd-MM-yyyy').format(date), savedResult);
 
   @override
-  GameResult? getLvl(Locale dictionary) => _gameDataSource.getLvl(dictionary.languageCode);
+  Future<GameResult?> getLvl(Locale dictionary) => _gameDataSource.getLvl(dictionary.languageCode);
 
   @override
   Future<void> setLvlBoard(Locale dictionary, GameResult savedResult) =>
       _gameDataSource.setLvlBoard(dictionary.languageCode, savedResult);
 
   @override
-  bool get isFirstEnter => _gameDataSource.isFirstEnter;
+  Future<bool> get isFirstEnter => _gameDataSource.isFirstEnter.then((v) => v ?? true);
 
   @override
   Future<void> setFirstEnter() => _gameDataSource.setFirstEnter();
+
+  @override
+  GameResult? get savedResult => _savedResult;
 }

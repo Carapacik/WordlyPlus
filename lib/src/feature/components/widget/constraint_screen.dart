@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wordly/src/core/constant/config.dart';
+
+const maxMobileWidth = 800.0;
 
 class ConstraintScreen extends StatelessWidget {
   const ConstraintScreen({required this.child, this.safeAreaBottom = true, super.key});
@@ -13,7 +14,7 @@ class ConstraintScreen extends StatelessWidget {
         child: Align(
           alignment: Alignment.topCenter,
           child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: const Config().maxMobileWidth),
+            constraints: const BoxConstraints(maxWidth: maxMobileWidth),
             child: child,
           ),
         ),

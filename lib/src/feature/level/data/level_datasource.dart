@@ -3,60 +3,53 @@ import 'dart:convert' show json;
 import 'dart:ui' show Locale;
 
 import 'package:collection/collection.dart';
-import 'package:wordly/src/core/utils/preferences_dao.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wordly/src/core/utils/persisted_entry.dart';
 import 'package:wordly/src/feature/game/model/game_result.dart';
 
-/// {@template level_datasource}
-/// [LevelDataSource] is an entry point to the level data layer.
-///
-/// This is used to set and get level.
-/// {@endtemplate}
-abstract interface class LevelDataSource {
-  /// Set level
-  Future<void> setLevels(String dictionaryKey, GameResult levels);
+abstract interface class ILevelDatasource {
+  Future<List<GameResult>?> getLevels(String dictionaryKey);
 
-  /// Get current level from cache
-  List<GameResult>? getLevels(String dictionaryKey);
+  Future<void> setLevel(String dictionaryKey, GameResult level);
 
-  /// Run migration from old api
   Future<void> runMigration();
 }
 
-/// {@macro Level_datasource}
-final class LevelDataSourceLocal extends PreferencesDao implements LevelDataSource {
-  /// {@macro Level_datasource}
-  const LevelDataSourceLocal({
-    required super.sharedPreferences,
-  });
+final class LevelDatasource implements ILevelDatasource {
+  LevelDatasource({required this.sharedPreferences});
 
-  PreferencesEntry<Iterable<String>> _level(String dictionaryKey) => iterableStringEntry('level$dictionaryKey');
+  final SharedPreferencesAsync sharedPreferences;
 
-  PreferencesEntry<int> get _migrationVersion => intEntry('level_migration_version');
+  StringListPreferencesEntry _levels(String dictionaryKey) =>
+      StringListPreferencesEntry(sharedPreferences: sharedPreferences, key: 'level.$dictionaryKey');
+
+  IntPreferencesEntry get _levelsMigrationVersion =>
+      IntPreferencesEntry(sharedPreferences: sharedPreferences, key: 'level.migration.version');
 
   @override
-  List<GameResult>? getLevels(String dictionaryKey) {
-    final levels = _level(dictionaryKey).read();
+  Future<List<GameResult>?> getLevels(String dictionaryKey) async {
+    final levels = await _levels(dictionaryKey).read();
     if (levels == null) {
       return null;
     }
     try {
       return levels.map((l) => GameResult.fromJson(json.decode(l) as Map<String, dynamic>)).toList();
     } on Object catch (_) {
-      unawaited(_level(dictionaryKey).remove());
+      unawaited(_levels(dictionaryKey).remove());
       return null;
     }
   }
 
   @override
-  Future<void> setLevels(String dictionaryKey, GameResult level) async {
-    final previousLevels = (getLevels(dictionaryKey) ?? [])..add(level);
-    final rawLevels = previousLevels.map((rawItem) => json.encode(rawItem.toJson()));
-    await _level(dictionaryKey).setIfNullRemove(rawLevels);
+  Future<void> setLevel(String dictionaryKey, GameResult level) async {
+    final previousLevels = (await getLevels(dictionaryKey) ?? [])..add(level);
+    final rawLevels = previousLevels.map((rawItem) => json.encode(rawItem.toJson())).toList(growable: false);
+    await _levels(dictionaryKey).set(rawLevels);
   }
 
   @override
   Future<void> runMigration() async {
-    final migrationVersion = _migrationVersion.read();
+    final migrationVersion = await _levelsMigrationVersion.read();
     if (migrationVersion == null || migrationVersion < 1) {
       return;
     }
@@ -66,7 +59,7 @@ final class LevelDataSourceLocal extends PreferencesDao implements LevelDataSour
     ];
     for (final dictionary in dictionaries) {
       try {
-        final levels = _level(dictionary.languageCode).read();
+        final levels = await _levels(dictionary.languageCode).read();
         if (levels == null || levels.isEmpty) {
           continue;
         }
@@ -75,7 +68,7 @@ final class LevelDataSourceLocal extends PreferencesDao implements LevelDataSour
         if (!decodedFirst.containsKey('word') || !decodedFirst.containsKey('isWin')) {
           continue;
         }
-        await _level(dictionary.languageCode).remove();
+        await _levels(dictionary.languageCode).remove();
         final newLevels = levels.mapIndexed((index, e) {
           final decoded = json.decode(e) as Map<String, dynamic>;
           return GameResult(
@@ -84,11 +77,12 @@ final class LevelDataSourceLocal extends PreferencesDao implements LevelDataSour
             lvlNumber: index + 1,
           );
         });
-        await _level(dictionary.languageCode).setIfNullRemove(newLevels.map((e) => json.encode(e.toJson())));
+        await _levels(dictionary.languageCode)
+            .set(newLevels.map((e) => json.encode(e.toJson())).toList(growable: false));
       } on Object {
-        // for new api
+        // nothing
       }
     }
-    await _migrationVersion.setIfNullRemove(1);
+    await _levelsMigrationVersion.set(1);
   }
 }

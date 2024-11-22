@@ -16,12 +16,13 @@ class LevelPage extends StatefulWidget {
 }
 
 class _LevelPageState extends State<LevelPage> {
-  List<GameResult>? _levels;
+  late Future<List<GameResult>?> _getLevelsFuture;
 
   @override
   void initState() {
     super.initState();
-    _levels = context.dependencies.levelRepository.getLevels(widget.dictionary);
+    // ignore: discarded_futures
+    _getLevelsFuture = context.dependencies.levelRepository.getLevels(widget.dictionary);
   }
 
   @override
@@ -39,21 +40,23 @@ class _LevelPageState extends State<LevelPage> {
           ),
         ),
         body: ConstraintScreen(
-          child: Builder(
-            builder: (context) {
-              if (_levels == null) {
+          child: FutureBuilder(
+            future: _getLevelsFuture,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData || snapshot.data == null) {
                 return const HaveNotPlayed();
               }
+              final levels = snapshot.requireData;
               return GridView.builder(
                 padding: const EdgeInsets.all(20),
-                itemCount: _levels!.length,
+                itemCount: levels!.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
                 ),
                 itemBuilder: (context, index) => _LevelItem(
-                  level: _levels![index],
+                  level: levels[index],
                   dictionary: widget.dictionary,
                 ),
               );

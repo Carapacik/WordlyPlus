@@ -1,29 +1,26 @@
 import 'dart:convert';
 
-import 'package:wordly/src/core/utils/preferences_dao.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wordly/src/core/utils/persisted_entry.dart';
 import 'package:wordly/src/feature/statistic/model/game_statistics.dart';
 
-abstract interface class StatisticsDataSource {
-  /// Set [GameStatistics]
-  Future<void> setStatistics(String dictionaryKey, GameStatistics statistics);
+abstract interface class IStatisticsDatasource {
+  Future<GameStatistics?> getStatistics(String dictionaryKey);
 
-  /// Get current [GameStatistics] from cache
-  GameStatistics? getStatistics(String dictionaryKey);
+  Future<void> setStatistics(String dictionaryKey, GameStatistics statistics);
 }
 
-/// {@macro Statistics_datasource}
-final class StatisticsDataSourceLocal extends PreferencesDao implements StatisticsDataSource {
-  /// {@macro Statistics_datasource}
-  const StatisticsDataSourceLocal({
-    required super.sharedPreferences,
-  });
+final class StatisticsDatasource implements IStatisticsDatasource {
+  StatisticsDatasource({required this.sharedPreferences});
 
-  PreferencesEntry<String> _statistic(String dictionaryKey) => stringEntry('statistic_$dictionaryKey');
+  final SharedPreferencesAsync sharedPreferences;
+
+  StringPreferencesEntry _statistics(String dictionaryKey) =>
+      StringPreferencesEntry(sharedPreferences: sharedPreferences, key: 'statistic.$dictionaryKey');
 
   @override
-  GameStatistics? getStatistics(String dictionaryKey) {
-    final statistics = _statistic(dictionaryKey).read();
-
+  Future<GameStatistics?> getStatistics(String dictionaryKey) async {
+    final statistics = await _statistics(dictionaryKey).read();
     if (statistics == null) {
       return null;
     }
@@ -34,6 +31,6 @@ final class StatisticsDataSourceLocal extends PreferencesDao implements Statisti
   @override
   Future<void> setStatistics(String dictionaryKey, GameStatistics statistics) async {
     final rawStatistics = json.encode(statistics.toJson());
-    await _statistic(dictionaryKey).setIfNullRemove(rawStatistics);
+    await _statistics(dictionaryKey).set(rawStatistics);
   }
 }

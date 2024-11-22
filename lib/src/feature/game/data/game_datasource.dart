@@ -1,64 +1,40 @@
+import 'dart:async';
 import 'dart:convert' show json;
 
-import 'package:wordly/src/core/utils/preferences_dao.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wordly/src/core/utils/persisted_entry.dart';
 import 'package:wordly/src/feature/game/model/game_mode.dart';
 import 'package:wordly/src/feature/game/model/game_result.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
 
-abstract interface class GameDataSource {
+abstract interface class IGameDatasource {
+  Future<GameResult?> getDaily(String dictionary, String date);
+
+  Future<GameResult?> getLvl(String dictionary);
+
   Future<void> setDailyBoard(String dictionary, String date, GameResult savedResult);
 
   Future<void> setLvlBoard(String dictionary, GameResult savedResult);
 
-  GameResult? getDaily(String dictionary, String date);
-
-  GameResult? getLvl(String dictionary);
-
-  bool get isFirstEnter;
+  Future<bool?> get isFirstEnter;
 
   Future<void> setFirstEnter();
 }
 
-final class GameDataSourceLocal extends PreferencesDao implements GameDataSource {
-  const GameDataSourceLocal({
-    required super.sharedPreferences,
-  });
+final class GameDatasource implements IGameDatasource {
+  GameDatasource({required this.sharedPreferences});
 
-  PreferencesEntry<String> _board(String dictionary, int index) => stringEntry('board_${dictionary}_$index');
+  final SharedPreferencesAsync sharedPreferences;
 
-  PreferencesEntry<bool> get _firstEnter => boolEntry('is_first_enter');
+  StringPreferencesEntry _board(String dictionaryKey, int index) =>
+      StringPreferencesEntry(sharedPreferences: sharedPreferences, key: 'game.board.$dictionaryKey.$index');
 
-  @override
-  bool get isFirstEnter => _firstEnter.read() ?? true;
-
-  @override
-  Future<void> setFirstEnter() => _firstEnter.setIfNullRemove(false);
+  BoolPreferencesEntry get _isFirstEnter =>
+      BoolPreferencesEntry(sharedPreferences: sharedPreferences, key: 'game.isFirstEnter');
 
   @override
-  Future<void> setDailyBoard(String dictionary, String date, GameResult savedResult) async =>
-      _board(dictionary, GameMode.daily.index).setIfNullRemove(
-        json.encode({
-          'date': date,
-          'board': savedResult.board.map((e) => json.encode(e.toJson())).join('|'),
-          'secretWord': savedResult.secretWord,
-          'win': savedResult.isWin,
-        }),
-      );
-
-  @override
-  Future<void> setLvlBoard(String dictionary, GameResult savedResult) async =>
-      _board(dictionary, GameMode.lvl.index).setIfNullRemove(
-        json.encode({
-          'lvl': savedResult.lvlNumber,
-          'board': savedResult.board.map((e) => json.encode(e.toJson())).join('|'),
-          'secretWord': savedResult.secretWord,
-          'win': savedResult.isWin,
-        }),
-      );
-
-  @override
-  GameResult? getDaily(String dictionary, String date) {
-    final rawResult = _board(dictionary, GameMode.daily.index).read();
+  Future<GameResult?> getDaily(String dictionary, String date) async {
+    final rawResult = await _board(dictionary, GameMode.daily.index).read();
     if (rawResult == null) {
       return null;
     }
@@ -78,8 +54,8 @@ final class GameDataSourceLocal extends PreferencesDao implements GameDataSource
   }
 
   @override
-  GameResult? getLvl(String dictionary) {
-    final rawResult = _board(dictionary, GameMode.lvl.index).read();
+  Future<GameResult?> getLvl(String dictionary) async {
+    final rawResult = await _board(dictionary, GameMode.lvl.index).read();
     if (rawResult == null) {
       return null;
     }
@@ -97,4 +73,32 @@ final class GameDataSourceLocal extends PreferencesDao implements GameDataSource
     }
     return GameResult(board: board, isWin: isWin, secretWord: oldSecretWord, lvlNumber: oldLvlNumber);
   }
+
+  @override
+  Future<void> setDailyBoard(String dictionary, String date, GameResult savedResult) async =>
+      _board(dictionary, GameMode.daily.index).setIfNullRemove(
+        json.encode({
+          'date': date,
+          'board': savedResult.board.map((e) => json.encode(e.toJson())).join('|'),
+          'secretWord': savedResult.secretWord,
+          'win': savedResult.isWin,
+        }),
+      );
+
+  @override
+  Future<void> setLvlBoard(String dictionary, GameResult savedResult) async =>
+      _board(dictionary, GameMode.lvl.index).set(
+        json.encode({
+          'lvl': savedResult.lvlNumber,
+          'board': savedResult.board.map((e) => json.encode(e.toJson())).join('|'),
+          'secretWord': savedResult.secretWord,
+          'win': savedResult.isWin,
+        }),
+      );
+
+  @override
+  Future<bool?> get isFirstEnter => _isFirstEnter.read();
+
+  @override
+  Future<void> setFirstEnter() => _isFirstEnter.set(false);
 }

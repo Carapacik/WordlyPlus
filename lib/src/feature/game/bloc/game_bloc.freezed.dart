@@ -18,39 +18,39 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$GameEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GameEventChangeDictionary value) changeDictionary,
-    required TResult Function(_GameEventChangeGameMode value) changeGameMode,
-    required TResult Function(_GameEventResetBoard value) resetBoard,
-    required TResult Function(_GameEventLetterPressed value) letterPressed,
-    required TResult Function(_GameEventDeletePressed value) deletePressed,
-    required TResult Function(_GameEventDeleteLongPressed value) deleteLongPressed,
-    required TResult Function(_GameEventEnterPressed value) enterPressed,
-    required TResult Function(_GameEventListenKeyEvent value) listenKeyEvent,
+    required TResult Function(_ChangeDictionaryGameEvent value) changeDictionary,
+    required TResult Function(_ChangeGameModeGameEvent value) changeGameMode,
+    required TResult Function(_ResetBoardGameEvent value) resetBoard,
+    required TResult Function(_LetterPressedGameEvent value) letterPressed,
+    required TResult Function(_DeletePressedGameEvent value) deletePressed,
+    required TResult Function(_DeleteLongPressedGameEvent value) deleteLongPressed,
+    required TResult Function(_EnterPressedGameEvent value) enterPressed,
+    required TResult Function(_ListenKeyEventGameEvent value) listenKeyEvent,
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GameEventChangeDictionary value)? changeDictionary,
-    TResult? Function(_GameEventChangeGameMode value)? changeGameMode,
-    TResult? Function(_GameEventResetBoard value)? resetBoard,
-    TResult? Function(_GameEventLetterPressed value)? letterPressed,
-    TResult? Function(_GameEventDeletePressed value)? deletePressed,
-    TResult? Function(_GameEventDeleteLongPressed value)? deleteLongPressed,
-    TResult? Function(_GameEventEnterPressed value)? enterPressed,
-    TResult? Function(_GameEventListenKeyEvent value)? listenKeyEvent,
+    TResult? Function(_ChangeDictionaryGameEvent value)? changeDictionary,
+    TResult? Function(_ChangeGameModeGameEvent value)? changeGameMode,
+    TResult? Function(_ResetBoardGameEvent value)? resetBoard,
+    TResult? Function(_LetterPressedGameEvent value)? letterPressed,
+    TResult? Function(_DeletePressedGameEvent value)? deletePressed,
+    TResult? Function(_DeleteLongPressedGameEvent value)? deleteLongPressed,
+    TResult? Function(_EnterPressedGameEvent value)? enterPressed,
+    TResult? Function(_ListenKeyEventGameEvent value)? listenKeyEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GameEventChangeDictionary value)? changeDictionary,
-    TResult Function(_GameEventChangeGameMode value)? changeGameMode,
-    TResult Function(_GameEventResetBoard value)? resetBoard,
-    TResult Function(_GameEventLetterPressed value)? letterPressed,
-    TResult Function(_GameEventDeletePressed value)? deletePressed,
-    TResult Function(_GameEventDeleteLongPressed value)? deleteLongPressed,
-    TResult Function(_GameEventEnterPressed value)? enterPressed,
-    TResult Function(_GameEventListenKeyEvent value)? listenKeyEvent,
+    TResult Function(_ChangeDictionaryGameEvent value)? changeDictionary,
+    TResult Function(_ChangeGameModeGameEvent value)? changeGameMode,
+    TResult Function(_ResetBoardGameEvent value)? resetBoard,
+    TResult Function(_LetterPressedGameEvent value)? letterPressed,
+    TResult Function(_DeletePressedGameEvent value)? deletePressed,
+    TResult Function(_DeleteLongPressedGameEvent value)? deleteLongPressed,
+    TResult Function(_EnterPressedGameEvent value)? enterPressed,
+    TResult Function(_ListenKeyEventGameEvent value)? listenKeyEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -58,8 +58,8 @@ mixin _$GameEvent {
 
 /// @nodoc
 
-class _$GameEventChangeDictionaryImpl implements _GameEventChangeDictionary {
-  const _$GameEventChangeDictionaryImpl(this.dictionary);
+class _$ChangeDictionaryGameEventImpl implements _ChangeDictionaryGameEvent {
+  const _$ChangeDictionaryGameEventImpl(this.dictionary);
 
   @override
   final Locale dictionary;
@@ -73,7 +73,7 @@ class _$GameEventChangeDictionaryImpl implements _GameEventChangeDictionary {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GameEventChangeDictionaryImpl &&
+            other is _$ChangeDictionaryGameEventImpl &&
             (identical(other.dictionary, dictionary) || other.dictionary == dictionary));
   }
 
@@ -83,14 +83,14 @@ class _$GameEventChangeDictionaryImpl implements _GameEventChangeDictionary {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GameEventChangeDictionary value) changeDictionary,
-    required TResult Function(_GameEventChangeGameMode value) changeGameMode,
-    required TResult Function(_GameEventResetBoard value) resetBoard,
-    required TResult Function(_GameEventLetterPressed value) letterPressed,
-    required TResult Function(_GameEventDeletePressed value) deletePressed,
-    required TResult Function(_GameEventDeleteLongPressed value) deleteLongPressed,
-    required TResult Function(_GameEventEnterPressed value) enterPressed,
-    required TResult Function(_GameEventListenKeyEvent value) listenKeyEvent,
+    required TResult Function(_ChangeDictionaryGameEvent value) changeDictionary,
+    required TResult Function(_ChangeGameModeGameEvent value) changeGameMode,
+    required TResult Function(_ResetBoardGameEvent value) resetBoard,
+    required TResult Function(_LetterPressedGameEvent value) letterPressed,
+    required TResult Function(_DeletePressedGameEvent value) deletePressed,
+    required TResult Function(_DeleteLongPressedGameEvent value) deleteLongPressed,
+    required TResult Function(_EnterPressedGameEvent value) enterPressed,
+    required TResult Function(_ListenKeyEventGameEvent value) listenKeyEvent,
   }) {
     return changeDictionary(this);
   }
@@ -98,14 +98,14 @@ class _$GameEventChangeDictionaryImpl implements _GameEventChangeDictionary {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GameEventChangeDictionary value)? changeDictionary,
-    TResult? Function(_GameEventChangeGameMode value)? changeGameMode,
-    TResult? Function(_GameEventResetBoard value)? resetBoard,
-    TResult? Function(_GameEventLetterPressed value)? letterPressed,
-    TResult? Function(_GameEventDeletePressed value)? deletePressed,
-    TResult? Function(_GameEventDeleteLongPressed value)? deleteLongPressed,
-    TResult? Function(_GameEventEnterPressed value)? enterPressed,
-    TResult? Function(_GameEventListenKeyEvent value)? listenKeyEvent,
+    TResult? Function(_ChangeDictionaryGameEvent value)? changeDictionary,
+    TResult? Function(_ChangeGameModeGameEvent value)? changeGameMode,
+    TResult? Function(_ResetBoardGameEvent value)? resetBoard,
+    TResult? Function(_LetterPressedGameEvent value)? letterPressed,
+    TResult? Function(_DeletePressedGameEvent value)? deletePressed,
+    TResult? Function(_DeleteLongPressedGameEvent value)? deleteLongPressed,
+    TResult? Function(_EnterPressedGameEvent value)? enterPressed,
+    TResult? Function(_ListenKeyEventGameEvent value)? listenKeyEvent,
   }) {
     return changeDictionary?.call(this);
   }
@@ -113,14 +113,14 @@ class _$GameEventChangeDictionaryImpl implements _GameEventChangeDictionary {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GameEventChangeDictionary value)? changeDictionary,
-    TResult Function(_GameEventChangeGameMode value)? changeGameMode,
-    TResult Function(_GameEventResetBoard value)? resetBoard,
-    TResult Function(_GameEventLetterPressed value)? letterPressed,
-    TResult Function(_GameEventDeletePressed value)? deletePressed,
-    TResult Function(_GameEventDeleteLongPressed value)? deleteLongPressed,
-    TResult Function(_GameEventEnterPressed value)? enterPressed,
-    TResult Function(_GameEventListenKeyEvent value)? listenKeyEvent,
+    TResult Function(_ChangeDictionaryGameEvent value)? changeDictionary,
+    TResult Function(_ChangeGameModeGameEvent value)? changeGameMode,
+    TResult Function(_ResetBoardGameEvent value)? resetBoard,
+    TResult Function(_LetterPressedGameEvent value)? letterPressed,
+    TResult Function(_DeletePressedGameEvent value)? deletePressed,
+    TResult Function(_DeleteLongPressedGameEvent value)? deleteLongPressed,
+    TResult Function(_EnterPressedGameEvent value)? enterPressed,
+    TResult Function(_ListenKeyEventGameEvent value)? listenKeyEvent,
     required TResult orElse(),
   }) {
     if (changeDictionary != null) {
@@ -130,16 +130,16 @@ class _$GameEventChangeDictionaryImpl implements _GameEventChangeDictionary {
   }
 }
 
-abstract class _GameEventChangeDictionary implements GameEvent {
-  const factory _GameEventChangeDictionary(final Locale dictionary) = _$GameEventChangeDictionaryImpl;
+abstract class _ChangeDictionaryGameEvent implements GameEvent {
+  const factory _ChangeDictionaryGameEvent(final Locale dictionary) = _$ChangeDictionaryGameEventImpl;
 
   Locale get dictionary;
 }
 
 /// @nodoc
 
-class _$GameEventChangeGameModeImpl implements _GameEventChangeGameMode {
-  const _$GameEventChangeGameModeImpl(this.gameMode);
+class _$ChangeGameModeGameEventImpl implements _ChangeGameModeGameEvent {
+  const _$ChangeGameModeGameEventImpl(this.gameMode);
 
   @override
   final GameMode gameMode;
@@ -153,7 +153,7 @@ class _$GameEventChangeGameModeImpl implements _GameEventChangeGameMode {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GameEventChangeGameModeImpl &&
+            other is _$ChangeGameModeGameEventImpl &&
             (identical(other.gameMode, gameMode) || other.gameMode == gameMode));
   }
 
@@ -163,14 +163,14 @@ class _$GameEventChangeGameModeImpl implements _GameEventChangeGameMode {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GameEventChangeDictionary value) changeDictionary,
-    required TResult Function(_GameEventChangeGameMode value) changeGameMode,
-    required TResult Function(_GameEventResetBoard value) resetBoard,
-    required TResult Function(_GameEventLetterPressed value) letterPressed,
-    required TResult Function(_GameEventDeletePressed value) deletePressed,
-    required TResult Function(_GameEventDeleteLongPressed value) deleteLongPressed,
-    required TResult Function(_GameEventEnterPressed value) enterPressed,
-    required TResult Function(_GameEventListenKeyEvent value) listenKeyEvent,
+    required TResult Function(_ChangeDictionaryGameEvent value) changeDictionary,
+    required TResult Function(_ChangeGameModeGameEvent value) changeGameMode,
+    required TResult Function(_ResetBoardGameEvent value) resetBoard,
+    required TResult Function(_LetterPressedGameEvent value) letterPressed,
+    required TResult Function(_DeletePressedGameEvent value) deletePressed,
+    required TResult Function(_DeleteLongPressedGameEvent value) deleteLongPressed,
+    required TResult Function(_EnterPressedGameEvent value) enterPressed,
+    required TResult Function(_ListenKeyEventGameEvent value) listenKeyEvent,
   }) {
     return changeGameMode(this);
   }
@@ -178,14 +178,14 @@ class _$GameEventChangeGameModeImpl implements _GameEventChangeGameMode {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GameEventChangeDictionary value)? changeDictionary,
-    TResult? Function(_GameEventChangeGameMode value)? changeGameMode,
-    TResult? Function(_GameEventResetBoard value)? resetBoard,
-    TResult? Function(_GameEventLetterPressed value)? letterPressed,
-    TResult? Function(_GameEventDeletePressed value)? deletePressed,
-    TResult? Function(_GameEventDeleteLongPressed value)? deleteLongPressed,
-    TResult? Function(_GameEventEnterPressed value)? enterPressed,
-    TResult? Function(_GameEventListenKeyEvent value)? listenKeyEvent,
+    TResult? Function(_ChangeDictionaryGameEvent value)? changeDictionary,
+    TResult? Function(_ChangeGameModeGameEvent value)? changeGameMode,
+    TResult? Function(_ResetBoardGameEvent value)? resetBoard,
+    TResult? Function(_LetterPressedGameEvent value)? letterPressed,
+    TResult? Function(_DeletePressedGameEvent value)? deletePressed,
+    TResult? Function(_DeleteLongPressedGameEvent value)? deleteLongPressed,
+    TResult? Function(_EnterPressedGameEvent value)? enterPressed,
+    TResult? Function(_ListenKeyEventGameEvent value)? listenKeyEvent,
   }) {
     return changeGameMode?.call(this);
   }
@@ -193,14 +193,14 @@ class _$GameEventChangeGameModeImpl implements _GameEventChangeGameMode {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GameEventChangeDictionary value)? changeDictionary,
-    TResult Function(_GameEventChangeGameMode value)? changeGameMode,
-    TResult Function(_GameEventResetBoard value)? resetBoard,
-    TResult Function(_GameEventLetterPressed value)? letterPressed,
-    TResult Function(_GameEventDeletePressed value)? deletePressed,
-    TResult Function(_GameEventDeleteLongPressed value)? deleteLongPressed,
-    TResult Function(_GameEventEnterPressed value)? enterPressed,
-    TResult Function(_GameEventListenKeyEvent value)? listenKeyEvent,
+    TResult Function(_ChangeDictionaryGameEvent value)? changeDictionary,
+    TResult Function(_ChangeGameModeGameEvent value)? changeGameMode,
+    TResult Function(_ResetBoardGameEvent value)? resetBoard,
+    TResult Function(_LetterPressedGameEvent value)? letterPressed,
+    TResult Function(_DeletePressedGameEvent value)? deletePressed,
+    TResult Function(_DeleteLongPressedGameEvent value)? deleteLongPressed,
+    TResult Function(_EnterPressedGameEvent value)? enterPressed,
+    TResult Function(_ListenKeyEventGameEvent value)? listenKeyEvent,
     required TResult orElse(),
   }) {
     if (changeGameMode != null) {
@@ -210,16 +210,16 @@ class _$GameEventChangeGameModeImpl implements _GameEventChangeGameMode {
   }
 }
 
-abstract class _GameEventChangeGameMode implements GameEvent {
-  const factory _GameEventChangeGameMode(final GameMode gameMode) = _$GameEventChangeGameModeImpl;
+abstract class _ChangeGameModeGameEvent implements GameEvent {
+  const factory _ChangeGameModeGameEvent(final GameMode gameMode) = _$ChangeGameModeGameEventImpl;
 
   GameMode get gameMode;
 }
 
 /// @nodoc
 
-class _$GameEventResetBoardImpl implements _GameEventResetBoard {
-  const _$GameEventResetBoardImpl(this.gameMode);
+class _$ResetBoardGameEventImpl implements _ResetBoardGameEvent {
+  const _$ResetBoardGameEventImpl(this.gameMode);
 
   @override
   final GameMode gameMode;
@@ -233,7 +233,7 @@ class _$GameEventResetBoardImpl implements _GameEventResetBoard {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GameEventResetBoardImpl &&
+            other is _$ResetBoardGameEventImpl &&
             (identical(other.gameMode, gameMode) || other.gameMode == gameMode));
   }
 
@@ -243,14 +243,14 @@ class _$GameEventResetBoardImpl implements _GameEventResetBoard {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GameEventChangeDictionary value) changeDictionary,
-    required TResult Function(_GameEventChangeGameMode value) changeGameMode,
-    required TResult Function(_GameEventResetBoard value) resetBoard,
-    required TResult Function(_GameEventLetterPressed value) letterPressed,
-    required TResult Function(_GameEventDeletePressed value) deletePressed,
-    required TResult Function(_GameEventDeleteLongPressed value) deleteLongPressed,
-    required TResult Function(_GameEventEnterPressed value) enterPressed,
-    required TResult Function(_GameEventListenKeyEvent value) listenKeyEvent,
+    required TResult Function(_ChangeDictionaryGameEvent value) changeDictionary,
+    required TResult Function(_ChangeGameModeGameEvent value) changeGameMode,
+    required TResult Function(_ResetBoardGameEvent value) resetBoard,
+    required TResult Function(_LetterPressedGameEvent value) letterPressed,
+    required TResult Function(_DeletePressedGameEvent value) deletePressed,
+    required TResult Function(_DeleteLongPressedGameEvent value) deleteLongPressed,
+    required TResult Function(_EnterPressedGameEvent value) enterPressed,
+    required TResult Function(_ListenKeyEventGameEvent value) listenKeyEvent,
   }) {
     return resetBoard(this);
   }
@@ -258,14 +258,14 @@ class _$GameEventResetBoardImpl implements _GameEventResetBoard {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GameEventChangeDictionary value)? changeDictionary,
-    TResult? Function(_GameEventChangeGameMode value)? changeGameMode,
-    TResult? Function(_GameEventResetBoard value)? resetBoard,
-    TResult? Function(_GameEventLetterPressed value)? letterPressed,
-    TResult? Function(_GameEventDeletePressed value)? deletePressed,
-    TResult? Function(_GameEventDeleteLongPressed value)? deleteLongPressed,
-    TResult? Function(_GameEventEnterPressed value)? enterPressed,
-    TResult? Function(_GameEventListenKeyEvent value)? listenKeyEvent,
+    TResult? Function(_ChangeDictionaryGameEvent value)? changeDictionary,
+    TResult? Function(_ChangeGameModeGameEvent value)? changeGameMode,
+    TResult? Function(_ResetBoardGameEvent value)? resetBoard,
+    TResult? Function(_LetterPressedGameEvent value)? letterPressed,
+    TResult? Function(_DeletePressedGameEvent value)? deletePressed,
+    TResult? Function(_DeleteLongPressedGameEvent value)? deleteLongPressed,
+    TResult? Function(_EnterPressedGameEvent value)? enterPressed,
+    TResult? Function(_ListenKeyEventGameEvent value)? listenKeyEvent,
   }) {
     return resetBoard?.call(this);
   }
@@ -273,14 +273,14 @@ class _$GameEventResetBoardImpl implements _GameEventResetBoard {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GameEventChangeDictionary value)? changeDictionary,
-    TResult Function(_GameEventChangeGameMode value)? changeGameMode,
-    TResult Function(_GameEventResetBoard value)? resetBoard,
-    TResult Function(_GameEventLetterPressed value)? letterPressed,
-    TResult Function(_GameEventDeletePressed value)? deletePressed,
-    TResult Function(_GameEventDeleteLongPressed value)? deleteLongPressed,
-    TResult Function(_GameEventEnterPressed value)? enterPressed,
-    TResult Function(_GameEventListenKeyEvent value)? listenKeyEvent,
+    TResult Function(_ChangeDictionaryGameEvent value)? changeDictionary,
+    TResult Function(_ChangeGameModeGameEvent value)? changeGameMode,
+    TResult Function(_ResetBoardGameEvent value)? resetBoard,
+    TResult Function(_LetterPressedGameEvent value)? letterPressed,
+    TResult Function(_DeletePressedGameEvent value)? deletePressed,
+    TResult Function(_DeleteLongPressedGameEvent value)? deleteLongPressed,
+    TResult Function(_EnterPressedGameEvent value)? enterPressed,
+    TResult Function(_ListenKeyEventGameEvent value)? listenKeyEvent,
     required TResult orElse(),
   }) {
     if (resetBoard != null) {
@@ -290,16 +290,16 @@ class _$GameEventResetBoardImpl implements _GameEventResetBoard {
   }
 }
 
-abstract class _GameEventResetBoard implements GameEvent {
-  const factory _GameEventResetBoard(final GameMode gameMode) = _$GameEventResetBoardImpl;
+abstract class _ResetBoardGameEvent implements GameEvent {
+  const factory _ResetBoardGameEvent(final GameMode gameMode) = _$ResetBoardGameEventImpl;
 
   GameMode get gameMode;
 }
 
 /// @nodoc
 
-class _$GameEventLetterPressedImpl implements _GameEventLetterPressed {
-  const _$GameEventLetterPressedImpl(this.key);
+class _$LetterPressedGameEventImpl implements _LetterPressedGameEvent {
+  const _$LetterPressedGameEventImpl(this.key);
 
   @override
   final String key;
@@ -313,7 +313,7 @@ class _$GameEventLetterPressedImpl implements _GameEventLetterPressed {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GameEventLetterPressedImpl &&
+            other is _$LetterPressedGameEventImpl &&
             (identical(other.key, key) || other.key == key));
   }
 
@@ -323,14 +323,14 @@ class _$GameEventLetterPressedImpl implements _GameEventLetterPressed {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GameEventChangeDictionary value) changeDictionary,
-    required TResult Function(_GameEventChangeGameMode value) changeGameMode,
-    required TResult Function(_GameEventResetBoard value) resetBoard,
-    required TResult Function(_GameEventLetterPressed value) letterPressed,
-    required TResult Function(_GameEventDeletePressed value) deletePressed,
-    required TResult Function(_GameEventDeleteLongPressed value) deleteLongPressed,
-    required TResult Function(_GameEventEnterPressed value) enterPressed,
-    required TResult Function(_GameEventListenKeyEvent value) listenKeyEvent,
+    required TResult Function(_ChangeDictionaryGameEvent value) changeDictionary,
+    required TResult Function(_ChangeGameModeGameEvent value) changeGameMode,
+    required TResult Function(_ResetBoardGameEvent value) resetBoard,
+    required TResult Function(_LetterPressedGameEvent value) letterPressed,
+    required TResult Function(_DeletePressedGameEvent value) deletePressed,
+    required TResult Function(_DeleteLongPressedGameEvent value) deleteLongPressed,
+    required TResult Function(_EnterPressedGameEvent value) enterPressed,
+    required TResult Function(_ListenKeyEventGameEvent value) listenKeyEvent,
   }) {
     return letterPressed(this);
   }
@@ -338,14 +338,14 @@ class _$GameEventLetterPressedImpl implements _GameEventLetterPressed {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GameEventChangeDictionary value)? changeDictionary,
-    TResult? Function(_GameEventChangeGameMode value)? changeGameMode,
-    TResult? Function(_GameEventResetBoard value)? resetBoard,
-    TResult? Function(_GameEventLetterPressed value)? letterPressed,
-    TResult? Function(_GameEventDeletePressed value)? deletePressed,
-    TResult? Function(_GameEventDeleteLongPressed value)? deleteLongPressed,
-    TResult? Function(_GameEventEnterPressed value)? enterPressed,
-    TResult? Function(_GameEventListenKeyEvent value)? listenKeyEvent,
+    TResult? Function(_ChangeDictionaryGameEvent value)? changeDictionary,
+    TResult? Function(_ChangeGameModeGameEvent value)? changeGameMode,
+    TResult? Function(_ResetBoardGameEvent value)? resetBoard,
+    TResult? Function(_LetterPressedGameEvent value)? letterPressed,
+    TResult? Function(_DeletePressedGameEvent value)? deletePressed,
+    TResult? Function(_DeleteLongPressedGameEvent value)? deleteLongPressed,
+    TResult? Function(_EnterPressedGameEvent value)? enterPressed,
+    TResult? Function(_ListenKeyEventGameEvent value)? listenKeyEvent,
   }) {
     return letterPressed?.call(this);
   }
@@ -353,14 +353,14 @@ class _$GameEventLetterPressedImpl implements _GameEventLetterPressed {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GameEventChangeDictionary value)? changeDictionary,
-    TResult Function(_GameEventChangeGameMode value)? changeGameMode,
-    TResult Function(_GameEventResetBoard value)? resetBoard,
-    TResult Function(_GameEventLetterPressed value)? letterPressed,
-    TResult Function(_GameEventDeletePressed value)? deletePressed,
-    TResult Function(_GameEventDeleteLongPressed value)? deleteLongPressed,
-    TResult Function(_GameEventEnterPressed value)? enterPressed,
-    TResult Function(_GameEventListenKeyEvent value)? listenKeyEvent,
+    TResult Function(_ChangeDictionaryGameEvent value)? changeDictionary,
+    TResult Function(_ChangeGameModeGameEvent value)? changeGameMode,
+    TResult Function(_ResetBoardGameEvent value)? resetBoard,
+    TResult Function(_LetterPressedGameEvent value)? letterPressed,
+    TResult Function(_DeletePressedGameEvent value)? deletePressed,
+    TResult Function(_DeleteLongPressedGameEvent value)? deleteLongPressed,
+    TResult Function(_EnterPressedGameEvent value)? enterPressed,
+    TResult Function(_ListenKeyEventGameEvent value)? listenKeyEvent,
     required TResult orElse(),
   }) {
     if (letterPressed != null) {
@@ -370,16 +370,16 @@ class _$GameEventLetterPressedImpl implements _GameEventLetterPressed {
   }
 }
 
-abstract class _GameEventLetterPressed implements GameEvent {
-  const factory _GameEventLetterPressed(final String key) = _$GameEventLetterPressedImpl;
+abstract class _LetterPressedGameEvent implements GameEvent {
+  const factory _LetterPressedGameEvent(final String key) = _$LetterPressedGameEventImpl;
 
   String get key;
 }
 
 /// @nodoc
 
-class _$GameEventDeletePressedImpl implements _GameEventDeletePressed {
-  const _$GameEventDeletePressedImpl();
+class _$DeletePressedGameEventImpl implements _DeletePressedGameEvent {
+  const _$DeletePressedGameEventImpl();
 
   @override
   String toString() {
@@ -388,7 +388,7 @@ class _$GameEventDeletePressedImpl implements _GameEventDeletePressed {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$GameEventDeletePressedImpl);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$DeletePressedGameEventImpl);
   }
 
   @override
@@ -397,14 +397,14 @@ class _$GameEventDeletePressedImpl implements _GameEventDeletePressed {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GameEventChangeDictionary value) changeDictionary,
-    required TResult Function(_GameEventChangeGameMode value) changeGameMode,
-    required TResult Function(_GameEventResetBoard value) resetBoard,
-    required TResult Function(_GameEventLetterPressed value) letterPressed,
-    required TResult Function(_GameEventDeletePressed value) deletePressed,
-    required TResult Function(_GameEventDeleteLongPressed value) deleteLongPressed,
-    required TResult Function(_GameEventEnterPressed value) enterPressed,
-    required TResult Function(_GameEventListenKeyEvent value) listenKeyEvent,
+    required TResult Function(_ChangeDictionaryGameEvent value) changeDictionary,
+    required TResult Function(_ChangeGameModeGameEvent value) changeGameMode,
+    required TResult Function(_ResetBoardGameEvent value) resetBoard,
+    required TResult Function(_LetterPressedGameEvent value) letterPressed,
+    required TResult Function(_DeletePressedGameEvent value) deletePressed,
+    required TResult Function(_DeleteLongPressedGameEvent value) deleteLongPressed,
+    required TResult Function(_EnterPressedGameEvent value) enterPressed,
+    required TResult Function(_ListenKeyEventGameEvent value) listenKeyEvent,
   }) {
     return deletePressed(this);
   }
@@ -412,14 +412,14 @@ class _$GameEventDeletePressedImpl implements _GameEventDeletePressed {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GameEventChangeDictionary value)? changeDictionary,
-    TResult? Function(_GameEventChangeGameMode value)? changeGameMode,
-    TResult? Function(_GameEventResetBoard value)? resetBoard,
-    TResult? Function(_GameEventLetterPressed value)? letterPressed,
-    TResult? Function(_GameEventDeletePressed value)? deletePressed,
-    TResult? Function(_GameEventDeleteLongPressed value)? deleteLongPressed,
-    TResult? Function(_GameEventEnterPressed value)? enterPressed,
-    TResult? Function(_GameEventListenKeyEvent value)? listenKeyEvent,
+    TResult? Function(_ChangeDictionaryGameEvent value)? changeDictionary,
+    TResult? Function(_ChangeGameModeGameEvent value)? changeGameMode,
+    TResult? Function(_ResetBoardGameEvent value)? resetBoard,
+    TResult? Function(_LetterPressedGameEvent value)? letterPressed,
+    TResult? Function(_DeletePressedGameEvent value)? deletePressed,
+    TResult? Function(_DeleteLongPressedGameEvent value)? deleteLongPressed,
+    TResult? Function(_EnterPressedGameEvent value)? enterPressed,
+    TResult? Function(_ListenKeyEventGameEvent value)? listenKeyEvent,
   }) {
     return deletePressed?.call(this);
   }
@@ -427,14 +427,14 @@ class _$GameEventDeletePressedImpl implements _GameEventDeletePressed {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GameEventChangeDictionary value)? changeDictionary,
-    TResult Function(_GameEventChangeGameMode value)? changeGameMode,
-    TResult Function(_GameEventResetBoard value)? resetBoard,
-    TResult Function(_GameEventLetterPressed value)? letterPressed,
-    TResult Function(_GameEventDeletePressed value)? deletePressed,
-    TResult Function(_GameEventDeleteLongPressed value)? deleteLongPressed,
-    TResult Function(_GameEventEnterPressed value)? enterPressed,
-    TResult Function(_GameEventListenKeyEvent value)? listenKeyEvent,
+    TResult Function(_ChangeDictionaryGameEvent value)? changeDictionary,
+    TResult Function(_ChangeGameModeGameEvent value)? changeGameMode,
+    TResult Function(_ResetBoardGameEvent value)? resetBoard,
+    TResult Function(_LetterPressedGameEvent value)? letterPressed,
+    TResult Function(_DeletePressedGameEvent value)? deletePressed,
+    TResult Function(_DeleteLongPressedGameEvent value)? deleteLongPressed,
+    TResult Function(_EnterPressedGameEvent value)? enterPressed,
+    TResult Function(_ListenKeyEventGameEvent value)? listenKeyEvent,
     required TResult orElse(),
   }) {
     if (deletePressed != null) {
@@ -444,14 +444,14 @@ class _$GameEventDeletePressedImpl implements _GameEventDeletePressed {
   }
 }
 
-abstract class _GameEventDeletePressed implements GameEvent {
-  const factory _GameEventDeletePressed() = _$GameEventDeletePressedImpl;
+abstract class _DeletePressedGameEvent implements GameEvent {
+  const factory _DeletePressedGameEvent() = _$DeletePressedGameEventImpl;
 }
 
 /// @nodoc
 
-class _$GameEventDeleteLongPressedImpl implements _GameEventDeleteLongPressed {
-  const _$GameEventDeleteLongPressedImpl();
+class _$DeleteLongPressedGameEventImpl implements _DeleteLongPressedGameEvent {
+  const _$DeleteLongPressedGameEventImpl();
 
   @override
   String toString() {
@@ -460,7 +460,7 @@ class _$GameEventDeleteLongPressedImpl implements _GameEventDeleteLongPressed {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$GameEventDeleteLongPressedImpl);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$DeleteLongPressedGameEventImpl);
   }
 
   @override
@@ -469,14 +469,14 @@ class _$GameEventDeleteLongPressedImpl implements _GameEventDeleteLongPressed {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GameEventChangeDictionary value) changeDictionary,
-    required TResult Function(_GameEventChangeGameMode value) changeGameMode,
-    required TResult Function(_GameEventResetBoard value) resetBoard,
-    required TResult Function(_GameEventLetterPressed value) letterPressed,
-    required TResult Function(_GameEventDeletePressed value) deletePressed,
-    required TResult Function(_GameEventDeleteLongPressed value) deleteLongPressed,
-    required TResult Function(_GameEventEnterPressed value) enterPressed,
-    required TResult Function(_GameEventListenKeyEvent value) listenKeyEvent,
+    required TResult Function(_ChangeDictionaryGameEvent value) changeDictionary,
+    required TResult Function(_ChangeGameModeGameEvent value) changeGameMode,
+    required TResult Function(_ResetBoardGameEvent value) resetBoard,
+    required TResult Function(_LetterPressedGameEvent value) letterPressed,
+    required TResult Function(_DeletePressedGameEvent value) deletePressed,
+    required TResult Function(_DeleteLongPressedGameEvent value) deleteLongPressed,
+    required TResult Function(_EnterPressedGameEvent value) enterPressed,
+    required TResult Function(_ListenKeyEventGameEvent value) listenKeyEvent,
   }) {
     return deleteLongPressed(this);
   }
@@ -484,14 +484,14 @@ class _$GameEventDeleteLongPressedImpl implements _GameEventDeleteLongPressed {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GameEventChangeDictionary value)? changeDictionary,
-    TResult? Function(_GameEventChangeGameMode value)? changeGameMode,
-    TResult? Function(_GameEventResetBoard value)? resetBoard,
-    TResult? Function(_GameEventLetterPressed value)? letterPressed,
-    TResult? Function(_GameEventDeletePressed value)? deletePressed,
-    TResult? Function(_GameEventDeleteLongPressed value)? deleteLongPressed,
-    TResult? Function(_GameEventEnterPressed value)? enterPressed,
-    TResult? Function(_GameEventListenKeyEvent value)? listenKeyEvent,
+    TResult? Function(_ChangeDictionaryGameEvent value)? changeDictionary,
+    TResult? Function(_ChangeGameModeGameEvent value)? changeGameMode,
+    TResult? Function(_ResetBoardGameEvent value)? resetBoard,
+    TResult? Function(_LetterPressedGameEvent value)? letterPressed,
+    TResult? Function(_DeletePressedGameEvent value)? deletePressed,
+    TResult? Function(_DeleteLongPressedGameEvent value)? deleteLongPressed,
+    TResult? Function(_EnterPressedGameEvent value)? enterPressed,
+    TResult? Function(_ListenKeyEventGameEvent value)? listenKeyEvent,
   }) {
     return deleteLongPressed?.call(this);
   }
@@ -499,14 +499,14 @@ class _$GameEventDeleteLongPressedImpl implements _GameEventDeleteLongPressed {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GameEventChangeDictionary value)? changeDictionary,
-    TResult Function(_GameEventChangeGameMode value)? changeGameMode,
-    TResult Function(_GameEventResetBoard value)? resetBoard,
-    TResult Function(_GameEventLetterPressed value)? letterPressed,
-    TResult Function(_GameEventDeletePressed value)? deletePressed,
-    TResult Function(_GameEventDeleteLongPressed value)? deleteLongPressed,
-    TResult Function(_GameEventEnterPressed value)? enterPressed,
-    TResult Function(_GameEventListenKeyEvent value)? listenKeyEvent,
+    TResult Function(_ChangeDictionaryGameEvent value)? changeDictionary,
+    TResult Function(_ChangeGameModeGameEvent value)? changeGameMode,
+    TResult Function(_ResetBoardGameEvent value)? resetBoard,
+    TResult Function(_LetterPressedGameEvent value)? letterPressed,
+    TResult Function(_DeletePressedGameEvent value)? deletePressed,
+    TResult Function(_DeleteLongPressedGameEvent value)? deleteLongPressed,
+    TResult Function(_EnterPressedGameEvent value)? enterPressed,
+    TResult Function(_ListenKeyEventGameEvent value)? listenKeyEvent,
     required TResult orElse(),
   }) {
     if (deleteLongPressed != null) {
@@ -516,14 +516,14 @@ class _$GameEventDeleteLongPressedImpl implements _GameEventDeleteLongPressed {
   }
 }
 
-abstract class _GameEventDeleteLongPressed implements GameEvent {
-  const factory _GameEventDeleteLongPressed() = _$GameEventDeleteLongPressedImpl;
+abstract class _DeleteLongPressedGameEvent implements GameEvent {
+  const factory _DeleteLongPressedGameEvent() = _$DeleteLongPressedGameEventImpl;
 }
 
 /// @nodoc
 
-class _$GameEventEnterPressedImpl implements _GameEventEnterPressed {
-  const _$GameEventEnterPressedImpl();
+class _$EnterPressedGameEventImpl implements _EnterPressedGameEvent {
+  const _$EnterPressedGameEventImpl();
 
   @override
   String toString() {
@@ -532,7 +532,7 @@ class _$GameEventEnterPressedImpl implements _GameEventEnterPressed {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$GameEventEnterPressedImpl);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$EnterPressedGameEventImpl);
   }
 
   @override
@@ -541,14 +541,14 @@ class _$GameEventEnterPressedImpl implements _GameEventEnterPressed {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GameEventChangeDictionary value) changeDictionary,
-    required TResult Function(_GameEventChangeGameMode value) changeGameMode,
-    required TResult Function(_GameEventResetBoard value) resetBoard,
-    required TResult Function(_GameEventLetterPressed value) letterPressed,
-    required TResult Function(_GameEventDeletePressed value) deletePressed,
-    required TResult Function(_GameEventDeleteLongPressed value) deleteLongPressed,
-    required TResult Function(_GameEventEnterPressed value) enterPressed,
-    required TResult Function(_GameEventListenKeyEvent value) listenKeyEvent,
+    required TResult Function(_ChangeDictionaryGameEvent value) changeDictionary,
+    required TResult Function(_ChangeGameModeGameEvent value) changeGameMode,
+    required TResult Function(_ResetBoardGameEvent value) resetBoard,
+    required TResult Function(_LetterPressedGameEvent value) letterPressed,
+    required TResult Function(_DeletePressedGameEvent value) deletePressed,
+    required TResult Function(_DeleteLongPressedGameEvent value) deleteLongPressed,
+    required TResult Function(_EnterPressedGameEvent value) enterPressed,
+    required TResult Function(_ListenKeyEventGameEvent value) listenKeyEvent,
   }) {
     return enterPressed(this);
   }
@@ -556,14 +556,14 @@ class _$GameEventEnterPressedImpl implements _GameEventEnterPressed {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GameEventChangeDictionary value)? changeDictionary,
-    TResult? Function(_GameEventChangeGameMode value)? changeGameMode,
-    TResult? Function(_GameEventResetBoard value)? resetBoard,
-    TResult? Function(_GameEventLetterPressed value)? letterPressed,
-    TResult? Function(_GameEventDeletePressed value)? deletePressed,
-    TResult? Function(_GameEventDeleteLongPressed value)? deleteLongPressed,
-    TResult? Function(_GameEventEnterPressed value)? enterPressed,
-    TResult? Function(_GameEventListenKeyEvent value)? listenKeyEvent,
+    TResult? Function(_ChangeDictionaryGameEvent value)? changeDictionary,
+    TResult? Function(_ChangeGameModeGameEvent value)? changeGameMode,
+    TResult? Function(_ResetBoardGameEvent value)? resetBoard,
+    TResult? Function(_LetterPressedGameEvent value)? letterPressed,
+    TResult? Function(_DeletePressedGameEvent value)? deletePressed,
+    TResult? Function(_DeleteLongPressedGameEvent value)? deleteLongPressed,
+    TResult? Function(_EnterPressedGameEvent value)? enterPressed,
+    TResult? Function(_ListenKeyEventGameEvent value)? listenKeyEvent,
   }) {
     return enterPressed?.call(this);
   }
@@ -571,14 +571,14 @@ class _$GameEventEnterPressedImpl implements _GameEventEnterPressed {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GameEventChangeDictionary value)? changeDictionary,
-    TResult Function(_GameEventChangeGameMode value)? changeGameMode,
-    TResult Function(_GameEventResetBoard value)? resetBoard,
-    TResult Function(_GameEventLetterPressed value)? letterPressed,
-    TResult Function(_GameEventDeletePressed value)? deletePressed,
-    TResult Function(_GameEventDeleteLongPressed value)? deleteLongPressed,
-    TResult Function(_GameEventEnterPressed value)? enterPressed,
-    TResult Function(_GameEventListenKeyEvent value)? listenKeyEvent,
+    TResult Function(_ChangeDictionaryGameEvent value)? changeDictionary,
+    TResult Function(_ChangeGameModeGameEvent value)? changeGameMode,
+    TResult Function(_ResetBoardGameEvent value)? resetBoard,
+    TResult Function(_LetterPressedGameEvent value)? letterPressed,
+    TResult Function(_DeletePressedGameEvent value)? deletePressed,
+    TResult Function(_DeleteLongPressedGameEvent value)? deleteLongPressed,
+    TResult Function(_EnterPressedGameEvent value)? enterPressed,
+    TResult Function(_ListenKeyEventGameEvent value)? listenKeyEvent,
     required TResult orElse(),
   }) {
     if (enterPressed != null) {
@@ -588,14 +588,14 @@ class _$GameEventEnterPressedImpl implements _GameEventEnterPressed {
   }
 }
 
-abstract class _GameEventEnterPressed implements GameEvent {
-  const factory _GameEventEnterPressed() = _$GameEventEnterPressedImpl;
+abstract class _EnterPressedGameEvent implements GameEvent {
+  const factory _EnterPressedGameEvent() = _$EnterPressedGameEventImpl;
 }
 
 /// @nodoc
 
-class _$GameEventListenKeyEventImpl implements _GameEventListenKeyEvent {
-  const _$GameEventListenKeyEventImpl(this.keyEvent);
+class _$ListenKeyEventGameEventImpl implements _ListenKeyEventGameEvent {
+  const _$ListenKeyEventGameEventImpl(this.keyEvent);
 
   @override
   final KeyEvent keyEvent;
@@ -609,7 +609,7 @@ class _$GameEventListenKeyEventImpl implements _GameEventListenKeyEvent {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GameEventListenKeyEventImpl &&
+            other is _$ListenKeyEventGameEventImpl &&
             (identical(other.keyEvent, keyEvent) || other.keyEvent == keyEvent));
   }
 
@@ -619,14 +619,14 @@ class _$GameEventListenKeyEventImpl implements _GameEventListenKeyEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GameEventChangeDictionary value) changeDictionary,
-    required TResult Function(_GameEventChangeGameMode value) changeGameMode,
-    required TResult Function(_GameEventResetBoard value) resetBoard,
-    required TResult Function(_GameEventLetterPressed value) letterPressed,
-    required TResult Function(_GameEventDeletePressed value) deletePressed,
-    required TResult Function(_GameEventDeleteLongPressed value) deleteLongPressed,
-    required TResult Function(_GameEventEnterPressed value) enterPressed,
-    required TResult Function(_GameEventListenKeyEvent value) listenKeyEvent,
+    required TResult Function(_ChangeDictionaryGameEvent value) changeDictionary,
+    required TResult Function(_ChangeGameModeGameEvent value) changeGameMode,
+    required TResult Function(_ResetBoardGameEvent value) resetBoard,
+    required TResult Function(_LetterPressedGameEvent value) letterPressed,
+    required TResult Function(_DeletePressedGameEvent value) deletePressed,
+    required TResult Function(_DeleteLongPressedGameEvent value) deleteLongPressed,
+    required TResult Function(_EnterPressedGameEvent value) enterPressed,
+    required TResult Function(_ListenKeyEventGameEvent value) listenKeyEvent,
   }) {
     return listenKeyEvent(this);
   }
@@ -634,14 +634,14 @@ class _$GameEventListenKeyEventImpl implements _GameEventListenKeyEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GameEventChangeDictionary value)? changeDictionary,
-    TResult? Function(_GameEventChangeGameMode value)? changeGameMode,
-    TResult? Function(_GameEventResetBoard value)? resetBoard,
-    TResult? Function(_GameEventLetterPressed value)? letterPressed,
-    TResult? Function(_GameEventDeletePressed value)? deletePressed,
-    TResult? Function(_GameEventDeleteLongPressed value)? deleteLongPressed,
-    TResult? Function(_GameEventEnterPressed value)? enterPressed,
-    TResult? Function(_GameEventListenKeyEvent value)? listenKeyEvent,
+    TResult? Function(_ChangeDictionaryGameEvent value)? changeDictionary,
+    TResult? Function(_ChangeGameModeGameEvent value)? changeGameMode,
+    TResult? Function(_ResetBoardGameEvent value)? resetBoard,
+    TResult? Function(_LetterPressedGameEvent value)? letterPressed,
+    TResult? Function(_DeletePressedGameEvent value)? deletePressed,
+    TResult? Function(_DeleteLongPressedGameEvent value)? deleteLongPressed,
+    TResult? Function(_EnterPressedGameEvent value)? enterPressed,
+    TResult? Function(_ListenKeyEventGameEvent value)? listenKeyEvent,
   }) {
     return listenKeyEvent?.call(this);
   }
@@ -649,14 +649,14 @@ class _$GameEventListenKeyEventImpl implements _GameEventListenKeyEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GameEventChangeDictionary value)? changeDictionary,
-    TResult Function(_GameEventChangeGameMode value)? changeGameMode,
-    TResult Function(_GameEventResetBoard value)? resetBoard,
-    TResult Function(_GameEventLetterPressed value)? letterPressed,
-    TResult Function(_GameEventDeletePressed value)? deletePressed,
-    TResult Function(_GameEventDeleteLongPressed value)? deleteLongPressed,
-    TResult Function(_GameEventEnterPressed value)? enterPressed,
-    TResult Function(_GameEventListenKeyEvent value)? listenKeyEvent,
+    TResult Function(_ChangeDictionaryGameEvent value)? changeDictionary,
+    TResult Function(_ChangeGameModeGameEvent value)? changeGameMode,
+    TResult Function(_ResetBoardGameEvent value)? resetBoard,
+    TResult Function(_LetterPressedGameEvent value)? letterPressed,
+    TResult Function(_DeletePressedGameEvent value)? deletePressed,
+    TResult Function(_DeleteLongPressedGameEvent value)? deleteLongPressed,
+    TResult Function(_EnterPressedGameEvent value)? enterPressed,
+    TResult Function(_ListenKeyEventGameEvent value)? listenKeyEvent,
     required TResult orElse(),
   }) {
     if (listenKeyEvent != null) {
@@ -666,8 +666,8 @@ class _$GameEventListenKeyEventImpl implements _GameEventListenKeyEvent {
   }
 }
 
-abstract class _GameEventListenKeyEvent implements GameEvent {
-  const factory _GameEventListenKeyEvent(final KeyEvent keyEvent) = _$GameEventListenKeyEventImpl;
+abstract class _ListenKeyEventGameEvent implements GameEvent {
+  const factory _ListenKeyEventGameEvent(final KeyEvent keyEvent) = _$ListenKeyEventGameEventImpl;
 
   KeyEvent get keyEvent;
 }

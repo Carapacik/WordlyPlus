@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordly/src/core/constant/config.dart';
 import 'package:wordly/src/core/utils/app_bloc_observer.dart';
+import 'package:wordly/src/core/utils/bloc_transformer.dart';
 import 'package:wordly/src/core/utils/logger.dart';
-import 'package:wordly/src/feature/app/widget/app.dart';
-import 'package:wordly/src/feature/initialization/logic/initialization_processor.dart';
+import 'package:wordly/src/feature/initialization/logic/composition_root.dart';
+import 'package:wordly/src/feature/initialization/widget/app.dart';
 import 'package:wordly/src/feature/initialization/widget/initialization_failed_app.dart';
 
 /// {@template app_runner}
@@ -15,7 +15,10 @@ import 'package:wordly/src/feature/initialization/widget/initialization_failed_a
 /// {@endtemplate}
 final class AppRunner {
   /// {@macro app_runner}
-  const AppRunner();
+  const AppRunner(this.logger);
+
+  /// The logger instance
+  final Logger logger;
 
   /// Start the initialization and in case of success run application
   Future<void> initializeAndRun() async {
@@ -26,14 +29,13 @@ final class AppRunner {
     WidgetsBinding.instance.platformDispatcher.onError = logger.logPlatformDispatcherError;
 
     // Setup bloc observer and transformer
-    Bloc.observer = const AppBlocObserver();
-    Bloc.transformer = bloc_concurrency.sequential();
+    Bloc.observer = AppBlocObserver(logger);
+    Bloc.transformer = SequentialBlocTransformer().transform;
     const config = Config();
-    const initializationProcessor = CompositionRoot(config);
 
     Future<void> initializeAndRun() async {
       try {
-        final result = await initializationProcessor.compose();
+        final result = await CompositionRoot(config, logger).compose();
         // Attach this widget to the root of the tree.
         runApp(App(result: result));
       } on Object catch (e, stackTrace) {
@@ -42,7 +44,7 @@ final class AppRunner {
           InitializationFailedApp(
             error: e,
             stackTrace: stackTrace,
-            retryInitialization: initializeAndRun,
+            onRetryInitialization: initializeAndRun,
           ),
         );
       } finally {

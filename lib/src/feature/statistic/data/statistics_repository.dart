@@ -4,28 +4,25 @@ import 'dart:ui' show Locale;
 import 'package:wordly/src/feature/statistic/data/statistics_datasource.dart';
 import 'package:wordly/src/feature/statistic/model/game_statistics.dart';
 
-/// {@template statistic_repository}
-/// Repository which manages the daily statistic.
-/// {@endtemplate}
-abstract interface class StatisticsRepository {
-  /// Set statistic
+abstract interface class IStatisticsRepository {
+  Future<GameStatistics?> getStatistics(Locale dictionary);
+
   Future<void> setStatistics(
     Locale dictionary, {
     required bool isWin,
     required int attempt,
   });
-
-  /// Observe current statistic changes
-  GameStatistics? getStatistics(Locale dictionary);
 }
 
-/// {@macro statistic_repository}
-final class StatisticsRepositoryImpl implements StatisticsRepository {
-  /// {@macro statistic_repository}
-  const StatisticsRepositoryImpl({required StatisticsDataSource statisticsDataSource})
-      : _statisticsDataSource = statisticsDataSource;
+final class StatisticsRepository implements IStatisticsRepository {
+  const StatisticsRepository({required IStatisticsDatasource statisticsDatasource})
+      : _statisticsDatasource = statisticsDatasource;
 
-  final StatisticsDataSource _statisticsDataSource;
+  final IStatisticsDatasource _statisticsDatasource;
+
+  @override
+  Future<GameStatistics?> getStatistics(Locale dictionary) async =>
+      _statisticsDatasource.getStatistics(dictionary.languageCode);
 
   @override
   Future<void> setStatistics(
@@ -33,7 +30,7 @@ final class StatisticsRepositoryImpl implements StatisticsRepository {
     required bool isWin,
     required int attempt,
   }) async {
-    final previousStatistic = _statisticsDataSource.getStatistics(dictionary.languageCode);
+    final previousStatistic = await _statisticsDatasource.getStatistics(dictionary.languageCode);
     final currentStatistic = GameStatistics(
       loses: _calculateLoses(isWin: isWin, previous: previousStatistic?.loses),
       wins: _calculateWins(isWin: isWin, previous: previousStatistic?.wins),
@@ -47,11 +44,8 @@ final class StatisticsRepositoryImpl implements StatisticsRepository {
         previous: previousStatistic?.attempts,
       ),
     );
-    await _statisticsDataSource.setStatistics(dictionary.languageCode, currentStatistic);
+    await _statisticsDatasource.setStatistics(dictionary.languageCode, currentStatistic);
   }
-
-  @override
-  GameStatistics? getStatistics(Locale dictionary) => _statisticsDataSource.getStatistics(dictionary.languageCode);
 
   int _calculateLoses({required bool isWin, required int? previous}) {
     if (isWin) {

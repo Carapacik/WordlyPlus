@@ -18,21 +18,21 @@ part 'game_bloc.freezed.dart';
 
 @Freezed(copyWith: false)
 sealed class GameEvent with _$GameEvent {
-  const factory GameEvent.changeDictionary(Locale dictionary) = _GameEventChangeDictionary;
+  const factory GameEvent.changeDictionary(Locale dictionary) = _ChangeDictionaryGameEvent;
 
-  const factory GameEvent.changeGameMode(GameMode gameMode) = _GameEventChangeGameMode;
+  const factory GameEvent.changeGameMode(GameMode gameMode) = _ChangeGameModeGameEvent;
 
-  const factory GameEvent.resetBoard(GameMode gameMode) = _GameEventResetBoard;
+  const factory GameEvent.resetBoard(GameMode gameMode) = _ResetBoardGameEvent;
 
-  const factory GameEvent.letterPressed(String key) = _GameEventLetterPressed;
+  const factory GameEvent.letterPressed(String key) = _LetterPressedGameEvent;
 
-  const factory GameEvent.deletePressed() = _GameEventDeletePressed;
+  const factory GameEvent.deletePressed() = _DeletePressedGameEvent;
 
-  const factory GameEvent.deleteLongPressed() = _GameEventDeleteLongPressed;
+  const factory GameEvent.deleteLongPressed() = _DeleteLongPressedGameEvent;
 
-  const factory GameEvent.enterPressed() = _GameEventEnterPressed;
+  const factory GameEvent.enterPressed() = _EnterPressedGameEvent;
 
-  const factory GameEvent.listenKeyEvent(KeyEvent keyEvent) = _GameEventListenKeyEvent;
+  const factory GameEvent.listenKeyEvent(KeyEvent keyEvent) = _ListenKeyEventGameEvent;
 }
 
 @Freezed()
@@ -99,7 +99,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   GameBloc({
     required Locale dictionary,
     required IGameRepository gameRepository,
-    required StatisticsRepository statisticsRepository,
+    required IStatisticsRepository statisticsRepository,
     required ILevelRepository levelRepository,
     required GameResult? savedResult,
   })  : _gameRepository = gameRepository,
@@ -114,24 +114,24 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           ),
         ) {
     on<GameEvent>(
-      (event, emit) async => event.map(
-        changeDictionary: (e) => _changeDictionary(e, emit),
-        changeGameMode: (e) => _changeGameMode(e, emit),
-        resetBoard: (e) => _resetBoard(e, emit),
-        letterPressed: (e) => _letterPressed(e, emit),
-        enterPressed: (e) => _enterPressed(e, emit),
-        deletePressed: (e) => _deletePressed(e, emit),
-        deleteLongPressed: (e) => _deleteLongPressed(e, emit),
-        listenKeyEvent: (e) => _listenKeyEvent(e, emit),
-      ),
+      (event, emit) async => switch (event) {
+        final _ChangeDictionaryGameEvent e => _changeDictionary(e, emit),
+        final _ChangeGameModeGameEvent e => _changeGameMode(e, emit),
+        final _ResetBoardGameEvent e => _resetBoard(e, emit),
+        final _LetterPressedGameEvent e => _letterPressed(e, emit),
+        final _EnterPressedGameEvent e => _enterPressed(e, emit),
+        final _DeletePressedGameEvent e => _deletePressed(e, emit),
+        final _DeleteLongPressedGameEvent e => _deleteLongPressed(e, emit),
+        final _ListenKeyEventGameEvent e => _listenKeyEvent(e, emit),
+      },
     );
   }
 
   final IGameRepository _gameRepository;
-  final StatisticsRepository _statisticsRepository;
+  final IStatisticsRepository _statisticsRepository;
   final ILevelRepository _levelRepository;
 
-  void _listenKeyEvent(_GameEventListenKeyEvent event, Emitter<GameState> emit) {
+  void _listenKeyEvent(_ListenKeyEventGameEvent event, Emitter<GameState> emit) {
     final key = event.keyEvent;
     if (key.logicalKey == LogicalKeyboardKey.enter) {
       add(const GameEvent.enterPressed());
@@ -150,16 +150,16 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
   }
 
-  void _changeDictionary(_GameEventChangeDictionary event, Emitter<GameState> emit) {
+  Future<void> _changeDictionary(_ChangeDictionaryGameEvent event, Emitter<GameState> emit) async {
     final newDictionary = event.dictionary;
     if (state.dictionary.languageCode == newDictionary.languageCode) {
       return;
     }
     final GameResult? savedResult;
     if (state.gameMode == GameMode.daily) {
-      savedResult = _gameRepository.getDaily(newDictionary, DateTime.now().toUtc());
+      savedResult = await _gameRepository.getDaily(newDictionary, DateTime.now().toUtc());
     } else {
-      savedResult = _gameRepository.getLvl(newDictionary);
+      savedResult = await _gameRepository.getLvl(newDictionary);
     }
     final newState = _stateBySavedResult(
       savedResult,
@@ -173,19 +173,16 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     emit(newState);
   }
 
-  void _changeGameMode(
-    _GameEventChangeGameMode event,
-    Emitter<GameState> emit,
-  ) {
+  Future<void> _changeGameMode(_ChangeGameModeGameEvent event, Emitter<GameState> emit) async {
     if (state.gameMode == event.gameMode) {
       return;
     }
     final newGameMode = event.gameMode;
     final GameResult? savedResult;
     if (newGameMode == GameMode.daily) {
-      savedResult = _gameRepository.getDaily(state.dictionary, DateTime.now().toUtc());
+      savedResult = await _gameRepository.getDaily(state.dictionary, DateTime.now().toUtc());
     } else {
-      savedResult = _gameRepository.getLvl(state.dictionary);
+      savedResult = await _gameRepository.getLvl(state.dictionary);
     }
     final newState = _stateBySavedResult(
       savedResult,
@@ -199,10 +196,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     emit(newState);
   }
 
-  void _resetBoard(
-    _GameEventResetBoard event,
-    Emitter<GameState> emit,
-  ) {
+  void _resetBoard(_ResetBoardGameEvent event, Emitter<GameState> emit) {
     final GameResult? savedResult;
     if (event.gameMode == GameMode.daily) {
       savedResult = GameResult(
@@ -226,10 +220,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     emit(newState);
   }
 
-  void _letterPressed(
-    _GameEventLetterPressed event,
-    Emitter<GameState> emit,
-  ) {
+  void _letterPressed(_LetterPressedGameEvent event, Emitter<GameState> emit) {
     if (state.gameCompleted) {
       return;
     }
@@ -254,10 +245,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     );
   }
 
-  void _deletePressed(
-    _GameEventDeletePressed event,
-    Emitter<GameState> emit,
-  ) {
+  void _deletePressed(_DeletePressedGameEvent event, Emitter<GameState> emit) {
     if (state.gameCompleted) {
       return;
     }
@@ -278,10 +266,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     );
   }
 
-  void _deleteLongPressed(
-    _GameEventDeleteLongPressed event,
-    Emitter<GameState> emit,
-  ) {
+  void _deleteLongPressed(_DeleteLongPressedGameEvent event, Emitter<GameState> emit) {
     if (state.gameCompleted) {
       return;
     }
@@ -303,10 +288,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     );
   }
 
-  void _enterPressed(
-    _GameEventEnterPressed event,
-    Emitter<GameState> emit,
-  ) {
+  void _enterPressed(_EnterPressedGameEvent event, Emitter<GameState> emit) {
     if (state.gameCompleted) {
       return;
     }

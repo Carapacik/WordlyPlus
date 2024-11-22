@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:wordly/src/core/assets/generated/fonts.gen.dart';
 import 'package:wordly/src/core/resources/resources.dart';
-import 'package:wordly/src/core/utils/extensions/context_extension.dart';
+import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 
 /// {@template app_theme}
@@ -14,7 +14,7 @@ import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 final class AppTheme with Diagnosticable {
   /// {@macro app_theme}
   AppTheme({
-    required this.mode,
+    required this.themeMode,
     required this.colorMode,
     this.otherColors,
   })  : lightTheme = ThemeData(
@@ -39,7 +39,7 @@ final class AppTheme with Diagnosticable {
         );
 
   /// The type of theme to use.
-  final ThemeMode mode;
+  final ThemeMode themeMode;
 
   /// The type of color mode to use.
   final ColorMode colorMode;
@@ -55,14 +55,14 @@ final class AppTheme with Diagnosticable {
 
   /// The default [AppTheme].
   static final defaultTheme = AppTheme(
-    mode: ThemeMode.system,
+    themeMode: ThemeMode.system,
     colorMode: ColorMode.casual,
   );
 
   /// The [ThemeData] for this [AppTheme].
-  /// This is computed based on the [mode].
+  /// This is computed based on the [themeMode].
   ThemeData computeTheme() {
-    switch (mode) {
+    switch (themeMode) {
       case ThemeMode.light:
         return lightTheme;
       case ThemeMode.dark:
@@ -100,7 +100,7 @@ final class AppTheme with Diagnosticable {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(EnumProperty<ThemeMode>('mode', mode))
+      ..add(EnumProperty<ThemeMode>('mode', themeMode))
       ..add(EnumProperty<ColorMode>('colorMode', colorMode))
       ..add(DiagnosticsProperty<ThemeData>('lightTheme', lightTheme))
       ..add(DiagnosticsProperty<ThemeData>('darkTheme', darkTheme));
@@ -111,12 +111,12 @@ final class AppTheme with Diagnosticable {
       identical(this, other) ||
       other is AppTheme &&
           runtimeType == other.runtimeType &&
-          mode == other.mode &&
+          themeMode == other.themeMode &&
           colorMode == other.colorMode &&
           otherColors == other.otherColors;
 
   @override
-  int get hashCode => Object.hash(mode, colorMode, otherColors);
+  int get hashCode => Object.hash(themeMode, colorMode, otherColors);
 
   AppTheme copyWith({
     ThemeMode? themeMode,
@@ -124,29 +124,8 @@ final class AppTheme with Diagnosticable {
     (Color, Color, Color)? otherColors,
   }) =>
       AppTheme(
-        mode: themeMode ?? mode,
+        themeMode: themeMode ?? this.themeMode,
         colorMode: colorMode ?? this.colorMode,
         otherColors: otherColors ?? this.otherColors,
       );
-}
-
-@immutable
-class BackgroundCustomColors extends ThemeExtension<BackgroundCustomColors> {
-  const BackgroundCustomColors({
-    required this.background,
-  });
-
-  final Color? background;
-
-  @override
-  ThemeExtension<BackgroundCustomColors> copyWith({Color? background}) =>
-      BackgroundCustomColors(background: background ?? this.background);
-
-  @override
-  ThemeExtension<BackgroundCustomColors> lerp(covariant ThemeExtension<BackgroundCustomColors>? other, double t) {
-    if (other is! BackgroundCustomColors) {
-      return this;
-    }
-    return BackgroundCustomColors(background: Color.lerp(background, other.background, t));
-  }
 }

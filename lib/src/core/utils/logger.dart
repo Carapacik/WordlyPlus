@@ -1,271 +1,479 @@
 import 'dart:async';
+import 'dart:developer' as developer;
 
+import 'package:clock/clock.dart';
 import 'package:flutter/foundation.dart';
-import 'package:logging/logging.dart' as logging;
+import 'package:stack_trace/stack_trace.dart';
 
-/// Logger instance declared as global variable
+/// Configuration options for logging behavior.
 ///
-/// Usage:
-/// ```dart
-/// logger.info('Hello World!');
-/// ```
-final Logger logger = LoggerLogging();
-
-/// Typedef for the log formatter
-typedef LogFormatter = String Function(LogMessage message, LogOptions options);
-
-/// Possible levels of logging
-enum LoggerLevel implements Comparable<LoggerLevel> {
-  /// Error level
-  error._(1000),
-
-  /// Warning level
-  warning._(800),
-
-  /// Info level
-  info._(600),
-
-  /// Debug level
-  debug._(400),
-
-  /// Verbose level
-  verbose._(200);
-
-  const LoggerLevel._(this.value);
-
-  /// Value of the level
-  final int value;
-
-  @override
-  int compareTo(LoggerLevel other) => value.compareTo(other.value);
-
-  @override
-  String toString() => '$LoggerLevel($value)';
-}
-
-/// {@template log_options}
-/// Options for the logger
-/// {@endtemplate}
-base class LogOptions {
-  /// {@macro log_options}
-  const LogOptions({
-    this.showTime = true,
-    this.showEmoji = true,
+/// Allows customization of how log messages are formatted and displayed.
+class LoggingOptions {
+  /// Constructs an instance of [LoggingOptions].
+  ///
+  /// - [logInRelease]: Whether logging is enabled in release builds.
+  ///   Defaults to `false`.
+  /// - [level]: The minimum log level that will be displayed.
+  ///   Defaults to [LogLevel.info].
+  const LoggingOptions({
     this.logInRelease = false,
-    this.level = LoggerLevel.info,
-    this.formatter,
+    this.level = LogLevel.info,
   });
 
-  /// Log level
-  final LoggerLevel level;
-
-  /// Whether to show time
-  final bool showTime;
-
-  /// Whether to show emoji
-  final bool showEmoji;
-
-  /// Whether to log in release mode
+  /// Whether logging is enabled in release builds.
   final bool logInRelease;
 
-  /// Formatter for the log message
-  final LogFormatter? formatter;
+  /// The minimum log level that will be displayed.
+  final LogLevel level;
 }
 
-/// {@template log_message}
-/// Log message
-/// {@endtemplate}
-base class LogMessage {
-  /// {@macro log_message}
-  const LogMessage({
+/// Internal class used by [DefaultLogger] to wrap the log messages.
+class LogWrapper {
+  /// Constructs an instance of [LogWrapper].
+  LogWrapper({
     required this.message,
-    required this.logLevel,
-    this.error,
-    this.stackTrace,
-    this.time,
+    required this.printStackTrace,
+    required this.printError,
   });
 
-  /// Log message
-  final Object message;
+  /// The log message to be wrapped.
+  LogMessage message;
 
-  /// Log Error
-  final Object? error;
+  /// Whether to print the stack trace.
+  bool printStackTrace;
 
-  /// Stack trace
-  final StackTrace? stackTrace;
-
-  /// Time of the log
-  final DateTime? time;
-
-  /// Log level
-  final LoggerLevel logLevel;
+  /// Whether to print the error.
+  bool printError;
 }
 
-/// Logger interface
-abstract base class Logger {
-  /// Logs the error to the console
-  void error(Object message, {Object? error, StackTrace? stackTrace});
-
-  /// Logs the warning to the console
-  void warning(Object message);
-
-  /// Logs the info to the console
-  void info(Object message);
-
-  /// Logs the debug to the console
-  void debug(Object message);
-
-  /// Logs the verbose to the console
-  void verbose(Object message);
-
-  /// Set up the logger
-  L runLogging<L>(L Function() fn, [LogOptions options = const LogOptions()]);
-
-  /// Stream of logs
-  Stream<LogMessage> get logs;
-
-  /// Handy method to log zoneError
-  void logZoneError(Object error, StackTrace stackTrace) {
-    this.error('Zone error: $error', error: error, stackTrace: stackTrace);
+/// {@template printing_logger}
+/// A logger that uses [developer.log] to print log messages.
+/// {@endtemplate}
+base class DeveloperLogger extends DefaultLogger {
+  /// Constructs an instance of [DeveloperLogger].
+  DeveloperLogger([this.options = const LoggingOptions()]) {
+    _subscription = _logWrapStream.listen((wrappedLog) {
+      _printLogMessage(wrappedLog, options);
+    });
   }
 
-  /// Handy method to log [FlutterError]
-  void logFlutterError(FlutterErrorDetails details) {
-    if (details.silent) {
+  /// The options used by this logger.
+  final LoggingOptions options;
+
+  /// The subscription to the log stream.
+  StreamSubscription<LogWrapper>? _subscription;
+
+  @override
+  void destroy() {
+    super.destroy();
+    unawaited(_subscription?.cancel());
+  }
+
+  void _printLogMessage(LogWrapper wrappedLog, LoggingOptions options) {
+    if (wrappedLog.message.level.compareTo(options.level) < 0) {
       return;
     }
 
-    final description = details.exceptionAsString();
+    final log = wrappedLog.message;
 
-    error(
-      'Flutter Error: $description',
-      error: details.exception,
-      stackTrace: details.stack,
+    final logLevelsLength = LogLevel.values.length;
+    final severityPerLevel = 2000 ~/ logLevelsLength;
+    final severity = log.level.index * severityPerLevel;
+
+    developer.log(
+      log.message,
+      error: wrappedLog.printError ? log.error : null,
+      // We have levels from 0 to 5, but developer.log has from 0 to 2000,
+      // so we need to multiply by 400 to get a value between 0 and 2000.
+      level: severity,
+      name: log.level.toShortName(),
+      stackTrace: wrappedLog.printStackTrace && log.stackTrace != null ? Trace.from(log.stackTrace!).terse : null,
+      time: log.timestamp,
     );
   }
+}
 
-  /// Handy method to log [PlatformDispatcher] error
+/// The default logger implementation, used by the application.
+base class DefaultLogger extends Logger {
+  /// Constructs an instance of [DefaultLogger].
+  DefaultLogger();
+
+  final _controller = StreamController<LogWrapper>();
+  late final _logWrapStream = _controller.stream.asBroadcastStream();
+  late final _logs = _logWrapStream.map((wrapper) => wrapper.message);
+  bool _destroyed = false;
+
+  @override
+  Stream<LogMessage> get logs => _logs;
+
+  @override
+  void destroy() {
+    unawaited(_controller.close());
+    _destroyed = true;
+  }
+
+  @override
+  void log(
+    String message, {
+    required LogLevel level,
+    Object? error,
+    StackTrace? stackTrace,
+    Map<String, Object?>? context,
+    bool printStackTrace = true,
+    bool printError = true,
+  }) {
+    assert(!_destroyed, 'Logger has been destroyed. It cannot be used anymore.');
+    if (_destroyed) {
+      return;
+    }
+
+    final logMessage = LogWrapper(
+      message: LogMessage(
+        message: message,
+        level: level,
+        timestamp: clock.now(),
+        error: error,
+        stackTrace: stackTrace,
+        context: context,
+      ),
+      printStackTrace: printStackTrace,
+      printError: printError,
+    );
+
+    _controller.add(logMessage);
+  }
+}
+
+/// {@macro logger}
+///
+/// A logger that does nothing, used for testing purposes.
+final class NoOpLogger extends Logger {
+  /// Constructs an instance of [NoOpLogger].
+  const NoOpLogger();
+
+  @override
+  // ignore: no-empty-block
+  void destroy() {}
+
+  @override
+  void log(
+    String message, {
+    required LogLevel level,
+    Object? error,
+    StackTrace? stackTrace,
+    Map<String, Object?>? context,
+    bool printStackTrace = true,
+    bool printError = true,
+    // ignore: no-empty-block
+  }) {}
+
+  @override
+  Stream<LogMessage> get logs => const Stream.empty();
+}
+
+/// {@template logger}
+/// Logger class, that manages the logging of messages
+/// {@endtemplate}
+abstract base class Logger {
+  /// Constructs an instance of [Logger].
+  const Logger();
+
+  /// Stream of log messages
+  Stream<LogMessage> get logs;
+
+  /// Destroys the logger and releases all resources
+  ///
+  /// After calling this method, the logger should not be used anymore.
+  void destroy();
+
+  /// Logs a message with the specified [level].
+  void log(
+    String message, {
+    required LogLevel level,
+    Object? error,
+    StackTrace? stackTrace,
+    Map<String, Object?>? context,
+    bool printStackTrace = true,
+    bool printError = true,
+  });
+
+  /// Logs a zone error with [LogLevel.error].
+  void logZoneError(Object error, StackTrace stackTrace) => log(
+        'Zone error',
+        level: LogLevel.error,
+        error: error,
+        stackTrace: stackTrace,
+      );
+
+  /// Logs a flutter error with [LogLevel.error].
+  void logFlutterError(FlutterErrorDetails details) => log(
+        details.toString(),
+        level: LogLevel.error,
+        error: details.exception,
+        stackTrace: details.stack,
+        printStackTrace: false,
+        printError: false,
+      );
+
+  /// Logs a platform dispatcher error with [LogLevel.error].
   bool logPlatformDispatcherError(Object error, StackTrace stackTrace) {
-    this.error(
-      'Platform Dispatcher Error: $error',
+    log(
+      'Platform Error',
+      level: LogLevel.error,
       error: error,
       stackTrace: stackTrace,
     );
+
     return true;
   }
-}
 
-/// Default logger using logging package
-final class LoggerLogging extends Logger {
-  final _logger = logging.Logger('WordlyLogger');
+  /// Creates a logger that uses this instance with a new prefix.
+  Logger withPrefix(String prefix) => PrefixedLogger(this, prefix);
 
-  @override
-  void debug(Object message) => _logger.fine(message);
-
-  @override
-  void error(Object message, {Object? error, StackTrace? stackTrace}) => _logger.severe(message, error, stackTrace);
-
-  @override
-  void info(Object message) => _logger.info(message);
-
-  @override
-  void verbose(Object message) => _logger.finest(message);
-
-  @override
-  void warning(Object message) => _logger.warning(message);
-
-  @override
-  Stream<LogMessage> get logs => _logger.onRecord.map(
-        (record) => record.toLogMessage(),
-      );
-
-  @override
-  L runLogging<L>(L Function() fn, [LogOptions options = const LogOptions()]) {
-    if (kReleaseMode && !options.logInRelease) {
-      return fn();
-    }
-    logging.hierarchicalLoggingEnabled = true;
-
-    _logger.onRecord.where((event) => event.loggerName == 'WordlyLogger').listen((event) {
-      final logMessage = event.toLogMessage();
-      final message =
-          options.formatter?.call(logMessage, options) ?? _formatLoggerMessage(log: logMessage, options: options);
-
-      if (logMessage.logLevel.compareTo(options.level) < 0) {
-        return;
-      }
-
-      Zone.current.print(message);
-    });
-
-    return fn();
-  }
-}
-
-String _formatLoggerMessage({
-  required LogMessage log,
-  required LogOptions options,
-}) {
-  final buffer = StringBuffer();
-  if (options.showEmoji) {
-    buffer
-      ..write(log.logLevel.emoji)
-      ..write(' ');
-  }
-  if (options.showTime) {
-    buffer
-      ..write(log.time?.formatTime())
-      ..write(' | ');
-  }
-  buffer.write(log.message);
-  if (log.error != null) {
-    buffer
-      ..writeln()
-      ..write(log.error);
-  }
-  if (log.stackTrace != null) {
-    buffer
-      ..writeln()
-      ..write(log.stackTrace);
-  }
-
-  return buffer.toString();
-}
-
-extension on DateTime {
-  /// Transforms DateTime to String with format: 00:00:00
-  String formatTime() => [hour, minute, second].map((i) => i.toString().padLeft(2, '0')).join(':');
-}
-
-extension on logging.LogRecord {
-  /// Transforms [logging.LogRecord] to [LogMessage]
-  LogMessage toLogMessage() => LogMessage(
-        message: message,
+  /// Logs a message with [LogLevel.trace].
+  void trace(
+    String message, {
+    Object? error,
+    StackTrace? stackTrace,
+    Map<String, Object?>? context,
+    bool printStackTrace = true,
+    bool printError = true,
+  }) =>
+      log(
+        message,
+        level: LogLevel.trace,
         error: error,
         stackTrace: stackTrace,
-        time: time,
-        logLevel: level.toLoggerLevel(),
+        context: context,
+        printStackTrace: printStackTrace,
+        printError: printError,
+      );
+
+  /// Logs a message with [LogLevel.debug].
+  void debug(
+    String message, {
+    Object? error,
+    StackTrace? stackTrace,
+    Map<String, Object?>? context,
+    bool printStackTrace = true,
+    bool printError = true,
+  }) =>
+      log(
+        message,
+        level: LogLevel.debug,
+        error: error,
+        stackTrace: stackTrace,
+        context: context,
+        printStackTrace: printStackTrace,
+        printError: printError,
+      );
+
+  /// Logs a message with [LogLevel.info].
+  void info(
+    String message, {
+    Object? error,
+    StackTrace? stackTrace,
+    Map<String, Object?>? context,
+    bool printStackTrace = true,
+    bool printError = true,
+  }) =>
+      log(
+        message,
+        level: LogLevel.info,
+        error: error,
+        stackTrace: stackTrace,
+        context: context,
+        printStackTrace: printStackTrace,
+        printError: printError,
+      );
+
+  /// Logs a message with [LogLevel.warn].
+  void warn(
+    String message, {
+    Object? error,
+    StackTrace? stackTrace,
+    Map<String, Object?>? context,
+    bool printStackTrace = true,
+    bool printError = true,
+  }) =>
+      log(
+        message,
+        level: LogLevel.warn,
+        error: error,
+        stackTrace: stackTrace,
+        context: context,
+        printStackTrace: printStackTrace,
+        printError: printError,
+      );
+
+  /// Logs a message with [LogLevel.error].
+  void error(
+    String message, {
+    Object? error,
+    StackTrace? stackTrace,
+    Map<String, Object?>? context,
+    bool printStackTrace = true,
+    bool printError = true,
+  }) =>
+      log(
+        message,
+        level: LogLevel.error,
+        error: error,
+        stackTrace: stackTrace,
+        context: context,
+        printStackTrace: printStackTrace,
+        printError: printError,
+      );
+
+  /// Logs a message with [LogLevel.fatal].
+  void fatal(
+    String message, {
+    Object? error,
+    StackTrace? stackTrace,
+    Map<String, Object?>? context,
+    bool printStackTrace = true,
+    bool printError = true,
+  }) =>
+      log(
+        message,
+        level: LogLevel.fatal,
+        error: error,
+        stackTrace: stackTrace,
+        context: context,
+        printStackTrace: printStackTrace,
+        printError: printError,
       );
 }
 
-extension on logging.Level {
-  /// Transforms [logging.Level] to [LoggerLevel]
-  LoggerLevel toLoggerLevel() => switch (this) {
-        logging.Level.SEVERE => LoggerLevel.error,
-        logging.Level.WARNING => LoggerLevel.warning,
-        logging.Level.INFO => LoggerLevel.info,
-        logging.Level.FINE || logging.Level.FINER => LoggerLevel.debug,
-        _ => LoggerLevel.verbose,
-      };
+/// A logger that prefixes all log messages with a given string.
+base class PrefixedLogger extends Logger {
+  /// Constructs an instance of [PrefixedLogger].
+  const PrefixedLogger(this._logger, this._prefix);
+
+  final Logger _logger;
+  final String _prefix;
+
+  @override
+  Stream<LogMessage> get logs => _logger.logs;
+
+  @override
+  void destroy() => _logger.destroy();
+
+  @override
+  Logger withPrefix(String prefix) => PrefixedLogger(_logger, '$_prefix $prefix');
+
+  @override
+  void log(
+    String message, {
+    required LogLevel level,
+    Object? error,
+    StackTrace? stackTrace,
+    Map<String, Object?>? context,
+    bool printStackTrace = true,
+    bool printError = true,
+  }) {
+    _logger.log(
+      '$_prefix $message',
+      level: level,
+      error: error,
+      stackTrace: stackTrace,
+      context: context,
+      printStackTrace: printStackTrace,
+      printError: printError,
+    );
+  }
 }
 
-extension on LoggerLevel {
-  /// Transforms [LoggerLevel] to emoji
-  String get emoji => switch (this) {
-        LoggerLevel.error => '🔥',
-        LoggerLevel.warning => '⚠️',
-        LoggerLevel.info => '💡',
-        LoggerLevel.debug => '🐛',
-        LoggerLevel.verbose => '🔬',
+/// Represents a single log message with various details
+/// for debugging and information purposes.
+class LogMessage {
+  /// Constructs an instance of [LogMessage].
+  ///
+  /// - [message]: The main content of the log message.
+  /// - [level]: The severity level of the log message,
+  ///   represented by [LogLevel].
+  /// - [timestamp]: The date and time when the log message was created.
+  /// - [error]: Optional. Any error object associated with the log message.
+  /// - [stackTrace]: Optional. The stack trace associated with the log message,
+  ///   typically provided when logging errors.
+  /// - [context]: Optional. Additional contextual information provided
+  ///   as a map, which can be useful for debugging.
+  const LogMessage({
+    required this.message,
+    required this.level,
+    required this.timestamp,
+    this.error,
+    this.stackTrace,
+    this.context,
+  });
+
+  /// The main content of the log message.
+  final String message;
+
+  /// The severity level of the log message.
+  final LogLevel level;
+
+  /// The date and time when the log message was created.
+  final DateTime timestamp;
+
+  /// Any error object associated with the log message.
+  ///
+  /// This is typically used when the log message is related
+  /// to an exception or error condition.
+  final Object? error;
+
+  /// The stack trace associated with the log message.
+  ///
+  /// This provides detailed information about the call stack leading
+  /// up to the log message, which is particularly useful when logging errors.
+  final StackTrace? stackTrace;
+
+  /// Additional contextual information provided as a map.
+  final Map<String, Object?>? context;
+}
+
+/// Log level, that describes the severity of the log message
+///
+/// Index of the log level is used to determine the severity of the log message.
+enum LogLevel implements Comparable<LogLevel> {
+  /// A log level describing events showing step by step execution of your code
+  /// that can be ignored during the standard operation,
+  /// but may be useful during extended debugging sessions.
+  trace._(),
+
+  /// A log level used for events considered to be useful during software
+  /// debugging when more granular information is needed.
+  debug._(),
+
+  /// An event happened, the event is purely informative
+  /// and can be ignored during normal operations.
+  info._(),
+
+  /// Unexpected behavior happened inside the application, but it is continuing
+  /// its work and the key business features are operating as expected.
+  warn._(),
+
+  /// One or more functionalities are not working,
+  /// preventing some functionalities from working correctly.
+  /// For example, a network request failed, a file is missing, etc.
+  error._(),
+
+  /// One or more key business functionalities are not working
+  /// and the whole system doesn’t fulfill the business functionalities.
+  fatal._();
+
+  const LogLevel._();
+
+  @override
+  int compareTo(LogLevel other) => index - other.index;
+
+  /// Return short name of the log level.
+  String toShortName() => switch (this) {
+        LogLevel.trace => 'TRC',
+        LogLevel.debug => 'DBG',
+        LogLevel.info => 'INF',
+        LogLevel.warn => 'WRN',
+        LogLevel.error => 'ERR',
+        LogLevel.fatal => 'FTL',
       };
 }

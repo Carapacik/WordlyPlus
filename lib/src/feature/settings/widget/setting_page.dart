@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
+import 'package:wordly/src/feature/settings/bloc/app_settings_bloc.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 import 'package:wordly/src/feature/settings/widget/change_color_page.dart';
 import 'package:wordly/src/feature/settings/widget/list_item_selector.dart';
@@ -19,6 +19,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
+    final settings = SettingsScope.settingsOf(context);
     return Title(
       color: Colors.black,
       title: context.l10n.settings,
@@ -36,32 +37,48 @@ class _SettingsPageState extends State<SettingsPage> {
             children: [
               ListItemSelector<Locale>(
                 title: context.l10n.appDictionary,
-                currentValue: (SettingsScope.of(context).dictionary, _localeName(SettingsScope.of(context).dictionary)),
+                currentValue: (settings.dictionary, _localeName(settings.dictionary)),
                 items: [(const Locale('ru'), context.l10n.ru), (const Locale('en'), context.l10n.en)],
                 onChange: (d) {
-                  SettingsScope.dictionaryOf(context).setDictionary(d);
+                  final appSettingsBloc = SettingsScope.of(context, listen: false);
+                  final appSettings = SettingsScope.settingsOf(context, listen: false);
+                  appSettingsBloc.add(
+                    AppSettingsEvent.updateAppSettings(
+                      appSettings: appSettings.copyWith(dictionary: d),
+                    ),
+                  );
                   context.read<GameBloc>().add(GameEvent.changeDictionary(d));
                 },
               ),
               ListItemSelector<Locale>(
                 title: context.l10n.appLanguage,
-                currentValue: (SettingsScope.of(context).locale, _localeName(SettingsScope.of(context).locale)),
+                currentValue: (settings.locale, _localeName(settings.locale)),
                 items: [(const Locale('ru'), context.l10n.ru), (const Locale('en'), context.l10n.en)],
-                onChange: (l) => SettingsScope.localeOf(context).setLocale(l),
+                onChange: (l) {
+                  final appSettingsBloc = SettingsScope.of(context, listen: false);
+                  final appSettings = SettingsScope.settingsOf(context, listen: false);
+                  appSettingsBloc.add(
+                    AppSettingsEvent.updateAppSettings(
+                      appSettings: appSettings.copyWith(locale: l),
+                    ),
+                  );
+                },
               ),
               ListItemSelector<ThemeMode>(
                 title: context.l10n.themeMode,
-                currentValue: (SettingsScope.of(context).theme.mode, _themeName(SettingsScope.of(context).theme.mode)),
+                currentValue: (settings.appTheme.themeMode, _themeName(settings.appTheme.themeMode)),
                 items: [
                   (ThemeMode.system, context.l10n.themeSystem),
                   (ThemeMode.dark, context.l10n.themeDark),
                   (ThemeMode.light, context.l10n.themeLight),
                 ],
-                onChange: (mode) {
-                  final themeScope = SettingsScope.themeOf(context);
-                  final previousTheme = themeScope.theme;
-                  themeScope.setTheme(
-                    previousTheme.copyWith(themeMode: mode),
+                onChange: (tm) {
+                  final appSettingsBloc = SettingsScope.of(context, listen: false);
+                  final appSettings = SettingsScope.settingsOf(context, listen: false);
+                  appSettingsBloc.add(
+                    AppSettingsEvent.updateAppSettings(
+                      appSettings: appSettings.copyWith(appTheme: appSettings.appTheme.copyWith(themeMode: tm)),
+                    ),
                   );
                 },
               ),
@@ -72,17 +89,18 @@ class _SettingsPageState extends State<SettingsPage> {
                     title:
                         Text(context.l10n.colorMode, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                     trailing: Text(
-                      SettingsScope.of(context).theme.colorMode.localized(context),
+                      SettingsScope.settingsOf(context).appTheme.colorMode.localized(context),
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     onTap: () async {
-                      final scope = SettingsScope.of(context, listen: false);
+                      final appSettingsBloc = SettingsScope.of(context, listen: false);
+                      final appSettings = SettingsScope.settingsOf(context, listen: false);
                       final navigator = Navigator.of(context);
-                      final previousTheme = scope.theme;
+                      final previousTheme = appSettings.appTheme;
                       final result = await navigator.push(
                         MaterialPageRoute<ChangeColorResult>(
                           builder: (context) => ChangeColorPage(
-                            dictionary: scope.dictionary,
+                            dictionary: appSettings.dictionary,
                             previousResult: ChangeColorResult(
                               colorMode: previousTheme.colorMode,
                               otherColors: previousTheme.otherColors,
@@ -93,10 +111,14 @@ class _SettingsPageState extends State<SettingsPage> {
                       if (result == null) {
                         return;
                       }
-                      scope.setTheme(
-                        previousTheme.copyWith(
-                          colorMode: result.colorMode,
-                          otherColors: result.otherColors,
+                      appSettingsBloc.add(
+                        AppSettingsEvent.updateAppSettings(
+                          appSettings: appSettings.copyWith(
+                            appTheme: appSettings.appTheme.copyWith(
+                              colorMode: result.colorMode,
+                              otherColors: result.otherColors,
+                            ),
+                          ),
                         ),
                       );
                     },

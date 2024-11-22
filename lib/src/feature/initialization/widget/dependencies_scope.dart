@@ -2,10 +2,25 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
-import 'package:wordly/src/feature/initialization/model/dependencies.dart';
+import 'package:wordly/src/feature/initialization/model/dependencies_container.dart';
 
 /// {@template dependencies_scope}
-/// A widget which is responsible for providing the dependencies.
+/// A scope that provides composed [DependenciesContainer].
+///
+/// **Testing**:
+///
+/// To use [DependenciesScope] in tests, it is needed to wrap the widget with
+/// [DependenciesScope], extend [TestDependenciesContainer] and provide the
+/// dependencies that are needed for the test.
+///
+/// ```dart
+/// class AuthDependenciesContainer extends TestDependenciesContainer {
+///   // for example, use mocks created by mockito, or pass fake/real implementations
+///   // via constructor.
+///   @override
+///   final MockAuthRepository authRepository = MockAuthRepository();
+/// }
+/// ```
 /// {@endtemplate}
 class DependenciesScope extends InheritedWidget {
   /// {@macro dependencies_scope}
@@ -15,17 +30,17 @@ class DependenciesScope extends InheritedWidget {
     super.key,
   });
 
-  /// The dependencies
-  final Dependencies dependencies;
+  /// Container with dependencies.
+  final DependenciesContainer dependencies;
 
   /// Get the dependencies from the [context].
-  static Dependencies of(BuildContext context) => context.inhOf<DependenciesScope>(listen: false).dependencies;
+  static DependenciesContainer of(BuildContext context) => context.inhOf<DependenciesScope>(listen: false).dependencies;
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-      DiagnosticsProperty<Dependencies>('dependencies', dependencies),
+      DiagnosticsProperty<DependenciesContainer>('dependencies', dependencies),
     );
   }
 

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:wordly/src/core/utils/extensions/extensions.dart';
 
 /// {@template initialization_failed_screen}
-/// InitializationFailedScreen widget
+/// Screen that is shown when the initialization of the app fails.
 /// {@endtemplate}
 class InitializationFailedApp extends StatefulWidget {
   /// {@macro initialization_failed_screen}
   const InitializationFailedApp({
     required this.error,
     required this.stackTrace,
-    this.retryInitialization,
+    this.onRetryInitialization,
     super.key,
   });
 
@@ -22,7 +21,7 @@ class InitializationFailedApp extends StatefulWidget {
   /// The callback that will be called when the retry button is pressed.
   ///
   /// If null, the retry button will not be shown.
-  final Future<void> Function()? retryInitialization;
+  final Future<void> Function()? onRetryInitialization;
 
   @override
   State<InitializationFailedApp> createState() => _InitializationFailedAppState();
@@ -40,7 +39,7 @@ class _InitializationFailedAppState extends State<InitializationFailedApp> {
 
   Future<void> _retryInitialization() async {
     _inProgress.value = true;
-    await widget.retryInitialization!();
+    await widget.onRetryInitialization?.call();
     _inProgress.value = false;
   }
 
@@ -56,9 +55,9 @@ class _InitializationFailedAppState extends State<InitializationFailedApp> {
                   children: [
                     Text(
                       'Initialization failed',
-                      style: context.theme.textTheme.headlineMedium,
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
-                    if (widget.retryInitialization != null)
+                    if (widget.onRetryInitialization != null)
                       IconButton(
                         icon: const Icon(Icons.refresh),
                         onPressed: _retryInitialization,
@@ -68,14 +67,14 @@ class _InitializationFailedAppState extends State<InitializationFailedApp> {
                 const SizedBox(height: 16),
                 Text(
                   '${widget.error}',
-                  style: context.theme.textTheme.bodyLarge?.copyWith(color: context.theme.colorScheme.error),
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.error),
                 ),
                 const SizedBox(height: 16),
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: Text(
                     '${widget.stackTrace}',
-                    style: context.theme.textTheme.bodyLarge,
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),
               ],

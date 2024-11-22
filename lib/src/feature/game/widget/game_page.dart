@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/core/utils/share.dart';
 import 'package:wordly/src/feature/components/widget/drawer.dart';
@@ -32,19 +31,9 @@ class _GamePageState extends State<GamePage> {
   void initState() {
     super.initState();
     _focusNode = FocusNode();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (context.dependencies.gameRepository.isFirstEnter) {
-        unawaited(context.dependencies.gameRepository.setFirstEnter());
-        unawaited(
-          Navigator.of(context).push(
-            MaterialPageRoute<void>(
-              builder: (context) => const TutorialPage(),
-              fullscreenDialog: true,
-            ),
-          ),
-        );
-        return;
-      }
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final navigator = Navigator.of(context);
+      final gameRepository = context.dependencies.gameRepository;
       final bloc = context.read<GameBloc>();
       final state = bloc.state;
       if (state.isResultState) {
@@ -60,6 +49,19 @@ class _GamePageState extends State<GamePage> {
             nextLevelPressed: () => bloc.add(const GameEvent.resetBoard(GameMode.lvl)),
           ),
         );
+      }
+      final isFirstEnter = await gameRepository.isFirstEnter;
+      if (isFirstEnter) {
+        unawaited(gameRepository.setFirstEnter());
+        unawaited(
+          navigator.push(
+            MaterialPageRoute<void>(
+              builder: (context) => const TutorialPage(),
+              fullscreenDialog: true,
+            ),
+          ),
+        );
+        return;
       }
     });
   }
@@ -101,7 +103,7 @@ class _GamePageState extends State<GamePage> {
                       await Navigator.of(context).push(
                         MaterialPageRoute<void>(
                           builder: (context) => StatisticPage(
-                            dictionary: SettingsScope.dictionaryOf(context).dictionary,
+                            dictionary: SettingsScope.settingsOf(context).dictionary,
                           ),
                         ),
                       );
@@ -115,7 +117,7 @@ class _GamePageState extends State<GamePage> {
                       await Navigator.of(context).push(
                         MaterialPageRoute<void>(
                           builder: (context) => LevelPage(
-                            dictionary: SettingsScope.dictionaryOf(context).dictionary,
+                            dictionary: SettingsScope.settingsOf(context).dictionary,
                           ),
                         ),
                       );

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:wordly/src/core/utils/extensions/extensions.dart';
+import 'package:wordly/src/core/utils/extensions/context_extension.dart';
 import 'package:wordly/src/feature/initialization/model/dependencies_container.dart';
 
 /// {@template dependencies_scope}
@@ -45,5 +45,5 @@ class DependenciesScope extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(DependenciesScope oldWidget) => false;
+  bool updateShouldNotify(DependenciesScope oldWidget) => !identical(dependencies, oldWidget.dependencies);
 }

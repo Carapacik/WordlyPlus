@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/link.dart';
-import 'package:wordly/src/core/constant/config.dart';
+import 'package:wordly/src/core/constant/application_config.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 
@@ -30,7 +30,7 @@ class AboutPage extends StatelessWidget {
               const Spacer(flex: 10),
               Link(
                 uri: Uri.parse(
-                  'mailto:${const Config().email}?'
+                  'mailto:${const ApplicationConfig().email}?'
                   '${context.l10n.sendMessage}',
                 ),
                 builder: (context, followLink) => MouseRegion(
@@ -44,7 +44,7 @@ class AboutPage extends StatelessWidget {
                           TextSpan(text: context.l10n.contact),
                           WidgetSpan(
                             child: SelectableText(
-                              const Config().email,
+                              const ApplicationConfig().email,
                               style: const TextStyle(
                                 decoration: TextDecoration.underline,
                                 fontWeight: FontWeight.w700,

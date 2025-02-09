@@ -1,7 +1,7 @@
 import 'dart:ui' show Locale;
 
 import 'package:flutter/foundation.dart';
-import 'package:wordly/src/feature/initialization/model/app_theme.dart';
+import 'package:wordly/src/feature/settings/model/app_theme.dart';
 
 /// {@template app_settings}
 /// Application settings

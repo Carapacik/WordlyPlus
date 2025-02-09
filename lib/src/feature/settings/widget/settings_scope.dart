@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wordly/src/feature/initialization/model/app_theme.dart';
 import 'package:wordly/src/feature/initialization/widget/dependencies_scope.dart';
 import 'package:wordly/src/feature/settings/bloc/app_settings_bloc.dart';
 import 'package:wordly/src/feature/settings/model/app_settings.dart';
+import 'package:wordly/src/feature/settings/model/app_theme.dart';
 
 /// {@template settings_scope}
 /// SettingsScope widget.
@@ -28,7 +28,12 @@ class SettingsScope extends StatefulWidget {
     final settingsScope = listen
         ? context.dependOnInheritedWidgetOfExactType<_InheritedSettings>()
         : context.getInheritedWidgetOfExactType<_InheritedSettings>();
-    return settingsScope!.settings ?? AppSettings(appTheme: AppTheme.defaultTheme);
+    return settingsScope!.settings ??
+        AppSettings(
+          appTheme: AppTheme.defaultTheme,
+          locale: const Locale('en'),
+          dictionary: const Locale('en'),
+        );
   }
 
   @override

@@ -43,7 +43,7 @@ class $AssetsFontsGen {
 }
 
 class Assets {
-  Assets._();
+  const Assets._();
 
   static const $AssetsDictionaryGen dictionary = $AssetsDictionaryGen();
   static const $AssetsFontsGen fonts = $AssetsFontsGen();

@@ -1,17 +1,13 @@
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:wordly/src/core/constant/config.dart';
-import 'package:wordly/src/core/utils/logger.dart';
+import 'package:wordly/src/core/constant/application_config.dart';
+import 'package:wordly/src/core/utils/logger/logger.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
-import 'package:wordly/src/feature/initialization/logic/composition_root.dart';
 import 'package:wordly/src/feature/level/data/level_repository.dart';
 import 'package:wordly/src/feature/settings/bloc/app_settings_bloc.dart';
 import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 
 /// {@template dependencies_container}
-/// Composed dependencies from the [CompositionRoot].
-///
-/// This class contains all the dependencies that are required for the application
-/// to work.
+/// Container used to reuse dependencies across the application.
 ///
 /// {@macro composition_process}
 /// {@endtemplate}
@@ -30,8 +26,8 @@ class DependenciesContainer {
   /// [Logger] instance, used to log messages.
   final Logger logger;
 
-  /// [Config] instance, contains configuration of the application.
-  final Config config;
+  /// [ApplicationConfig] instance, contains configuration of the application.
+  final ApplicationConfig config;
 
   /// [AppSettingsBloc] instance, used to manage theme and locale.
   final AppSettingsBloc appSettingsBloc;

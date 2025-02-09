@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wordly/src/core/utils/color_codec.dart';
 import 'package:wordly/src/core/utils/persisted_entry.dart';
-import 'package:wordly/src/feature/initialization/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/data/color_mode_codec.dart';
 import 'package:wordly/src/feature/settings/data/theme_mode_codec.dart';
 import 'package:wordly/src/feature/settings/model/app_settings.dart';
+import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 
 /// {@template app_settings_datasource}
@@ -53,21 +54,6 @@ class AppSettingsPersistedEntry extends SharedPreferencesEntry<AppSettings> {
     key: '$key.colorMode',
   );
 
-  IntPreferencesEntry _otherColor1(int index) => IntPreferencesEntry(
-        sharedPreferences: sharedPreferences,
-        key: '$key.otherColor.1.$index',
-      );
-
-  IntPreferencesEntry _otherColor2(int index) => IntPreferencesEntry(
-        sharedPreferences: sharedPreferences,
-        key: '$key.otherColor.2.$index',
-      );
-
-  IntPreferencesEntry _otherColor3(int index) => IntPreferencesEntry(
-        sharedPreferences: sharedPreferences,
-        key: '$key.otherColor.3.$index',
-      );
-
   late final _localeLanguageCode = StringPreferencesEntry(
     sharedPreferences: sharedPreferences,
     key: '$key.locale.languageCode',
@@ -93,16 +79,32 @@ class AppSettingsPersistedEntry extends SharedPreferencesEntry<AppSettings> {
     key: '$key.textScale',
   );
 
+  IntPreferencesEntry _otherColor1(int index) => IntPreferencesEntry(
+        sharedPreferences: sharedPreferences,
+        key: '$key.otherColor.1.$index',
+      );
+
+  IntPreferencesEntry _otherColor2(int index) => IntPreferencesEntry(
+        sharedPreferences: sharedPreferences,
+        key: '$key.otherColor.2.$index',
+      );
+
+  IntPreferencesEntry _otherColor3(int index) => IntPreferencesEntry(
+        sharedPreferences: sharedPreferences,
+        key: '$key.otherColor.3.$index',
+      );
+
+  static const _colorCodec = ColorCodec();
+
   @override
   Future<AppSettings?> read() async {
     final themeModeFuture = _themeMode.read();
     final colorModeFuture = _colorMode.read();
-
     final localeLanguageCodeFuture = _localeLanguageCode.read();
     final countryCodeFuture = _localeCountryCode.read();
     final dictionaryLanguageCodeFuture = _dictionaryLanguageCode.read();
     final dictionaryCountryCodeFuture = _dictionaryCountryCode.read();
-    final textScale = await _textScale.read();
+    final textScaleFuture = _textScale.read();
 
     final themeMode = await themeModeFuture;
     final colorMode = await colorModeFuture;
@@ -110,6 +112,7 @@ class AppSettingsPersistedEntry extends SharedPreferencesEntry<AppSettings> {
     final countryCode = await countryCodeFuture;
     final dictionaryLanguageCode = await dictionaryLanguageCodeFuture;
     final dictionaryCountryCode = await dictionaryCountryCodeFuture;
+    final textScale = await textScaleFuture;
 
     if (themeMode == null &&
         colorMode == null &&
@@ -132,7 +135,11 @@ class AppSettingsPersistedEntry extends SharedPreferencesEntry<AppSettings> {
 
       (Color, Color, Color)? otherColors;
       if (otherColors1 != null && otherColors2 != null && otherColors3 != null) {
-        otherColors = (Color(otherColors1), Color(otherColors2), Color(otherColors3));
+        otherColors = (
+          _colorCodec.decode(otherColors1),
+          _colorCodec.decode(otherColors2),
+          _colorCodec.decode(otherColors3),
+        );
       }
       appTheme = AppTheme(
         themeMode: decodedThemeMode,
@@ -182,9 +189,9 @@ class AppSettingsPersistedEntry extends SharedPreferencesEntry<AppSettings> {
       _themeMode.set(const ThemeModeCodec().encode(value.appTheme.themeMode)),
       _colorMode.set(const ColorModeCodec().encode(value.appTheme.colorMode)),
       if (value.appTheme.otherColors != null) ...[
-        _otherColor1(value.appTheme.themeMode.index).set(value.appTheme.otherColors!.$1.value),
-        _otherColor2(value.appTheme.themeMode.index).set(value.appTheme.otherColors!.$2.value),
-        _otherColor3(value.appTheme.themeMode.index).set(value.appTheme.otherColors!.$3.value),
+        _otherColor1(value.appTheme.themeMode.index).set(_colorCodec.encode(value.appTheme.otherColors!.$1)),
+        _otherColor2(value.appTheme.themeMode.index).set(_colorCodec.encode(value.appTheme.otherColors!.$2)),
+        _otherColor3(value.appTheme.themeMode.index).set(_colorCodec.encode(value.appTheme.otherColors!.$3)),
       ],
     ].wait;
 

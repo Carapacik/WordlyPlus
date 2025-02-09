@@ -4,14 +4,6 @@ import 'package:flutter/material.dart';
 /// Screen that is shown when the initialization of the app fails.
 /// {@endtemplate}
 class InitializationFailedApp extends StatefulWidget {
-  /// {@macro initialization_failed_screen}
-  const InitializationFailedApp({
-    required this.error,
-    required this.stackTrace,
-    this.onRetryInitialization,
-    super.key,
-  });
-
   /// The error that caused the initialization to fail.
   final Object error;
 
@@ -22,6 +14,14 @@ class InitializationFailedApp extends StatefulWidget {
   ///
   /// If null, the retry button will not be shown.
   final Future<void> Function()? onRetryInitialization;
+
+  /// {@macro initialization_failed_screen}
+  const InitializationFailedApp({
+    required this.error,
+    required this.stackTrace,
+    this.onRetryInitialization,
+    super.key,
+  });
 
   @override
   State<InitializationFailedApp> createState() => _InitializationFailedAppState();
@@ -71,7 +71,7 @@ class _InitializationFailedAppState extends State<InitializationFailedApp> {
                 ),
                 const SizedBox(height: 16),
                 Padding(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
                     '${widget.stackTrace}',
                     style: Theme.of(context).textTheme.bodyLarge,

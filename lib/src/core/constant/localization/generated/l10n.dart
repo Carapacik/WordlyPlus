@@ -18,17 +18,20 @@ class AppLocalizations {
   static AppLocalizations? _current;
 
   static AppLocalizations get current {
-    assert(_current != null,
-        'No instance of AppLocalizations was loaded. Try to initialize the AppLocalizations delegate before accessing AppLocalizations.current.');
+    assert(
+      _current != null,
+      'No instance of AppLocalizations was loaded. Try to initialize the AppLocalizations delegate before accessing AppLocalizations.current.',
+    );
     return _current!;
   }
 
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<AppLocalizations> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
+    final name =
+        (locale.countryCode?.isEmpty ?? false)
+            ? locale.languageCode
+            : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -41,8 +44,10 @@ class AppLocalizations {
 
   static AppLocalizations of(BuildContext context) {
     final instance = AppLocalizations.maybeOf(context);
-    assert(instance != null,
-        'No instance of AppLocalizations present in the widget tree. Did you add AppLocalizations.delegate in localizationsDelegates?');
+    assert(
+      instance != null,
+      'No instance of AppLocalizations present in the widget tree. Did you add AppLocalizations.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
@@ -52,12 +57,7 @@ class AppLocalizations {
 
   /// `About`
   String get about {
-    return Intl.message(
-      'About',
-      name: 'about',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('About', name: 'about', desc: '', args: []);
   }
 
   /// `App dictionary`
@@ -92,12 +92,7 @@ class AppLocalizations {
 
   /// `Default`
   String get casual {
-    return Intl.message(
-      'Default',
-      name: 'casual',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Default', name: 'casual', desc: '', args: []);
   }
 
   /// `You can check your result here:`
@@ -132,12 +127,7 @@ class AppLocalizations {
 
   /// `Color mode`
   String get colorMode {
-    return Intl.message(
-      'Color mode',
-      name: 'colorMode',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Color mode', name: 'colorMode', desc: '', args: []);
   }
 
   /// `If you didn't find a word in the dictionary\nor it has the wrong definition,\nwrite to us, we will add it\nin the next update.\n`
@@ -162,32 +152,17 @@ class AppLocalizations {
 
   /// `Daily`
   String get daily {
-    return Intl.message(
-      'Daily',
-      name: 'daily',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Daily', name: 'daily', desc: '', args: []);
   }
 
   /// `English`
   String get en {
-    return Intl.message(
-      'English',
-      name: 'en',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('English', name: 'en', desc: '', args: []);
   }
 
   /// `Examples`
   String get examples {
-    return Intl.message(
-      'Examples',
-      name: 'examples',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Examples', name: 'examples', desc: '', args: []);
   }
 
   /// `Guess distribution`
@@ -222,32 +197,17 @@ class AppLocalizations {
 
   /// `Levels`
   String get levels {
-    return Intl.message(
-      'Levels',
-      name: 'levels',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Levels', name: 'levels', desc: '', args: []);
   }
 
   /// `You lost`
   String get loseMessage {
-    return Intl.message(
-      'You lost',
-      name: 'loseMessage',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('You lost', name: 'loseMessage', desc: '', args: []);
   }
 
   /// `Max\nStreak`
   String get maxStreak {
-    return Intl.message(
-      'Max\nStreak',
-      name: 'maxStreak',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Max\nStreak', name: 'maxStreak', desc: '', args: []);
   }
 
   /// `A new word will be available each day!`
@@ -262,22 +222,12 @@ class AppLocalizations {
 
   /// `Next level`
   String get nextLevel {
-    return Intl.message(
-      'Next level',
-      name: 'nextLevel',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Next level', name: 'nextLevel', desc: '', args: []);
   }
 
   /// `Next word in`
   String get nextWord {
-    return Intl.message(
-      'Next word in',
-      name: 'nextWord',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Next word in', name: 'nextWord', desc: '', args: []);
   }
 
   /// `You haven't played a single game`
@@ -292,42 +242,22 @@ class AppLocalizations {
 
   /// `Other`
   String get other {
-    return Intl.message(
-      'Other',
-      name: 'other',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Other', name: 'other', desc: '', args: []);
   }
 
   /// `Played`
   String get played {
-    return Intl.message(
-      'Played',
-      name: 'played',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Played', name: 'played', desc: '', args: []);
   }
 
   /// `Russian`
   String get ru {
-    return Intl.message(
-      'Russian',
-      name: 'ru',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Russian', name: 'ru', desc: '', args: []);
   }
 
   /// `Secret word`
   String get secretWord {
-    return Intl.message(
-      'Secret word',
-      name: 'secretWord',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Secret word', name: 'secretWord', desc: '', args: []);
   }
 
   /// `subject=WordlyPlus%20-%20New%20word&body=Word%20-%0AMeaning%20-`
@@ -342,92 +272,47 @@ class AppLocalizations {
 
   /// `Settings`
   String get settings {
-    return Intl.message(
-      'Settings',
-      name: 'settings',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Settings', name: 'settings', desc: '', args: []);
   }
 
   /// `Share`
   String get share {
-    return Intl.message(
-      'Share',
-      name: 'share',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Share', name: 'share', desc: '', args: []);
   }
 
   /// `Start game`
   String get start {
-    return Intl.message(
-      'Start game',
-      name: 'start',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Start game', name: 'start', desc: '', args: []);
   }
 
   /// `Statistic`
   String get statistic {
-    return Intl.message(
-      'Statistic',
-      name: 'statistic',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Statistic', name: 'statistic', desc: '', args: []);
   }
 
   /// `Dark`
   String get themeDark {
-    return Intl.message(
-      'Dark',
-      name: 'themeDark',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Dark', name: 'themeDark', desc: '', args: []);
   }
 
   /// `Light`
   String get themeLight {
-    return Intl.message(
-      'Light',
-      name: 'themeLight',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Light', name: 'themeLight', desc: '', args: []);
   }
 
   /// `Theme mode`
   String get themeMode {
-    return Intl.message(
-      'Theme mode',
-      name: 'themeMode',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Theme mode', name: 'themeMode', desc: '', args: []);
   }
 
   /// `System`
   String get themeSystem {
-    return Intl.message(
-      'System',
-      name: 'themeSystem',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('System', name: 'themeSystem', desc: '', args: []);
   }
 
   /// `How to play`
   String get tutorial {
-    return Intl.message(
-      'How to play',
-      name: 'tutorial',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('How to play', name: 'tutorial', desc: '', args: []);
   }
 
   /// `Each guess must be a valid 5 letter word. Hit the enter button to submit.`
@@ -492,12 +377,7 @@ class AppLocalizations {
 
   /// `View levels`
   String get viewLevels {
-    return Intl.message(
-      'View levels',
-      name: 'viewLevels',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('View levels', name: 'viewLevels', desc: '', args: []);
   }
 
   /// `View statistic`
@@ -512,22 +392,12 @@ class AppLocalizations {
 
   /// `You win!`
   String get winMessage {
-    return Intl.message(
-      'You win!',
-      name: 'winMessage',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('You win!', name: 'winMessage', desc: '', args: []);
   }
 
   /// `Win\nrate`
   String get winRate {
-    return Intl.message(
-      'Win\nrate',
-      name: 'winRate',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Win\nrate', name: 'winRate', desc: '', args: []);
   }
 
   /// `Word not found in dictionary`

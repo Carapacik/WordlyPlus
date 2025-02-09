@@ -30,72 +30,85 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "about": MessageLookupByLibrary.simpleMessage("О приложении"),
-        "appDictionary": MessageLookupByLibrary.simpleMessage("Язык словаря"),
-        "appLanguage": MessageLookupByLibrary.simpleMessage("Язык приложения"),
-        "appTitle": MessageLookupByLibrary.simpleMessage("Словень Плюс"),
-        "casual": MessageLookupByLibrary.simpleMessage("Обычный"),
-        "checkResult": MessageLookupByLibrary.simpleMessage(
-            "Можешь проверить свой результат тут:"),
-        "checkResultLose": m0,
-        "checkResultWin": m1,
-        "colorMode": MessageLookupByLibrary.simpleMessage("Цветовой режим"),
-        "contact": MessageLookupByLibrary.simpleMessage(
-            "Если вы не нашли слово в словаре\nили оно имеет неправильное определение,\nнапишите нам, мы добавим его\nв следующем обновлении.\n"),
-        "currentStreak": MessageLookupByLibrary.simpleMessage("Текущая\nСерия"),
-        "daily": MessageLookupByLibrary.simpleMessage("Ежедневный"),
-        "en": MessageLookupByLibrary.simpleMessage("Английский"),
-        "examples": MessageLookupByLibrary.simpleMessage("Примеры"),
-        "guessDistribution":
-            MessageLookupByLibrary.simpleMessage("Распределение догадок"),
-        "highContrast":
-            MessageLookupByLibrary.simpleMessage("Высокий контраст"),
-        "levelNumber": m2,
-        "levels": MessageLookupByLibrary.simpleMessage("Уровни"),
-        "loseMessage": MessageLookupByLibrary.simpleMessage("Вы проиграли"),
-        "maxStreak": MessageLookupByLibrary.simpleMessage("Макс.\nСерия"),
-        "newWordAvailableEachDay": MessageLookupByLibrary.simpleMessage(
-            "Новое слово будет доступно каждый день!"),
-        "nextLevel": MessageLookupByLibrary.simpleMessage("Следующий уровень"),
-        "nextWord":
-            MessageLookupByLibrary.simpleMessage("Следующее слово через"),
-        "notPlayed":
-            MessageLookupByLibrary.simpleMessage("Вы не сыграли ни одной игры"),
-        "other": MessageLookupByLibrary.simpleMessage("Другой"),
-        "played": MessageLookupByLibrary.simpleMessage("Сыграно"),
-        "ru": MessageLookupByLibrary.simpleMessage("Русский"),
-        "secretWord": MessageLookupByLibrary.simpleMessage("Загаданное слово"),
-        "sendMessage": MessageLookupByLibrary.simpleMessage(
-            "subject=WordlyPlus%20-%20Новое%20слово&body=Слово%20-%0AЗначение%20-"),
-        "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
-        "share": MessageLookupByLibrary.simpleMessage("Поделиться"),
-        "start": MessageLookupByLibrary.simpleMessage("Начать играть"),
-        "statistic": MessageLookupByLibrary.simpleMessage("Статистика"),
-        "themeDark": MessageLookupByLibrary.simpleMessage("Темная"),
-        "themeLight": MessageLookupByLibrary.simpleMessage("Светлая"),
-        "themeMode": MessageLookupByLibrary.simpleMessage("Тема"),
-        "themeSystem": MessageLookupByLibrary.simpleMessage("Системная"),
-        "tutorial": MessageLookupByLibrary.simpleMessage("Как играть"),
-        "tutorialDescription1": MessageLookupByLibrary.simpleMessage(
-            "Каждое предположение должно быть словом из 5 букв. Нажмите кнопку ввода, чтобы отправить."),
-        "tutorialDescription2": MessageLookupByLibrary.simpleMessage(
-            "После каждого угадывания цвет плиток будет меняться, чтобы показать, насколько близко ваше предположение было к слову."),
-        "tutorialNotInWordSpot": MessageLookupByLibrary.simpleMessage(
-            "Буквы А нет в слове ни в одном месте."),
-        "tutorialTitle": MessageLookupByLibrary.simpleMessage(
-            "Угадайте СЛОВО за 6 попыток."),
-        "tutorialWordCorrectSpot": MessageLookupByLibrary.simpleMessage(
-            "Буква П есть в слове и в нужном месте."),
-        "tutorialWordWrongSpot": MessageLookupByLibrary.simpleMessage(
-            "Буква Ш есть в слове, но не в том месте."),
-        "viewLevels": MessageLookupByLibrary.simpleMessage("Посмотреть уровни"),
-        "viewStatistic":
-            MessageLookupByLibrary.simpleMessage("Посмотреть статистику"),
-        "winMessage": MessageLookupByLibrary.simpleMessage("Вы победили!"),
-        "winRate": MessageLookupByLibrary.simpleMessage("Показатель\nпобед"),
-        "wordNotFound":
-            MessageLookupByLibrary.simpleMessage("Слово не найдено в словаре"),
-        "wordTooShort":
-            MessageLookupByLibrary.simpleMessage("Слово неправильной длины")
-      };
+    "about": MessageLookupByLibrary.simpleMessage("О приложении"),
+    "appDictionary": MessageLookupByLibrary.simpleMessage("Язык словаря"),
+    "appLanguage": MessageLookupByLibrary.simpleMessage("Язык приложения"),
+    "appTitle": MessageLookupByLibrary.simpleMessage("Словень Плюс"),
+    "casual": MessageLookupByLibrary.simpleMessage("Обычный"),
+    "checkResult": MessageLookupByLibrary.simpleMessage(
+      "Можешь проверить свой результат тут:",
+    ),
+    "checkResultLose": m0,
+    "checkResultWin": m1,
+    "colorMode": MessageLookupByLibrary.simpleMessage("Цветовой режим"),
+    "contact": MessageLookupByLibrary.simpleMessage(
+      "Если вы не нашли слово в словаре\nили оно имеет неправильное определение,\nнапишите нам, мы добавим его\nв следующем обновлении.\n",
+    ),
+    "currentStreak": MessageLookupByLibrary.simpleMessage("Текущая\nСерия"),
+    "daily": MessageLookupByLibrary.simpleMessage("Ежедневный"),
+    "en": MessageLookupByLibrary.simpleMessage("Английский"),
+    "examples": MessageLookupByLibrary.simpleMessage("Примеры"),
+    "guessDistribution": MessageLookupByLibrary.simpleMessage(
+      "Распределение догадок",
+    ),
+    "highContrast": MessageLookupByLibrary.simpleMessage("Высокий контраст"),
+    "levelNumber": m2,
+    "levels": MessageLookupByLibrary.simpleMessage("Уровни"),
+    "loseMessage": MessageLookupByLibrary.simpleMessage("Вы проиграли"),
+    "maxStreak": MessageLookupByLibrary.simpleMessage("Макс.\nСерия"),
+    "newWordAvailableEachDay": MessageLookupByLibrary.simpleMessage(
+      "Новое слово будет доступно каждый день!",
+    ),
+    "nextLevel": MessageLookupByLibrary.simpleMessage("Следующий уровень"),
+    "nextWord": MessageLookupByLibrary.simpleMessage("Следующее слово через"),
+    "notPlayed": MessageLookupByLibrary.simpleMessage(
+      "Вы не сыграли ни одной игры",
+    ),
+    "other": MessageLookupByLibrary.simpleMessage("Другой"),
+    "played": MessageLookupByLibrary.simpleMessage("Сыграно"),
+    "ru": MessageLookupByLibrary.simpleMessage("Русский"),
+    "secretWord": MessageLookupByLibrary.simpleMessage("Загаданное слово"),
+    "sendMessage": MessageLookupByLibrary.simpleMessage(
+      "subject=WordlyPlus%20-%20Новое%20слово&body=Слово%20-%0AЗначение%20-",
+    ),
+    "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
+    "share": MessageLookupByLibrary.simpleMessage("Поделиться"),
+    "start": MessageLookupByLibrary.simpleMessage("Начать играть"),
+    "statistic": MessageLookupByLibrary.simpleMessage("Статистика"),
+    "themeDark": MessageLookupByLibrary.simpleMessage("Темная"),
+    "themeLight": MessageLookupByLibrary.simpleMessage("Светлая"),
+    "themeMode": MessageLookupByLibrary.simpleMessage("Тема"),
+    "themeSystem": MessageLookupByLibrary.simpleMessage("Системная"),
+    "tutorial": MessageLookupByLibrary.simpleMessage("Как играть"),
+    "tutorialDescription1": MessageLookupByLibrary.simpleMessage(
+      "Каждое предположение должно быть словом из 5 букв. Нажмите кнопку ввода, чтобы отправить.",
+    ),
+    "tutorialDescription2": MessageLookupByLibrary.simpleMessage(
+      "После каждого угадывания цвет плиток будет меняться, чтобы показать, насколько близко ваше предположение было к слову.",
+    ),
+    "tutorialNotInWordSpot": MessageLookupByLibrary.simpleMessage(
+      "Буквы А нет в слове ни в одном месте.",
+    ),
+    "tutorialTitle": MessageLookupByLibrary.simpleMessage(
+      "Угадайте СЛОВО за 6 попыток.",
+    ),
+    "tutorialWordCorrectSpot": MessageLookupByLibrary.simpleMessage(
+      "Буква П есть в слове и в нужном месте.",
+    ),
+    "tutorialWordWrongSpot": MessageLookupByLibrary.simpleMessage(
+      "Буква Ш есть в слове, но не в том месте.",
+    ),
+    "viewLevels": MessageLookupByLibrary.simpleMessage("Посмотреть уровни"),
+    "viewStatistic": MessageLookupByLibrary.simpleMessage(
+      "Посмотреть статистику",
+    ),
+    "winMessage": MessageLookupByLibrary.simpleMessage("Вы победили!"),
+    "winRate": MessageLookupByLibrary.simpleMessage("Показатель\nпобед"),
+    "wordNotFound": MessageLookupByLibrary.simpleMessage(
+      "Слово не найдено в словаре",
+    ),
+    "wordTooShort": MessageLookupByLibrary.simpleMessage(
+      "Слово неправильной длины",
+    ),
+  };
 }

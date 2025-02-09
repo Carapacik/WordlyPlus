@@ -1,14 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:wordly/src/core/assets/generated/fonts.gen.dart';
 import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 
 /// {@template app_theme}
-/// An immutable class that holds properties needed
-/// to build a [ThemeData] for the app.
+/// An immutable class that holds properties needed to build a [ThemeData] for the app.
 /// {@endtemplate}
 @immutable
 final class AppTheme with Diagnosticable {
@@ -47,30 +45,38 @@ final class AppTheme with Diagnosticable {
   /// Other colors for cells
   final (Color, Color, Color)? otherColors;
 
+  /// The default [AppTheme].
+  static AppTheme defaultTheme = AppTheme(
+    themeMode: ThemeMode.system,
+    colorMode: ColorMode.casual,
+  );
+
   /// The dark [ThemeData] for this [AppTheme].
   final ThemeData darkTheme;
 
   /// The light [ThemeData] for this [AppTheme].
   final ThemeData lightTheme;
 
-  /// The default [AppTheme].
-  static final defaultTheme = AppTheme(
-    themeMode: ThemeMode.system,
-    colorMode: ColorMode.casual,
-  );
+  AppTheme copyWith({
+    ThemeMode? themeMode,
+    ColorMode? colorMode,
+    (Color, Color, Color)? otherColors,
+  }) =>
+      AppTheme(
+        themeMode: themeMode ?? this.themeMode,
+        colorMode: colorMode ?? this.colorMode,
+        otherColors: otherColors ?? this.otherColors,
+      );
 
-  /// The [ThemeData] for this [AppTheme].
-  /// This is computed based on the [themeMode].
-  ThemeData computeTheme() {
-    switch (themeMode) {
-      case ThemeMode.light:
-        return lightTheme;
-      case ThemeMode.dark:
-        return darkTheme;
-      case ThemeMode.system:
-        return PlatformDispatcher.instance.platformBrightness == Brightness.dark ? darkTheme : lightTheme;
-    }
-  }
+  /// Builds a [ThemeData] based on the [themeMode] and [colorMode].
+  ///
+  /// This can also be used to add additional properties to the [ThemeData],
+  /// such as extensions or custom properties.
+  ThemeData buildThemeData(ThemeMode themeMode) => switch (themeMode) {
+        ThemeMode.light => lightTheme,
+        ThemeMode.dark => darkTheme,
+        ThemeMode.system => PlatformDispatcher.instance.platformBrightness == Brightness.dark ? darkTheme : lightTheme
+      };
 
   bool isDarkTheme(BuildContext context) => context.theme.brightness == Brightness.dark;
 
@@ -100,10 +106,8 @@ final class AppTheme with Diagnosticable {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(EnumProperty<ThemeMode>('mode', themeMode))
-      ..add(EnumProperty<ColorMode>('colorMode', colorMode))
-      ..add(DiagnosticsProperty<ThemeData>('lightTheme', lightTheme))
-      ..add(DiagnosticsProperty<ThemeData>('darkTheme', darkTheme));
+      ..add(EnumProperty<ThemeMode>('themeMode', themeMode))
+      ..add(EnumProperty<ColorMode>('colorMode', colorMode));
   }
 
   @override
@@ -117,15 +121,4 @@ final class AppTheme with Diagnosticable {
 
   @override
   int get hashCode => Object.hash(themeMode, colorMode, otherColors);
-
-  AppTheme copyWith({
-    ThemeMode? themeMode,
-    ColorMode? colorMode,
-    (Color, Color, Color)? otherColors,
-  }) =>
-      AppTheme(
-        themeMode: themeMode ?? this.themeMode,
-        colorMode: colorMode ?? this.colorMode,
-        otherColors: otherColors ?? this.otherColors,
-      );
 }

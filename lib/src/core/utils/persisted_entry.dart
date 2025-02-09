@@ -125,7 +125,7 @@ class DoublePreferencesEntry extends SharedPreferencesEntry<double> {
   }
 }
 
-/// A `List<String>` implementation of [SharedPreferencesEntry].
+/// A [List<String>] implementation of [SharedPreferencesEntry].
 class StringListPreferencesEntry extends SharedPreferencesEntry<List<String>> {
   /// {@macro string_list_preferences_entry}
   const StringListPreferencesEntry({

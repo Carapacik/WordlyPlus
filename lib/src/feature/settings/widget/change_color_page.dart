@@ -6,6 +6,7 @@ import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/components/widget/letter_tile.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
 import 'package:wordly/src/feature/settings/bloc/app_settings_bloc.dart';
+import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 
@@ -42,7 +43,8 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
     appSettingsBloc.add(
       AppSettingsEvent.updateAppSettings(
         appSettings: appSettings.copyWith(
-          appTheme: appSettings.appTheme.copyWith(
+          appTheme: AppTheme(
+            themeMode: appSettings.appTheme.themeMode,
             colorMode: _currentColorMode,
             otherColors: _currentOtherColors,
           ),

@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:wordly/src/core/constant/localization/generated/l10n.dart';
 
@@ -11,7 +11,7 @@ final class Localization extends AppLocalizations {
   Localization._({required this.locale});
 
   /// List of supported locales.
-  static List<Locale> get supportedLocales => _delegate.supportedLocales;
+  static List<Locale> get supportedLocales => AppLocalizations.delegate.supportedLocales;
 
   static const _delegate = AppLocalizations.delegate;
 
@@ -38,10 +38,7 @@ final class Localization extends AppLocalizations {
   static Locale computeDefaultLocale({bool withDictionary = false}) {
     final locale = WidgetsBinding.instance.platformDispatcher.locale;
     if (withDictionary &&
-        const [
-          Locale.fromSubtags(languageCode: 'en'),
-          Locale.fromSubtags(languageCode: 'ru'),
-        ].contains(locale)) {
+        const [Locale.fromSubtags(languageCode: 'en'), Locale.fromSubtags(languageCode: 'ru')].contains(locale)) {
       return locale;
     }
 
@@ -49,9 +46,11 @@ final class Localization extends AppLocalizations {
       return locale;
     }
 
-    return const Locale('en');
+    return const Locale('ru');
   }
 
   /// Obtain [AppLocalizations] instance from [BuildContext].
-  static AppLocalizations of(BuildContext context) => AppLocalizations.of(context);
+  static AppLocalizations of(BuildContext context) =>
+      Localizations.of<AppLocalizations>(context, AppLocalizations) ??
+      (throw FlutterError('No AppLocalizations found in context'));
 }

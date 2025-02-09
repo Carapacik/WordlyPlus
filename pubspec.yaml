@@ -1,51 +1,41 @@
 name: wordly
 description: Guess the WORD in six tries
 publish_to: none
-version: 3.2.1+41
+version: 3.2.2+42
 environment:
-  sdk: '>=3.5.0 <4.0.0'
-  flutter: '>=3.24.0'
+  sdk: '>=3.6.0 <4.0.0'
+  flutter: '>=3.27.0'
 
 dependencies:
-  # Flutter SDK
+  async: any
+  bloc: ^9.0.0
+  clock: any
+  collection: any
   flutter:
     sdk: flutter
+  flutter_bloc: ^9.0.0
+  flutter_colorpicker: ^1.1.0
   flutter_localizations:
     sdk: flutter
-  async: any
-  collection: any
-  clock: any
-  intl: any
-  meta: any
-  path: any
-  stack_trace: any
-
-  # Stream
-  rxdart: ^0.28.0
-
-  # BLoC
-  bloc: ^8.1.4
-  flutter_bloc: ^8.1.6
-
-  # Storing data
-  shared_preferences: ^2.3.3
-
-  # Utils
-  flutter_colorpicker: ^1.1.0
   freezed_annotation: ^2.4.4
   intercepted_client: ^0.0.1
-  package_info_plus: ^8.1.1
-  share_plus: ^10.1.2
+  intl: any
+  meta: any
+  package_info_plus: ^8.2.1
+  path: any
+  rxdart: ^0.28.0
+  share_plus: ^10.1.4
+  shared_preferences: ^2.5.1
+  stack_trace: any
   url_launcher: ^6.3.1
 
 dev_dependencies:
-  build_runner: ^2.4.13
-  carapacik_lints: ^1.9.2
-  flutter_gen_runner: ^5.8.0
-  #flutter_launcher_icons: ^0.14.1
-  #flutter_native_splash: ^2.4.3
-  freezed: ^2.5.7
-  intl_utils: ^2.8.7
+  build_runner: ^2.4.14
+  carapacik_lints: ^1.10.0
+  flutter_gen_runner: ^5.9.0
+  #flutter_launcher_icons: ^0.14.3
+  #flutter_native_splash: ^2.4.4
+  freezed: ^2.5.8
 
 flutter:
   uses-material-design: true

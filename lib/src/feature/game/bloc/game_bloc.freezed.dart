@@ -18,17 +18,18 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$GameEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ChangeDictionaryGameEvent value) changeDictionary,
+    required TResult Function(_ChangeDictionaryGameEvent value)
+        changeDictionary,
     required TResult Function(_ChangeGameModeGameEvent value) changeGameMode,
     required TResult Function(_ResetBoardGameEvent value) resetBoard,
     required TResult Function(_LetterPressedGameEvent value) letterPressed,
     required TResult Function(_DeletePressedGameEvent value) deletePressed,
-    required TResult Function(_DeleteLongPressedGameEvent value) deleteLongPressed,
+    required TResult Function(_DeleteLongPressedGameEvent value)
+        deleteLongPressed,
     required TResult Function(_EnterPressedGameEvent value) enterPressed,
     required TResult Function(_ListenKeyEventGameEvent value) listenKeyEvent,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_ChangeDictionaryGameEvent value)? changeDictionary,
@@ -74,7 +75,8 @@ class _$ChangeDictionaryGameEventImpl implements _ChangeDictionaryGameEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ChangeDictionaryGameEventImpl &&
-            (identical(other.dictionary, dictionary) || other.dictionary == dictionary));
+            (identical(other.dictionary, dictionary) ||
+                other.dictionary == dictionary));
   }
 
   @override
@@ -83,12 +85,14 @@ class _$ChangeDictionaryGameEventImpl implements _ChangeDictionaryGameEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ChangeDictionaryGameEvent value) changeDictionary,
+    required TResult Function(_ChangeDictionaryGameEvent value)
+        changeDictionary,
     required TResult Function(_ChangeGameModeGameEvent value) changeGameMode,
     required TResult Function(_ResetBoardGameEvent value) resetBoard,
     required TResult Function(_LetterPressedGameEvent value) letterPressed,
     required TResult Function(_DeletePressedGameEvent value) deletePressed,
-    required TResult Function(_DeleteLongPressedGameEvent value) deleteLongPressed,
+    required TResult Function(_DeleteLongPressedGameEvent value)
+        deleteLongPressed,
     required TResult Function(_EnterPressedGameEvent value) enterPressed,
     required TResult Function(_ListenKeyEventGameEvent value) listenKeyEvent,
   }) {
@@ -131,7 +135,8 @@ class _$ChangeDictionaryGameEventImpl implements _ChangeDictionaryGameEvent {
 }
 
 abstract class _ChangeDictionaryGameEvent implements GameEvent {
-  const factory _ChangeDictionaryGameEvent(final Locale dictionary) = _$ChangeDictionaryGameEventImpl;
+  const factory _ChangeDictionaryGameEvent(final Locale dictionary) =
+      _$ChangeDictionaryGameEventImpl;
 
   Locale get dictionary;
 }
@@ -154,7 +159,8 @@ class _$ChangeGameModeGameEventImpl implements _ChangeGameModeGameEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ChangeGameModeGameEventImpl &&
-            (identical(other.gameMode, gameMode) || other.gameMode == gameMode));
+            (identical(other.gameMode, gameMode) ||
+                other.gameMode == gameMode));
   }
 
   @override
@@ -163,12 +169,14 @@ class _$ChangeGameModeGameEventImpl implements _ChangeGameModeGameEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ChangeDictionaryGameEvent value) changeDictionary,
+    required TResult Function(_ChangeDictionaryGameEvent value)
+        changeDictionary,
     required TResult Function(_ChangeGameModeGameEvent value) changeGameMode,
     required TResult Function(_ResetBoardGameEvent value) resetBoard,
     required TResult Function(_LetterPressedGameEvent value) letterPressed,
     required TResult Function(_DeletePressedGameEvent value) deletePressed,
-    required TResult Function(_DeleteLongPressedGameEvent value) deleteLongPressed,
+    required TResult Function(_DeleteLongPressedGameEvent value)
+        deleteLongPressed,
     required TResult Function(_EnterPressedGameEvent value) enterPressed,
     required TResult Function(_ListenKeyEventGameEvent value) listenKeyEvent,
   }) {
@@ -211,7 +219,8 @@ class _$ChangeGameModeGameEventImpl implements _ChangeGameModeGameEvent {
 }
 
 abstract class _ChangeGameModeGameEvent implements GameEvent {
-  const factory _ChangeGameModeGameEvent(final GameMode gameMode) = _$ChangeGameModeGameEventImpl;
+  const factory _ChangeGameModeGameEvent(final GameMode gameMode) =
+      _$ChangeGameModeGameEventImpl;
 
   GameMode get gameMode;
 }
@@ -234,7 +243,8 @@ class _$ResetBoardGameEventImpl implements _ResetBoardGameEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ResetBoardGameEventImpl &&
-            (identical(other.gameMode, gameMode) || other.gameMode == gameMode));
+            (identical(other.gameMode, gameMode) ||
+                other.gameMode == gameMode));
   }
 
   @override
@@ -243,12 +253,14 @@ class _$ResetBoardGameEventImpl implements _ResetBoardGameEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ChangeDictionaryGameEvent value) changeDictionary,
+    required TResult Function(_ChangeDictionaryGameEvent value)
+        changeDictionary,
     required TResult Function(_ChangeGameModeGameEvent value) changeGameMode,
     required TResult Function(_ResetBoardGameEvent value) resetBoard,
     required TResult Function(_LetterPressedGameEvent value) letterPressed,
     required TResult Function(_DeletePressedGameEvent value) deletePressed,
-    required TResult Function(_DeleteLongPressedGameEvent value) deleteLongPressed,
+    required TResult Function(_DeleteLongPressedGameEvent value)
+        deleteLongPressed,
     required TResult Function(_EnterPressedGameEvent value) enterPressed,
     required TResult Function(_ListenKeyEventGameEvent value) listenKeyEvent,
   }) {
@@ -291,7 +303,8 @@ class _$ResetBoardGameEventImpl implements _ResetBoardGameEvent {
 }
 
 abstract class _ResetBoardGameEvent implements GameEvent {
-  const factory _ResetBoardGameEvent(final GameMode gameMode) = _$ResetBoardGameEventImpl;
+  const factory _ResetBoardGameEvent(final GameMode gameMode) =
+      _$ResetBoardGameEventImpl;
 
   GameMode get gameMode;
 }
@@ -323,12 +336,14 @@ class _$LetterPressedGameEventImpl implements _LetterPressedGameEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ChangeDictionaryGameEvent value) changeDictionary,
+    required TResult Function(_ChangeDictionaryGameEvent value)
+        changeDictionary,
     required TResult Function(_ChangeGameModeGameEvent value) changeGameMode,
     required TResult Function(_ResetBoardGameEvent value) resetBoard,
     required TResult Function(_LetterPressedGameEvent value) letterPressed,
     required TResult Function(_DeletePressedGameEvent value) deletePressed,
-    required TResult Function(_DeleteLongPressedGameEvent value) deleteLongPressed,
+    required TResult Function(_DeleteLongPressedGameEvent value)
+        deleteLongPressed,
     required TResult Function(_EnterPressedGameEvent value) enterPressed,
     required TResult Function(_ListenKeyEventGameEvent value) listenKeyEvent,
   }) {
@@ -371,7 +386,8 @@ class _$LetterPressedGameEventImpl implements _LetterPressedGameEvent {
 }
 
 abstract class _LetterPressedGameEvent implements GameEvent {
-  const factory _LetterPressedGameEvent(final String key) = _$LetterPressedGameEventImpl;
+  const factory _LetterPressedGameEvent(final String key) =
+      _$LetterPressedGameEventImpl;
 
   String get key;
 }
@@ -388,7 +404,9 @@ class _$DeletePressedGameEventImpl implements _DeletePressedGameEvent {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$DeletePressedGameEventImpl);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeletePressedGameEventImpl);
   }
 
   @override
@@ -397,12 +415,14 @@ class _$DeletePressedGameEventImpl implements _DeletePressedGameEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ChangeDictionaryGameEvent value) changeDictionary,
+    required TResult Function(_ChangeDictionaryGameEvent value)
+        changeDictionary,
     required TResult Function(_ChangeGameModeGameEvent value) changeGameMode,
     required TResult Function(_ResetBoardGameEvent value) resetBoard,
     required TResult Function(_LetterPressedGameEvent value) letterPressed,
     required TResult Function(_DeletePressedGameEvent value) deletePressed,
-    required TResult Function(_DeleteLongPressedGameEvent value) deleteLongPressed,
+    required TResult Function(_DeleteLongPressedGameEvent value)
+        deleteLongPressed,
     required TResult Function(_EnterPressedGameEvent value) enterPressed,
     required TResult Function(_ListenKeyEventGameEvent value) listenKeyEvent,
   }) {
@@ -460,7 +480,9 @@ class _$DeleteLongPressedGameEventImpl implements _DeleteLongPressedGameEvent {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$DeleteLongPressedGameEventImpl);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteLongPressedGameEventImpl);
   }
 
   @override
@@ -469,12 +491,14 @@ class _$DeleteLongPressedGameEventImpl implements _DeleteLongPressedGameEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ChangeDictionaryGameEvent value) changeDictionary,
+    required TResult Function(_ChangeDictionaryGameEvent value)
+        changeDictionary,
     required TResult Function(_ChangeGameModeGameEvent value) changeGameMode,
     required TResult Function(_ResetBoardGameEvent value) resetBoard,
     required TResult Function(_LetterPressedGameEvent value) letterPressed,
     required TResult Function(_DeletePressedGameEvent value) deletePressed,
-    required TResult Function(_DeleteLongPressedGameEvent value) deleteLongPressed,
+    required TResult Function(_DeleteLongPressedGameEvent value)
+        deleteLongPressed,
     required TResult Function(_EnterPressedGameEvent value) enterPressed,
     required TResult Function(_ListenKeyEventGameEvent value) listenKeyEvent,
   }) {
@@ -517,7 +541,8 @@ class _$DeleteLongPressedGameEventImpl implements _DeleteLongPressedGameEvent {
 }
 
 abstract class _DeleteLongPressedGameEvent implements GameEvent {
-  const factory _DeleteLongPressedGameEvent() = _$DeleteLongPressedGameEventImpl;
+  const factory _DeleteLongPressedGameEvent() =
+      _$DeleteLongPressedGameEventImpl;
 }
 
 /// @nodoc
@@ -532,7 +557,9 @@ class _$EnterPressedGameEventImpl implements _EnterPressedGameEvent {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$EnterPressedGameEventImpl);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$EnterPressedGameEventImpl);
   }
 
   @override
@@ -541,12 +568,14 @@ class _$EnterPressedGameEventImpl implements _EnterPressedGameEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ChangeDictionaryGameEvent value) changeDictionary,
+    required TResult Function(_ChangeDictionaryGameEvent value)
+        changeDictionary,
     required TResult Function(_ChangeGameModeGameEvent value) changeGameMode,
     required TResult Function(_ResetBoardGameEvent value) resetBoard,
     required TResult Function(_LetterPressedGameEvent value) letterPressed,
     required TResult Function(_DeletePressedGameEvent value) deletePressed,
-    required TResult Function(_DeleteLongPressedGameEvent value) deleteLongPressed,
+    required TResult Function(_DeleteLongPressedGameEvent value)
+        deleteLongPressed,
     required TResult Function(_EnterPressedGameEvent value) enterPressed,
     required TResult Function(_ListenKeyEventGameEvent value) listenKeyEvent,
   }) {
@@ -610,7 +639,8 @@ class _$ListenKeyEventGameEventImpl implements _ListenKeyEventGameEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ListenKeyEventGameEventImpl &&
-            (identical(other.keyEvent, keyEvent) || other.keyEvent == keyEvent));
+            (identical(other.keyEvent, keyEvent) ||
+                other.keyEvent == keyEvent));
   }
 
   @override
@@ -619,12 +649,14 @@ class _$ListenKeyEventGameEventImpl implements _ListenKeyEventGameEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ChangeDictionaryGameEvent value) changeDictionary,
+    required TResult Function(_ChangeDictionaryGameEvent value)
+        changeDictionary,
     required TResult Function(_ChangeGameModeGameEvent value) changeGameMode,
     required TResult Function(_ResetBoardGameEvent value) resetBoard,
     required TResult Function(_LetterPressedGameEvent value) letterPressed,
     required TResult Function(_DeletePressedGameEvent value) deletePressed,
-    required TResult Function(_DeleteLongPressedGameEvent value) deleteLongPressed,
+    required TResult Function(_DeleteLongPressedGameEvent value)
+        deleteLongPressed,
     required TResult Function(_EnterPressedGameEvent value) enterPressed,
     required TResult Function(_ListenKeyEventGameEvent value) listenKeyEvent,
   }) {
@@ -667,7 +699,8 @@ class _$ListenKeyEventGameEventImpl implements _ListenKeyEventGameEvent {
 }
 
 abstract class _ListenKeyEventGameEvent implements GameEvent {
-  const factory _ListenKeyEventGameEvent(final KeyEvent keyEvent) = _$ListenKeyEventGameEventImpl;
+  const factory _ListenKeyEventGameEvent(final KeyEvent keyEvent) =
+      _$ListenKeyEventGameEventImpl;
 
   KeyEvent get keyEvent;
 }
@@ -675,17 +708,11 @@ abstract class _ListenKeyEventGameEvent implements GameEvent {
 /// @nodoc
 mixin _$GameState {
   Locale get dictionary => throw _privateConstructorUsedError;
-
   String get secretWord => throw _privateConstructorUsedError;
-
   GameMode get gameMode => throw _privateConstructorUsedError;
-
   bool get gameCompleted => throw _privateConstructorUsedError;
-
   List<LetterInfo> get board => throw _privateConstructorUsedError;
-
   Map<String, LetterStatus> get statuses => throw _privateConstructorUsedError;
-
   int? get lvlNumber => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
@@ -696,7 +723,6 @@ mixin _$GameState {
     required TResult Function(_GameStateError value) error,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GameStateIdle value)? idle,
@@ -740,7 +766,6 @@ class _$GameStateIdleImpl extends _GameStateIdle {
   @override
   final bool gameCompleted;
   final List<LetterInfo> _board;
-
   @override
   List<LetterInfo> get board {
     if (_board is EqualUnmodifiableListView) return _board;
@@ -749,7 +774,6 @@ class _$GameStateIdleImpl extends _GameStateIdle {
   }
 
   final Map<String, LetterStatus> _statuses;
-
   @override
   Map<String, LetterStatus> get statuses {
     if (_statuses is EqualUnmodifiableMapView) return _statuses;
@@ -770,18 +794,30 @@ class _$GameStateIdleImpl extends _GameStateIdle {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GameStateIdleImpl &&
-            (identical(other.dictionary, dictionary) || other.dictionary == dictionary) &&
-            (identical(other.secretWord, secretWord) || other.secretWord == secretWord) &&
-            (identical(other.gameMode, gameMode) || other.gameMode == gameMode) &&
-            (identical(other.gameCompleted, gameCompleted) || other.gameCompleted == gameCompleted) &&
+            (identical(other.dictionary, dictionary) ||
+                other.dictionary == dictionary) &&
+            (identical(other.secretWord, secretWord) ||
+                other.secretWord == secretWord) &&
+            (identical(other.gameMode, gameMode) ||
+                other.gameMode == gameMode) &&
+            (identical(other.gameCompleted, gameCompleted) ||
+                other.gameCompleted == gameCompleted) &&
             const DeepCollectionEquality().equals(other._board, _board) &&
             const DeepCollectionEquality().equals(other._statuses, _statuses) &&
-            (identical(other.lvlNumber, lvlNumber) || other.lvlNumber == lvlNumber));
+            (identical(other.lvlNumber, lvlNumber) ||
+                other.lvlNumber == lvlNumber));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, dictionary, secretWord, gameMode, gameCompleted,
-      const DeepCollectionEquality().hash(_board), const DeepCollectionEquality().hash(_statuses), lvlNumber);
+  int get hashCode => Object.hash(
+      runtimeType,
+      dictionary,
+      secretWord,
+      gameMode,
+      gameCompleted,
+      const DeepCollectionEquality().hash(_board),
+      const DeepCollectionEquality().hash(_statuses),
+      lvlNumber);
 
   @override
   @optionalTypeArgs
@@ -830,27 +866,20 @@ abstract class _GameStateIdle extends GameState {
       required final List<LetterInfo> board,
       required final Map<String, LetterStatus> statuses,
       required final int? lvlNumber}) = _$GameStateIdleImpl;
-
   const _GameStateIdle._() : super._();
 
   @override
   Locale get dictionary;
-
   @override
   String get secretWord;
-
   @override
   GameMode get gameMode;
-
   @override
   bool get gameCompleted;
-
   @override
   List<LetterInfo> get board;
-
   @override
   Map<String, LetterStatus> get statuses;
-
   @override
   int? get lvlNumber;
 }
@@ -879,7 +908,6 @@ class _$GameStateWinImpl extends _GameStateWin {
   @override
   final bool gameCompleted;
   final List<LetterInfo> _board;
-
   @override
   List<LetterInfo> get board {
     if (_board is EqualUnmodifiableListView) return _board;
@@ -888,7 +916,6 @@ class _$GameStateWinImpl extends _GameStateWin {
   }
 
   final Map<String, LetterStatus> _statuses;
-
   @override
   Map<String, LetterStatus> get statuses {
     if (_statuses is EqualUnmodifiableMapView) return _statuses;
@@ -909,18 +936,30 @@ class _$GameStateWinImpl extends _GameStateWin {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GameStateWinImpl &&
-            (identical(other.dictionary, dictionary) || other.dictionary == dictionary) &&
-            (identical(other.secretWord, secretWord) || other.secretWord == secretWord) &&
-            (identical(other.gameMode, gameMode) || other.gameMode == gameMode) &&
-            (identical(other.gameCompleted, gameCompleted) || other.gameCompleted == gameCompleted) &&
+            (identical(other.dictionary, dictionary) ||
+                other.dictionary == dictionary) &&
+            (identical(other.secretWord, secretWord) ||
+                other.secretWord == secretWord) &&
+            (identical(other.gameMode, gameMode) ||
+                other.gameMode == gameMode) &&
+            (identical(other.gameCompleted, gameCompleted) ||
+                other.gameCompleted == gameCompleted) &&
             const DeepCollectionEquality().equals(other._board, _board) &&
             const DeepCollectionEquality().equals(other._statuses, _statuses) &&
-            (identical(other.lvlNumber, lvlNumber) || other.lvlNumber == lvlNumber));
+            (identical(other.lvlNumber, lvlNumber) ||
+                other.lvlNumber == lvlNumber));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, dictionary, secretWord, gameMode, gameCompleted,
-      const DeepCollectionEquality().hash(_board), const DeepCollectionEquality().hash(_statuses), lvlNumber);
+  int get hashCode => Object.hash(
+      runtimeType,
+      dictionary,
+      secretWord,
+      gameMode,
+      gameCompleted,
+      const DeepCollectionEquality().hash(_board),
+      const DeepCollectionEquality().hash(_statuses),
+      lvlNumber);
 
   @override
   @optionalTypeArgs
@@ -969,27 +1008,20 @@ abstract class _GameStateWin extends GameState {
       required final List<LetterInfo> board,
       required final Map<String, LetterStatus> statuses,
       required final int? lvlNumber}) = _$GameStateWinImpl;
-
   const _GameStateWin._() : super._();
 
   @override
   Locale get dictionary;
-
   @override
   String get secretWord;
-
   @override
   GameMode get gameMode;
-
   @override
   bool get gameCompleted;
-
   @override
   List<LetterInfo> get board;
-
   @override
   Map<String, LetterStatus> get statuses;
-
   @override
   int? get lvlNumber;
 }
@@ -1018,7 +1050,6 @@ class _$GameStateLossImpl extends _GameStateLoss {
   @override
   final bool gameCompleted;
   final List<LetterInfo> _board;
-
   @override
   List<LetterInfo> get board {
     if (_board is EqualUnmodifiableListView) return _board;
@@ -1027,7 +1058,6 @@ class _$GameStateLossImpl extends _GameStateLoss {
   }
 
   final Map<String, LetterStatus> _statuses;
-
   @override
   Map<String, LetterStatus> get statuses {
     if (_statuses is EqualUnmodifiableMapView) return _statuses;
@@ -1048,18 +1078,30 @@ class _$GameStateLossImpl extends _GameStateLoss {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GameStateLossImpl &&
-            (identical(other.dictionary, dictionary) || other.dictionary == dictionary) &&
-            (identical(other.secretWord, secretWord) || other.secretWord == secretWord) &&
-            (identical(other.gameMode, gameMode) || other.gameMode == gameMode) &&
-            (identical(other.gameCompleted, gameCompleted) || other.gameCompleted == gameCompleted) &&
+            (identical(other.dictionary, dictionary) ||
+                other.dictionary == dictionary) &&
+            (identical(other.secretWord, secretWord) ||
+                other.secretWord == secretWord) &&
+            (identical(other.gameMode, gameMode) ||
+                other.gameMode == gameMode) &&
+            (identical(other.gameCompleted, gameCompleted) ||
+                other.gameCompleted == gameCompleted) &&
             const DeepCollectionEquality().equals(other._board, _board) &&
             const DeepCollectionEquality().equals(other._statuses, _statuses) &&
-            (identical(other.lvlNumber, lvlNumber) || other.lvlNumber == lvlNumber));
+            (identical(other.lvlNumber, lvlNumber) ||
+                other.lvlNumber == lvlNumber));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, dictionary, secretWord, gameMode, gameCompleted,
-      const DeepCollectionEquality().hash(_board), const DeepCollectionEquality().hash(_statuses), lvlNumber);
+  int get hashCode => Object.hash(
+      runtimeType,
+      dictionary,
+      secretWord,
+      gameMode,
+      gameCompleted,
+      const DeepCollectionEquality().hash(_board),
+      const DeepCollectionEquality().hash(_statuses),
+      lvlNumber);
 
   @override
   @optionalTypeArgs
@@ -1108,27 +1150,20 @@ abstract class _GameStateLoss extends GameState {
       required final List<LetterInfo> board,
       required final Map<String, LetterStatus> statuses,
       required final int? lvlNumber}) = _$GameStateLossImpl;
-
   const _GameStateLoss._() : super._();
 
   @override
   Locale get dictionary;
-
   @override
   String get secretWord;
-
   @override
   GameMode get gameMode;
-
   @override
   bool get gameCompleted;
-
   @override
   List<LetterInfo> get board;
-
   @override
   Map<String, LetterStatus> get statuses;
-
   @override
   int? get lvlNumber;
 }
@@ -1158,7 +1193,6 @@ class _$GameStateErrorImpl extends _GameStateError {
   @override
   final bool gameCompleted;
   final List<LetterInfo> _board;
-
   @override
   List<LetterInfo> get board {
     if (_board is EqualUnmodifiableListView) return _board;
@@ -1167,7 +1201,6 @@ class _$GameStateErrorImpl extends _GameStateError {
   }
 
   final Map<String, LetterStatus> _statuses;
-
   @override
   Map<String, LetterStatus> get statuses {
     if (_statuses is EqualUnmodifiableMapView) return _statuses;
@@ -1190,19 +1223,32 @@ class _$GameStateErrorImpl extends _GameStateError {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GameStateErrorImpl &&
-            (identical(other.dictionary, dictionary) || other.dictionary == dictionary) &&
-            (identical(other.secretWord, secretWord) || other.secretWord == secretWord) &&
-            (identical(other.gameMode, gameMode) || other.gameMode == gameMode) &&
-            (identical(other.gameCompleted, gameCompleted) || other.gameCompleted == gameCompleted) &&
+            (identical(other.dictionary, dictionary) ||
+                other.dictionary == dictionary) &&
+            (identical(other.secretWord, secretWord) ||
+                other.secretWord == secretWord) &&
+            (identical(other.gameMode, gameMode) ||
+                other.gameMode == gameMode) &&
+            (identical(other.gameCompleted, gameCompleted) ||
+                other.gameCompleted == gameCompleted) &&
             const DeepCollectionEquality().equals(other._board, _board) &&
             const DeepCollectionEquality().equals(other._statuses, _statuses) &&
             (identical(other.error, error) || other.error == error) &&
-            (identical(other.lvlNumber, lvlNumber) || other.lvlNumber == lvlNumber));
+            (identical(other.lvlNumber, lvlNumber) ||
+                other.lvlNumber == lvlNumber));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, dictionary, secretWord, gameMode, gameCompleted,
-      const DeepCollectionEquality().hash(_board), const DeepCollectionEquality().hash(_statuses), error, lvlNumber);
+  int get hashCode => Object.hash(
+      runtimeType,
+      dictionary,
+      secretWord,
+      gameMode,
+      gameCompleted,
+      const DeepCollectionEquality().hash(_board),
+      const DeepCollectionEquality().hash(_statuses),
+      error,
+      lvlNumber);
 
   @override
   @optionalTypeArgs
@@ -1252,29 +1298,21 @@ abstract class _GameStateError extends GameState {
       required final Map<String, LetterStatus> statuses,
       required final WordError error,
       required final int? lvlNumber}) = _$GameStateErrorImpl;
-
   const _GameStateError._() : super._();
 
   @override
   Locale get dictionary;
-
   @override
   String get secretWord;
-
   @override
   GameMode get gameMode;
-
   @override
   bool get gameCompleted;
-
   @override
   List<LetterInfo> get board;
-
   @override
   Map<String, LetterStatus> get statuses;
-
   WordError get error;
-
   @override
   int? get lvlNumber;
 }

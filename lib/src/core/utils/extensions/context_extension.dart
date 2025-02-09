@@ -4,8 +4,8 @@ import 'package:wordly/src/core/constant/localization/localization.dart';
 import 'package:wordly/src/feature/initialization/model/dependencies_container.dart';
 import 'package:wordly/src/feature/initialization/widget/dependencies_scope.dart';
 
-/// List of extensions for [BuildContext]
-extension ContextExtension on BuildContext {
+/// Extension methods on [BuildContext] for working with inherited widgets.
+extension InheritedExtension on BuildContext {
   /// Obtain the nearest widget of the given type T,
   /// which must be the type of a concrete [InheritedWidget] subclass,
   /// and register this build context with that widget such that
@@ -44,7 +44,7 @@ extension ContextExtension on BuildContext {
         'out_of_scope',
       ));
 
-  /// Localization of app
+  /// Get localization
   AppLocalizations get l10n => Localization.of(this);
 
   /// Get dependencies container

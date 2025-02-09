@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:wordly/src/core/constant/config.dart';
+import 'package:wordly/src/core/constant/application_config.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
 
@@ -20,10 +20,10 @@ String? shareString(BuildContext context, (bool, int, List<LetterInfo>)? result)
     ..writeln(context.l10n.checkResult)
     ..write(
       kIsWeb
-          ? const Config().webLink
+          ? const ApplicationConfig().webLink
           : Platform.isAndroid
-              ? const Config().androidLink
-              : const Config().webLink,
+              ? const ApplicationConfig().androidLink
+              : const ApplicationConfig().webLink,
     );
   return sb.toString();
 }

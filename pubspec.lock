@@ -34,7 +34,7 @@ packages:
     source: hosted
     version: "2.6.0"
   async:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: async
       sha256: "758e6d74e971c3e5aceb4110bfd6698efc7f501675bcfe0c775459a8140750eb"
@@ -368,14 +368,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.0"
-  intercepted_client:
-    dependency: "direct main"
-    description:
-      name: intercepted_client
-      sha256: e58581dce92c241d1b4791f477073825d1b706a4372d2089c43b7f1429041335
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.1"
   intl:
     dependency: "direct main"
     description:

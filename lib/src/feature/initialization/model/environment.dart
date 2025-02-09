@@ -11,10 +11,10 @@ enum Environment {
   /// Production environment.
   prod._('PROD');
 
+  const Environment._(this.value);
+
   /// The environment value.
   final String value;
-
-  const Environment._(this.value);
 
   /// Returns the environment from the given [value].
   static Environment from(String? value) => switch (value) {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wordly/src/core/constant/localization/localization.dart';
 import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/game/widget/game_page.dart';
-import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 
 /// {@template material_context}
@@ -23,7 +22,7 @@ class MaterialContext extends StatelessWidget {
     final settings = SettingsScope.settingsOf(context);
     final mediaQueryData = MediaQuery.of(context);
 
-    final theme = settings.appTheme ?? AppTheme.defaultTheme;
+    final theme = settings.appTheme;
     final lightTheme = theme.buildThemeData(ThemeMode.light);
     final darkTheme = theme.buildThemeData(ThemeMode.dark);
 

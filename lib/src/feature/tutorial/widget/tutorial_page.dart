@@ -23,10 +23,7 @@ class TutorialPage extends StatelessWidget {
         backgroundColor: context.theme.extension<BackgroundCustomColors>()?.background,
         appBar: AppBar(
           centerTitle: true,
-          title: Text(
-            context.l10n.tutorial,
-            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
-          ),
+          title: Text(context.l10n.tutorial, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32)),
         ),
         body: ConstraintScreen(
           safeAreaBottom: false,
@@ -35,10 +32,7 @@ class TutorialPage extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.only(bottom: MediaQuery.paddingOf(context).bottom + 16),
               children: [
-                Text(
-                  context.l10n.tutorialTitle,
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                ),
+                Text(context.l10n.tutorialTitle, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                 const SizedBox(height: 16),
                 Text.rich(
                   TextSpan(
@@ -56,9 +50,7 @@ class TutorialPage extends StatelessWidget {
                     children: [
                       const TextSpan(text: '\u2022'),
                       const WidgetSpan(child: SizedBox(width: 6)),
-                      TextSpan(
-                        text: context.l10n.tutorialDescription2,
-                      ),
+                      TextSpan(text: context.l10n.tutorialDescription2),
                     ],
                   ),
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
@@ -66,10 +58,7 @@ class TutorialPage extends StatelessWidget {
                 const SizedBox(height: 16),
                 const Divider(color: AppColors.secondary),
                 const SizedBox(height: 16),
-                Text(
-                  context.l10n.examples,
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
-                ),
+                Text(context.l10n.examples, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500)),
                 const SizedBox(height: 16),
                 ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 350, maxHeight: 60),
@@ -80,7 +69,7 @@ class TutorialPage extends StatelessWidget {
                     primary: false,
                     scrollDirection: Axis.horizontal,
                     itemCount: wordWithCorrectSpot.length,
-                    separatorBuilder: (_, __) => const SizedBox(width: 8),
+                    separatorBuilder: (_, _) => const SizedBox(width: 8),
                     itemBuilder: (context, index) => LetterTile(info: wordWithCorrectSpot[index]),
                   ),
                 ),
@@ -99,7 +88,7 @@ class TutorialPage extends StatelessWidget {
                     primary: false,
                     scrollDirection: Axis.horizontal,
                     itemCount: wordWithWrongSpot.length,
-                    separatorBuilder: (_, __) => const SizedBox(width: 8),
+                    separatorBuilder: (_, _) => const SizedBox(width: 8),
                     itemBuilder: (context, index) => LetterTile(info: wordWithWrongSpot[index]),
                   ),
                 ),
@@ -118,7 +107,7 @@ class TutorialPage extends StatelessWidget {
                     primary: false,
                     scrollDirection: Axis.horizontal,
                     itemCount: wordNotSpot.length,
-                    separatorBuilder: (_, __) => const SizedBox(width: 8),
+                    separatorBuilder: (_, _) => const SizedBox(width: 8),
                     itemBuilder: (context, index) => LetterTile(info: wordNotSpot[index]),
                   ),
                 ),

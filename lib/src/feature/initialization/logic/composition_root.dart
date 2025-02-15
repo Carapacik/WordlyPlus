@@ -26,10 +26,7 @@ import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 /// {@endtemplate}
 final class CompositionRoot {
   /// {@macro composition_root}
-  const CompositionRoot({
-    required this.config,
-    required this.logger,
-  });
+  const CompositionRoot({required this.config, required this.logger});
 
   /// Application configuration.
   final ApplicationConfig config;
@@ -47,14 +44,9 @@ final class CompositionRoot {
     final dependencies = await createDependenciesContainer(config, logger);
 
     stopwatch.stop();
-    logger.info(
-      'Dependencies initialized successfully in ${stopwatch.elapsedMilliseconds} ms.',
-    );
+    logger.info('Dependencies initialized successfully in ${stopwatch.elapsedMilliseconds} ms.');
 
-    return CompositionResult(
-      dependencies: dependencies,
-      millisecondsSpent: stopwatch.elapsedMilliseconds,
-    );
+    return CompositionResult(dependencies: dependencies, millisecondsSpent: stopwatch.elapsedMilliseconds);
   }
 }
 
@@ -65,10 +57,7 @@ final class CompositionRoot {
 /// {@endtemplate}
 final class CompositionResult {
   /// {@macro composition_result}
-  const CompositionResult({
-    required this.dependencies,
-    required this.millisecondsSpent,
-  });
+  const CompositionResult({required this.dependencies, required this.millisecondsSpent});
 
   /// The dependencies container.
   final DependenciesContainer dependencies;
@@ -77,7 +66,8 @@ final class CompositionResult {
   final int millisecondsSpent;
 
   @override
-  String toString() => 'CompositionResult('
+  String toString() =>
+      'CompositionResult('
       'dependencies: $dependencies, '
       'millisecondsSpent: $millisecondsSpent'
       ')';
@@ -94,17 +84,16 @@ Future<DependenciesContainer> createDependenciesContainer(ApplicationConfig conf
   // Create the AppSettingsBloc using shared preferences.
   final appSettingsBloc = await createAppSettingsBloc(sharedPreferences);
 
-  final gameRepository = GameRepository(
-    gameDataSource: GameDatasource(sharedPreferences: sharedPreferences),
-  );
+  final gameRepository = GameRepository(gameDataSource: GameDatasource(sharedPreferences: sharedPreferences));
   await gameRepository.init(appSettingsBloc.state.appSettings?.dictionary ?? const Locale('en'));
 
   final ILevelDatasource levelDataSource = LevelDatasource(sharedPreferences: sharedPreferences);
   await levelDataSource.runMigration();
   final levelRepository = LevelRepository(levelDataSource: levelDataSource);
 
-  final IStatisticsRepository statisticsRepository =
-      StatisticsRepository(statisticsDatasource: StatisticsDatasource(sharedPreferences: sharedPreferences));
+  final IStatisticsRepository statisticsRepository = StatisticsRepository(
+    statisticsDatasource: StatisticsDatasource(sharedPreferences: sharedPreferences),
+  );
 
   return DependenciesContainer(
     logger: logger,
@@ -131,9 +120,7 @@ Logger createAppLogger({List<LogObserver> observers = const []}) {
 /// Creates an instance of [AppSettingsBloc].
 ///
 /// The [AppSettingsBloc] is initialized at startup to load the app settings from local storage.
-Future<AppSettingsBloc> createAppSettingsBloc(
-  SharedPreferencesAsync sharedPreferences,
-) async {
+Future<AppSettingsBloc> createAppSettingsBloc(SharedPreferencesAsync sharedPreferences) async {
   final appSettingsRepository = AppSettingsRepositoryImpl(
     datasource: AppSettingsDatasourceImpl(sharedPreferences: sharedPreferences),
   );
@@ -141,8 +128,5 @@ Future<AppSettingsBloc> createAppSettingsBloc(
   final appSettings = await appSettingsRepository.getAppSettings();
   final initialState = AppSettingsState.idle(appSettings: appSettings);
 
-  return AppSettingsBloc(
-    appSettingsRepository: appSettingsRepository,
-    initialState: initialState,
-  );
+  return AppSettingsBloc(appSettingsRepository: appSettingsRepository, initialState: initialState);
 }

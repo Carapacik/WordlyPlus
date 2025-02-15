@@ -11,23 +11,17 @@ final class Localization extends AppLocalizations {
   Localization._({required this.locale});
 
   /// List of supported locales.
-  static List<Locale> get supportedLocales => AppLocalizations.delegate.supportedLocales;
+  static List<Locale> get supportedLocales => _delegate.supportedLocales;
 
   static const _delegate = AppLocalizations.delegate;
 
   /// List of localization delegates.
   static List<LocalizationsDelegate<void>> get localizationDelegates => [
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        _delegate,
-      ];
-
-  /// {@macro localization}
-  static Localization? get current => _current;
-
-  /// {@macro localization}
-  static Localization? _current;
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+    _delegate,
+  ];
 
   /// Locale which is currently used.
   final Locale locale;
@@ -46,7 +40,7 @@ final class Localization extends AppLocalizations {
       return locale;
     }
 
-    return const Locale('ru');
+    return const Locale('en');
   }
 
   /// Obtain [AppLocalizations] instance from [BuildContext].

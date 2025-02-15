@@ -40,9 +40,10 @@ class KeyboardEn extends StatelessWidget {
             for (var i = 0; i < KeyboardList.enKeyboard.$1.length; i++)
               KeyboardKey(
                 letter: KeyboardList.enKeyboard.$1[i],
-                status: statuses.containsKey(KeyboardList.enKeyboard.$1[i])
-                    ? statuses[KeyboardList.enKeyboard.$1[i]]!
-                    : LetterStatus.unknown,
+                status:
+                    statuses.containsKey(KeyboardList.enKeyboard.$1[i])
+                        ? statuses[KeyboardList.enKeyboard.$1[i]]!
+                        : LetterStatus.unknown,
               ),
           ],
         ),
@@ -53,9 +54,10 @@ class KeyboardEn extends StatelessWidget {
             for (var i = 0; i < KeyboardList.enKeyboard.$2.length; i++)
               KeyboardKey(
                 letter: KeyboardList.enKeyboard.$2[i],
-                status: statuses.containsKey(KeyboardList.enKeyboard.$2[i])
-                    ? statuses[KeyboardList.enKeyboard.$2[i]]!
-                    : LetterStatus.unknown,
+                status:
+                    statuses.containsKey(KeyboardList.enKeyboard.$2[i])
+                        ? statuses[KeyboardList.enKeyboard.$2[i]]!
+                        : LetterStatus.unknown,
               ),
           ],
         ),
@@ -67,9 +69,10 @@ class KeyboardEn extends StatelessWidget {
             for (var i = 0; i < KeyboardList.enKeyboard.$3.length; i++)
               KeyboardKey(
                 letter: KeyboardList.enKeyboard.$3[i],
-                status: statuses.containsKey(KeyboardList.enKeyboard.$3[i])
-                    ? statuses[KeyboardList.enKeyboard.$3[i]]!
-                    : LetterStatus.unknown,
+                status:
+                    statuses.containsKey(KeyboardList.enKeyboard.$3[i])
+                        ? statuses[KeyboardList.enKeyboard.$3[i]]!
+                        : LetterStatus.unknown,
               ),
             const DeleteKey(),
           ],
@@ -95,9 +98,10 @@ class KeyboardRu extends StatelessWidget {
             for (var i = 0; i < KeyboardList.ruKeyboard.$1.length; i++)
               KeyboardKey(
                 letter: KeyboardList.ruKeyboard.$1[i],
-                status: statuses.containsKey(KeyboardList.ruKeyboard.$1[i])
-                    ? statuses[KeyboardList.ruKeyboard.$1[i]]!
-                    : LetterStatus.unknown,
+                status:
+                    statuses.containsKey(KeyboardList.ruKeyboard.$1[i])
+                        ? statuses[KeyboardList.ruKeyboard.$1[i]]!
+                        : LetterStatus.unknown,
               ),
           ],
         ),
@@ -108,9 +112,10 @@ class KeyboardRu extends StatelessWidget {
             for (var i = 0; i < KeyboardList.ruKeyboard.$2.length; i++)
               KeyboardKey(
                 letter: KeyboardList.ruKeyboard.$2[i],
-                status: statuses.containsKey(KeyboardList.ruKeyboard.$2[i])
-                    ? statuses[KeyboardList.ruKeyboard.$2[i]]!
-                    : LetterStatus.unknown,
+                status:
+                    statuses.containsKey(KeyboardList.ruKeyboard.$2[i])
+                        ? statuses[KeyboardList.ruKeyboard.$2[i]]!
+                        : LetterStatus.unknown,
               ),
           ],
         ),
@@ -122,9 +127,10 @@ class KeyboardRu extends StatelessWidget {
             for (var i = 0; i < KeyboardList.ruKeyboard.$3.length; i++)
               KeyboardKey(
                 letter: KeyboardList.ruKeyboard.$3[i],
-                status: statuses.containsKey(KeyboardList.ruKeyboard.$3[i])
-                    ? statuses[KeyboardList.ruKeyboard.$3[i]]!
-                    : LetterStatus.unknown,
+                status:
+                    statuses.containsKey(KeyboardList.ruKeyboard.$3[i])
+                        ? statuses[KeyboardList.ruKeyboard.$3[i]]!
+                        : LetterStatus.unknown,
               ),
             const DeleteKey(),
           ],
@@ -154,12 +160,7 @@ class EnterKey extends StatelessWidget {
             onTap: () => context.read<GameBloc>().add(const GameEvent.enterPressed()),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
-              child: FittedBox(
-                child: Icon(
-                  Icons.send,
-                  color: LetterStatus.unknown.textColor(context),
-                ),
-              ),
+              child: FittedBox(child: Icon(Icons.send, color: LetterStatus.unknown.textColor(context))),
             ),
           ),
         ),
@@ -188,12 +189,7 @@ class DeleteKey extends StatelessWidget {
             onLongPress: () => context.read<GameBloc>().add(const GameEvent.deleteLongPressed()),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
-              child: FittedBox(
-                child: Icon(
-                  Icons.backspace_outlined,
-                  color: LetterStatus.unknown.textColor(context),
-                ),
-              ),
+              child: FittedBox(child: Icon(Icons.backspace_outlined, color: LetterStatus.unknown.textColor(context))),
             ),
           ),
         ),
@@ -203,11 +199,7 @@ class DeleteKey extends StatelessWidget {
 }
 
 class KeyboardKey extends StatelessWidget {
-  const KeyboardKey({
-    required this.letter,
-    required this.status,
-    super.key,
-  });
+  const KeyboardKey({required this.letter, required this.status, super.key});
 
   final String letter;
   final LetterStatus status;
@@ -233,10 +225,7 @@ class KeyboardKey extends StatelessWidget {
               child: FittedBox(
                 child: Text(
                   letter.toUpperCase(),
-                  style: TextStyle(
-                    color: status.textColor(context),
-                    fontFamily: FontFamily.robotoMono,
-                  ),
+                  style: TextStyle(color: status.textColor(context), fontFamily: FontFamily.robotoMono),
                 ),
               ),
             ),

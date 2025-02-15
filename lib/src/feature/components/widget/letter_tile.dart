@@ -3,13 +3,7 @@ import 'package:wordly/src/core/resources/resources.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
 
 class LetterTile extends StatelessWidget {
-  const LetterTile({
-    required this.info,
-    this.selected = false,
-    this.onTap,
-    this.color,
-    super.key,
-  });
+  const LetterTile({required this.info, this.selected = false, this.onTap, this.color, super.key});
 
   final LetterInfo info;
   final bool selected;
@@ -27,10 +21,7 @@ class LetterTile extends StatelessWidget {
           decoration: BoxDecoration(
             color: color ?? info.status.cellColor(context),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              width: 3,
-              color: selected ? AppColors.red : Colors.transparent,
-            ),
+            border: Border.all(width: 3, color: selected ? AppColors.red : Colors.transparent),
           ),
           child: Padding(
             padding: const EdgeInsets.all(12),

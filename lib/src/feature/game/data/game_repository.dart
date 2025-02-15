@@ -49,10 +49,10 @@ final class GameRepository implements IGameRepository {
 
   @override
   Map<String, String> currentDictionary(Locale dictionary) => switch (dictionary.languageCode) {
-        'ru' => _ruDictionary,
-        'en' => _enDictionary,
-        _ => _enDictionary,
-      };
+    'ru' => _ruDictionary,
+    'en' => _enDictionary,
+    _ => _enDictionary,
+  };
 
   @override
   String generateSecretWord(Locale dictionary, {int levelNumber = 0}) {

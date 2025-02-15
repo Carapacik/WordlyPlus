@@ -16,13 +16,14 @@ class BlocScope extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => GameBloc(
-            gameRepository: context.dependencies.gameRepository,
-            statisticsRepository: context.dependencies.statisticsRepository,
-            levelRepository: context.dependencies.levelRepository,
-            dictionary: dictionary ?? Localization.computeDefaultLocale(withDictionary: true),
-            savedResult: context.dependencies.gameRepository.savedResult,
-          ),
+          create:
+              (context) => GameBloc(
+                gameRepository: context.dependencies.gameRepository,
+                statisticsRepository: context.dependencies.statisticsRepository,
+                levelRepository: context.dependencies.levelRepository,
+                dictionary: dictionary ?? Localization.computeDefaultLocale(withDictionary: true),
+                savedResult: context.dependencies.gameRepository.savedResult,
+              ),
         ),
       ],
       child: child,

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 @immutable
 class BackgroundCustomColors extends ThemeExtension<BackgroundCustomColors> {
-  const BackgroundCustomColors({
-    required this.background,
-  });
+  const BackgroundCustomColors({required this.background});
 
   final Color? background;
 

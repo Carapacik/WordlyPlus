@@ -11,30 +11,24 @@ import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 @immutable
 final class AppTheme with Diagnosticable {
   /// {@macro app_theme}
-  AppTheme({
-    required this.themeMode,
-    required this.colorMode,
-    this.otherColors,
-  })  : lightTheme = ThemeData(
-          brightness: Brightness.light,
-          extensions: const [BackgroundCustomColors(background: Colors.white)],
-          appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.white,
-            surfaceTintColor: Colors.white,
-          ),
-          colorSchemeSeed: colorMode == ColorMode.other ? otherColors?.$1 ?? AppColors.green : AppColors.green,
-          fontFamily: FontFamily.nunito,
+  AppTheme({required this.themeMode, required this.colorMode, this.otherColors})
+    : lightTheme = ThemeData(
+        brightness: Brightness.light,
+        extensions: const [BackgroundCustomColors(background: Colors.white)],
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.white, surfaceTintColor: Colors.white),
+        colorSchemeSeed: colorMode == ColorMode.other ? otherColors?.$1 ?? AppColors.green : AppColors.green,
+        fontFamily: FontFamily.nunito,
+      ),
+      darkTheme = ThemeData(
+        brightness: Brightness.dark,
+        extensions: const [BackgroundCustomColors(background: AppColors.darkBackground)],
+        appBarTheme: const AppBarTheme(
+          backgroundColor: AppColors.darkBackground,
+          surfaceTintColor: AppColors.darkBackground,
         ),
-        darkTheme = ThemeData(
-          brightness: Brightness.dark,
-          extensions: const [BackgroundCustomColors(background: AppColors.darkBackground)],
-          appBarTheme: const AppBarTheme(
-            backgroundColor: AppColors.darkBackground,
-            surfaceTintColor: AppColors.darkBackground,
-          ),
-          colorSchemeSeed: colorMode == ColorMode.other ? otherColors?.$1 ?? AppColors.green : AppColors.green,
-          fontFamily: FontFamily.nunito,
-        );
+        colorSchemeSeed: colorMode == ColorMode.other ? otherColors?.$1 ?? AppColors.green : AppColors.green,
+        fontFamily: FontFamily.nunito,
+      );
 
   /// The type of theme to use.
   final ThemeMode themeMode;
@@ -46,10 +40,7 @@ final class AppTheme with Diagnosticable {
   final (Color, Color, Color)? otherColors;
 
   /// The default [AppTheme].
-  static AppTheme defaultTheme = AppTheme(
-    themeMode: ThemeMode.system,
-    colorMode: ColorMode.casual,
-  );
+  static AppTheme defaultTheme = AppTheme(themeMode: ThemeMode.system, colorMode: ColorMode.casual);
 
   /// The dark [ThemeData] for this [AppTheme].
   final ThemeData darkTheme;
@@ -57,40 +48,35 @@ final class AppTheme with Diagnosticable {
   /// The light [ThemeData] for this [AppTheme].
   final ThemeData lightTheme;
 
-  AppTheme copyWith({
-    ThemeMode? themeMode,
-    ColorMode? colorMode,
-    (Color, Color, Color)? otherColors,
-  }) =>
-      AppTheme(
-        themeMode: themeMode ?? this.themeMode,
-        colorMode: colorMode ?? this.colorMode,
-        otherColors: otherColors ?? this.otherColors,
-      );
+  AppTheme copyWith({ThemeMode? themeMode, ColorMode? colorMode, (Color, Color, Color)? otherColors}) => AppTheme(
+    themeMode: themeMode ?? this.themeMode,
+    colorMode: colorMode ?? this.colorMode,
+    otherColors: otherColors ?? this.otherColors,
+  );
 
   /// Builds a [ThemeData] based on the [themeMode] and [colorMode].
   ///
   /// This can also be used to add additional properties to the [ThemeData],
   /// such as extensions or custom properties.
   ThemeData buildThemeData(ThemeMode themeMode) => switch (themeMode) {
-        ThemeMode.light => lightTheme,
-        ThemeMode.dark => darkTheme,
-        ThemeMode.system => PlatformDispatcher.instance.platformBrightness == Brightness.dark ? darkTheme : lightTheme
-      };
+    ThemeMode.light => lightTheme,
+    ThemeMode.dark => darkTheme,
+    ThemeMode.system => PlatformDispatcher.instance.platformBrightness == Brightness.dark ? darkTheme : lightTheme,
+  };
 
   bool isDarkTheme(BuildContext context) => context.theme.brightness == Brightness.dark;
 
   Color get correctColor => switch (colorMode) {
-        ColorMode.casual => AppColors.green,
-        ColorMode.highContrast => AppColors.orange,
-        ColorMode.other => otherColors?.$1 ?? AppColors.green
-      };
+    ColorMode.casual => AppColors.green,
+    ColorMode.highContrast => AppColors.orange,
+    ColorMode.other => otherColors?.$1 ?? AppColors.green,
+  };
 
   Color get wrongSpotColor => switch (colorMode) {
-        ColorMode.casual => AppColors.yellow,
-        ColorMode.highContrast => AppColors.blue,
-        ColorMode.other => otherColors?.$2 ?? AppColors.yellow
-      };
+    ColorMode.casual => AppColors.yellow,
+    ColorMode.highContrast => AppColors.blue,
+    ColorMode.other => otherColors?.$2 ?? AppColors.yellow,
+  };
 
   Color notInWordColor(BuildContext context) {
     final isDark = isDarkTheme(context);

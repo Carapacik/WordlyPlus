@@ -53,10 +53,7 @@ final class LevelDatasource implements ILevelDatasource {
     if (migrationVersion == null || migrationVersion < 1) {
       return;
     }
-    const dictionaries = [
-      Locale('en'),
-      Locale('ru'),
-    ];
+    const dictionaries = [Locale('en'), Locale('ru')];
     for (final dictionary in dictionaries) {
       try {
         final levels = await _levels(dictionary.languageCode).read();
@@ -77,8 +74,9 @@ final class LevelDatasource implements ILevelDatasource {
             lvlNumber: index + 1,
           );
         });
-        await _levels(dictionary.languageCode)
-            .set(newLevels.map((e) => json.encode(e.toJson())).toList(growable: false));
+        await _levels(
+          dictionary.languageCode,
+        ).set(newLevels.map((e) => json.encode(e.toJson())).toList(growable: false));
       } on Object {
         // nothing
       }

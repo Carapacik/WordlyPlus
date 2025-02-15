@@ -55,12 +55,7 @@ class _GamePageState extends State<GamePage> {
       if (isFirstEnter) {
         unawaited(gameRepository.setFirstEnter());
         unawaited(
-          navigator.push(
-            MaterialPageRoute<void>(
-              builder: (context) => const TutorialPage(),
-              fullscreenDialog: true,
-            ),
-          ),
+          navigator.push(MaterialPageRoute<void>(builder: (context) => const TutorialPage(), fullscreenDialog: true)),
         );
         return;
       }
@@ -88,10 +83,13 @@ class _GamePageState extends State<GamePage> {
         appBar: AppBar(
           centerTitle: true,
           title: BlocBuilder<GameBloc, GameState>(
-            builder: (context, state) => Text(
-              state.gameMode == GameMode.daily ? context.l10n.daily : context.l10n.levelNumber(state.lvlNumber ?? 1),
-              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
-            ),
+            builder:
+                (context, state) => Text(
+                  state.gameMode == GameMode.daily
+                      ? context.l10n.daily
+                      : context.l10n.levelNumber(state.lvlNumber ?? 1),
+                  style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
+                ),
           ),
           actions: [
             BlocBuilder<GameBloc, GameState>(
@@ -103,10 +101,12 @@ class _GamePageState extends State<GamePage> {
                     onPressed: () async {
                       await Navigator.of(context).push(
                         MaterialPageRoute<void>(
-                          builder: (context) => StatisticPage(
-                            dictionary: SettingsScope.settingsOf(context).dictionary ??
-                                Localization.computeDefaultLocale(withDictionary: true),
-                          ),
+                          builder:
+                              (context) => StatisticPage(
+                                dictionary:
+                                    SettingsScope.settingsOf(context).dictionary ??
+                                    Localization.computeDefaultLocale(withDictionary: true),
+                              ),
                         ),
                       );
                     },
@@ -118,10 +118,12 @@ class _GamePageState extends State<GamePage> {
                     onPressed: () async {
                       await Navigator.of(context).push(
                         MaterialPageRoute<void>(
-                          builder: (context) => LevelPage(
-                            dictionary: SettingsScope.settingsOf(context).dictionary ??
-                                Localization.computeDefaultLocale(withDictionary: true),
-                          ),
+                          builder:
+                              (context) => LevelPage(
+                                dictionary:
+                                    SettingsScope.settingsOf(context).dictionary ??
+                                    Localization.computeDefaultLocale(withDictionary: true),
+                              ),
                         ),
                       );
                     },
@@ -145,12 +147,13 @@ class GameBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final useSpacer = MediaQuery.sizeOf(context).height > 800;
     return BlocListener<GameBloc, GameState>(
-      listenWhen: (previous, current) =>
-          (previous.gameCompleted != current.gameCompleted &&
-              previous.gameMode == current.gameMode &&
-              previous.dictionary == current.dictionary &&
-              current.isResultState) ||
-          current.isErrorState,
+      listenWhen:
+          (previous, current) =>
+              (previous.gameCompleted != current.gameCompleted &&
+                  previous.gameMode == current.gameMode &&
+                  previous.dictionary == current.dictionary &&
+                  current.isResultState) ||
+              current.isErrorState,
       listener: (context, state) {
         if (state.isResultState) {
           final bloc = context.read<GameBloc>();
@@ -161,12 +164,13 @@ class GameBody extends StatelessWidget {
               context.dependencies.gameRepository.currentDictionary(state.dictionary)[state.secretWord] ?? '',
               state.gameMode,
               isWin: state.maybeMap(win: (_) => true, orElse: () => false),
-              onTimerEnd: GameMode.daily == state.gameMode
-                  ? () {
-                      Navigator.of(context).pop();
-                      bloc.add(GameEvent.resetBoard(state.gameMode));
-                    }
-                  : null,
+              onTimerEnd:
+                  GameMode.daily == state.gameMode
+                      ? () {
+                        Navigator.of(context).pop();
+                        bloc.add(GameEvent.resetBoard(state.gameMode));
+                      }
+                      : null,
               shareString: shareString(context, state.buildResultString),
               nextLevelPressed: () {
                 Navigator.of(context).pop();

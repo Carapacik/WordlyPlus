@@ -7,16 +7,12 @@ import 'package:wordly/src/feature/statistic/model/game_statistics.dart';
 abstract interface class IStatisticsRepository {
   Future<GameStatistics?> getStatistics(Locale dictionary);
 
-  Future<void> setStatistics(
-    Locale dictionary, {
-    required bool isWin,
-    required int attempt,
-  });
+  Future<void> setStatistics(Locale dictionary, {required bool isWin, required int attempt});
 }
 
 final class StatisticsRepository implements IStatisticsRepository {
   const StatisticsRepository({required IStatisticsDatasource statisticsDatasource})
-      : _statisticsDatasource = statisticsDatasource;
+    : _statisticsDatasource = statisticsDatasource;
 
   final IStatisticsDatasource _statisticsDatasource;
 
@@ -25,24 +21,14 @@ final class StatisticsRepository implements IStatisticsRepository {
       _statisticsDatasource.getStatistics(dictionary.languageCode);
 
   @override
-  Future<void> setStatistics(
-    Locale dictionary, {
-    required bool isWin,
-    required int attempt,
-  }) async {
+  Future<void> setStatistics(Locale dictionary, {required bool isWin, required int attempt}) async {
     final previousStatistic = await _statisticsDatasource.getStatistics(dictionary.languageCode);
     final currentStatistic = GameStatistics(
       loses: _calculateLoses(isWin: isWin, previous: previousStatistic?.loses),
       wins: _calculateWins(isWin: isWin, previous: previousStatistic?.wins),
       streak: _calculateStreak(isWin: isWin, previous: previousStatistic?.streak),
-      maxStreak: _calculateMaxStreak(
-        isWin: isWin,
-        previous: previousStatistic?.maxStreak,
-      ),
-      attempts: _calculateAttempts(
-        attempt: isWin ? attempt - 1 : -1,
-        previous: previousStatistic?.attempts,
-      ),
+      maxStreak: _calculateMaxStreak(isWin: isWin, previous: previousStatistic?.maxStreak),
+      attempts: _calculateAttempts(attempt: isWin ? attempt - 1 : -1, previous: previousStatistic?.attempts),
     );
     await _statisticsDatasource.setStatistics(dictionary.languageCode, currentStatistic);
   }
@@ -87,10 +73,7 @@ final class StatisticsRepository implements IStatisticsRepository {
     return previous + 1;
   }
 
-  List<int> _calculateAttempts({
-    required int attempt,
-    required List<int>? previous,
-  }) {
+  List<int> _calculateAttempts({required int attempt, required List<int>? previous}) {
     if (attempt == -1) {
       return previous ?? GameStatistics.zeroAttempts;
     }

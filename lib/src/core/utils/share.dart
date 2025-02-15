@@ -10,8 +10,9 @@ String? shareString(BuildContext context, (bool, int, List<LetterInfo>)? result)
   if (result == null) {
     return null;
   }
-  final sb = StringBuffer()
-    ..writeln(result.$1 ? context.l10n.checkResultWin(result.$2) : context.l10n.checkResultLose(result.$2));
+  final sb =
+      StringBuffer()
+        ..writeln(result.$1 ? context.l10n.checkResultWin(result.$2) : context.l10n.checkResultLose(result.$2));
   for (final e in _splitBy5Symbols(result.$3)) {
     sb.writeln(e);
   }
@@ -22,8 +23,8 @@ String? shareString(BuildContext context, (bool, int, List<LetterInfo>)? result)
       kIsWeb
           ? const ApplicationConfig().webLink
           : Platform.isAndroid
-              ? const ApplicationConfig().androidLink
-              : const ApplicationConfig().webLink,
+          ? const ApplicationConfig().androidLink
+          : const ApplicationConfig().webLink,
     );
   return sb.toString();
 }

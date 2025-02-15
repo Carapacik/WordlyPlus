@@ -5,12 +5,7 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class InitializationFailedApp extends StatefulWidget {
   /// {@macro initialization_failed_screen}
-  const InitializationFailedApp({
-    required this.error,
-    required this.stackTrace,
-    this.onRetryInitialization,
-    super.key,
-  });
+  const InitializationFailedApp({required this.error, required this.stackTrace, this.onRetryInitialization, super.key});
 
   /// The error that caused the initialization to fail.
   final Object error;
@@ -45,41 +40,32 @@ class _InitializationFailedAppState extends State<InitializationFailedApp> {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-        home: Scaffold(
-          body: Center(
-            child: Column(
+    home: Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Initialization failed',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    if (widget.onRetryInitialization != null)
-                      IconButton(
-                        icon: const Icon(Icons.refresh),
-                        onPressed: _retryInitialization,
-                      ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  '${widget.error}',
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.error),
-                ),
-                const SizedBox(height: 16),
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Text(
-                    '${widget.stackTrace}',
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ),
+                Text('Initialization failed', style: Theme.of(context).textTheme.headlineMedium),
+                if (widget.onRetryInitialization != null)
+                  IconButton(icon: const Icon(Icons.refresh), onPressed: _retryInitialization),
               ],
             ),
-          ),
+            const SizedBox(height: 16),
+            Text(
+              '${widget.error}',
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.error),
+            ),
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Text('${widget.stackTrace}', style: Theme.of(context).textTheme.bodyLarge),
+            ),
+          ],
         ),
-      );
+      ),
+    ),
+  );
 }

@@ -60,10 +60,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
       backgroundColor: context.theme.extension<BackgroundCustomColors>()?.background,
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          context.l10n.colorMode,
-          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
-        ),
+        title: Text(context.l10n.colorMode, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32)),
       ),
       body: ConstraintScreen(
         child: ListView(
@@ -78,22 +75,21 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
                   primary: false,
                   scrollDirection: Axis.horizontal,
                   itemCount: word.length,
-                  separatorBuilder: (_, __) => const SizedBox(width: 8),
-                  itemBuilder: (context, index) => LetterTile(
-                    info: word[index],
-                    color: _currentColorByStatus(
-                      _currentColorMode,
-                      word[index].status,
-                    ),
-                    selected: _currentSelectedTileIndex == index,
-                    onTap: _currentColorMode == ColorMode.other
-                        ? () {
-                            if (word[index].status != LetterStatus.unknown) {
-                              setState(() => _currentSelectedTileIndex = index);
-                            }
-                          }
-                        : null,
-                  ),
+                  separatorBuilder: (_, _) => const SizedBox(width: 8),
+                  itemBuilder:
+                      (context, index) => LetterTile(
+                        info: word[index],
+                        color: _currentColorByStatus(_currentColorMode, word[index].status),
+                        selected: _currentSelectedTileIndex == index,
+                        onTap:
+                            _currentColorMode == ColorMode.other
+                                ? () {
+                                  if (word[index].status != LetterStatus.unknown) {
+                                    setState(() => _currentSelectedTileIndex = index);
+                                  }
+                                }
+                                : null,
+                      ),
                 ),
               ),
             ),
@@ -103,22 +99,21 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
               itemCount: ColorMode.values.length,
               padding: EdgeInsets.zero,
               physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => ListTile(
-                title: Text(
-                  ColorMode.values[index].localized(context),
-                  style: const TextStyle(fontSize: 16),
-                ),
-                trailing: _currentColorMode == ColorMode.values[index] ? const Icon(Icons.check) : null,
-                onTap: () => setState(() {
-                  _currentColorMode = ColorMode.values[index];
-                  if (_currentColorMode != ColorMode.other) {
-                    _currentSelectedTileIndex = null;
-                  } else {
-                    _currentSelectedTileIndex ??= 0;
-                  }
-                  _changeTheme(context);
-                }),
-              ),
+              itemBuilder:
+                  (context, index) => ListTile(
+                    title: Text(ColorMode.values[index].localized(context), style: const TextStyle(fontSize: 16)),
+                    trailing: _currentColorMode == ColorMode.values[index] ? const Icon(Icons.check) : null,
+                    onTap:
+                        () => setState(() {
+                          _currentColorMode = ColorMode.values[index];
+                          if (_currentColorMode != ColorMode.other) {
+                            _currentSelectedTileIndex = null;
+                          } else {
+                            _currentSelectedTileIndex ??= 0;
+                          }
+                          _changeTheme(context);
+                        }),
+                  ),
             ),
             const SizedBox(height: 8),
             if (_currentColorMode == ColorMode.other && _currentSelectedTileIndex != null)
@@ -127,7 +122,8 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
                 enableAlpha: false,
                 labelTypes: const [],
                 pickerAreaBorderRadius: const BorderRadius.all(Radius.circular(8)),
-                pickerColor: _currentColorByStatus(
+                pickerColor:
+                    _currentColorByStatus(
                       _currentColorMode,
                       _currentSelectedTileIndex == null ? null : word[_currentSelectedTileIndex!].status,
                     ) ??
@@ -138,7 +134,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
                     _currentOtherColors = (
                       status == LetterStatus.correctSpot ? color : _currentOtherColors.$1,
                       status == LetterStatus.wrongSpot ? color : _currentOtherColors.$2,
-                      status == LetterStatus.notInWord ? color : _currentOtherColors.$3
+                      status == LetterStatus.notInWord ? color : _currentOtherColors.$3,
                     );
                     _changeTheme(context);
                   });
@@ -163,20 +159,20 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
   }
 
   List<LetterInfo> _wordByDictionary(Locale dictionary) => switch (dictionary.languageCode) {
-        'en' => const [
-            LetterInfo(letter: 'p', status: LetterStatus.correctSpot),
-            LetterInfo(letter: 'a'),
-            LetterInfo(letter: 'u', status: LetterStatus.notInWord),
-            LetterInfo(letter: 's', status: LetterStatus.wrongSpot),
-            LetterInfo(letter: 'e'),
-          ],
-        'ru' => const [
-            LetterInfo(letter: 'п', status: LetterStatus.correctSpot),
-            LetterInfo(letter: 'а'),
-            LetterInfo(letter: 'у', status: LetterStatus.notInWord),
-            LetterInfo(letter: 'з', status: LetterStatus.wrongSpot),
-            LetterInfo(letter: 'а'),
-          ],
-        _ => []
-      };
+    'en' => const [
+      LetterInfo(letter: 'p', status: LetterStatus.correctSpot),
+      LetterInfo(letter: 'a'),
+      LetterInfo(letter: 'u', status: LetterStatus.notInWord),
+      LetterInfo(letter: 's', status: LetterStatus.wrongSpot),
+      LetterInfo(letter: 'e'),
+    ],
+    'ru' => const [
+      LetterInfo(letter: 'п', status: LetterStatus.correctSpot),
+      LetterInfo(letter: 'а'),
+      LetterInfo(letter: 'у', status: LetterStatus.notInWord),
+      LetterInfo(letter: 'з', status: LetterStatus.wrongSpot),
+      LetterInfo(letter: 'а'),
+    ],
+    _ => [],
+  };
 }

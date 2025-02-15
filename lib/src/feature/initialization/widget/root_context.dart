@@ -23,7 +23,7 @@ class RootContext extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => DependenciesScope(
-        dependencies: compositionResult.dependencies,
-        child: const SettingsScope(child: BlocScope(child: WindowSizeScope(child: MaterialContext()))),
-      );
+    dependencies: compositionResult.dependencies,
+    child: const SettingsScope(child: BlocScope(child: WindowSizeScope(child: MaterialContext()))),
+  );
 }

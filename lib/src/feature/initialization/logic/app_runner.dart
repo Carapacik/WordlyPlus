@@ -23,46 +23,33 @@ sealed class AppRunner {
   static Future<void> startup() async {
     const config = ApplicationConfig();
 
-    final logger = createAppLogger(
-      observers: [
-        if (!kReleaseMode) const PrintingLogObserver(logLevel: LogLevel.trace),
-      ],
-    );
+    final logger = createAppLogger(observers: [if (!kReleaseMode) const PrintingLogObserver(logLevel: LogLevel.trace)]);
 
-    await runZonedGuarded(
-      () async {
-        // Ensure Flutter is initialized
-        WidgetsFlutterBinding.ensureInitialized();
+    await runZonedGuarded(() async {
+      // Ensure Flutter is initialized
+      WidgetsFlutterBinding.ensureInitialized();
 
-        // Configure global error interception
-        FlutterError.onError = logger.logFlutterError;
-        WidgetsBinding.instance.platformDispatcher.onError = logger.logPlatformDispatcherError;
+      // Configure global error interception
+      FlutterError.onError = logger.logFlutterError;
+      WidgetsBinding.instance.platformDispatcher.onError = logger.logPlatformDispatcherError;
 
-        // Setup bloc observer and transformer
-        Bloc.observer = AppBlocObserver(logger);
-        Bloc.transformer = SequentialBlocTransformer<Object?>().transform;
+      // Setup bloc observer and transformer
+      Bloc.observer = AppBlocObserver(logger);
+      Bloc.transformer = SequentialBlocTransformer<Object?>().transform;
 
-        Future<void> launchApplication() async {
-          try {
-            final compositionResult = await CompositionRoot(config: config, logger: logger).compose();
+      Future<void> launchApplication() async {
+        try {
+          final compositionResult = await CompositionRoot(config: config, logger: logger).compose();
 
-            runApp(RootContext(compositionResult: compositionResult));
-          } on Object catch (e, stackTrace) {
-            logger.error('Initialization failed', error: e, stackTrace: stackTrace);
-            runApp(
-              InitializationFailedApp(
-                error: e,
-                stackTrace: stackTrace,
-                onRetryInitialization: launchApplication,
-              ),
-            );
-          }
+          runApp(RootContext(compositionResult: compositionResult));
+        } on Object catch (e, stackTrace) {
+          logger.error('Initialization failed', error: e, stackTrace: stackTrace);
+          runApp(InitializationFailedApp(error: e, stackTrace: stackTrace, onRetryInitialization: launchApplication));
         }
+      }
 
-        // Launch the application
-        await launchApplication();
-      },
-      logger.logZoneError,
-    );
+      // Launch the application
+      await launchApplication();
+    }, logger.logZoneError);
   }
 }

@@ -34,10 +34,7 @@ class _LevelPageState extends State<LevelPage> {
         backgroundColor: context.theme.extension<BackgroundCustomColors>()?.background,
         appBar: AppBar(
           centerTitle: true,
-          title: Text(
-            context.l10n.levels,
-            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
-          ),
+          title: Text(context.l10n.levels, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32)),
         ),
         body: ConstraintScreen(
           child: FutureBuilder(
@@ -55,10 +52,7 @@ class _LevelPageState extends State<LevelPage> {
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
                 ),
-                itemBuilder: (context, index) => _LevelItem(
-                  level: levels[index],
-                  dictionary: widget.dictionary,
-                ),
+                itemBuilder: (context, index) => _LevelItem(level: levels[index], dictionary: widget.dictionary),
               );
             },
           ),
@@ -81,9 +75,10 @@ class _LevelItem extends StatelessWidget {
       child: Material(
         clipBehavior: Clip.hardEdge,
         borderRadius: BorderRadius.circular(8),
-        color: level.isWin == null
-            ? AppColors.grey
-            : level.isWin!
+        color:
+            level.isWin == null
+                ? AppColors.grey
+                : level.isWin!
                 ? AppColors.green
                 : AppColors.red,
         child: InkWell(

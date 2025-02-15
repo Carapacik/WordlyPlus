@@ -8,18 +8,13 @@ import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 class LetterInfo {
   const LetterInfo({required this.letter, this.status = LetterStatus.unknown});
 
-  factory LetterInfo.fromJson(Map<String, dynamic> json) => LetterInfo(
-        letter: json['letter'] as String,
-        status: LetterStatus.values[json['status'] as int],
-      );
+  factory LetterInfo.fromJson(Map<String, dynamic> json) =>
+      LetterInfo(letter: json['letter'] as String, status: LetterStatus.values[json['status'] as int]);
 
   final String letter;
   final LetterStatus status;
 
-  Map<String, Object?> toJson() => <String, Object?>{
-        'letter': letter,
-        'status': status.index,
-      };
+  Map<String, Object?> toJson() => <String, Object?>{'letter': letter, 'status': status.index};
 
   @override
   bool operator ==(Object other) =>
@@ -47,7 +42,7 @@ enum LetterStatus {
       LetterStatus.correctSpot => theme.correctColor,
       LetterStatus.wrongSpot => theme.wrongSpotColor,
       LetterStatus.notInWord => theme.notInWordColor(context),
-      LetterStatus.unknown => theme.unknownColor(context)
+      LetterStatus.unknown => theme.unknownColor(context),
     };
   }
 
@@ -73,9 +68,9 @@ enum LetterStatus {
   }
 
   String get emoji => switch (this) {
-        LetterStatus.correctSpot => '🟩',
-        LetterStatus.wrongSpot => '🟨',
-        LetterStatus.notInWord => '⬛',
-        LetterStatus.unknown => ''
-      };
+    LetterStatus.correctSpot => '🟩',
+    LetterStatus.wrongSpot => '🟨',
+    LetterStatus.notInWord => '⬛',
+    LetterStatus.unknown => '',
+  };
 }

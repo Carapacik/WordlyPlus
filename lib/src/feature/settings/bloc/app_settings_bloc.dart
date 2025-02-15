@@ -8,11 +8,9 @@ import 'package:wordly/src/feature/settings/model/app_settings.dart';
 /// {@endtemplate}
 final class AppSettingsBloc extends Bloc<AppSettingsEvent, AppSettingsState> {
   /// {@macro app_settings_bloc}
-  AppSettingsBloc({
-    required AppSettingsRepository appSettingsRepository,
-    required AppSettingsState initialState,
-  })  : _appSettingsRepository = appSettingsRepository,
-        super(initialState) {
+  AppSettingsBloc({required AppSettingsRepository appSettingsRepository, required AppSettingsState initialState})
+    : _appSettingsRepository = appSettingsRepository,
+      super(initialState) {
     on<AppSettingsEvent>(
       (event, emit) async => switch (event) {
         final _UpdateAppSettingsEvent e => _updateAppSettings(e, emit),
@@ -22,10 +20,7 @@ final class AppSettingsBloc extends Bloc<AppSettingsEvent, AppSettingsState> {
 
   final AppSettingsRepository _appSettingsRepository;
 
-  Future<void> _updateAppSettings(
-    _UpdateAppSettingsEvent event,
-    Emitter<AppSettingsState> emit,
-  ) async {
+  Future<void> _updateAppSettings(_UpdateAppSettingsEvent event, Emitter<AppSettingsState> emit) async {
     try {
       emit(_LoadingAppSettingsState(appSettings: state.appSettings));
       await _appSettingsRepository.setAppSettings(event.appSettings);
@@ -48,10 +43,7 @@ sealed class AppSettingsState {
   const factory AppSettingsState.loading({AppSettings? appSettings}) = _LoadingAppSettingsState;
 
   /// The app settings have an error.
-  const factory AppSettingsState.error({
-    required Object error,
-    AppSettings? appSettings,
-  }) = _ErrorAppSettingsState;
+  const factory AppSettingsState.error({required Object error, AppSettings? appSettings}) = _ErrorAppSettingsState;
 
   /// Application locale.
   final AppSettings? appSettings;
@@ -122,9 +114,7 @@ sealed class AppSettingsEvent {
   const AppSettingsEvent();
 
   /// Update the app settings.
-  const factory AppSettingsEvent.updateAppSettings({
-    required AppSettings appSettings,
-  }) = _UpdateAppSettingsEvent;
+  const factory AppSettingsEvent.updateAppSettings({required AppSettings appSettings}) = _UpdateAppSettingsEvent;
 }
 
 final class _UpdateAppSettingsEvent extends AppSettingsEvent {

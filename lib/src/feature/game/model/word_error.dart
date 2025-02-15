@@ -6,7 +6,7 @@ enum WordError {
   tooShort;
 
   String localizedText(BuildContext context) => switch (this) {
-        WordError.notFound => context.l10n.wordNotFound,
-        WordError.tooShort => context.l10n.wordTooShort
-      };
+    WordError.notFound => context.l10n.wordNotFound,
+    WordError.tooShort => context.l10n.wordTooShort,
+  };
 }

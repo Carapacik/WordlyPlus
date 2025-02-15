@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -28,10 +29,7 @@ class AppLocalizations {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<AppLocalizations> load(Locale locale) {
-    final name =
-        (locale.countryCode?.isEmpty ?? false)
-            ? locale.languageCode
-            : locale.toString();
+    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -62,32 +60,17 @@ class AppLocalizations {
 
   /// `App dictionary`
   String get appDictionary {
-    return Intl.message(
-      'App dictionary',
-      name: 'appDictionary',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('App dictionary', name: 'appDictionary', desc: '', args: []);
   }
 
   /// `App language`
   String get appLanguage {
-    return Intl.message(
-      'App language',
-      name: 'appLanguage',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('App language', name: 'appLanguage', desc: '', args: []);
   }
 
   /// `Wordly Plus`
   String get appTitle {
-    return Intl.message(
-      'Wordly Plus',
-      name: 'appTitle',
-      desc: 'The title of the application',
-      args: [],
-    );
+    return Intl.message('Wordly Plus', name: 'appTitle', desc: 'The title of the application', args: []);
   }
 
   /// `Default`
@@ -97,12 +80,7 @@ class AppLocalizations {
 
   /// `You can check your result here:`
   String get checkResult {
-    return Intl.message(
-      'You can check your result here:',
-      name: 'checkResult',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('You can check your result here:', name: 'checkResult', desc: '', args: []);
   }
 
   /// `I couldn't guess the word in {attemptNumber} attempts.`
@@ -142,12 +120,7 @@ class AppLocalizations {
 
   /// `Current\nStreak`
   String get currentStreak {
-    return Intl.message(
-      'Current\nStreak',
-      name: 'currentStreak',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Current\nStreak', name: 'currentStreak', desc: '', args: []);
   }
 
   /// `Daily`
@@ -167,32 +140,17 @@ class AppLocalizations {
 
   /// `Guess distribution`
   String get guessDistribution {
-    return Intl.message(
-      'Guess distribution',
-      name: 'guessDistribution',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Guess distribution', name: 'guessDistribution', desc: '', args: []);
   }
 
   /// `High contrast`
   String get highContrast {
-    return Intl.message(
-      'High contrast',
-      name: 'highContrast',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('High contrast', name: 'highContrast', desc: '', args: []);
   }
 
   /// `Level {number}`
   String levelNumber(Object number) {
-    return Intl.message(
-      'Level $number',
-      name: 'levelNumber',
-      desc: '',
-      args: [number],
-    );
+    return Intl.message('Level $number', name: 'levelNumber', desc: '', args: [number]);
   }
 
   /// `Levels`
@@ -212,12 +170,7 @@ class AppLocalizations {
 
   /// `A new word will be available each day!`
   String get newWordAvailableEachDay {
-    return Intl.message(
-      'A new word will be available each day!',
-      name: 'newWordAvailableEachDay',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('A new word will be available each day!', name: 'newWordAvailableEachDay', desc: '', args: []);
   }
 
   /// `Next level`
@@ -232,12 +185,7 @@ class AppLocalizations {
 
   /// `You haven't played a single game`
   String get notPlayed {
-    return Intl.message(
-      'You haven\'t played a single game',
-      name: 'notPlayed',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('You haven\'t played a single game', name: 'notPlayed', desc: '', args: []);
   }
 
   /// `Other`
@@ -347,12 +295,7 @@ class AppLocalizations {
 
   /// `Guess the WORD in 6 tries.`
   String get tutorialTitle {
-    return Intl.message(
-      'Guess the WORD in 6 tries.',
-      name: 'tutorialTitle',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Guess the WORD in 6 tries.', name: 'tutorialTitle', desc: '', args: []);
   }
 
   /// `The letter P is in the word and in the correct spot.`
@@ -382,12 +325,7 @@ class AppLocalizations {
 
   /// `View statistic`
   String get viewStatistic {
-    return Intl.message(
-      'View statistic',
-      name: 'viewStatistic',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('View statistic', name: 'viewStatistic', desc: '', args: []);
   }
 
   /// `You win!`
@@ -402,22 +340,12 @@ class AppLocalizations {
 
   /// `Word not found in dictionary`
   String get wordNotFound {
-    return Intl.message(
-      'Word not found in dictionary',
-      name: 'wordNotFound',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Word not found in dictionary', name: 'wordNotFound', desc: '', args: []);
   }
 
   /// `Word is not correct length`
   String get wordTooShort {
-    return Intl.message(
-      'Word is not correct length',
-      name: 'wordTooShort',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Word is not correct length', name: 'wordTooShort', desc: '', args: []);
   }
 }
 
@@ -425,16 +353,15 @@ class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {
   const AppLocalizationDelegate();
 
   List<Locale> get supportedLocales {
-    return const <Locale>[
-      Locale.fromSubtags(languageCode: 'en'),
-      Locale.fromSubtags(languageCode: 'ru'),
-    ];
+    return const <Locale>[Locale.fromSubtags(languageCode: 'en'), Locale.fromSubtags(languageCode: 'ru')];
   }
 
   @override
   bool isSupported(Locale locale) => _isSupported(locale);
+
   @override
   Future<AppLocalizations> load(Locale locale) => AppLocalizations.load(locale);
+
   @override
   bool shouldReload(AppLocalizationDelegate old) => false;
 

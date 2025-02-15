@@ -25,10 +25,7 @@ class CustomDrawer extends StatelessWidget {
             await Future<void>.delayed(const Duration(milliseconds: 250));
             await navigator.pushAndRemoveUntil(
               PageRouteBuilder<void>(
-                pageBuilder: (context, _, __) => BlocProvider.value(
-                  value: bloc,
-                  child: const GamePage(),
-                ),
+                pageBuilder: (context, _, _) => BlocProvider.value(value: bloc, child: const GamePage()),
                 transitionDuration: Duration.zero,
                 reverseTransitionDuration: Duration.zero,
               ),
@@ -45,10 +42,7 @@ class CustomDrawer extends StatelessWidget {
             await Future<void>.delayed(const Duration(milliseconds: 250));
             await navigator.pushAndRemoveUntil(
               PageRouteBuilder<void>(
-                pageBuilder: (context, _, __) => BlocProvider.value(
-                  value: bloc,
-                  child: const GamePage(),
-                ),
+                pageBuilder: (context, _, _) => BlocProvider.value(value: bloc, child: const GamePage()),
                 transitionDuration: Duration.zero,
                 reverseTransitionDuration: Duration.zero,
               ),
@@ -62,10 +56,7 @@ class CustomDrawer extends StatelessWidget {
             Scaffold.of(context).closeDrawer();
             final navigator = Navigator.of(context);
             await navigator.push(
-              MaterialPageRoute<void>(
-                builder: (context) => const TutorialPage(),
-                fullscreenDialog: true,
-              ),
+              MaterialPageRoute<void>(builder: (context) => const TutorialPage(), fullscreenDialog: true),
             );
           },
         ),
@@ -77,10 +68,7 @@ class CustomDrawer extends StatelessWidget {
             final bloc = context.read<GameBloc>();
             await navigator.push(
               MaterialPageRoute<void>(
-                builder: (context) => BlocProvider.value(
-                  value: bloc,
-                  child: const SettingsPage(),
-                ),
+                builder: (context) => BlocProvider.value(value: bloc, child: const SettingsPage()),
               ),
             );
           },
@@ -91,10 +79,7 @@ class CustomDrawer extends StatelessWidget {
             Scaffold.of(context).closeDrawer();
             final navigator = Navigator.of(context);
             await navigator.push(
-              MaterialPageRoute<void>(
-                builder: (context) => const AboutPage(),
-                fullscreenDialog: true,
-              ),
+              MaterialPageRoute<void>(builder: (context) => const AboutPage(), fullscreenDialog: true),
             );
           },
         ),

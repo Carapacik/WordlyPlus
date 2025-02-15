@@ -27,10 +27,7 @@ final class AppSettingsDatasourceImpl implements AppSettingsDatasource {
   /// The instance of [SharedPreferences] used to read and write values.
   final SharedPreferencesAsync sharedPreferences;
 
-  late final _appSettings = AppSettingsPersistedEntry(
-    sharedPreferences: sharedPreferences,
-    key: 'settings',
-  );
+  late final _appSettings = AppSettingsPersistedEntry(sharedPreferences: sharedPreferences, key: 'settings');
 
   @override
   Future<AppSettings?> getAppSettings() => _appSettings.read();
@@ -44,15 +41,9 @@ class AppSettingsPersistedEntry extends SharedPreferencesEntry<AppSettings> {
   /// Create [AppSettingsPersistedEntry]
   AppSettingsPersistedEntry({required super.sharedPreferences, required super.key});
 
-  late final _themeMode = StringPreferencesEntry(
-    sharedPreferences: sharedPreferences,
-    key: '$key.themeMode',
-  );
+  late final _themeMode = StringPreferencesEntry(sharedPreferences: sharedPreferences, key: '$key.themeMode');
 
-  late final _colorMode = StringPreferencesEntry(
-    sharedPreferences: sharedPreferences,
-    key: '$key.colorMode',
-  );
+  late final _colorMode = StringPreferencesEntry(sharedPreferences: sharedPreferences, key: '$key.colorMode');
 
   late final _localeLanguageCode = StringPreferencesEntry(
     sharedPreferences: sharedPreferences,
@@ -74,25 +65,16 @@ class AppSettingsPersistedEntry extends SharedPreferencesEntry<AppSettings> {
     key: '$key.dictionary.countryCode',
   );
 
-  late final _textScale = DoublePreferencesEntry(
-    sharedPreferences: sharedPreferences,
-    key: '$key.textScale',
-  );
+  late final _textScale = DoublePreferencesEntry(sharedPreferences: sharedPreferences, key: '$key.textScale');
 
-  IntPreferencesEntry _otherColor1(int index) => IntPreferencesEntry(
-        sharedPreferences: sharedPreferences,
-        key: '$key.otherColor.1.$index',
-      );
+  IntPreferencesEntry _otherColor1(int index) =>
+      IntPreferencesEntry(sharedPreferences: sharedPreferences, key: '$key.otherColor.1.$index');
 
-  IntPreferencesEntry _otherColor2(int index) => IntPreferencesEntry(
-        sharedPreferences: sharedPreferences,
-        key: '$key.otherColor.2.$index',
-      );
+  IntPreferencesEntry _otherColor2(int index) =>
+      IntPreferencesEntry(sharedPreferences: sharedPreferences, key: '$key.otherColor.2.$index');
 
-  IntPreferencesEntry _otherColor3(int index) => IntPreferencesEntry(
-        sharedPreferences: sharedPreferences,
-        key: '$key.otherColor.3.$index',
-      );
+  IntPreferencesEntry _otherColor3(int index) =>
+      IntPreferencesEntry(sharedPreferences: sharedPreferences, key: '$key.otherColor.3.$index');
 
   static const _colorCodec = ColorCodec();
 
@@ -141,11 +123,7 @@ class AppSettingsPersistedEntry extends SharedPreferencesEntry<AppSettings> {
           _colorCodec.decode(otherColors3),
         );
       }
-      appTheme = AppTheme(
-        themeMode: decodedThemeMode,
-        colorMode: decodedColorMode,
-        otherColors: otherColors,
-      );
+      appTheme = AppTheme(themeMode: decodedThemeMode, colorMode: decodedColorMode, otherColors: otherColors);
     }
 
     Locale? appLocale;

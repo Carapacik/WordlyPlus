@@ -17,23 +17,21 @@ class SettingsScope extends StatefulWidget {
 
   /// Get the [AppSettingsBloc] instance.
   static AppSettingsBloc of(BuildContext context, {bool listen = true}) {
-    final settingsScope = listen
-        ? context.dependOnInheritedWidgetOfExactType<_InheritedSettings>()
-        : context.getInheritedWidgetOfExactType<_InheritedSettings>();
+    final settingsScope =
+        listen
+            ? context.dependOnInheritedWidgetOfExactType<_InheritedSettings>()
+            : context.getInheritedWidgetOfExactType<_InheritedSettings>();
     return settingsScope!.state._appSettingsBloc;
   }
 
   /// Get the [AppSettings] instance.
   static AppSettings settingsOf(BuildContext context, {bool listen = true}) {
-    final settingsScope = listen
-        ? context.dependOnInheritedWidgetOfExactType<_InheritedSettings>()
-        : context.getInheritedWidgetOfExactType<_InheritedSettings>();
+    final settingsScope =
+        listen
+            ? context.dependOnInheritedWidgetOfExactType<_InheritedSettings>()
+            : context.getInheritedWidgetOfExactType<_InheritedSettings>();
     return settingsScope!.settings ??
-        AppSettings(
-          appTheme: AppTheme.defaultTheme,
-          locale: const Locale('en'),
-          dictionary: const Locale('en'),
-        );
+        AppSettings(appTheme: AppTheme.defaultTheme, locale: const Locale('en'), dictionary: const Locale('en'));
   }
 
   @override
@@ -52,13 +50,9 @@ class _SettingsScopeState extends State<SettingsScope> {
 
   @override
   Widget build(BuildContext context) => BlocBuilder<AppSettingsBloc, AppSettingsState>(
-        bloc: _appSettingsBloc,
-        builder: (context, state) => _InheritedSettings(
-          settings: state.appSettings,
-          state: this,
-          child: widget.child,
-        ),
-      );
+    bloc: _appSettingsBloc,
+    builder: (context, state) => _InheritedSettings(settings: state.appSettings, state: this, child: widget.child),
+  );
 }
 
 /// {@template inherited_settings}
@@ -70,7 +64,8 @@ class _InheritedSettings extends InheritedWidget {
     required super.child,
     required this.state,
     required this.settings,
-    super.key, // ignore: unused_element
+    // ignore: unused_element_parameter
+    super.key,
   });
 
   /// _SettingsScopeState instance.

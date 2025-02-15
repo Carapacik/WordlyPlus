@@ -3,11 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class CountdownTimer extends StatefulWidget {
-  const CountdownTimer({
-    required this.timeRemaining,
-    this.onEnd,
-    super.key,
-  });
+  const CountdownTimer({required this.timeRemaining, this.onEnd, super.key});
 
   final Duration timeRemaining;
   final VoidCallback? onEnd;
@@ -25,21 +21,18 @@ class _CountdownTimerState extends State<CountdownTimer> {
     super.initState();
     const oneSecond = Duration(seconds: 1);
     _timeRemaining = widget.timeRemaining.inSeconds;
-    _timer = Timer.periodic(
-      oneSecond,
-      (timer) {
-        if (_timeRemaining == 0) {
-          setState(() {
-            timer.cancel();
-            widget.onEnd?.call();
-          });
-        } else {
-          setState(() {
-            _timeRemaining--;
-          });
-        }
-      },
-    );
+    _timer = Timer.periodic(oneSecond, (timer) {
+      if (_timeRemaining == 0) {
+        setState(() {
+          timer.cancel();
+          widget.onEnd?.call();
+        });
+      } else {
+        setState(() {
+          _timeRemaining--;
+        });
+      }
+    });
   }
 
   @override
@@ -51,9 +44,9 @@ class _CountdownTimerState extends State<CountdownTimer> {
 
   @override
   Widget build(BuildContext context) => Text(
-        durationToStringDate(Duration(seconds: _timeRemaining)),
-        style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
-      );
+    durationToStringDate(Duration(seconds: _timeRemaining)),
+    style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
+  );
 }
 
 String durationToStringDate(Duration duration) {

@@ -9,12 +9,7 @@ import 'package:wordly/src/feature/settings/model/app_theme.dart';
 @immutable
 class AppSettings with Diagnosticable {
   /// {@macro app_settings}
-  const AppSettings({
-    required this.appTheme,
-    this.locale,
-    this.dictionary,
-    this.textScale = 1,
-  });
+  const AppSettings({required this.appTheme, this.locale, this.dictionary, this.textScale = 1});
 
   /// The theme of the app,
   final AppTheme appTheme;
@@ -29,18 +24,12 @@ class AppSettings with Diagnosticable {
   final double? textScale;
 
   /// Copy the [AppSettings] with new values.
-  AppSettings copyWith({
-    AppTheme? appTheme,
-    Locale? locale,
-    Locale? dictionary,
-    double? textScale,
-  }) =>
-      AppSettings(
-        appTheme: appTheme ?? this.appTheme,
-        locale: locale ?? this.locale,
-        dictionary: dictionary ?? this.dictionary,
-        textScale: textScale ?? this.textScale,
-      );
+  AppSettings copyWith({AppTheme? appTheme, Locale? locale, Locale? dictionary, double? textScale}) => AppSettings(
+    appTheme: appTheme ?? this.appTheme,
+    locale: locale ?? this.locale,
+    dictionary: dictionary ?? this.dictionary,
+    textScale: textScale ?? this.textScale,
+  );
 
   @override
   bool operator ==(Object other) {

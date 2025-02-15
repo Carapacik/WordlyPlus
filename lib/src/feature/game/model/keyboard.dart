@@ -67,11 +67,7 @@ enum GameKeyboardKey {
   cm(LogicalKeyboardKey.comma, enName: null, ruName: 'Б'),
   pr(LogicalKeyboardKey.period, enName: null, ruName: 'Ю');
 
-  const GameKeyboardKey(
-    this.key, {
-    required this.enName,
-    required this.ruName,
-  });
+  const GameKeyboardKey(this.key, {required this.enName, required this.ruName});
 
   final LogicalKeyboardKey key;
   final String? enName;

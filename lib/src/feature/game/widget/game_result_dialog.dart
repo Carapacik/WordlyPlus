@@ -15,11 +15,11 @@ Future<void> showGameResultDialog(
   required VoidCallback nextLevelPressed,
   String? shareString,
   VoidCallback? onTimerEnd,
-}) =>
-    showDialog(
-      context: context,
-      barrierDismissible: mode == GameMode.daily,
-      builder: (context) => DialogContent(
+}) => showDialog(
+  context: context,
+  barrierDismissible: mode == GameMode.daily,
+  builder:
+      (context) => DialogContent(
         secretWord: secretWord,
         meaning: meaning,
         isWin: isWin,
@@ -28,7 +28,7 @@ Future<void> showGameResultDialog(
         onTimerEnd: onTimerEnd,
         nextLevelPressed: nextLevelPressed,
       ),
-    );
+);
 
 class DialogContent extends StatelessWidget {
   const DialogContent({
@@ -81,11 +81,7 @@ class DialogContent extends StatelessWidget {
                 style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 12),
-              Text(
-                meaning,
-                style: const TextStyle(color: Colors.white, fontSize: 14),
-                textAlign: TextAlign.center,
-              ),
+              Text(meaning, style: const TextStyle(color: Colors.white, fontSize: 14), textAlign: TextAlign.center),
               const SizedBox(height: 24),
               switch (mode) {
                 GameMode.daily => _DailyContent(isWin: isWin, shareString: shareString, onEnd: onTimerEnd),
@@ -137,10 +133,7 @@ class _DailyContent extends StatelessWidget {
           style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: 4),
-        CountdownTimer(
-          onEnd: onEnd,
-          timeRemaining: timeRemaining,
-        ),
+        CountdownTimer(onEnd: onEnd, timeRemaining: timeRemaining),
       ],
     );
   }
@@ -159,11 +152,7 @@ class _LevelContent extends StatelessWidget {
       onPressed: nextLevelPressed,
       child: Text(
         context.l10n.nextLevel,
-        style: TextStyle(
-          color: isWin ? AppColors.green : AppColors.red,
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-        ),
+        style: TextStyle(color: isWin ? AppColors.green : AppColors.red, fontSize: 16, fontWeight: FontWeight.w500),
         textAlign: TextAlign.center,
       ),
     );

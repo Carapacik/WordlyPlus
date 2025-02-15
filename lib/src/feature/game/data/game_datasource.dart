@@ -44,11 +44,12 @@ final class GameDatasource implements IGameDatasource {
     if (date != oldDate || oldSecretWord == null) {
       return null;
     }
-    final board = decodedResult['board']
-        .toString()
-        .split('|')
-        .map((e) => LetterInfo.fromJson(json.decode(e) as Map<String, dynamic>))
-        .toList();
+    final board =
+        decodedResult['board']
+            .toString()
+            .split('|')
+            .map((e) => LetterInfo.fromJson(json.decode(e) as Map<String, dynamic>))
+            .toList();
     final isWin = bool.tryParse(decodedResult['win'].toString());
     return GameResult(board: board, isWin: isWin, secretWord: oldSecretWord);
   }

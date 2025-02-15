@@ -10,13 +10,10 @@ class ConstraintScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SafeArea(
-        bottom: safeAreaBottom,
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: maxMobileWidth),
-            child: child,
-          ),
-        ),
-      );
+    bottom: safeAreaBottom,
+    child: Align(
+      alignment: Alignment.topCenter,
+      child: ConstrainedBox(constraints: const BoxConstraints(maxWidth: maxMobileWidth), child: child),
+    ),
+  );
 }

@@ -21,15 +21,11 @@ final class _ColorModeDecoder extends Converter<String, ColorMode> {
 
   @override
   ColorMode convert(String input) => switch (input) {
-        'ColorMode.casual' => ColorMode.casual,
-        'ColorMode.highContrast' => ColorMode.highContrast,
-        'ColorMode.other' => ColorMode.other,
-        _ => throw ArgumentError.value(
-            input,
-            'input',
-            'Cannot convert $input to $ColorMode',
-          ),
-      };
+    'ColorMode.casual' => ColorMode.casual,
+    'ColorMode.highContrast' => ColorMode.highContrast,
+    'ColorMode.other' => ColorMode.other,
+    _ => throw ArgumentError.value(input, 'input', 'Cannot convert $input to $ColorMode'),
+  };
 }
 
 final class _ColorModeEncoder extends Converter<ColorMode, String> {
@@ -37,8 +33,8 @@ final class _ColorModeEncoder extends Converter<ColorMode, String> {
 
   @override
   String convert(ColorMode input) => switch (input) {
-        ColorMode.casual => 'ColorMode.casual',
-        ColorMode.highContrast => 'ColorMode.highContrast',
-        ColorMode.other => 'ColorMode.other',
-      };
+    ColorMode.casual => 'ColorMode.casual',
+    ColorMode.highContrast => 'ColorMode.highContrast',
+    ColorMode.other => 'ColorMode.other',
+  };
 }

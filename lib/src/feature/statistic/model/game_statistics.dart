@@ -8,12 +8,12 @@ class GameStatistics {
   });
 
   factory GameStatistics.fromJson(Map<String, dynamic> json) => GameStatistics(
-        wins: json['wins'] as int,
-        loses: json['loses'] as int,
-        streak: json['streak'] as int,
-        maxStreak: json['maxStreak'] as int,
-        attempts: (json['attempts'] as List<dynamic>).map((e) => e as int).toList(),
-      );
+    wins: json['wins'] as int,
+    loses: json['loses'] as int,
+    streak: json['streak'] as int,
+    maxStreak: json['maxStreak'] as int,
+    attempts: (json['attempts'] as List<dynamic>).map((e) => e as int).toList(),
+  );
 
   final int wins;
   final int loses;
@@ -24,10 +24,10 @@ class GameStatistics {
   static const zeroAttempts = <int>[0, 0, 0, 0, 0, 0];
 
   Map<String, Object?> toJson() => <String, Object?>{
-        'wins': wins,
-        'loses': loses,
-        'streak': streak,
-        'maxStreak': maxStreak,
-        'attempts': attempts,
-      };
+    'wins': wins,
+    'loses': loses,
+    'streak': streak,
+    'maxStreak': maxStreak,
+    'attempts': attempts,
+  };
 }

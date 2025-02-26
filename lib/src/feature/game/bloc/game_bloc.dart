@@ -1,6 +1,7 @@
 import 'dart:async' show unawaited;
 import 'dart:ui' show Locale;
 
+import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/services.dart' show KeyEvent, LogicalKeyboardKey;
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,87 +16,10 @@ import 'package:wordly/src/feature/level/data/level_repository.dart';
 import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 
 part 'game_bloc.freezed.dart';
+part 'game_event.dart';
+part 'game_state.dart';
 
-@Freezed(copyWith: false)
-sealed class GameEvent with _$GameEvent {
-  const factory GameEvent.changeDictionary(Locale dictionary) = _ChangeDictionaryGameEvent;
-
-  const factory GameEvent.changeGameMode(GameMode gameMode) = _ChangeGameModeGameEvent;
-
-  const factory GameEvent.resetBoard(GameMode gameMode) = _ResetBoardGameEvent;
-
-  const factory GameEvent.letterPressed(String key) = _LetterPressedGameEvent;
-
-  const factory GameEvent.deletePressed() = _DeletePressedGameEvent;
-
-  const factory GameEvent.deleteLongPressed() = _DeleteLongPressedGameEvent;
-
-  const factory GameEvent.enterPressed() = _EnterPressedGameEvent;
-
-  const factory GameEvent.listenKeyEvent(KeyEvent keyEvent) = _ListenKeyEventGameEvent;
-}
-
-@Freezed()
-sealed class GameState with _$GameState {
-  const GameState._();
-
-  const factory GameState.idle({
-    required Locale dictionary,
-    required String secretWord,
-    required GameMode gameMode,
-    required bool gameCompleted,
-    required List<LetterInfo> board,
-    required Map<String, LetterStatus> statuses,
-    required int? lvlNumber,
-  }) = _GameStateIdle;
-
-  const factory GameState.win({
-    required Locale dictionary,
-    required String secretWord,
-    required GameMode gameMode,
-    required bool gameCompleted,
-    required List<LetterInfo> board,
-    required Map<String, LetterStatus> statuses,
-    required int? lvlNumber,
-  }) = _GameStateWin;
-
-  const factory GameState.loss({
-    required Locale dictionary,
-    required String secretWord,
-    required GameMode gameMode,
-    required bool gameCompleted,
-    required List<LetterInfo> board,
-    required Map<String, LetterStatus> statuses,
-    required int? lvlNumber,
-  }) = _GameStateLoss;
-
-  const factory GameState.error({
-    required Locale dictionary,
-    required String secretWord,
-    required GameMode gameMode,
-    required bool gameCompleted,
-    required List<LetterInfo> board,
-    required Map<String, LetterStatus> statuses,
-    required WordError error,
-    required int? lvlNumber,
-  }) = _GameStateError;
-
-  int get currentWordIndex => (board.length - 1) ~/ 5;
-
-  bool get isResultState => maybeMap(win: (_) => true, loss: (_) => true, orElse: () => false);
-
-  bool get isErrorState => maybeMap(error: (_) => true, orElse: () => false);
-
-  (bool, int, List<LetterInfo>)? get buildResultString {
-    final result = mapOrNull(win: (_) => true, loss: (_) => false);
-    if (result == null) {
-      return null;
-    }
-    return (result, currentWordIndex + 1, board);
-  }
-}
-
-class GameBloc extends Bloc<GameEvent, GameState> {
+final class GameBloc extends Bloc<GameEvent, GameState> {
   GameBloc({
     required Locale dictionary,
     required IGameRepository gameRepository,
@@ -110,14 +34,14 @@ class GameBloc extends Bloc<GameEvent, GameState> {
        ) {
     on<GameEvent>(
       (event, emit) async => switch (event) {
-        final _ChangeDictionaryGameEvent e => _changeDictionary(e, emit),
-        final _ChangeGameModeGameEvent e => _changeGameMode(e, emit),
-        final _ResetBoardGameEvent e => _resetBoard(e, emit),
-        final _LetterPressedGameEvent e => _letterPressed(e, emit),
-        final _EnterPressedGameEvent e => _enterPressed(e, emit),
-        final _DeletePressedGameEvent e => _deletePressed(e, emit),
-        final _DeleteLongPressedGameEvent e => _deleteLongPressed(e, emit),
-        final _ListenKeyEventGameEvent e => _listenKeyEvent(e, emit),
+        final _GameChangeDictionary e => _changeDictionary(e, emit),
+        final _GameChangeGameMode e => _changeGameMode(e, emit),
+        final _GameResetBoard e => _resetBoard(e, emit),
+        final _GameLetterPressed e => _letterPressed(e, emit),
+        final _GameEnterPressed e => _enterPressed(e, emit),
+        final _GameDeletePressed e => _deletePressed(e, emit),
+        final _GameDeleteLongPressed e => _deleteLongPressed(e, emit),
+        final _GameListenKeyEvent e => _listenKeyEvent(e, emit),
       },
     );
   }
@@ -126,7 +50,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final IStatisticsRepository _statisticsRepository;
   final ILevelRepository _levelRepository;
 
-  void _listenKeyEvent(_ListenKeyEventGameEvent event, Emitter<GameState> emit) {
+  void _listenKeyEvent(_GameListenKeyEvent event, Emitter<GameState> emit) {
     final key = event.keyEvent;
     if (key.logicalKey == LogicalKeyboardKey.enter) {
       add(const GameEvent.enterPressed());
@@ -145,7 +69,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
   }
 
-  Future<void> _changeDictionary(_ChangeDictionaryGameEvent event, Emitter<GameState> emit) async {
+  Future<void> _changeDictionary(_GameChangeDictionary event, Emitter<GameState> emit) async {
     final newDictionary = event.dictionary;
     if (state.dictionary.languageCode == newDictionary.languageCode) {
       return;
@@ -168,7 +92,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     emit(newState);
   }
 
-  Future<void> _changeGameMode(_ChangeGameModeGameEvent event, Emitter<GameState> emit) async {
+  Future<void> _changeGameMode(_GameChangeGameMode event, Emitter<GameState> emit) async {
     if (state.gameMode == event.gameMode) {
       return;
     }
@@ -191,7 +115,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     emit(newState);
   }
 
-  void _resetBoard(_ResetBoardGameEvent event, Emitter<GameState> emit) {
+  void _resetBoard(_GameResetBoard event, Emitter<GameState> emit) {
     final GameResult? savedResult;
     if (event.gameMode == GameMode.daily) {
       savedResult = GameResult(secretWord: _gameRepository.generateSecretWord(state.dictionary), board: []);
@@ -207,7 +131,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     emit(newState);
   }
 
-  void _letterPressed(_LetterPressedGameEvent event, Emitter<GameState> emit) {
+  void _letterPressed(_GameLetterPressed event, Emitter<GameState> emit) {
     if (state.gameCompleted) {
       return;
     }
@@ -232,7 +156,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     );
   }
 
-  void _deletePressed(_DeletePressedGameEvent event, Emitter<GameState> emit) {
+  void _deletePressed(_GameDeletePressed event, Emitter<GameState> emit) {
     if (state.gameCompleted) {
       return;
     }
@@ -253,7 +177,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     );
   }
 
-  void _deleteLongPressed(_DeleteLongPressedGameEvent event, Emitter<GameState> emit) {
+  void _deleteLongPressed(_GameDeleteLongPressed event, Emitter<GameState> emit) {
     if (state.gameCompleted) {
       return;
     }
@@ -275,13 +199,13 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     );
   }
 
-  void _enterPressed(_EnterPressedGameEvent event, Emitter<GameState> emit) {
+  void _enterPressed(_GameEnterPressed event, Emitter<GameState> emit) {
     if (state.gameCompleted) {
       return;
     }
     if (state.board.isEmpty || state.board.length % 5 != 0) {
       emit(
-        GameState.error(
+        GameState.failure(
           dictionary: state.dictionary,
           secretWord: state.secretWord,
           gameMode: state.gameMode,
@@ -311,7 +235,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         .toList(growable: false);
     if (!_gameRepository.currentDictionary(state.dictionary).containsKey(word.join())) {
       emit(
-        GameState.error(
+        GameState.failure(
           dictionary: state.dictionary,
           secretWord: state.secretWord,
           gameMode: state.gameMode,

@@ -10,6 +10,7 @@ import 'package:wordly/src/feature/components/widget/drawer.dart';
 import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
 import 'package:wordly/src/feature/game/model/game_mode.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
+import 'package:wordly/src/feature/game/model/word_error.dart';
 import 'package:wordly/src/feature/game/widget/game_result_dialog.dart';
 import 'package:wordly/src/feature/game/widget/keyboard_by_language.dart';
 import 'package:wordly/src/feature/game/widget/words_grid.dart';
@@ -37,14 +38,14 @@ class _GamePageState extends State<GamePage> {
       final gameRepository = context.dependencies.gameRepository;
       final bloc = context.read<GameBloc>();
       final state = bloc.state;
-      if (state.isResultState) {
+      if (state.isResult) {
         unawaited(
           showGameResultDialog(
             context,
             state.secretWord,
             context.dependencies.gameRepository.currentDictionary(state.dictionary)[state.secretWord] ?? '',
             state.gameMode,
-            isWin: state.maybeMap(win: (_) => true, orElse: () => false),
+            isWin: state.isWin,
             onTimerEnd: GameMode.daily == state.gameMode ? () => bloc.add(GameEvent.resetBoard(state.gameMode)) : null,
             shareString: shareString(context, state.buildResultString),
             nextLevelPressed: () => bloc.add(const GameEvent.resetBoard(GameMode.lvl)),
@@ -152,10 +153,10 @@ class GameBody extends StatelessWidget {
               (previous.gameCompleted != current.gameCompleted &&
                   previous.gameMode == current.gameMode &&
                   previous.dictionary == current.dictionary &&
-                  current.isResultState) ||
-              current.isErrorState,
+                  current.isResult) ||
+              current.isFailure,
       listener: (context, state) {
-        if (state.isResultState) {
+        if (state.isResult) {
           final bloc = context.read<GameBloc>();
           unawaited(
             showGameResultDialog(
@@ -163,7 +164,7 @@ class GameBody extends StatelessWidget {
               state.secretWord,
               context.dependencies.gameRepository.currentDictionary(state.dictionary)[state.secretWord] ?? '',
               state.gameMode,
-              isWin: state.maybeMap(win: (_) => true, orElse: () => false),
+              isWin: state.isWin,
               onTimerEnd:
                   GameMode.daily == state.gameMode
                       ? () {
@@ -180,8 +181,11 @@ class GameBody extends StatelessWidget {
           );
           return;
         }
-        if (state.isErrorState) {
-          final error = state.mapOrNull(error: (s) => s.error);
+        if (state.isFailure) {
+          WordError? error;
+          if (state case final GameFailure e) {
+            error = e.error;
+          }
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: LetterStatus.unknown.cellColor(context),

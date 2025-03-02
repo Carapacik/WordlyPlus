@@ -22,8 +22,10 @@ class RootContext extends StatelessWidget {
   final CompositionResult compositionResult;
 
   @override
-  Widget build(BuildContext context) => DependenciesScope(
-    dependencies: compositionResult.dependencies,
-    child: const SettingsScope(child: BlocScope(child: WindowSizeScope(child: MaterialContext()))),
-  );
+  Widget build(BuildContext context) {
+    return DependenciesScope(
+      dependencies: compositionResult.dependencies,
+      child: const SettingsScope(child: BlocScope(child: WindowSizeScope(child: MaterialContext()))),
+    );
+  }
 }

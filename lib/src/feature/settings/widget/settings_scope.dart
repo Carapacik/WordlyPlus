@@ -49,10 +49,12 @@ class _SettingsScopeState extends State<SettingsScope> {
   }
 
   @override
-  Widget build(BuildContext context) => BlocBuilder<AppSettingsBloc, AppSettingsState>(
-    bloc: _appSettingsBloc,
-    builder: (context, state) => _InheritedSettings(settings: state.appSettings, state: this, child: widget.child),
-  );
+  Widget build(BuildContext context) {
+    return BlocBuilder<AppSettingsBloc, AppSettingsState>(
+      bloc: _appSettingsBloc,
+      builder: (context, state) => _InheritedSettings(settings: state.appSettings, state: this, child: widget.child),
+    );
+  }
 }
 
 /// {@template inherited_settings}
@@ -60,13 +62,7 @@ class _SettingsScopeState extends State<SettingsScope> {
 /// {@endtemplate}
 class _InheritedSettings extends InheritedWidget {
   /// {@macro inherited_settings}
-  const _InheritedSettings({
-    required super.child,
-    required this.state,
-    required this.settings,
-    // ignore: unused_element_parameter
-    super.key,
-  });
+  const _InheritedSettings({required super.child, required this.state, required this.settings});
 
   /// _SettingsScopeState instance.
   final _SettingsScopeState state;

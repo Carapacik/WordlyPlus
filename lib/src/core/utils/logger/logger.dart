@@ -162,7 +162,6 @@ mixin class LogObserver {
   const LogObserver();
 
   /// Called when a new log message is created.
-  // ignore: avoid-unused-parameters, no-empty-block
   void onLog(LogMessage logMessage) {}
 }
 

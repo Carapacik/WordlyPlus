@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wordly/src/core/common/extensions/context_extension.dart';
 import 'package:wordly/src/core/constant/localization/localization.dart';
-import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/game/widget/game_page.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 
@@ -38,14 +38,13 @@ class MaterialContext extends StatelessWidget {
       supportedLocales: Localization.supportedLocales,
       onGenerateTitle: (context) => context.l10n.appTitle,
       home: const GamePage(),
-      builder:
-          (context, child) => MediaQuery(
-            key: _globalKey,
-            data: mediaQueryData.copyWith(
-              textScaler: TextScaler.linear(mediaQueryData.textScaler.scale(settings.textScale ?? 1).clamp(0.5, 2)),
-            ),
-            child: child!,
-          ),
+      builder: (context, child) => MediaQuery(
+        key: _globalKey,
+        data: mediaQueryData.copyWith(
+          textScaler: TextScaler.linear(mediaQueryData.textScaler.scale(settings.textScale ?? 1).clamp(0.5, 2)),
+        ),
+        child: child!,
+      ),
     );
   }
 }

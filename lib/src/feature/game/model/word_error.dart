@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wordly/src/core/utils/extensions/extensions.dart';
+import 'package:wordly/src/core/common/extensions/context_extension.dart';
 
 enum WordError {
   notFound,

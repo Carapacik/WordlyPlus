@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wordly/src/core/assets/generated/fonts.gen.dart';
+import 'package:wordly/src/core/constant/generated/fonts.gen.dart';
 import 'package:wordly/src/core/constant/localization/localization.dart';
 import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
 import 'package:wordly/src/feature/game/model/keyboard.dart';
@@ -40,10 +40,9 @@ class KeyboardEn extends StatelessWidget {
             for (var i = 0; i < KeyboardList.enKeyboard.$1.length; i++)
               KeyboardKey(
                 letter: KeyboardList.enKeyboard.$1[i],
-                status:
-                    statuses.containsKey(KeyboardList.enKeyboard.$1[i])
-                        ? statuses[KeyboardList.enKeyboard.$1[i]]!
-                        : LetterStatus.unknown,
+                status: statuses.containsKey(KeyboardList.enKeyboard.$1[i])
+                    ? statuses[KeyboardList.enKeyboard.$1[i]]!
+                    : LetterStatus.unknown,
               ),
           ],
         ),
@@ -54,10 +53,9 @@ class KeyboardEn extends StatelessWidget {
             for (var i = 0; i < KeyboardList.enKeyboard.$2.length; i++)
               KeyboardKey(
                 letter: KeyboardList.enKeyboard.$2[i],
-                status:
-                    statuses.containsKey(KeyboardList.enKeyboard.$2[i])
-                        ? statuses[KeyboardList.enKeyboard.$2[i]]!
-                        : LetterStatus.unknown,
+                status: statuses.containsKey(KeyboardList.enKeyboard.$2[i])
+                    ? statuses[KeyboardList.enKeyboard.$2[i]]!
+                    : LetterStatus.unknown,
               ),
           ],
         ),
@@ -69,10 +67,9 @@ class KeyboardEn extends StatelessWidget {
             for (var i = 0; i < KeyboardList.enKeyboard.$3.length; i++)
               KeyboardKey(
                 letter: KeyboardList.enKeyboard.$3[i],
-                status:
-                    statuses.containsKey(KeyboardList.enKeyboard.$3[i])
-                        ? statuses[KeyboardList.enKeyboard.$3[i]]!
-                        : LetterStatus.unknown,
+                status: statuses.containsKey(KeyboardList.enKeyboard.$3[i])
+                    ? statuses[KeyboardList.enKeyboard.$3[i]]!
+                    : LetterStatus.unknown,
               ),
             const DeleteKey(),
           ],
@@ -98,10 +95,9 @@ class KeyboardRu extends StatelessWidget {
             for (var i = 0; i < KeyboardList.ruKeyboard.$1.length; i++)
               KeyboardKey(
                 letter: KeyboardList.ruKeyboard.$1[i],
-                status:
-                    statuses.containsKey(KeyboardList.ruKeyboard.$1[i])
-                        ? statuses[KeyboardList.ruKeyboard.$1[i]]!
-                        : LetterStatus.unknown,
+                status: statuses.containsKey(KeyboardList.ruKeyboard.$1[i])
+                    ? statuses[KeyboardList.ruKeyboard.$1[i]]!
+                    : LetterStatus.unknown,
               ),
           ],
         ),
@@ -112,10 +108,9 @@ class KeyboardRu extends StatelessWidget {
             for (var i = 0; i < KeyboardList.ruKeyboard.$2.length; i++)
               KeyboardKey(
                 letter: KeyboardList.ruKeyboard.$2[i],
-                status:
-                    statuses.containsKey(KeyboardList.ruKeyboard.$2[i])
-                        ? statuses[KeyboardList.ruKeyboard.$2[i]]!
-                        : LetterStatus.unknown,
+                status: statuses.containsKey(KeyboardList.ruKeyboard.$2[i])
+                    ? statuses[KeyboardList.ruKeyboard.$2[i]]!
+                    : LetterStatus.unknown,
               ),
           ],
         ),
@@ -127,10 +122,9 @@ class KeyboardRu extends StatelessWidget {
             for (var i = 0; i < KeyboardList.ruKeyboard.$3.length; i++)
               KeyboardKey(
                 letter: KeyboardList.ruKeyboard.$3[i],
-                status:
-                    statuses.containsKey(KeyboardList.ruKeyboard.$3[i])
-                        ? statuses[KeyboardList.ruKeyboard.$3[i]]!
-                        : LetterStatus.unknown,
+                status: statuses.containsKey(KeyboardList.ruKeyboard.$3[i])
+                    ? statuses[KeyboardList.ruKeyboard.$3[i]]!
+                    : LetterStatus.unknown,
               ),
             const DeleteKey(),
           ],

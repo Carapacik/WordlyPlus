@@ -1,5 +1,5 @@
-import java.util.Properties
 import java.io.FileInputStream
+import java.util.Properties
 
 val keystorePropertiesFile = rootProject.file("key.properties")
 val keystoreProperties = Properties()
@@ -13,8 +13,8 @@ plugins {
 
 android {
     namespace = "com.carapacik.wordly"
-    compileSdk = 35
-    ndkVersion = "27.2.12479018"
+    compileSdk = 36
+    ndkVersion = "28.1.13356709"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -28,7 +28,7 @@ android {
     defaultConfig {
         applicationId = "com.carapacik.wordly"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }

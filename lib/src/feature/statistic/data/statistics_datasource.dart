@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wordly/src/core/utils/persisted_entry.dart';
+import 'package:wordly/src/core/common/persisted_entry.dart';
 import 'package:wordly/src/feature/statistic/model/game_statistics.dart';
 
 abstract interface class IStatisticsDatasource {

@@ -4,7 +4,7 @@ import 'dart:ui' show Locale;
 
 import 'package:collection/collection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wordly/src/core/utils/persisted_entry.dart';
+import 'package:wordly/src/core/common/persisted_entry.dart';
 import 'package:wordly/src/feature/game/model/game_result.dart';
 
 abstract interface class ILevelDatasource {

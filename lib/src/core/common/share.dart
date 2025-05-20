@@ -2,17 +2,16 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:wordly/src/core/common/extensions/context_extension.dart';
 import 'package:wordly/src/core/constant/application_config.dart';
-import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
 
 String? shareString(BuildContext context, (bool, int, List<LetterInfo>)? result) {
   if (result == null) {
     return null;
   }
-  final sb =
-      StringBuffer()
-        ..writeln(result.$1 ? context.l10n.checkResultWin(result.$2) : context.l10n.checkResultLose(result.$2));
+  final sb = StringBuffer()
+    ..writeln(result.$1 ? context.l10n.checkResultWin(result.$2) : context.l10n.checkResultLose(result.$2));
   for (final e in _splitBy5Symbols(result.$3)) {
     sb.writeln(e);
   }

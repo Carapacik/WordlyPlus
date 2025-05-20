@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wordly/src/core/common/color.dart';
 import 'package:wordly/src/core/resources/resources.dart';
-import 'package:wordly/src/core/utils/color.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 

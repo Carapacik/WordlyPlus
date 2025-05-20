@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/link.dart';
+import 'package:wordly/src/core/common/extensions/context_extension.dart';
+import 'package:wordly/src/core/common/extensions/theme_extension.dart';
 import 'package:wordly/src/core/constant/application_config.dart';
-import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 
 class AboutPage extends StatelessWidget {
@@ -30,36 +31,35 @@ class AboutPage extends StatelessWidget {
                   'mailto:${const ApplicationConfig().email}?'
                   '${context.l10n.sendMessage}',
                 ),
-                builder:
-                    (context, followLink) => MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: GestureDetector(
-                        onTap: followLink,
-                        child: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(text: context.l10n.contact),
-                              WidgetSpan(
-                                child: SelectableText(
-                                  const ApplicationConfig().email,
-                                  style: const TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 24,
-                                  ),
-                                ),
+                builder: (context, followLink) => MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: followLink,
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        children: [
+                          TextSpan(text: context.l10n.contact),
+                          WidgetSpan(
+                            child: SelectableText(
+                              const ApplicationConfig().email,
+                              style: const TextStyle(
+                                decoration: TextDecoration.underline,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 24,
                               ),
-                            ],
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: context.theme.colorScheme.onSurface,
                             ),
                           ),
+                        ],
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: context.theme.colorScheme.onSurface,
                         ),
                       ),
                     ),
+                  ),
+                ),
               ),
               const Spacer(),
               Text(
@@ -84,14 +84,13 @@ class _CreditNameText extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Link(
     uri: Uri.parse(url),
-    builder:
-        (context, followLink) => MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            onTap: followLink,
-            behavior: HitTestBehavior.opaque,
-            child: Text(text, style: const TextStyle(fontSize: 20, decoration: TextDecoration.underline)),
-          ),
-        ),
+    builder: (context, followLink) => MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: followLink,
+        behavior: HitTestBehavior.opaque,
+        child: Text(text, style: const TextStyle(fontSize: 20, decoration: TextDecoration.underline)),
+      ),
+    ),
   );
 }

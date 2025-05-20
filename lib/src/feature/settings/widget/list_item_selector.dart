@@ -37,27 +37,25 @@ class ListItemSelector<T> extends StatelessWidget {
     context: context,
     shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(18))),
     constraints: const BoxConstraints(maxWidth: 400),
-    builder:
-        (context) => SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 16),
-              Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: items.length,
-                padding: EdgeInsets.zero,
-                itemBuilder:
-                    (context, index) => ListTile(
-                      title: Text(items[index].$2),
-                      trailing: currentValue.$1 == items[index].$1 ? const Icon(Icons.check) : null,
-                      onTap: () => Navigator.of(context).pop(items[index].$1),
-                    ),
-              ),
-              const SizedBox(height: 4),
-            ],
+    builder: (context) => SafeArea(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(height: 16),
+          Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: items.length,
+            padding: EdgeInsets.zero,
+            itemBuilder: (context, index) => ListTile(
+              title: Text(items[index].$2),
+              trailing: currentValue.$1 == items[index].$1 ? const Icon(Icons.check) : null,
+              onTap: () => Navigator.of(context).pop(items[index].$1),
+            ),
           ),
-        ),
+          const SizedBox(height: 4),
+        ],
+      ),
+    ),
   );
 }

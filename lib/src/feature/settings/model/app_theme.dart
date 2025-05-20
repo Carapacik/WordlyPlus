@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:wordly/src/core/assets/generated/fonts.gen.dart';
+import 'package:wordly/src/core/common/extensions/context_extension.dart';
+import 'package:wordly/src/core/common/extensions/theme_extension.dart';
+import 'package:wordly/src/core/constant/generated/fonts.gen.dart';
 import 'package:wordly/src/core/resources/resources.dart';
-import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 
 /// {@template app_theme}

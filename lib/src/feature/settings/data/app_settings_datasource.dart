@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wordly/src/core/utils/color_codec.dart';
-import 'package:wordly/src/core/utils/persisted_entry.dart';
+import 'package:wordly/src/core/common/color_codec.dart';
+import 'package:wordly/src/core/common/persisted_entry.dart';
 import 'package:wordly/src/feature/settings/data/color_mode_codec.dart';
 import 'package:wordly/src/feature/settings/data/theme_mode_codec.dart';
 import 'package:wordly/src/feature/settings/model/app_settings.dart';

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:wordly/src/core/common/extensions/context_extension.dart';
+import 'package:wordly/src/core/common/extensions/theme_extension.dart';
 import 'package:wordly/src/core/constant/localization/localization.dart';
 import 'package:wordly/src/core/resources/resources.dart';
-import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/components/widget/letter_tile.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';

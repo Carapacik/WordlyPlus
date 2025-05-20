@@ -24,9 +24,8 @@ class WordsGrid extends StatelessWidget {
                 mainAxisSpacing: 8,
                 crossAxisSpacing: 8,
               ),
-              itemBuilder:
-                  (_, index) =>
-                      GridTile(info: state.board.length > index ? state.board[index] : const LetterInfo(letter: '')),
+              itemBuilder: (_, index) =>
+                  GridTile(info: state.board.length > index ? state.board[index] : const LetterInfo(letter: '')),
             );
           },
         ),

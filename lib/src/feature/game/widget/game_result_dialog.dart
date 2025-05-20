@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show Clipboard, ClipboardData;
 import 'package:share_plus/share_plus.dart';
+import 'package:wordly/src/core/common/extensions/context_extension.dart';
 import 'package:wordly/src/core/resources/resources.dart';
-import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/game/model/game_mode.dart';
 import 'package:wordly/src/feature/game/widget/countdown_timer.dart';
 
@@ -18,16 +18,15 @@ Future<void> showGameResultDialog(
 }) => showDialog(
   context: context,
   barrierDismissible: mode == GameMode.daily,
-  builder:
-      (context) => DialogContent(
-        secretWord: secretWord,
-        meaning: meaning,
-        isWin: isWin,
-        mode: mode,
-        shareString: shareString,
-        onTimerEnd: onTimerEnd,
-        nextLevelPressed: nextLevelPressed,
-      ),
+  builder: (context) => DialogContent(
+    secretWord: secretWord,
+    meaning: meaning,
+    isWin: isWin,
+    mode: mode,
+    shareString: shareString,
+    onTimerEnd: onTimerEnd,
+    nextLevelPressed: nextLevelPressed,
+  ),
 );
 
 class DialogContent extends StatelessWidget {
@@ -81,7 +80,11 @@ class DialogContent extends StatelessWidget {
                 style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 12),
-              Text(meaning, style: const TextStyle(color: Colors.white, fontSize: 14), textAlign: TextAlign.center),
+              Text(
+                meaning,
+                style: const TextStyle(color: Colors.white, fontSize: 14),
+                textAlign: TextAlign.center,
+              ),
               const SizedBox(height: 24),
               switch (mode) {
                 GameMode.daily => _DailyContent(isWin: isWin, shareString: shareString, onEnd: onTimerEnd),
@@ -114,7 +117,7 @@ class _DailyContent extends StatelessWidget {
             style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
             onPressed: () async {
               await Clipboard.setData(ClipboardData(text: shareString!));
-              await Share.share(shareString!);
+              await SharePlus.instance.share(ShareParams(text: shareString));
             },
             child: Text(
               context.l10n.share,

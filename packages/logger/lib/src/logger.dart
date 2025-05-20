@@ -1,6 +1,6 @@
 import 'package:clock/clock.dart';
 import 'package:flutter/foundation.dart';
-import 'package:wordly/src/core/utils/logger/printing_log_observer.dart';
+import 'package:logger/logger.dart';
 
 /// {@template logger}
 /// Base class for logging.
@@ -162,6 +162,7 @@ mixin class LogObserver {
   const LogObserver();
 
   /// Called when a new log message is created.
+  // ignore: avoid-unused-parameters, no-empty-block
   void onLog(LogMessage logMessage) {}
 }
 

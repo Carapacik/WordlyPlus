@@ -1,3 +1,3 @@
-import 'package:wordly/src/feature/initialization/logic/app_runner.dart';
+import 'package:wordly/src/feature/initialization/logic/startup.dart';
 
-Future<void> main() async => AppRunner.startup();
+void main() => startup();

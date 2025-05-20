@@ -6,14 +6,14 @@ import 'package:wordly/src/core/constant/localization/generated/l10n.dart';
 /// Localization class which is used to localize app.
 /// This class provides handy methods and tools.
 /// {@endtemplate}
-final class Localization extends AppLocalizations {
+final class Localization {
   /// {@macro localization}
-  Localization._({required this.locale});
+  const Localization._({required this.locale});
+
+  static const _delegate = GeneratedLocalizations.delegate;
 
   /// List of supported locales.
   static List<Locale> get supportedLocales => _delegate.supportedLocales;
-
-  static const _delegate = AppLocalizations.delegate;
 
   /// List of localization delegates.
   static List<LocalizationsDelegate<void>> get localizationDelegates => [
@@ -22,6 +22,12 @@ final class Localization extends AppLocalizations {
     GlobalWidgetsLocalizations.delegate,
     _delegate,
   ];
+
+  /// {@macro localization}
+  static Localization? get current => _current;
+
+  /// {@macro localization}
+  static Localization? _current;
 
   /// Locale which is currently used.
   final Locale locale;
@@ -43,8 +49,6 @@ final class Localization extends AppLocalizations {
     return const Locale('en');
   }
 
-  /// Obtain [AppLocalizations] instance from [BuildContext].
-  static AppLocalizations of(BuildContext context) =>
-      Localizations.of<AppLocalizations>(context, AppLocalizations) ??
-      (throw FlutterError('No AppLocalizations found in context'));
+  /// Obtain [GeneratedLocalizations] instance from [BuildContext].
+  static GeneratedLocalizations of(BuildContext context) => GeneratedLocalizations.of(context);
 }

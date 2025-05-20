@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:wordly/src/core/common/extensions/context_extension.dart';
+import 'package:wordly/src/core/common/extensions/theme_extension.dart';
 import 'package:wordly/src/core/resources/resources.dart';
-import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/components/widget/letter_tile.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
@@ -76,20 +77,18 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
                   scrollDirection: Axis.horizontal,
                   itemCount: word.length,
                   separatorBuilder: (_, _) => const SizedBox(width: 8),
-                  itemBuilder:
-                      (context, index) => LetterTile(
-                        info: word[index],
-                        color: _currentColorByStatus(_currentColorMode, word[index].status),
-                        selected: _currentSelectedTileIndex == index,
-                        onTap:
-                            _currentColorMode == ColorMode.other
-                                ? () {
-                                  if (word[index].status != LetterStatus.unknown) {
-                                    setState(() => _currentSelectedTileIndex = index);
-                                  }
-                                }
-                                : null,
-                      ),
+                  itemBuilder: (context, index) => LetterTile(
+                    info: word[index],
+                    color: _currentColorByStatus(_currentColorMode, word[index].status),
+                    selected: _currentSelectedTileIndex == index,
+                    onTap: _currentColorMode == ColorMode.other
+                        ? () {
+                            if (word[index].status != LetterStatus.unknown) {
+                              setState(() => _currentSelectedTileIndex = index);
+                            }
+                          }
+                        : null,
+                  ),
                 ),
               ),
             ),
@@ -99,21 +98,19 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
               itemCount: ColorMode.values.length,
               padding: EdgeInsets.zero,
               physics: const NeverScrollableScrollPhysics(),
-              itemBuilder:
-                  (context, index) => ListTile(
-                    title: Text(ColorMode.values[index].localized(context), style: const TextStyle(fontSize: 16)),
-                    trailing: _currentColorMode == ColorMode.values[index] ? const Icon(Icons.check) : null,
-                    onTap:
-                        () => setState(() {
-                          _currentColorMode = ColorMode.values[index];
-                          if (_currentColorMode != ColorMode.other) {
-                            _currentSelectedTileIndex = null;
-                          } else {
-                            _currentSelectedTileIndex ??= 0;
-                          }
-                          _changeTheme(context);
-                        }),
-                  ),
+              itemBuilder: (context, index) => ListTile(
+                title: Text(ColorMode.values[index].localized(context), style: const TextStyle(fontSize: 16)),
+                trailing: _currentColorMode == ColorMode.values[index] ? const Icon(Icons.check) : null,
+                onTap: () => setState(() {
+                  _currentColorMode = ColorMode.values[index];
+                  if (_currentColorMode != ColorMode.other) {
+                    _currentSelectedTileIndex = null;
+                  } else {
+                    _currentSelectedTileIndex ??= 0;
+                  }
+                  _changeTheme(context);
+                }),
+              ),
             ),
             const SizedBox(height: 8),
             if (_currentColorMode == ColorMode.other && _currentSelectedTileIndex != null)

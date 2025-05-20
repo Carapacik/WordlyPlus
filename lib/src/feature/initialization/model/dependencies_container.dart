@@ -1,6 +1,6 @@
+import 'package:logger/logger.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:wordly/src/core/constant/application_config.dart';
-import 'package:wordly/src/core/utils/logger/logger.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
 import 'package:wordly/src/feature/level/data/level_repository.dart';
 import 'package:wordly/src/feature/settings/bloc/app_settings_bloc.dart';

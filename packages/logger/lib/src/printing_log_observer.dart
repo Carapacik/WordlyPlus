@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:stack_trace/stack_trace.dart';
-import 'package:wordly/src/core/utils/logger/logger.dart';
 
 /// {@template printing_log_observer}
 /// [LogObserver] that prints logs using `dart:developer`.
@@ -22,11 +22,10 @@ final class PrintingLogObserver with LogObserver {
         stack = Trace.from(stackTrace).terse;
       }
 
-      final builder =
-          StringBuffer()
-            ..write(DateFormat('MM-dd HH:mm:ss').format(logMessage.timestamp))
-            ..write(' [${logMessage.level.toShortName()}]')
-            ..write(' ${logMessage.message}');
+      final builder = StringBuffer()
+        ..write(DateFormat('MM-dd HH:mm:ss').format(logMessage.timestamp))
+        ..write(' [${logMessage.level.toShortName()}]')
+        ..write(' ${logMessage.message}');
 
       if (logMessage.error case final error?) {
         builder.write('\n$error');

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:wordly/src/core/common/extensions/context_extension.dart';
+import 'package:wordly/src/core/common/extensions/theme_extension.dart';
 import 'package:wordly/src/core/resources/resources.dart';
-import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/components/widget/not_played.dart';
 import 'package:wordly/src/feature/game/model/game_result.dart';
@@ -16,14 +17,9 @@ class LevelPage extends StatefulWidget {
 }
 
 class _LevelPageState extends State<LevelPage> {
-  late Future<List<GameResult>?> _getLevelsFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    // ignore: discarded_futures
-    _getLevelsFuture = context.dependencies.levelRepository.getLevels(widget.dictionary);
-  }
+  late final Future<List<GameResult>?> _getLevelsFuture = context.dependencies.levelRepository.getLevels(
+    widget.dictionary,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -75,12 +71,11 @@ class _LevelItem extends StatelessWidget {
       child: Material(
         clipBehavior: Clip.hardEdge,
         borderRadius: BorderRadius.circular(8),
-        color:
-            level.isWin == null
-                ? AppColors.grey
-                : level.isWin!
-                ? AppColors.green
-                : AppColors.red,
+        color: level.isWin == null
+            ? AppColors.grey
+            : level.isWin!
+            ? AppColors.green
+            : AppColors.red,
         child: InkWell(
           onTap: () async {
             if (level.isWin != null) {

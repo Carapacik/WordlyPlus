@@ -22,7 +22,11 @@ Future<void> showLevelDialog(
           children: [
             SelectableText(word.toUpperCase(), style: const TextStyle(color: Colors.white, fontSize: 24)),
             const SizedBox(height: 16),
-            Text(meaning, style: const TextStyle(color: Colors.white, fontSize: 16), textAlign: TextAlign.center),
+            Text(
+              meaning,
+              style: const TextStyle(color: Colors.white, fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
           ],
         ),
       ),

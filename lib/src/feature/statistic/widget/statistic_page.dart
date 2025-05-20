@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:wordly/src/core/utils/extensions/extensions.dart';
+import 'package:wordly/src/core/common/extensions/context_extension.dart';
+import 'package:wordly/src/core/common/extensions/theme_extension.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/components/widget/not_played.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
@@ -17,14 +18,9 @@ class StatisticPage extends StatefulWidget {
 }
 
 class _StatisticPageState extends State<StatisticPage> {
-  late Future<GameStatistics?> _getStatisticsFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    // ignore: discarded_futures
-    _getStatisticsFuture = context.dependencies.statisticsRepository.getStatistics(widget.dictionary);
-  }
+  late final Future<GameStatistics?> _getStatisticsFuture = context.dependencies.statisticsRepository.getStatistics(
+    widget.dictionary,
+  );
 
   @override
   Widget build(BuildContext context) => Title(
@@ -98,7 +94,11 @@ class _StatText extends StatelessWidget {
         style: const TextStyle(fontWeight: FontWeight.w500),
       ),
       const SizedBox(height: 8),
-      Text(title, style: const TextStyle(fontWeight: FontWeight.w500), textAlign: TextAlign.center),
+      Text(
+        title,
+        style: const TextStyle(fontWeight: FontWeight.w500),
+        textAlign: TextAlign.center,
+      ),
     ],
   );
 }
@@ -116,19 +116,18 @@ class _AttemptContent extends StatelessWidget {
       shrinkWrap: true,
       itemCount: attempts.length,
       separatorBuilder: (_, _) => const SizedBox(height: 4),
-      itemBuilder:
-          (context, index) => FractionallySizedBox(
-            alignment: Alignment.topLeft,
-            widthFactor: (attempts[index] + 1) / maxValue,
-            child: Container(
-              decoration: BoxDecoration(
-                color: SettingsScope.settingsOf(context).appTheme.correctColor,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              height: 20,
-              child: Text(' ${attempts[index]}', style: const TextStyle(color: Colors.white)),
-            ),
+      itemBuilder: (context, index) => FractionallySizedBox(
+        alignment: Alignment.topLeft,
+        widthFactor: (attempts[index] + 1) / maxValue,
+        child: Container(
+          decoration: BoxDecoration(
+            color: SettingsScope.settingsOf(context).appTheme.correctColor,
+            borderRadius: BorderRadius.circular(4),
           ),
+          height: 20,
+          child: Text(' ${attempts[index]}', style: const TextStyle(color: Colors.white)),
+        ),
+      ),
     );
   }
 }

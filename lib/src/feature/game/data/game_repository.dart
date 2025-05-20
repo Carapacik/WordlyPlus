@@ -4,7 +4,7 @@ import 'dart:ui' show Locale;
 
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:intl/intl.dart' show DateFormat;
-import 'package:wordly/src/core/assets/generated/assets.gen.dart';
+import 'package:wordly/src/core/constant/generated/assets.gen.dart';
 import 'package:wordly/src/feature/game/data/game_datasource.dart';
 import 'package:wordly/src/feature/game/model/game_result.dart';
 

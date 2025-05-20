@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wordly/src/core/common/extensions/context_extension.dart';
+import 'package:wordly/src/core/common/extensions/theme_extension.dart';
 import 'package:wordly/src/core/constant/localization/localization.dart';
-import 'package:wordly/src/core/utils/extensions/extensions.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
 import 'package:wordly/src/feature/settings/bloc/app_settings_bloc.dart';
@@ -99,15 +100,14 @@ class _SettingsPageState extends State<SettingsPage> {
                       final previousTheme = appSettings.appTheme;
                       final result = await navigator.push(
                         MaterialPageRoute<ChangeColorResult>(
-                          builder:
-                              (context) => ChangeColorPage(
-                                dictionary:
-                                    appSettings.dictionary ?? Localization.computeDefaultLocale(withDictionary: true),
-                                previousResult: ChangeColorResult(
-                                  colorMode: previousTheme.colorMode,
-                                  otherColors: previousTheme.otherColors,
-                                ),
-                              ),
+                          builder: (context) => ChangeColorPage(
+                            dictionary:
+                                appSettings.dictionary ?? Localization.computeDefaultLocale(withDictionary: true),
+                            previousResult: ChangeColorResult(
+                              colorMode: previousTheme.colorMode,
+                              otherColors: previousTheme.otherColors,
+                            ),
+                          ),
                         ),
                       );
                       if (result == null) {

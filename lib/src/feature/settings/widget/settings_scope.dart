@@ -17,19 +17,17 @@ class SettingsScope extends StatefulWidget {
 
   /// Get the [AppSettingsBloc] instance.
   static AppSettingsBloc of(BuildContext context, {bool listen = true}) {
-    final settingsScope =
-        listen
-            ? context.dependOnInheritedWidgetOfExactType<_InheritedSettings>()
-            : context.getInheritedWidgetOfExactType<_InheritedSettings>();
+    final settingsScope = listen
+        ? context.dependOnInheritedWidgetOfExactType<_InheritedSettings>()
+        : context.getInheritedWidgetOfExactType<_InheritedSettings>();
     return settingsScope!.state._appSettingsBloc;
   }
 
   /// Get the [AppSettings] instance.
   static AppSettings settingsOf(BuildContext context, {bool listen = true}) {
-    final settingsScope =
-        listen
-            ? context.dependOnInheritedWidgetOfExactType<_InheritedSettings>()
-            : context.getInheritedWidgetOfExactType<_InheritedSettings>();
+    final settingsScope = listen
+        ? context.dependOnInheritedWidgetOfExactType<_InheritedSettings>()
+        : context.getInheritedWidgetOfExactType<_InheritedSettings>();
     return settingsScope!.settings ??
         AppSettings(appTheme: AppTheme.defaultTheme, locale: const Locale('en'), dictionary: const Locale('en'));
   }

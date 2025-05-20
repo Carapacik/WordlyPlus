@@ -1,10 +1,10 @@
 import 'dart:ui' show Locale;
 
 import 'package:clock/clock.dart';
+import 'package:logger/logger.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordly/src/core/constant/application_config.dart';
-import 'package:wordly/src/core/utils/logger/logger.dart';
 import 'package:wordly/src/feature/game/data/game_datasource.dart';
 import 'package:wordly/src/feature/game/data/game_repository.dart';
 import 'package:wordly/src/feature/initialization/model/dependencies_container.dart';
@@ -17,37 +17,29 @@ import 'package:wordly/src/feature/statistic/data/statistics_datasource.dart';
 import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 
 /// {@template composition_root}
-/// A place where top-level dependencies are initialized.
+/// A place where Application-Wide dependencies are initialized.
+///
+/// Application-Wide dependencies are dependencies that have a global scope,
+/// used in the entire application and have a lifetime that is the same as the application.
 /// {@endtemplate}
 ///
 /// {@template composition_process}
 /// Composition of dependencies is a process of creating and configuring
 /// instances of classes that are required for the application to work.
 /// {@endtemplate}
-final class CompositionRoot {
-  /// {@macro composition_root}
-  const CompositionRoot({required this.config, required this.logger});
+/// Composes dependencies and returns the result of composition.
+Future<CompositionResult> composeDependencies({required ApplicationConfig config, required Logger logger}) async {
+  final stopwatch = clock.stopwatch()..start();
 
-  /// Application configuration.
-  final ApplicationConfig config;
+  logger.info('Initializing dependencies...');
 
-  /// Logger used to log information during composition process.
-  final Logger logger;
+  // Create the dependencies container using functions.
+  final dependencies = await createDependenciesContainer(config, logger);
 
-  /// Composes dependencies and returns the result of composition.
-  Future<CompositionResult> compose() async {
-    final stopwatch = clock.stopwatch()..start();
+  stopwatch.stop();
+  logger.info('Dependencies initialized successfully in ${stopwatch.elapsedMilliseconds} ms.');
 
-    logger.info('Initializing dependencies...');
-
-    // Create the dependencies container using functions.
-    final dependencies = await createDependenciesContainer(config, logger);
-
-    stopwatch.stop();
-    logger.info('Dependencies initialized successfully in ${stopwatch.elapsedMilliseconds} ms.');
-
-    return CompositionResult(dependencies: dependencies, millisecondsSpent: stopwatch.elapsedMilliseconds);
-  }
+  return CompositionResult(dependencies: dependencies, millisecondsSpent: stopwatch.elapsedMilliseconds);
 }
 
 /// {@template composition_result}
@@ -98,8 +90,8 @@ Future<DependenciesContainer> createDependenciesContainer(ApplicationConfig conf
   return DependenciesContainer(
     logger: logger,
     config: config,
-    appSettingsBloc: appSettingsBloc,
     packageInfo: packageInfo,
+    appSettingsBloc: appSettingsBloc,
     gameRepository: gameRepository,
     levelRepository: levelRepository,
     statisticsRepository: statisticsRepository,

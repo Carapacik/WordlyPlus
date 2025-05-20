@@ -43,7 +43,7 @@ extension InheritedExtension on BuildContext {
       ));
 
   /// Get localization
-  AppLocalizations get l10n => Localization.of(this);
+  GeneratedLocalizations get l10n => Localization.of(this);
 
   /// Get dependencies container
   DependenciesContainer get dependencies => DependenciesScope.of(this);

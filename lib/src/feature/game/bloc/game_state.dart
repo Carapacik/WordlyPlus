@@ -54,7 +54,7 @@ sealed class GameState with _$GameState {
   bool get isFailure => this is GameFailure;
 
   (bool, int, List<LetterInfo>)? get buildResultString {
-    final result = switch (this) {
+    final bool? result = switch (this) {
       final GameWin _ => true,
       final GameLoss _ => true,
       _ => null,

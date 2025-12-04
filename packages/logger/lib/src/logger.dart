@@ -91,7 +91,7 @@ base class Logger {
 
   /// Notifies all observers about a new log message.
   void notifyObservers(LogMessage logMessage) {
-    for (final observer in _observers) {
+    for (final LogObserver observer in _observers) {
       observer.onLog(logMessage);
     }
   }

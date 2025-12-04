@@ -6,6 +6,8 @@ import 'package:wordly/src/core/constant/localization/localization.dart';
 import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
 import 'package:wordly/src/feature/settings/bloc/app_settings_bloc.dart';
+import 'package:wordly/src/feature/settings/model/app_settings.dart';
+import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 import 'package:wordly/src/feature/settings/widget/change_color_page.dart';
 import 'package:wordly/src/feature/settings/widget/list_item_selector.dart';
@@ -21,7 +23,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    final settings = SettingsScope.settingsOf(context);
+    final AppSettings settings = SettingsScope.settingsOf(context);
     return Title(
       color: Colors.black,
       title: context.l10n.settings,
@@ -42,8 +44,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 items: [(const Locale('ru'), context.l10n.ru), (const Locale('en'), context.l10n.en)],
                 onChange: (d) {
-                  final appSettingsBloc = SettingsScope.of(context, listen: false);
-                  final appSettings = SettingsScope.settingsOf(context, listen: false);
+                  final AppSettingsBloc appSettingsBloc = SettingsScope.of(context, listen: false);
+                  final AppSettings appSettings = SettingsScope.settingsOf(context, listen: false);
                   appSettingsBloc.add(
                     AppSettingsEvent.updateAppSettings(appSettings: appSettings.copyWith(dictionary: d)),
                   );
@@ -58,8 +60,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 items: [(const Locale('ru'), context.l10n.ru), (const Locale('en'), context.l10n.en)],
                 onChange: (l) {
-                  final appSettingsBloc = SettingsScope.of(context, listen: false);
-                  final appSettings = SettingsScope.settingsOf(context, listen: false);
+                  final AppSettingsBloc appSettingsBloc = SettingsScope.of(context, listen: false);
+                  final AppSettings appSettings = SettingsScope.settingsOf(context, listen: false);
                   appSettingsBloc.add(AppSettingsEvent.updateAppSettings(appSettings: appSettings.copyWith(locale: l)));
                 },
               ),
@@ -72,8 +74,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   (ThemeMode.light, context.l10n.themeLight),
                 ],
                 onChange: (tm) {
-                  final appSettingsBloc = SettingsScope.of(context, listen: false);
-                  final appSettings = SettingsScope.settingsOf(context, listen: false);
+                  final AppSettingsBloc appSettingsBloc = SettingsScope.of(context, listen: false);
+                  final AppSettings appSettings = SettingsScope.settingsOf(context, listen: false);
                   appSettingsBloc.add(
                     AppSettingsEvent.updateAppSettings(
                       appSettings: appSettings.copyWith(appTheme: appSettings.appTheme.copyWith(themeMode: tm)),
@@ -94,11 +96,11 @@ class _SettingsPageState extends State<SettingsPage> {
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     onTap: () async {
-                      final appSettingsBloc = SettingsScope.of(context, listen: false);
-                      final appSettings = SettingsScope.settingsOf(context, listen: false);
-                      final navigator = Navigator.of(context);
-                      final previousTheme = appSettings.appTheme;
-                      final result = await navigator.push(
+                      final AppSettingsBloc appSettingsBloc = SettingsScope.of(context, listen: false);
+                      final AppSettings appSettings = SettingsScope.settingsOf(context, listen: false);
+                      final NavigatorState navigator = Navigator.of(context);
+                      final AppTheme previousTheme = appSettings.appTheme;
+                      final ChangeColorResult? result = await navigator.push(
                         MaterialPageRoute<ChangeColorResult>(
                           builder: (context) => ChangeColorPage(
                             dictionary:
@@ -135,12 +137,12 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   String _localeName(Locale? locale) {
-    final locales = {'en': context.l10n.en, 'ru': context.l10n.ru};
+    final Map<String, String> locales = {'en': context.l10n.en, 'ru': context.l10n.ru};
     return locales[(locale ?? Localization.computeDefaultLocale(withDictionary: true)).languageCode] ?? context.l10n.en;
   }
 
   String _themeName(ThemeMode mode) {
-    final themeModes = {
+    final Map<ThemeMode, String> themeModes = {
       ThemeMode.system: context.l10n.themeSystem,
       ThemeMode.dark: context.l10n.themeDark,
       ThemeMode.light: context.l10n.themeLight,

@@ -20,7 +20,7 @@ final class StatisticsDatasource implements IStatisticsDatasource {
 
   @override
   Future<GameStatistics?> getStatistics(String dictionaryKey) async {
-    final statistics = await _statistics(dictionaryKey).read();
+    final String? statistics = await _statistics(dictionaryKey).read();
     if (statistics == null) {
       return null;
     }
@@ -30,7 +30,7 @@ final class StatisticsDatasource implements IStatisticsDatasource {
 
   @override
   Future<void> setStatistics(String dictionaryKey, GameStatistics statistics) async {
-    final rawStatistics = json.encode(statistics.toJson());
+    final String rawStatistics = json.encode(statistics.toJson());
     await _statistics(dictionaryKey).set(rawStatistics);
   }
 }

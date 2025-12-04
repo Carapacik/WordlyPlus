@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wordly/src/core/common/color.dart';
 import 'package:wordly/src/core/resources/resources.dart';
+import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 
@@ -37,7 +38,7 @@ enum LetterStatus {
   bool operator <(LetterStatus other) => other.index < index;
 
   Color cellColor(BuildContext context, {bool listen = true}) {
-    final theme = SettingsScope.settingsOf(context, listen: listen).appTheme;
+    final AppTheme theme = SettingsScope.settingsOf(context, listen: listen).appTheme;
     return switch (this) {
       LetterStatus.correctSpot => theme.correctColor,
       LetterStatus.wrongSpot => theme.wrongSpotColor,
@@ -47,9 +48,9 @@ enum LetterStatus {
   }
 
   Color? textColor(BuildContext context, {bool listen = true}) {
-    final theme = SettingsScope.settingsOf(context, listen: listen).appTheme;
-    final isDark = theme.isDarkTheme(context);
-    final color = cellColor(context);
+    final AppTheme theme = SettingsScope.settingsOf(context, listen: listen).appTheme;
+    final bool isDark = theme.isDarkTheme(context);
+    final Color color = cellColor(context);
 
     // other mode not in word always darken
     if (theme.colorMode == ColorMode.other && this == LetterStatus.notInWord) {
@@ -57,7 +58,7 @@ enum LetterStatus {
     }
     // for empty basic tiles
     if (this == LetterStatus.notInWord || this == LetterStatus.unknown) {
-      final primary = !isDark && this == LetterStatus.notInWord || isDark && this == LetterStatus.unknown;
+      final bool primary = !isDark && this == LetterStatus.notInWord || isDark && this == LetterStatus.unknown;
       return primary ? AppColors.secondary : AppColors.primary;
     }
     // for high contrast

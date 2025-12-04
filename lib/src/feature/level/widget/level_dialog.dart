@@ -9,8 +9,8 @@ Future<void> showLevelDialog(
 }) => showDialog<void>(
   context: context,
   builder: (context) {
-    final width = MediaQuery.sizeOf(context).width;
-    final padding = width > 350 ? (width - 350) / 2 : 8;
+    final double width = MediaQuery.sizeOf(context).width;
+    final num padding = width > 350 ? (width - 350) / 2 : 8;
     return Dialog(
       backgroundColor: isWin ? AppColors.green : AppColors.red,
       insetAnimationDuration: const Duration(milliseconds: 800),

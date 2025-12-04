@@ -17,7 +17,7 @@ class SettingsScope extends StatefulWidget {
 
   /// Get the [AppSettingsBloc] instance.
   static AppSettingsBloc of(BuildContext context, {bool listen = true}) {
-    final settingsScope = listen
+    final _InheritedSettings? settingsScope = listen
         ? context.dependOnInheritedWidgetOfExactType<_InheritedSettings>()
         : context.getInheritedWidgetOfExactType<_InheritedSettings>();
     return settingsScope!.state._appSettingsBloc;
@@ -25,7 +25,7 @@ class SettingsScope extends StatefulWidget {
 
   /// Get the [AppSettings] instance.
   static AppSettings settingsOf(BuildContext context, {bool listen = true}) {
-    final settingsScope = listen
+    final _InheritedSettings? settingsScope = listen
         ? context.dependOnInheritedWidgetOfExactType<_InheritedSettings>()
         : context.getInheritedWidgetOfExactType<_InheritedSettings>();
     return settingsScope!.settings ??

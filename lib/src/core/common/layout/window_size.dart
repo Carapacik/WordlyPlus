@@ -98,7 +98,7 @@ class WindowSizeScope extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
+    final Size size = MediaQuery.sizeOf(context);
     return _InheritedWindowSize(windowSize: WindowSize(size), child: child);
   }
 }

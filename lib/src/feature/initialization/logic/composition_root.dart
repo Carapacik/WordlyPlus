@@ -13,6 +13,7 @@ import 'package:wordly/src/feature/level/data/level_repository.dart';
 import 'package:wordly/src/feature/settings/bloc/app_settings_bloc.dart';
 import 'package:wordly/src/feature/settings/data/app_settings_datasource.dart';
 import 'package:wordly/src/feature/settings/data/app_settings_repository.dart';
+import 'package:wordly/src/feature/settings/model/app_settings.dart';
 import 'package:wordly/src/feature/statistic/data/statistics_datasource.dart';
 import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 
@@ -29,12 +30,12 @@ import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
 /// {@endtemplate}
 /// Composes dependencies and returns the result of composition.
 Future<CompositionResult> composeDependencies({required ApplicationConfig config, required Logger logger}) async {
-  final stopwatch = clock.stopwatch()..start();
+  final Stopwatch stopwatch = clock.stopwatch()..start();
 
   logger.info('Initializing dependencies...');
 
   // Create the dependencies container using functions.
-  final dependencies = await createDependenciesContainer(config, logger);
+  final DependenciesContainer dependencies = await createDependenciesContainer(config, logger);
 
   stopwatch.stop();
   logger.info('Dependencies initialized successfully in ${stopwatch.elapsedMilliseconds} ms.');
@@ -71,10 +72,10 @@ Future<DependenciesContainer> createDependenciesContainer(ApplicationConfig conf
   final sharedPreferences = SharedPreferencesAsync();
 
   // Get package info.
-  final packageInfo = await PackageInfo.fromPlatform();
+  final PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
   // Create the AppSettingsBloc using shared preferences.
-  final appSettingsBloc = await createAppSettingsBloc(sharedPreferences);
+  final AppSettingsBloc appSettingsBloc = await createAppSettingsBloc(sharedPreferences);
 
   final gameRepository = GameRepository(gameDataSource: GameDatasource(sharedPreferences: sharedPreferences));
   await gameRepository.init(appSettingsBloc.state.appSettings?.dictionary ?? const Locale('en'));
@@ -117,7 +118,7 @@ Future<AppSettingsBloc> createAppSettingsBloc(SharedPreferencesAsync sharedPrefe
     datasource: AppSettingsDatasourceImpl(sharedPreferences: sharedPreferences),
   );
 
-  final appSettings = await appSettingsRepository.getAppSettings();
+  final AppSettings? appSettings = await appSettingsRepository.getAppSettings();
   final initialState = AppSettingsState.idle(appSettings: appSettings);
 
   return AppSettingsBloc(appSettingsRepository: appSettingsRepository, initialState: initialState);

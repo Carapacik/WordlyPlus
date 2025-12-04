@@ -40,9 +40,9 @@ class _InitializationFailedAppState extends State<InitializationFailedApp> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final typography = theme.textTheme;
-    final colorScheme = theme.colorScheme;
+    final ThemeData theme = Theme.of(context);
+    final TextTheme typography = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
 
     return MaterialApp(
       home: Scaffold(

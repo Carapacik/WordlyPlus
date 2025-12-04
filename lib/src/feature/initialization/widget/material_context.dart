@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:wordly/src/core/common/extensions/context_extension.dart';
 import 'package:wordly/src/core/constant/localization/localization.dart';
 import 'package:wordly/src/feature/game/widget/game_page.dart';
+import 'package:wordly/src/feature/settings/model/app_settings.dart';
+import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 
 /// {@template material_context}
@@ -15,19 +17,19 @@ class MaterialContext extends StatelessWidget {
 
   // This global key is needed for [MaterialApp]
   // to work properly when Widgets Inspector is enabled.
-  static final _globalKey = GlobalKey(debugLabel: 'MaterialContext');
+  static final GlobalKey<State<StatefulWidget>> _globalKey = GlobalKey(debugLabel: 'MaterialContext');
 
   @override
   Widget build(BuildContext context) {
-    final settings = SettingsScope.settingsOf(context);
-    final mediaQueryData = MediaQuery.of(context);
+    final AppSettings settings = SettingsScope.settingsOf(context);
+    final MediaQueryData mediaQueryData = MediaQuery.of(context);
 
-    final theme = settings.appTheme;
-    final lightTheme = theme.buildThemeData(ThemeMode.light);
-    final darkTheme = theme.buildThemeData(ThemeMode.dark);
+    final AppTheme theme = settings.appTheme;
+    final ThemeData lightTheme = theme.buildThemeData(ThemeMode.light);
+    final ThemeData darkTheme = theme.buildThemeData(ThemeMode.dark);
 
-    final themeMode = theme.themeMode;
-    final locale = settings.locale ?? Localization.computeDefaultLocale();
+    final ThemeMode themeMode = theme.themeMode;
+    final Locale locale = settings.locale ?? Localization.computeDefaultLocale();
 
     return MaterialApp(
       theme: lightTheme,

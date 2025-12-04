@@ -380,9 +380,9 @@ class EnhancedRenderFollowerLayer extends RenderProxyBox {
 
   @override
   void performLayout() {
-    var constraints = this.constraints;
+    BoxConstraints constraints = this.constraints;
     // use leader size if enforceLeaderWidth or enforceLeaderHeight is true
-    final leaderSize = link.leaderSize;
+    final Size? leaderSize = link.leaderSize;
 
     if (leaderSize != null) {
       if (enforceLeaderWidth) {
@@ -399,23 +399,23 @@ class EnhancedRenderFollowerLayer extends RenderProxyBox {
 
   @override
   void paint(PaintingContext context, Offset offset) {
-    final leaderRenderObject = link.leaderRenderObject;
-    var linkedOffset = Offset.zero;
+    final EnhancedRenderLeaderLayer? leaderRenderObject = link.leaderRenderObject;
+    Offset linkedOffset = Offset.zero;
 
     if (leaderRenderObject != null) {
-      final leaderGlobalPosition = leaderRenderObject.localToGlobal(Offset.zero);
-      final leaderSize = leaderRenderObject.size;
-      final overlayRect = Offset.zero & constraints.biggest;
+      final Offset leaderGlobalPosition = leaderRenderObject.localToGlobal(Offset.zero);
+      final Size leaderSize = leaderRenderObject.size;
+      final Rect overlayRect = Offset.zero & constraints.biggest;
 
-      final subScreens = DisplayFeatureSubScreen.subScreensInBounds(overlayRect, displayFeatureBounds);
+      final Iterable<Rect> subScreens = DisplayFeatureSubScreen.subScreensInBounds(overlayRect, displayFeatureBounds);
 
       // TODO(mlazebny): figure out how to correctly treat allowedRect
       // ignore: unused_local_variable
-      final allowedRect = _closestScreen(subScreens, leaderGlobalPosition);
+      final Rect allowedRect = _closestScreen(subScreens, leaderGlobalPosition);
 
       // Where the follower would like to be positioned relative to the leader
       linkedOffset = leaderAnchor.alongSize(leaderSize) - followerAnchor.alongSize(size);
-      final followerGlobalPosition = leaderGlobalPosition + linkedOffset;
+      final Offset followerGlobalPosition = leaderGlobalPosition + linkedOffset;
 
       linkedOffset =
           calculateLinkedOffset(
@@ -473,8 +473,8 @@ class EnhancedRenderFollowerLayer extends RenderProxyBox {
     // Effective screen area considering edge padding
     const leftBoundary = 0.0;
     const topBoundary = 0.0;
-    final rightBoundary = screenSize.width;
-    final bottomBoundary = screenSize.height;
+    final double rightBoundary = screenSize.width;
+    final double bottomBoundary = screenSize.height;
 
     // Helper function to adjust for overflow
     double adjust({
@@ -517,7 +517,7 @@ class EnhancedRenderFollowerLayer extends RenderProxyBox {
     }
 
     // Adjust horizontal position
-    final dx = adjust(
+    final double dx = adjust(
       position: followerRect.left,
       size: followerRect.width,
       minBoundary: leftBoundary,
@@ -527,7 +527,7 @@ class EnhancedRenderFollowerLayer extends RenderProxyBox {
     );
 
     // Adjust vertical position
-    final dy = adjust(
+    final double dy = adjust(
       position: followerRect.top,
       size: followerRect.height,
       minBoundary: topBoundary,
@@ -540,7 +540,7 @@ class EnhancedRenderFollowerLayer extends RenderProxyBox {
   }
 
   Rect _closestScreen(Iterable<Rect> screens, Offset point) {
-    var closest = screens.first;
+    Rect closest = screens.first;
     for (final screen in screens) {
       if ((screen.center - point).distance < (closest.center - point).distance) {
         closest = screen;

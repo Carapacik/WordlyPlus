@@ -80,21 +80,21 @@ class AppSettingsPersistedEntry extends SharedPreferencesEntry<AppSettings> {
 
   @override
   Future<AppSettings?> read() async {
-    final themeModeFuture = _themeMode.read();
-    final colorModeFuture = _colorMode.read();
-    final localeLanguageCodeFuture = _localeLanguageCode.read();
-    final countryCodeFuture = _localeCountryCode.read();
-    final dictionaryLanguageCodeFuture = _dictionaryLanguageCode.read();
-    final dictionaryCountryCodeFuture = _dictionaryCountryCode.read();
-    final textScaleFuture = _textScale.read();
+    final Future<String?> themeModeFuture = _themeMode.read();
+    final Future<String?> colorModeFuture = _colorMode.read();
+    final Future<String?> localeLanguageCodeFuture = _localeLanguageCode.read();
+    final Future<String?> countryCodeFuture = _localeCountryCode.read();
+    final Future<String?> dictionaryLanguageCodeFuture = _dictionaryLanguageCode.read();
+    final Future<String?> dictionaryCountryCodeFuture = _dictionaryCountryCode.read();
+    final Future<double?> textScaleFuture = _textScale.read();
 
-    final themeMode = await themeModeFuture;
-    final colorMode = await colorModeFuture;
-    final languageCode = await localeLanguageCodeFuture;
-    final countryCode = await countryCodeFuture;
-    final dictionaryLanguageCode = await dictionaryLanguageCodeFuture;
-    final dictionaryCountryCode = await dictionaryCountryCodeFuture;
-    final textScale = await textScaleFuture;
+    final String? themeMode = await themeModeFuture;
+    final String? colorMode = await colorModeFuture;
+    final String? languageCode = await localeLanguageCodeFuture;
+    final String? countryCode = await countryCodeFuture;
+    final String? dictionaryLanguageCode = await dictionaryLanguageCodeFuture;
+    final String? dictionaryCountryCode = await dictionaryCountryCodeFuture;
+    final double? textScale = await textScaleFuture;
 
     if (themeMode == null &&
         colorMode == null &&
@@ -109,11 +109,11 @@ class AppSettingsPersistedEntry extends SharedPreferencesEntry<AppSettings> {
     AppTheme? appTheme;
 
     if (themeMode != null && colorMode != null) {
-      final decodedThemeMode = const ThemeModeCodec().decode(themeMode);
-      final decodedColorMode = const ColorModeCodec().decode(colorMode);
-      final otherColors1 = await _otherColor1(decodedThemeMode.index).read();
-      final otherColors2 = await _otherColor2(decodedThemeMode.index).read();
-      final otherColors3 = await _otherColor3(decodedThemeMode.index).read();
+      final ThemeMode decodedThemeMode = const ThemeModeCodec().decode(themeMode);
+      final ColorMode decodedColorMode = const ColorModeCodec().decode(colorMode);
+      final int? otherColors1 = await _otherColor1(decodedThemeMode.index).read();
+      final int? otherColors2 = await _otherColor2(decodedThemeMode.index).read();
+      final int? otherColors3 = await _otherColor3(decodedThemeMode.index).read();
 
       (Color, Color, Color)? otherColors;
       if (otherColors1 != null && otherColors2 != null && otherColors3 != null) {

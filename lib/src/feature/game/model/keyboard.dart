@@ -20,13 +20,13 @@ class KeyboardList {
 
 extension LocaleKeyboardX on Locale {
   double width(BuildContext context) {
-    final screenWidth = MediaQuery.sizeOf(context).width;
+    final double screenWidth = MediaQuery.sizeOf(context).width;
     switch (languageCode) {
       case 'en':
-        final maxKeyboardLength = KeyboardList.enKeyboard.$1.length;
+        final int maxKeyboardLength = KeyboardList.enKeyboard.$1.length;
         return (min(screenWidth, 520) - (maxKeyboardLength + 1) * 6) / maxKeyboardLength;
       case 'ru':
-        final maxKeyboardLength = KeyboardList.ruKeyboard.$1.length;
+        final int maxKeyboardLength = KeyboardList.ruKeyboard.$1.length;
         return (min(screenWidth, 520) - (maxKeyboardLength + 1) * 6) / maxKeyboardLength;
     }
     return 0;
@@ -74,7 +74,7 @@ enum GameKeyboardKey {
   final String? ruName;
 
   static String? toLetter(LogicalKeyboardKey logicalKey, Locale dictionary) {
-    final gameKey = GameKeyboardKey.values.firstWhereOrNull((e) => e.key == logicalKey);
+    final GameKeyboardKey? gameKey = GameKeyboardKey.values.firstWhereOrNull((e) => e.key == logicalKey);
     if (gameKey == null) {
       return null;
     }

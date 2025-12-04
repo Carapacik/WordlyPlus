@@ -22,7 +22,7 @@ final class StatisticsRepository implements IStatisticsRepository {
 
   @override
   Future<void> setStatistics(Locale dictionary, {required bool isWin, required int attempt}) async {
-    final previousStatistic = await _statisticsDatasource.getStatistics(dictionary.languageCode);
+    final GameStatistics? previousStatistic = await _statisticsDatasource.getStatistics(dictionary.languageCode);
     final currentStatistic = GameStatistics(
       loses: _calculateLoses(isWin: isWin, previous: previousStatistic?.loses),
       wins: _calculateWins(isWin: isWin, previous: previousStatistic?.wins),

@@ -124,7 +124,9 @@ class _PopupBuilderState extends State<PopupBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    final displayFeatureBounds = PopupBuilder.findDisplayFeatureBounds(MediaQuery.displayFeaturesOf(context));
+    final Iterable<Rect> displayFeatureBounds = PopupBuilder.findDisplayFeatureBounds(
+      MediaQuery.displayFeaturesOf(context),
+    );
 
     return EnhancedCompositedTransformTarget(
       link: _layerLink, // link the target widget to the follower widget.

@@ -7,7 +7,7 @@ class ApplicationConfig {
 
   /// The current environment.
   Environment get environment {
-    var env = const String.fromEnvironment('ENVIRONMENT').trim();
+    String env = const String.fromEnvironment('ENVIRONMENT').trim();
 
     if (env.isNotEmpty) {
       return Environment.from(env);

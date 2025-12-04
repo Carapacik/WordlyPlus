@@ -13,10 +13,10 @@ class TutorialPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locale = SettingsScope.settingsOf(context).locale ?? Localization.computeDefaultLocale();
-    final wordWithCorrectSpot = _wordWithCorrectSpot(locale);
-    final wordWithWrongSpot = _wordWithWrongSpot(locale);
-    final wordNotSpot = _wordNotSpot(locale);
+    final Locale locale = SettingsScope.settingsOf(context).locale ?? Localization.computeDefaultLocale();
+    final List<LetterInfo> wordWithCorrectSpot = _wordWithCorrectSpot(locale);
+    final List<LetterInfo> wordWithWrongSpot = _wordWithWrongSpot(locale);
+    final List<LetterInfo> wordNotSpot = _wordNotSpot(locale);
     return Title(
       color: Colors.black,
       title: context.l10n.tutorial,

@@ -34,7 +34,7 @@ final class GameDatasource implements IGameDatasource {
 
   @override
   Future<GameResult?> getDaily(String dictionary, String date) async {
-    final rawResult = await _board(dictionary, GameMode.daily.index).read();
+    final String? rawResult = await _board(dictionary, GameMode.daily.index).read();
     if (rawResult == null) {
       return null;
     }
@@ -44,30 +44,30 @@ final class GameDatasource implements IGameDatasource {
     if (date != oldDate || oldSecretWord == null) {
       return null;
     }
-    final board = decodedResult['board']
+    final List<LetterInfo> board = decodedResult['board']
         .toString()
         .split('|')
         .map((e) => LetterInfo.fromJson(json.decode(e) as Map<String, dynamic>))
         .toList();
-    final isWin = bool.tryParse(decodedResult['win'].toString());
+    final bool? isWin = bool.tryParse(decodedResult['win'].toString());
     return GameResult(board: board, isWin: isWin, secretWord: oldSecretWord);
   }
 
   @override
   Future<GameResult?> getLvl(String dictionary) async {
-    final rawResult = await _board(dictionary, GameMode.lvl.index).read();
+    final String? rawResult = await _board(dictionary, GameMode.lvl.index).read();
     if (rawResult == null) {
       return null;
     }
     final decodedResult = json.decode(rawResult) as Map<String, dynamic>;
-    final oldLvlNumber = int.tryParse(decodedResult['lvl'].toString());
+    final int? oldLvlNumber = int.tryParse(decodedResult['lvl'].toString());
     final oldSecretWord = decodedResult['secretWord']?.toString();
     if (oldLvlNumber == null || oldSecretWord == null) {
       return null;
     }
-    final isWin = bool.tryParse(decodedResult['win'].toString());
+    final bool? isWin = bool.tryParse(decodedResult['win'].toString());
     var board = <LetterInfo>[];
-    final rawBoard = decodedResult['board'].toString().trim();
+    final String rawBoard = decodedResult['board'].toString().trim();
     if (rawBoard.isNotEmpty) {
       board = rawBoard.split('|').map((e) => LetterInfo.fromJson(json.decode(e) as Map<String, dynamic>)).toList();
     }

@@ -51,7 +51,7 @@ final class GameBloc extends Bloc<GameEvent, GameState> {
   final ILevelRepository _levelRepository;
 
   void _listenKeyEvent(_GameListenKeyEvent event, Emitter<GameState> emit) {
-    final key = event.keyEvent;
+    final KeyEvent key = event.keyEvent;
     if (key.logicalKey == LogicalKeyboardKey.enter) {
       add(const GameEvent.enterPressed());
       return;
@@ -62,7 +62,7 @@ final class GameBloc extends Bloc<GameEvent, GameState> {
       return;
     }
 
-    final letter = GameKeyboardKey.toLetter(key.logicalKey, state.dictionary);
+    final String? letter = GameKeyboardKey.toLetter(key.logicalKey, state.dictionary);
     if (letter != null) {
       add(GameEvent.letterPressed(letter));
       return;
@@ -70,7 +70,7 @@ final class GameBloc extends Bloc<GameEvent, GameState> {
   }
 
   Future<void> _changeDictionary(_GameChangeDictionary event, Emitter<GameState> emit) async {
-    final newDictionary = event.dictionary;
+    final Locale newDictionary = event.dictionary;
     if (state.dictionary.languageCode == newDictionary.languageCode) {
       return;
     }
@@ -80,7 +80,7 @@ final class GameBloc extends Bloc<GameEvent, GameState> {
     } else {
       savedResult = await _gameRepository.getLvl(newDictionary);
     }
-    final newState = _stateBySavedResult(
+    final GameState newState = _stateBySavedResult(
       savedResult,
       newDictionary,
       state.gameMode,
@@ -96,14 +96,14 @@ final class GameBloc extends Bloc<GameEvent, GameState> {
     if (state.gameMode == event.gameMode) {
       return;
     }
-    final newGameMode = event.gameMode;
+    final GameMode newGameMode = event.gameMode;
     final GameResult? savedResult;
     if (newGameMode == GameMode.daily) {
       savedResult = await _gameRepository.getDaily(state.dictionary, DateTime.now().toUtc());
     } else {
       savedResult = await _gameRepository.getLvl(state.dictionary);
     }
-    final newState = _stateBySavedResult(
+    final GameState newState = _stateBySavedResult(
       savedResult,
       state.dictionary,
       newGameMode,
@@ -127,7 +127,12 @@ final class GameBloc extends Bloc<GameEvent, GameState> {
       );
       unawaited(_gameRepository.setLvlBoard(state.dictionary, savedResult));
     }
-    final newState = _stateBySavedResult(savedResult, state.dictionary, event.gameMode, savedResult.secretWord);
+    final GameState newState = _stateBySavedResult(
+      savedResult,
+      state.dictionary,
+      event.gameMode,
+      savedResult.secretWord,
+    );
     emit(newState);
   }
 
@@ -185,7 +190,7 @@ final class GameBloc extends Bloc<GameEvent, GameState> {
         state.board[state.currentWordIndex * 5].status != LetterStatus.unknown) {
       return;
     }
-    final board = List.of(state.board);
+    final List<LetterInfo> board = List.of(state.board);
     emit(
       GameState.idle(
         dictionary: state.dictionary,
@@ -229,7 +234,7 @@ final class GameBloc extends Bloc<GameEvent, GameState> {
       );
       return;
     }
-    final word = state.board
+    final List<String> word = state.board
         .slice(state.currentWordIndex * 5, state.board.length)
         .map((l) => l.letter)
         .toList(growable: false);
@@ -260,9 +265,10 @@ final class GameBloc extends Bloc<GameEvent, GameState> {
       return;
     }
     if (word.join() == state.secretWord) {
-      final correctWord = word.map((e) => LetterInfo(letter: e, status: LetterStatus.correctSpot));
-      final newBoard = List.of(state.board)..replaceRange(state.currentWordIndex * 5, state.board.length, correctWord);
-      final newStatuses = Map.of(state.statuses);
+      final Iterable<LetterInfo> correctWord = word.map((e) => LetterInfo(letter: e, status: LetterStatus.correctSpot));
+      final List<LetterInfo> newBoard = List.of(state.board)
+        ..replaceRange(state.currentWordIndex * 5, state.board.length, correctWord);
+      final Map<String, LetterStatus> newStatuses = Map.of(state.statuses);
       for (final e in word) {
         newStatuses[e] = LetterStatus.correctSpot;
       }
@@ -339,8 +345,9 @@ final class GameBloc extends Bloc<GameEvent, GameState> {
         secretWordDictionary[resultWord[i].letter] = secretWordDictionary[resultWord[i].letter]! - 1;
       }
     }
-    final newBoard = List.of(state.board)..replaceRange(state.currentWordIndex * 5, state.board.length, resultWord);
-    final newStatuses = Map.of(state.statuses);
+    final List<LetterInfo> newBoard = List.of(state.board)
+      ..replaceRange(state.currentWordIndex * 5, state.board.length, resultWord);
+    final Map<String, LetterStatus> newStatuses = Map.of(state.statuses);
     for (final e in resultWord) {
       if (!newStatuses.containsKey(e.letter) ||
           newStatuses.containsKey(e.letter) && newStatuses[e.letter]! < e.status) {

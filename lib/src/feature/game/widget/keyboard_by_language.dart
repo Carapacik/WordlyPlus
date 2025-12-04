@@ -12,7 +12,7 @@ class KeyboardByLanguage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dictionary =
+    final Locale dictionary =
         SettingsScope.settingsOf(context).dictionary ?? Localization.computeDefaultLocale(withDictionary: true);
     return SizedBox(
       height: 200,
@@ -30,7 +30,7 @@ class KeyboardEn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final statuses = context.watch<GameBloc>().state.statuses;
+    final Map<String, LetterStatus> statuses = context.watch<GameBloc>().state.statuses;
     return Column(
       children: [
         const SizedBox(height: 8),
@@ -85,7 +85,7 @@ class KeyboardRu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final statuses = context.watch<GameBloc>().state.statuses;
+    final Map<String, LetterStatus> statuses = context.watch<GameBloc>().state.statuses;
     return Column(
       children: [
         const SizedBox(height: 8),
@@ -140,7 +140,7 @@ class EnterKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dictionary =
+    final Locale dictionary =
         SettingsScope.settingsOf(context).dictionary ?? Localization.computeDefaultLocale(withDictionary: true);
     return Padding(
       padding: const EdgeInsets.only(right: 3),
@@ -168,7 +168,7 @@ class DeleteKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dictionary =
+    final Locale dictionary =
         SettingsScope.settingsOf(context).dictionary ?? Localization.computeDefaultLocale(withDictionary: true);
     return Padding(
       padding: const EdgeInsets.only(left: 3),
@@ -200,7 +200,7 @@ class KeyboardKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dictionary =
+    final Locale dictionary =
         SettingsScope.settingsOf(context).dictionary ?? Localization.computeDefaultLocale(withDictionary: true);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 3),

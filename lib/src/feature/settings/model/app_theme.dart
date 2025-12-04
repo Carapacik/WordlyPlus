@@ -80,7 +80,7 @@ final class AppTheme with Diagnosticable {
   };
 
   Color notInWordColor(BuildContext context) {
-    final isDark = isDarkTheme(context);
+    final bool isDark = isDarkTheme(context);
     if (colorMode case ColorMode.casual || ColorMode.highContrast) {
       return isDark ? AppColors.tertiary : AppColors.grey;
     }

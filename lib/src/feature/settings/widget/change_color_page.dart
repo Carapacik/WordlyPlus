@@ -7,6 +7,7 @@ import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
 import 'package:wordly/src/feature/components/widget/letter_tile.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
 import 'package:wordly/src/feature/settings/bloc/app_settings_bloc.dart';
+import 'package:wordly/src/feature/settings/model/app_settings.dart';
 import 'package:wordly/src/feature/settings/model/app_theme.dart';
 import 'package:wordly/src/feature/settings/model/change_color_result.dart';
 import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
@@ -39,8 +40,8 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
   }
 
   void _changeTheme(BuildContext context) {
-    final appSettingsBloc = SettingsScope.of(context, listen: false);
-    final appSettings = SettingsScope.settingsOf(context, listen: false);
+    final AppSettingsBloc appSettingsBloc = SettingsScope.of(context, listen: false);
+    final AppSettings appSettings = SettingsScope.settingsOf(context, listen: false);
     appSettingsBloc.add(
       AppSettingsEvent.updateAppSettings(
         appSettings: appSettings.copyWith(
@@ -56,7 +57,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
 
   @override
   Widget build(BuildContext context) {
-    final word = _wordByDictionary(widget.dictionary);
+    final List<LetterInfo> word = _wordByDictionary(widget.dictionary);
     return Scaffold(
       backgroundColor: context.theme.extension<BackgroundCustomColors>()?.background,
       appBar: AppBar(
@@ -126,7 +127,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
                     ) ??
                     context.theme.colorScheme.surface,
                 onColorChanged: (color) {
-                  final status = word[_currentSelectedTileIndex!].status;
+                  final LetterStatus status = word[_currentSelectedTileIndex!].status;
                   setState(() {
                     _currentOtherColors = (
                       status == LetterStatus.correctSpot ? color : _currentOtherColors.$1,
@@ -147,7 +148,7 @@ class _ChangeColorPageState extends State<ChangeColorPage> {
     if (status == null || mode != ColorMode.other) {
       return null;
     }
-    final otherModeColors = {
+    final Map<LetterStatus, Color> otherModeColors = {
       LetterStatus.correctSpot: _currentOtherColors.$1,
       LetterStatus.wrongSpot: _currentOtherColors.$2,
       LetterStatus.notInWord: _currentOtherColors.$3,

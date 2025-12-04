@@ -12,7 +12,7 @@ String? shareString(BuildContext context, (bool, int, List<LetterInfo>)? result)
   }
   final sb = StringBuffer()
     ..writeln(result.$1 ? context.l10n.checkResultWin(result.$2) : context.l10n.checkResultLose(result.$2));
-  for (final e in _splitBy5Symbols(result.$3)) {
+  for (final String e in _splitBy5Symbols(result.$3)) {
     sb.writeln(e);
   }
   sb

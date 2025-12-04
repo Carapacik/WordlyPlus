@@ -56,16 +56,16 @@ final class GameRepository implements IGameRepository {
 
   @override
   String generateSecretWord(Locale dictionary, {int levelNumber = 0}) {
-    final currentDict = currentDictionary(dictionary);
+    final Map<String, String> currentDict = currentDictionary(dictionary);
     int index;
     if (levelNumber == 0) {
-      final now = DateTime.now().toUtc();
+      final DateTime now = DateTime.now().toUtc();
       final random = Random(now.year * 1000 + now.month * 100 + now.day);
       index = random.nextInt(currentDict.length);
     } else {
       index = Random(levelNumber).nextInt(currentDict.length);
     }
-    final word = currentDict.keys.elementAt(index);
+    final String word = currentDict.keys.elementAt(index);
     return word;
   }
 

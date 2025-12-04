@@ -23,7 +23,7 @@ class ListItemSelector<T> extends StatelessWidget {
         title: Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
         trailing: Text(currentValue.$2, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
         onTap: () async {
-          final selected = await _selectLanguageBottomSheet(context);
+          final T? selected = await _selectLanguageBottomSheet(context);
           if (selected == null) {
             return;
           }

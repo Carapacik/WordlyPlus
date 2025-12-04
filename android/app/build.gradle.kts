@@ -14,7 +14,7 @@ plugins {
 android {
     namespace = "com.carapacik.wordly"
     compileSdk = 36
-    ndkVersion = "28.1.13356709"
+    ndkVersion = "28.2.13676358"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -27,7 +27,7 @@ android {
 
     defaultConfig {
         applicationId = "com.carapacik.wordly"
-        minSdk = 24
+        minSdk = 29
         targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName

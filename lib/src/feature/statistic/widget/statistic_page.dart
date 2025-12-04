@@ -39,11 +39,11 @@ class _StatisticPageState extends State<StatisticPage> {
             if (!snapshot.hasData || snapshot.data == null) {
               return const HaveNotPlayed();
             }
-            final statistics = snapshot.requireData;
-            final played = statistics!.wins + statistics.loses;
-            final winRate = played != 0 ? statistics.wins * 100 / played : 0;
-            final streak = statistics.streak;
-            final maxStreak = statistics.maxStreak;
+            final GameStatistics? statistics = snapshot.requireData;
+            final int played = statistics!.wins + statistics.loses;
+            final num winRate = played != 0 ? statistics.wins * 100 / played : 0;
+            final int streak = statistics.streak;
+            final int maxStreak = statistics.maxStreak;
             return Column(
               children: [
                 const SizedBox(height: 16),
@@ -110,7 +110,7 @@ class _AttemptContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final maxValue = attempts.reduce(max) + 1;
+    final int maxValue = attempts.reduce(max) + 1;
     return ListView.separated(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       shrinkWrap: true,

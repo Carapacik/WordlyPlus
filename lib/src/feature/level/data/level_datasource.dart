@@ -28,7 +28,7 @@ final class LevelDatasource implements ILevelDatasource {
 
   @override
   Future<List<GameResult>?> getLevels(String dictionaryKey) async {
-    final levels = await _levels(dictionaryKey).read();
+    final List<String>? levels = await _levels(dictionaryKey).read();
     if (levels == null) {
       return null;
     }
@@ -42,21 +42,23 @@ final class LevelDatasource implements ILevelDatasource {
 
   @override
   Future<void> setLevel(String dictionaryKey, GameResult level) async {
-    final previousLevels = (await getLevels(dictionaryKey) ?? [])..add(level);
-    final rawLevels = previousLevels.map((rawItem) => json.encode(rawItem.toJson())).toList(growable: false);
+    final List<GameResult> previousLevels = (await getLevels(dictionaryKey) ?? [])..add(level);
+    final List<String> rawLevels = previousLevels
+        .map((rawItem) => json.encode(rawItem.toJson()))
+        .toList(growable: false);
     await _levels(dictionaryKey).set(rawLevels);
   }
 
   @override
   Future<void> runMigration() async {
-    final migrationVersion = await _levelsMigrationVersion.read();
+    final int? migrationVersion = await _levelsMigrationVersion.read();
     if (migrationVersion == null || migrationVersion < 1) {
       return;
     }
     const dictionaries = [Locale('en'), Locale('ru')];
     for (final dictionary in dictionaries) {
       try {
-        final levels = await _levels(dictionary.languageCode).read();
+        final List<String>? levels = await _levels(dictionary.languageCode).read();
         if (levels == null || levels.isEmpty) {
           continue;
         }
@@ -66,7 +68,7 @@ final class LevelDatasource implements ILevelDatasource {
           continue;
         }
         await _levels(dictionary.languageCode).remove();
-        final newLevels = levels.mapIndexed((index, e) {
+        final Iterable<GameResult> newLevels = levels.mapIndexed((index, e) {
           final decoded = json.decode(e) as Map<String, dynamic>;
           return GameResult(
             secretWord: decoded['word'].toString(),

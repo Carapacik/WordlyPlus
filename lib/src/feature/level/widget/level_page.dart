@@ -39,7 +39,7 @@ class _LevelPageState extends State<LevelPage> {
               if (!snapshot.hasData || snapshot.data == null) {
                 return const HaveNotPlayed();
               }
-              final levels = snapshot.requireData;
+              final List<GameResult>? levels = snapshot.requireData;
               return GridView.builder(
                 padding: const EdgeInsets.all(20),
                 itemCount: levels!.length,

@@ -15,7 +15,9 @@ import 'package:wordly/src/feature/initialization/widget/root_context.dart';
 Future<void> startup() async {
   const config = ApplicationConfig();
 
-  final logger = createAppLogger(observers: [if (!kReleaseMode) const PrintingLogObserver(logLevel: LogLevel.trace)]);
+  final Logger logger = createAppLogger(
+    observers: [if (!kReleaseMode) const PrintingLogObserver(logLevel: LogLevel.trace)],
+  );
 
   await runZonedGuarded(() async {
     // Ensure Flutter is initialized
@@ -31,7 +33,7 @@ Future<void> startup() async {
 
     Future<void> composeAndRun() async {
       try {
-        final compositionResult = await composeDependencies(config: config, logger: logger);
+        final CompositionResult compositionResult = await composeDependencies(config: config, logger: logger);
 
         runApp(RootContext(compositionResult: compositionResult));
       } on Object catch (e, stackTrace) {

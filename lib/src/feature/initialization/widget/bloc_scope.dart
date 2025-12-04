@@ -12,7 +12,7 @@ class BlocScope extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dictionary = SettingsScope.settingsOf(context).dictionary;
+    final Locale? dictionary = SettingsScope.settingsOf(context).dictionary;
     return MultiBlocProvider(
       providers: [
         BlocProvider(

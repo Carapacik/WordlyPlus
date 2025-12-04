@@ -21,8 +21,8 @@ class CustomDrawer extends StatelessWidget {
           title: Text(context.l10n.daily, style: const TextStyle(fontWeight: FontWeight.w500)),
           onTap: () async {
             Scaffold.of(context).closeDrawer();
-            final navigator = Navigator.of(context);
-            final bloc = context.read<GameBloc>()..add(const GameEvent.changeGameMode(GameMode.daily));
+            final NavigatorState navigator = Navigator.of(context);
+            final GameBloc bloc = context.read<GameBloc>()..add(const GameEvent.changeGameMode(GameMode.daily));
             await Future<void>.delayed(const Duration(milliseconds: 250));
             await navigator.pushAndRemoveUntil(
               PageRouteBuilder<void>(
@@ -38,8 +38,8 @@ class CustomDrawer extends StatelessWidget {
           title: Text(context.l10n.levels, style: const TextStyle(fontWeight: FontWeight.w500)),
           onTap: () async {
             Scaffold.of(context).closeDrawer();
-            final navigator = Navigator.of(context);
-            final bloc = context.read<GameBloc>()..add(const GameEvent.changeGameMode(GameMode.lvl));
+            final NavigatorState navigator = Navigator.of(context);
+            final GameBloc bloc = context.read<GameBloc>()..add(const GameEvent.changeGameMode(GameMode.lvl));
             await Future<void>.delayed(const Duration(milliseconds: 250));
             await navigator.pushAndRemoveUntil(
               PageRouteBuilder<void>(
@@ -55,7 +55,7 @@ class CustomDrawer extends StatelessWidget {
           title: Text(context.l10n.tutorial, style: const TextStyle(fontWeight: FontWeight.w500)),
           onTap: () async {
             Scaffold.of(context).closeDrawer();
-            final navigator = Navigator.of(context);
+            final NavigatorState navigator = Navigator.of(context);
             await navigator.push(
               MaterialPageRoute<void>(builder: (context) => const TutorialPage(), fullscreenDialog: true),
             );
@@ -65,8 +65,8 @@ class CustomDrawer extends StatelessWidget {
           title: Text(context.l10n.settings, style: const TextStyle(fontWeight: FontWeight.w500)),
           onTap: () async {
             Scaffold.of(context).closeDrawer();
-            final navigator = Navigator.of(context);
-            final bloc = context.read<GameBloc>();
+            final NavigatorState navigator = Navigator.of(context);
+            final GameBloc bloc = context.read<GameBloc>();
             await navigator.push(
               MaterialPageRoute<void>(
                 builder: (context) => BlocProvider.value(value: bloc, child: const SettingsPage()),
@@ -78,7 +78,7 @@ class CustomDrawer extends StatelessWidget {
           title: Text(context.l10n.about, style: const TextStyle(fontWeight: FontWeight.w500)),
           onTap: () async {
             Scaffold.of(context).closeDrawer();
-            final navigator = Navigator.of(context);
+            final NavigatorState navigator = Navigator.of(context);
             await navigator.push(
               MaterialPageRoute<void>(builder: (context) => const AboutPage(), fullscreenDialog: true),
             );

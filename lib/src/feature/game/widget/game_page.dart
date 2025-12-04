@@ -9,6 +9,7 @@ import 'package:wordly/src/core/common/share.dart';
 import 'package:wordly/src/core/constant/localization/localization.dart';
 import 'package:wordly/src/feature/components/widget/drawer.dart';
 import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
+import 'package:wordly/src/feature/game/data/game_repository.dart';
 import 'package:wordly/src/feature/game/model/game_mode.dart';
 import 'package:wordly/src/feature/game/model/letter_info.dart';
 import 'package:wordly/src/feature/game/model/word_error.dart';
@@ -35,10 +36,10 @@ class _GamePageState extends State<GamePage> {
     super.initState();
     _focusNode = FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final navigator = Navigator.of(context);
-      final gameRepository = context.dependencies.gameRepository;
-      final bloc = context.read<GameBloc>();
-      final state = bloc.state;
+      final NavigatorState navigator = Navigator.of(context);
+      final IGameRepository gameRepository = context.dependencies.gameRepository;
+      final GameBloc bloc = context.read<GameBloc>();
+      final GameState state = bloc.state;
       if (state.isResult) {
         unawaited(
           showGameResultDialog(
@@ -53,7 +54,7 @@ class _GamePageState extends State<GamePage> {
           ),
         );
       }
-      final isFirstEnter = await gameRepository.isFirstEnter;
+      final bool isFirstEnter = await gameRepository.isFirstEnter;
       if (isFirstEnter) {
         unawaited(gameRepository.setFirstEnter());
         unawaited(
@@ -142,7 +143,7 @@ class GameBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final useSpacer = MediaQuery.sizeOf(context).height > 800;
+    final bool useSpacer = MediaQuery.sizeOf(context).height > 800;
     return BlocListener<GameBloc, GameState>(
       listenWhen: (previous, current) =>
           (previous.gameCompleted != current.gameCompleted &&
@@ -152,7 +153,7 @@ class GameBody extends StatelessWidget {
           current.isFailure,
       listener: (context, state) {
         if (state.isResult) {
-          final bloc = context.read<GameBloc>();
+          final GameBloc bloc = context.read<GameBloc>();
           unawaited(
             showGameResultDialog(
               context,

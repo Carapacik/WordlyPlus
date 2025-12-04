@@ -10,7 +10,7 @@ final class Localization {
   /// {@macro localization}
   const Localization._({required this.locale});
 
-  static const _delegate = GeneratedLocalizations.delegate;
+  static const AppLocalizationDelegate _delegate = GeneratedLocalizations.delegate;
 
   /// List of supported locales.
   static List<Locale> get supportedLocales => _delegate.supportedLocales;
@@ -36,7 +36,7 @@ final class Localization {
   ///
   /// This is the locale that is used when no locale is specified.
   static Locale computeDefaultLocale({bool withDictionary = false}) {
-    final locale = WidgetsBinding.instance.platformDispatcher.locale;
+    final Locale locale = WidgetsBinding.instance.platformDispatcher.locale;
     if (withDictionary &&
         const [Locale.fromSubtags(languageCode: 'en'), Locale.fromSubtags(languageCode: 'ru')].contains(locale)) {
       return locale;

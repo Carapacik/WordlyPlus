@@ -104,6 +104,7 @@ base class Logger {
   ///
   /// After calling this method, the logger should not be used anymore.
   @mustCallSuper
+  // ignore: avoid-unnecessary-futures
   Future<void> destroy() async {
     if (_destroyed) {
       return;

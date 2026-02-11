@@ -74,8 +74,8 @@ flutter_native_splash:
 
   # The android, ios and web parameters can be used to disable generating a splash screen on a given
   # platform.
-  android: true
-  ios: true
+  android: false
+  ios: false
   web: true
 
   # Platform specific images can be specified with the following parameters, which will override

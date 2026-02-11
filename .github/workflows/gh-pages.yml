@@ -21,7 +21,7 @@ jobs:
       - name: Generate localization
         run: dart pub global run intl_utils:generate
       - name: Code generation
-        run: dart run build_runner build -d
+        run: dart run build_runner build
       - name: Build
         run: flutter build web
       - name: Deploy

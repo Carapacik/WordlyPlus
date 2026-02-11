@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show Clipboard, ClipboardData;
 import 'package:share_plus/share_plus.dart';
-import 'package:wordly/src/core/common/extensions/context_extension.dart';
+import 'package:wordly/src/core/common/common.dart';
 import 'package:wordly/src/core/resources/resources.dart';
-import 'package:wordly/src/feature/game/model/game_mode.dart';
+import 'package:wordly/src/feature/game/domain/model/game_mode.dart';
 import 'package:wordly/src/feature/game/widget/countdown_timer.dart';
 
 Future<void> showGameResultDialog(

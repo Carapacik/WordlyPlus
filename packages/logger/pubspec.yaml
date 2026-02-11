@@ -1,10 +1,9 @@
 name: logger
 description: Simple logging library for Flutter applications.
-version: 1.0.0
 publish_to: none
 
 environment:
-  sdk: ^3.10.0
+  sdk: ^3.11.0
 
 resolution: workspace
 
@@ -13,5 +12,5 @@ dependencies:
   flutter:
     sdk: flutter
   intl: any
-  meta: ^1.17.0
+  meta: any
   stack_trace: ^1.12.1

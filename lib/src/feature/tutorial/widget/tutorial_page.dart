@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:wordly/src/core/common/extensions/context_extension.dart';
-import 'package:wordly/src/core/common/extensions/theme_extension.dart';
-import 'package:wordly/src/core/constant/localization/localization.dart';
+import 'package:wordly/src/core/common/common.dart';
 import 'package:wordly/src/core/resources/resources.dart';
-import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
-import 'package:wordly/src/feature/components/widget/letter_tile.dart';
-import 'package:wordly/src/feature/game/model/letter_info.dart';
-import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
+import 'package:wordly/src/feature/game/domain/model/letter_info.dart';
+import 'package:wordly/src/feature/settings/settings.dart';
+import 'package:wordly/src/feature/shared/constraint_screen.dart';
+import 'package:wordly/src/feature/shared/letter_tile.dart';
 
 class TutorialPage extends StatelessWidget {
   const TutorialPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final Locale locale = SettingsScope.settingsOf(context).locale ?? Localization.computeDefaultLocale();
+    final SettingsContainer settingsScope = SettingsScope.of(context, listen: true);
+    final Settings settings = settingsScope.settingsService.current;
+    final Locale locale = settings.general.locale;
     final List<LetterInfo> wordWithCorrectSpot = _wordWithCorrectSpot(locale);
     final List<LetterInfo> wordWithWrongSpot = _wordWithWrongSpot(locale);
     final List<LetterInfo> wordNotSpot = _wordNotSpot(locale);

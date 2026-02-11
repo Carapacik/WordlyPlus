@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:wordly/src/core/common/extensions/context_extension.dart';
-import 'package:wordly/src/core/common/extensions/theme_extension.dart';
+import 'package:wordly/src/core/common/common.dart';
 import 'package:wordly/src/core/resources/resources.dart';
-import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
-import 'package:wordly/src/feature/components/widget/not_played.dart';
-import 'package:wordly/src/feature/game/model/game_result.dart';
+import 'package:wordly/src/feature/game/domain/model/game_result.dart';
 import 'package:wordly/src/feature/level/widget/level_dialog.dart';
+import 'package:wordly/src/feature/shared/constraint_screen.dart';
+import 'package:wordly/src/feature/shared/not_played.dart';
 
 class LevelPage extends StatefulWidget {
   const LevelPage({required this.dictionary, super.key});

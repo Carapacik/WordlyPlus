@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/link.dart';
-import 'package:wordly/src/core/common/extensions/context_extension.dart';
-import 'package:wordly/src/core/common/extensions/theme_extension.dart';
-import 'package:wordly/src/core/constant/application_config.dart';
-import 'package:wordly/src/feature/components/widget/constraint_screen.dart';
+import 'package:wordly/src/core/common/common.dart';
+import 'package:wordly/src/feature/app/model/application_config.dart';
+import 'package:wordly/src/feature/shared/constraint_screen.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -24,7 +23,7 @@ class AboutPage extends StatelessWidget {
             children: [
               const Spacer(),
               const Text('Carapacik Space', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700)),
-              const _CreditNameText(text: 'Roman Laptev - Carapacik', url: 'https://carapacik.github.io'),
+              _CreditNameText(text: 'Roman Laptev - Carapacik', url: const ApplicationConfig().mySite),
               const Spacer(flex: 10),
               Link(
                 uri: Uri.parse(

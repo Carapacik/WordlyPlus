@@ -1,3 +1,3 @@
-import 'package:wordly/src/feature/initialization/logic/startup.dart';
+import 'package:wordly/src/feature/app/logic/startup.dart';
 
 void main() => startup();

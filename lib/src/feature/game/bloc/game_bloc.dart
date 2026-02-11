@@ -6,14 +6,16 @@ import 'package:collection/collection.dart';
 import 'package:flutter/services.dart' show KeyEvent, LogicalKeyboardKey;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:wordly/src/feature/game/data/game_repository.dart';
-import 'package:wordly/src/feature/game/model/game_mode.dart';
-import 'package:wordly/src/feature/game/model/game_result.dart';
-import 'package:wordly/src/feature/game/model/keyboard.dart';
-import 'package:wordly/src/feature/game/model/letter_info.dart';
-import 'package:wordly/src/feature/game/model/word_error.dart';
-import 'package:wordly/src/feature/level/data/level_repository.dart';
-import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
+import 'package:wordly/src/feature/game/domain/model/game_mode.dart';
+import 'package:wordly/src/feature/game/domain/model/game_result.dart';
+import 'package:wordly/src/feature/game/domain/model/keyboard.dart';
+import 'package:wordly/src/feature/game/domain/model/letter_info.dart';
+import 'package:wordly/src/feature/game/domain/model/word_error.dart';
+import 'package:wordly/src/feature/game/domain/repositories/game_repository.dart';
+import 'package:wordly/src/feature/level/domain/repositories/level_repository.dart';
+import 'package:wordly/src/feature/level/level.dart';
+import 'package:wordly/src/feature/statistic/domain/repositories/statistics_repository.dart';
+import 'package:wordly/src/feature/statistic/statistic.dart';
 
 part 'game_bloc.freezed.dart';
 part 'game_event.dart';
@@ -46,9 +48,132 @@ final class GameBloc extends Bloc<GameEvent, GameState> {
     );
   }
 
+  static const int _wordLength = 5;
+  static const int _maxWords = 6;
+  static const int _maxLetters = _wordLength * _maxWords;
+
   final IGameRepository _gameRepository;
   final IStatisticsRepository _statisticsRepository;
   final ILevelRepository _levelRepository;
+
+  Future<GameResult?> _loadSavedResult(GameMode mode, Locale dictionary) {
+    if (mode == GameMode.daily) {
+      return _gameRepository.getDaily(dictionary, DateTime.now().toUtc());
+    }
+    return _gameRepository.getLvl(dictionary);
+  }
+
+  GameState _buildIdleState({
+    List<LetterInfo>? board,
+    Map<String, LetterStatus>? statuses,
+    bool? gameCompleted,
+    String? secretWord,
+    GameMode? gameMode,
+    Locale? dictionary,
+    int? lvlNumber,
+  }) {
+    return GameState.idle(
+      dictionary: dictionary ?? state.dictionary,
+      secretWord: secretWord ?? state.secretWord,
+      gameMode: gameMode ?? state.gameMode,
+      gameCompleted: gameCompleted ?? state.gameCompleted,
+      board: board ?? state.board,
+      statuses: statuses ?? state.statuses,
+      lvlNumber: lvlNumber ?? state.lvlNumber,
+    );
+  }
+
+  GameState _buildFailureState({required WordError error}) {
+    return GameState.failure(
+      dictionary: state.dictionary,
+      secretWord: state.secretWord,
+      gameMode: state.gameMode,
+      gameCompleted: state.gameCompleted,
+      board: state.board,
+      statuses: state.statuses,
+      error: error,
+      lvlNumber: state.lvlNumber,
+    );
+  }
+
+  GameState _buildWinState({required List<LetterInfo> board, required Map<String, LetterStatus> statuses}) {
+    return GameState.win(
+      dictionary: state.dictionary,
+      secretWord: state.secretWord,
+      gameMode: state.gameMode,
+      gameCompleted: true,
+      board: board,
+      statuses: statuses,
+      lvlNumber: state.lvlNumber,
+    );
+  }
+
+  GameState _buildLossState({required List<LetterInfo> board, required Map<String, LetterStatus> statuses}) {
+    return GameState.loss(
+      dictionary: state.dictionary,
+      secretWord: state.secretWord,
+      gameMode: state.gameMode,
+      gameCompleted: true,
+      board: board,
+      statuses: statuses,
+      lvlNumber: state.lvlNumber,
+    );
+  }
+
+  void _saveDailyResult({required List<LetterInfo> board, bool? isWin}) {
+    unawaited(
+      _gameRepository.setDailyBoard(
+        state.dictionary,
+        DateTime.now().toUtc(),
+        GameResult(secretWord: state.secretWord, isWin: isWin, board: board),
+      ),
+    );
+    if (isWin == null) {
+      return;
+    }
+    unawaited(
+      _statisticsRepository.saveStatistic(
+        state.dictionary.languageCode,
+        isWin: isWin,
+        attempt: state.currentWordIndex + 1,
+      ),
+    );
+  }
+
+  void _saveLevelProgress({required List<LetterInfo> board}) {
+    unawaited(
+      _gameRepository.setLvlBoard(
+        state.dictionary,
+        GameResult(secretWord: state.secretWord, board: board, lvlNumber: state.lvlNumber),
+      ),
+    );
+  }
+
+  void _completeLevel({required bool isWin}) {
+    final int currentLevel = state.lvlNumber ?? 1;
+    final int nextLevel = currentLevel + 1;
+    unawaited(
+      _levelRepository.setLevels(
+        state.dictionary,
+        GameResult(secretWord: state.secretWord, lvlNumber: currentLevel, isWin: isWin, board: []),
+      ),
+    );
+    unawaited(
+      _gameRepository.setLvlBoard(
+        state.dictionary,
+        GameResult(
+          secretWord: _gameRepository.generateSecretWord(state.dictionary, levelNumber: nextLevel),
+          lvlNumber: nextLevel,
+          board: [],
+        ),
+      ),
+    );
+  }
+
+  void _emitFailureThenIdle(Emitter<GameState> emit, WordError error) {
+    emit(_buildFailureState(error: error));
+    emit(_buildIdleState());
+  }
 
   void _listenKeyEvent(_GameListenKeyEvent event, Emitter<GameState> emit) {
     final KeyEvent key = event.keyEvent;
@@ -74,12 +199,7 @@ final class GameBloc extends Bloc<GameEvent, GameState> {
     if (state.dictionary.languageCode == newDictionary.languageCode) {
       return;
     }
-    final GameResult? savedResult;
-    if (state.gameMode == GameMode.daily) {
-      savedResult = await _gameRepository.getDaily(newDictionary, DateTime.now().toUtc());
-    } else {
-      savedResult = await _gameRepository.getLvl(newDictionary);
-    }
+    final GameResult? savedResult = await _loadSavedResult(state.gameMode, newDictionary);
     final GameState newState = _stateBySavedResult(
       savedResult,
       newDictionary,
@@ -97,12 +217,7 @@ final class GameBloc extends Bloc<GameEvent, GameState> {
       return;
     }
     final GameMode newGameMode = event.gameMode;
-    final GameResult? savedResult;
-    if (newGameMode == GameMode.daily) {
-      savedResult = await _gameRepository.getDaily(state.dictionary, DateTime.now().toUtc());
-    } else {
-      savedResult = await _gameRepository.getLvl(state.dictionary);
-    }
+    final GameResult? savedResult = await _loadSavedResult(newGameMode, state.dictionary);
     final GameState newState = _stateBySavedResult(
       savedResult,
       state.dictionary,
@@ -120,9 +235,10 @@ final class GameBloc extends Bloc<GameEvent, GameState> {
     if (event.gameMode == GameMode.daily) {
       savedResult = GameResult(secretWord: _gameRepository.generateSecretWord(state.dictionary), board: []);
     } else {
+      final int nextLevel = (state.lvlNumber ?? 1) + 1;
       savedResult = GameResult(
-        secretWord: _gameRepository.generateSecretWord(state.dictionary, levelNumber: (state.lvlNumber ?? 1) + 1),
-        lvlNumber: (state.lvlNumber ?? 1) + 1,
+        secretWord: _gameRepository.generateSecretWord(state.dictionary, levelNumber: nextLevel),
+        lvlNumber: nextLevel,
         board: [],
       );
       unawaited(_gameRepository.setLvlBoard(state.dictionary, savedResult));
@@ -140,181 +256,71 @@ final class GameBloc extends Bloc<GameEvent, GameState> {
     if (state.gameCompleted) {
       return;
     }
-    if (state.board.length > 30) {
+    if (state.board.length >= _maxLetters) {
       return;
     }
     if (state.board.isNotEmpty &&
-        state.board.length % 5 == 0 &&
-        state.board[state.currentWordIndex * 5].status == LetterStatus.unknown) {
+        state.board.length % _wordLength == 0 &&
+        state.board[state.currentWordIndex * _wordLength].status == LetterStatus.unknown) {
       return;
     }
-    emit(
-      GameState.idle(
-        dictionary: state.dictionary,
-        secretWord: state.secretWord,
-        gameMode: state.gameMode,
-        gameCompleted: state.gameCompleted,
-        board: List.of(state.board)..add(LetterInfo(letter: event.key.toLowerCase())),
-        statuses: state.statuses,
-        lvlNumber: state.lvlNumber,
-      ),
-    );
+    emit(_buildIdleState(board: List.of(state.board)..add(LetterInfo(letter: event.key.toLowerCase()))));
   }
 
   void _deletePressed(_GameDeletePressed event, Emitter<GameState> emit) {
     if (state.gameCompleted) {
       return;
     }
-    if (state.board.length <= state.currentWordIndex * 5 ||
-        state.board[state.currentWordIndex * 5].status != LetterStatus.unknown) {
+    if (state.board.length <= state.currentWordIndex * _wordLength ||
+        state.board[state.currentWordIndex * _wordLength].status != LetterStatus.unknown) {
       return;
     }
-    emit(
-      GameState.idle(
-        dictionary: state.dictionary,
-        secretWord: state.secretWord,
-        gameMode: state.gameMode,
-        gameCompleted: state.gameCompleted,
-        board: List.of(state.board)..removeLast(),
-        statuses: state.statuses,
-        lvlNumber: state.lvlNumber,
-      ),
-    );
+    emit(_buildIdleState(board: List.of(state.board)..removeLast()));
   }
 
   void _deleteLongPressed(_GameDeleteLongPressed event, Emitter<GameState> emit) {
     if (state.gameCompleted) {
       return;
     }
-    if (state.board.length <= state.currentWordIndex * 5 ||
-        state.board[state.currentWordIndex * 5].status != LetterStatus.unknown) {
+    if (state.board.length <= state.currentWordIndex * _wordLength ||
+        state.board[state.currentWordIndex * _wordLength].status != LetterStatus.unknown) {
       return;
     }
     final List<LetterInfo> board = List.of(state.board);
-    emit(
-      GameState.idle(
-        dictionary: state.dictionary,
-        secretWord: state.secretWord,
-        gameMode: state.gameMode,
-        gameCompleted: state.gameCompleted,
-        board: board..removeRange(state.currentWordIndex * 5, board.length),
-        statuses: state.statuses,
-        lvlNumber: state.lvlNumber,
-      ),
-    );
+    emit(_buildIdleState(board: board..removeRange(state.currentWordIndex * _wordLength, board.length)));
   }
 
   void _enterPressed(_GameEnterPressed event, Emitter<GameState> emit) {
     if (state.gameCompleted) {
       return;
     }
-    if (state.board.isEmpty || state.board.length % 5 != 0) {
-      emit(
-        GameState.failure(
-          dictionary: state.dictionary,
-          secretWord: state.secretWord,
-          gameMode: state.gameMode,
-          gameCompleted: state.gameCompleted,
-          board: state.board,
-          statuses: state.statuses,
-          error: WordError.tooShort,
-          lvlNumber: state.lvlNumber,
-        ),
-      );
-      emit(
-        GameState.idle(
-          dictionary: state.dictionary,
-          secretWord: state.secretWord,
-          gameMode: state.gameMode,
-          gameCompleted: state.gameCompleted,
-          board: state.board,
-          statuses: state.statuses,
-          lvlNumber: state.lvlNumber,
-        ),
-      );
+    if (state.board.isEmpty || state.board.length % _wordLength != 0) {
+      _emitFailureThenIdle(emit, WordError.tooShort);
       return;
     }
     final List<String> word = state.board
-        .slice(state.currentWordIndex * 5, state.board.length)
+        .slice(state.currentWordIndex * _wordLength, state.board.length)
         .map((l) => l.letter)
         .toList(growable: false);
-    if (!_gameRepository.currentDictionary(state.dictionary).containsKey(word.join())) {
-      emit(
-        GameState.failure(
-          dictionary: state.dictionary,
-          secretWord: state.secretWord,
-          gameMode: state.gameMode,
-          gameCompleted: state.gameCompleted,
-          board: state.board,
-          statuses: state.statuses,
-          error: WordError.notFound,
-          lvlNumber: state.lvlNumber,
-        ),
-      );
-      emit(
-        GameState.idle(
-          dictionary: state.dictionary,
-          secretWord: state.secretWord,
-          gameMode: state.gameMode,
-          gameCompleted: state.gameCompleted,
-          board: state.board,
-          statuses: state.statuses,
-          lvlNumber: state.lvlNumber,
-        ),
-      );
+    final String currentWord = word.join();
+    if (!_gameRepository.currentDictionary(state.dictionary).containsKey(currentWord)) {
+      _emitFailureThenIdle(emit, WordError.notFound);
       return;
     }
-    if (word.join() == state.secretWord) {
+    if (currentWord == state.secretWord) {
       final Iterable<LetterInfo> correctWord = word.map((e) => LetterInfo(letter: e, status: LetterStatus.correctSpot));
       final List<LetterInfo> newBoard = List.of(state.board)
-        ..replaceRange(state.currentWordIndex * 5, state.board.length, correctWord);
+        ..replaceRange(state.currentWordIndex * _wordLength, state.board.length, correctWord);
       final Map<String, LetterStatus> newStatuses = Map.of(state.statuses);
       for (final e in word) {
         newStatuses[e] = LetterStatus.correctSpot;
       }
-      emit(
-        GameState.win(
-          dictionary: state.dictionary,
-          secretWord: state.secretWord,
-          gameMode: state.gameMode,
-          gameCompleted: true,
-          board: newBoard,
-          statuses: newStatuses,
-          lvlNumber: state.lvlNumber,
-        ),
-      );
+      emit(_buildWinState(board: newBoard, statuses: newStatuses));
       switch (state.gameMode) {
         case GameMode.daily:
-          unawaited(
-            _gameRepository.setDailyBoard(
-              state.dictionary,
-              DateTime.now().toUtc(),
-              GameResult(secretWord: state.secretWord, isWin: true, board: state.board),
-            ),
-          );
-          unawaited(
-            _statisticsRepository.setStatistics(state.dictionary, isWin: true, attempt: state.currentWordIndex + 1),
-          );
+          _saveDailyResult(board: newBoard, isWin: true);
         case GameMode.lvl:
-          unawaited(
-            _levelRepository.setLevels(
-              state.dictionary,
-              GameResult(secretWord: state.secretWord, lvlNumber: state.lvlNumber ?? 1, isWin: true, board: []),
-            ),
-          );
-          unawaited(
-            _gameRepository.setLvlBoard(
-              state.dictionary,
-              GameResult(
-                secretWord: _gameRepository.generateSecretWord(
-                  state.dictionary,
-                  levelNumber: (state.lvlNumber ?? 1) + 1,
-                ),
-                lvlNumber: (state.lvlNumber ?? 1) + 1,
-                board: [],
-              ),
-            ),
-          );
+          _completeLevel(isWin: true);
       }
 
       return;
@@ -346,7 +352,7 @@ final class GameBloc extends Bloc<GameEvent, GameState> {
       }
     }
     final List<LetterInfo> newBoard = List.of(state.board)
-      ..replaceRange(state.currentWordIndex * 5, state.board.length, resultWord);
+      ..replaceRange(state.currentWordIndex * _wordLength, state.board.length, resultWord);
     final Map<String, LetterStatus> newStatuses = Map.of(state.statuses);
     for (final e in resultWord) {
       if (!newStatuses.containsKey(e.letter) ||
@@ -354,79 +360,21 @@ final class GameBloc extends Bloc<GameEvent, GameState> {
         newStatuses[e.letter] = e.status;
       }
     }
-    if (state.currentWordIndex > 4) {
-      emit(
-        GameState.loss(
-          dictionary: state.dictionary,
-          secretWord: state.secretWord,
-          gameMode: state.gameMode,
-          gameCompleted: true,
-          board: newBoard,
-          statuses: newStatuses,
-          lvlNumber: state.lvlNumber,
-        ),
-      );
+    if (state.currentWordIndex >= _maxWords - 1) {
+      emit(_buildLossState(board: newBoard, statuses: newStatuses));
       switch (state.gameMode) {
         case GameMode.daily:
-          unawaited(
-            _gameRepository.setDailyBoard(
-              state.dictionary,
-              DateTime.now().toUtc(),
-              GameResult(secretWord: state.secretWord, isWin: false, board: state.board),
-            ),
-          );
-          unawaited(
-            _statisticsRepository.setStatistics(state.dictionary, isWin: false, attempt: state.currentWordIndex + 1),
-          );
+          _saveDailyResult(board: newBoard, isWin: false);
         case GameMode.lvl:
-          unawaited(
-            _levelRepository.setLevels(
-              state.dictionary,
-              GameResult(secretWord: state.secretWord, lvlNumber: state.lvlNumber ?? 1, isWin: false, board: []),
-            ),
-          );
-          unawaited(
-            _gameRepository.setLvlBoard(
-              state.dictionary,
-              GameResult(
-                secretWord: _gameRepository.generateSecretWord(
-                  state.dictionary,
-                  levelNumber: (state.lvlNumber ?? 1) + 1,
-                ),
-                lvlNumber: (state.lvlNumber ?? 1) + 1,
-                board: [],
-              ),
-            ),
-          );
+          _completeLevel(isWin: false);
       }
     } else {
-      emit(
-        GameState.idle(
-          dictionary: state.dictionary,
-          secretWord: state.secretWord,
-          gameMode: state.gameMode,
-          gameCompleted: state.gameCompleted,
-          board: newBoard,
-          statuses: newStatuses,
-          lvlNumber: state.lvlNumber,
-        ),
-      );
+      emit(_buildIdleState(board: newBoard, statuses: newStatuses));
       switch (state.gameMode) {
         case GameMode.daily:
-          unawaited(
-            _gameRepository.setDailyBoard(
-              state.dictionary,
-              DateTime.now().toUtc(),
-              GameResult(secretWord: state.secretWord, board: state.board),
-            ),
-          );
+          _saveDailyResult(board: newBoard);
         case GameMode.lvl:
-          unawaited(
-            _gameRepository.setLvlBoard(
-              state.dictionary,
-              GameResult(secretWord: state.secretWord, board: state.board, lvlNumber: state.lvlNumber),
-            ),
-          );
+          _saveLevelProgress(board: newBoard);
       }
     }
   }

@@ -2,20 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:wordly/src/core/constant/localization/generated/l10n.dart';
 
-/// {@template localization}
-/// Localization class which is used to localize app.
-/// This class provides handy methods and tools.
-/// {@endtemplate}
 final class Localization {
-  /// {@macro localization}
   const Localization._({required this.locale});
 
   static const AppLocalizationDelegate _delegate = GeneratedLocalizations.delegate;
 
-  /// List of supported locales.
   static List<Locale> get supportedLocales => _delegate.supportedLocales;
 
-  /// List of localization delegates.
+  static List<Locale> get supportedDictionaryLocales => const [
+    Locale.fromSubtags(languageCode: 'en'),
+    Locale.fromSubtags(languageCode: 'ru'),
+  ];
+
   static List<LocalizationsDelegate<void>> get localizationDelegates => [
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -23,22 +21,15 @@ final class Localization {
     _delegate,
   ];
 
-  /// {@macro localization}
-  static Localization? get current => _current;
+  static GeneratedLocalizations get current => _current;
 
-  /// {@macro localization}
-  static Localization? _current;
+  static final GeneratedLocalizations _current = GeneratedLocalizations.current;
 
-  /// Locale which is currently used.
   final Locale locale;
 
-  /// Computes the default locale.
-  ///
-  /// This is the locale that is used when no locale is specified.
   static Locale computeDefaultLocale({bool withDictionary = false}) {
     final Locale locale = WidgetsBinding.instance.platformDispatcher.locale;
-    if (withDictionary &&
-        const [Locale.fromSubtags(languageCode: 'en'), Locale.fromSubtags(languageCode: 'ru')].contains(locale)) {
+    if (withDictionary && supportedDictionaryLocales.contains(locale)) {
       return locale;
     }
 
@@ -46,9 +37,8 @@ final class Localization {
       return locale;
     }
 
-    return const Locale('en');
+    return const Locale.fromSubtags(languageCode: 'en');
   }
 
-  /// Obtain [GeneratedLocalizations] instance from [BuildContext].
   static GeneratedLocalizations of(BuildContext context) => GeneratedLocalizations.of(context);
 }

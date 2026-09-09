@@ -1,12 +1,16 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
-import 'package:wordly/src/core/common/common.dart';
-import 'package:wordly/src/feature/game/domain/model/letter_info.dart';
-import 'package:wordly/src/feature/settings/settings.dart';
-import 'package:wordly/src/feature/shared/constraint_screen.dart';
-import 'package:wordly/src/feature/shared/not_played.dart';
-import 'package:wordly/src/feature/statistic/domain/model/game_statistic.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:wordly/src/feature/app/widget/dependencies_context.dart';
+import 'package:wordly/src/feature/game/model/letter_info.dart';
+import 'package:wordly/src/feature/settings/model/settings.dart';
+import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
+import 'package:wordly/src/feature/statistic/model/game_statistic.dart';
+import 'package:wordly/src/localization/localization_context.dart';
+import 'package:wordly/src/ui_kit/layout/constraint_screen.dart';
+import 'package:wordly/src/ui_kit/layout/not_played.dart';
+import 'package:wordly/src/ui_kit/theme_context.dart';
+import 'package:wordly/src/ui_kit/theme_extensions.dart';
 
 class const StatisticPage({required final Locale dictionary, super.key}) extends StatefulWidget {
   @override
@@ -126,7 +130,7 @@ class const AttemptDistribution({
   @override
   Widget build(BuildContext context) {
     final Settings? settings = color == null || textColor == null
-        ? SettingsScope.of(context, listen: true).settingsService.current
+        ? SettingsScope.of(context, listen: true).settings
         : null;
     final Color effectiveColor = color ?? settings!.general.correctColor;
     final Color effectiveTextColor =
@@ -197,10 +201,12 @@ class const _AttemptRow({
                       alignment: Alignment.centerLeft,
                       child: FractionallySizedBox(
                         widthFactor: count / maxCount,
-                        child: Container(
+                        child: SizedBox(
                           key: ValueKey<String>('attempt-$attempt-bar'),
                           height: rowHeight,
-                          decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(4)),
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(4)),
+                          ),
                         ),
                       ),
                     ),

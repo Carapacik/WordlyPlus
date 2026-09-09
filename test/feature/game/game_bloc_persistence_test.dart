@@ -1,30 +1,159 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_platform_interface/in_memory_shared_preferences_async.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_async_platform_interface.dart';
-import 'package:wordly/src/core/constant/localization/localization.dart';
-import 'package:wordly/src/feature/app/model/application_config.dart';
 import 'package:wordly/src/feature/app/model/dependencies_container.dart';
 import 'package:wordly/src/feature/app/widget/dependencies_scope.dart';
-import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
-import 'package:wordly/src/feature/game/domain/model/game_mode.dart';
-import 'package:wordly/src/feature/game/domain/model/game_result.dart';
-import 'package:wordly/src/feature/game/domain/model/letter_info.dart';
-import 'package:wordly/src/feature/game/domain/repositories/game_repository.dart';
+import 'package:wordly/src/feature/game/data/game_repository.dart';
+import 'package:wordly/src/feature/game/logic/game_bloc.dart';
+import 'package:wordly/src/feature/game/model/game_mode.dart';
+import 'package:wordly/src/feature/game/model/game_result.dart';
+import 'package:wordly/src/feature/game/model/letter_info.dart';
+import 'package:wordly/src/feature/game/model/word_error.dart';
 import 'package:wordly/src/feature/game/widget/game_page.dart';
 import 'package:wordly/src/feature/game/widget/game_result_dialog.dart';
-import 'package:wordly/src/feature/level/domain/model/level_result.dart';
-import 'package:wordly/src/feature/level/domain/repositories/level_repository.dart';
-import 'package:wordly/src/feature/settings/settings.dart';
-import 'package:wordly/src/feature/statistic/domain/model/game_statistic.dart';
-import 'package:wordly/src/feature/statistic/domain/repositories/statistics_repository.dart';
+import 'package:wordly/src/feature/game/widget/keyboard_by_language.dart';
+import 'package:wordly/src/feature/level/data/level_repository.dart';
+import 'package:wordly/src/feature/level/model/level_result.dart';
+import 'package:wordly/src/feature/settings/data/settings_local_datasource.dart';
+import 'package:wordly/src/feature/settings/data/settings_repository.dart';
+import 'package:wordly/src/feature/settings/model/settings.dart';
+import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
+import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
+import 'package:wordly/src/feature/statistic/model/game_statistic.dart';
+import 'package:wordly/src/localization/localization.dart';
 
 void main() {
+  testWidgets('game stays within 840 while app bar and drawer use the full window', (tester) async {
+    tester.view.devicePixelRatio = 1;
+    tester.view.physicalSize = const Size(1440, 1000);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final SharedPreferencesAsyncPlatform? previousPreferencesPlatform = SharedPreferencesAsyncPlatform.instance;
+    SharedPreferencesAsyncPlatform.instance = InMemorySharedPreferencesAsync.empty();
+    addTearDown(() => SharedPreferencesAsyncPlatform.instance = previousPreferencesPlatform);
+    final settingsRepository = SettingsRepository(
+      localDatasource: SettingsLocalDatasourceSharedPreferences(sharedPreferences: SharedPreferencesAsync()),
+    );
+    final Settings settings = await settingsRepository.read();
+    final levelRepository = _LevelRepository();
+    final gameRepository = _GameRepository();
+    final bloc = GameBloc(
+      dictionary: const Locale('en'),
+      gameRepository: gameRepository,
+      statisticsRepository: const _StatisticsRepository(),
+      levelRepository: levelRepository,
+      savedResult: null,
+    );
+    addTearDown(bloc.close);
+    final dependencies = DependenciesContainer(
+      packageInfo: PackageInfo(appName: 'Wordly', packageName: 'wordly', version: 'test', buildNumber: '1'),
+      settingsRepository: settingsRepository,
+      initialSettings: settings,
+      statisticsRepository: const _StatisticsRepository(),
+      levelRepository: levelRepository,
+      gameRepository: gameRepository,
+    );
+    await tester.pumpWidget(
+      DependenciesScope(
+        dependencies: dependencies,
+        child: MaterialApp(
+          locale: const Locale('en'),
+          localizationsDelegates: Localization.localizationDelegates,
+          supportedLocales: Localization.supportedLocales,
+          home: BlocProvider<GameBloc>.value(value: bloc, child: const GamePage()),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    tester.view.padding = const FakeViewPadding(left: 20, right: 16, top: 24, bottom: 34);
+    tester.view.viewPadding = const FakeViewPadding(left: 20, right: 16, top: 24, bottom: 34);
+    addTearDown(tester.view.resetPadding);
+    addTearDown(tester.view.resetViewPadding);
+    for (final locale in [const Locale('en'), const Locale('ru')]) {
+      await SettingsScope.of(tester.element(find.byType(GameBody)))
+          .update((current) => current.copyWith(dictionary: locale));
+      for (final size in [
+        const Size(1440, 1000),
+        const Size(1920, 360),
+        const Size(840, 700),
+        const Size(375, 667),
+        const Size(375, 320),
+        const Size(320, 568),
+        const Size(700, 360),
+      ]) {
+        tester.view.physicalSize = size;
+        await tester.pumpAndSettle();
+        final Rect appBar = tester.getRect(find.byType(AppBar));
+        expect(appBar.width, size.width);
+        expect(appBar.center.dx, closeTo(size.width / 2, 1));
+        expect(tester.getSize(find.byType(GameBody)).width, lessThanOrEqualTo(840));
+        final Rect body = tester.getRect(find.byType(GameBody));
+        for (final Element element in find.byType(KeyboardKey).evaluate()) {
+          final Rect key = tester.getRect(find.byWidget(element.widget));
+          expect(key.left, greaterThanOrEqualTo(body.left + 20 + 8));
+          expect(key.right, lessThanOrEqualTo(body.right - 16 - 8));
+        }
+        if (size.height <= 360) {
+          await tester.drag(find.byType(SingleChildScrollView).first, const Offset(0, -600));
+          await tester.pumpAndSettle();
+          final Rect enter = tester.getRect(find.byType(EnterKey));
+          expect(enter.bottom, lessThanOrEqualTo(body.bottom - 34 - 8));
+          expect(enter.top, greaterThanOrEqualTo(body.top));
+        }
+        expect(tester.takeException(), isNull);
+        await tester.tap(find.byType(DrawerButton));
+        await tester.pumpAndSettle();
+        expect(tester.getRect(find.byType(Drawer)).left, 0);
+        final ScaffoldState scaffold = tester.state(find.byType(Scaffold).first);
+        expect(scaffold.isDrawerOpen, isTrue);
+        scaffold.closeDrawer();
+        await tester.pumpAndSettle();
+        expect(tester.takeException(), isNull);
+      }
+    }
+  });
+  for (final GameMode mode in GameMode.values) {
+    test('hard mode rejects without consuming a guess and can be disabled in $mode', () async {
+      var hardMode = true;
+      final List<LetterInfo> board = [
+        for (final letter in 'cider'.split(''))
+          LetterInfo(letter: letter, status: letter == 'e' ? LetterStatus.wrongSpot : LetterStatus.notInWord),
+      ];
+      final progress = GameResult(secretWord: 'apple', board: board, lvlNumber: 1);
+      final bloc = GameBloc(
+        dictionary: const Locale('en'),
+        gameRepository: _GameRepository(),
+        statisticsRepository: const _StatisticsRepository(),
+        levelRepository: _LevelRepository(progress: progress),
+        savedResult: progress,
+        isHardMode: () => hardMode,
+      );
+      addTearDown(bloc.close);
+      if (mode == GameMode.lvl) {
+        await _enterLevelMode(bloc);
+      }
+      final Future<GameState> failure = bloc.stream.firstWhere((state) => state is GameFailure);
+      await _enterWord(bloc, 'crank');
+      expect((await failure as GameFailure).error, WordError.hardModeMissingLetters);
+      await Future<void>.delayed(Duration.zero);
+      expect(bloc.state.currentWordIndex, 1);
+      expect(bloc.state.board.take(5), board);
+      expect(bloc.state.board.skip(5).every((letter) => letter.status == LetterStatus.unknown), isTrue);
+      hardMode = false;
+      final Future<GameState> accepted = bloc.stream.firstWhere(
+        (state) => state.board.last.status != LetterStatus.unknown,
+      );
+      bloc.add(const GameEvent.enterPressed());
+      await accepted;
+      expect(bloc.state.board, hasLength(10));
+    });
+  }
   test('does not publish win until completeLevel commits', () async {
     final levelRepository = _LevelRepository()..completionGate = Completer<void>();
     final GameBloc bloc = _bloc(levelRepository);
@@ -105,7 +234,10 @@ void main() {
     final SharedPreferencesAsyncPlatform? previousPreferencesPlatform = SharedPreferencesAsyncPlatform.instance;
     SharedPreferencesAsyncPlatform.instance = InMemorySharedPreferencesAsync.empty();
     addTearDown(() => SharedPreferencesAsyncPlatform.instance = previousPreferencesPlatform);
-    final SettingsContainer settings = await SettingsContainer.create(sharedPreferences: SharedPreferencesAsync());
+    final settingsRepository = SettingsRepository(
+      localDatasource: SettingsLocalDatasourceSharedPreferences(sharedPreferences: SharedPreferencesAsync()),
+    );
+    final Settings settings = await settingsRepository.read();
     final levelRepository = _LevelRepository()..failuresRemaining = 1;
     final gameRepository = _GameRepository();
     final bloc = GameBloc(
@@ -117,9 +249,9 @@ void main() {
     );
     addTearDown(bloc.close);
     final dependencies = DependenciesContainer(
-      config: const ApplicationConfig(),
       packageInfo: PackageInfo(appName: 'Wordly', packageName: 'wordly', version: 'test', buildNumber: '1'),
-      settingsContainer: settings,
+      settingsRepository: settingsRepository,
+      initialSettings: settings,
       statisticsRepository: const _StatisticsRepository(),
       levelRepository: levelRepository,
       gameRepository: gameRepository,
@@ -182,7 +314,7 @@ void main() {
   });
 
   test('restored keyboard keeps correct over wrong and absent statuses', () async {
-    final board = [
+    final board = <LetterInfo>[
       const LetterInfo(letter: 'a', status: LetterStatus.correctSpot),
       const LetterInfo(letter: 'a', status: LetterStatus.wrongSpot),
       const LetterInfo(letter: 'a', status: LetterStatus.notInWord),
@@ -248,7 +380,11 @@ Future<GamePersistenceFailure> _waitForPersistenceFailure(GameBloc bloc) async {
 
 final class _GameRepository() implements IGameRepository {
   @override
-  Map<String, String> currentDictionary(Locale dictionary) => const {'apple': 'apple', 'cider': 'cider'};
+  Map<String, String> currentDictionary(Locale dictionary) => const {
+    'apple': 'apple',
+    'cider': 'cider',
+    'crank': 'crank',
+  };
 
   @override
   String generateSecretWord(Locale dictionary, {int levelNumber = 0}) => levelNumber == 2 ? 'berry' : 'apple';

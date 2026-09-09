@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wordly/src/core/constant/generated/fonts.gen.dart';
-import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
-import 'package:wordly/src/feature/game/domain/model/keyboard.dart';
-import 'package:wordly/src/feature/game/domain/model/letter_info.dart';
-import 'package:wordly/src/feature/settings/settings.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:wordly/src/feature/game/logic/game_bloc.dart';
+import 'package:wordly/src/feature/game/model/keyboard.dart';
+import 'package:wordly/src/feature/game/model/letter_info.dart';
+import 'package:wordly/src/feature/settings/model/general.dart';
+import 'package:wordly/src/feature/settings/widget/settings_builder.dart';
+import 'package:wordly/src/ui_kit/generated/fonts.gen.dart';
 
 class const KeyboardByLanguage({super.key}) extends StatelessWidget {
   @override
@@ -12,13 +13,18 @@ class const KeyboardByLanguage({super.key}) extends StatelessWidget {
     return SettingsBuilder(
       builder: (context, settings) {
         final Locale dictionary = settings.dictionary;
-        return SizedBox(
-          height: 200,
-          child: switch (dictionary.languageCode) {
-            'en' => KeyboardEn(generalSettings: settings.general, dictionary: dictionary),
-            'ru' => KeyboardRu(generalSettings: settings.general, dictionary: dictionary),
-            _ => const SizedBox.shrink(),
-          },
+        return LayoutBuilder(
+          builder: (context, constraints) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(size: Size(constraints.maxWidth, MediaQuery.sizeOf(context).height)),
+            child: SizedBox(
+              height: 200,
+              child: switch (dictionary.languageCode) {
+                'en' => KeyboardEn(generalSettings: settings.general, dictionary: dictionary),
+                'ru' => KeyboardRu(generalSettings: settings.general, dictionary: dictionary),
+                _ => const SizedBox.shrink(),
+              },
+            ),
+          ),
         );
       },
     );

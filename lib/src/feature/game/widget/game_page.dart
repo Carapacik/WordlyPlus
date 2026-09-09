@@ -1,25 +1,28 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wordly/src/core/common/common.dart';
-import 'package:wordly/src/core/common/src/utils/share.dart';
-import 'package:wordly/src/feature/game/bloc/game_bloc.dart';
-import 'package:wordly/src/feature/game/domain/model/game_mode.dart';
-import 'package:wordly/src/feature/game/domain/model/letter_info.dart';
-import 'package:wordly/src/feature/game/domain/model/word_error.dart';
-import 'package:wordly/src/feature/game/domain/repositories/game_repository.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:wordly/src/feature/app/widget/app_drawer.dart';
+import 'package:wordly/src/feature/app/widget/dependencies_context.dart';
+import 'package:wordly/src/feature/game/data/game_repository.dart';
+import 'package:wordly/src/feature/game/logic/game_bloc.dart';
+import 'package:wordly/src/feature/game/model/game_mode.dart';
+import 'package:wordly/src/feature/game/model/letter_info.dart';
+import 'package:wordly/src/feature/game/model/word_error.dart';
 import 'package:wordly/src/feature/game/widget/game_result_dialog.dart';
 import 'package:wordly/src/feature/game/widget/keyboard_by_language.dart';
 import 'package:wordly/src/feature/game/widget/words_grid.dart';
-import 'package:wordly/src/feature/level/level.dart';
 import 'package:wordly/src/feature/level/widget/level_page.dart';
-import 'package:wordly/src/feature/settings/settings.dart';
-import 'package:wordly/src/feature/shared/drawer.dart';
-import 'package:wordly/src/feature/statistic/statistic.dart';
+import 'package:wordly/src/feature/settings/model/settings.dart';
+import 'package:wordly/src/feature/settings/widget/settings_builder.dart';
+import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
 import 'package:wordly/src/feature/statistic/widget/statistic_page.dart';
 import 'package:wordly/src/feature/tutorial/widget/tutorial_page.dart';
+import 'package:wordly/src/localization/localization_context.dart';
+import 'package:wordly/src/ui_kit/theme_context.dart';
+import 'package:wordly/src/ui_kit/theme_extensions.dart';
+import 'package:wordly/src/utils/share.dart';
 
 class const GamePage({super.key}) extends StatefulWidget {
   @override
@@ -69,8 +72,8 @@ class _GamePageState() extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
-    final SettingsContainer settingsScope = SettingsScope.of(context, listen: true);
-    final Settings settings = settingsScope.settingsService.current;
+    final SettingsScopeState settingsScope = SettingsScope.of(context, listen: true);
+    final Settings settings = settingsScope.settings;
     return KeyboardListener(
       focusNode: _focusNode,
       autofocus: true,
@@ -118,7 +121,7 @@ class _GamePageState() extends State<GamePage> {
           ],
         ),
         drawer: const CustomDrawer(),
-        body: const GameBody(),
+        body: const Center(child: SizedBox(width: 840, child: GameBody())),
       ),
     );
   }
@@ -127,7 +130,6 @@ class _GamePageState() extends State<GamePage> {
 class const GameBody({super.key}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final bool useSpacer = MediaQuery.sizeOf(context).height > 800;
     return SettingsBuilder(
       builder: (context, settings) => BlocListener<GameBloc, GameState>(
         listenWhen: (previous, current) =>
@@ -200,19 +202,35 @@ class const GameBody({super.key}) extends StatelessWidget {
             );
           }
         },
-        child: SafeArea(
-          child: Column(
-            children: [
-              const SizedBox(height: 12),
-              const Center(child: WordsGrid()),
-              if (useSpacer) const Spacer(),
-              const Center(child: KeyboardByLanguage()),
-              if (useSpacer) const Spacer(),
-              const SizedBox(height: 12),
-            ],
-          ),
-        ),
+        child: const SafeArea(child: _GameLayout()),
       ),
     );
   }
+}
+
+class const _GameLayout() extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => LayoutBuilder(
+    builder: (context, constraints) {
+      final double boardWidth = ((constraints.maxHeight - 240) / 1.2).clamp(240, 366);
+      return SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: constraints.maxHeight),
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Center(
+                  child: SizedBox(width: boardWidth, child: const WordsGrid()),
+                ),
+                const SizedBox(height: 8),
+                const Center(child: KeyboardByLanguage()),
+              ],
+            ),
+          ),
+        ),
+      );
+    },
+  );
 }

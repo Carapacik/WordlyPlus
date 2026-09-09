@@ -1,11 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:wordly/src/core/common/common.dart';
-import 'package:wordly/src/feature/game/domain/model/letter_info.dart';
-import 'package:wordly/src/feature/level/domain/model/level_result.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:wordly/src/feature/app/widget/dependencies_context.dart';
+import 'package:wordly/src/feature/game/model/letter_info.dart';
+import 'package:wordly/src/feature/level/model/level_result.dart';
 import 'package:wordly/src/feature/level/widget/level_dialog.dart';
-import 'package:wordly/src/feature/settings/settings.dart';
-import 'package:wordly/src/feature/shared/constraint_screen.dart';
-import 'package:wordly/src/feature/shared/not_played.dart';
+import 'package:wordly/src/feature/settings/model/settings.dart';
+import 'package:wordly/src/feature/settings/widget/settings_scope.dart';
+import 'package:wordly/src/localization/localization_context.dart';
+import 'package:wordly/src/ui_kit/layout/constraint_screen.dart';
+import 'package:wordly/src/ui_kit/layout/not_played.dart';
+import 'package:wordly/src/ui_kit/theme_context.dart';
+import 'package:wordly/src/ui_kit/theme_extensions.dart';
 
 class const LevelPage({required final Locale dictionary, super.key}) extends StatefulWidget {
   @override
@@ -57,7 +61,7 @@ class _LevelPageState() extends State<LevelPage> {
 class const _LevelItem({required final LevelResult level, required final Locale dictionary}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Settings settings = SettingsScope.of(context, listen: true).settingsService.current;
+    final Settings settings = SettingsScope.of(context, listen: true).settings;
     final LetterStatus status = level.isUnavailable
         ? LetterStatus.unknown
         : level.isWin!

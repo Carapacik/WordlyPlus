@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:wordly/src/feature/statistic/data/datasources/statistic_datasource.dart';
-import 'package:wordly/src/feature/statistic/domain/model/game_statistic.dart';
-import 'package:wordly/src/feature/statistic/domain/repositories/statistics_repository.dart';
+import 'package:wordly/src/feature/statistic/data/statistic_datasource.dart';
+import 'package:wordly/src/feature/statistic/data/statistics_repository.dart';
+import 'package:wordly/src/feature/statistic/model/game_statistic.dart';
 
 void main() {
   test('win, win, loss, win keeps historical max streak and writes version 2', () async {

@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart' hide GridTile;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:wordly/src/feature/game/domain/model/letter_info.dart';
+import 'package:material_ui/material_ui.dart' hide GridTile;
+import 'package:wordly/src/feature/game/model/letter_info.dart';
 import 'package:wordly/src/feature/game/widget/words_grid.dart';
-import 'package:wordly/src/feature/settings/settings.dart';
+import 'package:wordly/src/feature/settings/model/general.dart';
 
 void main() {
   testWidgets('evaluated letters reveal with a flip animation after Enter', (tester) async {

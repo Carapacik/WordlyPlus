@@ -3,10 +3,10 @@ import 'dart:ui';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:wordly/src/feature/game/domain/model/game_result.dart';
+import 'package:wordly/src/feature/game/model/game_result.dart';
 import 'package:wordly/src/feature/level/data/database/app_database.dart';
-import 'package:wordly/src/feature/level/domain/model/level_result.dart';
-import 'package:wordly/src/feature/level/domain/repositories/level_repository.dart';
+import 'package:wordly/src/feature/level/data/level_repository.dart';
+import 'package:wordly/src/feature/level/model/level_result.dart';
 
 void main() {
   const dictionary = Locale('en');

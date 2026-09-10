@@ -3,6 +3,7 @@ import 'dart:collection';
 
 class MutexLock() {
   final _queue = DoubleLinkedQueue<Completer<void>>();
+
   Future<void> lock() {
     final Future<void> previous = _queue.lastOrNull?.future ?? Future<void>.value();
     _queue.add(Completer<void>.sync());

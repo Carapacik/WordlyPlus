@@ -31,7 +31,9 @@ class SettingsScopeState() extends State<SettingsScope> {
   int _revision = 0;
 
   Settings get settings => _settings;
+
   Object? get error => _error;
+
   bool get isSaving => _saving;
 
   // Apply queued edits to the last successfully saved settings to avoid lost updates.
